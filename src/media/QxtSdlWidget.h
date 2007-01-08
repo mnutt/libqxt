@@ -7,11 +7,12 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTSDLWIDGET_H
 #define QXTSDLWIDGET_H
 
+#include <QxtDefines.h>
 #include <QWidget>
 
 struct SDL_Surface;
 
-class QxtSdlWidget : public QWidget
+class QXT_DLLEXPORT QxtSdlWidget : public QWidget
 {
 public:
 	QxtSdlWidget(QWidget *parent = 0);
