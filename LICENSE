@@ -14,7 +14,7 @@ QxtCore does not require qt. as a result it is pure LGPL.
 
 This library is free software; you can redistribute it and/or
 modify it either under the terms of the GNU Lesser License,
-or the GNU Public License  ( depending on your QT's License (see above))
+or the GNU Public License  ( depending on your QT's License (see above))
 as published by the Free Software Foundation; either
 version 2 of the License, or any later version.
 
