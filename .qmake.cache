@@ -1,0 +1,23 @@
+QXT = core kit gui network sql media
+QXT_LIBS = ssl
+QXT_stability = stable
+
+QXVERSION = 0.2
+
+win32 {
+    DEFINES += BUILDING_QXT_LIBRARY
+}
+
+
+
+DESTDIR= ../../bin
+
+
+
+QXTUNIXPREFIX=/usr
+
+
+#keep macx at the bottom. unix is defined too!
+unix :QXTINSTALLDIR=/opt/qxt
+win32:QXTINSTALLDIR=C:\libqxt
+macx :QXTINSTALLDIR=/Library/Frameworks/
