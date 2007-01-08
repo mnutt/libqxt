@@ -1,0 +1,28 @@
+
+Qt extended Library 
+Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org)
+
+
+QT DUAL LICENSING NOTES
+this library requires the qt toolset by trolltech (http://trolltech.com)
+this library is lgpl, but does _not_ include the qt libs what are licensed another way
+
+if you use a gpl version of Qt, this library also becomes GPL !!
+if you have a comercial version of Qt, you may use this library under the terms of LGPL.
+
+QxtCore does not require qt. as a result it is pure LGPL.
+
+This library is free software; you can redistribute it and/or
+modify it either under the terms of the GNU Lesser License,
+or the GNU Public License  ( depending on your QT's License (see above))
+as published by the Free Software Foundation; either
+version 2 of the License, or any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License and the GNU Public License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
