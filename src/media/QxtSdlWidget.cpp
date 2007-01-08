@@ -103,8 +103,8 @@ void QxtSdlWidget::paintEvent(QPaintEvent * /*paintEvent*/)
 
 	Uint32 color = SDL_MapRGBA(sdlSurface->format,
 	                           Uint8(background.red()),
-							   Uint8(background.blue()),
 							   Uint8(background.green()),
+							   Uint8(background.blue()),
 							   Uint8(background.alpha()));
 	SDL_FillRect(sdlSurface, 0, color);
 	draw(sdlSurface);
