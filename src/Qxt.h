@@ -40,7 +40,7 @@ At first you need qmake. You get it from the qt toolkit by TrollTech
 \subsection get Get the sources
 you can either use a release package from the download section or get it from svn
 	\code
-	svn co https://libqxt.svn.sourceforge.net/svnroot/libqxt libqxt
+	svn co https://libqxt.svn.sourceforge.net/svnroot/libqxt/trunk libqxt
 	\endcode
 
 \section conf  Configuration
