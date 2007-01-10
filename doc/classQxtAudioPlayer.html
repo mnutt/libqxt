@@ -43,7 +43,8 @@ width="32" height="32" border="0" /></a></td>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Slots</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAudioPlayer.html#29a6ab8036a27218930caf460dd28b1a">play</a> (QString url)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7eb277952135e05f564372163e44f935"></a><!-- doxytag: member="QxtAudioPlayer::play" ref="7eb277952135e05f564372163e44f935" args="(QxtAVFile *file)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>play</b> (<a class="el" href="classQxtAVFile.html">QxtAVFile</a> *file)</td></tr>
 
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7b74eb59ec3dc3d192257bd9bf664e25"></a><!-- doxytag: member="QxtAudioPlayer::QxtAudioPlayer" ref="7b74eb59ec3dc3d192257bd9bf664e25" args="(QObject *parent=0)" -->
@@ -53,32 +54,12 @@ width="32" height="32" border="0" /></a></td>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 simple player using the <a class="el" href="classQxtAVFile.html">QxtAVFile</a> and portaudio 
 <p>
-sometimes you just want to play a sound in your application. this is not meant to be a full blown media player and does not provide any functions for it. 
+sometimes you just want to play a sound in your application. this is not meant to be a full blown media player and does not provide any functions for it.<p>
+example: <div class="fragment"><pre class="fragment"><a class="code" href="classQxtAudioPlayer.html">QxtAudioPlayer</a> player;
+<a class="code" href="classQxtAVFile.html">QxtAVFile</a> file(<span class="stringliteral">"test.wav"</span>,&amp;player,Qxt::preload);
+player.<a class="code" href="classQxtAudioPlayer.html#7eb277952135e05f564372163e44f935">play</a>(&amp;file);
+</pre></div> 
 <p>
-<hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="29a6ab8036a27218930caf460dd28b1a"></a><!-- doxytag: member="QxtAudioPlayer::play" ref="29a6ab8036a27218930caf460dd28b1a" args="(QString url)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void QxtAudioPlayer::play           </td>
-          <td>(</td>
-          <td class="paramtype">QString&nbsp;</td>
-          <td class="paramname"> <em>url</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [static, slot]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-usage:<p>
-<div class="fragment"><pre class="fragment">                <a class="code" href="classQxtAudioPlayer.html#29a6ab8036a27218930caf460dd28b1a">QxtAudioPlayer::play</a>(<span class="stringliteral">"sound/ding.wav"</span>);
-</pre></div> obviously you do not need to construct an object<p>
-calling this slot while another file is playing will interupt the current playback 
-</div>
-</div><p>
 <address><hr />
 
 <div align="center">

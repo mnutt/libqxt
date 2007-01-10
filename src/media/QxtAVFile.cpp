@@ -41,9 +41,13 @@ static soundtouch::SoundTouch resampler;
 
 //-------------------------------------------------------------
 
+QxtAVFile::QxtAVFile(QString filename,QxtAudioPlayer*,int flags,QObject *parent)
+	{
+	QxtAVFile::QxtAVFile(filename,2048,flags,parent);
+	}
 
 
-QxtAVFile::QxtAVFile(QString filename,int fliplen,QObject *parent):QThread(parent)
+QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QThread(parent)
 	{
 	///defaults
 	AORatio=1.0;
@@ -54,7 +58,8 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,QObject *parent):QThread(paren
 	resample_m=0;
 	playbacktime=0.0;
 	eof_f=false;
-
+	flags_d=flags;
+	blocked	=false;
 	/// \bug buffsize must be at least 2048
  	assert(fliplen>=2048);
 	assert(!filename.isEmpty());
@@ -92,11 +97,19 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,QObject *parent):QThread(paren
 	OUT1= new float[fliplen_m+MINIMAL_SRC_LEN];
 	OUT2= new float[fliplen_m+MINIMAL_SRC_LEN];
 
-	for (unsigned int i=0;i<fliplen_m;i++)
+	if (flags & Qxt::preload)
 		{
-		OUT1[i]=0;
-		OUT2[i]=0;
+		refill(OUT1);
+		refill(OUT2);
+		}
+	else
+		{
 
+		for (unsigned int i=0;i<fliplen_m;i++)
+			{
+			OUT1[i]=0;
+			OUT2[i]=0;
+			}
 		}
 	DSRC=new float[fliplen_m*8];
 
@@ -180,6 +193,12 @@ double QxtAVFile::length()
 //-------------------------------------------------------------
 int QxtAVFile::flip(float* out)
 	{
+	if (blocked)
+		{
+		for (unsigned int i=0;i<fliplen_m;i++)
+			*out++=0.0f;
+		return fliplen_m;
+		}
 
 	if (eof_f && HF==WF){emit(eof());qWarning("called flip after eof, doing nothing.");return -1;}
 
@@ -190,7 +209,6 @@ int QxtAVFile::flip(float* out)
 		{
 		decoderlock_b=OUT2;
 		memcpy(out,OUT1,fliplen_m*sizeof(float));
-
 		WF=false;
 		}
 	else
@@ -288,12 +306,12 @@ void QxtAVFile::run()
 	{
 	forever
 		{
+		if (eof_f)return;
 		if (decoderlock_b==NULL)
 			{msleep(10);continue;}
 		HF=(decoderlock_b==OUT2);
 		refill(decoderlock_b);
 		decoderlock_b=NULL;
-		if (eof_f)return;
 		}
 	}
 
@@ -383,8 +401,47 @@ void QxtAVFile::refill(float * WRITE)
 
 
 
+//-------------------------------------------------------------
 
 
+void QxtAVFile::reset()
+	{
+	blocked=true;
+	eof_f=true;
+	decoderlock_b=NULL;
+
+	wait();
+	
+	resampler.clear();
+	seek(0.0);
+	playbacktime=0.0;
+	DSRC_LEN=0;
+
+	if (flags_d & Qxt::preload)
+		{
+		refill(OUT1);
+		refill(OUT2);
+		}
+	else
+		{
+
+		for (unsigned int i=0;i<fliplen_m;i++)
+			{
+			OUT1[i]=0;
+			OUT2[i]=0;
+			}
+		}
+
+
+	WF=false;
+	HF=true;
+
+	eof_f=false;
+	decoderlock_b=NULL;
+ 	start();
+
+	blocked=false;
+	}
 
 
 
