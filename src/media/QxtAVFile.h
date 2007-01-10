@@ -80,7 +80,6 @@ class QxtAVFile :  public QThread
 	signals:
 		/**
 		End of File Signal.
-		There is still data available in the pipe, this is just to inform you the file has been fully read
 		*/
 		void eof();
 
@@ -128,6 +127,9 @@ class QxtAVFile :  public QThread
 
 		///playbacktime
 		double playbacktime;
+
+		///indicate that the next buffer is the last
+		bool eof_f;///flip
 
 	};
 
