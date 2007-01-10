@@ -34,9 +34,18 @@ the fliplean is NOT meant as per channel. it is the amount of data for all chann
 \bug currently fliplen must be minimal 1024*2 in order to get the decoder working.
 
 */
+namespace Qxt
+	{
+	enum QxtAVFileFlags
+		{
+		preload,
+		fullLoad
+		};
+	};
 
 
 
+class QxtAudioPlayer;
 class QxtAVFile :  public QThread
 	{
 	Q_OBJECT
@@ -45,7 +54,12 @@ class QxtAVFile :  public QThread
 		/**default constructor. 
 		pass filename and fliplen.
 		*/
-		QxtAVFile(QString filename,int fliplen,QObject *parent=0);
+ 		QxtAVFile(QString filename,int fliplen,int flags=0,QObject *parent=0);
+		/**default constructor. 
+		if you just use QxtAVFile for playback with QxtAudioPlayer, use this ctor to use the default fliplen
+		*/
+		QxtAVFile(QString filename,QxtAudioPlayer*, int flags=0,QObject *parent=0);
+
 		~QxtAVFile();
 
 
@@ -76,6 +90,10 @@ class QxtAVFile :  public QThread
 
 		///playback length of the file in seconds.
 		double length();
+
+		///reset
+		void reset();
+
 
 	signals:
 		/**
@@ -131,6 +149,11 @@ class QxtAVFile :  public QThread
 		///indicate that the next buffer is the last
 		bool eof_f;///flip
 
+
+		int flags_d;
+
+		///canot call flip
+		bool blocked;
 	};
 
 

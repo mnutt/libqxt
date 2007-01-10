@@ -5,6 +5,7 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 #include <QObject>
 #include <QString>
+#include <QxtAVFile.h>
 
 
 /**
@@ -16,18 +17,17 @@ released under the Terms of LGPL (see the LICENSE file)
  
 sometimes you just want to play a sound in your application.
 this is not meant to be a full blown media player and does not provide any functions for it.
+
+
+example:
+\code 
+QxtAudioPlayer player;
+QxtAVFile file("test.wav",&player,Qxt::preload);
+player.play(&file);
+\endcode
 */
 
-
-
-class QxtAudioPlayerStaticEofObjectHolder: public QObject
-	{
-	Q_OBJECT
-	public slots:
-		void f__eof();
-	};
-
-
+class QxtAVFile;
 
 class QxtAudioPlayer : public QObject
 	{
@@ -38,27 +38,18 @@ class QxtAudioPlayer : public QObject
 
 	public slots:
 
-		/**
-		usage:
-
-		\code
-		QxtAudioPlayer::play("sound/ding.wav");
-		\endcode
-		obviously you do not need to construct an object
-
-		calling this slot while another file is playing will interupt the current playback
-		*/
-
-		static void play(QString url);
-	
 
 		/**
-		if you do not need sound a longer time, you should close the sound out.
-		It will automaticly be reopened the next play();
+		
 		*/
-		static void close();
+
+		void play(QxtAVFile * file);
 
 
+
+
+	private slots:
+		void feof();
 	};
 
 
