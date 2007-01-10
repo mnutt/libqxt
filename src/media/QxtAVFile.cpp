@@ -53,6 +53,7 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,QObject *parent):QThread(paren
 	fliplen_m=0;
 	resample_m=0;
 	playbacktime=0.0;
+	eof_f=false;
 
 	/// \bug buffsize must be at least 2048
  	assert(fliplen>=2048);
@@ -110,7 +111,7 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,QObject *parent):QThread(paren
 
 QxtAVFile::~QxtAVFile()
 	{
-
+	terminate();
 	//!clean up ffmpeg
 	avcodec_close(codec_context);
 	av_close_input_file(format_context);
@@ -179,6 +180,9 @@ double QxtAVFile::length()
 //-------------------------------------------------------------
 int QxtAVFile::flip(float* out)
 	{
+
+	if (eof_f && HF==WF){emit(eof());qWarning("called flip after eof, doing nothing.");return -1;}
+
 	///if we have an xrun try to wait for the buffer
 	while (HF==WF && decoderlock_b != NULL){usleep(10);qWarning("warning: underrun detected, waiting 10 usecs.");}
 
@@ -186,6 +190,7 @@ int QxtAVFile::flip(float* out)
 		{
 		decoderlock_b=OUT2;
 		memcpy(out,OUT1,fliplen_m*sizeof(float));
+
 		WF=false;
 		}
 	else
@@ -227,7 +232,7 @@ int QxtAVFile::getFrame(float * out)
 	forever
 	{
 	/// read a packet 
-	if (av_read_frame(format_context, &pkt)<0){emit(eof());return -1;}
+	if (av_read_frame(format_context, &pkt)<0){return -1;}
 
 	//!skip packages that don't belong to the wanted stream
 	if (pkt.stream_index==AudioStreamIndex)break;
@@ -288,6 +293,7 @@ void QxtAVFile::run()
 		HF=(decoderlock_b==OUT2);
 		refill(decoderlock_b);
 		decoderlock_b=NULL;
+		if (eof_f)return;
 		}
 	}
 
@@ -310,8 +316,14 @@ void QxtAVFile::refill(float * WRITE)
 		while(resampler.numSamples()<fliplen_m+1)
 			{
 			DSRC_LEN=getFrame(DSRC);
+			if(DSRC_LEN<0)
+				{
+				resampler.flush();
+				break;
+				}
+
 			resampler.putSamples(DSRC,DSRC_LEN/2);
-	
+			assert((unsigned)DSRC_LEN<=fliplen_m*4);	
 			}
 		assert(resampler.receiveSamples(WRITE,fliplen_m/2)==fliplen_m/2);	
 		return;
@@ -335,9 +347,19 @@ void QxtAVFile::refill(float * WRITE)
 				DSRC_LEN=getFrame(DSRC);
 				}
 	
-			///beg it doesn't exploede
-			assert((unsigned)DSRC_LEN<=fliplen_m*4);
+
+			if(DSRC_LEN<0)
+				{
+				for (int i=0;i<write;i++)
+					*out++=0.0f;
+				eof_f=true;
+				return;
+				}
 	
+
+			///if something went wrong, we return 0
+			assert((unsigned)DSRC_LEN<=fliplen_m*4);	
+
 			///get as much data as avilable but not more then requested
 			int l= qMin(DSRC_LEN,(long)write);
 			///push
