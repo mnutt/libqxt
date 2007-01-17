@@ -54,9 +54,11 @@ class QxtAVFile :  public QThread
 		/**default constructor. 
 		pass filename and fliplen.
 		*/
+		
  		QxtAVFile(QString filename,int fliplen,int flags=0,QObject *parent=0);
 		/**default constructor. 
 		if you just use QxtAVFile for playback with QxtAudioPlayer, use this ctor to use the default fliplen
+		\bug does not work, for some odd reason... not debugable
 		*/
 		QxtAVFile(QString filename,QxtAudioPlayer*, int flags=0,QObject *parent=0);
 

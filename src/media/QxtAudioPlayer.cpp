@@ -92,7 +92,7 @@ void QxtAudioPlayer::play(QxtAVFile * file)
 void QxtAudioPlayer::feof()
 	{
 // 	if(!(QxtAVFile* )sender())return;
-	if(avfile)avfile->reset();
+// 	if(avfile)avfile->reset();
 	avfile=NULL;
 
 	}
