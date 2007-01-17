@@ -124,6 +124,11 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 
 QxtAVFile::~QxtAVFile()
 	{
+	blocked=true;
+	eof_f=true;
+	decoderlock_b=NULL;
+
+	wait();
 	terminate();
 	//!clean up ffmpeg
 	avcodec_close(codec_context);
