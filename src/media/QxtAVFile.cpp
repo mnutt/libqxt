@@ -21,7 +21,7 @@
 #endif
 
 ///assert
-#define AV_ASSERT(cmd) if(cmd < 0) {qDebug()<<"QxtAVFile aborted at line "<<__LINE__; return;}
+#define AV_ASSERT(cmd) if(cmd < 0) {qDebug()<<"QxtAVFile error at line "<<__LINE__; return;}
 
 ///this scales the 16bit output to some usable 32bit float. actualy this will not increase quality but usability
 #define scale(shortval) (float)shortval / (float)std::numeric_limits<short>::max()
@@ -49,6 +49,7 @@ QxtAVFile::QxtAVFile(QString filename,QxtAudioPlayer*,int flags,QObject *parent)
 
 QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QThread(parent)
 	{
+	
 	///defaults
 	AORatio=1.0;
 	DSRC_LEN=0;
@@ -131,8 +132,8 @@ QxtAVFile::~QxtAVFile()
 	wait();
 	terminate();
 	//!clean up ffmpeg
-	avcodec_close(codec_context);
-	av_close_input_file(format_context);
+	if(codec_context)avcodec_close(codec_context);
+	if(format_context)av_close_input_file(format_context);
 	}
 
 
@@ -166,7 +167,21 @@ int QxtAVFile::resample(unsigned int samplerate)
 	}
 
 
+//-------------------------------------------------------------
 
+QStringList  QxtAVFile::ID3()
+	{
+	QStringList list;
+	if (!format_context)return list;
+	list<<QString(format_context->title);
+	list<<QString(format_context->author);
+	list<<QString(format_context->album);
+	list<<QString(format_context->copyright);
+	list<<QString(format_context->comment);
+	list<<QString(format_context->year);
+	list<<QString(format_context->track);
+	list<<QString(format_context->genre);
+	}
 
 //-------------------------------------------------------------
 
