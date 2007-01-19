@@ -9,7 +9,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QThread>
 #include <QString>
-
+#include <QStringList>
 
 /**
 
@@ -65,6 +65,12 @@ class QxtAVFile :  public QThread
 		~QxtAVFile();
 
 
+
+
+
+
+
+
 		/** 
 		fill the buffer passed with data.
 		returns <0 in case of an error or eof.
@@ -84,6 +90,19 @@ class QxtAVFile :  public QThread
 
 
 
+
+		/**
+		returns the ID3 tag
+		or an empty list if there is no supported tag.
+
+		the order is: 
+		title,author,album,copyright,comment,year,track,genre
+		*/
+		QStringList ID3();
+
+
+
+
 		///seek to the specified playback time in seconds.
 		void seek(double time);
 
@@ -95,6 +114,10 @@ class QxtAVFile :  public QThread
 
 		///reset
 		void reset();
+
+
+
+
 
 
 	signals:
