@@ -35,7 +35,7 @@ struct QxtTypeList<NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, N
 
 template<>
 struct QxtTypeList<NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, QxtType::NoExtend> {
-    typedef QxNull extend;
+    typedef QxtNull extend;
     enum { length = 0, extends = false };
 };
 }

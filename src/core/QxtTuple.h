@@ -6,6 +6,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #ifndef QXTTUPLE_H
 #define QXTTUPLE_H
+#include <QxtTypeList.h>
 
 namespace QxtType {
 
@@ -26,7 +27,7 @@ template<typename TYPELIST, bool LONG=false> class QxtTuple;
 template<typename TYPELIST, int INDEX, bool LONG, bool EXT=(INDEX>8)> struct QxtTupleValue;
 
 template<typename TYPELIST, int INDEX> struct QxtTupleValue<TYPELIST, INDEX, true, true> {
-    static typename get<TYPELIST, INDEX>::type value(QxTuple<TYPELIST,true>* t) {
+    static typename get<TYPELIST, INDEX>::type value(QxtTuple<TYPELIST,true>* t) {
         return QxtTupleValue<typename TYPELIST::extend, INDEX-9, TYPELIST::extend::extends>::value(&t->extend);
     }
 
@@ -128,56 +129,123 @@ int main(int argc, char** argv) {
 */
 
 class QxtTuple<TYPELIST,false> {
-
 public:
-
     template<int INDEX> typename get<TYPELIST, INDEX>::type value() { return QxtTupleValue<TYPELIST, INDEX, false>::value(this); }
-
     template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val) { QxtTupleValue<TYPELIST, INDEX, false>::setValue(this, val); }
+    bool operator<(const QxtTuple<TYPELIST,false>& other) {
+        if(t1 < other.t1) return true;
+        if(t2 < other.t2) return true;
+        if(t3 < other.t3) return true;
+        if(t4 < other.t4) return true;
+        if(t5 < other.t5) return true;
+        if(t6 < other.t6) return true;
+        if(t7 < other.t7) return true;
+        if(t8 < other.t8) return true;
+        if(t9 < other.t9) return true;
+        return false;
+    }
+    bool operator==(const QxtTuple<TYPELIST,false>& other) {
+        if(t1 != other.t1) return false;
+        if(t2 != other.t2) return false;
+        if(t3 != other.t3) return false;
+        if(t4 != other.t4) return false;
+        if(t5 != other.t5) return false;
+        if(t6 != other.t6) return false;
+        if(t7 != other.t7) return false;
+        if(t8 != other.t8) return false;
+        if(t9 != other.t9) return false;
+        return true;
+    }
+    bool operator>=(const QxtTuple<TYPELIST,false>& other) {
+        return !(*this < other);
+    }
+    bool operator<=(const QxtTuple<TYPELIST,false>& other) {
+        if(t1 <= other.t1) return true;
+        if(t2 <= other.t2) return true;
+        if(t3 <= other.t3) return true;
+        if(t4 <= other.t4) return true;
+        if(t5 <= other.t5) return true;
+        if(t6 <= other.t6) return true;
+        if(t7 <= other.t7) return true;
+        if(t8 <= other.t8) return true;
+        if(t9 <= other.t9) return true;
+        return false;
+    }
+    bool operator>(const QxtTuple<TYPELIST,false>& other) {
+        return !(*this <= other);
+    }
+    bool operator!=(const QxtTuple<TYPELIST,false>& other) {
+        return !(*this == other);
+    }
 
         
-
 // if only we could get away with making these protected
-
     typename get<TYPELIST, 0>::type t1;
-
     typename get<TYPELIST, 1>::type t2;
-
     typename get<TYPELIST, 2>::type t3;
-
     typename get<TYPELIST, 3>::type t4;
-
     typename get<TYPELIST, 4>::type t5;
-
     typename get<TYPELIST, 5>::type t6;
-
     typename get<TYPELIST, 6>::type t7;
-
     typename get<TYPELIST, 7>::type t8;
-
     typename get<TYPELIST, 8>::type t9;
-
 };
 
-
-
-
-
-
-
-
-
 //-----------------------------------------------------------------------------------------------
-
-
-
-
 
 template<typename TYPELIST>
 class QxtTuple<TYPELIST,true> {
 public:
     template<int INDEX> typename get<TYPELIST, INDEX>::type value() { return QxtTupleValue<TYPELIST, INDEX, true>::value(this); }
     template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val) { QxtTupleValue<TYPELIST, INDEX, true>::setValue(this, val); }
+    bool operator<(const QxtTuple<TYPELIST,true>& other) {
+        if(t1 < other.t1) return true;
+        if(t2 < other.t2) return true;
+        if(t3 < other.t3) return true;
+        if(t4 < other.t4) return true;
+        if(t5 < other.t5) return true;
+        if(t6 < other.t6) return true;
+        if(t7 < other.t7) return true;
+        if(t8 < other.t8) return true;
+        if(t9 < other.t9) return true;
+        if(extend < other.extend) return true;
+        return false;
+    }
+    bool operator==(const QxtTuple<TYPELIST,true>& other) {
+        if(t1 != other.t1) return false;
+        if(t2 != other.t2) return false;
+        if(t3 != other.t3) return false;
+        if(t4 != other.t4) return false;
+        if(t5 != other.t5) return false;
+        if(t6 != other.t6) return false;
+        if(t7 != other.t7) return false;
+        if(t8 != other.t8) return false;
+        if(t9 != other.t9) return false;
+        if(extend != other.extend) return false;
+        return true;
+    }
+    bool operator>=(const QxtTuple<TYPELIST,true>& other) {
+        return !(*this < other);
+    }
+    bool operator<=(const QxtTuple<TYPELIST,true>& other) {
+        if(t1 <= other.t1) return true;
+        if(t2 <= other.t2) return true;
+        if(t3 <= other.t3) return true;
+        if(t4 <= other.t4) return true;
+        if(t5 <= other.t5) return true;
+        if(t6 <= other.t6) return true;
+        if(t7 <= other.t7) return true;
+        if(t8 <= other.t8) return true;
+        if(t9 <= other.t9) return true;
+        if(extend <= other.extend) return true;
+        return false;
+    }
+    bool operator>(const QxtTuple<TYPELIST,true>& other) {
+        return !(*this <= other);
+    }
+    bool operator!=(const QxtTuple<TYPELIST,true>& other) {
+        return !(*this == other);
+    }
 
 // if only we could get away with making these protected
     typename get<TYPELIST, 0>::type t1;
@@ -217,7 +285,7 @@ using QxtType::QxtTuple;
 /*! \relates QxtTuple
  * Declares a four-column tuple.
  */
-#define Qxt4Tuple(a, b, c, d) QxTuple<QxtTypeList<a, b, c, d > >
+#define Qxt4Tuple(a, b, c, d) QxtTuple<QxtTypeList<a, b, c, d > >
 
 /*! \relates QxtTuple
  * Declares a five-column tuple.
