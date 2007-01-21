@@ -4,8 +4,7 @@
 
 /**
 \class QxtMetaBall QxtMetaBall
-
-signal/slot connections with expressions
+\brief signal/slot connections with expressions
 
 sometimes you want to just connect a signal with no parameter to a slot with, and give the parameter.
 QxtMetaBall allowes you even to put expressions in. It requires the Qxt Meta Object Extender.
