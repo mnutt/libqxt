@@ -141,10 +141,10 @@ QxtAVFile::~QxtAVFile()
 //-------------------------------------------------------------
 int QxtAVFile::resample(unsigned int samplerate)
 	{
-
+	if(!codec_context)return 2;
 	#ifdef QxtMediaLibsSoundTouch
 
-	if (samplerate==0 || samplerate == (unsigned)codec_context->sample_rate)
+	if (samplerate==0 ||(samplerate == (unsigned)codec_context->sample_rate))
 		{
 		resample_m=0;
 		return 0;
@@ -173,14 +173,18 @@ QStringList  QxtAVFile::ID3()
 	{
 	QStringList list;
 	if (!format_context)return list;
-	list<<QString(format_context->title);
-	list<<QString(format_context->author);
-	list<<QString(format_context->album);
-	list<<QString(format_context->copyright);
-	list<<QString(format_context->comment);
-	list<<QString(format_context->year);
-	list<<QString(format_context->track);
-	list<<QString(format_context->genre);
+	list<<QString(format_context->title).trimmed ();
+	list<<QString(format_context->author).trimmed ();
+
+	if (list[0].isEmpty() && list[1].isEmpty() )return QStringList(); ///asume empty
+
+	list<<QString(format_context->album).trimmed ();
+	list<<QString(format_context->copyright).trimmed ();
+	list<<QString(format_context->comment).trimmed ();
+	list<<QString(format_context->year).trimmed ();
+	list<<QString(format_context->track).trimmed ();
+	list<<QString(format_context->genre).trimmed ();
+	return list;
 	}
 
 //-------------------------------------------------------------
@@ -269,8 +273,11 @@ int QxtAVFile::getFrame(float * out)
 
 	forever
 	{
+	assert (&pkt);
+
 	/// read a packet 
 	if (av_read_frame(format_context, &pkt)<0){return -1;}
+
 
 	//!skip packages that don't belong to the wanted stream
 	if (pkt.stream_index==AudioStreamIndex)break;

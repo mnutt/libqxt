@@ -119,6 +119,15 @@ contains( QXT, media ){
 	INSTALLS += media
         }
 
+contains( QXT, mox ){
+        message( building mox )
+        SUBDIRS += mox
+	unix:mox.files +=  mox/mox
+	win32:mox.files +=  mox/mox.exe
+	mox.path  =  $$[QT_INSTALL_DATA]/bin/
+	INSTALLS += mox
+        }
+
 
 
 
