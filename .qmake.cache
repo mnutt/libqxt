@@ -4,9 +4,8 @@ QXT_stability = stable
 
 QXVERSION = 0.2
 
-win32 {
-    DEFINES += BUILDING_QXT_LIBRARY
-}
+DEFINES += BUILDING_QXT_LIBRARY
+
 
 
 
