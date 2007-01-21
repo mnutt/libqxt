@@ -1,9 +1,12 @@
 #include <QObject>
 #include <QByteArray>
+#include <QxtDefines.h>
 
 
 /**
 \class QxtMetaBall QxtMetaBall
+\ingroup kit
+
 \brief signal/slot connections with expressions
 
 sometimes you want to just connect a signal with no parameter to a slot with, and give the parameter.
@@ -23,7 +26,7 @@ This will call receiver->slot(value>0) with the value emited by the signal sende
 
 #define BALL(x) (QByteArray("Ball_")+(QByteArray(QByteArray(__FILE__)+QByteArray::number(__LINE__)).toBase64 ().replace("=","")))
 
-class QxtMetaBall
+class QXT_DLLEXPORT QxtMetaBall
 	{
 	public:
 
