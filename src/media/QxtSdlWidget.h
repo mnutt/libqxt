@@ -12,6 +12,16 @@ released under the Terms of LGPL (see the LICENSE file)
 
 struct SDL_Surface;
 
+
+/**
+\class QxtSdlWidget QxtSdlWidget
+
+\ingroup media
+
+\brief use SDL inside a QWidget
+
+take a look at libqxt/examples/QxtSdlWidget please
+*/
 class QXT_DLLEXPORT QxtSdlWidget : public QWidget
 {
 public:
