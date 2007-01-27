@@ -1,6 +1,6 @@
 include (../config.pri)
 
-DESTDIR= .
+DESTDIR= ../deploy/bin
 VERSION = $$QXVERSION
 TEMPLATE = app
 TARGET = mox
