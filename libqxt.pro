@@ -33,7 +33,7 @@ macx :  docs.path =
 unix :	bin.path = $${QXTUNIXPREFIX}/lib
 win32:	bin.path = 
 macx :	bin.path = 
-      	bin.files = deploy/bin/*
+      	bin.files = deploy/libs/*
 
 
 unix :	include.path = $${QXTUNIXPREFIX}/include/qxt

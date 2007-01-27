@@ -9,7 +9,7 @@ DEFINES += BUILDING_QXT_LIBRARY
 
 
 
-DESTDIR= ../../deploy/bin
+DESTDIR= ../../deploy/libs
 
 
 
