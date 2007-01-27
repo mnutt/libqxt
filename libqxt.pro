@@ -21,29 +21,33 @@
 include (config.pri)
 TEMPLATE = subdirs
 
-base.path = $${QXTINSTALLDIR}
-base.files = *
 
-unix :  docs.path = $${QXTUNIXPREFIX}/doc/qxt
-win32:  docs.path = 
-macx :  docs.path = 
+
+unix :  docs.path = $${QXTINSTALLDIR}/doc/libqxt
+win32:  docs.path = $${QXTINSTALLDIR}/docs
+macx :  docs.path = $${QXTINSTALLDIR}/docs
         docs.files = deploy/docs/*
 
 
-unix :	bin.path = $${QXTUNIXPREFIX}/lib
-win32:	bin.path = 
-macx :	bin.path = 
-      	bin.files = deploy/libs/*
+unix :	lib.path = $${QXTINSTALLDIR}/lib
+win32:	lib.path = $${QXTINSTALLDIR}/lib
+macx :	lib.path = $${QXTINSTALLDIR}/lib
+      	lib.files = deploy/libs/*
 
 
-unix :	include.path = $${QXTUNIXPREFIX}/include/qxt
-win32:	include.path = 
-macx :	include.path = 
+unix :	include.path = $${QXTINSTALLDIR}/include/qxt
+win32:	include.path = $${QXTINSTALLDIR}/include
+macx :	include.path =  $${QXTINSTALLDIR}/include
 	include.files = src/QxtDefines.h  src/Qxt.h
+
+unix :	bin.path  = $${QXTINSTALLDIR}/bin
+win32:	bin.path  = $${QXTINSTALLDIR}/bin
+macx :	bin.path  =  $${QXTINSTALLDIR}/bin
+	bin.files =
 
 
 #write the paths to prf file
-unix :system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
+unix :system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 win32:system(move deploy/qt/qxt.prf.m deploy/qt/qxt.prf)  #TODO HANDLE IT!
 
 
@@ -51,7 +55,7 @@ win32:system(move deploy/qt/qxt.prf.m deploy/qt/qxt.prf)  #TODO HANDLE IT!
 
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
-features.files = deploy/*.prf	
+features.files = deploy/qt/*.prf	
 
 
 
@@ -60,7 +64,7 @@ features.files = deploy/*.prf
 
 
 
-INSTALLS = base docs bin include features 
+INSTALLS = lib docs bin include features 
 
 
 
@@ -124,7 +128,7 @@ contains( QXT, mox ){
         SUBDIRS += mox
 	unix:mox.files +=  deploy/bin/mox
 	win32:mox.files += deploy/bin/mox.exe
-	mox.path  =  $$[QT_INSTALL_DATA]/bin/
+	mox.path  =  $${bin.path}
 	INSTALLS += mox
         }
 

@@ -5,14 +5,15 @@
 
 
 
-#where to install qxt(default is /opt/qxt on unix , C:\libqxt on windows ,  and /Library/Frameworks on mac)
+#install prefix / dir
+#
+#on Windows qxt will be fully installed to that directory  (default is to C:\libqxt)
+#on Unix qxt will be installed in  $QXTINSTALLDIR/lib/  $QXTINSTALLDIR/include  $QXTINSTALLDIR/doc/libqxt/  $QXTINSTALLDIR/bin/   (default is /usr)
+#on mac the behaiviour is not tested (should install everyhting to /Library/Frameworks by default)
 
-#QXTINSTALLDIR=/opt/qxt
+#QXTINSTALLDIR=/usr
 
-#QXTUNIXPREFIX=/usr
-
-
-#modules  (core kit gui network sql media)
+#modules  (core kit gui network sql media mox)
 
 #QXT -= media
 

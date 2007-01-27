@@ -1,25 +1,20 @@
 
 
 isEmpty(QXTbase){
-unix : QXTbase=/opt/qxt
+unix : QXTbase=/usr
 win32: QXTbase=C:/libqxt
 macx :
 }
-isEmpty(QXTinclude){
-unix : QXTinclude=/usr/include
-win32: QXTinclude=$${QXTbase}/src
-macx :
-}
-isEmpty(QXTbin){
-unix : QXTbin=/usr/lib
-win32: QXTbin=$${QXTbase}/bin
-macx :
-}
+
+isEmpty(QXTlib):	QXTlib=$${QXTbase}/lib
+isEmpty(QXTinclude):	QXTinclude=$${QXTbase}/include
+isEmpty(QXTbin):	QXTbin=$${QXTbase}/lib
+
 
 
 
 INCLUDEPATH+=$${QXTinclude}
-LIBS += -Wl,-rpath,$${QXTbin} -L$${QXTbin}
+LIBS += -Wl,-rpath,$${QXTlib} -L$${QXTlib}
 
 
 contains(QXT, kit ){
