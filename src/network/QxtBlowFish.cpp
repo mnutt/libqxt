@@ -23,15 +23,15 @@ QByteArray  QxtBlowFish::encrypt(QByteArray in)
 	QByteArray out(in);
 	int num =0;
 	unsigned char  ivec [8];
-	ivec[0]=3887;
-	ivec[1]=3432;
-	ivec[2]=3887;
-	ivec[3]=2344;
-	ivec[4]=678;
-	ivec[5]=3887;
-	ivec[6]=575;
-	ivec[7]=2344;
-	ivec[8]=2222;
+	ivec[0]=(unsigned char )3887;
+	ivec[1]=(unsigned char )3432;
+	ivec[2]=(unsigned char )3887;
+	ivec[3]=(unsigned char )2344;
+	ivec[4]=(unsigned char )678;
+	ivec[5]=(unsigned char )3887;
+	ivec[6]=(unsigned char )575;
+	ivec[7]=(unsigned char )2344;
+	ivec[8]=(unsigned char )2222;
 
 
 	BF_cfb64_encrypt(
@@ -60,15 +60,15 @@ QByteArray  QxtBlowFish::decrypt(QByteArray in)
 	
 	int num =0;
 	unsigned char  ivec [8];
-	ivec[0]=3887;
-	ivec[1]=3432;
-	ivec[2]=3887;
-	ivec[3]=2344;
-	ivec[4]=678;
-	ivec[5]=3887;
-	ivec[6]=575;
-	ivec[7]=2344;
-	ivec[8]=2222;
+	ivec[0]=(unsigned char )3887;
+	ivec[1]=(unsigned char )3432;
+	ivec[2]=(unsigned char )3887;
+	ivec[3]=(unsigned char )2344;
+	ivec[4]=(unsigned char )678;
+	ivec[5]=(unsigned char )3887;
+	ivec[6]=(unsigned char )575;
+	ivec[7]=(unsigned char )2344;
+	ivec[8]=(unsigned char )2222;
 	
 	
 	BF_cfb64_encrypt(
