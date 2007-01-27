@@ -13,10 +13,7 @@ DESTDIR= ../../deploy/libs
 
 
 
-QXTUNIXPREFIX=/usr
-
-
 #keep macx at the bottom. unix is defined too!
-unix :QXTINSTALLDIR=/opt/qxt
+unix :QXTINSTALLDIR=/usr
 win32:QXTINSTALLDIR=C:\libqxt
 macx :QXTINSTALLDIR=/Library/Frameworks/

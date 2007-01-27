@@ -1,4 +1,4 @@
-#include <QApplication>
+#include <QCoreApplication>
 #include <QStringList>
 #include <iostream>
 #include <QFile>
@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
         {
-        QApplication app (argc,argv);
+        QCoreApplication app (argc,argv);
 
 	if (app.arguments().size()<2 || app.arguments()[1]=="-h" || app.arguments()[1]=="--help")
 		{
