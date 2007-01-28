@@ -8,22 +8,8 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtLabelPlugin.h"
 #include <QtPlugin>
 
-QxtLabelPlugin::QxtLabelPlugin(QObject* parent)
-	: QObject(parent), initialized(false)
+QxtLabelPlugin::QxtLabelPlugin(QObject* parent) : QObject(parent)
 {
-}
-
-void QxtLabelPlugin::initialize(QDesignerFormEditorInterface* core)
-{
-	Q_UNUSED(core);
-	if (initialized)
-		return;
-	initialized = true;
-}
-
-bool QxtLabelPlugin::isInitialized() const
-{
-	return initialized;
 }
 
 QWidget* QxtLabelPlugin::createWidget(QWidget* parent)
@@ -34,31 +20,6 @@ QWidget* QxtLabelPlugin::createWidget(QWidget* parent)
 QString QxtLabelPlugin::name() const
 {
 	return "QxtLabel";
-}
-
-QString QxtLabelPlugin::group() const
-{
-	return "Display Widgets [Qxt]";
-}
-
-QIcon QxtLabelPlugin::icon() const
-{
-	return QIcon(":/logo.png");
-}
-
-QString QxtLabelPlugin::toolTip() const
-{
-	return "";
-}
-
-QString QxtLabelPlugin::whatsThis() const
-{
-	return "";
-}
-
-bool QxtLabelPlugin::isContainer() const
-{
-	return false;
 }
 
 QString QxtLabelPlugin::domXml() const
@@ -82,5 +43,3 @@ QString QxtLabelPlugin::includeFile() const
 {
 	return "QxtLabel";
 }
-
-Q_EXPORT_PLUGIN2(qxtlabelplugin, QxtLabelPlugin)
