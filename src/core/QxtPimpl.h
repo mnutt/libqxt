@@ -68,7 +68,7 @@ public:
 
     inline void setPublic(PUB* pub) { pvt->QXT_setPublic(pub); }
     inline PVT& operator()() { return *pvt; }
-
+    inline const PVT& operator()() const { return *pvt; }
 private:
     PVT* pvt;
 };
@@ -80,6 +80,7 @@ public:
 
 protected:
     inline PUB& qxt_p() { return *qxt_p_ptr; }
+    inline const PUB& qxt_p() const { return *qxt_p_ptr; }
 
 private:
     PUB* qxt_p_ptr;
