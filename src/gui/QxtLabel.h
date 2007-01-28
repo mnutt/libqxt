@@ -24,6 +24,8 @@ class QXT_DLLEXPORT QxtLabel : public QWidget
 	Q_ENUMS(Rotation)
 	
 public:
+	// TODO: merge this with QxtPushButton::Rotation
+	//       (maybe something similar than qnamespace.h)
 	enum Rotation
 	{
 		NoRotation		= 0,
@@ -56,4 +58,4 @@ protected:
 	void paintEvent(QPaintEvent* event);
 };
 
-#endif // QXTELIDELABEL_H
+#endif // QXTLABEL_H
