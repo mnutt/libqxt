@@ -253,6 +253,26 @@ int QxtAVFile::flip(float* out)
 	}
 
 
+
+
+
+int QxtAVFile::flip(short* out)
+	{
+	float a[fliplen_m];
+	flip(a);
+	
+	for (unsigned int i=0;i<fliplen_m;i++)
+		*out++=(short)(a[i]*std::numeric_limits<short>::max());
+	return fliplen_m;	
+	}
+
+
+
+
+
+
+
+
 //-------------------------------------------------------------
 
 /**
