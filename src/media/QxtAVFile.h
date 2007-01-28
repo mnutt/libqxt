@@ -77,7 +77,7 @@ class QxtAVFile :  public QThread
 		*/
 		int flip(float*);
 
-
+		int flip(short*);
 
 		/**
 		Set it to indicate you want the output to be resampled to a specific samplerate.
