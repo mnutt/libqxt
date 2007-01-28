@@ -1,5 +1,5 @@
 /*!
-portaudio + QxtAVFile example.
+SDL + QxtAVFile example.
 (c) 2007 Arvid Picciani (aep@exysREMOVETHIS.org) GPL
 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -9,78 +9,79 @@ portaudio + QxtAVFile example.
  * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-do not forget -lavcodec -lavformat -lportaudio (-lSoundTouch if you compiled QxtMedia with it)
 */
-#include <portaudio.h>
+#include <SDL/SDL.h>
 #include <QCoreApplication>
 #include <QxtAVFile>
 #include <QxtSignalWaiter>
+#include <QDebug>
 
 #define FRAMES_PER_BUFFER   1024
 
-/*!
-Portaudio will decide itself when to call this function. it expects to get 'frames' numbers of frames * channels  to be pushed to out. interleaved
-This function allowes us to pass around a pointer to any object we like. we'll store our object pointer in it
+#include <limits> 
+static QxtAVFile *avfile;
+
+/**
+The SDl Audio Callback
 */
-static int PortaudioCallback(const void *, void *outputBuffer,unsigned long ,const PaStreamCallbackTimeInfo* ,PaStreamCallbackFlags ,void *userData )
-    {
-    ///prepare the buffer
-    float *out = (float*)outputBuffer;
-    ///get the user data
-    QxtAVFile*avfile = (QxtAVFile*)userData;
+static void Callback (void *, Uint8 *stream, int size)
+	{
+	short *out = (short*)stream;
 
-    ///flip the data to portaudios callback buffer
-    avfile->flip(out);
+	int fliplen = size/sizeof(short);
 
-    return paContinue;
-    }
 
+	///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
+	float a[fliplen];
+	Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","unexpected buffersize");
+	for (int i=0;i<fliplen;i++)
+		{
+		Q_ASSERT_X(a[1]<=1.1  &&  a[1]>=-1.1,"Callback","unhandled clipping");
+		*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
+		}
+	}
 
 
 int main(int argc, char **argv)
-    {
-    ///we all know what it does ;)
-    QCoreApplication app (argc,argv);
+	{
+	///we all know what it does ;)
+	QCoreApplication app (argc,argv);
 
-    ///pa state structs
-    PaStream *stream;
+	///init sdl
+	Q_ASSERT(SDL_Init (SDL_INIT_AUDIO)>=0);
 
-    ///init portaudio
-    Q_ASSERT(Pa_Initialize()==paNoError);
 
-    /// make sure the default audio out is available.for the sake of simplicity we do not check for other outputs then oss on unix
-    Q_ASSERT(Pa_GetDeviceInfo(  Pa_GetDefaultOutputDevice()));
+	///sdl lets us pass a wanted spec, and it tryes to respect that. if we let it , it will try to find a mode less you intensive though
+	SDL_AudioSpec wanted_spec,got_spec;
 
-    ///intialise QxtAVFile. take care of the *2 QxtAVFile wants the amount of samples to push whereas portaudio means the amount per channel
-    QxtAVFile avfile(argv[1],FRAMES_PER_BUFFER*2);
+	wanted_spec.freq=48000;
+	wanted_spec.format=AUDIO_S16SYS;
+	wanted_spec.channels=2;
+        wanted_spec.silence = 0;
 
-    ///tell avfile to resample its output to the soundcards samplerate
-    avfile.resample((int)Pa_GetDeviceInfo( Pa_GetDefaultOutputDevice() )->defaultSampleRate);
-    
-    ///open the default stream
-    Q_ASSERT(Pa_OpenDefaultStream (
-        &stream, 
-        0,      ///no input channels
-        2,      ///stereo output
-        paFloat32,      ///32 bit floating output
-        Pa_GetDeviceInfo( Pa_GetDefaultOutputDevice() )->defaultSampleRate,
-        FRAMES_PER_BUFFER,
-        PortaudioCallback,
-        &avfile 
-        )==paNoError);
+	wanted_spec.samples=1024;
+	wanted_spec.callback=Callback;
+	wanted_spec.userdata=NULL;
+	got_spec=wanted_spec;
 
-    ///start playback
-    Q_ASSERT(Pa_StartStream( stream )==paNoError);
 
-    ///wait for eof.
-    QxtSignalWaiter waiter(&avfile, SIGNAL(eof()));
-    waiter.wait();
+	///set the secopnd parameter to 0, to enforce the spec above, if you encounter problems
+	Q_ASSERT_X(SDL_OpenAudio (&wanted_spec, &got_spec)>=0,"SDL",SDL_GetError());
 
-    ///cleanup
-    Pa_StopStream( stream );
-    Pa_CloseStream( stream );
-    Pa_Terminate();
 
-    return 0;
-    }
+	///intialise QxtAVFile. take care of the *2 QxtAVFile wants the amount of samples to push whereas sdl means the amount per channel
+	avfile= new QxtAVFile(argv[1],got_spec.samples*2);
+
+	///tell avfile to resample its output to the soundcards samplerate
+  	avfile->resample(got_spec.freq);
+ 
+	///unpause
+	SDL_PauseAudio (0);
+
+	///wait for eof.
+	QxtSignalWaiter waiter(avfile, SIGNAL(eof()));
+	waiter.wait();
+
+	///cleanup
+	return 0;
+	}
