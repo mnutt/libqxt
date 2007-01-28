@@ -13,3 +13,4 @@ SOURCES += QxtLabelPlugin.cpp  ../src/gui/QxtLabel.cpp
 
 
 CONFIG += build_all
+ RESOURCES     = resources.qrc

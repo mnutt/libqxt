@@ -43,7 +43,7 @@ QString QxtLabelPlugin::group() const
 
 QIcon QxtLabelPlugin::icon() const
 {
-	return QIcon();
+	return QIcon(":/logo.png");
 }
 
 QString QxtLabelPlugin::toolTip() const
