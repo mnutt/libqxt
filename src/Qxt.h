@@ -105,7 +105,7 @@ the QXT variable defines the modules you want. In this case core and media are u
  *
  * Checkout the classes list
 
-\image html qxbig.jpg
+\image html logo.png
  * 
  */
 
