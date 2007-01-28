@@ -46,6 +46,7 @@ void QxtLabelPrivate::updateLabel()
  */
 
 /*!
+	\relates QxtLabel
     \enum QxtLabel::Rotation
 
     This enum describes the rotation of the text.
