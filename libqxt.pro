@@ -94,6 +94,12 @@ contains( QXT, gui ){
 	gui.files +=  deploy/include/gui/*
 	gui.path  =  $${include.path}/gui
 	INSTALLS += gui
+
+
+        SUBDIRS += designer
+	designer.path = $$[QT_INSTALL_PLUGINS]/designer
+	designer.files = designer/libQxtDesignerPlugins.*
+	INSTALLS += designer
         }
 
 contains( QXT, network ){
