@@ -1,4 +1,8 @@
-
+                                                            
+                                                                    
+                                                                    
+                                                                               
+#keep the space lines above. nsis needs them
 
 isEmpty(QXTbase){
 unix : QXTbase=/usr
