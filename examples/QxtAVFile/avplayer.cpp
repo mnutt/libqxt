@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 	got_spec=wanted_spec;
 
 
-	///set the secopnd parameter to 0, to enforce the spec above, if you encounter problems
+	///set the second parameter to NULL, to enforce the spec above, if you encounter problems
 	Q_ASSERT_X(SDL_OpenAudio (&wanted_spec, &got_spec)>=0,"SDL",SDL_GetError());
 
 
@@ -83,5 +83,6 @@ int main(int argc, char **argv)
 	waiter.wait();
 
 	///cleanup
+	SDL_CloseAudio();
 	return 0;
 	}
