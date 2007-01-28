@@ -30,7 +30,7 @@ make
 echo "=======doxing========"
 doxygen doxygen.conf 
 echo "=======uploading dox========"
-scp doc/* xparanoidj@shell.sourceforge.net:/home/groups/l/li/libqxt/htdocs
+scp deploy/docs/* xparanoidj@shell.sourceforge.net:/home/groups/l/li/libqxt/htdocs
 
 echo "finished"
 
