@@ -9,6 +9,8 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QPainter>
 #include <QFontMetrics>
 
+static const int Vertical_Mask = 0x02;
+
 class QxtLabelPrivate : public QxtPrivate<QxtLabel>
 {
 public:
@@ -174,14 +176,14 @@ void QxtLabel::setRotation(Rotation rotation)
 	{
 		case NoRotation:
 		case UpsideDown:
-			if (prev == Clockwise || prev == CounterClockwise)
+			if (prev & Vertical_Mask)
 			{
 				updateGeometry();
 			}
 			break;
 		case Clockwise:
 		case CounterClockwise:
-			if (prev == NoRotation || prev == UpsideDown)
+			if (prev & Vertical_Mask == 0)
 			{
 				updateGeometry();
 			}
@@ -197,7 +199,7 @@ QSize QxtLabel::sizeHint() const
 {
 	const QFontMetrics& fm = fontMetrics();
 	QSize size(fm.width(qxt_d().text), fm.height());
-	if (qxt_d().rot == Clockwise || qxt_d().rot == CounterClockwise)
+	if (qxt_d().rot & Vertical_Mask)
 		size.transpose();
 	return size;
 }
@@ -212,7 +214,7 @@ QSize QxtLabel::minimumSizeHint() const
 		{
 			const QFontMetrics& fm = fontMetrics();
 			QSize size(fm.width("..."), fm.height());
-			if (qxt_d().rot == Clockwise || qxt_d().rot == CounterClockwise)
+			if (qxt_d().rot & Vertical_Mask)
 				size.transpose();
 			return size;
 		}
@@ -244,7 +246,7 @@ void QxtLabel::paintEvent(QPaintEvent* event)
 			break;
 	}
 	
-	if (qxt_d().rot == Clockwise || qxt_d().rot == CounterClockwise)
+	if (qxt_d().rot & Vertical_Mask)
 	{
 		QSize s = r.size();
 		s.transpose();
