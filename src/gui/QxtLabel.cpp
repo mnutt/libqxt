@@ -48,7 +48,6 @@ void QxtLabelPrivate::updateLabel()
  */
 
 /*!
-	\relates QxtLabel
     \enum QxtLabel::Rotation
 
     This enum describes the rotation of the text.
@@ -101,8 +100,11 @@ QString QxtLabel::text() const
  */
 void QxtLabel::setText(const QString& text)
 {
-	qxt_d().text = text;
-	qxt_d().updateLabel();
+	if (qxt_d().text != text)
+	{
+		qxt_d().text = text;
+		qxt_d().updateLabel();
+	}
 }
 
 /*!
@@ -124,8 +126,11 @@ Qt::Alignment QxtLabel::alignment() const
  */
 void QxtLabel::setAlignment(Qt::Alignment alignment)
 {
-	qxt_d().align = alignment;
-	update(); // no geometry change, repaint is sufficient
+	if (qxt_d().align != alignment)
+	{
+		qxt_d().align = alignment;
+		update(); // no geometry change, repaint is sufficient
+	}
 }
 
 /*!
@@ -147,14 +152,17 @@ Qt::TextElideMode QxtLabel::elideMode() const
  */
 void QxtLabel::setElideMode(Qt::TextElideMode mode)
 {
-	qxt_d().mode = mode;
-	qxt_d().updateLabel();
+	if (qxt_d().mode != mode)
+	{
+		qxt_d().mode = mode;
+		qxt_d().updateLabel();
+	}
 }
 
 /*!
     Returns the rotation.
 
-    The default value of this property is QxtLabel::NoRotation.
+    The default value of this property is QxtGui::NoRotation.
 
     \sa setRotation() QxtLabel::Rotation
  */
@@ -170,27 +178,31 @@ QxtLabel::Rotation QxtLabel::rotation() const
  */
 void QxtLabel::setRotation(Rotation rotation)
 {
-	Rotation prev = qxt_d().rot;
-	qxt_d().rot = rotation;
-	switch (rotation)
+	if (qxt_d().rot != rotation)
 	{
-		case NoRotation:
-		case UpsideDown:
-			if (prev & Vertical_Mask)
-			{
-				updateGeometry();
-			}
-			break;
-		case Clockwise:
-		case CounterClockwise:
-			if (prev & Vertical_Mask == 0)
-			{
-				updateGeometry();
-			}
-			break;
-		default:
-			// nothing to do
-			break;
+		Rotation prev = qxt_d().rot;
+		qxt_d().rot = rotation;
+		switch (rotation)
+		{
+			case NoRotation:
+			case UpsideDown:
+				if (prev & Vertical_Mask)
+				{
+					updateGeometry();
+				}
+				break;
+				
+			case Clockwise:
+			case CounterClockwise:
+				if (prev & Vertical_Mask == 0)
+				{
+					updateGeometry();
+				}
+				break;
+			default:
+				// nothing to do
+				break;
+		}
 	}
 	update();
 }
