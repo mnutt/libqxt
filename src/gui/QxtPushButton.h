@@ -34,16 +34,16 @@ public:
 	explicit QxtPushButton(QWidget* parent = 0);
 	QxtPushButton(const QString& text, QWidget* parent = 0);
 	QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent = 0);
-	~QxtPushButton();
+	virtual ~QxtPushButton();
 	
 	Rotation rotation() const;
 	void setRotation(Rotation rotation);
 	
-	QSize sizeHint() const;
-	QSize minimumSizeHint() const;
+	virtual QSize sizeHint() const;
+	virtual QSize minimumSizeHint() const;
 	
 protected:
-	void paintEvent(QPaintEvent* event);
+	virtual void paintEvent(QPaintEvent* event);
 };
 
 #endif // QXTPUSHBUTTON_H

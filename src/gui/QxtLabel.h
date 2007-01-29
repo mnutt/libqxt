@@ -7,13 +7,13 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTLABEL_H
 #define QXTLABEL_H
 
-#include <QWidget>
+#include <QFrame>
 #include <QxtDefines.h>
 #include <core/QxtPimpl.h>
 
 class QxtLabelPrivate;
 
-class QXT_DLLEXPORT QxtLabel : public QWidget
+class QXT_DLLEXPORT QxtLabel : public QFrame
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtLabel);
@@ -36,7 +36,7 @@ public:
 	
 	explicit QxtLabel(QWidget* parent = 0, Qt::WindowFlags flags = 0);
 	QxtLabel(const QString& text, QWidget* parent = 0, Qt::WindowFlags flags = 0);
-	~QxtLabel();
+	virtual ~QxtLabel();
 	
 	QString text() const;
 	void setText(const QString& text);
@@ -50,12 +50,12 @@ public:
 	Rotation rotation() const;
 	void setRotation(Rotation rotation);
 	
-	QSize sizeHint() const;
-	QSize minimumSizeHint() const;
+	virtual QSize sizeHint() const;
+	virtual QSize minimumSizeHint() const;
 	
 protected:
-	void changeEvent(QEvent* event);
-	void paintEvent(QPaintEvent* event);
+	virtual void changeEvent(QEvent* event);
+	virtual void paintEvent(QPaintEvent* event);
 };
 
 #endif // QXTLABEL_H

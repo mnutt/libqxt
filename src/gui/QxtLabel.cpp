@@ -61,7 +61,7 @@ void QxtLabelPrivate::updateLabel()
 /*!
     Constructs a new QxtLabel with \a parent and \a flags.
  */
-QxtLabel::QxtLabel(QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, flags)
+QxtLabel::QxtLabel(QWidget* parent, Qt::WindowFlags flags) : QFrame(parent, flags)
 {
 	QXT_INIT_PRIVATE(QxtLabel);
 	qxt_d().init();
@@ -70,7 +70,7 @@ QxtLabel::QxtLabel(QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, fla
 /*!
     Constructs a new QxtLabel with \a text, \a parent and \a flags.
  */
-QxtLabel::QxtLabel(const QString& text, QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, flags)
+QxtLabel::QxtLabel(const QString& text, QWidget* parent, Qt::WindowFlags flags) : QFrame(parent, flags)
 {
 	QXT_INIT_PRIVATE(QxtLabel);
 	qxt_d().init(text);
@@ -235,7 +235,7 @@ QSize QxtLabel::minimumSizeHint() const
 
 void QxtLabel::paintEvent(QPaintEvent* event)
 {
-	Q_UNUSED(event);
+	QFrame::paintEvent(event);
 	QPainter p(this);
 	p.rotate(qxt_d().rot);
 	QRect r = contentsRect();
@@ -271,7 +271,7 @@ void QxtLabel::paintEvent(QPaintEvent* event)
 
 void QxtLabel::changeEvent(QEvent* event)
 {
-	QWidget::changeEvent(event);
+	QFrame::changeEvent(event);
 	switch (event->type())
 	{
 		case QEvent::FontChange:
