@@ -27,34 +27,10 @@ QxtItemDelegatePrivate::QxtItemDelegatePrivate() :
 {
 }
 
-// NOTE: The method below is a slightly modified version of SheetDelegate::paint()
-// in $QTSRC/tools/designer/src/lib/shared/sheet_delegate.cpp
-/****************************************************************************
-**
-** Copyright (C) 1992-2006 Trolltech ASA. All rights reserved.
-**
-** This file is part of the Qt Designer of the Qt Toolkit.
-**
-** This file may be used under the terms of the GNU General Public
-** License version 2.0 as published by the Free Software Foundation
-** and appearing in the file LICENSE.GPL included in the packaging of
-** this file.  Please review the following information to ensure GNU
-** General Public Licensing requirements will be met:
-** http://www.trolltech.com/products/qt/opensource.html
-**
-** If you are unsure which license is appropriate for your use, please
-** review the following information:
-** http://www.trolltech.com/products/qt/licensing.html or contact the
-** sales department at sales@trolltech.com.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-****************************************************************************/
 void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const
 {
+	// draw the button
 	QStyleOptionButton buttonOption;
-
 	buttonOption.state = option.state;
 #ifdef Q_WS_MAC
 	buttonOption.state |= QStyle::State_Raised;
@@ -66,23 +42,21 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
 	buttonOption.features = QStyleOptionButton::None;
 	view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, view);
 
+	// draw the branch indicator
 	QStyleOption branchOption;
-	static const int i = 9; // ### hardcoded in qcommonstyle.cpp
-	QRect r = option.rect;
+	static const int i = 9;
+	const QRect& r = option.rect;
 	branchOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
 	branchOption.palette = option.palette;
 	branchOption.state = QStyle::State_Children;
-
 	if (view->isExpanded(index))
 		branchOption.state |= QStyle::State_Open;
-
 	view->style()->drawPrimitive(QStyle::PE_IndicatorBranch, &branchOption, painter, view);
 
-        // draw text
+        // draw the text
 	QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - ((5*i)/2), r.height());
 	QString text = option.fontMetrics.elidedText(index.data().toString(), elide, textrect.width());
-	view->style()->drawItemText(painter, textrect, Qt::AlignCenter,
-		    option.palette, view->isEnabled(), text);
+	view->style()->drawItemText(painter, textrect, Qt::AlignCenter, option.palette, view->isEnabled(), text);
 }
 
 /*!

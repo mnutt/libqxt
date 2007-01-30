@@ -27,59 +27,35 @@ QxtPushButtonPrivate::QxtPushButtonPrivate() :
 {
 }
 
-// NOTE: The method below has been borrowed from
-// $QTSRC/src/gui/widgetsqpushbutton.cpp (get rid of this in Qt 4.3)
-/****************************************************************************
-**
-** Copyright (C) 1992-2006 Trolltech ASA. All rights reserved.
-**
-** This file is part of the QtGui module of the Qt Toolkit.
-**
-** This file may be used under the terms of the GNU General Public
-** License version 2.0 as published by the Free Software Foundation
-** and appearing in the file LICENSE.GPL included in the packaging of
-** this file.  Please review the following information to ensure GNU
-** General Public Licensing requirements will be met:
-** http://www.trolltech.com/products/qt/opensource.html
-**
-** If you are unsure which license is appropriate for your use, please
-** review the following information:
-** http://www.trolltech.com/products/qt/licensing.html or contact the
-** sales department at sales@trolltech.com.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-****************************************************************************/
 QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 {
-	QStyleOptionButton opt;
-	opt.initFrom(&qxt_p());
+	QStyleOptionButton option;
+	option.initFrom(&qxt_p());
 	if (rot & Vertical_Mask)
 	{
-		QSize size = opt.rect.size();
+		QSize size = option.rect.size();
 		size.transpose();
-		opt.rect.setSize(size);
+		option.rect.setSize(size);
 	}
-	opt.features = QStyleOptionButton::None;
+	option.features = QStyleOptionButton::None;
 	if (qxt_p().isFlat())
-		opt.features |= QStyleOptionButton::Flat;
+		option.features |= QStyleOptionButton::Flat;
 	if (qxt_p().menu())
-		opt.features |= QStyleOptionButton::HasMenu;
+		option.features |= QStyleOptionButton::HasMenu;
 	if (qxt_p().autoDefault() || qxt_p().isDefault())
-		opt.features |= QStyleOptionButton::AutoDefaultButton;
+		option.features |= QStyleOptionButton::AutoDefaultButton;
 	if (qxt_p().isDefault())
-		opt.features |= QStyleOptionButton::DefaultButton;
+		option.features |= QStyleOptionButton::DefaultButton;
 	if (qxt_p().isDown() || (qxt_p().menu() && qxt_p().menu()->isVisible()))
-		opt.state |= QStyle::State_Sunken;
+		option.state |= QStyle::State_Sunken;
 	if (qxt_p().isChecked())
-		opt.state |= QStyle::State_On;
+		option.state |= QStyle::State_On;
 	if (!qxt_p().isFlat() && !qxt_p().isDown())
-		opt.state |= QStyle::State_Raised;
-	opt.text = qxt_p().text();
-	opt.icon = qxt_p().icon();
-	opt.iconSize = qxt_p().iconSize();
-	return opt;
+		option.state |= QStyle::State_Raised;
+	option.text = qxt_p().text();
+	option.icon = qxt_p().icon();
+	option.iconSize = qxt_p().iconSize();
+	return option;
 }
 
 /*!
