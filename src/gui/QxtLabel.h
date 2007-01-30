@@ -53,8 +53,13 @@ public:
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
 	
+signals:
+	void clicked();
+	
 protected:
 	virtual void changeEvent(QEvent* event);
+	virtual void mousePressEvent(QMouseEvent* event);
+	virtual void mouseReleaseEvent(QMouseEvent* event);
 	virtual void paintEvent(QPaintEvent* event);
 };
 

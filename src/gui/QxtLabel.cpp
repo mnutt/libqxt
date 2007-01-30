@@ -5,9 +5,11 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 #include "QxtLabel.h"
+#include <QTime>
 #include <QEvent>
 #include <QPainter>
 #include <QFontMetrics>
+#include <QApplication>
 
 static const int Vertical_Mask = 0x02;
 
@@ -19,6 +21,7 @@ public:
 	void init(const QString& txt = QString());
 	void updateLabel();
 	
+	QTime time;
 	QString text;
 	Qt::Alignment align;
 	Qt::TextElideMode mode;
@@ -42,9 +45,12 @@ void QxtLabelPrivate::updateLabel()
 /*!
     \class QxtLabel QxtLabel
     \ingroup gui
-    \brief A simple label which is able to show elided and rotated text.
+    \brief A simplified label which is able to show elided and rotated text.
 
     QxtLabel is a simple label widget able to show elided and rotated plain text.
+    In addition, QxtLabel provides a signal for clicking.
+
+    \note Requires Qt 4.2 or newer.
  */
 
 /*!
@@ -56,6 +62,12 @@ void QxtLabelPrivate::updateLabel()
     \value UpsideDown        Upside down (180 degrees).
     \value Clockwise         Clockwise (90 degrees).
     \value CounterClockwise  CounterClockwise (-90 degrees).
+ */
+
+/*!
+    \fn QxtLabel::clicked()
+
+    This signal is emitted whenever the label has been clicked.
  */
 
 /*!
@@ -84,20 +96,14 @@ QxtLabel::~QxtLabel()
 }
 
 /*!
-    Returns the text.
-
-    \sa setText()
+    \property QxtLabel::text
+    \brief This property holds the text of the label
  */
 QString QxtLabel::text() const
 {
 	return qxt_d().text;
 }
 
-/*!
-    Sets the text to \a text.
-
-    \sa text()
- */
 void QxtLabel::setText(const QString& text)
 {
 	if (qxt_d().text != text)
@@ -108,22 +114,19 @@ void QxtLabel::setText(const QString& text)
 }
 
 /*!
-    Returns the alignment.
+    \property QxtLabel::alignment
+    \brief This property holds the alignment of the text
 
-    The default value of this property is Qt::AlignLeft | Qt::AlignTop.
+    The text is aligned according to this property.
+    The default value is Qt::AlignLeft | Qt::AlignTop.
 
-    \sa setAlignment()
+    \sa text
  */
 Qt::Alignment QxtLabel::alignment() const
 {
 	return qxt_d().align;
 }
 
-/*!
-    Sets the alignment to \a alignment.
-
-    \sa alignment()
- */
 void QxtLabel::setAlignment(Qt::Alignment alignment)
 {
 	if (qxt_d().align != alignment)
@@ -134,22 +137,19 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
 }
 
 /*!
-    Returns the text elide mode.
+    \property QxtLabel::elideMode
+    \brief This property holds the elide mode of the text
 
-    The default value of this property is Qt::ElideMiddle.
+    The text is elided according to this property.
+    The default value is Qt::ElideMiddle.
 
-    \sa setElideMode()
+    \sa text
  */
 Qt::TextElideMode QxtLabel::elideMode() const
 {
 	return qxt_d().mode;
 }
 
-/*!
-    Sets the text elide mode to \a mode.
-
-    \sa elideMode()
- */
 void QxtLabel::setElideMode(Qt::TextElideMode mode)
 {
 	if (qxt_d().mode != mode)
@@ -160,22 +160,19 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
 }
 
 /*!
-    Returns the rotation.
+    \property QxtLabel::rotation
+    \brief This property holds the rotation of the label
 
-    The default value of this property is QxtGui::NoRotation.
+    The label is rotated according to this property.
+    The default value is QxtLabel::NoRotation.
 
-    \sa setRotation() QxtLabel::Rotation
+    \sa QxtLabel::Rotation
  */
 QxtLabel::Rotation QxtLabel::rotation() const
 {
 	return qxt_d().rot;
 }
 
-/*!
-    Sets the rotation to \a rotation.
-
-    \sa rotation()
- */
 void QxtLabel::setRotation(Rotation rotation)
 {
 	if (qxt_d().rot != rotation)
@@ -282,4 +279,17 @@ void QxtLabel::changeEvent(QEvent* event)
 			// nothing to do
 			break;
 	}
+}
+
+void QxtLabel::mousePressEvent(QMouseEvent* event)
+{
+	QFrame::mousePressEvent(event);
+	qxt_d().time.start();
+}
+
+void QxtLabel::mouseReleaseEvent(QMouseEvent* event)
+{
+	QFrame::mouseReleaseEvent(event);
+	if (qxt_d().time.elapsed() < qApp->doubleClickInterval())
+		emit clicked();
 }

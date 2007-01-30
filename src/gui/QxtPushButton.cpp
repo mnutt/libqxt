@@ -15,19 +15,42 @@ class QxtPushButtonPrivate : public QxtPrivate<QxtPushButton>
 {
 public:
 	QXT_DECLARE_PUBLIC(QxtPushButton);
+	QxtPushButtonPrivate();
 	
-	void init();
 	QStyleOptionButton getStyleOption() const;
 	
 	QxtPushButton::Rotation rot;
 };
 
-void QxtPushButtonPrivate::init()
+QxtPushButtonPrivate::QxtPushButtonPrivate() :
+	rot(QxtPushButton::NoRotation)
 {
-	rot = QxtPushButton::NoRotation;
 }
 
-// borrowed from qpushbutton.h (get rid of this in Qt 4.3)
+// NOTE: The method below has been borrowed from
+// $QTSRC/src/gui/widgetsqpushbutton.cpp (get rid of this in Qt 4.3)
+/****************************************************************************
+**
+** Copyright (C) 1992-2006 Trolltech ASA. All rights reserved.
+**
+** This file is part of the QtGui module of the Qt Toolkit.
+**
+** This file may be used under the terms of the GNU General Public
+** License version 2.0 as published by the Free Software Foundation
+** and appearing in the file LICENSE.GPL included in the packaging of
+** this file.  Please review the following information to ensure GNU
+** General Public Licensing requirements will be met:
+** http://www.trolltech.com/products/qt/opensource.html
+**
+** If you are unsure which license is appropriate for your use, please
+** review the following information:
+** http://www.trolltech.com/products/qt/licensing.html or contact the
+** sales department at sales@trolltech.com.
+**
+** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+**
+****************************************************************************/
 QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 {
 	QStyleOptionButton opt;
@@ -84,7 +107,6 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 QxtPushButton::QxtPushButton(QWidget* parent) : QPushButton(parent)
 {
 	QXT_INIT_PRIVATE(QxtPushButton);
-	qxt_d().init();
 }
 
 /*!
@@ -93,7 +115,6 @@ QxtPushButton::QxtPushButton(QWidget* parent) : QPushButton(parent)
 QxtPushButton::QxtPushButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
 {
 	QXT_INIT_PRIVATE(QxtPushButton);
-	qxt_d().init();
 }
 
 /*!
@@ -102,7 +123,6 @@ QxtPushButton::QxtPushButton(const QString& text, QWidget* parent) : QPushButton
 QxtPushButton::QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent) : QPushButton(icon, text, parent)
 {
 	QXT_INIT_PRIVATE(QxtPushButton);
-	qxt_d().init();
 }
 
 /*!
@@ -113,22 +133,19 @@ QxtPushButton::~QxtPushButton()
 }
 
 /*!
-    Returns the rotation.
+    \property QxtPushButton::rotation
+    \brief This property holds the rotation of the button
 
-    The default value of this property is QxtPushButton::NoRotation.
+    The button is rotated according to this property.
+    The default value is QxtPushButton::NoRotation.
 
-    \sa setRotation() QxtPushButton::Rotation
+    \sa QxtPushButton::Rotation
  */
 QxtPushButton::Rotation QxtPushButton::rotation() const
 {
 	return qxt_d().rot;
 }
 
-/*!
-    Sets the rotation to \a rotation.
-
-    \sa rotation()
- */
 void QxtPushButton::setRotation(Rotation rotation)
 {
 	if (qxt_d().rot != rotation)
