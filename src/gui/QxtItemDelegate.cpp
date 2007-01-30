@@ -169,7 +169,7 @@ void QxtItemDelegate::setRootDecorated(bool decorate)
 
     \note The property has effect only in case rootDecorated is \c true.
 
-    \sa rootDecorated
+    \sa rootDecorated QxtItemDelegate::DecorationStyle
  */
 QxtItemDelegate::DecorationStyle QxtItemDelegate::decorationStyle() const
 {
