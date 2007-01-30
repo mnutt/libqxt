@@ -25,6 +25,10 @@ QXT_HEADERS_QxtPushButton        = QxtPushButton.h
 QXT_SOURCES_QxtPushButton        = QxtPushButton.cpp
 QXT_STABILITY_QxtPushButton      = +linux-g++
 
+QXT_GUI                         += QxtItemDelegate
+QXT_HEADERS_QxtItemDelegate      = QxtItemDelegate.h
+QXT_SOURCES_QxtItemDelegate      = QxtItemDelegate.cpp
+QXT_STABILITY_QxtPushButton      = +linux-g++
 
 include (../parts.pri)
 
