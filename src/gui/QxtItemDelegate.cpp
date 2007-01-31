@@ -6,6 +6,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include "QxtItemDelegate.h"
 #include <QTreeView>
+#include <QPainter>
 
 class QxtItemDelegatePrivate : public QxtPrivate<QxtItemDelegate>
 {
@@ -14,6 +15,7 @@ public:
 	QxtItemDelegatePrivate();
 	
 	void paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
+	void paintMenu(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
 	
 	bool decorate;
 	QxtItemDelegate::DecorationStyle style;
@@ -43,20 +45,57 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
 	view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, view);
 
 	// draw the branch indicator
-	QStyleOption branchOption;
 	static const int i = 9;
 	const QRect& r = option.rect;
-	branchOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
-	branchOption.palette = option.palette;
-	branchOption.state = QStyle::State_Children;
-	if (view->isExpanded(index))
-		branchOption.state |= QStyle::State_Open;
-	view->style()->drawPrimitive(QStyle::PE_IndicatorBranch, &branchOption, painter, view);
+	if (index.model()->hasChildren(index))
+	{
+		QStyleOption branchOption;
+		branchOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
+		branchOption.palette = option.palette;
+		branchOption.state = QStyle::State_Children;
+		if (view->isExpanded(index))
+			branchOption.state |= QStyle::State_Open;
+		view->style()->drawPrimitive(QStyle::PE_IndicatorBranch, &branchOption, painter, view);
+	}
 
-        // draw the text
+	// draw the text
 	QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - ((5*i)/2), r.height());
 	QString text = option.fontMetrics.elidedText(index.data().toString(), elide, textrect.width());
 	view->style()->drawItemText(painter, textrect, Qt::AlignCenter, option.palette, view->isEnabled(), text);
+}
+
+void QxtItemDelegatePrivate::paintMenu(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const
+{
+	// draw the menu bar item
+	QStyleOptionMenuItem menuOption;
+	menuOption.palette = view->palette();
+	menuOption.fontMetrics = view->fontMetrics();
+	menuOption.state = QStyle::State_None;
+	if (view->isEnabled() && index.flags() & Qt::ItemIsEnabled)
+		menuOption.state |= QStyle::State_Enabled;
+	else
+		menuOption.palette.setCurrentColorGroup(QPalette::Disabled);
+	menuOption.state |= QStyle::State_Selected;
+	menuOption.state |= QStyle::State_Sunken;
+	menuOption.state |= QStyle::State_HasFocus;
+	menuOption.rect = option.rect;
+	menuOption.text = index.data().toString();
+	menuOption.icon = QIcon(index.data(Qt::DecorationRole).value<QPixmap>());
+	view->style()->drawControl(QStyle::CE_MenuBarItem, &menuOption, painter, view);
+	
+	// draw the an arrow as a branch indicator
+	if (index.model()->hasChildren(index))
+	{
+		QStyle::PrimitiveElement arrow;
+		if (view->isExpanded(index))
+			arrow = QStyle::PE_IndicatorArrowUp;
+		else
+			arrow = QStyle::PE_IndicatorArrowDown;
+		static const int i = 9;
+		const QRect& r = option.rect;
+		menuOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
+		view->style()->drawPrimitive(arrow, &menuOption, painter, view);
+	}
 }
 
 /*!
@@ -67,7 +106,7 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
     QxtItemDelegate provides signals for starting and finishing of editing
     and an optional decoration for top level indices in a single column QTreeView.
 
-    \note Set QTreeView::rootIsDecorated to \c false to avoid multiple branch indicators.
+    \note Set \b QTreeView::rootIsDecorated to \b false to avoid multiple branch indicators.
 
     \note Requires Qt 4.2 or newer.
  */
@@ -77,8 +116,9 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
 
     This enum describes the decoration style of top level indices.
 
-    \value Buttonlike        A buttonlike style, just like in Qt Designer's Widget Box.
- */
+    \value Buttonlike      A style like in Qt Designer's Widget Box.
+    \value Menulike        A menu alike style.
+*/
 
 /*!
     \fn QxtItemDelegate::editingStarted(const QModelIndex& index)
@@ -115,8 +155,8 @@ QxtItemDelegate::~QxtItemDelegate()
     \property QxtItemDelegate::rootDecorated
     \brief This property holds whether top level indices are decorated
 
-    Top level indices are decorated if this property is \c true.
-    The default value is \c true.
+    Top level indices are decorated if this property is \b true.
+    The default value is \b true.
 
     \note The property has effect only in case the delegate
     is installed on a single column QTreeView. The view must
@@ -139,9 +179,9 @@ void QxtItemDelegate::setRootDecorated(bool decorate)
     \brief This property holds the top level index decoration style
 
     Top level indices are decorated according to this property.
-    The default value is QxtItemDelegate::Buttonlike.
+    The default value is \b QxtItemDelegate::Buttonlike.
 
-    \note The property has effect only in case rootDecorated is \c true.
+    \note The property has effect only in case rootDecorated is \b true.
 
     \sa rootDecorated QxtItemDelegate::DecorationStyle
  */
@@ -150,7 +190,7 @@ QxtItemDelegate::DecorationStyle QxtItemDelegate::decorationStyle() const
 	return qxt_d().style;
 }
 
-void QxtItemDelegate::setDecorationStyle(QxtItemDelegate::DecorationStyle style)
+void QxtItemDelegate::setDecorationStyle(DecorationStyle style)
 {
 	qxt_d().style = style;
 }
@@ -160,9 +200,9 @@ void QxtItemDelegate::setDecorationStyle(QxtItemDelegate::DecorationStyle style)
     \brief This property holds the text elide mode
 
     The text of a decorated top level item is elided according to this property.
-    The default value is Qt::ElideMiddle.
+    The default value is \b Qt::ElideMiddle.
 
-    \note The property has effect only in case rootDecorated is \c true.
+    \note The property has effect only in case rootDecorated is \b true.
 
     \sa rootDecorated
  */
@@ -201,6 +241,9 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 		{
 			case Buttonlike:
 				qxt_d().paintButton(painter, option, index, view);
+				break;
+			case Menulike:
+				qxt_d().paintMenu(painter, option, index, view);
 				break;
 			default:
 				// nothing to do
