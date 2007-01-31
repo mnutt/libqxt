@@ -25,7 +25,8 @@ class QXT_DLLEXPORT QxtItemDelegate : public QItemDelegate
 public:
 	enum DecorationStyle
 	{
-		Buttonlike
+		Buttonlike,
+		Menulike
 		// TODO: invent a few more of these..
 	};
 	
