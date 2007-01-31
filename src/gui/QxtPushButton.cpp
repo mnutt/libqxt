@@ -61,9 +61,9 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 /*!
     \class QxtPushButton QxtPushButton
     \ingroup gui
-    \brief A simple push button which can be rotated.
+    \brief A QPushButton which can be rotated.
 
-    QxtPushButton is a simple push button widget which can be rotated.
+    QxtPushButton is a QPushButton which can be rotated.
  */
 
 /*!
@@ -113,7 +113,7 @@ QxtPushButton::~QxtPushButton()
     \brief This property holds the rotation of the button
 
     The button is rotated according to this property.
-    The default value is QxtPushButton::NoRotation.
+    The default value is \b QxtPushButton::NoRotation.
 
     \sa QxtPushButton::Rotation
  */

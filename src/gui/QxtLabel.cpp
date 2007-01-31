@@ -118,7 +118,7 @@ void QxtLabel::setText(const QString& text)
     \brief This property holds the alignment of the text
 
     The text is aligned according to this property.
-    The default value is Qt::AlignLeft | Qt::AlignTop.
+    The default value is \b Qt::AlignLeft|Qt::AlignTop.
 
     \sa text
  */
@@ -141,7 +141,7 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
     \brief This property holds the elide mode of the text
 
     The text is elided according to this property.
-    The default value is Qt::ElideMiddle.
+    The default value is \b Qt::ElideMiddle.
 
     \sa text
  */
@@ -164,7 +164,7 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
     \brief This property holds the rotation of the label
 
     The label is rotated according to this property.
-    The default value is QxtLabel::NoRotation.
+    The default value is \b QxtLabel::NoRotation.
 
     \sa QxtLabel::Rotation
  */
