@@ -13,12 +13,14 @@ sometimes you want to just connect a signal with no parameter to a slot with, an
 QxtMetaBall allowes you even to put expressions in. It requires the Qxt Meta Object Extender.
 if you use qmake, just add CONFIG+=mox to your project file, it should automaticly invoce mox to create the nesacary mox_*  files, do NOT include those auto generated files yourself.
 
-Usage:
+Usage examples:
 \code
-metaball(sender,SIGNAL(signal(int)),receiver,SLOT(slot(bool)),BALL(value>0));
+QxtMetaBall::connect(sender,SIGNAL(signal(int)),receiver,SLOT(slot(bool)),BALL(value>0));
+QxtMetaBall::connect(write, SIGNAL(clicked()), text, SLOT(write(QString)),BALL(QString("foobar")));
+QxtMetaBall::connect(write, SIGNAL(clicked()), text, SLOT(write(QString)),BALL(textBox->text()));
+
 \endcode
 
-This will call receiver->slot(value>0) with the value emited by the signal sender->signal(int)
 */
 
 ///TODO:include classname in the signature to avoid colision
