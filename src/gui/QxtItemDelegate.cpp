@@ -8,6 +8,8 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QTreeView>
 #include <QPainter>
 
+static const int TOP_LEVEL_EXTENT = 2;
+
 class QxtItemDelegatePrivate : public QxtPrivate<QxtItemDelegate>
 {
 public:
@@ -38,6 +40,8 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
 	buttonOption.state |= QStyle::State_Raised;
 #endif
 	buttonOption.state &= ~QStyle::State_HasFocus;
+	if (view->isExpanded(index))
+		buttonOption.state |= QStyle::State_Sunken;
 
 	buttonOption.rect = option.rect;
 	buttonOption.palette = option.palette;
@@ -199,7 +203,7 @@ void QxtItemDelegate::setDecorationStyle(DecorationStyle style)
     \property QxtItemDelegate::elideMode
     \brief This property holds the text elide mode
 
-    The text of a decorated top level item is elided according to this property.
+    The text of a decorated top level index is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
     \note The property has effect only in case rootDecorated is \b true.
@@ -258,5 +262,9 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 
 QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-	return QItemDelegate::sizeHint(option, index) + QSize(2, 2);
+	// something slightly bigger for top level indices
+	QSize size = QItemDelegate::sizeHint(option, index);
+	if (!index.parent().isValid())
+		size += QSize(TOP_LEVEL_EXTENT, TOP_LEVEL_EXTENT);
+	return  size;
 }
