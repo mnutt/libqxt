@@ -5,40 +5,23 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 #include "QxtTreeWidget.h"
+#include "QxtTreeWidget_p.h"
 #include "QxtItemDelegate.h"
 #include <QHeaderView>
-
-class QxtTreeWidgetPrivate : public QObject, public QxtPrivate<QxtTreeWidget>
-{
-	Q_OBJECT
-public:
-	QXT_DECLARE_PUBLIC(QxtTreeWidget);
-	QxtItemDelegate* delegate() const;
-	
-private slots:
-	void informStartEditing(const QModelIndex& index);
-	void informFinishEditing(const QModelIndex& index);
-	void expandCollapse(QTreeWidgetItem* item);
-};
-
-QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
-{
-	return dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
-}
-
+#include <QObject>
 
 void QxtTreeWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
 	QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
 	Q_ASSERT(item);
-	qxt_p().itemEditingStarted(item);
+	emit qxt_p().itemEditingStarted(item);
 }
 
 void QxtTreeWidgetPrivate::informFinishEditing(const QModelIndex& index)
 {
 	QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
 	Q_ASSERT(item);
-	qxt_p().itemEditingFinished(item);
+	emit qxt_p().itemEditingFinished(item);
 }
 
 void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
@@ -46,8 +29,6 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 	if (item && !item->parent())
 		qxt_p().setItemExpanded(item, !qxt_p().isItemExpanded(item));
 }
-
-#include "QxtTreeWidget.moc"
 
 /*!
     \class QxtTreeWidget QxtTreeWidget
