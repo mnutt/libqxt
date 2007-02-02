@@ -11,6 +11,7 @@ HEADERS += QxtDesignerPlugins.h \
            QxtLabelPlugin.h        ../src/gui/QxtLabel.h \
            QxtPushButtonPlugin.h   ../src/gui/QxtPushButton.h \
            QxtTreeWidgetPlugin.h   ../src/gui/QxtTreeWidget.h \
+                                   ../src/gui/QxtTreeWidget_p.h \
                                    ../src/gui/QxtItemDelegate.h
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
