@@ -10,6 +10,11 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QHeaderView>
 #include <QObject>
 
+QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
+{
+	return dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
+}
+
 void QxtTreeWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
 	QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
