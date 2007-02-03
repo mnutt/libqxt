@@ -13,7 +13,8 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
 {
 	QList<QDesignerCustomWidgetInterface*> plugins;
 	plugins << new QxtLabelPlugin()
-		<< new QxtPushButtonPlugin();
+		<< new QxtPushButtonPlugin()
+		<< new QxtTreeWidgetPlugin();
 	return plugins;
 }
 
