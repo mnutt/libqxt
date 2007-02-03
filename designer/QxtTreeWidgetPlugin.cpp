@@ -8,27 +8,22 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtTreeWidgetPlugin.h"
 #include <QtPlugin>
 
-#include <QDebug>
 QxtTreeWidgetPlugin::QxtTreeWidgetPlugin(QObject* parent) : QObject(parent)
 {
-	qDebug() << "ctor";
 }
 
 QWidget* QxtTreeWidgetPlugin::createWidget(QWidget* parent)
 {
-	qDebug() << "createWidget";
 	return new QxtTreeWidget(parent);
 }
 
 QString QxtTreeWidgetPlugin::name() const
 {
-	qDebug() << "name";
 	return "QxtTreeWidget";
 }
 
 QString QxtTreeWidgetPlugin::domXml() const
 {
-	qDebug() << "xml";
 	return "<widget class=\"QxtTreeWidget\" name=\"qxtTreeWidget\">\n"
 		" <property name=\"geometry\">\n"
 		"  <rect>\n"
@@ -46,6 +41,5 @@ QString QxtTreeWidgetPlugin::domXml() const
 
 QString QxtTreeWidgetPlugin::includeFile() const
 {
-	qDebug() << "incl";
 	return "QxtTreeWidget";
 }
