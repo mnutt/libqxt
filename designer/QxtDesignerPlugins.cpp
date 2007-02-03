@@ -7,6 +7,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtDesignerPlugins.h"
 #include "QxtLabelPlugin.h"
 #include "QxtPushButtonPlugin.h"
+#include "QxtTreeWidgetPlugin.h"
 #include <QtPlugin>
 
 QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
