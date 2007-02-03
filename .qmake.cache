@@ -4,7 +4,6 @@ QXT_stability = stable
 
 QXVERSION = 0.2
 
-DEFINES += BUILDING_QXT_LIBRARY
 
 
 
