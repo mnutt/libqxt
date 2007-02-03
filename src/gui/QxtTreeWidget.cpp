@@ -8,7 +8,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtTreeWidget_p.h"
 #include "QxtItemDelegate.h"
 #include <QHeaderView>
-#include <QObject>
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
 {
@@ -95,7 +94,6 @@ bool QxtTreeWidget::isRootDecorated() const
 {
 	Q_ASSERT(qxt_d().delegate());
 	return qxt_d().delegate()->isRootDecorated();
-	return true;
 }
 
 void QxtTreeWidget::setRootDecorated(bool decorate)

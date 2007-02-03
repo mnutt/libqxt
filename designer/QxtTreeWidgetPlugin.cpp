@@ -24,19 +24,7 @@ QString QxtTreeWidgetPlugin::name() const
 
 QString QxtTreeWidgetPlugin::domXml() const
 {
-	return "<widget class=\"QxtTreeWidget\" name=\"qxtTreeWidget\">\n"
-		" <property name=\"geometry\">\n"
-		"  <rect>\n"
-		"   <x>0</x>\n"
-		"   <y>0</y>\n"
-		"   <width>57</width>\n"
-		"   <height>17</height>\n"
-		"  </rect>\n"
-		" </property>\n"
-//		" <property name=\"text\" >\n"
-//		"  <string>QxtTreeWidget</string>\n"
-//		" </property>\n"
-		"</widget>\n";
+	return "<widget class=\"QxtTreeWidget\" name=\"qxtTreeWidget\" />";
 }
 
 QString QxtTreeWidgetPlugin::includeFile() const
