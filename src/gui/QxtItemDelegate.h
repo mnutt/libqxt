@@ -9,11 +9,11 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QItemDelegate>
 #include <QxtDefines.h>
-#include <core/QxtPimpl.h>
+#include <Qxt/qxtglobal.h>
 
 class QxtItemDelegatePrivate;
 
-class QXT_DLLEXPORT QxtItemDelegate : public QItemDelegate
+class QXT_GUI_EXPORT QxtItemDelegate : public QItemDelegate
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtItemDelegate);
