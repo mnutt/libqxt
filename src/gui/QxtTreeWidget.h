@@ -9,8 +9,8 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QTreeWidget>
 #include <Qxt/qxtglobal.h>
+#include <Qxt/qxtnamespace.h>
 #include <QxtCore/QxtPimpl>
-#include <QxtItemDelegate.h>
 
 class QxtTreeWidgetPrivate;
 
@@ -19,7 +19,7 @@ class QXT_GUI_EXPORT QxtTreeWidget : public QTreeWidget
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtTreeWidget);
 	Q_PROPERTY(bool rootDecorated READ isRootDecorated WRITE setRootDecorated)
-	Q_PROPERTY(QxtItemDelegate::DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
+	Q_PROPERTY(Qxt::DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
 	Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode)
 	
 public:
@@ -29,8 +29,8 @@ public:
 	bool isRootDecorated() const;
 	void setRootDecorated(bool decorate);
 	
-	QxtItemDelegate::DecorationStyle decorationStyle() const;
-	void setDecorationStyle(QxtItemDelegate::DecorationStyle style);
+	Qxt::DecorationStyle decorationStyle() const;
+	void setDecorationStyle(Qxt::DecorationStyle style);
 	
 	Qt::TextElideMode elideMode() const;
 	void setElideMode(Qt::TextElideMode mode);

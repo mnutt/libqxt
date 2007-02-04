@@ -20,13 +20,13 @@ public:
 	void paintMenu(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
 	
 	bool decorate;
-	QxtItemDelegate::DecorationStyle style;
+	Qxt::DecorationStyle style;
 	Qt::TextElideMode elide;
 };
 
 QxtItemDelegatePrivate::QxtItemDelegatePrivate() :
 	decorate(true),
-	style(QxtItemDelegate::Buttonlike),
+	style(Qxt::Buttonlike),
 	elide(Qt::ElideMiddle)
 {
 }
@@ -116,15 +116,6 @@ void QxtItemDelegatePrivate::paintMenu(QPainter* painter, const QStyleOptionView
  */
 
 /*!
-    \enum QxtItemDelegate::DecorationStyle
-
-    This enum describes the decoration style of top level indices.
-
-    \value Buttonlike      A style like in Qt Designer's Widget Box.
-    \value Menulike        A menu alike style.
-*/
-
-/*!
     \fn QxtItemDelegate::editingStarted(const QModelIndex& index)
 
     This signal is emitted immediately after the editing of \a index has been started.
@@ -183,18 +174,18 @@ void QxtItemDelegate::setRootDecorated(bool decorate)
     \brief This property holds the top level index decoration style
 
     Top level indices are decorated according to this property.
-    The default value is \b QxtItemDelegate::Buttonlike.
+    The default value is \b Qxt::Buttonlike.
 
     \note The property has effect only in case rootDecorated is \b true.
 
-    \sa rootDecorated QxtItemDelegate::DecorationStyle
+    \sa rootDecorated Qxt::DecorationStyle
  */
-QxtItemDelegate::DecorationStyle QxtItemDelegate::decorationStyle() const
+Qxt::DecorationStyle QxtItemDelegate::decorationStyle() const
 {
 	return qxt_d().style;
 }
 
-void QxtItemDelegate::setDecorationStyle(DecorationStyle style)
+void QxtItemDelegate::setDecorationStyle(Qxt::DecorationStyle style)
 {
 	qxt_d().style = style;
 }
@@ -243,14 +234,14 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 	{
 		switch (qxt_d().style)
 		{
-			case Buttonlike:
+			case Qxt::Buttonlike:
 				qxt_d().paintButton(painter, option, index, view);
 				break;
-			case Menulike:
+			case Qxt::Menulike:
 				qxt_d().paintMenu(painter, option, index, view);
 				break;
 			default:
-				// nothing to do
+				QItemDelegate::paint(painter, option, index);
 				break;
 		}
 	}

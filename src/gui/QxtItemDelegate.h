@@ -9,6 +9,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QItemDelegate>
 #include <Qxt/qxtglobal.h>
+#include <Qxt/qxtnamespace.h>
 #include <QxtCore/QxtPimpl>
 
 class QxtItemDelegatePrivate;
@@ -18,26 +19,18 @@ class QXT_GUI_EXPORT QxtItemDelegate : public QItemDelegate
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtItemDelegate);
 	Q_PROPERTY(bool rootDecorated READ isRootDecorated WRITE setRootDecorated)
-	Q_PROPERTY(DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
+	Q_PROPERTY(Qxt::DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
 	Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode)
-	Q_ENUMS(DecorationStyle)
 	
 public:
-	enum DecorationStyle
-	{
-		Buttonlike,
-		Menulike
-		// TODO: invent a few more of these..
-	};
-	
 	explicit QxtItemDelegate(QObject* parent = 0);
 	virtual ~QxtItemDelegate();
 	
 	bool isRootDecorated() const;
 	void setRootDecorated(bool decorate);
 	
-	DecorationStyle decorationStyle() const;
-	void setDecorationStyle(DecorationStyle style);
+	Qxt::DecorationStyle decorationStyle() const;
+	void setDecorationStyle(Qxt::DecorationStyle style);
 	
 	Qt::TextElideMode elideMode() const;
 	void setElideMode(Qt::TextElideMode mode);
