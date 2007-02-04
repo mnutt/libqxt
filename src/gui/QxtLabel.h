@@ -8,12 +8,12 @@ released under the Terms of LGPL (see the LICENSE file)
 #define QXTLABEL_H
 
 #include <QFrame>
-#include <QxtDefines.h>
-#include <core/QxtPimpl.h>
+#include <Qxt/qxtglobal.h>
+#include <QxtCore/QxtPimpl.h>
 
 class QxtLabelPrivate;
 
-class QXT_DLLEXPORT QxtLabel : public QFrame
+class QXT_GUI_EXPORT QxtLabel : public QFrame
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtLabel);
