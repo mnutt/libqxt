@@ -25,7 +25,7 @@ public:
 	QString text;
 	Qt::Alignment align;
 	Qt::TextElideMode mode;
-	QxtLabel::Rotation rot;
+	Qxt::Rotation rot;
 };
 
 void QxtLabelPrivate::init(const QString& txt)
@@ -33,7 +33,7 @@ void QxtLabelPrivate::init(const QString& txt)
 	text = txt;
 	align = Qt::AlignLeft | Qt::AlignTop;
 	mode = Qt::ElideMiddle;
-	rot = QxtLabel::NoRotation;
+	rot = Qxt::NoRotation;
 }
 
 void QxtLabelPrivate::updateLabel()
@@ -168,29 +168,29 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
 
     \sa QxtLabel::Rotation
  */
-QxtLabel::Rotation QxtLabel::rotation() const
+Qxt::Rotation QxtLabel::rotation() const
 {
 	return qxt_d().rot;
 }
 
-void QxtLabel::setRotation(Rotation rotation)
+void QxtLabel::setRotation(Qxt::Rotation rotation)
 {
 	if (qxt_d().rot != rotation)
 	{
-		Rotation prev = qxt_d().rot;
+		Qxt::Rotation prev = qxt_d().rot;
 		qxt_d().rot = rotation;
 		switch (rotation)
 		{
-			case NoRotation:
-			case UpsideDown:
+			case Qxt::NoRotation:
+			case Qxt::UpsideDown:
 				if (prev & Vertical_Mask)
 				{
 					updateGeometry();
 				}
 				break;
 				
-			case Clockwise:
-			case CounterClockwise:
+			case Qxt::Clockwise:
+			case Qxt::CounterClockwise:
 				if (prev & Vertical_Mask == 0)
 				{
 					updateGeometry();
@@ -238,15 +238,15 @@ void QxtLabel::paintEvent(QPaintEvent* event)
 	QRect r = contentsRect();
 	switch (qxt_d().rot)
 	{
-		case UpsideDown:
+		case Qxt::UpsideDown:
 			p.translate(-r.width(), -r.height());
 			break;
 
-		case Clockwise:
+		case Qxt::Clockwise:
 			p.translate(0, -r.width());
 			break;
 			
-		case CounterClockwise:
+		case Qxt::CounterClockwise:
 			p.translate(-r.height(), 0);
 			break;
 			
