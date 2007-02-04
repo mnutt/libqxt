@@ -19,11 +19,11 @@ public:
 	
 	QStyleOptionButton getStyleOption() const;
 	
-	QxtPushButton::Rotation rot;
+	Qxt::Rotation rot;
 };
 
 QxtPushButtonPrivate::QxtPushButtonPrivate() :
-	rot(QxtPushButton::NoRotation)
+	rot(Qxt::NoRotation)
 {
 }
 
@@ -67,17 +67,6 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
  */
 
 /*!
-    \enum QxtPushButton::Rotation
-
-    This enum describes the rotation of the text.
-
-    \value NoRotation        No rotation.
-    \value UpsideDown        Upside down (180 degrees).
-    \value Clockwise         Clockwise (90 degrees).
-    \value CounterClockwise  CounterClockwise (-90 degrees).
- */
-
-/*!
     Constructs a new QxtPushButton with \a parent.
  */
 QxtPushButton::QxtPushButton(QWidget* parent) : QPushButton(parent)
@@ -113,29 +102,29 @@ QxtPushButton::~QxtPushButton()
     \brief This property holds the rotation of the button
 
     The button is rotated according to this property.
-    The default value is \b QxtPushButton::NoRotation.
+    The default value is \b Qxt::NoRotation.
 
-    \sa QxtPushButton::Rotation
+    \sa Qxt::Rotation
  */
-QxtPushButton::Rotation QxtPushButton::rotation() const
+Qxt::Rotation QxtPushButton::rotation() const
 {
 	return qxt_d().rot;
 }
 
-void QxtPushButton::setRotation(Rotation rotation)
+void QxtPushButton::setRotation(Qxt::Rotation rotation)
 {
 	if (qxt_d().rot != rotation)
 	{
 		qxt_d().rot = rotation;
 		switch (rotation)
 		{
-			case NoRotation:
-			case UpsideDown:
+			case Qxt::NoRotation:
+			case Qxt::UpsideDown:
 				setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 				break;
 			
-			case Clockwise:
-			case CounterClockwise:
+			case Qxt::Clockwise:
+			case Qxt::CounterClockwise:
 				setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 				break;
 			
@@ -171,15 +160,15 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 	painter.rotate(qxt_d().rot);
 	switch (qxt_d().rot)
 	{
-		case UpsideDown:
+		case Qxt::UpsideDown:
 			painter.translate(-width(), -height());
 			break;
 
-		case Clockwise:
+		case Qxt::Clockwise:
 			painter.translate(0, -width());
 			break;
 			
-		case CounterClockwise:
+		case Qxt::CounterClockwise:
 			painter.translate(-height(), 0);
 			break;
 			

@@ -31,7 +31,7 @@ public:
 void QxtLabelPrivate::init(const QString& txt)
 {
 	text = txt;
-	align = Qt::AlignLeft | Qt::AlignTop;
+	align = Qt::AlignCenter;
 	mode = Qt::ElideMiddle;
 	rot = Qxt::NoRotation;
 }
@@ -51,17 +51,6 @@ void QxtLabelPrivate::updateLabel()
     In addition, QxtLabel provides a signal for clicking.
 
     \note Requires Qt 4.2 or newer.
- */
-
-/*!
-    \enum QxtLabel::Rotation
-
-    This enum describes the rotation of the text.
-
-    \value NoRotation        No rotation.
-    \value UpsideDown        Upside down (180 degrees).
-    \value Clockwise         Clockwise (90 degrees).
-    \value CounterClockwise  CounterClockwise (-90 degrees).
  */
 
 /*!
@@ -118,7 +107,7 @@ void QxtLabel::setText(const QString& text)
     \brief This property holds the alignment of the text
 
     The text is aligned according to this property.
-    The default value is \b Qt::AlignLeft|Qt::AlignTop.
+    The default value is \b Qt::AlignCenter.
 
     \sa text
  */
@@ -164,9 +153,9 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
     \brief This property holds the rotation of the label
 
     The label is rotated according to this property.
-    The default value is \b QxtLabel::NoRotation.
+    The default value is \b Qxt::NoRotation.
 
-    \sa QxtLabel::Rotation
+    \sa Qxt::Rotation
  */
 Qxt::Rotation QxtLabel::rotation() const
 {
@@ -262,8 +251,8 @@ void QxtLabel::paintEvent(QPaintEvent* event)
 		r = QRect(r.topLeft(), s);
 	}
 	
-	const QFontMetrics& fm = fontMetrics();
-	p.drawText(r, qxt_d().align, fm.elidedText(qxt_d().text, qxt_d().mode, r.width()));
+	const QString elidedText = fontMetrics().elidedText(qxt_d().text, qxt_d().mode, r.width());
+	p.drawText(r, qxt_d().align, elidedText);
 }
 
 void QxtLabel::changeEvent(QEvent* event)
