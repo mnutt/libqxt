@@ -24,11 +24,11 @@ for confidence the interface is similiar to QSqlQuery.
 #include <QHash>
 #include <QList>
 #include <QtSql>
-#include "QxtDefines.h"
+#include <Qxt/qxtglobal.h>
 
 
 
-class QXT_DLLEXPORT QxtSqlPackage : public  QObject
+class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 
 {
 

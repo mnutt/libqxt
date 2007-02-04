@@ -17,12 +17,12 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTSQLTABLEMODEL_H
 #define QXTSQLTABLEMODEL_H
 #include <QAbstractTableModel>
-#include <QxtSqlPackage.h>
-#include "QxtDefines.h"
+#include <QxtSql/QxtSqlPackage>
+#include <Qxt/qxtglobal.h>
 #include <QHash>
 
 
-class QXT_DLLEXPORT QxtSqlPackageModel : public  QAbstractTableModel
+class QXT_SQL_EXPORT QxtSqlPackageModel : public  QAbstractTableModel
 {
 public:
 /// \reimp
