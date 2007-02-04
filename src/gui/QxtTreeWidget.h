@@ -8,13 +8,13 @@ released under the Terms of LGPL (see the LICENSE file)
 #define QXTTREEWIDGET_H
 
 #include <QTreeWidget>
-#include <QxtDefines.h>
-#include <core/QxtPimpl.h>
+#include <Qxt/qxtglobal.h>
+#include <QxtCore/QxtPimpl>
 #include <QxtItemDelegate.h>
 
 class QxtTreeWidgetPrivate;
 
-class QXT_DLLEXPORT QxtTreeWidget : public QTreeWidget
+class QXT_GUI_EXPORT QxtTreeWidget : public QTreeWidget
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtTreeWidget);

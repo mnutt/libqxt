@@ -8,12 +8,12 @@ released under the Terms of LGPL (see the LICENSE file)
 #define QXTPUSHBUTTON_H
 
 #include <QPushButton>
-#include <QxtDefines.h>
-#include <core/QxtPimpl.h>
+#include <QxtCore/QxtPimpl>
+#include <Qxt/qxtglobal.h>
 
 class QxtPushButtonPrivate;
 
-class QXT_DLLEXPORT QxtPushButton : public QPushButton
+class QXT_GUI_EXPORT QxtPushButton : public QPushButton
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtPushButton);

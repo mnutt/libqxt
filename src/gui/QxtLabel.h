@@ -9,7 +9,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QFrame>
 #include <Qxt/qxtglobal.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtCore/QxtPimpl>
 
 class QxtLabelPrivate;
 
