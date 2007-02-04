@@ -37,10 +37,6 @@ class QXT_KIT_EXPORT QxtMetaBall
 	private:
 
 	static QObject * MetaTable()
-		#ifdef BUILDING_QXT_LIBRARY
-			{qWarning("QxtMetaBall should not be called from here! That is either a bug or you defined BUILDING_QXT_LIBRARY acidently."); return 0;}
-		#else
-			;
-		#endif
+			{qWarning("QxtMetaBall should not be called from here! BUG"); return 0;}
 	};
 
