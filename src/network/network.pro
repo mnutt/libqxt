@@ -21,8 +21,8 @@ VERSION = $$QXVERSION
 TEMPLATE = lib
 TARGET = QxtNetwork
 DEPENDPATH += .
-INCLUDEPATH += . ..
-
+INCLUDEPATH += .
+DEFINES += BUILD_QXT_NETWORK
 QT = core network
 
 
