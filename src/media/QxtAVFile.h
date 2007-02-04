@@ -11,6 +11,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QString>
 #include <QStringList>
 #include <Qxt/qxtglobal.h>
+#include <Qxt/qxtnamespace.h>
 
 /**
 
@@ -35,15 +36,6 @@ the fliplean is NOT meant as per channel. it is the amount of data for all chann
 \bug currently fliplen must be minimal 1024*2 in order to get the decoder working.
 
 */
-namespace Qxt
-	{
-	enum QxtAVFileFlags
-		{
-		preload,
-		fullLoad
-		};
-	};
-
 
 
 class QxtAudioPlayer;
