@@ -8,7 +8,6 @@ QXVERSION = 0.2
 
 
 
-DESTDIR= ../../deploy/libs
 
 
 
