@@ -31,7 +31,7 @@ released under the Terms of LGPL (see the LICENSE file)
  */
 
 
-//#if defined BUILD_QXT_KIT
+#if defined BUILD_QXT
 
 class QXT_KIT_EXPORT Qxt  : public QObject
 {
@@ -41,9 +41,9 @@ class QXT_KIT_EXPORT Qxt  : public QObject
 	Q_ENUMS(QxtAVFileFlags)
 
 public:
-//#else
-//namespace Qxt {
-//#endif
+#else
+namespace Qxt {
+#endif
 
 
 	enum Rotation

@@ -21,32 +21,32 @@ INCLUDEPATH+=$${QXTinclude}
 LIBS += -Wl,-rpath,$${QXTlib} -L$${QXTlib}
 
 
+contains(QXT, gui ){
+        INCLUDEPATH +=$${QXTinclude}/QxtGui
+	LIBS += -lQxtGui
+	QXT+=kit
+        }
+contains(QXT, network ){
+        INCLUDEPATH +=$${QXTinclude}/QxtNetwork
+	LIBS += -lQxtNetwork
+	QXT+=kit
+        }
+contains(QXT, sql ){
+        INCLUDEPATH +=$${QXTinclude}/QxtSql
+	LIBS += -lQxtSql
+	QXT+=kit
+        }
+contains(QXT, media ){
+        INCLUDEPATH +=$${QXTinclude}/QxtMedia
+	LIBS += -lQxtMedia
+	QXT+=kit
+        }
 contains(QXT, kit ){
-        INCLUDEPATH +=$${QXTinclude}/kit
+        INCLUDEPATH +=$${QXTinclude}/QxtKit
 	LIBS += -lQxtKit
 	QXT+=core
         }
-contains(QXT, gui ){
-        INCLUDEPATH +=$${QXTinclude}/gui
-	LIBS += -lQxtGui
-	QXT+=core
-        }
-contains(QXT, network ){
-        INCLUDEPATH +=$${QXTinclude}/network
-	LIBS += -lQxtNetwork
-	QXT+=core
-        }
-contains(QXT, sql ){
-        INCLUDEPATH +=$${QXTinclude}/sql
-	LIBS += -lQxtSql
-	QXT+=core
-        }
-contains(QXT, media ){
-        INCLUDEPATH +=$${QXTinclude}/media
-	LIBS += -lQxtMedia
-	QXT+=core
-        }
 contains(QXT, core ){
-        INCLUDEPATH +=$${QXTinclude}/core
+        INCLUDEPATH +=$${QXTinclude}/QxtCore
 	LIBS += -lQxtCore
         }
