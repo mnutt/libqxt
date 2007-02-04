@@ -11,7 +11,9 @@ released under the Terms of LGPL (see the LICENSE file)
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
 {
-	return dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
+	QxtItemDelegate* del = dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
+	Q_ASSERT(del);
+	return del;
 }
 
 void QxtTreeWidgetPrivate::informStartEditing(const QModelIndex& index)
@@ -39,7 +41,10 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
     \ingroup gui
     \brief An extended tree widget.
 
-    QxtTreeWidget blaablaa.
+    QxtTreeWidget offers top level item decoration and signals
+
+    QxtTreeWidget provides signals for starting and finishing of editing
+    and an optional decoration for top level items.
 
     \note Requires Qt 4.2 or newer.
  */
@@ -92,37 +97,41 @@ QxtTreeWidget::~QxtTreeWidget()
  */
 bool QxtTreeWidget::isRootDecorated() const
 {
-	Q_ASSERT(qxt_d().delegate());
 	return qxt_d().delegate()->isRootDecorated();
 }
 
 void QxtTreeWidget::setRootDecorated(bool decorate)
 {
-	Q_ASSERT(qxt_d().delegate());
-	return qxt_d().delegate()->setRootDecorated(decorate);
+	if (qxt_d().delegate()->isRootDecorated() != decorate)
+	{
+		qxt_d().delegate()->setRootDecorated(decorate);
+		reset();
+	}
 }
 
 /*!
-    \property QxtItemDelegate::decorationStyle
+    \property QxtTreeWidget::decorationStyle
     \brief This property holds the top level item decoration style
 
     Top level items are decorated according to this property.
-    The default value is \b QxtItemDelegate::Buttonlike.
+    The default value is \b Qxt::Buttonlike.
 
     \note The property has effect only in case rootDecorated is \b true.
 
-    \sa rootDecorated QxtItemDelegate::DecorationStyle
+    \sa rootDecorated Qxt::DecorationStyle QxtItemDelegate
  */
-QxtItemDelegate::DecorationStyle QxtTreeWidget::decorationStyle() const
+Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
 {
-	Q_ASSERT(qxt_d().delegate());
 	return qxt_d().delegate()->decorationStyle();
 }
 
-void QxtTreeWidget::setDecorationStyle(QxtItemDelegate::DecorationStyle style)
+void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 {
-	Q_ASSERT(qxt_d().delegate());
-	return qxt_d().delegate()->setDecorationStyle(style);
+	if (qxt_d().delegate()->decorationStyle() != style)
+	{
+		qxt_d().delegate()->setDecorationStyle(style);
+		reset();
+	}
 }
 
 /*!
@@ -138,12 +147,14 @@ void QxtTreeWidget::setDecorationStyle(QxtItemDelegate::DecorationStyle style)
  */
 Qt::TextElideMode QxtTreeWidget::elideMode() const
 {
-	Q_ASSERT(qxt_d().delegate());
 	return qxt_d().delegate()->elideMode();
 }
 
 void QxtTreeWidget::setElideMode(Qt::TextElideMode mode)
 {
-	Q_ASSERT(qxt_d().delegate());
-	return qxt_d().delegate()->setElideMode(mode);
+	if (qxt_d().delegate()->elideMode() != mode)
+	{
+		qxt_d().delegate()->setElideMode(mode);
+		reset();
+	}
 }

@@ -10,6 +10,8 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QxtTreeWidget.h>
 #include <QxtCore/QxtPimpl>
 
+class QxtItemDelegate;
+
 class QxtTreeWidgetPrivate : public QObject, public QxtPrivate<QxtTreeWidget>
 {
 	Q_OBJECT
