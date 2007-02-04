@@ -24,9 +24,6 @@ class QXT_GUI_EXPORT QxtLabel : public QFrame
 	Q_PROPERTY(Qxt::Rotation rotation READ rotation WRITE setRotation)
 	
 public:
-	// TODO: merge this with QxtPushButton::Rotation
-	//       (maybe something similar than qnamespace.h)
-	
 	explicit QxtLabel(QWidget* parent = 0, Qt::WindowFlags flags = 0);
 	QxtLabel(const QString& text, QWidget* parent = 0, Qt::WindowFlags flags = 0);
 	virtual ~QxtLabel();
