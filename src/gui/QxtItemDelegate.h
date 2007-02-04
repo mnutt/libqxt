@@ -9,6 +9,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QItemDelegate>
 #include <Qxt/qxtglobal.h>
+#include <QxtCore/QxtPimpl>
 
 class QxtItemDelegatePrivate;
 
