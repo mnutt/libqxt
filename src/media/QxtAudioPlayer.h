@@ -6,6 +6,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QObject>
 #include <QString>
 #include <QxtAVFile.h>
+#include <Qxt/qxtglobal.h>
 
 
 /**
@@ -29,7 +30,7 @@ player.play(&file);
 
 class QxtAVFile;
 
-class QxtAudioPlayer : public QObject
+class QXT_MEDIA_EXPORT QxtAudioPlayer : public QObject
 	{
 	Q_OBJECT
 	public:

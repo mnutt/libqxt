@@ -7,7 +7,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTSDLWIDGET_H
 #define QXTSDLWIDGET_H
 
-#include <QxtDefines.h>
+#include <Qxt/qxtglobal.h>
 #include <QWidget>
 
 struct SDL_Surface;
@@ -22,7 +22,7 @@ struct SDL_Surface;
 
 take a look at libqxt/examples/QxtSdlWidget please
 */
-class QXT_DLLEXPORT QxtSdlWidget : public QWidget
+class QXT_MEDIA_EXPORT QxtSdlWidget : public QWidget
 {
 public:
 	QxtSdlWidget(QWidget *parent = 0);
