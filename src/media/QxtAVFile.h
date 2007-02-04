@@ -10,6 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QThread>
 #include <QString>
 #include <QStringList>
+#include <Qxt/qxtglobal.h>
 
 /**
 
@@ -46,7 +47,7 @@ namespace Qxt
 
 
 class QxtAudioPlayer;
-class QxtAVFile :  public QThread
+class QXT_MEDIA_EXPORT QxtAVFile :  public QThread
 	{
 	Q_OBJECT
 	public:
