@@ -8,7 +8,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #define QXTITEMDELEGATE_H
 
 #include <QItemDelegate>
-#include <QxtDefines.h>
 #include <Qxt/qxtglobal.h>
 
 class QxtItemDelegatePrivate;
