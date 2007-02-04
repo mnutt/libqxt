@@ -36,11 +36,11 @@ a= fish.decrypt(a);
 #include <openssl/blowfish.h>
 #include <QByteArray>
 #include <QObject>
-#include <QxtDefines.h>
+#include <Qxt/qxtglobal.h>
 
 
 
-class QXT_DLLEXPORT QxtBlowFish : public QObject
+class QXT_NETWORK_EXPORT QxtBlowFish : public QObject
 {
 	Q_OBJECT
 	

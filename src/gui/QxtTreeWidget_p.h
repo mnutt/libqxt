@@ -8,7 +8,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #define QXTTREEWIDGET_P_H
 
 #include <QxtTreeWidget.h>
-#include <core/QxtPimpl.h>
+#include <QxtCore/QxtPimpl>
 
 class QxtTreeWidgetPrivate : public QObject, public QxtPrivate<QxtTreeWidget>
 {
