@@ -12,7 +12,6 @@ QT = core
 
 
 
-
 QXT_KIT                        += QxtSignalWaiter
 QXT_HEADERS_QxtSignalWaiter     = QxtSignalWaiter.h
 QXT_SOURCES_QxtSignalWaiter     = QxtSignalWaiter.cpp
@@ -35,3 +34,4 @@ QXT_STABILITY_QxtMetaBall	=
 
 
 include (../parts.pri)
+HEADERS+=../../deploy/include/Qxt/qxtnamespace.h
