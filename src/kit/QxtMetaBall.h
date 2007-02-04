@@ -1,6 +1,6 @@
 #include <QObject>
 #include <QByteArray>
-#include <QxtDefines.h>
+#include <Qxt/qxtglobal.h>
 
 
 /**
@@ -28,7 +28,7 @@ QxtMetaBall::connect(write, SIGNAL(clicked()), text, SLOT(write(QString)),BALL(t
 
 #define BALL(x) (QByteArray("Ball_")+(QByteArray(QByteArray(__FILE__)+QByteArray::number(__LINE__)).toBase64 ().replace("=","")))
 
-class QXT_DLLEXPORT QxtMetaBall
+class QXT_KIT_EXPORT QxtMetaBall
 	{
 	public:
 
