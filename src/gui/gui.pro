@@ -33,4 +33,9 @@ QXT_HEADERS_QxtTreeWidget        = QxtTreeWidget.h QxtTreeWidget_p.h
 QXT_SOURCES_QxtTreeWidget        = QxtTreeWidget.cpp
 QXT_STABILITY_QxtTreeWidget      = +linux-g++
 
+QXT_GUI                         += QxtTabWidget
+QXT_HEADERS_QxtTabWidget         = QxtTabWidget.h
+QXT_SOURCES_QxtTabWidget         = QxtTabWidget.cpp
+QXT_STABILITY_QxtTabWidget       = +linux-g++
+
 include (../parts.pri)
