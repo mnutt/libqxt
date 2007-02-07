@@ -210,7 +210,7 @@ QList<QAction*> QxtTabWidget::tabActions(int index) const
 
 void QxtTabWidget::tabInserted(int index)
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+	Q_ASSERT(index >= 0 && index <= qxt_d().actions.count());
 	qxt_d().actions.insert(index, Actions());
 }
 
