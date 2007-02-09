@@ -53,11 +53,7 @@ void QxtAVPlayer::play(QString file)
 	avfile= new QxtAVFile(file,got_spec.samples*2);
 
 	///tell avfile to resample its output to the soundcards samplerate
-  	avfile->resample(got_spec.freq);
-
-
-	qDebug()<<(got_spec.samples*2)<<got_spec.freq;
-	
+  	avfile->resample(got_spec.freq);	
 	}
 
 void QxtAVPlayer::stop()
