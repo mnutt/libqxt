@@ -18,12 +18,10 @@ player.play("foo.wav");
 \endcode
 */
 
-
-
-static 	SDL_AudioSpec got_spec;
-static QxtAVFile * avfile=NULL;
-static float * Scope=NULL;
-static int FRAMES_PER_BUFFER=44800;
+static SDL_AudioSpec 	got_spec;
+static QxtAVFile * 	avfile			=NULL;
+static float * 		Scope			=NULL;
+static int 		FRAMES_PER_BUFFER	=44800;
 
 
 void QxtAVPlayer::play(QxtAVFile * file)
@@ -36,11 +34,6 @@ void QxtAVPlayer::play(QxtAVFile * file)
 	///tell avfile to resample its output to the soundcards samplerate
 	avfile->resample(got_spec.freq);	
 	}
-
-
-
-
-
 
 
 void QxtAVPlayer::play(QString file)
@@ -74,14 +67,12 @@ static void Callback (void * , Uint8 *stream, int size)
 		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
 		
 		float a[fliplen*sizeof(float)];
-		Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","unexpected buffersize");
+		Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","buffersize missmatch");
 
 		for (long i=0;i<fliplen;i++)
 			{
-			Q_ASSERT_X(a[1]<=1.1  &&  a[1]>=-1.1,"Callback","unhandled clipping");
-
  			*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
-
+			if (i%2)Scope[i]=a[i];
 			}
 		}
 
@@ -105,7 +96,7 @@ QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
 bool QxtAVPlayer::open(int framesPerBuffer)
 	{
 	FRAMES_PER_BUFFER=framesPerBuffer;
-	Scope=new float[FRAMES_PER_BUFFER];
+	Scope=new float[FRAMES_PER_BUFFER*sizeof(float)];
 
 	///init sdl
 	Q_ASSERT_X(SDL_Init (SDL_INIT_AUDIO)>=0,"SDL",SDL_GetError());

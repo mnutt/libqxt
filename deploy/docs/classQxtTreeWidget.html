@@ -33,45 +33,205 @@ width="32" height="32" border="0" /></a></td>
 <h1>QxtTreeWidget Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtTreeWidget" -->QTreeWidget with a customized drawing for parent items.  
+</h1><!-- doxytag: class="QxtTreeWidget" -->An extended tree widget.  
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;QxtTreeWidget&gt;</code>
 <p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Signals</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</a> (QTreeWidgetItem *item)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</a> (QTreeWidgetItem *item)</td></tr>
+
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="2f0aaec7459e90be757b3cbb12883c4c"></a><!-- doxytag: member="QxtTreeWidget::QxtTreeWidget" ref="2f0aaec7459e90be757b3cbb12883c4c" args="(QWidget *parent=0)" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><b>QxtTreeWidget</b> (QWidget *parent=0)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#2f0aaec7459e90be757b3cbb12883c4c">QxtTreeWidget</a> (QWidget *parent=0)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="45e556e5ce7897e7eb2e250ae59848ea"></a><!-- doxytag: member="QxtTreeWidget::ItemDragStarted" ref="45e556e5ce7897e7eb2e250ae59848ea" args="()" -->
-QTreeWidgetItem *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#45e556e5ce7897e7eb2e250ae59848ea">ItemDragStarted</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns a pointet to the QTreeWidgetItem the last drag started from. be warned: check if it is valid <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="3dae054f6e74205ec494c46fd76aa644"></a><!-- doxytag: member="QxtTreeWidget::resetDrag" ref="3dae054f6e74205ec494c46fd76aa644" args="()" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>resetDrag</b> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d14fc0220eb6a8eca56fc1d3568e7dc5"></a><!-- doxytag: member="QxtTreeWidget::isRootDecorated" ref="d14fc0220eb6a8eca56fc1d3568e7dc5" args="() const" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>isRootDecorated</b> () const</td></tr>
 
-<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="0aaae23014eafd66442df8cea61de38e"></a><!-- doxytag: member="QxtTreeWidget::drawRow" ref="0aaae23014eafd66442df8cea61de38e" args="(QPainter *painter, const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>drawRow</b> (QPainter *painter, const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ec15eb1569d66a64751565bc3301047f"></a><!-- doxytag: member="QxtTreeWidget::setRootDecorated" ref="ec15eb1569d66a64751565bc3301047f" args="(bool decorate)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setRootDecorated</b> (bool decorate)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="15cad1809daeeceeff0883350d7d786b"></a><!-- doxytag: member="QxtTreeWidget::mousePressEvent" ref="15cad1809daeeceeff0883350d7d786b" args="(QMouseEvent *event)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>mousePressEvent</b> (QMouseEvent *event)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="395e9d15b2684814be0247d50e488eb9"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="395e9d15b2684814be0247d50e488eb9" args="() const" -->
+Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><b>decorationStyle</b> () const</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="274008e93a512e876869a954431355a5"></a><!-- doxytag: member="QxtTreeWidget::mouseMoveEvent" ref="274008e93a512e876869a954431355a5" args="(QMouseEvent *event)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>mouseMoveEvent</b> (QMouseEvent *event)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="caf9cf1f17f41922a41f22987a56dde8"></a><!-- doxytag: member="QxtTreeWidget::setDecorationStyle" ref="caf9cf1f17f41922a41f22987a56dde8" args="(Qxt::DecorationStyle style)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setDecorationStyle</b> (Qxt::DecorationStyle style)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="526db9fae4dcb74f57c11edf176f4297"></a><!-- doxytag: member="QxtTreeWidget::mouseReleaseEvent" ref="526db9fae4dcb74f57c11edf176f4297" args="(QMouseEvent *event)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>mouseReleaseEvent</b> (QMouseEvent *event)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="6bf103c3bfe964689504a461f8af381f"></a><!-- doxytag: member="QxtTreeWidget::elideMode" ref="6bf103c3bfe964689504a461f8af381f" args="() const" -->
+Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><b>elideMode</b> () const</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b0216d189b6bce5caab1ea9da5ca7060"></a><!-- doxytag: member="QxtTreeWidget::setElideMode" ref="b0216d189b6bce5caab1ea9da5ca7060" args="(Qt::TextElideMode mode)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setElideMode</b> (Qt::TextElideMode mode)</td></tr>
+
+<tr><td colspan="2"><br><h2>Properties</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a><code> []</code></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds whether top level items are decorated.  <a href="#39d99771d6059f6ffe90db6ce5d111a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a><code> []</code></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the top level item decoration style.  <a href="#d82d41a765acac120ab12eb5f6f80c06"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a><code> []</code></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the text elide mode.  <a href="#6b84eee5c85d3065c0271ff6444eef9a"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-QTreeWidget with a customized drawing for parent items. 
+An extended tree widget. 
 <p>
-pretty top items, to make them more visible<p>
-hint: set the top level items SizeHint to something more big to make it look good<p>
-to implement your own drag, subclas void startDrag(Qt::DropActions ); and use QTreeWidgetItem * <a class="el" href="classQxtTreeWidget.html#45e556e5ce7897e7eb2e250ae59848ea">ItemDragStarted()</a>; to get the item the drag started from 
+<a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> offers top level item decoration and signals<p>
+<a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> provides signals for starting and finishing of editing and an optional decoration for top level items.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Requires Qt 4.2 or newer. </dd></dl>
+
 <p>
+<hr><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" name="2f0aaec7459e90be757b3cbb12883c4c"></a><!-- doxytag: member="QxtTreeWidget::QxtTreeWidget" ref="2f0aaec7459e90be757b3cbb12883c4c" args="(QWidget *parent=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QxtTreeWidget::QxtTreeWidget           </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&nbsp;</td>
+          <td class="paramname"> <em>parent</em> = <code>0</code>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [explicit]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Constructs a new <a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> with <em>parent</em>. 
+</div>
+</div><p>
+<a class="anchor" name="04aa2645e8ac62f89d7d95e4c2fa937d"></a><!-- doxytag: member="QxtTreeWidget::~QxtTreeWidget" ref="04aa2645e8ac62f89d7d95e4c2fa937d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QxtTreeWidget::~QxtTreeWidget           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Destructs the tree widget. 
+</div>
+</div><p>
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="2f80d0770ff2ad1904e26ed236d8e4ee"></a><!-- doxytag: member="QxtTreeWidget::itemEditingStarted" ref="2f80d0770ff2ad1904e26ed236d8e4ee" args="(QTreeWidgetItem *item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QxtTreeWidget::itemEditingStarted           </td>
+          <td>(</td>
+          <td class="paramtype">QTreeWidgetItem *&nbsp;</td>
+          <td class="paramname"> <em>item</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This signal is emitted immediately after the editing of <em>item</em> has been started.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished()</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="614beb6b5c7a272c30823eb4b3b408ca"></a><!-- doxytag: member="QxtTreeWidget::itemEditingFinished" ref="614beb6b5c7a272c30823eb4b3b408ca" args="(QTreeWidgetItem *item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QxtTreeWidget::itemEditingFinished           </td>
+          <td>(</td>
+          <td class="paramtype">QTreeWidgetItem *&nbsp;</td>
+          <td class="paramname"> <em>item</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This signal is emitted immediately after the editing of <em>item</em> has been finished.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted()</a> </dd></dl>
+
+</div>
+</div><p>
+<hr><h2>Property Documentation</h2>
+<a class="anchor" name="39d99771d6059f6ffe90db6ce5d111a4"></a><!-- doxytag: member="QxtTreeWidget::rootDecorated" ref="39d99771d6059f6ffe90db6ce5d111a4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QxtTreeWidget::rootDecorated<code> [read, write]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This property holds whether top level items are decorated. 
+<p>
+Top level items are decorated if this property is <b>true</b>. The default value is <b>true</b>.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a> <a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="d82d41a765acac120ab12eb5f6f80c06"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="d82d41a765acac120ab12eb5f6f80c06" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Qxt::DecorationStyle QxtTreeWidget::decorationStyle<code> [read, write]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This property holds the top level item decoration style. 
+<p>
+Top level items are decorated according to this property. The default value is <b>Qxt::Buttonlike</b>.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a> Qxt::DecorationStyle <a class="el" href="classQxtItemDelegate.html">QxtItemDelegate</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="6b84eee5c85d3065c0271ff6444eef9a"></a><!-- doxytag: member="QxtTreeWidget::elideMode" ref="6b84eee5c85d3065c0271ff6444eef9a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Qt::TextElideMode QxtTreeWidget::elideMode<code> [read, write]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This property holds the text elide mode. 
+<p>
+The text of a decorated top level item is elided according to this property. The default value is <b>Qt::ElideMiddle</b>.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a> </dd></dl>
+
+</div>
+</div><p>
 <address><hr />
 
 <div align="center">

@@ -44,9 +44,6 @@ width="32" height="32" border="0" /></a></td>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#fd3f9137d5f3287c32786395c485f203">clicked</a> ()</td></tr>
 
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="8d4389d886db8483954afc1d2cd370b3"></a><!-- doxytag: member="QxtLabel::Q_ENUMS" ref="8d4389d886db8483954afc1d2cd370b3" args="(Rotation) public" -->
-&nbsp;</td><td class="memItemRight" valign="bottom"><b>Q_ENUMS</b> (Rotation) public</td></tr>
-
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#e348877724b31a69413b2f0a202e8afc">QxtLabel</a> (QWidget *parent=0, Qt::WindowFlags flags=0)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#7d669be99cdeb3d740c8fbb35ba5ebc9">QxtLabel</a> (const QString &amp;text, QWidget *parent=0, Qt::WindowFlags flags=0)</td></tr>
@@ -71,11 +68,11 @@ Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><b>elideMod
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="fb1617cfd02bf28fa5d0203a8fd519e2"></a><!-- doxytag: member="QxtLabel::setElideMode" ref="fb1617cfd02bf28fa5d0203a8fd519e2" args="(Qt::TextElideMode mode)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setElideMode</b> (Qt::TextElideMode mode)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="bea37d17d587b906487c621c0bf533c9"></a><!-- doxytag: member="QxtLabel::rotation" ref="bea37d17d587b906487c621c0bf533c9" args="() const" -->
-Rotation&nbsp;</td><td class="memItemRight" valign="bottom"><b>rotation</b> () const</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7aeed8bd98b2e87c827447675071cb10"></a><!-- doxytag: member="QxtLabel::rotation" ref="7aeed8bd98b2e87c827447675071cb10" args="() const" -->
+Qxt::Rotation&nbsp;</td><td class="memItemRight" valign="bottom"><b>rotation</b> () const</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="da05cd0e0c758238426023c80de8d046"></a><!-- doxytag: member="QxtLabel::setRotation" ref="da05cd0e0c758238426023c80de8d046" args="(Rotation rotation)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setRotation</b> (Rotation rotation)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="436a8f604ddd04fb5cf9898e8dfbfa8b"></a><!-- doxytag: member="QxtLabel::setRotation" ref="436a8f604ddd04fb5cf9898e8dfbfa8b" args="(Qxt::Rotation rotation)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setRotation</b> (Qxt::Rotation rotation)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="92ce88971ec166481c9b914a36ab8b26"></a><!-- doxytag: member="QxtLabel::sizeHint" ref="92ce88971ec166481c9b914a36ab8b26" args="() const" -->
 virtual QSize&nbsp;</td><td class="memItemRight" valign="bottom"><b>sizeHint</b> () const</td></tr>
@@ -107,9 +104,9 @@ QString&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#1af8965c7a5ca2605fdeb7c99cb41ad1">elideMode</a><code> []</code></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the elide mode of the text.  <a href="#1af8965c7a5ca2605fdeb7c99cb41ad1"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">Rotation&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#eb97dd3fd3f93c2d38c4ae64578bc9a2">rotation</a><code> []</code></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">Qxt::Rotation&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtLabel.html#fac17750ce1b4f63bf868dd239aeb2f2">rotation</a><code> []</code></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the rotation of the label.  <a href="#eb97dd3fd3f93c2d38c4ae64578bc9a2"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the rotation of the label.  <a href="#fac17750ce1b4f63bf868dd239aeb2f2"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 A simplified label which is able to show elided and rotated text. 
@@ -237,7 +234,7 @@ This signal is emitted whenever the label has been clicked.
 <p>
 This property holds the alignment of the text. 
 <p>
-The text is aligned according to this property. The default value is <b>Qt::AlignLeft|QtAlignTop</b>.<p>
+The text is aligned according to this property. The default value is <b>Qt::AlignCenter</b>.<p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430">text</a> </dd></dl>
 
 </div>
@@ -261,12 +258,12 @@ The text is elided according to this property. The default value is <b>Qt::Elide
 
 </div>
 </div><p>
-<a class="anchor" name="eb97dd3fd3f93c2d38c4ae64578bc9a2"></a><!-- doxytag: member="QxtLabel::rotation" ref="eb97dd3fd3f93c2d38c4ae64578bc9a2" args="" -->
+<a class="anchor" name="fac17750ce1b4f63bf868dd239aeb2f2"></a><!-- doxytag: member="QxtLabel::rotation" ref="fac17750ce1b4f63bf868dd239aeb2f2" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QxtLabel::Rotation QxtLabel::rotation<code> [read, write]</code>          </td>
+          <td class="memname">Qxt::Rotation QxtLabel::rotation<code> [read, write]</code>          </td>
         </tr>
       </table>
 </div>
@@ -275,8 +272,8 @@ The text is elided according to this property. The default value is <b>Qt::Elide
 <p>
 This property holds the rotation of the label. 
 <p>
-The label is rotated according to this property. The default value is <b>QxtLabel::NoRotation</b>.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd>QxtLabel::Rotation </dd></dl>
+The label is rotated according to this property. The default value is <b>Qxt::NoRotation</b>.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>Qxt::Rotation </dd></dl>
 
 </div>
 </div><p>
