@@ -21,9 +21,9 @@ QXT_HEADERS_QxtSdlWidget       	 = QxtSdlWidget.h
 QXT_SOURCES_QxtSdlWidget 	 = QxtSdlWidget.cpp
 QXT_STABILITY_QxtSdlWidgt      	 =
 
-QXT_MEDIA                       += QxtAudioPlayer
-QXT_HEADERS_QxtAudioPlayer       = QxtAudioPlayer.h
-QXT_SOURCES_QxtAudioPlayer 	 = QxtAudioPlayer.cpp
+QXT_MEDIA                       += QxtAVPlayer
+QXT_HEADERS_QxtAVPlayer       = QxtAVPlayer.h
+QXT_SOURCES_QxtAVPlayer 	 = QxtAVPlayer.cpp
 QXT_STABILITY_QxtAudioPlayer     =
 
 

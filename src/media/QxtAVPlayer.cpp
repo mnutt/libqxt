@@ -1,9 +1,22 @@
 #include <QxtAVFile.h>
-#include "QxtAudioPlayer.h"
+#include "QxtAVPlayer.h"
 #include <SDL/SDL.h>
 #include <QDebug>
 
 
+/**
+\class QxtAVPlayer QxtAVPlayer
+
+\ingroup media
+
+\brief simple player using the QxtAVFile and SDL
+
+example:
+\code 
+QxtAudioPlayer player;
+player.play("foo.wav");
+\endcode
+*/
 
 
 
@@ -12,7 +25,25 @@ static QxtAVFile * avfile=NULL;
 static float * Scope=NULL;
 static int FRAMES_PER_BUFFER=44800;
 
-void QxtAudioPlayer::play(QString file)
+
+void QxtAVPlayer::play(QxtAVFile * file)
+	{
+	QxtAVFile * b= avfile;
+	avfile=NULL;
+	if(b)delete(b);
+
+	avfile= file;
+	///tell avfile to resample its output to the soundcards samplerate
+	avfile->resample(got_spec.freq);	
+	}
+
+
+
+
+
+
+
+void QxtAVPlayer::play(QString file)
 	{
 	QxtAVFile * b= avfile;
 	avfile=NULL;
@@ -25,7 +56,7 @@ void QxtAudioPlayer::play(QString file)
   	avfile->resample(got_spec.freq);	
 	}
 
-void QxtAudioPlayer::stop()
+void QxtAVPlayer::stop()
 	{
 	if(!avfile)return;
 	QxtAVFile * b= avfile;
@@ -63,12 +94,12 @@ static void Callback (void * , Uint8 *stream, int size)
 	}
 
 
-QxtAudioPlayer::QxtAudioPlayer(QObject * parent):QObject(parent)
+QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
 	{
 	}
 
 
-bool QxtAudioPlayer::open(int framesPerBuffer)
+bool QxtAVPlayer::open(int framesPerBuffer)
 	{
 	FRAMES_PER_BUFFER=framesPerBuffer;
 	Scope=new float[FRAMES_PER_BUFFER];
@@ -99,7 +130,7 @@ bool QxtAudioPlayer::open(int framesPerBuffer)
 	}
 
 
-QxtAudioPlayer::~QxtAudioPlayer()
+QxtAVPlayer::~QxtAVPlayer()
 	{
 	///cleanup
 	SDL_CloseAudio();
@@ -108,7 +139,7 @@ QxtAudioPlayer::~QxtAudioPlayer()
 	if(Scope)delete [] Scope;
 	}
 
-float * QxtAudioPlayer::scope()
+float * QxtAVPlayer::scope()
 	{
 	return Scope;
 	}
