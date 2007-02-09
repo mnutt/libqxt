@@ -1,100 +1,116 @@
-/*******************************************************************
-Qt extended Library 
-Copyright (C) 2006 Arvid Picciani
-released under the Terms of LGPL (see the LICENSE file)
-*******************************************************************/
-#include "QxtAudioPlayer.h"
-#include <portaudio.h>
-#include <QCoreApplication>
 #include <QxtAVFile.h>
+#include "QxtAudioPlayer.h"
+#include <SDL/SDL.h>
+#include <QDebug>
 
-#define FRAMES_PER_BUFFER   1024
-
-static	QxtAVFile * avfile=NULL;
 
 
-/*!
-Portaudio will decide itself when to call this function. it expects to get 'frames' numbers of frames * channels  to be pushed to out. interleaved
-This function allowes us to pass around a pointer to any object we like. we'll store our object pointer in it
-*/
-static int PortaudioCallback(const void *, void *outputBuffer,unsigned long framerate,const PaStreamCallbackTimeInfo* ,PaStreamCallbackFlags ,void * )
+
+
+static 	SDL_AudioSpec got_spec;
+static QxtAVFile * avfile=NULL;
+static float * Scope=NULL;
+static int FRAMES_PER_BUFFER=44800;
+
+void QxtAudioPlayer::play(QString file)
 	{
-	///prepare the buffer
-	float *out = (float*)outputBuffer;
+	QxtAVFile * b= avfile;
+	avfile=NULL;
+	if(b)delete(b);
 
-	///if there is no avfile we will pass silence
-	if (!avfile)
-		{
-		for (unsigned long i=0;i<framerate;i++)
-			*out++=0.0f;
-		return paContinue;
-		}
+	///intialise QxtAVFile. take care of the *2 QxtAVFile wants the amount of samples to push whereas sdl means the amount per channel
+	avfile= new QxtAVFile(file,got_spec.samples*2);
 
-	///flip the data to portaudios callback buffer
-	avfile->flip(out);
-
-	return paContinue;
+	///tell avfile to resample its output to the soundcards samplerate
+  	avfile->resample(got_spec.freq);	
 	}
 
+void QxtAudioPlayer::stop()
+	{
+	if(!avfile)return;
+	QxtAVFile * b= avfile;
+	avfile=NULL;
+	delete(b);
+	}
 
+static void Callback (void * , Uint8 *stream, int size)
+	{
+	short *out = (short*)stream;
+	long fliplen = size/sizeof(short);
 
+	if(avfile)
+		{
+		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
+		float a[fliplen];
+		Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","unexpected buffersize");
+		for (long i=0;i<fliplen;i++)
+			{
+			Q_ASSERT_X(a[1]<=1.1  &&  a[1]>=-1.1,"Callback","unhandled clipping");
+			*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
+			if (i%2)Scope[i]=a[i];
+			}
+		}
 
-static	PaStream *stream;
+	else
+		{
+		for (long i=0; i<fliplen;i++)
+			{
+			*out++=0;
+			*out++=0; 
+			Scope[i]=0.0f;
+			}
+		}
+	}
 
 
 QxtAudioPlayer::QxtAudioPlayer(QObject * parent):QObject(parent)
 	{
-	///init portaudio
-	Q_ASSERT(Pa_Initialize()==paNoError);
-
-	/// make sure the default audio out is available.for the sake of simplicity we do not check for other outputs then oss on unix
-	Q_ASSERT(Pa_GetDeviceInfo(  Pa_GetDefaultOutputDevice()));
-
-	///open the default stream
-	Q_ASSERT(Pa_OpenDefaultStream (
-		&stream, 
-		0,      ///no input channels
-		2,      ///stereo output
-		paFloat32,      ///32 bit floating output
-		Pa_GetDeviceInfo( Pa_GetDefaultOutputDevice() )->defaultSampleRate,
-		FRAMES_PER_BUFFER,
-		PortaudioCallback,
-		&avfile 
-		)==paNoError);
-
-	///start playback
-	Q_ASSERT(Pa_StartStream( stream )==paNoError);
-	}
-
- QxtAudioPlayer::~QxtAudioPlayer()
-	{
-
 	}
 
 
-
-
-void QxtAudioPlayer::play(QxtAVFile * file)
+bool QxtAudioPlayer::open(int framesPerBuffer)
 	{
-	if(avfile)avfile->reset();
-	avfile=NULL;
+	FRAMES_PER_BUFFER=framesPerBuffer;
+	Scope=new float[FRAMES_PER_BUFFER];
 
-	connect(file,SIGNAL(eof()),this,SLOT(feof()));
+	///init sdl
+	Q_ASSERT_X(SDL_Init (SDL_INIT_AUDIO)>=0,"SDL",SDL_GetError());
 
-	///tell avfile to resample its output to the soundcards samplerate
-	file->resample((int)Pa_GetDeviceInfo( Pa_GetDefaultOutputDevice() )->defaultSampleRate);
 
-	avfile=file;
+	///sdl lets us pass a wanted spec, and it tryes to respect that. if we let it , it will try to find a mode less you intensive though
+	SDL_AudioSpec wanted_spec;
+
+	wanted_spec.freq=48000;
+	wanted_spec.format=AUDIO_S16SYS;
+	wanted_spec.channels=2;
+        wanted_spec.silence = 0;
+
+	wanted_spec.samples=FRAMES_PER_BUFFER;
+	wanted_spec.callback=Callback;
+	wanted_spec.userdata=this;
+	got_spec=wanted_spec;
+
+	///set the second parameter to NULL, to enforce the spec above, if you encounter problems
+	Q_ASSERT_X(SDL_OpenAudio (&wanted_spec, &got_spec)>=0,"SDL",SDL_GetError());
+
+	///unpause
+	SDL_PauseAudio (0);
+	return true;
 	}
 
 
-
-void QxtAudioPlayer::feof()
+QxtAudioPlayer::~QxtAudioPlayer()
 	{
-// 	if(!(QxtAVFile* )sender())return;
-// 	if(avfile)avfile->reset();
-	avfile=NULL;
+	///cleanup
+	SDL_CloseAudio();
 
+	if(avfile)delete(avfile);
+	if(Scope)delete [] Scope;
+	}
+
+float * QxtAudioPlayer::scope()
+	{
+	return Scope;
 	}
 
 
