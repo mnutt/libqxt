@@ -7,28 +7,13 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QString>
 #include <Qxt/qxtglobal.h>
 
-
-/**
-\class QxtAudioPlayer QxtAudioPlayer
-
-\ingroup media
-
-\brief simple player using the QxtAVFile and SDL
-
-example:
-\code 
-QxtAudioPlayer player;
-player.play("foo.wav");
-\endcode
-*/
-
 class QxtAVFile;
-class QXT_MEDIA_EXPORT QxtAudioPlayer : public QObject
+class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
 	{
 	Q_OBJECT
 	public:
-		QxtAudioPlayer(QObject * parent =0);
-		~QxtAudioPlayer();
+		QxtAVPlayer(QObject * parent =0);
+		~QxtAVPlayer();
 		bool open(int framesPerBuffer);
 
 
