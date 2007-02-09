@@ -16,10 +16,8 @@ class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
 		~QxtAVPlayer();
 		bool open(int framesPerBuffer);
 
-
 		QxtAVFile * currentFile();
 		float * scope();
-
 
 	public slots:
 		void play(QxtAVFile * file);
