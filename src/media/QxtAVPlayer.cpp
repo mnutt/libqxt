@@ -53,7 +53,11 @@ void QxtAVPlayer::play(QString file)
 	avfile= new QxtAVFile(file,got_spec.samples*2);
 
 	///tell avfile to resample its output to the soundcards samplerate
-  	avfile->resample(got_spec.freq);	
+  	avfile->resample(got_spec.freq);
+
+
+	qDebug()<<(got_spec.samples*2)<<got_spec.freq;
+	
 	}
 
 void QxtAVPlayer::stop()
@@ -72,13 +76,16 @@ static void Callback (void * , Uint8 *stream, int size)
 	if(avfile)
 		{
 		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
-		float a[fliplen];
+		
+		float a[fliplen*sizeof(float)];
 		Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","unexpected buffersize");
+
 		for (long i=0;i<fliplen;i++)
 			{
 			Q_ASSERT_X(a[1]<=1.1  &&  a[1]>=-1.1,"Callback","unhandled clipping");
-			*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
-			if (i%2)Scope[i]=a[i];
+
+ 			*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
+
 			}
 		}
 
@@ -124,8 +131,10 @@ bool QxtAVPlayer::open(int framesPerBuffer)
 	///set the second parameter to NULL, to enforce the spec above, if you encounter problems
 	Q_ASSERT_X(SDL_OpenAudio (&wanted_spec, &got_spec)>=0,"SDL",SDL_GetError());
 
+	
 	///unpause
 	SDL_PauseAudio (0);
+
 	return true;
 	}
 
