@@ -5,7 +5,6 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 #include <QObject>
 #include <QString>
-#include <QxtAVFile.h>
 #include <Qxt/qxtglobal.h>
 
 
@@ -14,44 +13,35 @@ released under the Terms of LGPL (see the LICENSE file)
 
 \ingroup media
 
-\brief simple player using the QxtAVFile and portaudio
- 
-sometimes you just want to play a sound in your application.
-this is not meant to be a full blown media player and does not provide any functions for it.
-
+\brief simple player using the QxtAVFile and SDL
 
 example:
 \code 
 QxtAudioPlayer player;
-QxtAVFile file("test.wav",&player,Qxt::preload);
-player.play(&file);
+player.play("foo.wav");
 \endcode
 */
 
 class QxtAVFile;
-
 class QXT_MEDIA_EXPORT QxtAudioPlayer : public QObject
 	{
 	Q_OBJECT
 	public:
 		QxtAudioPlayer(QObject * parent =0);
 		~QxtAudioPlayer();
+		bool open(int framesPerBuffer);
+
+
+		QxtAVFile * currentFile();
+		float * scope();
+
 
 	public slots:
-
-
-		/**
-		
-		*/
-
 		void play(QxtAVFile * file);
-
-
-
-
-	private slots:
-		void feof();
+		void play(QString filename);
+		void stop();
+	signals:
+		void error (QString);
 	};
-
 
 
