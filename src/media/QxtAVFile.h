@@ -120,10 +120,13 @@ class QXT_MEDIA_EXPORT QxtAVFile :  public QThread
 		void eof();
 
 
+		void error(QString);
 
 		///\internal
 
 	private:	
+
+		void handler(QString,int);
 
 
 		///index of the audio stream

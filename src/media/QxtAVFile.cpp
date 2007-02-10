@@ -5,7 +5,6 @@
 #include <QCoreApplication>
 
 #include <limits> 
-#include <cassert>
 #include <cmath>
 #include <iostream>
 
@@ -20,13 +19,8 @@
 #include <soundtouch/SoundTouch.h>
 #endif
 
-///assert
-#define AV_ASSERT(cmd) if(cmd < 0) {qDebug()<<"QxtAVFile error at line "<<__LINE__; return;}
-
 ///this scales the 16bit output to some usable 32bit float. actualy this will not increase quality but usability
 #define scale(shortval) (float)shortval / (float)std::numeric_limits<short>::max()
-
-#define printFArray(array,size) std::cout<<"::"<<size<<"::[";  for (int i=0;i<size;i++) std::cout<<array[i]<<"|"; std::cout<<"]::"<<std::endl;
 
 
 ///the ffmpeg statestructs
@@ -71,8 +65,8 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	avcodec_register_all();
 	
 	//!open the file and get some information out of it
-	AV_ASSERT(av_open_input_file(&format_context,filename.toLocal8Bit(), NULL, 0, NULL));
-	AV_ASSERT(av_find_stream_info(format_context));
+	handler("opening file",av_open_input_file(&format_context,filename.toLocal8Bit(), NULL, 0, NULL));
+	handler("demuxing context",av_find_stream_info(format_context));
 	assert(format_context);
 	
 	//!find the first audio stream. Just iterate over all found streams and take the first audio stream. good enough for this example
@@ -80,7 +74,7 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	for(int i=0; i<format_context->nb_streams; i++)
 		if(format_context->streams[i]->codec->codec_type==CODEC_TYPE_AUDIO)
 			{AudioStreamIndex=i;break;}
-	AV_ASSERT(AudioStreamIndex);
+	handler("searching audio stream",AudioStreamIndex);
 
 	//!get the codec context for the  stream
 	codec_context=format_context->streams[AudioStreamIndex]->codec;
@@ -90,7 +84,7 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	assert(codec);
 
 	//!open the codec 
-	AV_ASSERT(avcodec_open(codec_context, codec));
+	handler("opening codec",avcodec_open(codec_context, codec));
 
 
 	///prepare the buffers
@@ -202,7 +196,7 @@ double QxtAVFile::time()
 void QxtAVFile::seek(double time)
 	{
 	if(format_context->duration<0){qWarning("playing a stream, won't seek.");return;}
-	AV_ASSERT(av_seek_frame   (format_context, -1,(long)(AV_TIME_BASE*time), 0 ));
+	av_seek_frame   (format_context, -1,(long)(AV_TIME_BASE*time), 0 );
 	playbacktime=time;
 	}
 
@@ -247,7 +241,10 @@ int QxtAVFile::flip(float* out)
 
 		{playbacktime+=((double)fliplen_m/2.0)/(double)resample_m;}
 	else
-		{playbacktime+=((double)fliplen_m/2.0)/(double)codec_context->sample_rate;}
+		{
+		Q_ASSERT_X(codec_context,"Accessing codec_context","null pointer? what the heck?!");
+		playbacktime+=((double)fliplen_m/2.0)/(double)codec_context->sample_rate;
+		}
 
 	return fliplen_m;
 	}
@@ -281,7 +278,7 @@ decode every frame in it. then it scales the frame and pushs it to the passed bu
 */
 int QxtAVFile::getFrame(float * out)
 	{
-	assert(out==DSRC );
+	Q_ASSERT_X(out==DSRC,"getFrame","weird coruption!");
 
 	short outbuf[AVCODEC_MAX_AUDIO_FRAME_SIZE];
 	unsigned char *inbuf;
