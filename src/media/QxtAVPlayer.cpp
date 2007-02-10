@@ -75,7 +75,7 @@ void QxtAVPlayer::stop()
 	SDL_PauseAudio (0);
 	}
 
-static void Callback (void * , Uint8 *stream, int size)
+static void Callback (void * userData, Uint8 *stream, int size)
 	{
 	short *out = (short*)stream;
 	long fliplen = size/sizeof(short);
@@ -87,9 +87,9 @@ static void Callback (void * , Uint8 *stream, int size)
 		if (!avfile->opened())
 				{
 				SDL_PauseAudio (1);
-				qWarning("atemping to play not opened file, stop and destroy");
-				delete(avfile);
-				avfile=NULL;
+				qWarning("atemping to play not opened file, stop and eof");
+				QxtAVPlayer* playa = (QxtAVPlayer *)userData;
+				playa->up_fetch_eof();
 				return;
 				}
 
@@ -165,3 +165,9 @@ QxtAVPlayer::~QxtAVPlayer()
 	if(Scope)delete [] Scope;
 	}
 
+
+
+void QxtAVPlayer::up_fetch_eof()
+	{
+	emit(currentEof ());
+	}
