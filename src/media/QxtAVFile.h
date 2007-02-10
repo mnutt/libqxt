@@ -110,7 +110,7 @@ class QXT_MEDIA_EXPORT QxtAVFile :  public QThread
 
 
 
-
+		bool opened(){return opened_m;}
 
 
 	signals:
@@ -174,6 +174,10 @@ class QXT_MEDIA_EXPORT QxtAVFile :  public QThread
 
 		///canot call flip
 		bool blocked;
+
+
+		bool opened_m;
+
 	};
 
 
