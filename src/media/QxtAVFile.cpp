@@ -23,6 +23,11 @@
 #define scale(shortval) (float)shortval / (float)std::numeric_limits<short>::max()
 
 
+#define handler(e,x) if (x <0) {emit(error(e));qWarning("error " e ); return;}
+
+
+
+
 ///the ffmpeg statestructs
 static AVCodec 		*	codec;
 static AVCodecContext	*	codec_context;
@@ -56,8 +61,8 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	flags_d=flags;
 	blocked	=false;
 	/// \bug buffsize must be at least 2048
- 	assert(fliplen>=2048);
-	assert(!filename.isEmpty());
+ 	Q_ASSERT_X(fliplen>=2048,"","fliplen must be at least 2048");
+	Q_ASSERT_X(!filename.isEmpty(),"","filename may not be empty");
 
 	//!init
 	av_register_all();
@@ -66,8 +71,8 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	
 	//!open the file and get some information out of it
 	handler("opening file",av_open_input_file(&format_context,filename.toLocal8Bit(), NULL, 0, NULL));
+	Q_ASSERT_X(format_context,"","The format context has been corupted");
 	handler("demuxing context",av_find_stream_info(format_context));
-	assert(format_context);
 	
 	//!find the first audio stream. Just iterate over all found streams and take the first audio stream. good enough for this example
 	AudioStreamIndex=-1;
@@ -486,9 +491,6 @@ void QxtAVFile::reset()
 
 	blocked=false;
 	}
-
-
-
 
 
 
