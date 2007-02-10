@@ -23,9 +23,20 @@ static QxtAVFile * 	avfile			=NULL;
 static float * 		Scope			=NULL;
 static int 		FRAMES_PER_BUFFER	=44800;
 
+float * QxtAVPlayer::scope()
+	{
+	Q_ASSERT_X(Scope,"scope","You need to call open() first");
+	return Scope;
+	}
+
+QxtAVFile * QxtAVPlayer::currentFile()
+	{
+	return avfile;
+	}
 
 void QxtAVPlayer::play(QxtAVFile * file)
 	{
+	Q_ASSERT_X(Scope,"scope","You need to call open() first");
 	QxtAVFile * b= avfile;
 	avfile=NULL;
 	if(b)delete(b);
@@ -38,6 +49,7 @@ void QxtAVPlayer::play(QxtAVFile * file)
 
 void QxtAVPlayer::play(QString file)
 	{
+	Q_ASSERT_X(Scope,"scope","You need to call open() first");
 	QxtAVFile * b= avfile;
 	avfile=NULL;
 	if(b)delete(b);
@@ -129,16 +141,9 @@ bool QxtAVPlayer::open(int framesPerBuffer)
 QxtAVPlayer::~QxtAVPlayer()
 	{
 	///cleanup
-	SDL_CloseAudio();
+// 	SDL_CloseAudio();
 
 	if(avfile)delete(avfile);
 	if(Scope)delete [] Scope;
 	}
-
-float * QxtAVPlayer::scope()
-	{
-	return Scope;
-	}
-
-
 
