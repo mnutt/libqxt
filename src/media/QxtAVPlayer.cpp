@@ -37,6 +37,7 @@ QxtAVFile * QxtAVPlayer::currentFile()
 void QxtAVPlayer::play(QxtAVFile * file)
 	{
 	Q_ASSERT_X(Scope,"scope","You need to call open() first");
+	SDL_PauseAudio (1);
 	QxtAVFile * b= avfile;
 	avfile=NULL;
 	if(b)delete(b);
@@ -44,12 +45,14 @@ void QxtAVPlayer::play(QxtAVFile * file)
 	avfile= file;
 	///tell avfile to resample its output to the soundcards samplerate
 	avfile->resample(got_spec.freq);	
+	SDL_PauseAudio (0);
 	}
 
 
 void QxtAVPlayer::play(QString file)
 	{
 	Q_ASSERT_X(Scope,"scope","You need to call open() first");
+	SDL_PauseAudio (1);
 	QxtAVFile * b= avfile;
 	avfile=NULL;
 	if(b)delete(b);
@@ -59,14 +62,17 @@ void QxtAVPlayer::play(QString file)
 
 	///tell avfile to resample its output to the soundcards samplerate
   	avfile->resample(got_spec.freq);	
+	SDL_PauseAudio (0);
 	}
 
 void QxtAVPlayer::stop()
 	{
+	SDL_PauseAudio (1);
 	if(!avfile)return;
 	QxtAVFile * b= avfile;
 	avfile=NULL;
 	delete(b);
+	SDL_PauseAudio (0);
 	}
 
 static void Callback (void * , Uint8 *stream, int size)
@@ -76,6 +82,18 @@ static void Callback (void * , Uint8 *stream, int size)
 
 	if(avfile)
 		{
+
+
+		if (!avfile->opened())
+				{
+				SDL_PauseAudio (1);
+				qWarning("atemping to play not opened file, stop and destroy");
+				delete(avfile);
+				avfile=NULL;
+				return;
+				}
+
+
 		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
 		
 		float a[fliplen*sizeof(float)];

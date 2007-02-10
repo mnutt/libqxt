@@ -60,6 +60,7 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 	eof_f=false;
 	flags_d=flags;
 	blocked	=false;
+	opened_m=false;
 	/// \bug buffsize must be at least 2048
  	Q_ASSERT_X(fliplen>=2048,"","fliplen must be at least 2048");
 	Q_ASSERT_X(!filename.isEmpty(),"","filename may not be empty");
@@ -113,17 +114,21 @@ QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QTh
 		}
 	DSRC=new float[fliplen_m*8];
 
+	///set opened
+	opened_m=true;
+
 
 	///prepare the decoder
 	decoderlock_b=NULL;
  	start();
-
 	}
 
 //-------------------------------------------------------------
 
 QxtAVFile::~QxtAVFile()
 	{
+	if (!opened_m)return;
+
 	blocked=true;
 	eof_f=true;
 	decoderlock_b=NULL;
@@ -140,6 +145,7 @@ QxtAVFile::~QxtAVFile()
 //-------------------------------------------------------------
 int QxtAVFile::resample(unsigned int samplerate)
 	{
+	
 	if(!codec_context)return 2;
 	#ifdef QxtMediaLibsSoundTouch
 
@@ -170,7 +176,9 @@ int QxtAVFile::resample(unsigned int samplerate)
 
 QStringList  QxtAVFile::ID3()
 	{
+	
 	QStringList list;
+	if (!opened_m)return list;
 	if (!format_context)return list;
 	list<<QString(format_context->title).trimmed ();
 	list<<QString(format_context->author).trimmed ();
@@ -192,6 +200,7 @@ QStringList  QxtAVFile::ID3()
 
 double QxtAVFile::time()
 	{
+	if (!opened_m)return 0.0;
 	return playbacktime;
 	}
 
@@ -200,6 +209,7 @@ double QxtAVFile::time()
 
 void QxtAVFile::seek(double time)
 	{
+	if (!opened_m)return;
 	if(format_context->duration<0){qWarning("playing a stream, won't seek.");return;}
 	av_seek_frame   (format_context, -1,(long)(AV_TIME_BASE*time), 0 );
 	playbacktime=time;
@@ -210,6 +220,7 @@ void QxtAVFile::seek(double time)
 //-------------------------------------------------------------
 double QxtAVFile::length()
 	{
+	if (!opened_m)return 0.0;
 	return ((double)format_context->duration/(double)AV_TIME_BASE)/**AORatio*/;
 	}
 
