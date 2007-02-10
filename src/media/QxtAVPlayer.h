@@ -6,7 +6,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QObject>
 #include <QString>
 #include <Qxt/qxtglobal.h>
-
+#include <QDebug>
 class QxtAVFile;
 class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
 	{
@@ -19,12 +19,18 @@ class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
 		QxtAVFile * currentFile();
 		float * scope();
 
+		void up_fetch_eof();
+
+
 	public slots:
 		void play(QxtAVFile * file);
 		void play(QString filename);
 		void stop();
+		void echo(QString e){qDebug()<<e;};
+
 	signals:
 		void error (QString);
+		void currentEof ();
 	};
 
 
