@@ -27,7 +27,7 @@ class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
 		void play(QString filename);
 		void stop();
 		void echo(QString e){qDebug()<<e;};
-
+		void setVolume(float v);
 	signals:
 		void error (QString);
 		void currentEof ();
