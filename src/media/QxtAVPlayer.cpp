@@ -22,6 +22,7 @@ static SDL_AudioSpec 	got_spec;
 static QxtAVFile * 	avfile			=NULL;
 static float * 		Scope			=NULL;
 static int 		FRAMES_PER_BUFFER	=44800;
+float 			volume_m		=0.99;
 
 float * QxtAVPlayer::scope()
 	{
@@ -101,7 +102,7 @@ static void Callback (void * userData, Uint8 *stream, int size)
 
 		for (long i=0;i<fliplen;i++)
 			{
- 			*out++=(short)(a[i]*0.99*std::numeric_limits<short>::max());
+ 			*out++=(short)(a[i]*volume_m*std::numeric_limits<short>::max());
 			if (i%2)Scope[i]=a[i];
 			}
 		}
@@ -170,4 +171,12 @@ QxtAVPlayer::~QxtAVPlayer()
 void QxtAVPlayer::up_fetch_eof()
 	{
 	emit(currentEof ());
+	}
+
+
+void QxtAVPlayer::setVolume(float v)
+	{
+	volume_m=v;
+	if (volume>0.99)volume=0.99;
+	if (volume<0.0)volume=0.0;
 	}
