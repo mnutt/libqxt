@@ -177,6 +177,6 @@ void QxtAVPlayer::up_fetch_eof()
 void QxtAVPlayer::setVolume(float v)
 	{
 	volume_m=v;
-	if (volume>0.99)volume=0.99;
-	if (volume<0.0)volume=0.0;
+	if (volume_m>0.99)volume_m=0.99;
+	if (volume_m<0.0)volume_m=0.0;
 	}
