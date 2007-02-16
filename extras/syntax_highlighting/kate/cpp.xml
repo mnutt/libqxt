@@ -120,6 +120,7 @@
       <item> SKIP </item>
       <item> QXT_INIT_PRIVATE </item>
       <item> QXT_DECLARE_PUBLIC </item>
+      <item> QXT_DECLARE_PRIVATE </item>
       <item> BALL </item>
     </list>
     <list name="types">
