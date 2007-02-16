@@ -10,20 +10,31 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QDebug>
 
 QxtSignalWaiter::QxtSignalWaiter(const QObject* sender, const char* signal) : QObject(0) {
-    obj = sender;
-    sig = signal;
+    Q_ASSERT(sender && signal);
+    connect(sender, signal, this, SLOT(signalCaught()));
 }   
     
 // Returns true if the signal was caught, returns false if the wait timed out
-bool QxtSignalWaiter::wait(int msec, const QObject* sender, const char* signal) {
-    if(sender!=0 && signal!=0) connect(sender, signal, this, SLOT(signalCaught()));
-    else if(obj!=0 && sig!=0) connect(obj, sig, this, SLOT(signalCaught()));
-    else if(msec == -1) return false;
-    // There would be an else clause here, except you can use this to idle for a specified amount of time
-    
-    if(msec!=-1) QTimer::singleShot(msec, this, SLOT(timedOut()));
+bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec) {
+    QxtSignalWaiter w(sender, signal);
+    return w.wait(msec);
+}
+
+// Returns true if the signal was caught, returns false if the wait timed out
+bool QxtSignalWaiter::wait(int msec) {
+    // Check input parameters
+    if(msec < -1) return false;
+
+    // activate the timeout
+    if(msec != -1) timerID = startTimer(msec);
+
+    // Begin waiting   
     ready = timeout = false;
-    while(!ready && !timeout) QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+    while(!ready && !timeout)
+        QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+
+    // Clean up and return status
+    killTimer(timerID);
     return ready || !timeout;
 }
 
@@ -31,6 +42,7 @@ void QxtSignalWaiter::signalCaught() {
     ready = true;
 }
 
-void QxtSignalWaiter::timedOut() {
+void QxtSignalWaiter::timerEvent(QTimerEvent* event) {
+    killTimer(timerID);
     timeout = true;
 }
