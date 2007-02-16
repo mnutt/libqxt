@@ -43,7 +43,7 @@ public:
 
 /** default constructor
     Creates a QSignalWaiter and sets the default signal to sender::signal.*/
-    QxtSignalWaiter(const QObject* sender = 0, const char* signal = 0);
+    QxtSignalWaiter(const QObject* sender, const char* signal);
 
 /** wait for signal
 Waits for the signal sender::signal to be emitted. If msec is not -1, wait() will return after msec milliseconds.
@@ -52,14 +52,15 @@ Returns true if the signal was caught, false if it timed out. \n
 This function is not reentrant.
 */
 
-    bool wait(int msec = -1, const QObject* sender = 0, const char* signal = 0);
+    bool wait(int msec = -1);
+    static bool wait(const QObject* sender, const char* signal, int msec = -1);
+protected:
+    void timerEvent(QTimerEvent* event);
 private slots:
     void signalCaught();
-    void timedOut();
 private:
-    const QObject* obj;
-    const char* sig;
     bool ready, timeout;
+    int timerID;
 };
 
 #endif
