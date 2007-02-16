@@ -2,7 +2,14 @@
                                                                     
                                                                     
                                                                                
-#keep the space lines above. nsis needs them
+
+
+
+
+
+
+
+#keep the space lines above. nsis needs them, as it can only override bytes
 
 isEmpty(QXTbase){
 unix : QXTbase=/usr
@@ -21,6 +28,11 @@ INCLUDEPATH+=$${QXTinclude}
 LIBS += -Wl,-rpath,$${QXTlib} -L$${QXTlib}
 
 
+contains(QXT, curses ){
+        INCLUDEPATH +=$${QXTinclude}/QxtCurses
+	LIBS += -lQxtCurses
+	QXT+=kit
+        }
 contains(QXT, gui ){
         INCLUDEPATH +=$${QXTinclude}/QxtGui
 	LIBS += -lQxtGui

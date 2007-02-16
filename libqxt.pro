@@ -129,6 +129,15 @@ contains( QXT, media ){
 	INSTALLS += media
         }
 
+contains( QXT, curses ){
+        message( building curses module )
+        SUBDIRS += src/curses
+	curses.files +=  src/curses/*.h
+	curses.files +=  deploy/include/QxtCurses/*	
+	curses.path  =  $${include.path}/QxtCurses
+	INSTALLS += curses
+        }
+
 contains( QXT, mox ){
         message( building mox )
         SUBDIRS += mox
