@@ -18,16 +18,12 @@ class QXT_GUI_EXPORT QxtItemDelegate : public QItemDelegate
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtItemDelegate);
-	Q_PROPERTY(bool rootDecorated READ isRootDecorated WRITE setRootDecorated)
 	Q_PROPERTY(Qxt::DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
 	Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode)
 	
 public:
 	explicit QxtItemDelegate(QObject* parent = 0);
 	virtual ~QxtItemDelegate();
-	
-	bool isRootDecorated() const;
-	void setRootDecorated(bool decorate);
 	
 	Qxt::DecorationStyle decorationStyle() const;
 	void setDecorationStyle(Qxt::DecorationStyle style);

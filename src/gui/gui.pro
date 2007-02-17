@@ -33,6 +33,11 @@ QXT_HEADERS_QxtTreeWidget        = QxtTreeWidget.h QxtTreeWidget_p.h
 QXT_SOURCES_QxtTreeWidget        = QxtTreeWidget.cpp
 QXT_STABILITY_QxtTreeWidget      = 
 
+QXT_GUI                         += QxtTreeWidgetItem
+QXT_HEADERS_QxtTreeWidgetItem    = QxtTreeWidgetItem.h
+QXT_SOURCES_QxtTreeWidgetItem    = QxtTreeWidgetItem.cpp
+QXT_STABILITY_QxtTreeWidgetItem  = 
+
 QXT_GUI                         += QxtTabWidget
 QXT_HEADERS_QxtTabWidget         = QxtTabWidget.h
 QXT_SOURCES_QxtTabWidget         = QxtTabWidget.cpp

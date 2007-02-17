@@ -11,6 +11,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
 #include <QxtCore/QxtPimpl>
+#include "QxtTreeWidgetItem.h"
 
 class QxtTreeWidgetPrivate;
 
@@ -18,16 +19,13 @@ class QXT_GUI_EXPORT QxtTreeWidget : public QTreeWidget
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtTreeWidget);
-	Q_PROPERTY(bool rootDecorated READ isRootDecorated WRITE setRootDecorated)
 	Q_PROPERTY(Qxt::DecorationStyle decorationStyle READ decorationStyle WRITE setDecorationStyle)
 	Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode)
+	friend class QxtTreeWidgetItem;
 	
 public:
 	explicit QxtTreeWidget(QWidget* parent = 0);
 	virtual ~QxtTreeWidget();
-	
-	bool isRootDecorated() const;
-	void setRootDecorated(bool decorate);
 	
 	Qxt::DecorationStyle decorationStyle() const;
 	void setDecorationStyle(Qxt::DecorationStyle style);
@@ -38,6 +36,7 @@ public:
 signals:
 	void itemEditingStarted(QTreeWidgetItem* item);
 	void itemEditingFinished(QTreeWidgetItem* item);
+	void itemCheckStateChanged(QxtTreeWidgetItem* item);
 };
 
 #endif // QXTTREEWIDGET_H
