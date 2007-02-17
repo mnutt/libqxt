@@ -1,9 +1,22 @@
 #include "QxtCursesApplication.h"
 #include "QxtCKeyEvent.h"
-#include <QTimerEvent>
+#include <QSocketNotifier>
 #include <curses.h>
+#include <QDebug>
+
+class QxtCursesApplicationPrivate : public QObject, public QxtPrivate<QxtCursesApplication> {
+Q_OBJECT
+public:
+    QXT_DECLARE_PUBLIC(QxtCursesApplication);
+
+    QObject* currentFocus;
+
+public slots:
+    void handleInput();
+};
 
 QxtCursesApplication::QxtCursesApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {
+    QXT_INIT_PRIVATE(QxtCursesApplication);
     initscr();
     nonl();
     cbreak();
@@ -11,9 +24,10 @@ QxtCursesApplication::QxtCursesApplication(int& argc, char** argv) : QCoreApplic
     nodelay(stdscr, true);
     keypad(stdscr, true);
 
-    currentFocus = this;
+    qxt_d().currentFocus = this;
 
-    startTimer(20);
+    QSocketNotifier* keyb = new QSocketNotifier(0, QSocketNotifier::Read, this);
+    QObject::connect(keyb, SIGNAL(activated(int)), &qxt_d(), SLOT(handleInput()));
 }
 
 QxtCursesApplication::~QxtCursesApplication() {
@@ -21,16 +35,14 @@ QxtCursesApplication::~QxtCursesApplication() {
 }
 
 QObject* QxtCursesApplication::focusWidget() {
-    return static_cast<QxtCursesApplication*>(QCoreApplication::instance())->currentFocus;
+    return QxtCursesApplication::instance()->qxt_d().currentFocus;
 }
 
-void QxtCursesApplication::timerEvent(QTimerEvent* event) {
-    Q_UNUSED(event);
-    int k;
+void QxtCursesApplicationPrivate::handleInput() {
+    int k, v;
     do {
         k = getch();
         if(k==ERR) return;
-        int v;
         Qt::KeyboardModifiers m;
         if(k >= 0x41 && k <= 0x5a) {
             v = k;
@@ -83,6 +95,6 @@ void QxtCursesApplication::timerEvent(QTimerEvent* event) {
             case KEY_RESIZE:    /* invoke resize handler */; break;
             default:            v = Qt::Key_unknown; return;
         }
-        postEvent(focusWidget(), new QxtCKeyEvent(v, m, k));
+        QCoreApplication::postEvent(currentFocus, new QxtCKeyEvent(v, m, k));
     } while(true);
 }
