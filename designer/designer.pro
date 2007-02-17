@@ -12,13 +12,17 @@ HEADERS += QxtDesignerPlugins.h \
            QxtDesignerPlugin.h \
            QxtLabelPlugin.h       \
            QxtPushButtonPlugin.h  \
-           QxtTreeWidgetPlugin.h  
+           QxtTreeWidgetPlugin.h \
+           QxtTabWidgetPlugin.h \
+           QxtTabWidgetTaskMenu.h
 
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
            QxtLabelPlugin.cpp  \ 
-          QxtPushButtonPlugin.cpp \
-           QxtTreeWidgetPlugin.cpp 
+           QxtPushButtonPlugin.cpp \
+           QxtTreeWidgetPlugin.cpp \
+           QxtTabWidgetPlugin.cpp \
+           QxtTabWidgetTaskMenu.cpp
 
 CONFIG(debug, debug|release) {
 	unix: TARGET = $$join(TARGET,,,.debug)
