@@ -69,6 +69,15 @@ namespace Qxt {
                 fullLoad
                 };
 
+
+        enum ErrorCode
+                {
+                NoError
+                FileInputError
+                FormatError
+                CodecError
+                };
+
 };
 
 #endif // QXTGUI_H
