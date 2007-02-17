@@ -1,16 +1,10 @@
 #include <QApplication>
-#include <QxtTreeWidget>
+#include "test.h"
 
 int main (int argc, char ** argv)
 	{
 	QApplication app(argc,argv);
-
-
-
-	QTreeWidget treewidget;
-	treewidget.show();
-
-
-
+	Test t;
+	t.show();
 	return app.exec();
 	}
