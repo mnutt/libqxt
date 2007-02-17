@@ -56,7 +56,6 @@ void QxtCWidget::paintEvent(QxtCPaintEvent* event) {
     foreach(QObject* c, children()) {
         w = qobject_cast<QxtCWidget*>(c);
         if(!w) continue;
-        //t = w->mapToParent(pos()).y() - event->start;
         t = w->y() - event->start;
         if(-t > w->height() || t > event->height) continue;
         QxtCPaintEvent e(-t, -t+event->height);
