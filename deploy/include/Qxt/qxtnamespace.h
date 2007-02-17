@@ -26,6 +26,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
     This enum describes the decoration style.
 
+    \value NoDecoration    No decoration
     \value Buttonlike      A style like in Qt Designer's Widget Box.
     \value Menulike        A menu alike style.
  */
@@ -56,6 +57,7 @@ namespace Qxt {
 	
 	enum DecorationStyle
 	{
+		NoDecoration,
 		Buttonlike,
 		Menulike
 	};
