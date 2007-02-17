@@ -4,7 +4,7 @@
 #include "QxtCPaintEvent.h"
 #include <QDebug>
 
-QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent), maxX(0), maxY(0), xpos(0), ypos(0) {
+QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent), maxX(1), maxY(1), xpos(0), ypos(0) {
     if(!parent) {
         WINDOW* p = newwin(1,1,0,0);
         win = new_panel(p);
