@@ -35,6 +35,11 @@ QXT_HEADERS_Pimpl  		 = QxtPimpl.h
 QXT_STABILITY_Pimpl  		 = 
 
 
+QXT_CORE			+= Error
+QXT_HEADERS_Error  		 = QxtError.h
+QXT_STABILITY_Error  		 = 
+
+
 
 
 include (../parts.pri)

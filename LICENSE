@@ -1,22 +1,11 @@
-
 Qt extended Library 
-Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org)
+Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org) and other contributers as named in the sourcecode
 
-
-QT DUAL LICENSING NOTES
-this library requires the qt toolset by trolltech (http://trolltech.com)
-this library is lgpl, but does _not_ include the qt libs what are licensed another way
-
-if you use a gpl version of Qt, this library also becomes GPL !!
-if you have a comercial version of Qt, you may use this library under the terms of LGPL.
-
-QxtCore does not require qt. as a result it is pure LGPL.
+Libqxt depends on Qt and other librarys having their own Licenses.
 
 This library is free software; you can redistribute it and/or
 modify it either under the terms of the GNU Lesser License,
-or the GNU Public License  ( depending on your QT's License (see above))
-as published by the Free Software Foundation; either
-version 2 of the License, or any later version.
+as published by the Free Software Foundation; Version 2.0 or 2.1.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
