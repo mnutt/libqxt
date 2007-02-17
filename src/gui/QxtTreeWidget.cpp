@@ -32,7 +32,7 @@ void QxtTreeWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
 void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 {
-	if (item && !item->parent())
+	if (item && !item->parent() && delegate()->decorationStyle() != Qxt::NoDecoration)
 		qxt_p().setItemExpanded(item, !qxt_p().isItemExpanded(item));
 }
 
@@ -80,9 +80,6 @@ QxtTreeWidget::QxtTreeWidget(QWidget* parent) : QTreeWidget(parent)
 {
 	QXT_INIT_PRIVATE(QxtTreeWidget);
 	setItemDelegate(new QxtItemDelegate(this));
-	setRootIsDecorated(false);
-	setColumnCount(1);
-	header()->hide();
 	connect(this, SIGNAL(itemPressed(QTreeWidgetItem*, int)),
 		&qxt_d(), SLOT(expandCollapse(QTreeWidgetItem*)));
 }
@@ -101,6 +98,10 @@ QxtTreeWidget::~QxtTreeWidget()
     Top level items are decorated according to this property.
     The default value is \b Qxt::NoDecoration.
 
+    \note Setting the property to anything else than \b Qxt::NoDecoration
+    disables root decoration, sets the column count to \b 1 and
+    hides the header.
+
     \sa Qxt::DecorationStyle QxtItemDelegate
  */
 Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
@@ -113,6 +114,13 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 	if (qxt_d().delegate()->decorationStyle() != style)
 	{
 		qxt_d().delegate()->setDecorationStyle(style);
+		
+		if (style != Qxt::NoDecoration)
+		{
+			setRootIsDecorated(false);
+			setColumnCount(1);
+			header()->hide();
+		}
 		reset();
 	}
 }
