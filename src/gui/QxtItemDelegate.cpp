@@ -19,14 +19,12 @@ public:
 	void paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
 	void paintMenu(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
 	
-	bool decorate;
 	Qxt::DecorationStyle style;
 	Qt::TextElideMode elide;
 };
 
 QxtItemDelegatePrivate::QxtItemDelegatePrivate() :
-	decorate(true),
-	style(Qxt::Buttonlike),
+	style(Qxt::NoDecoration),
 	elide(Qt::ElideMiddle)
 {
 }
@@ -147,38 +145,17 @@ QxtItemDelegate::~QxtItemDelegate()
 }
 
 /*!
-    \property QxtItemDelegate::rootDecorated
-    \brief This property holds whether top level indices are decorated
+    \property QxtItemDelegate::decorationStyle
+    \brief This property holds the top level index decoration style
 
-    Top level indices are decorated if this property is \b true.
-    The default value is \b true.
+    Top level indices are decorated according to this property.
+    The default value is \b Qxt::NoDecoration.
 
     \note The property has effect only in case the delegate
     is installed on a single column QTreeView. The view must
     be the parent of the delegate.
 
-    \sa decorationStyle elideMode 
- */
-bool QxtItemDelegate::isRootDecorated() const
-{
-	return qxt_d().decorate;
-}
-
-void QxtItemDelegate::setRootDecorated(bool decorate)
-{
-	qxt_d().decorate = decorate;
-}
-
-/*!
-    \property QxtItemDelegate::decorationStyle
-    \brief This property holds the top level index decoration style
-
-    Top level indices are decorated according to this property.
-    The default value is \b Qxt::Buttonlike.
-
-    \note The property has effect only in case rootDecorated is \b true.
-
-    \sa rootDecorated Qxt::DecorationStyle
+    \sa Qxt::DecorationStyle
  */
 Qxt::DecorationStyle QxtItemDelegate::decorationStyle() const
 {
@@ -197,9 +174,9 @@ void QxtItemDelegate::setDecorationStyle(Qxt::DecorationStyle style)
     The text of a decorated top level index is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
-    \note The property has effect only in case rootDecorated is \b true.
+    \note The property has effect only for decorated top level indices.
 
-    \sa rootDecorated
+    \sa decorationStyle
  */
 Qt::TextElideMode QxtItemDelegate::elideMode() const
 {
@@ -230,7 +207,7 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 	const bool topLevel = !index.parent().isValid();
 	const bool singleColumn = (model->columnCount() == 1);
 	
-	if (qxt_d().decorate && view && topLevel && singleColumn)
+	if (view && topLevel && singleColumn)
 	{
 		switch (qxt_d().style)
 		{

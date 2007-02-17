@@ -41,10 +41,8 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
     \ingroup gui
     \brief An extended tree widget.
 
-    QxtTreeWidget offers top level item decoration and signals
-
-    QxtTreeWidget provides signals for starting and finishing of editing
-    and an optional decoration for top level items.
+    QxtTreeWidget offers an optional top level item decoration
+    and most commonly requested signals.
 
     \note Requires Qt 4.2 or newer.
  */
@@ -63,6 +61,16 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
     This signal is emitted immediately after the editing of \a item has been finished.
 
     \sa itemEditingStarted()
+ */
+
+/*!
+    \fn QxtTreeWidget::itemCheckStateChanged(QxtTreeWidgetItem* item)
+
+    This signal is emitted whenever the check state of \a item has changed.
+
+    \note Use QxtTreeWidgetItems in order to enable this feature.
+
+    \sa QxtTreeWidgetItem
  */
 
 /*!
@@ -87,38 +95,13 @@ QxtTreeWidget::~QxtTreeWidget()
 }
 
 /*!
-    \property QxtTreeWidget::rootDecorated
-    \brief This property holds whether top level items are decorated
-
-    Top level items are decorated if this property is \b true.
-    The default value is \b true.
-
-    \sa decorationStyle elideMode 
- */
-bool QxtTreeWidget::isRootDecorated() const
-{
-	return qxt_d().delegate()->isRootDecorated();
-}
-
-void QxtTreeWidget::setRootDecorated(bool decorate)
-{
-	if (qxt_d().delegate()->isRootDecorated() != decorate)
-	{
-		qxt_d().delegate()->setRootDecorated(decorate);
-		reset();
-	}
-}
-
-/*!
     \property QxtTreeWidget::decorationStyle
     \brief This property holds the top level item decoration style
 
     Top level items are decorated according to this property.
-    The default value is \b Qxt::Buttonlike.
+    The default value is \b Qxt::NoDecoration.
 
-    \note The property has effect only in case rootDecorated is \b true.
-
-    \sa rootDecorated Qxt::DecorationStyle QxtItemDelegate
+    \sa Qxt::DecorationStyle QxtItemDelegate
  */
 Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
 {
@@ -141,9 +124,9 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
     The text of a decorated top level item is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
-    \note The property has effect only in case rootDecorated is \b true.
+    \note The property has effect only for decorated top level items.
 
-    \sa rootDecorated
+    \sa decorationStyle
  */
 Qt::TextElideMode QxtTreeWidget::elideMode() const
 {
