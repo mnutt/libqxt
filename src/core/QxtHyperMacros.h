@@ -59,13 +59,13 @@ class QXT_CORE_EXPORT QxtHyperValue
 		value--;
 		return this;
 		}
-	const QxtHyperValue<T>& operator++(int) 
+	const QxtHyperValue<T> operator++(int) 
 		{
 		QxtHyperValue<T> clone = *this;
 		value++;
 		return clone;
 		}
-	const QxtHyperValue<T>& operator--(int) 
+	const QxtHyperValue<T> operator--(int) 
 		{
 		QxtHyperValue<T> clone = *this;
 		value--;
@@ -88,7 +88,7 @@ class QXT_CORE_EXPORT QxtHyperValue
 		}
 
     	private:
-        	T* value;
+        	T value;
 	};
 
 
