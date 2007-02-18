@@ -22,10 +22,16 @@ class QxtAVPlayerPrivate : public QObject, QxtPrivate<QxtAVPlayer>
 
 		QxtError pause     (bool);
 
+
+		void up_fetch_eof()
+			{emit(eof());}
+
+
 	public slots:
 		QxtError open();
 		QxtError close();	
-
+	signals:
+		void eof           ();
 	};
 
 

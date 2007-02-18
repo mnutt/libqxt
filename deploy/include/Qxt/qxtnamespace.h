@@ -78,13 +78,13 @@ namespace Qxt {
 		Bug,
 		UnexpectedEndOfFunction,
 		NotImplemented,
+                CodecError,
+                NotInitialised,
+		EndOfFile,
                 FileIOError,
                 FormatError,
                 DeviceError,
-                SDLError,
-                CodecError,
-                NotInitialised,
-		EndOfFile
+                SDLError
                 };
 
 };
