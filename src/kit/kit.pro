@@ -25,11 +25,6 @@ QXT_KIT                        += QxtPairList
 QXT_HEADERS_QxtPairList         = QxtPairList.h
 QXT_STABILITY_QxtPairList       = 
 
-QXT_KIT			       += QxtMetaBall
-QXT_HEADERS_QxtMetaBall		= QxtMetaBall.h
-QXT_SOURCES_QxtMetaBall		= QxtMetaBall.cpp
-QXT_STABILITY_QxtMetaBall	=
-
 
 
 
