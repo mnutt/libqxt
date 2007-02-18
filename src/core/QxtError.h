@@ -57,7 +57,7 @@ QXT_DROP_F(critical_function());
 class QXT_CORE_EXPORT QxtError
 	{
 	public:
-		QxtError(char * file, long line, Qxt::QxtError errorcode)
+		QxtError(char * file, long line, Qxt::ErrorCode errorcode)
 			{
 			file_m=file;
 			line_m=line;
@@ -65,7 +65,7 @@ class QXT_CORE_EXPORT QxtError
 			}
 
 
-		Qxt::QxtError errorCode() const
+		Qxt::ErrorCode errorCode() const
 			{return errorcode_m;}
 
 		long line() const
@@ -75,7 +75,7 @@ class QXT_CORE_EXPORT QxtError
 			{return file_m;}
 
 	private:
-		Qxt::QxtError errorcode_m;
+		Qxt::ErrorCode errorcode_m;
 		long line_m;
 		char * file_m;
 	};
