@@ -15,7 +15,7 @@
 
 #modules  (core kit gui network sql media curses mox)
 
-#QXT -= mox
+QXT -= curses
 
 
 #librarys libqxt will be linked to (openssl)

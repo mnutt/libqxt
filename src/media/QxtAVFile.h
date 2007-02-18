@@ -17,7 +17,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QxtCore/QxtError>
 
 class QxtAVFilePrivate;
-class QxtAVFile : public QObject
+class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 	{
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtAVFile);
@@ -46,6 +46,7 @@ class QxtAVFile : public QObject
 
 		bool isEof();
 
+		unsigned long samplerate();
 	};
 
 #endif

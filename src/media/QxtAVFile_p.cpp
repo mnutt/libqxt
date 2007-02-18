@@ -132,6 +132,17 @@ bool  QxtAVFilePrivate::isEof()
 
 //----------------------------------------------
 
+unsigned long QxtAVFilePrivate::samplerate()
+	{
+	if (!opened)		return 0;
+	if (!codec_context)	return 0;
+	return codec_context->sample_rate;
+	}
+
+
+
+//----------------------------------------------
+
 QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 	{
 	if (!opened)			QXT_DROP(Qxt::NotInitialised);
@@ -139,7 +150,7 @@ QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 
 	
 	while (ring->available() < length*sizeof(short))
-		getFrame();				///TODO: make it realtime
+		getFrame();				///TODO: make it realtime and error safe
 
 
 

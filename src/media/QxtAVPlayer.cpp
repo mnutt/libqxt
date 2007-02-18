@@ -1,8 +1,7 @@
 #include "QxtAVFile.h"
 #include "QxtAVPlayer.h"
-#include <SDL/SDL.h>
-#include <QDebug>
-
+#include "QxtAVPlayer_p.h"
+#include <QxtCore/QxtHyperMacros>
 
 /**
 \class QxtAVPlayer QxtAVPlayer
@@ -18,166 +17,159 @@ player.play("foo.wav");
 \endcode
 */
 
-static SDL_AudioSpec 	got_spec;
-static QxtAVFile * 	avfile			=NULL;
-static float * 		Scope			=NULL;
-static int 		FRAMES_PER_BUFFER	=44800;
-float 			volume_m		=0.99;
-
-float * QxtAVPlayer::scope()
-	{
-	Q_ASSERT_X(Scope,"scope","You need to call open() first");
-	return Scope;
-	}
-
-QxtAVFile * QxtAVPlayer::currentFile()
-	{
-	return avfile;
-	}
-
-void QxtAVPlayer::play(QxtAVFile * file)
-	{
-	Q_ASSERT_X(Scope,"scope","You need to call open() first");
-	SDL_PauseAudio (1);
-	QxtAVFile * b= avfile;
-	avfile=NULL;
-	if(b)delete(b);
-
-	avfile= file;
-	///tell avfile to resample its output to the soundcards samplerate
-// 	avfile->resample(got_spec.freq);	
-	SDL_PauseAudio (0);
-	}
+//------------------------------------------------------------------------------------
 
 
-void QxtAVPlayer::play(QString file)
-	{
-	Q_ASSERT_X(Scope,"scope","You need to call open() first");
-	SDL_PauseAudio (1);
-	QxtAVFile * b= avfile;
-	avfile=NULL;
-	if(b)delete(b);
-
-	///intialise QxtAVFile. take care of the *2 QxtAVFile wants the amount of samples to push whereas sdl means the amount per channel
-	avfile= new QxtAVFile();
-	avfile->open(file);
-
-	///tell avfile to resample its output to the soundcards samplerate
-//   	avfile->resample(got_spec.freq);	
-	SDL_PauseAudio (0);
-	}
-
-void QxtAVPlayer::stop()
-	{
-	SDL_PauseAudio (1);
-	if(!avfile)return;
-	QxtAVFile * b= avfile;
-	avfile=NULL;
-	delete(b);
-	SDL_PauseAudio (0);
-	}
 
 static void Callback (void * userData, Uint8 *stream, int size)
 	{
 	short *out = (short*)stream;
-	long fliplen = size/sizeof(short);
-
-	if(avfile)
+	int length = size/sizeof(short);
+	QxtAVPlayerPrivate * player =  (QxtAVPlayerPrivate *)userData;
+	if(player->avfile)
 		{
+		short a[size];
+		short *pa=a;
+		player->avfile->read(a, length);
 
-/*
-		if (!avfile->opened())
-				{
-				SDL_PauseAudio (1);
-				qWarning("atemping to play not opened file, stop and eof");
-				QxtAVPlayer* playa = (QxtAVPlayer *)userData;
-				playa->up_fetch_eof();
-				return;
-				}*/
-
-
-		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
-		
-		float a[fliplen*sizeof(float)];
-		avfile->read(a,fliplen);
-
-		for (long i=0;i<fliplen;i++)
+		fortimes(length)
 			{
- 			*out++=(short)(a[i]*volume_m*std::numeric_limits<short>::max());
-			if (i%2)Scope[i]=a[i];
+ 			(*out++) =(short)((*pa++)*player->volume_m);
 			}
 		}
 
 	else
-		{
-		for (long i=0; i<fliplen;i++)
-			{
+		fortimes(length)
 			*out++=0;
-			*out++=0; 
-			Scope[i]=0.0f;
-			}
+	}
+
+
+//------------------------------------------------------------------------------------
+
+
+QxtAVPlayerPrivate::QxtAVPlayerPrivate()
+	{
+	avfile=NULL;
+	samplerate=48000;
+	volume_m=0.99;
+	opened_m=false;
+	}
+		
+//------------------------------------------------------------------------------------
+
+
+QxtError QxtAVPlayerPrivate::play(QString file)
+	{
+	if (opened_m)
+		{
+		SDL_PauseAudio (1);
+		delete avfile;
+		avfile= new QxtAVFile();
+		QXT_DROP_F(avfile->open(file));
+		SDL_PauseAudio (0);
 		}
+	else
+		{
+		avfile= new QxtAVFile();
+		QXT_DROP_F(avfile->open(file));
+		QXT_DROP_F(open());
+		}
+
+	QXT_DROP_OK;
 	}
+//------------------------------------------------------------------------------------
 
-
-QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
+QxtError QxtAVPlayerPrivate::open()
 	{
-	}
+	if (opened_m)	QXT_DROP(Qxt::LogicalError);
+	if (!avfile)	QXT_DROP(Qxt::Bug);
 
 
-bool QxtAVPlayer::open(int framesPerBuffer)
-	{
-	FRAMES_PER_BUFFER=framesPerBuffer;
-	Scope=new float[FRAMES_PER_BUFFER*sizeof(float)];
-
-	///init sdl
-	Q_ASSERT_X(SDL_Init (SDL_INIT_AUDIO)>=0,"SDL",SDL_GetError());
 
 
-	///sdl lets us pass a wanted spec, and it tryes to respect that. if we let it , it will try to find a mode less you intensive though
+	if(SDL_Init (SDL_INIT_AUDIO)<0)QXT_DROP(Qxt::SDLError);
+
 	SDL_AudioSpec wanted_spec;
-
-	wanted_spec.freq=48000;
+	wanted_spec.freq=avfile->samplerate();
 	wanted_spec.format=AUDIO_S16SYS;
 	wanted_spec.channels=2;
         wanted_spec.silence = 0;
 
-	wanted_spec.samples=FRAMES_PER_BUFFER;
+	wanted_spec.samples=2048;
 	wanted_spec.callback=Callback;
 	wanted_spec.userdata=this;
 	got_spec=wanted_spec;
 
-	///set the second parameter to NULL, to enforce the spec above, if you encounter problems
-	Q_ASSERT_X(SDL_OpenAudio (&wanted_spec, &got_spec)>=0,"SDL",SDL_GetError());
+	if(SDL_OpenAudio (&wanted_spec, NULL)<0)QXT_DROP(Qxt::SDLError);
 
 	
 	///unpause
 	SDL_PauseAudio (0);
 
-	return true;
+	opened_m=true;
+	QXT_DROP_OK;
+	}
+//------------------------------------------------------------------------------------
+QxtError QxtAVPlayerPrivate::close()	
+	{
+	if (!opened_m)	QXT_DROP(Qxt::NotInitialised);
+	SDL_PauseAudio (1);
+ 	SDL_CloseAudio();
+	if(avfile)delete(avfile);
+	QXT_DROP_OK;
+	}
+//------------------------------------------------------------------------------------
+
+
+QxtError QxtAVPlayerPrivate::setVolume(float v)
+	{
+	if (v>0.99)v=0.99;
+	if (v<0.0)v=0.0;
+	volume_m=v;
+	QXT_DROP_OK;
+	}
+
+QxtError QxtAVPlayerPrivate::pause      (bool e)
+	{
+	if (!opened_m)	QXT_DROP(Qxt::NotInitialised);
+
+	if (e)
+	SDL_PauseAudio (1);
+	else
+	SDL_PauseAudio (0);
+	QXT_DROP_OK;
 	}
 
 
+
+//--------------------------------interface----------------------------------------------------
+
+
+QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
+	{
+	}
 QxtAVPlayer::~QxtAVPlayer()
 	{
-	///cleanup
-// 	SDL_CloseAudio();
-
-	if(avfile)delete(avfile);
-	if(Scope)delete [] Scope;
+	qxt_d().close();
 	}
 
-
-
-void QxtAVPlayer::up_fetch_eof()
+QxtAVFile * QxtAVPlayer::currentFile()
 	{
-	emit(currentEof ());
+	return 	qxt_d().avfile;
 	}
 
-
-void QxtAVPlayer::setVolume(float v)
+QxtError QxtAVPlayer::play      (QString url)
 	{
-	volume_m=v;
-	if (volume_m>0.99)volume_m=0.99;
-	if (volume_m<0.0)volume_m=0.0;
+	return 	qxt_d().play(url);
 	}
+
+QxtError QxtAVPlayer::pause      (bool e)
+	{
+	return 	qxt_d().pause(e);
+	}
+QxtError QxtAVPlayer::setVolume (float v)
+	{
+	return 	qxt_d().setVolume(v);
+	};
+
+
