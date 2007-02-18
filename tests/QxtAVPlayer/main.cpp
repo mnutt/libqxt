@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QxtMedia/QxtAVPlayer>
 #include <QStringList>
+#include <QxtSignalWaiter>
 
 int main(int argc, char **argv)
 {
@@ -9,5 +10,7 @@ int main(int argc, char **argv)
 	QxtAVPlayer player;
 	player.play(app.arguments()[1]);
 
-	return app.exec();
+
+
+	return	QxtSignalWaiter::wait(&player, SIGNAL(eof()));
 }

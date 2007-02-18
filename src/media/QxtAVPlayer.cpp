@@ -122,6 +122,7 @@ QxtError QxtAVPlayerPrivate::close()
 	SDL_PauseAudio (1);
  	SDL_CloseAudio();
 	if(avfile)delete(avfile);
+	opened_m=false;
 	QXT_DROP_OK;
 	}
 //------------------------------------------------------------------------------------
