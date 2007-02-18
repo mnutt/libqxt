@@ -120,6 +120,7 @@ QxtError  QxtAVFilePrivate::seekP(char time)
 
 char 	 QxtAVFilePrivate::timeP()   const
 	{
+	if (!length())return 0;
 	return (char)((time()/length())*100.0);
 	}
 
