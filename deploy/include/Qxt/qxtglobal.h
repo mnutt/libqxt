@@ -32,8 +32,13 @@ released under the Terms of LGPL (see the LICENSE file)
 */
 
 /** \defgroup media
-        special module for Audio and Video Stuff
+        special module for Media Classes
 */
+
+/** \defgroup curses
+        Qt like ncurses Frontend
+*/
+
 
 
 /**

@@ -7,7 +7,7 @@
 
 /*!
  * \class QxtCRect
- * \group curses
+ * \ingroup curses
  * \brief Defines a rectangle
  *
  * The QxtCRect class defines a rectangle.

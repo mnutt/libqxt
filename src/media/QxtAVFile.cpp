@@ -38,21 +38,17 @@ QxtError QxtAVFile::open(QString url)
 	}
 //-------------------------------------------------------------
 /*!
-returns the preload state
+this property holds the preload state
 
 preloading is not implemented yet
- */
+*/
 
 bool QxtAVFile::preloaded() const
 	{
 	return false;
 	}
 //-------------------------------------------------------------
-/*!
-sets the preload state
 
-preloading is not implemented yet
- */
 
 QxtError QxtAVFile::setPreloaded(const bool)
 	{
@@ -61,6 +57,8 @@ QxtError QxtAVFile::setPreloaded(const bool)
 //-------------------------------------------------------------
 /*!
 read an amount of \a length  shorts into the target buffer.
+
+the result is always stereo interlaced and guarantied to be the expected size.
 */
 
 QxtError QxtAVFile::read(short* target, unsigned long length)
@@ -70,6 +68,8 @@ QxtError QxtAVFile::read(short* target, unsigned long length)
 //-------------------------------------------------------------
 /*!
 read an amount of \a length  floats into the target buffer.
+
+the result is always stereo interlaced and guarantied to be the expected size.
 */
 
 QxtError QxtAVFile::read(float* target, unsigned long length)
@@ -79,6 +79,8 @@ QxtError QxtAVFile::read(float* target, unsigned long length)
 //-------------------------------------------------------------
 /*!
 read an amount of \a length  chars into the target buffer.
+
+the result is always stereo interlaced and guarantied to be the expected size.
 */
 
 QxtError QxtAVFile::read(char * target, unsigned long length)
