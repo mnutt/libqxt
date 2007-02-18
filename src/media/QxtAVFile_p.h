@@ -34,7 +34,11 @@ class QxtAVFilePrivate : public QObject,QxtPrivate<QxtAVFile>
 	bool isEof();
 
 
+	unsigned long samplerate();
 	
+
+
+
 	///internals
 	QxtError getFrame();
 

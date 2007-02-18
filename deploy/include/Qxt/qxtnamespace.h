@@ -80,6 +80,8 @@ namespace Qxt {
 		NotImplemented,
                 FileIOError,
                 FormatError,
+                DeviceError,
+                SDLError,
                 CodecError,
                 NotInitialised,
 		EndOfFile

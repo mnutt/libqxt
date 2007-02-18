@@ -92,3 +92,13 @@ char 	QxtAVFile::timeP()   const
 	{
 	return qxt_d().timeP();
 	}
+
+
+//-------------------------------------------------------------
+	
+unsigned long QxtAVFile::samplerate()
+	{
+	return qxt_d().samplerate();
+	}
+
+

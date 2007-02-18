@@ -3,33 +3,45 @@ Qt extended Library
 Copyright (C) 2006 Arvid Picciani
 released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
+
+#ifndef QxtAVPlayerGuardH
+#define QxtAVPlayerGuardH
+
+
 #include <QObject>
 #include <QString>
 #include <QDebug>
+
+
+#include <Qxt/qxtglobal.h>
+#include <Qxt/qxtnamespace.h>
+
+#include <QxtCore/QxtPimpl>
+#include <QxtCore/QxtError>
+
 class QxtAVFile;
-class  QxtAVPlayer : public QObject
+class QxtAVPlayerPrivate;
+class QXT_MEDIA_EXPORT  QxtAVPlayer : public QObject
 	{
 	Q_OBJECT
+	QXT_DECLARE_PRIVATE(QxtAVPlayer);
 	public:
 		QxtAVPlayer(QObject * parent =0);
 		~QxtAVPlayer();
-		bool open(int framesPerBuffer);
 
 		QxtAVFile * currentFile();
-		float * scope();
-
-		void up_fetch_eof();
-
 
 	public slots:
-		void play(QxtAVFile * file);
-		void play(QString filename);
-		void stop();
-		void echo(QString e){qDebug()<<e;};
-		void setVolume(float v);
+		QxtError play      (QString url);
+		QxtError pause     (bool);
+		QxtError setVolume (float v);
 	signals:
-		void error (QString);
-		void currentEof ();
+		void eof           ();
+		void error         (QxtError);
 	};
+
+
+
+#endif
 
 
