@@ -39,6 +39,10 @@ QXT_CORE			+= Error
 QXT_HEADERS_Error  		 = QxtError.h
 QXT_STABILITY_Error  		 = 
 
+QXT_CORE			+= QxtHyperMacros
+QXT_HEADERS_QxtHyperMacros  	 = QxtHyperMacros.h
+QXT_STABILITY_QxtHyperMacros     = 
+ 
 
 
 

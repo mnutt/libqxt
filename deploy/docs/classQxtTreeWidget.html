@@ -45,16 +45,12 @@ width="32" height="32" border="0" /></a></td>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</a> (QTreeWidgetItem *item)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#19b8f33f02812013b0362caca1a2be68">itemCheckStateChanged</a> (<a class="el" href="classQxtTreeWidgetItem.html">QxtTreeWidgetItem</a> *item)</td></tr>
+
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#2f0aaec7459e90be757b3cbb12883c4c">QxtTreeWidget</a> (QWidget *parent=0)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</a> ()</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d14fc0220eb6a8eca56fc1d3568e7dc5"></a><!-- doxytag: member="QxtTreeWidget::isRootDecorated" ref="d14fc0220eb6a8eca56fc1d3568e7dc5" args="() const" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>isRootDecorated</b> () const</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ec15eb1569d66a64751565bc3301047f"></a><!-- doxytag: member="QxtTreeWidget::setRootDecorated" ref="ec15eb1569d66a64751565bc3301047f" args="(bool decorate)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setRootDecorated</b> (bool decorate)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="395e9d15b2684814be0247d50e488eb9"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="395e9d15b2684814be0247d50e488eb9" args="() const" -->
 Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><b>decorationStyle</b> () const</td></tr>
@@ -69,21 +65,21 @@ Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><b>elideMod
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setElideMode</b> (Qt::TextElideMode mode)</td></tr>
 
 <tr><td colspan="2"><br><h2>Properties</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a><code> []</code></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds whether top level items are decorated.  <a href="#39d99771d6059f6ffe90db6ce5d111a4"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a><code> []</code></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the top level item decoration style.  <a href="#d82d41a765acac120ab12eb5f6f80c06"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a><code> []</code></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the text elide mode.  <a href="#6b84eee5c85d3065c0271ff6444eef9a"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Friends</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="30b29153bef2cd9bd879c3c037969c44"></a><!-- doxytag: member="QxtTreeWidget::QxtTreeWidgetItem" ref="30b29153bef2cd9bd879c3c037969c44" args="" -->
+class&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#30b29153bef2cd9bd879c3c037969c44">QxtTreeWidgetItem</a></td></tr>
+
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 An extended tree widget. 
 <p>
-<a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> offers top level item decoration and signals<p>
-<a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> provides signals for starting and finishing of editing and an optional decoration for top level items.<p>
+<a class="el" href="classQxtTreeWidget.html">QxtTreeWidget</a> offers an optional top level item decoration and most commonly requested signals.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>Requires Qt 4.2 or newer. </dd></dl>
 
 <p>
@@ -172,26 +168,30 @@ This signal is emitted immediately after the editing of <em>item</em> has been f
 
 </div>
 </div><p>
-<hr><h2>Property Documentation</h2>
-<a class="anchor" name="39d99771d6059f6ffe90db6ce5d111a4"></a><!-- doxytag: member="QxtTreeWidget::rootDecorated" ref="39d99771d6059f6ffe90db6ce5d111a4" args="" -->
+<a class="anchor" name="19b8f33f02812013b0362caca1a2be68"></a><!-- doxytag: member="QxtTreeWidget::itemCheckStateChanged" ref="19b8f33f02812013b0362caca1a2be68" args="(QxtTreeWidgetItem *item)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QxtTreeWidget::rootDecorated<code> [read, write]</code>          </td>
+          <td class="memname">QxtTreeWidget::itemCheckStateChanged           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classQxtTreeWidgetItem.html">QxtTreeWidgetItem</a> *&nbsp;</td>
+          <td class="paramname"> <em>item</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [signal]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-This property holds whether top level items are decorated. 
-<p>
-Top level items are decorated if this property is <b>true</b>. The default value is <b>true</b>.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a> <a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a> </dd></dl>
+This signal is emitted whenever the check state of <em>item</em> has changed.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Use QxtTreeWidgetItems in order to enable this feature.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidgetItem.html">QxtTreeWidgetItem</a> </dd></dl>
 
 </div>
 </div><p>
+<hr><h2>Property Documentation</h2>
 <a class="anchor" name="d82d41a765acac120ab12eb5f6f80c06"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="d82d41a765acac120ab12eb5f6f80c06" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -206,9 +206,9 @@ Top level items are decorated if this property is <b>true</b>. The default value
 <p>
 This property holds the top level item decoration style. 
 <p>
-Top level items are decorated according to this property. The default value is <b>Qxt::Buttonlike</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a> Qxt::DecorationStyle <a class="el" href="classQxtItemDelegate.html">QxtItemDelegate</a> </dd></dl>
+Top level items are decorated according to this property. The default value is <b>Qxt::NoDecoration</b>.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Setting the property to anything else than <b>Qxt::NoDecoration</b> disables root decoration, sets the column count to <b>1</b> and hides the header.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>Qxt::DecorationStyle <a class="el" href="classQxtItemDelegate.html">QxtItemDelegate</a> </dd></dl>
 
 </div>
 </div><p>
@@ -227,8 +227,8 @@ Top level items are decorated according to this property. The default value is <
 This property holds the text elide mode. 
 <p>
 The text of a decorated top level item is elided according to this property. The default value is <b>Qt::ElideMiddle</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#39d99771d6059f6ffe90db6ce5d111a4">rootDecorated</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only for decorated top level items.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a> </dd></dl>
 
 </div>
 </div><p>

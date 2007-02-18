@@ -48,12 +48,6 @@ width="32" height="32" border="0" /></a></td>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtItemDelegate.html#5a7313c4c5b9ef91624b655ba8258794">~QxtItemDelegate</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d3add34eae3ae909668921078edf9fba"></a><!-- doxytag: member="QxtItemDelegate::isRootDecorated" ref="d3add34eae3ae909668921078edf9fba" args="() const" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>isRootDecorated</b> () const</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a61908c51c65ba06f18e5063cd1a3e24"></a><!-- doxytag: member="QxtItemDelegate::setRootDecorated" ref="a61908c51c65ba06f18e5063cd1a3e24" args="(bool decorate)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setRootDecorated</b> (bool decorate)</td></tr>
-
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="9a385b8ebb82ee54565f31132d5fab5d"></a><!-- doxytag: member="QxtItemDelegate::decorationStyle" ref="9a385b8ebb82ee54565f31132d5fab5d" args="() const" -->
 Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><b>decorationStyle</b> () const</td></tr>
 
@@ -79,9 +73,6 @@ virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><b>paint</b> (QP
 virtual QSize&nbsp;</td><td class="memItemRight" valign="bottom"><b>sizeHint</b> (const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const</td></tr>
 
 <tr><td colspan="2"><br><h2>Properties</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtItemDelegate.html#80f148a485c8cefe4ea5d9c4287009d8">rootDecorated</a><code> []</code></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds whether top level indices are decorated.  <a href="#80f148a485c8cefe4ea5d9c4287009d8"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtItemDelegate.html#164f51dc565c77b9751d903551242bcb">decorationStyle</a><code> []</code></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the top level index decoration style.  <a href="#164f51dc565c77b9751d903551242bcb"></a><br></td></tr>
@@ -183,26 +174,6 @@ This signal is emitted immediately after the editing of <em>index</em> has been 
 </div>
 </div><p>
 <hr><h2>Property Documentation</h2>
-<a class="anchor" name="80f148a485c8cefe4ea5d9c4287009d8"></a><!-- doxytag: member="QxtItemDelegate::rootDecorated" ref="80f148a485c8cefe4ea5d9c4287009d8" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QxtItemDelegate::rootDecorated<code> [read, write]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This property holds whether top level indices are decorated. 
-<p>
-Top level indices are decorated if this property is <b>true</b>. The default value is <b>true</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case the delegate is installed on a single column QTreeView. The view must be the parent of the delegate.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtItemDelegate.html#164f51dc565c77b9751d903551242bcb">decorationStyle</a> <a class="el" href="classQxtItemDelegate.html#aad15b615b46a7be400ed22a46c329b9">elideMode</a> </dd></dl>
-
-</div>
-</div><p>
 <a class="anchor" name="164f51dc565c77b9751d903551242bcb"></a><!-- doxytag: member="QxtItemDelegate::decorationStyle" ref="164f51dc565c77b9751d903551242bcb" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -217,9 +188,9 @@ Top level indices are decorated if this property is <b>true</b>. The default val
 <p>
 This property holds the top level index decoration style. 
 <p>
-Top level indices are decorated according to this property. The default value is <b>Qxt::Buttonlike</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtItemDelegate.html#80f148a485c8cefe4ea5d9c4287009d8">rootDecorated</a> Qxt::DecorationStyle </dd></dl>
+Top level indices are decorated according to this property. The default value is <b>Qxt::NoDecoration</b>.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case the delegate is installed on a single column QTreeView. The view must be the parent of the delegate.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>Qxt::DecorationStyle </dd></dl>
 
 </div>
 </div><p>
@@ -238,8 +209,8 @@ Top level indices are decorated according to this property. The default value is
 This property holds the text elide mode. 
 <p>
 The text of a decorated top level index is elided according to this property. The default value is <b>Qt::ElideMiddle</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only in case rootDecorated is <b>true</b>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtItemDelegate.html#80f148a485c8cefe4ea5d9c4287009d8">rootDecorated</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only for decorated top level indices.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtItemDelegate.html#164f51dc565c77b9751d903551242bcb">decorationStyle</a> </dd></dl>
 
 </div>
 </div><p>
