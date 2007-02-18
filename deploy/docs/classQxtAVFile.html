@@ -33,156 +33,292 @@ width="32" height="32" border="0" /></a></td>
 <h1>QxtAVFile Class Reference<br>
 <small>
 [<a class="el" href="group__media.html">Media</a>]</small>
-</h1><!-- doxytag: class="QxtAVFile" -->AV decoder.  
+</h1><!-- doxytag: class="QxtAVFile" -->AV Decoder.  
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;QxtAVFile&gt;</code>
 <p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Signals</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#95e8927cc6986fe71853faae4b440852">eof</a> ()</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="db0c6e122440af4cbb56d6328d34fab7"></a><!-- doxytag: member="QxtAVFile::error" ref="db0c6e122440af4cbb56d6328d34fab7" args="(QString)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>error</b> (QString)</td></tr>
-
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#fc7c8f10ac9e4adf3fbd2fec3d1a494f">QxtAVFile</a> (QString filename, int fliplen, int flags=0, QObject *parent=0)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#32a13ecae2bf559e131d046805cd9f8c">QxtAVFile</a> (QObject *parent=0)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#cac3319a183995c8c7f25d6156833ab9">QxtAVFile</a> (QString filename, QxtAudioPlayer *, int flags=0, QObject *parent=0)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#5a10ba6ca80961c46f366bc2f162710b">open</a> (QString url)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#9a2f34df148cced0108370e82310dcdd">flip</a> (float *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="75a54e5386fc64ed2b2703a87b1df2c7"></a><!-- doxytag: member="QxtAVFile::preloaded" ref="75a54e5386fc64ed2b2703a87b1df2c7" args="() const" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>preloaded</b> () const</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="8d94966d8f908beef5d6b01eedb5147b"></a><!-- doxytag: member="QxtAVFile::flip" ref="8d94966d8f908beef5d6b01eedb5147b" args="(short *)" -->
-int&nbsp;</td><td class="memItemRight" valign="bottom"><b>flip</b> (short *)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="edf681fc0113f81b687896ae4cae2985"></a><!-- doxytag: member="QxtAVFile::setPreloaded" ref="edf681fc0113f81b687896ae4cae2985" args="(const bool)" -->
+<a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><b>setPreloaded</b> (const bool)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#6212b0878e52ce9af097a65aa46df076">resample</a> (unsigned int samplerate)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</a> (short *, unsigned long length)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">QStringList&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#15a19ad3e3f908f98aec1db294ee3ae9">ID3</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#52d4aa3a9fa508a85a544ee5cf4a5064">read</a> (float *, unsigned long length)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="004b7905514b15f3ccd7a5da488e0500"></a><!-- doxytag: member="QxtAVFile::seek" ref="004b7905514b15f3ccd7a5da488e0500" args="(double time)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#004b7905514b15f3ccd7a5da488e0500">seek</a> (double time)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#59b166e795f618e37285b4c339e4b062">read</a> (char *, unsigned long length)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">seek to the specified playback time in seconds. <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="da4660fbb40cd3cc82ce80f2a604ea9e"></a><!-- doxytag: member="QxtAVFile::time" ref="da4660fbb40cd3cc82ce80f2a604ea9e" args="()" -->
-double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#da4660fbb40cd3cc82ce80f2a604ea9e">time</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#b030f5b85645f83363bcb2c1c2e4cb70">seek</a> (double time)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns the current playback time in seconds. <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="fd56df1972ba3b6da0522dfc0c719061"></a><!-- doxytag: member="QxtAVFile::length" ref="fd56df1972ba3b6da0522dfc0c719061" args="()" -->
-double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#fd56df1972ba3b6da0522dfc0c719061">length</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#d876b40064be1bbb3c25a7001e5225cc">time</a> () const</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">playback length of the file in seconds. <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7a1d2b1184eee20305f2107aaeed972d"></a><!-- doxytag: member="QxtAVFile::reset" ref="7a1d2b1184eee20305f2107aaeed972d" args="()" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#7a1d2b1184eee20305f2107aaeed972d">reset</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#778280bc1cbc41f3f874adae19190641">length</a> () const</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">reset <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="f3f633e6f850058cf30387949e7ad84a"></a><!-- doxytag: member="QxtAVFile::opened" ref="f3f633e6f850058cf30387949e7ad84a" args="()" -->
-bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>opened</b> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#954de341b192935aa47ef6cbf9e99406">seekP</a> (char time)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#a8a591ebe0ef2633fb7f5bdf4a370a22">timeP</a> () const</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#b91a728b33668748a1106dc1a31c92f7">samplerate</a> ()</td></tr>
+
+<tr><td colspan="2"><br><h2>Properties</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</a><code> []</code></td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-AV decoder. 
+AV Decoder. 
 <p>
-A very easy to use interface for libavcodec and libavformat.<p>
-The data is processed in the background, you will not notice it as the flip function returns imidiatly. the flip functionality is especialy designed for use in real time av processing. Currently the class can only provide you Audio.<p>
-pass the filename to open and the fliplen to the ctor. then every time you call <a class="el" href="classQxtAVFile.html#9a2f34df148cced0108370e82310dcdd">flip()</a> on a buffer, it will push the amount of samples defined by fliplen to the passed buffer.<p>
-the buffer is interleaved (alternating right/left) and always stereo. the fliplean is NOT meant as per channel. it is the amount of data for all channels<p>
-<dl compact><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>currently fliplen must be minimal 1024*2 in order to get the decoder working.</dd></dl>
-
+A very easy to use interface for libavcodec and libavformat from ffmpeg. 
 <p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="fc7c8f10ac9e4adf3fbd2fec3d1a494f"></a><!-- doxytag: member="QxtAVFile::QxtAVFile" ref="fc7c8f10ac9e4adf3fbd2fec3d1a494f" args="(QString filename, int fliplen, int flags=0, QObject *parent=0)" -->
+<a class="anchor" name="32a13ecae2bf559e131d046805cd9f8c"></a><!-- doxytag: member="QxtAVFile::QxtAVFile" ref="32a13ecae2bf559e131d046805cd9f8c" args="(QObject *parent=0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QxtAVFile::QxtAVFile           </td>
           <td>(</td>
-          <td class="paramtype">QString&nbsp;</td>
-          <td class="paramname"> <em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>fliplen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>flags</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">QObject *&nbsp;</td>
-          <td class="paramname"> <em>parent</em> = <code>0</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"></td>
+          <td class="paramname"> <em>parent</em> = <code>0</code>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-default constructor. pass filename and fliplen. 
-</div>
-</div><p>
-<a class="anchor" name="cac3319a183995c8c7f25d6156833ab9"></a><!-- doxytag: member="QxtAVFile::QxtAVFile" ref="cac3319a183995c8c7f25d6156833ab9" args="(QString filename, QxtAudioPlayer *, int flags=0, QObject *parent=0)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QxtAVFile::QxtAVFile           </td>
-          <td>(</td>
-          <td class="paramtype">QString&nbsp;</td>
-          <td class="paramname"> <em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">QxtAudioPlayer *&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>flags</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">QObject *&nbsp;</td>
-          <td class="paramname"> <em>parent</em> = <code>0</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-default constructor. if you just use <a class="el" href="classQxtAVFile.html">QxtAVFile</a> for playback with QxtAudioPlayer, use this ctor to use the default fliplen <dl compact><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>does not work, for some odd reason... not debugable </dd></dl>
-
+Constructs a new <a class="el" href="classQxtAVFile.html">QxtAVFile</a> with <em>parent</em>. 
 </div>
 </div><p>
 <hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="9a2f34df148cced0108370e82310dcdd"></a><!-- doxytag: member="QxtAVFile::flip" ref="9a2f34df148cced0108370e82310dcdd" args="(float *)" -->
+<a class="anchor" name="5a10ba6ca80961c46f366bc2f162710b"></a><!-- doxytag: member="QxtAVFile::open" ref="5a10ba6ca80961c46f366bc2f162710b" args="(QString url)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int QxtAVFile::flip           </td>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::open           </td>
+          <td>(</td>
+          <td class="paramtype">QString&nbsp;</td>
+          <td class="paramname"> <em>url</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+opens a stream or file from <em>url</em>. 
+</div>
+</div><p>
+<a class="anchor" name="737b1bafd205efb372f7b6bcf0e50969"></a><!-- doxytag: member="QxtAVFile::read" ref="737b1bafd205efb372f7b6bcf0e50969" args="(short *, unsigned long length)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::read           </td>
+          <td>(</td>
+          <td class="paramtype">short *&nbsp;</td>
+          <td class="paramname"> <em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&nbsp;</td>
+          <td class="paramname"> <em>length</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+read an amount of <em>length</em> shorts into the target buffer.<p>
+the result is always stereo interlaced and guarantied to be the expected size. 
+</div>
+</div><p>
+<a class="anchor" name="52d4aa3a9fa508a85a544ee5cf4a5064"></a><!-- doxytag: member="QxtAVFile::read" ref="52d4aa3a9fa508a85a544ee5cf4a5064" args="(float *, unsigned long length)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::read           </td>
           <td>(</td>
           <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&nbsp;</td>
+          <td class="paramname"> <em>length</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+read an amount of <em>length</em> floats into the target buffer.<p>
+the result is always stereo interlaced and guarantied to be the expected size. 
+</div>
+</div><p>
+<a class="anchor" name="59b166e795f618e37285b4c339e4b062"></a><!-- doxytag: member="QxtAVFile::read" ref="59b166e795f618e37285b4c339e4b062" args="(char *, unsigned long length)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::read           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&nbsp;</td>
+          <td class="paramname"> <em>length</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+read an amount of <em>length</em> chars into the target buffer.<p>
+the result is always stereo interlaced and guarantied to be the expected size. 
+</div>
+</div><p>
+<a class="anchor" name="b030f5b85645f83363bcb2c1c2e4cb70"></a><!-- doxytag: member="QxtAVFile::seek" ref="b030f5b85645f83363bcb2c1c2e4cb70" args="(double time)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::seek           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>time</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+seek to <em>time</em> in seconds.<p>
+that won't do anything for network streams. 
+</div>
+</div><p>
+<a class="anchor" name="d876b40064be1bbb3c25a7001e5225cc"></a><!-- doxytag: member="QxtAVFile::time" ref="d876b40064be1bbb3c25a7001e5225cc" args="() const" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double QxtAVFile::time           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+current progress in seconds. 
+</div>
+</div><p>
+<a class="anchor" name="778280bc1cbc41f3f874adae19190641"></a><!-- doxytag: member="QxtAVFile::length" ref="778280bc1cbc41f3f874adae19190641" args="() const" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double QxtAVFile::length           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+the length of the url in seconds.<p>
+that will return 0.0 if the input is a network stream 
+</div>
+</div><p>
+<a class="anchor" name="954de341b192935aa47ef6cbf9e99406"></a><!-- doxytag: member="QxtAVFile::seekP" ref="954de341b192935aa47ef6cbf9e99406" args="(char time)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::seekP           </td>
+          <td>(</td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>time</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+seek to <em>time</em> in percentage. 
+</div>
+</div><p>
+<a class="anchor" name="a8a591ebe0ef2633fb7f5bdf4a370a22"></a><!-- doxytag: member="QxtAVFile::timeP" ref="a8a591ebe0ef2633fb7f5bdf4a370a22" args="() const" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char QxtAVFile::timeP           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+current progress in percentage.<p>
+returns 0 for a stream 
+</div>
+</div><p>
+<a class="anchor" name="2fccee778be49f65d4bad162cfa686aa"></a><!-- doxytag: member="QxtAVFile::isEof" ref="2fccee778be49f65d4bad162cfa686aa" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QxtAVFile::isEof           </td>
+          <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
@@ -192,36 +328,15 @@ default constructor. if you just use <a class="el" href="classQxtAVFile.html">Qx
 <div class="memdoc">
 
 <p>
-fill the buffer passed with data. returns &lt;0 in case of an error or eof. 
+returns true when the end of the input stream has been reached 
 </div>
 </div><p>
-<a class="anchor" name="6212b0878e52ce9af097a65aa46df076"></a><!-- doxytag: member="QxtAVFile::resample" ref="6212b0878e52ce9af097a65aa46df076" args="(unsigned int samplerate)" -->
+<a class="anchor" name="b91a728b33668748a1106dc1a31c92f7"></a><!-- doxytag: member="QxtAVFile::samplerate" ref="b91a728b33668748a1106dc1a31c92f7" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int QxtAVFile::resample           </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&nbsp;</td>
-          <td class="paramname"> <em>samplerate</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Set it to indicate you want the output to be resampled to a specific samplerate. This adds aditional noice but is not very cpu intensive. Setting it to the current files samplerate or to 0 will switch the resampler off. Resetting it in the middle of the decoding process will sound awful and may corupt memory. <dl class="note" compact><dt><b>Note:</b></dt><dd>If you excluded SoundTouch from the build process this will return imidiatly -111, doing nothing. </dd></dl>
-
-</div>
-</div><p>
-<a class="anchor" name="15a19ad3e3f908f98aec1db294ee3ae9"></a><!-- doxytag: member="QxtAVFile::ID3" ref="15a19ad3e3f908f98aec1db294ee3ae9" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QStringList QxtAVFile::ID3           </td>
+          <td class="memname">unsigned long QxtAVFile::samplerate           </td>
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
@@ -232,27 +347,24 @@ Set it to indicate you want the output to be resampled to a specific samplerate.
 <div class="memdoc">
 
 <p>
-returns the ID3 tag or an empty list if there is no supported tag.<p>
-the order is: title,author,album,copyright,comment,year,track,genre 
+samplerate of the file 
 </div>
 </div><p>
-<a class="anchor" name="95e8927cc6986fe71853faae4b440852"></a><!-- doxytag: member="QxtAVFile::eof" ref="95e8927cc6986fe71853faae4b440852" args="()" -->
+<hr><h2>Property Documentation</h2>
+<a class="anchor" name="a7baa4bb28788c051f577e24fc73e754"></a><!-- doxytag: member="QxtAVFile::preloaded" ref="a7baa4bb28788c051f577e24fc73e754" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void QxtAVFile::eof           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [signal]</code></td>
+          <td class="memname">bool QxtAVFile::preloaded<code> [read, write]</code>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-End of File Signal. 
+this property holds the preload state<p>
+preloading is not implemented yet 
 </div>
 </div><p>
 <address><hr />

@@ -5,7 +5,7 @@
 
 /*!
  * \class QxtCKeyEvent
- * \group curses
+ * \ingroup curses
  * \brief Describes a keyboard input event
  *
  * The QxtCKeyEvent class describes a keyboard input event.
