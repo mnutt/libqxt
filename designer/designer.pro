@@ -4,6 +4,7 @@ TARGET       = QxtDesignerPlugins
 DEPENDPATH  += .
 INCLUDEPATH += ../src  ../src/gui ../src/core ../deploy/include
 CONFIG      += designer plugin debug_and_release build_all
+win32:CONFIG += dll
 RESOURCES    = resources.qrc
 LIBS+= -L../deploy/libs/ -lQxtGui
 
