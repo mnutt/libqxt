@@ -1,4 +1,4 @@
-#include <QxtAVFile.h>
+#include "QxtAVFile.h"
 #include "QxtAVPlayer.h"
 #include <SDL/SDL.h>
 #include <QDebug>
@@ -45,7 +45,7 @@ void QxtAVPlayer::play(QxtAVFile * file)
 
 	avfile= file;
 	///tell avfile to resample its output to the soundcards samplerate
-	avfile->resample(got_spec.freq);	
+// 	avfile->resample(got_spec.freq);	
 	SDL_PauseAudio (0);
 	}
 
@@ -59,10 +59,11 @@ void QxtAVPlayer::play(QString file)
 	if(b)delete(b);
 
 	///intialise QxtAVFile. take care of the *2 QxtAVFile wants the amount of samples to push whereas sdl means the amount per channel
-	avfile= new QxtAVFile(file,got_spec.samples*2);
+	avfile= new QxtAVFile();
+	avfile->open(file);
 
 	///tell avfile to resample its output to the soundcards samplerate
-  	avfile->resample(got_spec.freq);	
+//   	avfile->resample(got_spec.freq);	
 	SDL_PauseAudio (0);
 	}
 
@@ -84,7 +85,7 @@ static void Callback (void * userData, Uint8 *stream, int size)
 	if(avfile)
 		{
 
-
+/*
 		if (!avfile->opened())
 				{
 				SDL_PauseAudio (1);
@@ -92,13 +93,13 @@ static void Callback (void * userData, Uint8 *stream, int size)
 				QxtAVPlayer* playa = (QxtAVPlayer *)userData;
 				playa->up_fetch_eof();
 				return;
-				}
+				}*/
 
 
 		///we could use the flip(short*) function of QxtAVFile, but since we need to process the samples anyway, we avoid overhead
 		
 		float a[fliplen*sizeof(float)];
-		Q_ASSERT_X(avfile->flip(a)==fliplen,"Callback","buffersize missmatch");
+		avfile->read(a,fliplen);
 
 		for (long i=0;i<fliplen;i++)
 			{
