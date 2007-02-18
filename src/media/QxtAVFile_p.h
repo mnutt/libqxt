@@ -1,5 +1,5 @@
 #include "QxtAVFile.h"
-#include <QxtRingBuffer>
+#include "QxtRingBuffer.h"
 
 #include <ffmpeg/avcodec.h>
 #include <ffmpeg/avformat.h>
