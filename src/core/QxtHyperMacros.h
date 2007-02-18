@@ -24,7 +24,7 @@ hypermacros use templates in order to work
 /*! \relates QxtHyperMacros
  * just do something n times
  */
-#define QXT_TIMES(n) for (QxtHypeValue<typeof(n)> i=0; i<n; i++)
+#define fortimes(n) for (QxtHypeValue<typeof(n)> i=0; i<n; i++)
 
 
 

@@ -117,6 +117,8 @@
       <item> slots </item>
       <item> foreach </item>
       <item> forever </item>
+    </list>
+    <list name="qxt">
       <item> SKIP </item>
       <item> QXT_INIT_PRIVATE </item>
       <item> QXT_DECLARE_PUBLIC </item>
@@ -124,6 +126,7 @@
       <item> BALL </item>
       <item> QXT_DROP </item>
       <item> QXT_DROP_OK </item>
+      <item> fortimes </item>	    
     </list>
     <list name="types">
       <item> auto </item>
@@ -163,6 +166,7 @@
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Extensions" context="#stay" String="extensions" />
+	<keyword attribute="Qxt" context="#stay" String="qxt" />
         <keyword attribute="Data Type" context="#stay" String="types" />
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
@@ -252,6 +256,7 @@
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
       <itemData name="Extensions"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Qxt"          defStyleNum="dsKeyword" color="#9500ff" selColor="#ffffff" bold="1" italic="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>
