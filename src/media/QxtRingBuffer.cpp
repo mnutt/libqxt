@@ -12,7 +12,6 @@
  * mutual exclusion primitives.  For this to work correctly, there can
  * only be a single reader and a single writer thread.  Their
  * identities cannot be interchanged.
-
 */
 
 

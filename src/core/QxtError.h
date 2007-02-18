@@ -36,6 +36,24 @@ short for return QxtError(__FILE__,__LINE__,Qxt::NoError);
 */
 #define QXT_DROP_OK return QxtError(__FILE__,__LINE__,Qxt::NoError);
 
+
+/*! \relates QxtError
+forward a drop
+
+
+drops from this function if the call inside dropped too.
+the inner function must return or be a QxtError.
+
+example
+\code
+QXT_DROP_F(critical_function());
+\endcode
+
+*/
+#define QXT_DROP_F(call) {QxtError error_sds = call; if (error_sds != Qxt::NoError )return error_sds; }
+
+
+
 class QXT_CORE_EXPORT QxtError
 	{
 	public:

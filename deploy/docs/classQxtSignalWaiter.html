@@ -41,9 +41,17 @@ width="32" height="32" border="0" /></a></td>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtSignalWaiter.html#b7cbd92585a02bece4bba4acca7f97f2">QxtSignalWaiter</a> (const QObject *sender=0, const char *signal=0)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtSignalWaiter.html#6d99c4de115096bb6b9edf88fa4e249a">QxtSignalWaiter</a> (const QObject *sender, const char *signal)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtSignalWaiter.html#3b3c94f3c91a76ff056cff2ac5f6c3fb">wait</a> (int msec=-1, const QObject *sender=0, const char *signal=0)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait</a> (int msec=-1)</td></tr>
+
+<tr><td colspan="2"><br><h2>Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="48e10e22573d70376fe896d422ec0189"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="48e10e22573d70376fe896d422ec0189" args="(const QObject *sender, const char *signal, int msec=-1)" -->
+static bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>wait</b> (const QObject *sender, const char *signal, int msec=-1)</td></tr>
+
+<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="57323e3a5184825648a0fe3589ba5570"></a><!-- doxytag: member="QxtSignalWaiter::timerEvent" ref="57323e3a5184825648a0fe3589ba5570" args="(QTimerEvent *event)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>timerEvent</b> (QTimerEvent *event)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -63,7 +71,7 @@ In many cases, writing code that assumes certain actions are synchronous is cons
 
 <p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="b7cbd92585a02bece4bba4acca7f97f2"></a><!-- doxytag: member="QxtSignalWaiter::QxtSignalWaiter" ref="b7cbd92585a02bece4bba4acca7f97f2" args="(const QObject *sender=0, const char *signal=0)" -->
+<a class="anchor" name="6d99c4de115096bb6b9edf88fa4e249a"></a><!-- doxytag: member="QxtSignalWaiter::QxtSignalWaiter" ref="6d99c4de115096bb6b9edf88fa4e249a" args="(const QObject *sender, const char *signal)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -71,13 +79,13 @@ In many cases, writing code that assumes certain actions are synchronous is cons
           <td class="memname">QxtSignalWaiter::QxtSignalWaiter           </td>
           <td>(</td>
           <td class="paramtype">const QObject *&nbsp;</td>
-          <td class="paramname"> <em>sender</em> = <code>0</code>, </td>
+          <td class="paramname"> <em>sender</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>signal</em> = <code>0</code></td><td>&nbsp;</td>
+          <td class="paramname"> <em>signal</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -93,7 +101,7 @@ default constructor Creates a QSignalWaiter and sets the default signal to sende
 </div>
 </div><p>
 <hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="3b3c94f3c91a76ff056cff2ac5f6c3fb"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="3b3c94f3c91a76ff056cff2ac5f6c3fb" args="(int msec=-1, const QObject *sender=0, const char *signal=0)" -->
+<a class="anchor" name="bcf9adb155559121c19503cb89c5779c"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="bcf9adb155559121c19503cb89c5779c" args="(int msec=-1)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -101,31 +109,16 @@ default constructor Creates a QSignalWaiter and sets the default signal to sende
           <td class="memname">bool QxtSignalWaiter::wait           </td>
           <td>(</td>
           <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>msec</em> = <code>-1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const QObject *&nbsp;</td>
-          <td class="paramname"> <em>sender</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>signal</em> = <code>0</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"></td>
+          <td class="paramname"> <em>msec</em> = <code>-1</code>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-wait for signal Waits for the signal sender::signal to be emitted. If msec is not -1, <a class="el" href="classQxtSignalWaiter.html#3b3c94f3c91a76ff056cff2ac5f6c3fb">wait()</a> will return after msec milliseconds. If a signal is not specified, the default signal specified in the constructor is used instead. If no default signal was specified in the constructor, <a class="el" href="classQxtSignalWaiter.html#3b3c94f3c91a76ff056cff2ac5f6c3fb">wait()</a> will block until the timeout has elapsed. If no timeout was specified, <a class="el" href="classQxtSignalWaiter.html#3b3c94f3c91a76ff056cff2ac5f6c3fb">wait()</a> will return immediately.<br>
+wait for signal Waits for the signal sender::signal to be emitted. If msec is not -1, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will return after msec milliseconds. If a signal is not specified, the default signal specified in the constructor is used instead. If no default signal was specified in the constructor, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will block until the timeout has elapsed. If no timeout was specified, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will return immediately.<br>
  Returns true if the signal was caught, false if it timed out. <br>
  This function is not reentrant. 
 </div>
