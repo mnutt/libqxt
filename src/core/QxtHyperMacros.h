@@ -49,25 +49,25 @@ class QXT_CORE_EXPORT QxtHyperValue
 		return value;
 		}
 
-	const QxtHyperValue& operator++() 
+	const QxtHyperValue<T>& operator++() 
 		{
 		value++;
 		return this;
 		}
-	const QxtHyperValue& operator--() 
+	const QxtHyperValue<T>& operator--() 
 		{
 		value--;
 		return this;
 		}
-	const QxtHyperValue& operator++(int) 
+	const QxtHyperValue<T>& operator++(int) 
 		{
-		QxtHyperIterator<T> clone = *this;
+		QxtHyperValue<T> clone = *this;
 		value++;
 		return clone;
 		}
-	const QxtHyperValue& operator--(int) 
+	const QxtHyperValue<T>& operator--(int) 
 		{
-		QxtHyperIterator<T> clone = *this;
+		QxtHyperValue<T> clone = *this;
 		value--;
 		return clone;
 		}
