@@ -54,6 +54,30 @@ QXT_DROP_F(critical_function());
 
 
 
+
+
+/*! \relates QxtError
+check for errors
+
+example
+\code
+QXT_DROP_SCOPE(error,critical_function())
+	{
+	qDebug()<<error;
+	QXT_DROP_F(error);
+	};
+\endcode
+
+short for  QxtError name = call; if (name != Qxt::NoError )
+
+\warning: the errors name is valid outside the scope
+*/
+#define QXT_DROP_SCOPE(name,call) QxtError name = call; if (name != Qxt::NoError )
+
+
+
+
+
 class QXT_CORE_EXPORT QxtError
 	{
 	public:

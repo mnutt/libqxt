@@ -8,6 +8,9 @@
 
 QxtError QxtAVFilePrivate::open(QString filename)
 	{
+	///defaults
+	eof=false;
+
 	///av init
 	av_register_all();
 	avcodec_init();
@@ -125,8 +128,7 @@ char 	 QxtAVFilePrivate::timeP()   const
 //----------------------------------------------
 bool  QxtAVFilePrivate::isEof()
 	{
-
-	return false; ///TODO: make this usefull
+	return (eof && (ring->available() < 2*sizeof(short)));
 	};
 
 
@@ -150,8 +152,18 @@ QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 
 	
 	while (ring->available() < length*sizeof(short))
-		getFrame();				///TODO: make it realtime and error safe
+		{
+		///TODO: make it realtime 
+		QxtError e= getFrame();
+		
+		if(e==Qxt::EndOfFile)
+			{
+			eof=true;
+			QXT_DROP(Qxt::EndOfFile);
+			}
 
+		QXT_DROP_F(e);
+		}
 
 
 	if (ring->read((char*)target,length*sizeof(short))!=length*sizeof(short))QXT_DROP(Qxt::Bug);

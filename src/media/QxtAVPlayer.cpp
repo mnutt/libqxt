@@ -30,7 +30,12 @@ static void Callback (void * userData, Uint8 *stream, int size)
 		{
 		short a[size];
 		short *pa=a;
-		player->avfile->read(a, length);
+
+		QXT_DROP_SCOPE(e,player->avfile->read(a, length))
+			{
+			qDebug()<<e;
+			player->up_fetch_eof();
+			}
 
 		fortimes(length)
 			{
@@ -53,6 +58,7 @@ QxtAVPlayerPrivate::QxtAVPlayerPrivate()
 	samplerate=48000;
 	volume_m=0.99;
 	opened_m=false;
+	connect(this,SIGNAL(eof()),this,SLOT(close()));
 	}
 		
 //------------------------------------------------------------------------------------
@@ -147,6 +153,7 @@ QxtError QxtAVPlayerPrivate::pause      (bool e)
 
 QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
 	{
+	connect(&qxt_d(),SIGNAL(eof()),this,SIGNAL(eof()));
 	}
 QxtAVPlayer::~QxtAVPlayer()
 	{

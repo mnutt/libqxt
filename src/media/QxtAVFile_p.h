@@ -32,7 +32,7 @@ class QxtAVFilePrivate : public QObject,QxtPrivate<QxtAVFile>
 	char 	timeP()   const;
 
 	bool isEof();
-
+	bool eof;
 
 	unsigned long samplerate();
 	
