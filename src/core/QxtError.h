@@ -74,6 +74,12 @@ class QXT_CORE_EXPORT QxtError
 		char * file() const
 			{return file_m;}
 
+		operator Qxt::ErrorCode()
+			{
+			return errorcode_m;
+			}
+
+
 	private:
 		Qxt::ErrorCode errorcode_m;
 		long line_m;
