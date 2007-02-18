@@ -7,6 +7,7 @@ TARGET = QxtCurses
 DEPENDPATH += .
 INCLUDEPATH += . ../core ../kit ../../deploy/include
 LIBS += -L../../deploy/libs -lQxtCore -lQxtKit -lpanel -lncurses
+LIBS += -lpanel -lncurses
 
 QT = core
 

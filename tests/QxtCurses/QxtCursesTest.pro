@@ -11,4 +11,3 @@ SOURCES += cursestest.cpp
 HEADERS += cursestest.h
 CONFIG += qxt
 QXT += curses core kit
-LIBS += -lpanel -lncurses

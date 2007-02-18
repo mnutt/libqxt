@@ -36,7 +36,7 @@ QXT_SOURCES_QxtRingBuffer 	 = QxtRingBuffer.cpp ringbuffer.c
 QXT_STABILITY_QxtRingBuffer      =
 
 
-LIBS+= -lavcodec -lavformat -lportaudio -lSoundTouch -lSDL
+LIBS+= -lavcodec -lavformat -lSDL
 
 include (../parts.pri)
 

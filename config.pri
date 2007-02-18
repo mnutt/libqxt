@@ -13,7 +13,7 @@
 
 #QXTINSTALLDIR=/usr
 
-#modules  (core kit gui network sql media curses mox)
+#modules  (core kit gui network sql media curses)
 
 QXT -= curses
 
