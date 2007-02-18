@@ -1,4 +1,4 @@
-QXT = core kit gui network sql media mox curses
+QXT = core kit gui network sql media curses
 QXT_LIBS = ssl
 QXT_stability = stable
 
