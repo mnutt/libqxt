@@ -5,10 +5,9 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 #include <QObject>
 #include <QString>
-#include <Qxt/qxtglobal.h>
 #include <QDebug>
 class QxtAVFile;
-class QXT_MEDIA_EXPORT QxtAVPlayer : public QObject
+class  QxtAVPlayer : public QObject
 	{
 	Q_OBJECT
 	public:

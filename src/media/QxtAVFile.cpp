@@ -1,508 +1,94 @@
 #include "QxtAVFile.h"
-
-#include <QDebug>
-#include <QTimer>
-#include <QCoreApplication>
-
-#include <limits> 
-#include <cmath>
-#include <iostream>
-
-
-#include <ffmpeg/avcodec.h>
-#include <ffmpeg/avformat.h>
-
-#define QxtMediaLibsSoundTouch
-#define MINIMAL_SRC_LEN 5000
-
-#ifdef QxtMediaLibsSoundTouch
-#include <soundtouch/SoundTouch.h>
-#endif
-
-///this scales the 16bit output to some usable 32bit float. actualy this will not increase quality but usability
-#define scale(shortval) (float)shortval / (float)std::numeric_limits<short>::max()
-
-
-#define handler(e,x) if (x <0) {emit(error(e));qWarning("error " e ); return;}
+#include "QxtAVFile_p.h"
 
 
 
 
-///the ffmpeg statestructs
-static AVCodec 		*	codec;
-static AVCodecContext	*	codec_context;
-static AVFormatContext 	*	format_context;
-
-
-#ifdef QxtMediaLibsSoundTouch
-static soundtouch::SoundTouch resampler;
-#endif
-
-//-------------------------------------------------------------
-
-QxtAVFile::QxtAVFile(QString filename,QxtAudioPlayer*,int flags,QObject *parent)
+ QxtAVFile::QxtAVFile(QObject *parent):QObject(parent)
 	{
-	QxtAVFile::QxtAVFile(filename,2048,flags,parent);
 	}
-
-
-QxtAVFile::QxtAVFile(QString filename,int fliplen,int flags,QObject *parent):QThread(parent)
-	{
-	
-	///defaults
-	AORatio=1.0;
-	DSRC_LEN=0;
-	WF=false;
-	HF=true;
-	fliplen_m=0;
-	resample_m=0;
-	playbacktime=0.0;
-	eof_f=false;
-	flags_d=flags;
-	blocked	=false;
-	opened_m=false;
-	/// \bug buffsize must be at least 2048
- 	Q_ASSERT_X(fliplen>=2048,"","fliplen must be at least 2048");
-	Q_ASSERT_X(!filename.isEmpty(),"","filename may not be empty");
-
-	//!init
-	av_register_all();
-	avcodec_init();
-	avcodec_register_all();
-	
-	//!open the file and get some information out of it
-	handler("opening file",av_open_input_file(&format_context,filename.toLocal8Bit(), NULL, 0, NULL));
-	Q_ASSERT_X(format_context,"","The format context has been corupted");
-	handler("demuxing context",av_find_stream_info(format_context));
-	
-	//!find the first audio stream. Just iterate over all found streams and take the first audio stream. good enough for this example
-	AudioStreamIndex=-1;
-	for(int i=0; i<format_context->nb_streams; i++)
-		if(format_context->streams[i]->codec->codec_type==CODEC_TYPE_AUDIO)
-			{AudioStreamIndex=i;break;}
-	handler("searching audio stream",AudioStreamIndex);
-
-	//!get the codec context for the  stream
-	codec_context=format_context->streams[AudioStreamIndex]->codec;
-
-	//!find the decoder
-	codec=avcodec_find_decoder(codec_context->codec_id);
-	assert(codec);
-
-	//!open the codec 
-	handler("opening codec",avcodec_open(codec_context, codec));
-
-
-	///prepare the buffers
-	fliplen_m=fliplen;
-	OUT1= new float[fliplen_m+MINIMAL_SRC_LEN];
-	OUT2= new float[fliplen_m+MINIMAL_SRC_LEN];
-
-	if (flags & Qxt::preload)
-		{
-		refill(OUT1);
-		refill(OUT2);
-		}
-	else
-		{
-
-		for (unsigned int i=0;i<fliplen_m;i++)
-			{
-			OUT1[i]=0;
-			OUT2[i]=0;
-			}
-		}
-	DSRC=new float[fliplen_m*8];
-
-	///set opened
-	opened_m=true;
-
-
-	///prepare the decoder
-	decoderlock_b=NULL;
- 	start();
-	}
-
 //-------------------------------------------------------------
 
 QxtAVFile::~QxtAVFile()
 	{
-	if (!opened_m)return;
+	qxt_d().destroy();
+	}
+//-------------------------------------------------------------
 
-	blocked=true;
-	eof_f=true;
-	decoderlock_b=NULL;
+QxtError QxtAVFile::open(QString url)
+	{
+	return qxt_d().open(url);
+	}
+//-------------------------------------------------------------
 
-	wait();
-	terminate();
-	//!clean up ffmpeg
-	if(codec_context)avcodec_close(codec_context);
-	if(format_context)av_close_input_file(format_context);
+bool QxtAVFile::preloaded() const
+	{
+	return false;
+	}
+//-------------------------------------------------------------
+
+QxtError QxtAVFile::setPreloaded(const bool)
+	{
+	QXT_DROP_OK
+	}
+//-------------------------------------------------------------
+
+QxtError QxtAVFile::read(short* target, unsigned long length)
+	{
+	return qxt_d().read(target,length);	
+	}
+//-------------------------------------------------------------
+
+QxtError QxtAVFile::read(float* target, unsigned long length)
+	{
+	return qxt_d().read(target,length);	
+	}
+//-------------------------------------------------------------
+
+QxtError QxtAVFile::read(char * target, unsigned long length)
+	{
+	return qxt_d().read(target,length);	
+	}
+//-------------------------------------------------------------
+
+bool 	QxtAVFile::isEof()
+	{
+	return qxt_d().isEof();	
 	}
 
 
-
-//-------------------------------------------------------------
-int QxtAVFile::resample(unsigned int samplerate)
-	{
-	
-	if(!codec_context)return 2;
-	#ifdef QxtMediaLibsSoundTouch
-
-	if (samplerate==0 ||(samplerate == (unsigned)codec_context->sample_rate))
-		{
-		resample_m=0;
-		return 0;
-		}
-
-	resample_m=samplerate;
-
-
-	AORatio= (double)codec_context->sample_rate/(double)samplerate;
-	fliplen_unsized = (long)round((double)fliplen_m*AORatio)+1;
-
-
-	//!prepare the sample converter
-	resampler.setSampleRate(codec_context->sample_rate);
-	resampler.setChannels(2);
-	resampler.setRate(AORatio);
-	#endif
-
-	return 1;
-	}
-
-
 //-------------------------------------------------------------
 
-QStringList  QxtAVFile::ID3()
+double QxtAVFile::length() const
 	{
-	
-	QStringList list;
-	if (!opened_m)return list;
-	if (!format_context)return list;
-	list<<QString(format_context->title).trimmed ();
-	list<<QString(format_context->author).trimmed ();
-
-	if (list[0].isEmpty() && list[1].isEmpty() )return QStringList(); ///asume empty
-
-	list<<QString(format_context->album).trimmed ();
-	list<<QString(format_context->copyright).trimmed ();
-	list<<QString(format_context->comment).trimmed ();
-	list<<QString(format_context->year).trimmed ();
-	list<<QString(format_context->track).trimmed ();
-	list<<QString(format_context->genre).trimmed ();
-	return list;
+	return qxt_d().length();
 	}
 
 //-------------------------------------------------------------
 
-
-
-double QxtAVFile::time()
+QxtError QxtAVFile::seek(double time)
 	{
-	if (!opened_m)return 0.0;
-	return playbacktime;
+	return qxt_d().seek(time);
+	}
+
+//-------------------------------------------------------------
+
+double QxtAVFile::time() const
+	{
+	return qxt_d().time();
 	}
 
 //-------------------------------------------------------------
 
 
-void QxtAVFile::seek(double time)
+QxtError QxtAVFile::seekP(char time)
 	{
-	if (!opened_m)return;
-	if(format_context->duration<0){qWarning("playing a stream, won't seek.");return;}
-	av_seek_frame   (format_context, -1,(long)(AV_TIME_BASE*time), 0 );
-	playbacktime=time;
-	}
+	return qxt_d().seekP(time);
 
-
-
-//-------------------------------------------------------------
-double QxtAVFile::length()
-	{
-	if (!opened_m)return 0.0;
-	return ((double)format_context->duration/(double)AV_TIME_BASE)/**AORatio*/;
 	}
 
 //-------------------------------------------------------------
-int QxtAVFile::flip(float* out)
+char 	QxtAVFile::timeP()   const
 	{
-	if (blocked)
-		{
-		for (unsigned int i=0;i<fliplen_m;i++)
-			*out++=0.0f;
-		return fliplen_m;
-		}
-
-	if (eof_f && HF==WF){emit(eof());qWarning("called flip after eof, doing nothing.");return -1;}
-
-	///if we have an xrun try to wait for the buffer
-	while (HF==WF && decoderlock_b != NULL){usleep(10);qWarning("warning: underrun detected, waiting 10 usecs.");}
-
-	if(WF)
-		{
-		decoderlock_b=OUT2;
-		memcpy(out,OUT1,fliplen_m*sizeof(float));
-		WF=false;
-		}
-	else
-		{
-		decoderlock_b=OUT1;
-		memcpy(out,OUT2,fliplen_m*sizeof(float));
-		WF=true;
-		}
-
-
-	if (resample_m)
-
-		{playbacktime+=((double)fliplen_m/2.0)/(double)resample_m;}
-	else
-		{
-		Q_ASSERT_X(codec_context,"Accessing codec_context","null pointer? what the heck?!");
-		playbacktime+=((double)fliplen_m/2.0)/(double)codec_context->sample_rate;
-		}
-
-	return fliplen_m;
+	return qxt_d().timeP();
 	}
-
-
-
-
-
-int QxtAVFile::flip(short* out)
-	{
-	float a[fliplen_m];
-	flip(a);
-	
-	for (unsigned int i=0;i<fliplen_m;i++)
-		*out++=(short)(a[i]*std::numeric_limits<short>::max());
-	return fliplen_m;	
-	}
-
-
-
-
-
-
-
-
-//-------------------------------------------------------------
-
-/**
-gets a frame from libavformat and iterates over its contents to 
-decode every frame in it. then it scales the frame and pushs it to the passed buffer
-*/
-int QxtAVFile::getFrame(float * out)
-	{
-	Q_ASSERT_X(out==DSRC,"getFrame","weird coruption!");
-
-	short outbuf[AVCODEC_MAX_AUDIO_FRAME_SIZE];
-	unsigned char *inbuf;
-	int outbufsize, size,inlen,olen;
-	olen=0;
-	AVPacket pkt;
-
-
-
-	forever
-	{
-	assert (&pkt);
-
-	/// read a packet 
-	if (av_read_frame(format_context, &pkt)<0){return -1;}
-
-
-	//!skip packages that don't belong to the wanted stream
-	if (pkt.stream_index==AudioStreamIndex)break;
-	}
-
-
-	size = pkt.size;
-	inbuf = pkt.data;
-	while (size > 0) 
-		{
-		inlen = avcodec_decode_audio(codec_context,(short*)outbuf, &outbufsize, inbuf, size);
-		codec_context->frame_number++;
-
-               	/// on any  error, we skip the frame
-		if (inlen < 0)
-			{
-			size = 0;
-			break;
-			}
-
-		///"remove" the decoded sample from the read frame
-		inbuf += inlen;
-		size -= inlen;
-
-		///if the sample is empty we don't want it
-		if (outbufsize <= 0)
-			continue;
-
-		int outbuflen=outbufsize/sizeof(short);
-
-		for (int i = 0;i<outbuflen;i++)
-			{
-			*out++= scale(outbuf[i]);
-			///doublicate the sample if the source was mono
-			if (codec_context->channels==1)
-				*out++=scale(outbuf[i]);
-			}
-
-		olen+=outbuflen;
-		if (codec_context->channels==1)olen+=outbuflen;
-		}
-
-	if (pkt.data) 
-		av_free_packet (&pkt);
-	return olen;
-	}
-
-//-------------------------------------------------------------
-
-
-
-void QxtAVFile::run()
-	{
-	forever
-		{
-		if (eof_f)return;
-		if (decoderlock_b==NULL)
-			{msleep(10);continue;}
-		HF=(decoderlock_b==OUT2);
-		refill(decoderlock_b);
-		decoderlock_b=NULL;
-		}
-
-	}
-
-
-
-//-------------------------------------------------------------
-
-
-
-/**
-fill the outputbuffer with the requested amount of data
-resample if desired
-*/
-void QxtAVFile::refill(float * WRITE)
-	{
-
-	#ifdef QxtMediaLibsSoundTouch
-	if (resample_m)
-		{
-		while(resampler.numSamples()<fliplen_m+1)
-			{
-			DSRC_LEN=getFrame(DSRC);
-			if(DSRC_LEN<0)
-				{
-				resampler.flush();
-				break;
-				}
-
-			resampler.putSamples(DSRC,DSRC_LEN/2);
-			assert((unsigned)DSRC_LEN<=fliplen_m*4);	
-			}
-		assert(resampler.receiveSamples(WRITE,fliplen_m/2)==fliplen_m/2);	
-		return;
-	
-		}
-	else
-		{
-	#endif
-
-		static float * DSRCP=DSRC;
-		int write=fliplen_m;
-		float * out=WRITE;
-	
-		///while there are not enough samples written
-		while(write>0)
-			{
-			///if the decoder buffer is empty get data
-			if(!DSRC_LEN)
-				{
-				DSRCP = DSRC;
-				DSRC_LEN=getFrame(DSRC);
-				}
-	
-
-			if(DSRC_LEN<0)
-				{
-				for (int i=0;i<write;i++)
-					*out++=0.0f;
-				eof_f=true;
-				return;
-				}
-	
-
-			///if something went wrong, we return 0
-			assert((unsigned)DSRC_LEN<=fliplen_m*4);	
-
-			///get as much data as avilable but not more then requested
-			int l= qMin(DSRC_LEN,(long)write);
-			///push
-			memcpy(out,DSRCP,l*sizeof(float));
-			///forward iterators
-			write-=l;
-			out+=l;
-			DSRCP+=l;
-			DSRC_LEN-=l;
-	
-			}
-	#ifdef QxtMediaLibsSoundTouch
-		}
-	#endif
-
-
-
-
-
-	}
-
-
-
-//-------------------------------------------------------------
-
-
-void QxtAVFile::reset()
-	{
-	blocked=true;
-	eof_f=true;
-	decoderlock_b=NULL;
-
-	wait();
-	
-	resampler.clear();
-	seek(0.0);
-	playbacktime=0.0;
-	DSRC_LEN=0;
-
-	if (flags_d & Qxt::preload)
-		{
-		refill(OUT1);
-		refill(OUT2);
-		}
-	else
-		{
-
-		for (unsigned int i=0;i<fliplen_m;i++)
-			{
-			OUT1[i]=0;
-			OUT2[i]=0;
-			}
-		}
-
-
-	WF=false;
-	HF=true;
-
-	eof_f=false;
-	decoderlock_b=NULL;
- 	start();
-
-	blocked=false;
-	}
-
-
-

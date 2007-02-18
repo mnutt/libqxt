@@ -15,8 +15,8 @@ LIBS+=-L../../deploy/libs/ -lQxtKit
 
 
 QXT_MEDIA                       += QxtAVFile
-QXT_HEADERS_QxtAVFile        	 = QxtAVFile.h
-QXT_SOURCES_QxtAVFile	 	 = QxtAVFile.cpp
+QXT_HEADERS_QxtAVFile        	 = QxtAVFile.h QxtAVFile_p.h
+QXT_SOURCES_QxtAVFile	 	 = QxtAVFile.cpp QxtAVFile_p.cpp
 QXT_STABILITY_QxtAVFile      	 =
 
 
