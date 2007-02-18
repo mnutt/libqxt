@@ -122,6 +122,8 @@
       <item> QXT_DECLARE_PUBLIC </item>
       <item> QXT_DECLARE_PRIVATE </item>
       <item> BALL </item>
+      <item> QXT_DROP </item>
+      <item> QXT_DROP_OK </item>
     </list>
     <list name="types">
       <item> auto </item>

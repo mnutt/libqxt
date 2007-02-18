@@ -8,6 +8,10 @@ DEPENDPATH += .
 INCLUDEPATH += .
 DEFINES += BUILD_QXT_MEDIA
 QT = core gui
+INCLUDEPATH += . ../core ../../deploy/include
+LIBS+=-L../../deploy/libs/ -lQxtKit
+
+
 
 
 QXT_MEDIA                       += QxtAVFile
@@ -22,9 +26,14 @@ QXT_SOURCES_QxtSdlWidget 	 = QxtSdlWidget.cpp
 QXT_STABILITY_QxtSdlWidgt      	 =
 
 QXT_MEDIA                       += QxtAVPlayer
-QXT_HEADERS_QxtAVPlayer       = QxtAVPlayer.h
+QXT_HEADERS_QxtAVPlayer          = QxtAVPlayer.h
 QXT_SOURCES_QxtAVPlayer 	 = QxtAVPlayer.cpp
 QXT_STABILITY_QxtAudioPlayer     =
+
+QXT_MEDIA                       += QxtRingBuffer
+QXT_HEADERS_QxtRingBuffer        = QxtRingBuffer.h ringbuffer.h
+QXT_SOURCES_QxtRingBuffer 	 = QxtRingBuffer.cpp ringbuffer.c
+QXT_STABILITY_QxtRingBuffer      =
 
 
 LIBS+= -lavcodec -lavformat -lportaudio -lSoundTouch -lSDL

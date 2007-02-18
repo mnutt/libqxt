@@ -72,10 +72,17 @@ namespace Qxt {
 
         enum ErrorCode
                 {
-                NoError
-                FileInputError
-                FormatError
-                CodecError
+                NoError,
+                UnknownError,
+                LogicalError,
+		Bug,
+		UnexpectedEndOfFunction,
+		NotImplemented,
+                FileIOError,
+                FormatError,
+                CodecError,
+                NotInitialised,
+		EndOfFile
                 };
 
 };

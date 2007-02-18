@@ -20,6 +20,21 @@ released under the Terms of LGPL (see the LICENSE file)
 might add more features in future.
 */
 
+/*! \relates QxtError
+droping an error inside a function that returns QxtError
+
+
+short for return  QxtError(__FILE__,__LINE__,x);
+*/
+#define QXT_DROP(x) return QxtError(__FILE__,__LINE__,x);
+
+
+/*! \relates QxtError
+droping no error inside a function that returns QxtError
+
+short for return QxtError(__FILE__,__LINE__,Qxt::NoError);
+*/
+#define QXT_DROP_OK return QxtError(__FILE__,__LINE__,Qxt::NoError);
 
 class QXT_CORE_EXPORT QxtError
 	{
