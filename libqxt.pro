@@ -35,9 +35,9 @@ macx :	lib.path = $${QXTINSTALLDIR}/lib
       	lib.files = deploy/libs/*
 
 
-unix :	include.path = $${QXTINSTALLDIR}/include/Qxt
-win32:	include.path = $${QXTINSTALLDIR}/include/Qxt
-macx :	include.path =  $${QXTINSTALLDIR}/include/Qxt
+unix :	include.path = $${QXTINSTALLDIR}/include/Qxt/Qxt
+win32:	include.path = $${QXTINSTALLDIR}/include/Qxt/Qxt
+macx :	include.path =  $${QXTINSTALLDIR}/include/Qxt/Qxt
 	include.files = deploy/include/Qxt/*
 
 unix :	bin.path  = $${QXTINSTALLDIR}/bin
