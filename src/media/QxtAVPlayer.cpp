@@ -33,7 +33,6 @@ static void Callback (void * userData, Uint8 *stream, int size)
 
 		QXT_DROP_SCOPE(e,player->avfile->read(a, length))
 			{
-			qDebug()<<e;
 			player->up_fetch_eof();
 			}
 

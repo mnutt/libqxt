@@ -77,12 +77,12 @@ namespace Qxt {
                 LogicalError,
 		Bug,
 		UnexpectedEndOfFunction,
-		NotImplemented,
+		NotImplemented,           //5
                 CodecError,
                 NotInitialised,
 		EndOfFile,
                 FileIOError,
-                FormatError,
+                FormatError,              //10
                 DeviceError,
                 SDLError
                 };

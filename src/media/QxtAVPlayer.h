@@ -10,7 +10,6 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QObject>
 #include <QString>
-#include <QDebug>
 
 
 #include <Qxt/qxtglobal.h>
