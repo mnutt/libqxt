@@ -25,7 +25,7 @@ class QxtCWidgetPrivate;
 
 /*!
  * \class QxtCWidget
- * \group curses
+ * \ingroup curses
  * \brief Base class for text-based widgets
  *
  * QxtCWidget is the common base class for all QxtCurses widgets.
