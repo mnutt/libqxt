@@ -4,30 +4,52 @@
 #include "QxtCPaintEvent.h"
 #include <QDebug>
 
+class QxtCWidgetPrivate : public QxtPrivate<QxtCWidget> {
+public:
+    QXT_DECLARE_PUBLIC(QxtCWidget);
+
+    PANEL* win;
+    int offX, offY, maxX, maxY, xpos, ypos;
+}
+
 QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent), maxX(1), maxY(1), xpos(0), ypos(0) {
+    QXT_INIT_PRIVATE(QxtCWidget);
+    QxtCWidgetPrivate& d = qxt_d();
     if(!parent) {
         WINDOW* p = newwin(1,1,0,0);
-        win = new_panel(p);
-        offX = offY = 0;
+        d.win = new_panel(p);
+        d.offX = d.offY = 0;
     } else {
-        win = 0;
+        d.win = 0;
         QxtCWidget* p = parentWidget();
         QxtCPoint pt;
         while(p) {
             pt = p->mapToParent(pt);
             p = p->parentWidget();
         }
-        offX = pt.x();
-        offY = pt.y();
+        d.offX = pt.x();
+        d.offY = pt.y();
     }
 } 
 
 QxtCWidget::~QxtCWidget() {
-    if(win) {
+    if(isWindow()) {
         delwin(handle());
         del_panel(win);
     }
 }
+
+int QxtCWidget::x() const {
+    return qxt_d().xpos;
+}
+
+int QxtCWidget::y() const {
+    return qxt_d().ypos;
+}
+
+PANEL* winId() const {
+    return qxt_d().win;
+} 
 
 QxtCWidget* QxtCWidget::window() const {
     QxtCWidget* w = const_cast<QxtCWidget*>(this);
@@ -136,6 +158,10 @@ void QxtCWidget::update(int y, int h) {
     } else {
         window()->update(offY+y, h);
     }
+}
+
+QxtCPoint QxtCWidget::mapToParent(const QxtCPoint& point) const {
+    return QxtCPoint(point.x() + qxt_d().offX, point.y() + qxt_d().offY);
 }
 
 QxtCPoint QxtCWidget::mapToWindow(const QxtCPoint& point) const {
