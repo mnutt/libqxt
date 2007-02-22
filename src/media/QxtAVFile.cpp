@@ -164,4 +164,17 @@ unsigned long QxtAVFile::samplerate()
 	return qxt_d().samplerate();
 	}
 
+//-------------------------------------------------------------
+/*!
+get the used QxtRingBuffer
+
+
+this is e.g. usefull for getting the peek.\n
+be carefull with direct data manipulation.
+*/
+QxtRingBuffer * QxtAVFile::ring()
+	{
+	return qxt_d().ring;
+	}
+
 

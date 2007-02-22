@@ -9,7 +9,7 @@ INCLUDEPATH += .
 DEFINES += BUILD_QXT_MEDIA
 QT = core gui
 INCLUDEPATH += . ../core ../../deploy/include
-LIBS+=-L../../deploy/libs/ -lQxtKit
+LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
 
 
 

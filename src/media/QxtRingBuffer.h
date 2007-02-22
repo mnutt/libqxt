@@ -21,6 +21,7 @@ class QXT_MEDIA_EXPORT QxtRingBuffer : public QObject
 		 ~QxtRingBuffer	();
 
 		unsigned long read	(char * destination, unsigned long size);
+		unsigned long peek	(char * destination, unsigned long size);
 		unsigned long available	();
 		unsigned long write	(char * source, unsigned long size);
 	};

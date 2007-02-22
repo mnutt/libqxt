@@ -1,7 +1,7 @@
 #include "QxtAVPlayer.h"
 #include <SDL/SDL.h>
 
-class QxtAVPlayerPrivate : public QObject, QxtPrivate<QxtAVPlayer>
+class QxtAVPlayerPrivate : public QObject, public QxtPrivate<QxtAVPlayer>
 	{
 	Q_OBJECT
 	QXT_DECLARE_PUBLIC(QxtAVPlayer);	

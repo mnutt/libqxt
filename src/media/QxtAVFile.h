@@ -17,12 +17,13 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QxtCore/QxtError>
 
 class QxtAVFilePrivate;
+class QxtRingBuffer;
 class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 	{
 	Q_OBJECT
-	QXT_DECLARE_PRIVATE(QxtAVFile);
 	Q_PROPERTY(bool preloaded READ preloaded WRITE setPreloaded);
 	public:
+	QXT_DECLARE_PRIVATE(QxtAVFile);
 
  		QxtAVFile(QObject *parent=0);
 		~QxtAVFile();
@@ -47,6 +48,10 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 		bool isEof();
 
 		unsigned long samplerate();
+
+
+		QxtRingBuffer * ring();
+
 	};
 
 #endif
