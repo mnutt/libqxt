@@ -45,7 +45,7 @@ static void Callback (void * userData, Uint8 *stream, int size)
 			if (peeking)
 				(*peek++)=(float)*pa/ (float)std::numeric_limits<short>::max();
 
- 			(*out++) =(short)((*pa++)*player->volume_m);
+ 			(*out++) =(short)((*pa++)*0.9*player->volume_m);
 
 			}
 		}
@@ -131,6 +131,7 @@ QxtError QxtAVPlayerPrivate::close()
 	SDL_PauseAudio (1);
  	SDL_CloseAudio();
 	if(avfile)delete(avfile);
+	avfile=NULL;
 	opened_m=false;
 	QXT_DROP_OK;
 	}

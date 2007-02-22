@@ -105,6 +105,7 @@ that will return 0.0 if the input is a network stream
  */
 double QxtAVFile::length() const
 	{
+
 	return qxt_d().length();
 	}
 
@@ -166,3 +167,6 @@ unsigned long QxtAVFile::samplerate()
 
 //-------------------------------------------------------------
 // 
+
+
+
