@@ -28,9 +28,6 @@
    </item>
    <item rowspan="2" row="0" column="3" >
     <widget class="QxtTreeWidget" name="qxtTreeWidget_2" >
-     <property name="rootDecorated" >
-      <bool>true</bool>
-     </property>
      <property name="decorationStyle" >
       <enum>Qxt::Menulike</enum>
      </property>
@@ -86,6 +83,9 @@
    </item>
    <item rowspan="2" row="0" column="2" >
     <widget class="QxtTreeWidget" name="qxtTreeWidget" >
+     <property name="decorationStyle" >
+      <enum>Qxt::Buttonlike</enum>
+     </property>
      <column>
       <property name="text" >
        <string>New Column</string>
@@ -167,11 +167,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QxtLabel</class>
-   <extends>QFrame</extends>
-   <header>QxtLabel</header>
-  </customwidget>
-  <customwidget>
    <class>QxtPushButton</class>
    <extends>QPushButton</extends>
    <header>QxtPushButton</header>
@@ -180,6 +175,11 @@
    <class>QxtTreeWidget</class>
    <extends>QTreeWidget</extends>
    <header>QxtTreeWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtLabel</class>
+   <extends>QFrame</extends>
+   <header>QxtLabel</header>
   </customwidget>
  </customwidgets>
  <resources/>
