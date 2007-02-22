@@ -6,21 +6,41 @@ released under the Terms of LGPL (see the LICENSE file)
 /**
 \class QxtPimpl QxtPimpl
 \ingroup core
-\brief hide implementaion with PIMPL
+\brief Hide private details of a class
  
-Application code generally doesn't have to be concerned about hiding its implementation details, but when writing library code it is important to maintain a constant interface, both source and binary. Maintaining a constant source interface is easy enough, but keeping the binary interface constant means moving implementation details into a private class. The PIMPL, or d-pointer, idiom is a common method of implementing this separation. QxtPimpl offers a convenient way to connect the public and private sides of your class. (header, example)
+Application code generally doesn't have to be concerned about hiding its
+implementation details, but when writing library code it is important to
+maintain a constant interface, both source and binary. Maintaining a constant
+source interface is easy enough, but keeping the binary interface constant
+means moving implementation details into a private class. The PIMPL, or
+d-pointer, idiom is a common method of implementing this separation. QxtPimpl
+offers a convenient way to connect the public and private sides of your class.
 
 \section start Getting Started 
-Before you declare the public class, you need to make a forward declaration of the private class. The private class must have the same name as the public class, followed by the word Private. In the example above, the class is named MyTest so the private class is declared with: 
+Before you declare the public class, you need to make a forward declaration
+of the private class. The private class must have the same name as the public
+class, followed by the word Private. For example, a class named MyTest would
+declare the private class with:
+\code
 class MyTestPrivate;
+\endcode
 
 \subsection pub The Public Class 
-Generally, you shouldn't keep any data members in the public class without a good reason. (The example above keeps a data member in the public class only for the sake of demonstration.) Functions that are part of the public interface should be declared in the public class, and functions that need to be available to subclasses (for calling or overriding) should be in the protected section of the public class. 
-To connect the private class to the public class, include the QXT_DECLARE_PRIVATE macro in the private section of the public class. In the example above, the private class is connected as follows: 
+Generally, you shouldn't keep any data members in the public class without a
+good reason. Functions that are part of the public interface should be declared
+in the public class, and functions that need to be available to subclasses (for
+calling or overriding) should be in the protected section of the public class. 
+To connect the private class to the public class, include the
+QXT_DECLARE_PRIVATE macro in the private section of the public class. In the
+example above, the private class is connected as follows: 
+\code
 private:
     QXT_DECLARE_PRIVATE(MyTest);
-Furthermore, if the private class needs to access the public class, include the QXT_INIT_PRIVATE macro in the public class's constructor. The example looks like this: 
+\endcode
 
+Additionally, you must include the QXT_INIT_PRIVATE macro in the public class's
+constructor. Continuing with the MyTest example, your constructor might look
+like this: 
 \code
 MyTest::MyTest() {
     // initialization
@@ -29,53 +49,103 @@ MyTest::MyTest() {
 \endcode
 
 \subsection priv The Private Class 
-As mentioned above, data members should usually be kept in the private class. This allows the memory layout of the private class to change without breaking binary compatibility for the public class. Functions that exist only as implementation details, or functions that need access to private data members, should be implemented here. 
-To allow the private class to access members of the public class, include the QXT_DECLARE_PUBLIC macro in the public section of the private class. Additionally, the private class needs to inherit some functionality from QxtPrivate. QxtPrivate is a template class, so your private class declaration should look something like this excerpt from the example: 
+As mentioned above, data members should usually be kept in the private class.
+This allows the memory layout of the private class to change without breaking
+binary compatibility for the public class. Functions that exist only as
+implementation details, or functions that need access to private data members,
+should be implemented here. 
+
+To define the private class, inherit from the template QxtPrivate class, and
+include the QXT_DECLARE_PUBLIC macro in its public section. The template
+parameter should be the name of the public class. For example:
 \code
 class MyTestPrivate : public QxtPrivate<MyTest> {
 public:
     MyTestPrivate();
     QXT_DECLARE_PUBLIC(MyTest);
-
-    // rest of class declaration
 };
 \endcode
-This is technically optional -- if your private class has no need to access the public class members at all, then the superclass inheritance, QXT_DECLARE_PUBLIC, and QXT_INIT_PRIVATE in the public class's constructor can be omitted. The qxt_p() function described below will be unavailable if you decide to do this. 
-[edit]
-\section cross Crossing the Boundary 
-Once the two classes are declared and connected, functions in the public class can use the qxt_d() function (actually a function-like object), which returns a reference to the private object. 
-Similarly, should the private class wish to access the public class (for instance, to call a virtual function that might be overridden by a subclass), the qxt_p() function (this one's really a function) returns a reference back to the public object. 
-[edit]
-\section about  About the Example 
-The example program demonstrates the use of QxtPimpl. It also demonstrates how a subclass can have its own independent private class without disturbing the superclass. The use of virtual functions is left as an exercise to the reader; a search of the Internet will provide further information about the PIMPL idiom.
+
+\section cross Accessing Private Members
+Use the qxt_d() function (actually a function-like object) from functions in
+the public class to access the private class. Similarly, functions in the
+private class can invoke functions in the public class by using the qxt_p()
+function (this one's actually a function).
+
+For example, assume that MyTest has methods named getFoobar and doBaz(),
+and MyTestPrivate has a member named foobar and a method named doQuux().
+The code might resemble this example:
+\code
+int MyTest::getFoobar() {
+    return qxt_d().foobar;
+}
+
+void MyTestPrivate::doQuux() {
+    qxt_p().doBaz(foobar);
+}
+\endcode
 */
-
-
-
 
 #ifndef QXTPIMPL_H
 #define QXTPIMPL_H
 
+/*! \relates QxtPimpl
+ * Declares that a public class has a related private class.
+ *
+ * This shuold be put in the private section of the public class.
+ */
 #define QXT_DECLARE_PRIVATE(C) friend class C##Private; QxtPrivateInterface<C, C##Private> qxt_d;
-#define QXT_DECLARE_PUBLIC(C) friend class C;
+/*! \relates QxtPimpl
+ * Declares that a private class has a related public class.
+ *
+ * This may be put anywhere in the declaration of the private class.
+ */
+#define QXT_DECLARE_PUBLIC(C) friend class C; 
+/*! \relates QxtPimpl
+ * Initializes resources owned by the private class.
+ *
+ * This should be called from the public class's constructor,
+ * before qxt_d() is used for the first time.
+ */
 #define QXT_INIT_PRIVATE(C) qxt_d.setPublic(this);
 
-template <typename PUB, typename PVT>
-class QxtPrivateInterface {
-public:
-    inline QxtPrivateInterface() { pvt = new PVT; }
-    inline ~QxtPrivateInterface() { delete pvt; }
+#ifdef QXT_DOXYGEN_RUN
+/*! \relates QxtPimpl
+ * Returns a reference to the private class.
+ *
+ * This function is only available in a class using QXT_DECLARE_PRIVATE.
+ */
+QxtPrivate<PUB>& qxt_d();
 
-    inline void setPublic(PUB* pub) { pvt->QXT_setPublic(pub); }
-    inline PVT& operator()() { return *pvt; }
-    inline const PVT& operator()() const { return *pvt; }
-private:
-    PVT* pvt;
-};
+/*! \relates QxtPimpl
+ * Returns a const reference to the private class.
+ *
+ * This function is only available in a class using QXT_DECLARE_PRIVATE.
+ * This overload will be automatically used in const functions.
+ */
+const QxtPrivate<PUB>& qxt_d();
 
+/*! \relates QxtPimpl
+ * Returns a reference to the public class.
+ *
+ * This function is only available in a class using QXT_DECLARE_PUBLIC.
+ */
+PUB& qxt_p();
+
+/*! \relates QxtPimpl
+ * Returns a const reference to the public class.
+ *
+ * This function is only available in a class using QXT_DECLARE_PUBLIC.
+ * This overload will be automatically used in const functions.
+ */
+const PUB& qxt_p();
+#endif
+
+#ifndef QXT_DOXYGEN_RUN
 template <typename PUB>
 class QxtPrivate {
 public:
+    virtual ~QxtPrivate() {}
     inline void QXT_setPublic(PUB* pub) { qxt_p_ptr = pub; }
 
 protected:
@@ -85,5 +155,20 @@ protected:
 private:
     PUB* qxt_p_ptr;
 };
+
+template <typename PUB, typename PVT>
+class QxtPrivateInterface {
+friend class QxtPrivate<PUB>;
+public:
+    QxtPrivateInterface() { pvt = new QxtPrivate<PUB>; }
+    ~QxtPrivateInterface() { delete pvt; }
+
+    inline void setPublic(PUB* pub) { pvt->QXT_setPublic(pub); }
+    inline PVT& operator()() { return *static_cast<PVT*>(pvt); }
+    inline const PVT& operator()() const { return *static_cast<PVT*>(pvt); }
+private:
+    QxtPrivate<PUB>* pvt;
+};
+#endif
 
 #endif
