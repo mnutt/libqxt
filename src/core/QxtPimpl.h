@@ -92,35 +92,35 @@ void MyTestPrivate::doQuux() {
 /*! \relates QxtPimpl
  * Declares that a public class has a related private class.
  *
- * This shuold be put in the private section of the public class.
+ * This shuold be put in the private section of the public class. The parameter is the name of the public class.
  */
-#define QXT_DECLARE_PRIVATE(C) friend class C##Private; QxtPrivateInterface<C, C##Private> qxt_d;
+#define QXT_DECLARE_PRIVATE(PUB) friend class PUB##Private; QxtPrivateInterface<PUB, PUB##Private> qxt_d;
 /*! \relates QxtPimpl
  * Declares that a private class has a related public class.
  *
- * This may be put anywhere in the declaration of the private class.
+ * This may be put anywhere in the declaration of the private class. The parameter is the name of the public class.
  */
-#define QXT_DECLARE_PUBLIC(C) friend class C; 
+#define QXT_DECLARE_PUBLIC(PUB) friend class PUB; 
 /*! \relates QxtPimpl
  * Initializes resources owned by the private class.
  *
  * This should be called from the public class's constructor,
- * before qxt_d() is used for the first time.
+ * before qxt_d() is used for the first time. The parameter is the name of the public class.
  */
-#define QXT_INIT_PRIVATE(C) qxt_d.setPublic(this);
+#define QXT_INIT_PRIVATE(PUB) qxt_d.setPublic(this);
 
 #ifdef QXT_DOXYGEN_RUN
 /*! \relates QxtPimpl
  * Returns a reference to the private class.
  *
- * This function is only available in a class using QXT_DECLARE_PRIVATE.
+ * This function is only available in a class using \a QXT_DECLARE_PRIVATE.
  */
 QxtPrivate<PUB>& qxt_d();
 
 /*! \relates QxtPimpl
  * Returns a const reference to the private class.
  *
- * This function is only available in a class using QXT_DECLARE_PRIVATE.
+ * This function is only available in a class using \a QXT_DECLARE_PRIVATE.
  * This overload will be automatically used in const functions.
  */
 const QxtPrivate<PUB>& qxt_d();
@@ -128,14 +128,14 @@ const QxtPrivate<PUB>& qxt_d();
 /*! \relates QxtPimpl
  * Returns a reference to the public class.
  *
- * This function is only available in a class using QXT_DECLARE_PUBLIC.
+ * This function is only available in a class using \a QXT_DECLARE_PUBLIC.
  */
 PUB& qxt_p();
 
 /*! \relates QxtPimpl
  * Returns a const reference to the public class.
  *
- * This function is only available in a class using QXT_DECLARE_PUBLIC.
+ * This function is only available in a class using \a QXT_DECLARE_PUBLIC.
  * This overload will be automatically used in const functions.
  */
 const PUB& qxt_p();
