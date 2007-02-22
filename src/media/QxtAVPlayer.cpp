@@ -2,6 +2,7 @@
 #include "QxtAVPlayer.h"
 #include "QxtAVPlayer_p.h"
 #include <QxtCore/QxtHyperMacros>
+#include <limits> 
 
 /**
 \class QxtAVPlayer QxtAVPlayer
@@ -26,6 +27,9 @@ static void Callback (void * userData, Uint8 *stream, int size)
 	short *out = (short*)stream;
 	int length = size/sizeof(short);
 	QxtAVPlayerPrivate * player =  (QxtAVPlayerPrivate *)userData;
+
+	float * peek =player->peek;
+	bool peeking= player->peeking;
 	if(player->avfile)
 		{
 		short a[size];
@@ -38,7 +42,11 @@ static void Callback (void * userData, Uint8 *stream, int size)
 
 		fortimes(length)
 			{
+			if (peeking)
+				(*peek++)=(float)*pa/ (float)std::numeric_limits<short>::max();
+
  			(*out++) =(short)((*pa++)*player->volume_m);
+
 			}
 		}
 
@@ -57,6 +65,8 @@ QxtAVPlayerPrivate::QxtAVPlayerPrivate()
 	samplerate=48000;
 	volume_m=0.99;
 	opened_m=false;
+	peeking=false;
+	peek=new float  [2048*10];
 	connect(this,SIGNAL(eof()),this,SLOT(close()));
 	}
 		
@@ -180,3 +190,25 @@ QxtError QxtAVPlayer::setVolume (float v)
 	};
 
 
+
+/*!
+points to a buffer of 2048 floats from the last flip.
+
+this is e.g. good for having externel analysers.\n
+you need to do a setPeeking(true);
+*/
+
+float * QxtAVPlayer::peek()
+	{
+	return qxt_d().peek;
+	}
+
+bool  QxtAVPlayer::peeking()
+	{
+	return qxt_d().peeking;
+	}
+
+void QxtAVPlayer::setPeeking(bool e)
+	{
+	qxt_d().peeking=e;
+	}

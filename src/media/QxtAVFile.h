@@ -49,9 +49,6 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 
 		unsigned long samplerate();
 
-
-		QxtRingBuffer * ring();
-
 	};
 
 #endif

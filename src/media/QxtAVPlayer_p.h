@@ -27,6 +27,12 @@ class QxtAVPlayerPrivate : public QObject, public QxtPrivate<QxtAVPlayer>
 			{emit(eof());}
 
 
+		bool peeking;
+
+
+		float * peek;
+
+
 	public slots:
 		QxtError open();
 		QxtError close();	
