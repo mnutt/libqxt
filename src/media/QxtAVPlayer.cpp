@@ -78,10 +78,20 @@ QxtError QxtAVPlayerPrivate::play(QString file)
 	if (opened_m)
 		{
 		SDL_PauseAudio (1);
+		opened_m=false;
 		delete avfile;
 		avfile= new QxtAVFile();
-		QXT_DROP_F(avfile->open(file));
+		QXT_DROP_SCOPE(error,avfile->open(file))
+			{
+			avfile=NULL;	
+		 	SDL_CloseAudio();
+			qWarning("error opening File");
+			up_fetch_eof();
+			QXT_DROP_F(error);
+			}
+		opened_m=true;
 		SDL_PauseAudio (0);
+
 		}
 	else
 		{
