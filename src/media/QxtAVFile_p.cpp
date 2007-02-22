@@ -6,6 +6,7 @@
 #include <QxtCore/QxtHyperMacros>
 
 
+
 QxtError QxtAVFilePrivate::open(QString filename)
 	{
 	///defaults
@@ -93,8 +94,7 @@ double QxtAVFilePrivate::length() const
 	{
 	if (!opened)		return 0.0;
  	if (!format_context)	return 0.0;
-
-	return ((double)format_context->timestamp/(double)AV_TIME_BASE);
+	return ((double)format_context->duration/(double)AV_TIME_BASE);
 	}
 
 
@@ -104,8 +104,12 @@ double QxtAVFilePrivate::time() const
 	{
 	if (!opened)		return 0.0;
  	if (!format_context)	return 0.0;
+	if (!format_context->cur_st) return 0.0;
 
-	return ((double)format_context->timestamp/(double)AV_TIME_BASE);
+
+
+
+	return ((double)format_context->cur_st->cur_dts/(double)format_context->cur_st->time_base.den);
 	}
 
 //----------------------------------------------

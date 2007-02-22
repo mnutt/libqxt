@@ -23,7 +23,7 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 	Q_OBJECT
 	Q_PROPERTY(bool preloaded READ preloaded WRITE setPreloaded);
 	public:
-	QXT_DECLARE_PRIVATE(QxtAVFile);
+		QXT_DECLARE_PRIVATE(QxtAVFile);
 
  		QxtAVFile(QObject *parent=0);
 		~QxtAVFile();
