@@ -160,7 +160,7 @@ template <typename PUB, typename PVT>
 class QxtPrivateInterface {
 friend class QxtPrivate<PUB>;
 public:
-    QxtPrivateInterface() { pvt = new QxtPrivate<PUB>; }
+    QxtPrivateInterface() { pvt = new PVT; }
     ~QxtPrivateInterface() { delete pvt; }
 
     inline void setPublic(PUB* pub) { pvt->QXT_setPublic(pub); }
