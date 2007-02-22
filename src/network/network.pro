@@ -25,6 +25,8 @@ INCLUDEPATH += .
 DEFINES += BUILD_QXT_NETWORK
 QT = core network
 
+INCLUDEPATH += . ../core ../../deploy/include
+LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
 
 
 

@@ -47,6 +47,12 @@ class QxtRingBufferPrivate : public QxtPrivate<QxtRingBuffer>
 			return jack_ringbuffer_write(ring, source,size);
 			}
 
+		unsigned long peek(char * destination, unsigned long size)
+			{
+			return jack_ringbuffer_peek (ring,destination, size);
+			}
+
+
 	private:
 		jack_ringbuffer_t *  ring;
 	};
@@ -70,10 +76,17 @@ unsigned long QxtRingBuffer::read	(char * destination, unsigned long size)
 	{
 	return qxt_d().read(destination,size);
 	}
+/**read but do not delete the data from the buffer*/
+unsigned long QxtRingBuffer::peek	(char * destination, unsigned long size)
+	{
+	return qxt_d().peek(destination,size);
+	}
+
 unsigned long QxtRingBuffer::available	()
 	{
 	return qxt_d().available();
 	}
+
 unsigned long QxtRingBuffer::write	(char * source, unsigned long size)
 	{
 	return qxt_d().write(source,size);

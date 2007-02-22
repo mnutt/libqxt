@@ -47,6 +47,8 @@ width="32" height="32" border="0" /></a></td>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="8476b65cc0b4b96d9488caea99c9f07b"></a><!-- doxytag: member="QxtRingBuffer::read" ref="8476b65cc0b4b96d9488caea99c9f07b" args="(char *destination, unsigned long size)" -->
 unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><b>read</b> (char *destination, unsigned long size)</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtRingBuffer.html#56dfcdcc52a8d4ec0ca974629df58a69">peek</a> (char *destination, unsigned long size)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="6a3dd1693064a8d9c3e7112a4dd0bc05"></a><!-- doxytag: member="QxtRingBuffer::available" ref="6a3dd1693064a8d9c3e7112a4dd0bc05" args="()" -->
 unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><b>available</b> ()</td></tr>
 
@@ -59,6 +61,36 @@ thread safe ring buffer
 <p>
 The key attribute of a ringbuffer is that it can be safely accessed by two threads simultaneously -- one reading from the buffer and the other writing to it -- without using any synchronization or mutual exclusion primitives. For this to work correctly, there can only be a single reader and a single writer thread. Their identities cannot be interchanged. 
 <p>
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="56dfcdcc52a8d4ec0ca974629df58a69"></a><!-- doxytag: member="QxtRingBuffer::peek" ref="56dfcdcc52a8d4ec0ca974629df58a69" args="(char *destination, unsigned long size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long QxtRingBuffer::peek           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>destination</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&nbsp;</td>
+          <td class="paramname"> <em>size</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+read but do not delete the data from the buffer 
+</div>
+</div><p>
 <address><hr />
 
 <div align="center">

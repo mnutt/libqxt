@@ -5,12 +5,11 @@
 #include <ffmpeg/avformat.h>
 
 
-class QxtAVFilePrivate : public QObject,QxtPrivate<QxtAVFile>
+class QxtAVFilePrivate : public QObject, public QxtPrivate<QxtAVFile>
 	{
 	Q_OBJECT
-	QXT_DECLARE_PUBLIC(QxtAVFile);	
+
 	public:
-		
 
 	void destroy();
 
