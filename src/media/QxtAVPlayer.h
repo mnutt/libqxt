@@ -23,12 +23,20 @@ class QxtAVPlayerPrivate;
 class QXT_MEDIA_EXPORT  QxtAVPlayer : public QObject
 	{
 	Q_OBJECT
+	Q_PROPERTY(bool peeking READ peeking WRITE setPeeking)
+
 	QXT_DECLARE_PRIVATE(QxtAVPlayer);
 	public:
 		QxtAVPlayer(QObject * parent =0);
 		~QxtAVPlayer();
 
 		QxtAVFile * currentFile();
+
+		float * peek();
+
+		bool peeking();
+		void setPeeking(bool);
+
 
 	public slots:
 		QxtError play      (QString url);
