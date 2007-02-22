@@ -74,7 +74,7 @@ INSTALLS = lib docs bin qxtincludes features
 
 
 
-contains( QXT, core ){
+contains( QXT_BUILD, core ){
         message( building the core )
         SUBDIRS += src/core	
 	core.files +=  src/core/*.h
@@ -83,7 +83,7 @@ contains( QXT, core ){
 	INSTALLS += core
         }
 
-contains( QXT, kit ){
+contains( QXT_BUILD, kit ){
         message( building kit module )
         SUBDIRS += src/kit
 	kit.files +=  src/kit/*.h
@@ -92,7 +92,7 @@ contains( QXT, kit ){
 	INSTALLS += kit
         }
 
-contains( QXT, gui ){
+contains( QXT_BUILD, gui ){
         message( building gui module )
         SUBDIRS += src/gui
 	gui.files +=  src/gui/*.h
@@ -107,7 +107,7 @@ contains( QXT, gui ){
 	INSTALLS += designer
         }
 
-contains( QXT, network ){
+contains( QXT_BUILD, network ){
         message( building network module )
         SUBDIRS += src/network
 	network.files +=  src/network/*.h
@@ -116,7 +116,7 @@ contains( QXT, network ){
 	INSTALLS += network
         }
 
-contains( QXT, sql ){
+contains( QXT_BUILD, sql ){
         message( building sql module )
         SUBDIRS += src/sql
 	sql.files +=  src/sql/*.h
@@ -134,7 +134,7 @@ contains( QXT, media ){
 	INSTALLS += media
         }
 
-contains( QXT, curses ){
+contains( QXT_BUILD, curses ){
         message( building curses module )
         SUBDIRS += src/curses
 	curses.files +=  src/curses/*.h
@@ -143,7 +143,7 @@ contains( QXT, curses ){
 	INSTALLS += curses
         }
 
-contains( QXT, mox ){
+contains( QXT_BUILD, mox ){
         message( building mox )
         SUBDIRS += mox
 	unix:mox.files +=  deploy/bin/mox
