@@ -201,7 +201,7 @@ protected:
      * Deserializes network data into a signal name and a list of parameters.
      *
      * Reimplement this function in a subclass to allow QxtRPCPeer to understand a different protocol.
-     * If you reimplement it, be sure to remove the processed portion of the data from the reference paramter.
+     * If you reimplement it, be sure to remove the processed portion of the data from the reference parameter.
      * Return "qMakePair(QString(), QList<QVariant>())" if the deserialized data doesn't invoke a signal.
      */
     virtual QPair<QString, QList<QVariant> > deserialize(QByteArray& data);
