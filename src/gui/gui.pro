@@ -29,7 +29,7 @@ QXT_SOURCES_QxtItemDelegate      = QxtItemDelegate.cpp
 QXT_STABILITY_QxtItemDelegate    = 
 
 QXT_GUI                         += QxtTreeWidget
-QXT_HEADERS_QxtTreeWidget        = QxtTreeWidget.h QxtTreeWidget_p.h
+QXT_HEADERS_QxtTreeWidget        = QxtTreeWidget.h private/QxtTreeWidget_p.h
 QXT_SOURCES_QxtTreeWidget        = QxtTreeWidget.cpp
 QXT_STABILITY_QxtTreeWidget      = 
 
