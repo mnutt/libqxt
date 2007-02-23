@@ -5,8 +5,8 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 #include "QxtTreeWidget.h"
-#include "QxtTreeWidget_p.h"
 #include "QxtItemDelegate.h"
+#include "private/QxtTreeWidget_p.h"
 #include <QHeaderView>
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
