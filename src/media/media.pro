@@ -15,7 +15,7 @@ LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
 
 
 QXT_MEDIA                       += QxtAVFile
-QXT_HEADERS_QxtAVFile        	 = QxtAVFile.h QxtAVFile_p.h
+QXT_HEADERS_QxtAVFile        	 = QxtAVFile.h private/QxtAVFile_p.h
 QXT_SOURCES_QxtAVFile	 	 = QxtAVFile.cpp QxtAVFile_p.cpp
 QXT_STABILITY_QxtAVFile      	 =
 
@@ -26,7 +26,7 @@ QXT_SOURCES_QxtSdlWidget 	 = QxtSdlWidget.cpp
 QXT_STABILITY_QxtSdlWidgt      	 =
 
 QXT_MEDIA                       += QxtAVPlayer
-QXT_HEADERS_QxtAVPlayer          = QxtAVPlayer.h QxtAVPlayer_p.h
+QXT_HEADERS_QxtAVPlayer          = QxtAVPlayer.h private/QxtAVPlayer_p.h
 QXT_SOURCES_QxtAVPlayer 	 = QxtAVPlayer.cpp
 QXT_STABILITY_QxtAudioPlayer     =
 
