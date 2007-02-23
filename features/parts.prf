@@ -1,6 +1,5 @@
 #this is for determinating what parts to build
 
-defineTest(ModuleBuild) {
 
 aix-g++:                 PLATFORM=aix-g++
 aix-g++-64:              PLATFORM=aix-g++-64
@@ -59,43 +58,54 @@ win32-g++:               PLATFORM=win32-g++
 
 
 
+!defined(ModuleStabilityCheck){
+
+defineReplace(ModuleStabilityCheck) {
+out=
 for( part,1 ){
-	QXT_MODULE-=$$part
-        contains(QXT_stability,stable):  contains($${part}.stability,+$$PLATFORM):$$MODULE+=$$part 
-        contains(QXT_stability,broken):  contains($${part}.stability,-$$PLATFORM):$$MODULE+=$$part
-        contains(QXT_stability,unknown):!contains($${part}.stability,-$$PLATFORM):!contains($${part}.stability,+$$PLATFORM):$$MODULE+=$$part
+	1-=$$part
+        contains(QXT_stability,stable):  contains($${part}.stability,+$$PLATFORM):out+=$$part 
+        contains(QXT_stability,broken):  contains($${part}.stability,-$$PLATFORM):out+=$$part
+        contains(QXT_stability,unknown):!contains($${part}.stability,-$$PLATFORM):!contains($${part}.stability,+$$PLATFORM):out+=$$part
 	}
-
-$$MODULE += $$QXT_ignore_stability
-
+out += $$QXT_ignore_stability
 
 
+return ($$out)
+}
 
-HEADERS=
-for(part, $$MODULE){
-	header=
+
+
+
+
+
+
+
+defineReplace(ModuleHeaders) {
+for(part, 1){
 	for(header, $${part}.headers){
-		HEADERS += $$header
+		out += $$header
 		}
 	}	 
+return ($$out)
+}
 
 
 
-SOURCES=
-for(part, $$MODULE){
-	source=
+defineReplace(ModuleSources) {
+for(part, 1){
 	for(source, $${part}.sources){
-		SOURCES += $$source
+		out += $$source
 		}
 	}	 
+return ($$out)
+}
 
 
 
-
-#this is just for debug and overview.  not essential
-
+defineTest(ModuleBuildDebug) {
 partlist=
-for(part, $$MODULE):  partlist+= $$part
+for(part, 1):  partlist+= $$part
 
 message()
 message(building $$MODULE : $$partlist)
@@ -103,11 +113,8 @@ message($$HEADERS)
 message($$SOURCES)
 message()
 
-
-
-
-
-
-#QXT_LIBS
+}
 
 }
+
+
