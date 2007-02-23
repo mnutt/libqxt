@@ -33,7 +33,7 @@ QXT_STABILITY_QxtCRect               =
 
 QXT_CURSES                          += QxtCKeyEvent
 QXT_HEADERS_QxtCKeyEvent             = QxtCKeyEvent.h
-QXT_SOURCES_QxtCKeyEvent             = QxtCKeyEvent.cpp
+QXT_SOURCES_QxtCKeyEvent             =
 QXT_STABILITY_QxtCKeyEvent           =
 
 QXT_CURSES                          += QxtCPaintEvent
