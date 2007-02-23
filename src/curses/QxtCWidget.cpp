@@ -7,12 +7,13 @@
 class QxtCWidgetPrivate : public QxtPrivate<QxtCWidget> {
 public:
     QXT_DECLARE_PUBLIC(QxtCWidget);
+    QxtCWidgetPrivate() : win(0), offX(0), offY(0), maxX(1), maxY(1), xpos(0), ypos(0) {}
 
     PANEL* win;
     int offX, offY, maxX, maxY, xpos, ypos;
-}
+};
 
-QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent), maxX(1), maxY(1), xpos(0), ypos(0) {
+QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent) {
     QXT_INIT_PRIVATE(QxtCWidget);
     QxtCWidgetPrivate& d = qxt_d();
     if(!parent) {
@@ -35,7 +36,7 @@ QxtCWidget::QxtCWidget(QxtCWidget* parent) : QObject(parent), maxX(1), maxY(1), 
 QxtCWidget::~QxtCWidget() {
     if(isWindow()) {
         delwin(handle());
-        del_panel(win);
+        del_panel(qxt_d().win);
     }
 }
 
@@ -47,7 +48,7 @@ int QxtCWidget::y() const {
     return qxt_d().ypos;
 }
 
-PANEL* winId() const {
+PANEL* QxtCWidget::winId() const {
     return qxt_d().win;
 } 
 
@@ -58,8 +59,8 @@ QxtCWidget* QxtCWidget::window() const {
 }
 
 WINDOW* QxtCWidget::handle() const {
-    if(win)
-        return panel_window(win);
+    if(isWindow())
+        return panel_window(qxt_d().win);
     return window()->handle();
 }
 
@@ -86,35 +87,37 @@ void QxtCWidget::paintEvent(QxtCPaintEvent* event) {
 }
 
 void QxtCWidget::resize(int w, int h) {
-    if(win) {
+    if(isWindow()) {
         wresize(handle(), h, w);
-        replace_panel(win, handle());
+        replace_panel(qxt_d().win, handle());
     }
-    int oldMaxY = maxY;
-    maxX = w;
-    maxY = h;
-    int t = oldMaxY - maxY;
+    QxtCWidgetPrivate& d = qxt_d();
+    int oldMaxY = d.maxY;
+    d.maxX = w;
+    d.maxY = h;
+    int t = oldMaxY - h;
     if(t > 0) 
-        window()->update(offY, oldMaxY + t);
+        window()->update(d.offY, oldMaxY + t);
     else
-        window()->update(offY, maxY - t);
+        window()->update(d.offY, h - t);
 }
 
 void QxtCWidget::move(int x, int y) {
-    xpos = x; 
-    ypos = y;
-    int oldOffY = offY;
-    if(win) {
-        move_panel(win, y, x);
+    QxtCWidgetPrivate& d = qxt_d();
+    d.xpos = x; 
+    d.ypos = y;
+    int oldOffY = d.offY;
+    if(isWindow()) {
+        move_panel(d.win, y, x);
     } else {
         QxtCWidget* w = parentWidget();
         if(w) {
             QxtCPoint p = parentWidget()->mapToParent(QxtCPoint(x, y));
-            offX = p.x();
-            offY = p.y();
+            d.offX = p.x();
+            d.offY = p.y();
         } else {
-            offX = x;
-            offY = y;
+            d.offX = x;
+            d.offY = y;
         }
     }
     QxtCWidget* w;
@@ -123,40 +126,34 @@ void QxtCWidget::move(int x, int y) {
         if(!w) continue;
         w->move(w->x(), w->y());
     }
-    int t = oldOffY - offY;
+    int t = oldOffY - d.offY;
     if(t > 0) 
-        window()->update(offY, height() + t);
+        window()->update(d.offY, height() + t);
     else
         window()->update(oldOffY, height() - t);
 }
 
 QxtCSize QxtCWidget::size() const {
-    if(win) {
-        int w, h;
-        getmaxyx(handle(), h, w);
-        return QxtCSize(w, h);
-    } else {
-        return QxtCSize(maxX, maxY);
-    }
+    return QxtCSize(qxt_d().maxX, qxt_d().maxY);
 }
 
 void QxtCWidget::update(const QxtCRect& dirty) {
     if(dirty.height()==0) {
-        window()->update(offY, maxY);
+        window()->update(qxt_d().offY, qxt_d().maxY);
     } else {
-        window()->update(offY+dirty.top(), dirty.height());
+        window()->update(qxt_d().offY+dirty.top(), dirty.height());
     }
 }
 
 void QxtCWidget::update(int y, int h) {
-    if(win) {
+    if(isWindow()) {
         wredrawln(handle(), y, h);
         QxtCPaintEvent e(y,h);
         paintEvent(&e);
         update_panels();
         refresh();
     } else {
-        window()->update(offY+y, h);
+        window()->update(qxt_d().offY+y, h);
     }
 }
 
