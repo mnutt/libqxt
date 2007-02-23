@@ -42,11 +42,11 @@ width="32" height="32" border="0" /></a></td>
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Related Functions</h2></td></tr>
 <tr><td colspan="2">(Note that these are not member functions.) <br><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#39115907dca274c895565efa98870f1a">QXT_DECLARE_PRIVATE</a>(C)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#e70baf9930ff230cd030697ad6e1ed2e">QXT_DECLARE_PRIVATE</a>(PUB)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#c3163767ad50016d158f9f1480f29d2f">QXT_DECLARE_PUBLIC</a>(C)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#3b24f59fff4ac3f4bf045fc5840c21c9">QXT_DECLARE_PUBLIC</a>(PUB)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#436202d99ded93c7a50547ec7ae26241">QXT_INIT_PRIVATE</a>(C)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#cd3d3fee0ca06d8bd81463ecd5b7d50c">QXT_INIT_PRIVATE</a>(PUB)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">QxtPrivate&lt; PUB &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtPimpl.html#6780f1d0194ebc891614c72b59d5693c">qxt_d</a> ()</td></tr>
 
@@ -62,11 +62,11 @@ Before you declare the public class, you need to make a forward declaration of t
 </pre></div><h3><a class="anchor" name="pub">
 The Public Class</a></h3>
 Generally, you shouldn't keep any data members in the public class without a good reason. Functions that are part of the public interface should be declared in the public class, and functions that need to be available to subclasses (for calling or overriding) should be in the protected section of the public class. To connect the private class to the public class, include the QXT_DECLARE_PRIVATE macro in the private section of the public class. In the example above, the private class is connected as follows: <div class="fragment"><pre class="fragment"><span class="keyword">private</span>:
-    <a class="code" href="classQxtPimpl.html#39115907dca274c895565efa98870f1a">QXT_DECLARE_PRIVATE</a>(MyTest);
+    <a class="code" href="classQxtPimpl.html#e70baf9930ff230cd030697ad6e1ed2e">QXT_DECLARE_PRIVATE</a>(MyTest);
 </pre></div><p>
 Additionally, you must include the QXT_INIT_PRIVATE macro in the public class's constructor. Continuing with the MyTest example, your constructor might look like this: <div class="fragment"><pre class="fragment">MyTest::MyTest() {
     <span class="comment">// initialization</span>
-    <a class="code" href="classQxtPimpl.html#436202d99ded93c7a50547ec7ae26241">QXT_INIT_PRIVATE</a>(MyTest);
+    <a class="code" href="classQxtPimpl.html#cd3d3fee0ca06d8bd81463ecd5b7d50c">QXT_INIT_PRIVATE</a>(MyTest);
 }
 </pre></div><h3><a class="anchor" name="priv">
 The Private Class</a></h3>
@@ -74,7 +74,7 @@ As mentioned above, data members should usually be kept in the private class. Th
 To define the private class, inherit from the template QxtPrivate class, and include the QXT_DECLARE_PUBLIC macro in its public section. The template parameter should be the name of the public class. For example: <div class="fragment"><pre class="fragment"><span class="keyword">class </span>MyTestPrivate : <span class="keyword">public</span> QxtPrivate&lt;MyTest&gt; {
 <span class="keyword">public</span>:
     MyTestPrivate();
-    <a class="code" href="classQxtPimpl.html#c3163767ad50016d158f9f1480f29d2f">QXT_DECLARE_PUBLIC</a>(MyTest);
+    <a class="code" href="classQxtPimpl.html#3b24f59fff4ac3f4bf045fc5840c21c9">QXT_DECLARE_PUBLIC</a>(MyTest);
 };
 </pre></div><h2><a class="anchor" name="cross">
 Accessing Private Members</a></h2>
@@ -89,14 +89,14 @@ For example, assume that MyTest has methods named getFoobar and doBaz(), and MyT
 </pre></div> 
 <p>
 <hr><h2>Friends And Related Function Documentation</h2>
-<a class="anchor" name="39115907dca274c895565efa98870f1a"></a><!-- doxytag: member="QxtPimpl::QXT_DECLARE_PRIVATE" ref="39115907dca274c895565efa98870f1a" args="(C)" -->
+<a class="anchor" name="e70baf9930ff230cd030697ad6e1ed2e"></a><!-- doxytag: member="QxtPimpl::QXT_DECLARE_PRIVATE" ref="e70baf9930ff230cd030697ad6e1ed2e" args="(PUB)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QXT_DECLARE_PRIVATE          </td>
           <td>(</td>
-          <td class="paramtype">C&nbsp;</td>
+          <td class="paramtype">PUB&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"><code> [related]</code></td>
@@ -107,17 +107,17 @@ For example, assume that MyTest has methods named getFoobar and doBaz(), and MyT
 
 <p>
 Declares that a public class has a related private class.<p>
-This shuold be put in the private section of the public class. 
+This shuold be put in the private section of the public class. The parameter is the name of the public class. 
 </div>
 </div><p>
-<a class="anchor" name="c3163767ad50016d158f9f1480f29d2f"></a><!-- doxytag: member="QxtPimpl::QXT_DECLARE_PUBLIC" ref="c3163767ad50016d158f9f1480f29d2f" args="(C)" -->
+<a class="anchor" name="3b24f59fff4ac3f4bf045fc5840c21c9"></a><!-- doxytag: member="QxtPimpl::QXT_DECLARE_PUBLIC" ref="3b24f59fff4ac3f4bf045fc5840c21c9" args="(PUB)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QXT_DECLARE_PUBLIC          </td>
           <td>(</td>
-          <td class="paramtype">C&nbsp;</td>
+          <td class="paramtype">PUB&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"><code> [related]</code></td>
@@ -128,17 +128,17 @@ This shuold be put in the private section of the public class.
 
 <p>
 Declares that a private class has a related public class.<p>
-This may be put anywhere in the declaration of the private class. 
+This may be put anywhere in the declaration of the private class. The parameter is the name of the public class. 
 </div>
 </div><p>
-<a class="anchor" name="436202d99ded93c7a50547ec7ae26241"></a><!-- doxytag: member="QxtPimpl::QXT_INIT_PRIVATE" ref="436202d99ded93c7a50547ec7ae26241" args="(C)" -->
+<a class="anchor" name="cd3d3fee0ca06d8bd81463ecd5b7d50c"></a><!-- doxytag: member="QxtPimpl::QXT_INIT_PRIVATE" ref="cd3d3fee0ca06d8bd81463ecd5b7d50c" args="(PUB)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QXT_INIT_PRIVATE          </td>
           <td>(</td>
-          <td class="paramtype">C&nbsp;</td>
+          <td class="paramtype">PUB&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"><code> [related]</code></td>
@@ -149,7 +149,7 @@ This may be put anywhere in the declaration of the private class.
 
 <p>
 Initializes resources owned by the private class.<p>
-This should be called from the public class's constructor, before <a class="el" href="classQxtPimpl.html#6780f1d0194ebc891614c72b59d5693c">qxt_d()</a> is used for the first time. 
+This should be called from the public class's constructor, before <a class="el" href="classQxtPimpl.html#6780f1d0194ebc891614c72b59d5693c">qxt_d()</a> is used for the first time. The parameter is the name of the public class. 
 </div>
 </div><p>
 <a class="anchor" name="6780f1d0194ebc891614c72b59d5693c"></a><!-- doxytag: member="QxtPimpl::qxt_d" ref="6780f1d0194ebc891614c72b59d5693c" args="()" -->
@@ -169,7 +169,7 @@ This should be called from the public class's constructor, before <a class="el" 
 
 <p>
 Returns a reference to the private class.<p>
-This function is only available in a class using QXT_DECLARE_PRIVATE. 
+This function is only available in a class using <em>QXT_DECLARE_PRIVATE</em>. 
 </div>
 </div><p>
 <a class="anchor" name="6b19167222479c38f892a58588b351e7"></a><!-- doxytag: member="QxtPimpl::qxt_p" ref="6b19167222479c38f892a58588b351e7" args="()" -->
@@ -189,7 +189,7 @@ This function is only available in a class using QXT_DECLARE_PRIVATE.
 
 <p>
 Returns a reference to the public class.<p>
-This function is only available in a class using QXT_DECLARE_PUBLIC. 
+This function is only available in a class using <em>QXT_DECLARE_PUBLIC</em>. 
 </div>
 </div><p>
 <address><hr />

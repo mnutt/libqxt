@@ -1,50 +1,47 @@
-MODULE=QXT_CORE
+VERSION 	=  $$QXVERSION
+TEMPLATE 	=  lib
+TARGET 		=  QxtCore
+DEPENDPATH 	+= .
+INCLUDEPATH 	+= .
+DEFINES 	+= BUILD_QXT_CORE
+QT 		= 
 
-include (../../config.pri)
+nullable.headers 	= QxtNull.h QxtNullable.h
+nullable.interfaces	= QxtNull QxtNullable
+nullable.sources 	=
+nullable.stability 	= +linux-g++
 
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtCore
-DEPENDPATH += .
-INCLUDEPATH += .
+SingleInstance.headers	 = QxtSingleInstance.h
+SingleInstance.interfaces= QxtSingleInstance
+SingleInstance.sources	 =
+SingleInstance.stability =
 
-DEFINES += BUILD_QXT_CORE
+Tuple.headers 		= QxtTripple.h QxtTuple.h QxtTupleList.h QxtTypeList.h
+Tuple.interfaces	= QxtTuple QxtTripple
+Tuple.sources 		=
+Tuple.stability 	= 
 
+Pimpl.headers 		= QxtPimpl.h
+Pimpl.interfaces	= QxtPimpl
+Pimpl.sources 		=
+Pimpl.stability 	= 
 
+Error.headers 		= QxtError.h
+Error.interfaces	= QxtError
+Error.sources 		=
+Error.stability 	= 
 
-
-
-QT = 
-
-
-
-QXT_CORE			+= Nullable
-QXT_HEADERS_Nullable 	 	= QxtNull.h QxtNullable.h
-QXT_STABILITY_Nullable 	 	= +linux-g++
-
-QXT_CORE			+= SingleInstance
-QXT_HEADERS_SingleInstance 	 = QxtSingleInstance.h
-QXT_STABILITY_SingleInstance 	 = 
-
-QXT_CORE			+= Tuple
-QXT_HEADERS_Tuple  		 = QxtTripple.h QxtTuple.h QxtTupleList.h QxtTypeList.h
-QXT_STABILITY_Tuple  		 = +linux-g++
-
-QXT_CORE			+= Pimpl
-QXT_HEADERS_Pimpl  		 = QxtPimpl.h
-QXT_STABILITY_Pimpl  		 = 
-
-
-QXT_CORE			+= Error
-QXT_HEADERS_Error  		 = QxtError.h
-QXT_STABILITY_Error  		 = 
-
-QXT_CORE			+= QxtHyperMacros
-QXT_HEADERS_QxtHyperMacros  	 = QxtHyperMacros.h
-QXT_STABILITY_QxtHyperMacros     = 
- 
+HyperMacros.headers 	= QxtHyperMacros.h
+HyperMacros.interfaces	= QxtHyperMacros
+HyperMacros.sources 	=
+HyperMacros.stability 	= 
 
 
+ModuleBuild = $$ModuleStabilityCheck(nullable SingleInstance Tuple Pimpl Error HyperMacros)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+ModuleBuildDebug($$ModuleBuild)
+INSTALLS    = $$ModuleInstall($$ModuleBuild)
 
-include (../parts.pri)
+
 
