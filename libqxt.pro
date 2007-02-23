@@ -19,7 +19,7 @@
 #
 #
 include (config.pri)
-include (install.pri)
+include (features/install.pri)
 
 TEMPLATE = subdirs
 

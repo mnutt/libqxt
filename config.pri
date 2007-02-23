@@ -11,7 +11,7 @@
 #on Unix qxt will be installed in  $QXTINSTALLDIR/lib/  $QXTINSTALLDIR/include  $QXTINSTALLDIR/doc/libqxt/  $QXTINSTALLDIR/bin/   (default is /usr)
 #on mac the behaiviour is not tested (should install everyhting to /Library/Frameworks by default)
 
-QXTINSTALLDIR=/tmp
+#QXTINSTALLDIR=/usr
 
 #modules  (core kit gui network sql media curses)
 
