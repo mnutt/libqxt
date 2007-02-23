@@ -1,19 +1,9 @@
 #include "QxtCursesApplication.h"
+#include "private/QxtCursesApplication_p.h"
 #include "QxtCKeyEvent.h"
 #include <QSocketNotifier>
 #include <curses.h>
 #include <QDebug>
-
-class QxtCursesApplicationPrivate : public QObject, public QxtPrivate<QxtCursesApplication> {
-Q_OBJECT
-public:
-    QXT_DECLARE_PUBLIC(QxtCursesApplication);
-
-    QObject* currentFocus;
-
-public slots:
-    void handleInput();
-};
 
 QxtCursesApplication::QxtCursesApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {
     QXT_INIT_PRIVATE(QxtCursesApplication);
