@@ -58,11 +58,26 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>eof</b> ()</td></tr>
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>error</b> (<a class="el" href="classQxtError.html">QxtError</a>)</td></tr>
 
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a0cca6195ab492a44e988fea5ea5001c"></a><!-- doxytag: member="QxtAVPlayer::QXT_DECLARE_PRIVATE" ref="a0cca6195ab492a44e988fea5ea5001c" args="(QxtAVPlayer)" -->
+&nbsp;</td><td class="memItemRight" valign="bottom"><b>QXT_DECLARE_PRIVATE</b> (<a class="el" href="classQxtAVPlayer.html">QxtAVPlayer</a>)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="eeaa68d4c1afd22be4bbbb3655856ed7"></a><!-- doxytag: member="QxtAVPlayer::QxtAVPlayer" ref="eeaa68d4c1afd22be4bbbb3655856ed7" args="(QObject *parent=0)" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><b>QxtAVPlayer</b> (QObject *parent=0)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="3f92af83e484347d509e0824d1977fee"></a><!-- doxytag: member="QxtAVPlayer::currentFile" ref="3f92af83e484347d509e0824d1977fee" args="()" -->
 <a class="el" href="classQxtAVFile.html">QxtAVFile</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><b>currentFile</b> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">float *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="013ba63d884a0e0a5126d85e0fb4ef82"></a><!-- doxytag: member="QxtAVPlayer::peeking" ref="013ba63d884a0e0a5126d85e0fb4ef82" args="()" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>peeking</b> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d456eb46e78a7962c23f3d5ff17fcb92"></a><!-- doxytag: member="QxtAVPlayer::setPeeking" ref="d456eb46e78a7962c23f3d5ff17fcb92" args="(bool)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setPeeking</b> (bool)</td></tr>
+
+<tr><td colspan="2"><br><h2>Properties</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="a99fc19d800e1b6658255e5795145192"></a><!-- doxytag: member="QxtAVPlayer::peeking" ref="a99fc19d800e1b6658255e5795145192" args="" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>peeking</b><code> []</code></td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -72,6 +87,28 @@ example: <div class="fragment"><pre class="fragment">QxtAudioPlayer player;
 player.play(<span class="stringliteral">"foo.wav"</span>);
 </pre></div> 
 <p>
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="a03dbc3e3ecaca553c44154feb364d16"></a><!-- doxytag: member="QxtAVPlayer::peek" ref="a03dbc3e3ecaca553c44154feb364d16" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float * QxtAVPlayer::peek           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+points to a buffer of 2048 floats from the last flip.<p>
+this is e.g. good for having externel analysers.<br>
+ you need to do a setPeeking(true); 
+</div>
+</div><p>
 <address><hr />
 
 <div align="center">

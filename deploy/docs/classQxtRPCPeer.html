@@ -62,8 +62,7 @@ width="32" height="32" border="0" /></a></td>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected</a> (int id)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e3fd8e63aceea84eef2a70a8fa50418d"></a><!-- doxytag: member="QxtRPCPeer::peerDisconnected" ref="e3fd8e63aceea84eef2a70a8fa50418d" args="()" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>peerDisconnected</b> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtRPCPeer.html#e3fd8e63aceea84eef2a70a8fa50418d">peerDisconnected</a> ()</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtRPCPeer.html#0124d266f0e5e55abc77803e75a0912e">clientDisconnected</a> (int id)</td></tr>
 
@@ -806,6 +805,25 @@ This signal is emitted after a successful connection from a client.<p>
 The given ID is used for <a class="el" href="classQxtRPCPeer.html#269132dd30c1d957f2abae3b4ee483b5">disconnectPeer()</a>, <a class="el" href="classQxtRPCPeer.html#c161ca1d6eacf419a108dd700630d77d">callClient()</a>, and related functions. 
 </div>
 </div><p>
+<a class="anchor" name="e3fd8e63aceea84eef2a70a8fa50418d"></a><!-- doxytag: member="QxtRPCPeer::peerDisconnected" ref="e3fd8e63aceea84eef2a70a8fa50418d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QxtRPCPeer::peerDisconnected           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [signal]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This signal is emitted when a peer or server is disconnected. 
+</div>
+</div><p>
 <a class="anchor" name="0124d266f0e5e55abc77803e75a0912e"></a><!-- doxytag: member="QxtRPCPeer::clientDisconnected" ref="0124d266f0e5e55abc77803e75a0912e" args="(int id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -943,7 +961,7 @@ Reimplement this function in a subclass to allow <a class="el" href="classQxtRPC
 
 <p>
 Deserializes network data into a signal name and a list of parameters.<p>
-Reimplement this function in a subclass to allow <a class="el" href="classQxtRPCPeer.html">QxtRPCPeer</a> to understand a different protocol. If you reimplement it, be sure to remove the processed portion of the data from the reference paramter. Return "qMakePair(QString(), QList&lt;QVariant&gt;())" if the deserialized data doesn't invoke a signal. 
+Reimplement this function in a subclass to allow <a class="el" href="classQxtRPCPeer.html">QxtRPCPeer</a> to understand a different protocol. If you reimplement it, be sure to remove the processed portion of the data from the reference parameter. Return "qMakePair(QString(), QList&lt;QVariant&gt;())" if the deserialized data doesn't invoke a signal. 
 </div>
 </div><p>
 <a class="anchor" name="78048057780f8c2fbf065f8e90cd1288"></a><!-- doxytag: member="QxtRPCPeer::canDeserialize" ref="78048057780f8c2fbf065f8e90cd1288" args="(const QByteArray &amp;buffer) const" -->

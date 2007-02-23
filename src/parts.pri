@@ -1,5 +1,7 @@
 #this is for determinating what parts to build
 
+defineTest(ModuleBuild) {
+
 aix-g++:                 PLATFORM=aix-g++
 aix-g++-64:              PLATFORM=aix-g++-64
 aix-xlc:                 PLATFORM=aix-xlc
@@ -55,11 +57,13 @@ unixware-cc:             PLATFORM=unixware-cc
 unixware-g++:            PLATFORM=unixware-g++
 win32-g++:               PLATFORM=win32-g++
 
-for(part, $$MODULE){
-	$$MODULE-=$$part
-        contains(QXT_stability,stable):  contains(QXT_STABILITY_$$part,+$$PLATFORM):$$MODULE+=$$part 
-        contains(QXT_stability,broken):  contains(QXT_STABILITY_$$part,-$$PLATFORM):$$MODULE+=$$part
-        contains(QXT_stability,unknown):!contains(QXT_STABILITY_$$part,-$$PLATFORM):!contains(QXT_STABILITY_$$part,+$$PLATFORM):$$MODULE+=$$part
+
+
+for( part,1 ){
+	QXT_MODULE-=$$part
+        contains(QXT_stability,stable):  contains($${part}.stability,+$$PLATFORM):$$MODULE+=$$part 
+        contains(QXT_stability,broken):  contains($${part}.stability,-$$PLATFORM):$$MODULE+=$$part
+        contains(QXT_stability,unknown):!contains($${part}.stability,-$$PLATFORM):!contains($${part}.stability,+$$PLATFORM):$$MODULE+=$$part
 	}
 
 $$MODULE += $$QXT_ignore_stability
@@ -70,21 +74,20 @@ $$MODULE += $$QXT_ignore_stability
 HEADERS=
 for(part, $$MODULE){
 	header=
-	for(header, QXT_HEADERS_$$part){
+	for(header, $${part}.headers){
 		HEADERS += $$header
 		}
 	}	 
 
 
+
 SOURCES=
 for(part, $$MODULE){
 	source=
-	for(source, QXT_SOURCES_$$part){
+	for(source, $${part}.sources){
 		SOURCES += $$source
 		}
 	}	 
-
-
 
 
 
@@ -95,7 +98,7 @@ partlist=
 for(part, $$MODULE):  partlist+= $$part
 
 message()
-message(builing $$MODULE : $$partlist)
+message(building $$MODULE : $$partlist)
 message($$HEADERS)
 message($$SOURCES)
 message()
@@ -107,3 +110,4 @@ message()
 
 #QXT_LIBS
 
+}

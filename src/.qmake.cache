@@ -3,3 +3,6 @@ DESTDIR= ../../deploy/libs
 INCLUDEPATH +=  ../../deploy/include/
 win32:CONFIG += dll
 
+include (../config.pri)
+include (../features/parts.prf)
+include (../features/install.pri)
