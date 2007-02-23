@@ -5,7 +5,7 @@ DEPENDPATH 	+= .
 INCLUDEPATH 	+= .
 DEFINES 	+= BUILD_QXT_MEDIA
 QT 		=  core gui
-INCLUDEPATH 	+= . ../core ../../deploy/include
+INCLUDEPATH 	+= . ../core ../../deploy/include ./private
 LIBS		+= -L../../deploy/libs/ -lQxtKit -lQxtCore
 
 LIBS		+= -lavcodec -lavformat -lSDL
