@@ -107,7 +107,7 @@ contains( QXT_BUILD, sql ){
 	INSTALLS += sql
         }
 
-contains( QXT, media ){
+contains( QXT_BUILD, media ){
         message( building media module )
         SUBDIRS += src/media
 	media.files +=  deploy/include/QxtMedia/*	

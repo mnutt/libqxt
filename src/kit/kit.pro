@@ -1,32 +1,39 @@
-MODULE=QXT_KIT
-include (../../config.pri)
+VERSION 	= $$QXVERSION
+TEMPLATE 	= lib
+TARGET 		= QxtKit
+DEPENDPATH 	+= .
+INCLUDEPATH 	+= .
+DEFINES 	+= BUILD_QXT_KIT
+QT 		= core
 
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtKit
-DEPENDPATH += .
-INCLUDEPATH += .
-DEFINES += BUILD_QXT_KIT
-QT = core
+.headers 	= 
+.interfaces	= 
+.sources 	= 
+.stability 	= 
+
+QxtSignalWaiter.headers 	= QxtSignalWaiter.h
+QxtSignalWaiter.interfaces	= QxtSignalWaiter
+QxtSignalWaiter.sources 	= QxtSignalWaiter.cpp
+QxtSignalWaiter.stability 	= 
+
+QxtTrippleList.headers 		= QxtTrippleList.h
+QxtTrippleList.interfaces	= QxtTrippleList
+QxtTrippleList.sources 		= 
+QxtTrippleList.stability 	= 
+
+QxtPairList.headers 		= QxtPairList.h
+QxtPairList.interfaces		= QxtPairList
+QxtPairList.sources 		= 
+QxtPairList.stability 		= 
+
+
+ModuleBuild = $$ModuleStabilityCheck(QxtSignalWaiter QxtTrippleList QxtPairList)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+ModuleBuildDebug($$ModuleBuild)
+INSTALLS    = $$ModuleInstall($$ModuleBuild)
 
 
 
 
-QXT_KIT                        += QxtSignalWaiter
-QXT_HEADERS_QxtSignalWaiter     = QxtSignalWaiter.h
-QXT_SOURCES_QxtSignalWaiter     = QxtSignalWaiter.cpp
-QXT_STABILITY_QxtSignalWaiter   = 
-
-QXT_KIT                        += QxtTrippleList
-QXT_HEADERS_QxtTrippleList      = QxtTrippleList.h
-QXT_STABILITY_QxtTrippleList    = 
-
-QXT_KIT                        += QxtPairList
-QXT_HEADERS_QxtPairList         = QxtPairList.h
-QXT_STABILITY_QxtPairList       = 
-
-
-
-
-include (../parts.pri)
-HEADERS+=../../deploy/include/Qxt/qxtnamespace.h
+HEADERS	    +=../../deploy/include/Qxt/qxtnamespace.h

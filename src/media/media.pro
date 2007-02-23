@@ -1,44 +1,39 @@
-MODULE=QXT_MEDIA
-include (../../config.pri)
+VERSION 	=  $$QXVERSION
+TEMPLATE 	=  lib
+TARGET 		=  QxtMedia
+DEPENDPATH 	+= .
+INCLUDEPATH 	+= .
+DEFINES 	+= BUILD_QXT_MEDIA
+QT 		=  core gui
+INCLUDEPATH 	+= . ../core ../../deploy/include
+LIBS		+= -L../../deploy/libs/ -lQxtKit -lQxtCore
 
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtMedia
-DEPENDPATH += .
-INCLUDEPATH += .
-DEFINES += BUILD_QXT_MEDIA
-QT = core gui
-INCLUDEPATH += . ../core ../../deploy/include
-LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
+LIBS		+= -lavcodec -lavformat -lSDL
 
+QxtAVFile.headers 	= QxtAVFile.h private/QxtAVFile_p.h
+QxtAVFile.interfaces	= QxtAVFile
+QxtAVFile.sources 	= QxtAVFile.cpp QxtAVFile_p.cpp
+QxtAVFile.stability 	= 
 
+QxtSdlWidget.headers 	= QxtSdlWidget.h
+QxtSdlWidget.interfaces	= QxtSdlWidget
+QxtSdlWidget.sources 	= QxtSdlWidget.cpp
+QxtSdlWidget.stability 	= 
 
+QxtAVPlayer.headers 	= QxtAVPlayer.h private/QxtAVPlayer_p.h
+QxtAVPlayer.interfaces	= QxtAVPlayer
+QxtAVPlayer.sources 	= QxtAVPlayer.cpp
+QxtAVPlayer.stability 	= 
 
-QXT_MEDIA                       += QxtAVFile
-QXT_HEADERS_QxtAVFile        	 = QxtAVFile.h private/QxtAVFile_p.h
-QXT_SOURCES_QxtAVFile	 	 = QxtAVFile.cpp QxtAVFile_p.cpp
-QXT_STABILITY_QxtAVFile      	 =
-
-
-QXT_MEDIA                       += QxtSdlWidget
-QXT_HEADERS_QxtSdlWidget       	 = QxtSdlWidget.h
-QXT_SOURCES_QxtSdlWidget 	 = QxtSdlWidget.cpp
-QXT_STABILITY_QxtSdlWidgt      	 =
-
-QXT_MEDIA                       += QxtAVPlayer
-QXT_HEADERS_QxtAVPlayer          = QxtAVPlayer.h private/QxtAVPlayer_p.h
-QXT_SOURCES_QxtAVPlayer 	 = QxtAVPlayer.cpp
-QXT_STABILITY_QxtAudioPlayer     =
-
-QXT_MEDIA                       += QxtRingBuffer
-QXT_HEADERS_QxtRingBuffer        = QxtRingBuffer.h ringbuffer.h
-QXT_SOURCES_QxtRingBuffer 	 = QxtRingBuffer.cpp ringbuffer.c
-QXT_STABILITY_QxtRingBuffer      =
+QxtRingBuffer.headers 	= QxtRingBuffer.h ringbuffer.h
+QxtRingBuffer.interfaces= QxtRingBuffer
+QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c
+QxtRingBuffer.stability = 
 
 
-LIBS+= -lavcodec -lavformat -lSDL
 
-include (../parts.pri)
-
-QMAKE_CXXFLAGS+= -O2
-
+ModuleBuild = $$ModuleStabilityCheck(QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+ModuleBuildDebug($$ModuleBuild)
+INSTALLS    = $$ModuleInstall($$ModuleBuild)
