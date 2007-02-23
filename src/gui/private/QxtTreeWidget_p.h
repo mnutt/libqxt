@@ -17,7 +17,9 @@ class QxtTreeWidgetPrivate : public QObject, public QxtPrivate<QxtTreeWidget>
 	Q_OBJECT
 public:
 	QXT_DECLARE_PUBLIC(QxtTreeWidget);
+	QxtTreeWidgetPrivate();
 	QxtItemDelegate* delegate() const;
+	bool branches;
 	
 private slots:
 	void informStartEditing(const QModelIndex& index);

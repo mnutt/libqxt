@@ -183,23 +183,37 @@ Qt::TextElideMode QxtItemDelegate::elideMode() const
 	return qxt_d().elide;
 }
 
+#ifndef QXT_DOXYGEN_RUN
+
+/*!
+    \internal
+ */
 void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
 {
 	qxt_d().elide = mode;
 }
 
+/*!
+    \internal
+ */
 void QxtItemDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
 	QItemDelegate::setEditorData(editor, index);
 	emit const_cast<QxtItemDelegate*>(this)->editingStarted(index);
 }
 
+/*!
+    \internal
+ */
 void QxtItemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
 	QItemDelegate::setModelData(editor, model, index);
 	emit const_cast<QxtItemDelegate*>(this)->editingFinished(index);
 }
 
+/*!
+    \internal
+ */
 void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
 	const QAbstractItemModel* model = index.model();
@@ -228,6 +242,9 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 	}
 }
 
+/*!
+    \internal
+ */
 QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
 	// something slightly bigger for top level indices
@@ -236,3 +253,5 @@ QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModel
 		size += QSize(TOP_LEVEL_EXTENT, TOP_LEVEL_EXTENT);
 	return  size;
 }
+
+#endif // QXT_DOXYGEN_RUN
