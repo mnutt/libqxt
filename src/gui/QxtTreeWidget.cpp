@@ -9,6 +9,10 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "private/QxtTreeWidget_p.h"
 #include <QHeaderView>
 
+QxtTreeWidgetPrivate::QxtTreeWidgetPrivate() : branches(true)
+{
+}
+
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
 {
 	QxtItemDelegate* del = dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
@@ -92,6 +96,22 @@ QxtTreeWidget::~QxtTreeWidget()
 }
 
 /*!
+    \property QxtTreeWidget::branchesDrawn
+    \brief This property holds whether the branches of the tree are drawn
+
+    The default value is \b true.
+ */
+bool QxtTreeWidget::branchesDrawn() const
+{
+	return qxt_d().branches;
+}
+
+void QxtTreeWidget::setBranchesDrawn(bool draw)
+{
+	qxt_d().branches = draw;
+}
+
+/*!
     \property QxtTreeWidget::decorationStyle
     \brief This property holds the top level item decoration style
 
@@ -147,5 +167,16 @@ void QxtTreeWidget::setElideMode(Qt::TextElideMode mode)
 	{
 		qxt_d().delegate()->setElideMode(mode);
 		reset();
+	}
+}
+
+/*!
+    \internal
+ */
+void QxtTreeWidget::drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const
+{
+	if (qxt_d().branches)
+	{
+		QTreeWidget::drawBranches(painter, rect, index);
 	}
 }
