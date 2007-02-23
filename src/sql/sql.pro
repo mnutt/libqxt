@@ -1,35 +1,26 @@
-MODULE=QXT_SQL
-include (../../config.pri)
-
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtSql
-DEPENDPATH += .
-INCLUDEPATH += .
-DEFINES += BUILD_QXT_SQL
-QT = core sql
+VERSION 	= $$QXVERSION
+TEMPLATE 	= lib
+TARGET 		= QxtSql
+DEPENDPATH 	+= .
+INCLUDEPATH 	+= .
+DEFINES 	+= BUILD_QXT_SQL
+QT 		= core sql
 
 
-HEADERS += 	QxtSqlPackage.h \
-		QxtSqlPackageModel.h 
+QxtSqlPackage.headers 	= QxtSqlPackage.h
+QxtSqlPackage.interfaces= QxtSqlPackage
+QxtSqlPackage.sources 	= QxtSqlPackage.cpp
+QxtSqlPackage.stability = +linux-g++
+
+QxtSqlPackageModel.headers 	= QxtSqlPackageModel.h
+QxtSqlPackageModel.interfaces	= QxtSqlPackageModel
+QxtSqlPackageModel.sources 	= QxtSqlPackageModel.cpp
+QxtSqlPackageModel.stability 	= 
 
 
-SOURCES += 	QxtSqlPackage.cpp \
-		QxtSqlPackageModel.cpp
 
-
-
-
-QXT_SQL                         += QxtSqlPackage
-QXT_HEADERS_QxtSqlPackage        = QxtSqlPackage.h
-QXT_SOURCES_QxtSqlPackage        = QxtSqlPackage.cpp
-QXT_STABILITY_QxtSqlPackage      = +linux-g++
-
-QXT_SQL                         += QxtSqlPackageModel
-QXT_HEADERS_QxtSqlPackageModel   = QxtSqlPackageModel.h
-QXT_SOURCES_QxtSqlPackageModel   = QxtSqlPackageModel.cpp
-QXT_STABILITY_QxtSqlPackageModel =
-
-
-include (../parts.pri)
-
+ModuleBuild = $$ModuleStabilityCheck(QxtSqlPackage QxtSqlPackageModel)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+ModuleBuildDebug($$ModuleBuild)
+INSTALLS    = $$ModuleInstall($$ModuleBuild)
