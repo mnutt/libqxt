@@ -1,4 +1,4 @@
-#include "QxtCurses_p.h"
+#include "private/QxtCurses_p.h"
 #include "QxtCWidget.h"
 #include "QxtCKeyEvent.h"
 #include "QxtCPaintEvent.h"

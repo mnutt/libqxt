@@ -1,4 +1,4 @@
-#include "QxtCurses_p.h"
+#include "private/QxtCurses_p.h"
 #include "QxtCFrame.h"
 
 QxtCFrame::QxtCFrame(QxtCWidget* parent) : QxtCWidget(parent) {

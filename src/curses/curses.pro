@@ -12,7 +12,7 @@ LIBS += -lpanel -lncurses
 QT = core
 
 QXT_CURSES                          += QxtCursesApplication
-QXT_HEADERS_QxtCursesApplication     = QxtCursesApplication.h
+QXT_HEADERS_QxtCursesApplication     = QxtCursesApplication.h private/QxtCursesApplication_p.h
 QXT_SOURCES_QxtCursesApplication     = QxtCursesApplication.cpp
 QXT_STABILITY_QxtCursesApplication   =
 
@@ -52,3 +52,4 @@ QXT_SOURCES_QxtCFrame                = QxtCFrame.cpp
 QXT_STABILITY_QxtCFrame              =
 
 include (../parts.pri)
+
