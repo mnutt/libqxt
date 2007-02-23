@@ -1,45 +1,30 @@
-MODULE=QXT_NETWORK
+VERSION 	=  $$QXVERSION
+TEMPLATE 	=  lib
+TARGET 		=  QxtNetwork
+DEPENDPATH 	+= .
+INCLUDEPATH 	+= .
+DEFINES 	+= BUILD_QXT_NETWORK
+QT 		=  core network
 
-include (../../config.pri)
-
-
-unix {
-
-	LIBS +=  -lssl	
-}
-
-
-win32 {
-    INCLUDEPATH +=  "C:\OpenSSL\include\"
-    LIBS += "C:\OpenSSL\lib\MinGW\libeay32.a"
-    LIBS += "C:\OpenSSL\lib\MinGW\ssleay32.a"
-}
+INCLUDEPATH     += . ../core ../../deploy/include
+LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore 
+LIBS            += -lssl	
 
 
 
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtNetwork
-DEPENDPATH += .
-INCLUDEPATH += .
-DEFINES += BUILD_QXT_NETWORK
-QT = core network
-
-INCLUDEPATH += . ../core ../../deploy/include
-LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
+QxtBlowFish.headers 	= QxtBlowFish.h
+QxtBlowFish.interfaces	= QxtBlowFish.cpp
+QxtBlowFish.sources 	= QxtBlowFish
+QxtBlowFish.stability 	= +linux-g++ +win32-g++
 
 
+QxtRPCPeer.headers 	= QxtRPCPeer.h
+QxtRPCPeer.interfaces	= QxtRPCPeer
+QxtRPCPeer.sources 	= QxtRPCPeer.cpp
+QxtRPCPeer.stability 	= +linux-g++ +win32-g++
 
-QXT_NETWORK                      += QxtBlowFish
-QXT_HEADERS_QxtBlowFish           = QxtBlowFish.h
-QXT_SOURCES_QxtBlowFish           = QxtBlowFish.cpp
-QXT_STABILITY_QxtBlowFish         = +linux-g++ +win32-g++
-
-QXT_NETWORK                      += QxtRPCPeer
-QXT_HEADERS_QxtRPCPeer           = QxtRPCPeer.h
-QXT_SOURCES_QxtRPCPeer           = QxtRPCPeer.cpp
-QXT_STABILITY_QxtRPCPeer         = +linux-g++ +win32-g++
-
-
-
-include (../parts.pri)
+ModuleBuild = $$ModuleStabilityCheck(QxtBlowFish QxtRPCPeer)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+ModuleBuildDebug($$ModuleBuild)
+INSTALLS    = $$ModuleInstall($$ModuleBuild)

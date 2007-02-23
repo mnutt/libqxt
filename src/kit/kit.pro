@@ -6,10 +6,6 @@ INCLUDEPATH 	+= .
 DEFINES 	+= BUILD_QXT_KIT
 QT 		= core
 
-.headers 	= 
-.interfaces	= 
-.sources 	= 
-.stability 	= 
 
 QxtSignalWaiter.headers 	= QxtSignalWaiter.h
 QxtSignalWaiter.interfaces	= QxtSignalWaiter
