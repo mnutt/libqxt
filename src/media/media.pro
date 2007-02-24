@@ -32,8 +32,6 @@ QxtRingBuffer.stability =
 
 
 
-ModuleBuild = $$ModuleStabilityCheck(QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer)
-HEADERS     = $$ModuleHeaders($$ModuleBuild)
-SOURCES     = $$ModuleSources($$ModuleBuild)
-ModuleBuildDebug($$ModuleBuild)
-INSTALLS    = $$ModuleInstall($$ModuleBuild)
+Parts= QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer
+include (../../features/bottom.prf)
+

@@ -19,8 +19,5 @@ QxtSqlPackageModel.stability 	=
 
 
 
-ModuleBuild = $$ModuleStabilityCheck(QxtSqlPackage QxtSqlPackageModel)
-HEADERS     = $$ModuleHeaders($$ModuleBuild)
-SOURCES     = $$ModuleSources($$ModuleBuild)
-ModuleBuildDebug($$ModuleBuild)
-INSTALLS    = $$ModuleInstall($$ModuleBuild)
+Parts=QxtSqlPackage QxtSqlPackageModel
+include (../../features/bottom.prf)

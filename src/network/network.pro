@@ -23,8 +23,5 @@ QxtRPCPeer.interfaces	= QxtRPCPeer
 QxtRPCPeer.sources 	= QxtRPCPeer.cpp
 QxtRPCPeer.stability 	= +linux-g++ +win32-g++
 
-ModuleBuild = $$ModuleStabilityCheck(QxtBlowFish QxtRPCPeer)
-HEADERS     = $$ModuleHeaders($$ModuleBuild)
-SOURCES     = $$ModuleSources($$ModuleBuild)
-ModuleBuildDebug($$ModuleBuild)
-INSTALLS    = $$ModuleInstall($$ModuleBuild)
+Parts=QxtBlowFish QxtRPCPeer
+include (../../features/bottom.prf)
