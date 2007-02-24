@@ -66,25 +66,17 @@ INSTALLS = docs bin qxtincludes features
 contains( QXT_BUILD, core ){
         message( building the core )
         SUBDIRS += src/core	
-	core.files +=  deploy/include/QxtCore/*
-	core.path  =  $${include.path}/QxtCore
-	INSTALLS += core
         }
 
 contains( QXT_BUILD, kit ){
         message( building kit module )
         SUBDIRS += src/kit
-	kit.files +=  deploy/include/QxtKit/*
-	kit.path  =  $${include.path}/QxtKit
-	INSTALLS += kit
         }
 
 contains( QXT_BUILD, gui ){
         message( building gui module )
         SUBDIRS += src/gui
-	gui.files +=  deploy/include/QxtGui/*
-	gui.path  =  $${include.path}/QxtGui
-	INSTALLS += gui
+
 
 
         SUBDIRS += designer
@@ -96,43 +88,22 @@ contains( QXT_BUILD, gui ){
 contains( QXT_BUILD, network ){
         message( building network module )
         SUBDIRS += src/network
-	network.files +=  deploy/include/QxtNetwork/*
-	network.path  =  $${include.path}/QxtNetwork
-	INSTALLS += network
         }
 
 contains( QXT_BUILD, sql ){
         message( building sql module )
         SUBDIRS += src/sql
-	sql.files +=  deploy/include/QxtSql/*
-	sql.path  =  $${include.path}/QxtSql
-	INSTALLS += sql
         }
 
 contains( QXT_BUILD, media ){
         message( building media module )
         SUBDIRS += src/media
-	media.files +=  deploy/include/QxtMedia/*	
-	media.path  =  $${include.path}/QxtMedia
-	INSTALLS += media
         }
 
 contains( QXT_BUILD, curses ){
         message( building curses module )
         SUBDIRS += src/curses
-	curses.files +=  deploy/include/QxtCurses/*	
-	curses.path  =  $${include.path}/QxtCurses
-	INSTALLS += curses
         }
-
-# contains( QXT_BUILD, mox ){
-#         message( building mox )
-#         SUBDIRS += mox
-# 	unix:mox.files +=  deploy/bin/mox
-# 	win32:mox.files += deploy/bin/mox.exe
-# 	mox.path  =  $${bin.path}
-# 	INSTALLS += mox
-#         }
 
 
 
