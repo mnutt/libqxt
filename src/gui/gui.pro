@@ -13,34 +13,35 @@ LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
 
 QT = core gui
 
-QXT_GUI                         += QxtLabel
-QXT_HEADERS_QxtLabel             = QxtLabel.h
-QXT_SOURCES_QxtLabel             = QxtLabel.cpp
-QXT_STABILITY_QxtLabel           = 
+QxtLabel.headers		= QxtLabel.h
+QxtLabel.interfaces		= QxtLabel
+QxtLabel.sources		= QxtLabel.cpp
+QxtLabel.stability		=
 
-QXT_GUI                         += QxtPushButton
-QXT_HEADERS_QxtPushButton        = QxtPushButton.h
-QXT_SOURCES_QxtPushButton        = QxtPushButton.cpp
-QXT_STABILITY_QxtPushButton      = 
+QxtPushButton.headers		= QxtPushButton.h
+QxtPushButton.interfaces	= QxtPushButton
+QxtPushButton.sources		= QxtPushButton.cpp
+QxtPushButton.stability		=
 
-QXT_GUI                         += QxtItemDelegate
-QXT_HEADERS_QxtItemDelegate      = QxtItemDelegate.h
-QXT_SOURCES_QxtItemDelegate      = QxtItemDelegate.cpp
-QXT_STABILITY_QxtItemDelegate    = 
+QxtItemDelegate.headers		= QxtItemDelegate.h
+QxtItemDelegate.interfaces	= QxtItemDelegate
+QxtItemDelegate.sources		= QxtItemDelegate.cpp
+QxtItemDelegate.stability	=
 
-QXT_GUI                         += QxtTreeWidget
-QXT_HEADERS_QxtTreeWidget        = QxtTreeWidget.h private/QxtTreeWidget_p.h
-QXT_SOURCES_QxtTreeWidget        = QxtTreeWidget.cpp
-QXT_STABILITY_QxtTreeWidget      = 
+QxtTreeWidget.headers		= QxtTreeWidget.h private/QxtTreeWidget_p.h
+QxtTreeWidget.interfaces	= QxtTreeWidget
+QxtTreeWidget.sources		= QxtTreeWidget.cpp
+QxtTreeWidget.stability	=
 
-QXT_GUI                         += QxtTreeWidgetItem
-QXT_HEADERS_QxtTreeWidgetItem    = QxtTreeWidgetItem.h
-QXT_SOURCES_QxtTreeWidgetItem    = QxtTreeWidgetItem.cpp
-QXT_STABILITY_QxtTreeWidgetItem  = 
+QxtTreeWidgetItem.headers	= QxtTreeWidgetItem.h
+QxtTreeWidgetItem.interfaces	= QxtTreeWidgetItem
+QxtTreeWidgetItem.sources	= QxtTreeWidgetItem.cpp
+QxtTreeWidgetItem.stability	=
 
-QXT_GUI                         += QxtTabWidget
-QXT_HEADERS_QxtTabWidget         = QxtTabWidget.h
-QXT_SOURCES_QxtTabWidget         = QxtTabWidget.cpp
-QXT_STABILITY_QxtTabWidget       = 
+QxtTabWidget.headers		= QxtTabWidget.h
+QxtTabWidget.interfaces		= QxtTabWidget
+QxtTabWidget.sources		= QxtTabWidget.cpp
+QxtTabWidget.stability		=
 
-include (../parts.pri)
+Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget
+include (../../features/bottom.prf)
