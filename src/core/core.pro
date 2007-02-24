@@ -37,11 +37,5 @@ HyperMacros.sources 	=
 HyperMacros.stability 	= 
 
 
-ModuleBuild = $$ModuleStabilityCheck(nullable SingleInstance Tuple Pimpl Error HyperMacros)
-HEADERS     = $$ModuleHeaders($$ModuleBuild)
-SOURCES     = $$ModuleSources($$ModuleBuild)
-ModuleBuildDebug($$ModuleBuild)
-INSTALLS    = $$ModuleInstall($$ModuleBuild)
-
-
-
+Parts = nullable SingleInstance Tuple Pimpl Error HyperMacros
+include (../../features/bottom.prf)
