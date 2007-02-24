@@ -1,0 +1,18 @@
+ModuleBuild = $$ModuleStabilityCheck($$Parts)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+
+ModuleBuildDebug($$ModuleBuild)
+
+
+
+incs.path= $${include.path}/$$TARGET
+
+
+for(part, ModuleBuild){
+	for(i , $${part}.interfaces){
+		incs.files+=$${i}.h
+		}
+	}
+
+INSTALL =target incs

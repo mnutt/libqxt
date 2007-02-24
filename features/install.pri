@@ -19,11 +19,3 @@ macx :	bin.path  =  $${QXTINSTALLDIR}/bin
 
 
 
-
-!defined(ModuleInstall){
-
-defineReplace(ModuleInstall) {
-return(target)
-} 
-
-}
