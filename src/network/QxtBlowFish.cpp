@@ -5,15 +5,47 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 #include "QxtBlowFish.h"
+#include <openssl/blowfish.h>
+
+
+static 	BF_KEY * key;
+
+
+
+
+/**
+\class QxtBlowFish QxtBlowFish
+
+\ingroup network
+
+\brief  Blowfish Encryption Class
+ 
+
+useage:
+\code
+QxtBlowFish() fish;
+fish.setPassword("foobar").
+
+QByteArray a("barblah");
+
+a= fish.encrypt(a);
+a= fish.decrypt(a);
+\endcode
+*/
+
+
+
 
 
 QxtBlowFish::QxtBlowFish(QObject * parent) :QObject(parent)
-{}
+	{
+	key=new BF_KEY;
+	}
 
 
 void QxtBlowFish::setPassword(QByteArray k ) 
 	{
-	BF_set_key(&key, k.count() , (unsigned char *)k.constData ());
+	BF_set_key(key, k.count() , (unsigned char *)k.constData ());
 	}
 
 
@@ -38,7 +70,7 @@ QByteArray  QxtBlowFish::encrypt(QByteArray in)
 		(unsigned char *)in.constData (),
 		(unsigned char *)out.data(),
                 in.size(),
-		&key,
+		key,
 		ivec,
 		&num,
                 BF_ENCRYPT
@@ -75,7 +107,7 @@ QByteArray  QxtBlowFish::decrypt(QByteArray in)
 		(unsigned char *)in.constData (),
 		(unsigned char *)out.data(),
                 in.size(),
-		&key,
+		key,
 		ivec,
 		&num,
 		BF_DECRYPT
