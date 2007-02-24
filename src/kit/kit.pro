@@ -23,12 +23,8 @@ QxtPairList.sources 		=
 QxtPairList.stability 		= 
 
 
-ModuleBuild = $$ModuleStabilityCheck(QxtSignalWaiter QxtTrippleList QxtPairList)
-HEADERS     = $$ModuleHeaders($$ModuleBuild)
-SOURCES     = $$ModuleSources($$ModuleBuild)
-ModuleBuildDebug($$ModuleBuild)
-INSTALLS    = $$ModuleInstall($$ModuleBuild)
-
+Parts = QxtSignalWaiter QxtTrippleList QxtPairList
+include (../../features/bottom.prf)
 
 
 
