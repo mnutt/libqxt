@@ -15,7 +15,7 @@ for(part, ModuleBuild){
 		message(autogenerating C++ style includes for $${i})
 		system(  echo  \\$${LITERAL_HASH}include \\\"$${i}.h\\\"  > ../deploy/include/$${TARGET}/$${i})
 		system(  echo  >> ../deploy/include/$${TARGET}/$${i})
-		incs.files+=$${i}
+		incs.files+=../../deploy/include/$${TARGET}/$${i}
 		}
 	}
 
