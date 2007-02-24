@@ -13,8 +13,8 @@ LIBS            += -lssl
 
 
 QxtBlowFish.headers 	= QxtBlowFish.h
-QxtBlowFish.interfaces	= QxtBlowFish.cpp
-QxtBlowFish.sources 	= QxtBlowFish
+QxtBlowFish.interfaces	= QxtBlowFish
+QxtBlowFish.sources 	= QxtBlowFish.cpp
 QxtBlowFish.stability 	= +linux-g++ +win32-g++
 
 
