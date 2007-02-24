@@ -19,4 +19,4 @@ for(part, ModuleBuild){
 		}
 	}
 
-INSTALL =target incs
+INSTALLS =target incs
