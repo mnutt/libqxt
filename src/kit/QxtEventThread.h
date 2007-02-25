@@ -44,8 +44,6 @@ class QxtEventThreadPrivate : public QThread
 
 		void connect ( const QObject * sender, const char * signal, const char * method ) const;
 
-		void start ( Priority priority = InheritPriority );
-
 		void run();
 
 		QxtInternal::QxtThreadConnector * connector;
