@@ -12,19 +12,48 @@ incs.path= $${include.path}/$$TARGET
 for(part, ModuleBuild){
 	for(i , $${part}.interfaces){
 		incs.files+=$${i}.h
-		message(autogenerating C++ style includes for $${i})
+
 		
 
 
-		system(  echo \\$${LITERAL_HASH}ifndef HEADER_GUARDS_$${TARGET}$${i}   > ../deploy/include/$${TARGET}/$${i})
-		system(  echo \\$${LITERAL_HASH}define HEADER_GUARDS_$${TARGET}$${i}  >> ../deploy/include/$${TARGET}/$${i})
+#this is a hack to make qmake do what i want.
+#DO NOT TRY TO UNDERSTAND THIS, YOU WASTE YOUR TIME!
+#$$echo \$${LITERAL_HASH}   is just # inside eval
+
+#regardless of my warning i'll try to explain it a bit
+#since qmake does not allow more then ony command line per target and i want to make this without any scopes  (i'd need to check for the platform if i use anything more then basics) , i write one target per line. and they depend on each other.
+#the strange eval hacks are needed becouse qmake cannot do $${foo_$$bar} but target variables need to be unique since qmake tends to mix them up.
+# The C= thingy you see is becouse qmake looses any escape inside eval, so i needed to escape the " outside of the eval. printing of it inside eval happens just like the #
 
 
-		system(  echo  \\$${LITERAL_HASH}include \\\"$${i}.h\\\"  >> ../deploy/include/$${TARGET}/$${i})
+		eval(T_A_$${i}.target += T_A_$${TARGET}/$${i})
+		eval(T_A_$${i}.commands +=echo \\$$echo \$${LITERAL_HASH}ifndef HEADER_GUARDS_$${TARGET}$${i} > ../../deploy/include/$${TARGET}/$${i})
+		eval("QMAKE_EXTRA_TARGETS 	+= T_A_$${i}")
+		
+		eval(T_B_$${i}.target += T_B_$${TARGET}/$${i})
+		eval(T_B_$${i}.commands +=echo \\$$echo \$${LITERAL_HASH}define HEADER_GUARDS_$${TARGET}$${i} >> ../../deploy/include/$${TARGET}/$${i})
+		eval(T_B_$${i}.depends += T_A_$${TARGET}/$${i})
+		eval("QMAKE_EXTRA_TARGETS 	+= T_B_$${i}")
 
-		system(  echo \\$${LITERAL_HASH}endif   >> ../deploy/include/$${TARGET}/$${i})
+		C=\\\"$${i}.h\\\"
+		eval(T_C_$${i}.target += T_C_$${TARGET}/$${i})
+		eval(T_C_$${i}.commands +=echo \\$$echo \$${LITERAL_HASH}include $$echo \$${C}  >> ../../deploy/include/$${TARGET}/$${i})
+		eval(T_C_$${i}.depends += T_B_$${TARGET}/$${i})
+		eval("QMAKE_EXTRA_TARGETS 	+= T_C_$${i}")
 
-		system(  echo  >> ../deploy/include/$${TARGET}/$${i})
+		eval(T_D_$${i}.target += T_D_$${TARGET}/$${i})
+		eval(T_D_$${i}.commands +=echo \\$$echo \$${LITERAL_HASH}endif  >> ../../deploy/include/$${TARGET}/$${i})
+		eval(T_D_$${i}.depends += T_C_$${TARGET}/$${i})
+		eval("QMAKE_EXTRA_TARGETS 	+= T_D_$${i}")
+
+		eval(T_E_$${i}.target += T_E_$${TARGET}/$${i})
+		eval(T_E_$${i}.commands +=echo \\$$echo  >> ../../deploy/include/$${TARGET}/$${i})
+		eval(T_E_$${i}.depends += T_D_$${TARGET}/$${i})
+		eval("QMAKE_EXTRA_TARGETS 	+= T_E_$${i}")
+
+
+		PRE_TARGETDEPS		+= T_E_$${TARGET}/$${i}
+
 		incs.files+=../../deploy/include/$${TARGET}/$${i}
 		}
 	}
