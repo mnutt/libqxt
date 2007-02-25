@@ -27,21 +27,16 @@ void QxtThreadConnector::connect_sl( const QObject * sender, const char * signal
 /*!
 \class QxtEventThread QxtEventThread
 \ingroup kit
-\brief QObject which can have slots running in a different Thread
+\brief run a single QObject in a different thread
 
-this provides you with the clasic QThread + QObject as receiver  solution all in one.\n
-signals connected with QxtEventThread::connect are executing the slot in a different Thread.
-for implementation reasons you need to call start() before connect().
+This provides you with a solution to make a QObject run in a different thread.\n
+When you connect to a slot of that Object using QxtEventThread::connect  this slot will be executed in the Objects thread.
 
-\warning slots connected to with anything else then QxtEventThread::connect will execute in the main thread.
-
-\n
 \n
 
 usage:
 \code
 QxtEventThread<MyObject> eventthread;
-eventthread.start();
 eventthread.connect(timer,SIGNAL(timout()),SLOT(myslot()));
 \endcode
 
@@ -55,27 +50,25 @@ eventthread.connect(timer,SIGNAL(timout()),SLOT(myslot()));
 QxtEventThreadPrivate::QxtEventThreadPrivate(QObject *parent):QThread(parent)
 	{
 	csender = new QxtInternal::QxtThreadConnectionSender();
+	QThread::start();
 	}
 
 QxtEventThreadPrivate::~QxtEventThreadPrivate()
 	{
 	exit();
+	wait();
 	}
 
 /**connect a signal to the threads slot
 use this just like you would use the global connect macro. just ommit the sender
 */
-void QxtEventThreadPrivate::connect ( const QObject * sender, const char * signal, const char * method ) const
+void QxtEventThreadPrivate::connect ( const QObject * sender, const char * signal, const char * method ) const 
 	{
 	if(!instance()){msleep (10);}
 	if(!instance()){qWarning("QxtEventThread: can only connect to a running instance");return;}
 	csender->connect(sender,signal,method);
 	}
 
-void QxtEventThreadPrivate::start ( Priority priority  )
-	{
-	QThread::start(priority);
-	}
 
 void  QxtEventThreadPrivate::run()
 	{
