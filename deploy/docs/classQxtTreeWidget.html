@@ -52,6 +52,12 @@ width="32" height="32" border="0" /></a></td>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</a> ()</td></tr>
 
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="bec122fc2562b5e5ce9c32927c4b34f9"></a><!-- doxytag: member="QxtTreeWidget::branchesDrawn" ref="bec122fc2562b5e5ce9c32927c4b34f9" args="() const" -->
+bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>branchesDrawn</b> () const</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e615e643c9895b0b7798fcd7f81d64eb"></a><!-- doxytag: member="QxtTreeWidget::setBranchesDrawn" ref="e615e643c9895b0b7798fcd7f81d64eb" args="(bool draw)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setBranchesDrawn</b> (bool draw)</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="395e9d15b2684814be0247d50e488eb9"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="395e9d15b2684814be0247d50e488eb9" args="() const" -->
 Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><b>decorationStyle</b> () const</td></tr>
 
@@ -64,7 +70,14 @@ Qt::TextElideMode&nbsp;</td><td class="memItemRight" valign="bottom"><b>elideMod
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b0216d189b6bce5caab1ea9da5ca7060"></a><!-- doxytag: member="QxtTreeWidget::setElideMode" ref="b0216d189b6bce5caab1ea9da5ca7060" args="(Qt::TextElideMode mode)" -->
 void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setElideMode</b> (Qt::TextElideMode mode)</td></tr>
 
+<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e3bb8289246162f4aae30803895ac45c"></a><!-- doxytag: member="QxtTreeWidget::drawBranches" ref="e3bb8289246162f4aae30803895ac45c" args="(QPainter *painter, const QRect &amp;rect, const QModelIndex &amp;index) const" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><b>drawBranches</b> (QPainter *painter, const QRect &amp;rect, const QModelIndex &amp;index) const</td></tr>
+
 <tr><td colspan="2"><br><h2>Properties</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#051c5e5fe88e19d0df7572979b34b9cb">branchesDrawn</a><code> []</code></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds whether the branches of the tree are drawn.  <a href="#051c5e5fe88e19d0df7572979b34b9cb"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qxt::DecorationStyle&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a><code> []</code></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This property holds the top level item decoration style.  <a href="#d82d41a765acac120ab12eb5f6f80c06"></a><br></td></tr>
@@ -192,6 +205,23 @@ This signal is emitted whenever the check state of <em>item</em> has changed.<p>
 </div>
 </div><p>
 <hr><h2>Property Documentation</h2>
+<a class="anchor" name="051c5e5fe88e19d0df7572979b34b9cb"></a><!-- doxytag: member="QxtTreeWidget::branchesDrawn" ref="051c5e5fe88e19d0df7572979b34b9cb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool QxtTreeWidget::branchesDrawn<code> [read, write]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+This property holds whether the branches of the tree are drawn. 
+<p>
+The default value is <b>true</b>. 
+</div>
+</div><p>
 <a class="anchor" name="d82d41a765acac120ab12eb5f6f80c06"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="d82d41a765acac120ab12eb5f6f80c06" args="" -->
 <div class="memitem">
 <div class="memproto">
