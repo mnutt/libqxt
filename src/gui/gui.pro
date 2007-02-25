@@ -43,5 +43,12 @@ QxtTabWidget.interfaces		= QxtTabWidget
 QxtTabWidget.sources		= QxtTabWidget.cpp
 QxtTabWidget.stability		=
 
-Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget
+QxtApplication.headers		= QxtApplication.h
+QxtApplication.interfaces	= QxtApplication
+QxtApplication.sources		= QxtApplication.cpp
+unix:QxtApplication.sources	+= QxtApplication_x11.cpp
+win32:QxtApplication.sources	+= QxtApplication_win.cpp
+QxtApplication.stability	=
+
+Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication
 include (../../features/bottom.prf)
