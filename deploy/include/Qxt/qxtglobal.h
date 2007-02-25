@@ -56,6 +56,8 @@ released under the Terms of LGPL (see the LICENSE file)
  */
 
 
+#ifndef QXTDEFINES_HEADER_GUARDD
+#define QXTDEFINES_HEADER_GUARDD
 
 
 
@@ -64,8 +66,15 @@ released under the Terms of LGPL (see the LICENSE file)
 
 
 
-#ifndef QXTDEFINES_H
-#define QXTDEFINES_H
+
+//--------------------------global macros------------------------------
+
+#ifndef QXT_NO_MACROS
+
+#endif
+
+//--------------------------export macros------------------------------
+
 
 
 
