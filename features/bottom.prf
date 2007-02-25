@@ -46,14 +46,13 @@ for(part, ModuleBuild){
 		eval(T_D_$${i}.depends += T_C_$${TARGET}/$${i})
 		eval("QMAKE_EXTRA_TARGETS 	+= T_D_$${i}")
 
-		eval(T_E_$${i}.target += T_E_$${TARGET}/$${i})
+		eval(T_E_$${i}.target += ../../deploy/include/$${TARGET}/$${i})
 		eval(T_E_$${i}.commands +=echo \\$$echo  >> ../../deploy/include/$${TARGET}/$${i})
 		eval(T_E_$${i}.depends += T_D_$${TARGET}/$${i})
-		eval("QMAKE_EXTRA_TARGETS 	+= T_E_$${i}")
+		eval("QMAKE_EXTRA_TARGETS += T_E_$${i}")
 
 
-		PRE_TARGETDEPS		+= T_E_$${TARGET}/$${i}
-
+		PRE_TARGETDEPS		+= ../../deploy/include/$${TARGET}/$${i}
 		incs.files+=../../deploy/include/$${TARGET}/$${i}
 		}
 	}
