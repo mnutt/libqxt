@@ -41,13 +41,13 @@ QxtError QxtAVFilePrivate::open(QString filename)
 	//!open the codec 
 	if (avcodec_open(codec_context, codec)<0)QXT_DROP( Qxt::CodecError);
 
-	//!prepare the ring
-	ring= new QxtRingBuffer(codec_context->sample_rate*4,this);
-
 	//!prepare the huge buffer
-	hugeSize=codec_context->sample_rate*4;
+	hugeSize=codec_context->sample_rate;
 	hugeBuffer= new char [hugeSize];
 	hugeBuffer[hugeSize-1]='k';
+
+	//!prepare the ring
+	ring= new QxtRingBuffer(hugeSize,this);
 
 	///set opened
 	opened=true;
@@ -154,8 +154,9 @@ QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 	{
 	if (!opened)			QXT_DROP(Qxt::NotInitialised);
 	if (isEof())			QXT_DROP(Qxt::EndOfFile);
-
+	if (length >hugeSize)		QXT_DROP(Qxt::LogicalError);
 	
+
 	while (ring->available() < length*sizeof(short))
 		{
 		///TODO: make it realtime 

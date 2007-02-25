@@ -58,7 +58,9 @@ QxtError QxtAVFile::setPreloaded(const bool)
 /*!
 read an amount of \a length  shorts into the target buffer.
 
-the result is always stereo interlaced and guarantied to be the expected size.
+the result is always stereo interlaced and guarantied to be the expected size.\n
+Maximum alowed length is one second. This is 1*samplerate().
+
 */
 
 QxtError QxtAVFile::read(short* target, unsigned long length)
@@ -69,7 +71,7 @@ QxtError QxtAVFile::read(short* target, unsigned long length)
 /*!
 read an amount of \a length  floats into the target buffer.
 
-the result is always stereo interlaced and guarantied to be the expected size.
+This is an overloaded member function, provided for convenience.
 */
 
 QxtError QxtAVFile::read(float* target, unsigned long length)
@@ -80,7 +82,7 @@ QxtError QxtAVFile::read(float* target, unsigned long length)
 /*!
 read an amount of \a length  chars into the target buffer.
 
-the result is always stereo interlaced and guarantied to be the expected size.
+This is an overloaded member function, provided for convenience.
 */
 
 QxtError QxtAVFile::read(char * target, unsigned long length)
