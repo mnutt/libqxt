@@ -22,8 +22,12 @@ QxtPairList.interfaces		= QxtPairList
 QxtPairList.sources 		= 
 QxtPairList.stability 		= 
 
+QxtEventThread.headers 		= QxtEventThread.h
+QxtEventThread.interfaces	= QxtEventThread
+QxtEventThread.sources 		= QxtEventThread.cpp
+QxtEventThread.stability 	= 
 
-Parts = QxtSignalWaiter QxtTrippleList QxtPairList
+Parts = QxtSignalWaiter QxtTrippleList QxtPairList QxtEventThread
 include (../../features/bottom.prf)
 
 
