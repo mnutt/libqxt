@@ -34,7 +34,7 @@ bool QxtSignalWaiter::wait(int msec) {
         QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
 
     // Clean up and return status
-    killTimer(timerID);
+    if(msec != -1) killTimer(timerID);
     return ready || !timeout;
 }
 
@@ -43,6 +43,7 @@ void QxtSignalWaiter::signalCaught() {
 }
 
 void QxtSignalWaiter::timerEvent(QTimerEvent* event) {
+    Q_UNUSED(event);
     killTimer(timerID);
     timeout = true;
 }
