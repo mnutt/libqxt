@@ -42,7 +42,7 @@ qxtincludes.files= deploy/include/Qxt/*
 unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 
 #windows supports similar syntax
-win32:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${lib.path} & type deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
+win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${lib.path} & type deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 
 
 
