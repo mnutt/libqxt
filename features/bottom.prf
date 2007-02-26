@@ -18,19 +18,13 @@ for(part, ModuleBuild){
 
 		unix{
 
-		system(  echo " \\$${LITERAL_HASH}ifndef HEADER_GUARDS_$${TARGET}$${i} "  > ../deploy/include/$${TARGET}/$${i})
-		system(  echo " \\$${LITERAL_HASH}define HEADER_GUARDS_$${TARGET}$${i} " >> ../deploy/include/$${TARGET}/$${i})
 		system(  echo " \\$${LITERAL_HASH}include \\\"$${i}.h\\\" " >> ../deploy/include/$${TARGET}/$${i})
-		system(  echo " \\$${LITERAL_HASH}endif  " >> ../deploy/include/$${TARGET}/$${i})
 		system(  echo  >> ../deploy/include/$${TARGET}/$${i})
 		}
 
 
 		win32{
-                system(  echo " \$${LITERAL_HASH}ifndef HEADER_GUARDS_$${TARGET}$${i} "  > ../deploy/include/$${TARGET}/$${i})
-                system(  echo " \$${LITERAL_HASH}define HEADER_GUARDS_$${TARGET}$${i} " >> ../deploy/include/$${TARGET}/$${i})
                 system(  echo " \$${LITERAL_HASH}include \\\"$${i}.h\\\" " >> ../deploy/include/$${TARGET}/$${i})
-                system(  echo " \$${LITERAL_HASH}endif  " >> ../deploy/include/$${TARGET}/$${i})
                 system(  echo.  >> ../deploy/include/$${TARGET}/$${i})
 		}
 
