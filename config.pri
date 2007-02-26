@@ -15,7 +15,7 @@
 
 #modules  (core kit gui network sql media curses)
 
-QXT_BUILD -= curses
+QXT_BUILD -= curses media
 
 
 #librarys libqxt will be linked to (openssl)
@@ -37,7 +37,4 @@ QXT_stability+= unknown
 #you can ignore stability for parts. this will make it compile regardless how the deevloper flaged it (parts to be added here)
 
 #QXT_ignore_stability += blowfish
-
-
-
 

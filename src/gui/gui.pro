@@ -1,17 +1,12 @@
-MODULE=QXT_GUI
-include (../../config.pri)
-
-VERSION = $$QXVERSION
-TEMPLATE = lib
-TARGET = QxtGui
-DEPENDPATH += .
+VERSION      = $$QXVERSION
+TEMPLATE     = lib
+TARGET       = QxtGui
+DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
-DEFINES += BUILD_QXT_GUI
-LIBS+=-L../../deploy/libs/ -lQxtKit -lQxtCore
-
-
-
-QT = core gui
+DEFINES     += BUILD_QXT_GUI
+LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore
+CONFIG      += qxtbuild
+QT           = core gui
 
 QxtLabel.headers		= QxtLabel.h
 QxtLabel.interfaces		= QxtLabel
@@ -51,4 +46,3 @@ win32:QxtApplication.sources	+= QxtApplication_win.cpp
 QxtApplication.stability	=
 
 Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication
-include (../../features/bottom.prf)

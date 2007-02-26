@@ -4,6 +4,8 @@
 
 TEMPLATE = app
 DESTDIR = .
+INCLUDEPATH = ../../src/curses/
+LIBS += -L../../deploy/libs -lQxtCurses -lQxtCore -lQxtKit
 TARGET = QxtCursesTest
 
 # Input

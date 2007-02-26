@@ -1,13 +1,12 @@
-VERSION 	=  $$QXVERSION
-TEMPLATE 	=  lib
-TARGET 		=  QxtMedia
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtMedia
 DEPENDPATH 	+= .
-INCLUDEPATH 	+= .
+INCLUDEPATH += . ../core ../../deploy/include ./private
 DEFINES 	+= BUILD_QXT_MEDIA
-QT 		=  core gui
-INCLUDEPATH 	+= . ../core ../../deploy/include ./private
+CONFIG      += qxtbuild
+QT 		     = core gui
 LIBS		+= -L../../deploy/libs/ -lQxtKit -lQxtCore
-
 LIBS		+= -lavcodec -lavformat -lSDL
 
 QxtAVFile.headers 	= QxtAVFile.h private/QxtAVFile_p.h
@@ -30,8 +29,5 @@ QxtRingBuffer.interfaces= QxtRingBuffer
 QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c
 QxtRingBuffer.stability = 
 
-
-
 Parts= QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer
-include (../../features/bottom.prf)
 
