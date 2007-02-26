@@ -24,7 +24,7 @@ for(part, ModuleBuild){
 
 
 		win32{
-                system(  echo " \$${LITERAL_HASH}include \\\"$${i}.h\\\" " >> ../deploy/include/$${TARGET}/$${i})
+                system(  echo $${LITERAL_HASH}include \"$${i}.h\" > ../deploy/include/$${TARGET}/$${i})
                 system(  echo.  >> ../deploy/include/$${TARGET}/$${i})
 		}
 
