@@ -1,16 +1,14 @@
-VERSION 	=  $$QXVERSION
-TEMPLATE 	=  lib
-TARGET 		=  QxtNetwork
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtNetwork
 DEPENDPATH 	+= .
-INCLUDEPATH 	+= .
+INCLUDEPATH += . ../core ../../deploy/include
 DEFINES 	+= BUILD_QXT_NETWORK
-QT 		=  core network
+CONFIG      += qxtbuild
+QT 		     =  core network
 
-INCLUDEPATH     += . ../core ../../deploy/include
-LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore 
-LIBS            += -lssl	
-
-
+LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore 
+LIBS        += -lssl	
 
 QxtBlowFish.headers 	= QxtBlowFish.h
 QxtBlowFish.interfaces	= QxtBlowFish
@@ -24,4 +22,3 @@ QxtRPCPeer.sources 	= QxtRPCPeer.cpp
 QxtRPCPeer.stability 	= +linux-g++ +win32-g++
 
 Parts=QxtBlowFish QxtRPCPeer
-include (../../features/bottom.prf)

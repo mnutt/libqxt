@@ -1,11 +1,11 @@
-VERSION 	= $$QXVERSION
-TEMPLATE 	= lib
-TARGET 		= QxtSql
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtSql
 DEPENDPATH 	+= .
-INCLUDEPATH 	+= .
+INCLUDEPATH += .
 DEFINES 	+= BUILD_QXT_SQL
-QT 		= core sql
-
+CONFIG      += qxtbuild
+QT 		     = core sql
 
 QxtSqlPackage.headers 	= QxtSqlPackage.h
 QxtSqlPackage.interfaces= QxtSqlPackage
@@ -17,7 +17,4 @@ QxtSqlPackageModel.interfaces	= QxtSqlPackageModel
 QxtSqlPackageModel.sources 	= QxtSqlPackageModel.cpp
 QxtSqlPackageModel.stability 	= 
 
-
-
 Parts=QxtSqlPackage QxtSqlPackageModel
-include (../../features/bottom.prf)

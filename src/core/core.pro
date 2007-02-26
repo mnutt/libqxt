@@ -1,10 +1,12 @@
-VERSION 	=  $$QXVERSION
-TEMPLATE 	=  lib
-TARGET 		=  QxtCore
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtCore
 DEPENDPATH 	+= .
-INCLUDEPATH 	+= .
+INCLUDEPATH += .
 DEFINES 	+= BUILD_QXT_CORE
-QT 		= 
+CONFIG      += qxtbuild
+CONFIG      -= qt
+QT 		     = 
 
 nullable.headers 	= QxtNull.h QxtNullable.h
 nullable.interfaces	= QxtNull QxtNullable
@@ -36,6 +38,4 @@ HyperMacros.interfaces	= QxtHyperMacros
 HyperMacros.sources 	=
 HyperMacros.stability 	= 
 
-
 Parts = nullable SingleInstance Tuple Pimpl Error HyperMacros
-include (../../features/bottom.prf)

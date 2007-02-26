@@ -1,12 +1,12 @@
-VERSION      = $$QXVERSION
-TEMPLATE     = lib
-TARGET       = QxtCurses
-DEPENDPATH  += .
-INCLUDEPATH += .
-LIBS        += -lpanel -lncurses
-
-QT = core
-QXT = core kit
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtCurses
+DEPENDPATH 	+= .
+INCLUDEPATH += . ../core ../../deploy/include
+DEFINES 	+= BUILD_QXT_CURSES
+CONFIG      += qxtbuild
+QT 		     = core
+LIBS        += -L../../deploy/libs -lQxtCore -lQxtKit -lpanel -lncurses
 
 CursesApplication.headers     = QxtCursesApplication.h private/QxtCursesApplication_p.h
 CursesApplication.interfaces  = QxtCursesApplication
@@ -49,5 +49,4 @@ CFrame.sources                = QxtCFrame.cpp
 CFrame.stability              =
 
 Parts = CursesApplication CPoint CSize CRect CKeyEvent CPaintEvent CWidget CFrame
-include (../../features/bottom.prf)
 

@@ -9,3 +9,4 @@ SOURCES += main.cpp
 
 CONFIG+=qxt
 QXT+=gui
+message($$QXT)

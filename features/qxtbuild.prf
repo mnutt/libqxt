@@ -1,0 +1,129 @@
+#this is for determinating what parts to build
+
+aix-g++:                 PLATFORM=aix-g++
+aix-g++-64:              PLATFORM=aix-g++-64
+aix-xlc:                 PLATFORM=aix-xlc
+aix-xlc-64:              PLATFORM=aix-xlc-64
+common:                  PLATFORM=common
+darwin-g++:              PLATFORM=darwin-g++
+default:                 PLATFORM=default
+features:                PLATFORM=features
+freebsd-g++:             PLATFORM=freebsd-g++
+freebsd-g++34:           PLATFORM=freebsd-g++34
+freebsd-g++40:           PLATFORM=freebsd-g++40
+freebsd-icc:             PLATFORM=freebsd-icc
+hpux-acc:                PLATFORM=freebsd-icc
+hpux-acc-64:             PLATFORM=hpux-acc
+hpux-acc-o64:            PLATFORM=hpux-acc-64
+hpux-g++:                PLATFORM=hpux-acc-o64
+hpux-g++-64:             PLATFORM=hpux-g++-64
+hpuxi-acc:               PLATFORM=hpuxi-acc
+hpuxi-acc-64:            PLATFORM=hpuxi-acc-64
+hurd-g++:                PLATFORM=hurd-g++
+irix-cc:                 PLATFORM=irix-cc
+irix-cc-64:              PLATFORM=irix-cc-64
+irix-g++:                PLATFORM=irix-g++
+irix-g++-64:             PLATFORM=irix-g++-64
+linux-cxx:               PLATFORM=linux-cxx
+linux-ecc-64:            PLATFORM=linux-ecc-64
+linux-g++:               PLATFORM=linux-g++
+linux-g++-32:            PLATFORM=linux-g++-32
+linux-g++-64:            PLATFORM=linux-g++-64
+linux-icc:               PLATFORM=linux-icc
+linux-kcc:               PLATFORM=linux-kcc
+linux-lsb:               PLATFORM=linux-lsb
+linux-pgcc:              PLATFORM=linux-pgcc
+lynxos-g++:              PLATFORM=lynxos-g++
+macx-g++:                PLATFORM=macx-g++
+macx-icc:                PLATFORM=macx-icc
+macx-pbuilder:           PLATFORM=macx-pbuilder
+macx-xcode:              PLATFORM=macx-xcode
+macx-xlc:                PLATFORM=macx-xlc
+netbsd-g++:              PLATFORM=netbsd-g++
+openbsd-g++:             PLATFORM=openbsd-g++
+qws:             	     PLATFORM=qws
+sco-cc:                  PLATFORM=sco-cc
+sco-g++:                 PLATFORM=sco-g++
+solaris-cc:              PLATFORM=solaris-cc
+solaris-cc-64:           PLATFORM=solaris-cc-64
+solaris-g++:             PLATFORM=solaris-g++
+solaris-g++-64:          PLATFORM=solaris-g++-64
+tru64-cxx:               PLATFORM=tru64-cxx
+tru64-g++:               PLATFORM=tru64-g++
+unixware-cc:             PLATFORM=unixware-cc
+unixware-g++:            PLATFORM=unixware-g++
+win32-g++:               PLATFORM=win32-g++
+
+include(../config.pri)
+
+!defined(ModuleStabilityCheck){
+    defineReplace(ModuleStabilityCheck) {
+        out=
+        for( part,1 ){
+            1-=$$part
+            contains(QXT_stability,stable):  contains($${part}.stability,+$$PLATFORM):out+=$$part 
+            contains(QXT_stability,broken):  contains($${part}.stability,-$$PLATFORM):out+=$$part
+            contains(QXT_stability,unknown):!contains($${part}.stability,-$$PLATFORM):!contains($${part}.stability,+$$PLATFORM):out+=$$part
+        }
+        out += $$QXT_ignore_stability
+        return ($$out)
+    }
+
+    defineReplace(ModuleHeaders) {
+        for(part, 1){
+            for(header, $${part}.headers){
+                out += $$header
+            }
+        }	 
+        return ($$out)
+    }
+
+    defineReplace(ModuleSources) {
+        for(part, 1){
+            for(source, $${part}.sources){
+                out += $$source
+            }
+        }	 
+        return ($$out)
+    }
+
+    defineTest(ModuleBuildDebug) {
+        partlist=
+        for(part, 1):  partlist+= $$part
+        message()
+        message(building $$MODULE : $$partlist)
+        message($$HEADERS)
+        message($$SOURCES)
+        message()
+    }
+}
+
+ModuleBuild = $$ModuleStabilityCheck($$Parts)
+HEADERS     = $$ModuleHeaders($$ModuleBuild)
+SOURCES     = $$ModuleSources($$ModuleBuild)
+
+ModuleBuildDebug($$ModuleBuild)
+
+incs.path= $${include.path}/$$TARGET
+
+for(part, ModuleBuild){
+	for(i , $${part}.interfaces){
+		incs.files+=$${i}.h
+		message(autogenerating C++ style includes for $${i})
+		
+		unix{
+            system(  echo " \\$${LITERAL_HASH}include \\\"$${i}.h\\\" " >> ../deploy/include/$${TARGET}/$${i})
+            system(  echo  >> ../deploy/include/$${TARGET}/$${i})
+		}
+
+
+		win32{
+            system(  echo " \$${LITERAL_HASH}include \\\"$${i}.h\\\" " >> ../deploy/include/$${TARGET}/$${i})
+            system(  echo.  >> ../deploy/include/$${TARGET}/$${i})
+		}
+
+		incs.files+=../../deploy/include/$${TARGET}/$${i}
+    }
+}
+
+INSTALLS = target incs

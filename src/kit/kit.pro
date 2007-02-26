@@ -1,11 +1,11 @@
-VERSION 	= $$QXVERSION
-TEMPLATE 	= lib
-TARGET 		= QxtKit
+VERSION 	 =  $$QXVERSION
+TEMPLATE 	 =  lib
+TARGET 		 =  QxtKit
 DEPENDPATH 	+= .
-INCLUDEPATH 	+= .
+INCLUDEPATH += .
 DEFINES 	+= BUILD_QXT_KIT
-QT 		= core
-
+CONFIG      += qxtbuild
+QT 		     = core
 
 QxtSignalWaiter.headers 	= QxtSignalWaiter.h
 QxtSignalWaiter.interfaces	= QxtSignalWaiter
@@ -28,8 +28,5 @@ QxtEventThread.sources 		= QxtEventThread.cpp
 QxtEventThread.stability 	= 
 
 Parts = QxtSignalWaiter QxtTrippleList QxtPairList QxtEventThread
-include (../../features/bottom.prf)
-
-
 
 HEADERS	    +=../../deploy/include/Qxt/qxtnamespace.h
