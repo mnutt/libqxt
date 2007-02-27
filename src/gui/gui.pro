@@ -45,4 +45,9 @@ unix:QxtApplication.sources	+= QxtApplication_x11.cpp
 win32:QxtApplication.sources	+= QxtApplication_win.cpp
 QxtApplication.stability	=
 
-Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication
+QxtCheckComboBox.headers	= QxtCheckComboBox.h / private/QxtCheckComboBox_p.h
+QxtCheckComboBox.interfaces	= QxtCheckComboBox
+QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
+QxtCheckComboBox.stability	=
+
+Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox
