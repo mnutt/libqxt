@@ -2,10 +2,14 @@ VERSION 	 =  $$QXVERSION
 TEMPLATE 	 =  lib
 TARGET 		 =  QxtSql
 DEPENDPATH 	+= .
-INCLUDEPATH += .
+INCLUDEPATH     += .
 DEFINES 	+= BUILD_QXT_SQL
-CONFIG      += qxtbuild
-QT 		     = core sql
+CONFIG          += qxtbuild
+QT 		 = core sql
+
+INCLUDEPATH     += . ../core ../../deploy/include 
+LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore
+
 
 QxtSqlPackage.headers 	= QxtSqlPackage.h
 QxtSqlPackage.interfaces= QxtSqlPackage
