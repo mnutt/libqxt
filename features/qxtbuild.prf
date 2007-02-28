@@ -11,7 +11,7 @@ incs.path= $${include.path}/$$TARGET
 
 
 
-contains(CONFIG,confidence){
+contains(CONFIG,convenience){
 for(part, ModuleBuild){
 	mm=
  	for(ii, $${part}.interfaces){
