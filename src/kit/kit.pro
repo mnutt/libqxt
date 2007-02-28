@@ -2,10 +2,13 @@ VERSION 	 =  $$QXVERSION
 TEMPLATE 	 =  lib
 TARGET 		 =  QxtKit
 DEPENDPATH 	+= .
-INCLUDEPATH += .
+INCLUDEPATH     += .
 DEFINES 	+= BUILD_QXT_KIT
-CONFIG      += qxtbuild
-QT 		     = core
+CONFIG          += qxtbuild
+QT 		 = core
+INCLUDEPATH     += . ../core ../../deploy/include 
+LIBS            += -L../../deploy/libs/  -lQxtCore
+
 
 QxtSignalWaiter.headers 	= QxtSignalWaiter.h
 QxtSignalWaiter.interfaces	= QxtSignalWaiter

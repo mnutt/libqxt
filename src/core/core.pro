@@ -2,11 +2,13 @@ VERSION 	 =  $$QXVERSION
 TEMPLATE 	 =  lib
 TARGET 		 =  QxtCore
 DEPENDPATH 	+= .
-INCLUDEPATH += .
+INCLUDEPATH 	+= .
 DEFINES 	+= BUILD_QXT_CORE
-CONFIG      += qxtbuild
-CONFIG      -= qt
-QT 		     = 
+CONFIG      	+= qxtbuild
+CONFIG      	-= qt
+QT 		 = 
+INCLUDEPATH     += . ../../deploy/include 
+
 
 nullable.headers 	= QxtNull.h QxtNullable.h
 nullable.interfaces	= QxtNull QxtNullable
