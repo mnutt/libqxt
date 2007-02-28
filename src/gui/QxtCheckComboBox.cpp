@@ -227,7 +227,7 @@ void QxtCheckComboBox::setDefaultText(const QString& text)
     \property QxtCheckComboBox::separator
     \brief This property holds the default text
 
-    The checked items are joined with the separator string.
+    The checked items are joined together with the separator string.
     The default value is a comma (",").
  */
 QString QxtCheckComboBox::separator() const

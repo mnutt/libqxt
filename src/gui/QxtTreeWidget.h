@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QTreeWidget>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 #include "QxtTreeWidgetItem.h"
 
 class QxtTreeWidgetPrivate;
@@ -37,13 +37,15 @@ public:
 	Qt::TextElideMode elideMode() const;
 	void setElideMode(Qt::TextElideMode mode);
 	
-protected:
-	void drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const;
-	
 signals:
 	void itemEditingStarted(QTreeWidgetItem* item);
 	void itemEditingFinished(QTreeWidgetItem* item);
 	void itemCheckStateChanged(QxtTreeWidgetItem* item);
+	
+#ifndef QXT_DOXYGEN_RUN
+protected:
+	void drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const;
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTTREEWIDGET_H

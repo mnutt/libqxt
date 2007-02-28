@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QTabWidget>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 
 class QxtTabWidgetPrivate;
 
@@ -38,12 +38,14 @@ public:
 signals:
 	void tabContextMenuRequested(int index, const QPoint& globalPos);
 	
+#ifndef QXT_DOXYGEN_RUN
 protected:
 	virtual void tabInserted(int index);
 	virtual void tabRemoved(int index);
 	
 	virtual void contextMenuEvent(QContextMenuEvent* event);
 	virtual void tabContextMenuEvent(int index, QContextMenuEvent* event);
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTQXTTABWIDGET_H

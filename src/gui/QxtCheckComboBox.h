@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QComboBox>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 
 class QxtCheckComboBoxPrivate;
 
@@ -40,10 +40,12 @@ public:
 	
 signals:
 	void checkedItemsChanged(const QStringList& items);
-	
+
+#ifndef QXT_DOXYGEN_RUN
 protected:
 	void keyPressEvent(QKeyEvent* event);
 	void keyReleaseEvent(QKeyEvent* event);
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTCHECKCOMBOBOX_H
