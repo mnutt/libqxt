@@ -1,5 +1,5 @@
  <!DOCTYPE RCC><RCC version="1.0">
  <qresource>
-     <file alias="logo.png">../extras/artwork/logo.png</file>
+     <file alias="logo.png">../../extras/artwork/logo.png</file>
  </qresource>
  </RCC>

@@ -4,40 +4,13 @@ TARGET 		 =  QxtCore
 DEPENDPATH 	+= .
 INCLUDEPATH 	+= .
 DEFINES 	+= BUILD_QXT_CORE
-CONFIG      	+= qxtbuild
+CONFIG      	+= qxtbuild confidence
 CONFIG      	-= qt
 QT 		 = 
 INCLUDEPATH     += . ../../deploy/include 
 
 
-nullable.headers 	= QxtNull.h QxtNullable.h
-nullable.interfaces	= QxtNull QxtNullable
-nullable.sources 	=
-nullable.stability 	= +linux-g++
+QxtTuple.headers	= QxtTypeList.h QxtTupleList.h
 
-SingleInstance.headers	 = QxtSingleInstance.h
-SingleInstance.interfaces= QxtSingleInstance
-SingleInstance.sources	 =
-SingleInstance.stability =
 
-Tuple.headers 		= QxtTripple.h QxtTuple.h QxtTupleList.h QxtTypeList.h
-Tuple.interfaces	= QxtTuple QxtTripple
-Tuple.sources 		=
-Tuple.stability 	= 
-
-Pimpl.headers 		= QxtPimpl.h
-Pimpl.interfaces	= QxtPimpl
-Pimpl.sources 		=
-Pimpl.stability 	= 
-
-Error.headers 		= QxtError.h
-Error.interfaces	= QxtError
-Error.sources 		=
-Error.stability 	= 
-
-HyperMacros.headers 	= QxtHyperMacros.h
-HyperMacros.interfaces	= QxtHyperMacros
-HyperMacros.sources 	=
-HyperMacros.stability 	= 
-
-Parts = nullable SingleInstance Tuple Pimpl Error HyperMacros
+Parts = QxtNull QxtNullable  QxtSingleInstance QxtTripple QxtTuple  QxtPimpl QxtError QxtHyperMacros
