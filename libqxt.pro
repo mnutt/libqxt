@@ -27,15 +27,12 @@ TEMPLATE = subdirs
 
 
 docs.files = deploy/docs/*
+docs.path = $${QXTINSTALLDIR}/docs
+
 
 qxtincludes.path = $${include.path}/Qxt
 qxtincludes.files= deploy/include/Qxt/*
 
-
-
-
-
-	bin.files =
 
 
 #write the paths to prf file
@@ -58,7 +55,7 @@ features.files = deploy/qt/*.prf
 
 
 
-INSTALLS = docs bin qxtincludes features 
+INSTALLS = docs qxtincludes features 
 
 
 
@@ -76,13 +73,7 @@ contains( QXT_BUILD, kit ){
 contains( QXT_BUILD, gui ){
         message( building gui module )
         SUBDIRS += src/gui
-
-
-
-        SUBDIRS += designer
-	designer.path = $$[QT_INSTALL_PLUGINS]/designer
-	designer.files = designer/libQxtDesignerPlugins.*
-	INSTALLS += designer
+        SUBDIRS += src/designer
         }
 
 contains( QXT_BUILD, network ){

@@ -83,6 +83,8 @@ return ($$out)
 
 defineReplace(ModuleHeaders) {
 for(part, 1){
+	out += $${part}.h
+
 	for(header, $${part}.headers){
 		out += $$header
 		}
@@ -94,6 +96,8 @@ return ($$out)
 
 defineReplace(ModuleSources) {
 for(part, 1){
+	exists($${part}.cpp)out += $${part}.cpp
+
 	for(source, $${part}.sources){
 		out += $$source
 		}
@@ -107,11 +111,9 @@ defineTest(ModuleBuildDebug) {
 partlist=
 for(part, 1):  partlist+= $$part
 
-message()
-message(building $$MODULE : $$partlist)
+message($$partlist)
 message($$HEADERS)
 message($$SOURCES)
-message()
 
 }
 

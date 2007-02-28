@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
 	qDebug()<<"signal in Thread "<<QThread::currentThreadId ();
 	f.connect(&t,SIGNAL(timeout()),SLOT(call()));
-	t.start(200);
+	t.start(20);
 
 
 	app.exec();
