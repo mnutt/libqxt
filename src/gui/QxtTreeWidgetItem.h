@@ -25,7 +25,9 @@ public:
 	QxtTreeWidgetItem(const QxtTreeWidgetItem& other);
 	virtual ~QxtTreeWidgetItem();
 	
+#ifndef QXT_DOXYGEN_RUN
 	virtual void setData(int column, int role, const QVariant& value);
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTTREEWIDGET_H

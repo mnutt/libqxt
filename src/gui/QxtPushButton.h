@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QPushButton>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 
 class QxtPushButtonPrivate;
 
@@ -29,11 +29,13 @@ public:
 	Qxt::Rotation rotation() const;
 	void setRotation(Qxt::Rotation rotation);
 	
+#ifndef QXT_DOXYGEN_RUN
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
 	
 protected:
 	virtual void paintEvent(QPaintEvent* event);
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTPUSHBUTTON_H

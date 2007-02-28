@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QFrame>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 
 class QxtLabelPrivate;
 
@@ -40,17 +40,21 @@ public:
 	Qxt::Rotation rotation() const;
 	void setRotation(Qxt::Rotation rotation);
 	
+#ifndef QXT_DOXYGEN_RUN
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
+#endif // QXT_DOXYGEN_RUN
 	
 signals:
 	void clicked();
 	
+#ifndef QXT_DOXYGEN_RUN
 protected:
 	virtual void changeEvent(QEvent* event);
 	virtual void mousePressEvent(QMouseEvent* event);
 	virtual void mouseReleaseEvent(QMouseEvent* event);
 	virtual void paintEvent(QPaintEvent* event);
+#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTLABEL_H

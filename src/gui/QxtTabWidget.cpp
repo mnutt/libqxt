@@ -118,6 +118,24 @@ void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
 }
 
 /*!
+    Clears the list of actions of the tab at \a index.
+
+    \sa removeTabAction(), addTabAction()
+ */
+void QxtTabWidget::clearTabActions(int index)
+{
+	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+	
+	while (qxt_d().actions[index].count())
+	{
+		QAction* action = qxt_d().actions[index].takeLast();
+		QActionEvent e(QEvent::ActionRemoved, action);
+		QApplication::sendEvent(this, &e);
+		delete action;
+	}
+}
+
+/*!
     Inserts the \a action to the list of actions of the
     tab at \a index, before the action \a before. It appends
     the action if \a before is \c 0.

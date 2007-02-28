@@ -7,7 +7,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTTREEWIDGET_P_H
 #define QXTTREEWIDGET_P_H
 
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 #include "QxtTreeWidget.h"
 
 class QxtItemDelegate;

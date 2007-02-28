@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QItemDelegate>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl.h>
+#include <QxtPimpl.h>
 
 class QxtItemDelegatePrivate;
 
@@ -31,11 +31,13 @@ public:
 	Qt::TextElideMode elideMode() const;
 	void setElideMode(Qt::TextElideMode mode);
 	
+#ifndef QXT_DOXYGEN_RUN
 	virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
 	virtual void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
 	
 	virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 	virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+#endif // QXT_DOXYGEN_RUN
 	
 signals:
 	void editingStarted(const QModelIndex& index);
