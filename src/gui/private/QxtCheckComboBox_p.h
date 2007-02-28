@@ -9,8 +9,8 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <QListView>
 #include <QStandardItemModel>
-#include <QxtCore/QxtPimpl>
-#include <QxtCheckComboBox.h>
+#include <QxtCore/QxtPimpl.h>
+#include "QxtCheckComboBox.h"
 
 class QxtCheckComboBoxPrivate : public QObject, public QxtPrivate<QxtCheckComboBox>
 {

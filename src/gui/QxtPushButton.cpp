@@ -5,9 +5,9 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 #include "QxtPushButton.h"
-#include <QMenu>
-#include <QStylePainter>
 #include <QStyleOptionButton>
+#include <QStylePainter>
+#include <QMenu>
 
 static const int Vertical_Mask = 0x02;
 

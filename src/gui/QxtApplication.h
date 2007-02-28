@@ -7,10 +7,10 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTAPPLICATION_H
 #define QXTAPPLICATION_H
 
-#include <QApplication>
 #include <QPair>
 #include <QList>
 #include <QMultiHash>
+#include <QApplication>
 #include <Qxt/qxtglobal.h>
 
 typedef QPair<uint, uint> Identifier;

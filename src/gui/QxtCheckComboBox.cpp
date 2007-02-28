@@ -4,8 +4,8 @@ Copyright (C) 2007 J-P Nurmi <jpnurmi@gmail.com>
 released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
-#include <QxtCheckComboBox.h>
-#include <private/QxtCheckComboBox_p.h>
+#include "QxtCheckComboBox.h"
+#include "private/QxtCheckComboBox_p.h"
 #include <QStyleOptionButton>
 #include <QApplication>
 #include <QMouseEvent>

@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QTreeWidget>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl>
+#include <QxtCore/QxtPimpl.h>
 #include "QxtTreeWidgetItem.h"
 
 class QxtTreeWidgetPrivate;
