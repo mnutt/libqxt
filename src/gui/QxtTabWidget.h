@@ -10,7 +10,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QTabWidget>
 #include <Qxt/qxtglobal.h>
 #include <Qxt/qxtnamespace.h>
-#include <QxtCore/QxtPimpl>
+#include <QxtCore/QxtPimpl.h>
 
 class QxtTabWidgetPrivate;
 
