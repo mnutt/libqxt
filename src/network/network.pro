@@ -4,7 +4,7 @@ TARGET           =  QxtNetwork
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../../deploy/include
 DEFINES         += BUILD_QXT_NETWORK
-CONFIG          += qxtbuild confidence
+CONFIG          += qxtbuild convenience
 QT              =  core network
 
 LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore 

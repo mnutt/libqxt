@@ -5,7 +5,7 @@ DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
 LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore
-CONFIG      += qxtbuild confidence
+CONFIG      += qxtbuild convenience
 QT           = core gui 
 
 QxtLabel.sources		= QxtLabel.cpp

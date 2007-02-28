@@ -4,7 +4,7 @@ TARGET           =  QxtSql
 DEPENDPATH      += .
 INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_SQL
-CONFIG          += qxtbuild confidence
+CONFIG          += qxtbuild convenience
 QT               = core sql
 
 INCLUDEPATH     += . ../core ../../deploy/include 
