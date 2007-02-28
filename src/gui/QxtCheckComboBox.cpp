@@ -41,6 +41,8 @@ void QxtCheckComboBoxPrivate::updateCheckedItems()
 		qxt_p().lineEdit()->setText(defaultText);
 	
 	// TODO: find a way to recalculate a meaningful size hint
+	
+	emit qxt_p().checkedItemsChanged(checkedItems);
 }
 
 QxtCheckComboView::QxtCheckComboView(QWidget* parent) : QListView(parent)
@@ -120,6 +122,24 @@ bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, Q
 	return ok;
 }
 
+/*!
+    \class QxtCheckComboBox QxtCheckComboBox
+    \ingroup gui
+    \brief A combo box with checkable items.
+
+    QxtComboBox is a specialized combo box with checkable items.
+    All the checked items are collected together on the line edit.
+ */
+
+/*!
+    \fn QxtCheckComboBox::checkedItemsChanged(const QStringList& items)
+
+    This signal is emitted whenever the checked items have been changed.
+ */
+
+/*!
+    Constructs a new QxtCheckComboBox with \a parent.
+ */
 QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
 {
 	QXT_INIT_PRIVATE(QxtCheckComboBox);
@@ -143,20 +163,33 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
 	connect(model, SIGNAL(checkStateChanged()), &qxt_d(), SLOT(updateCheckedItems()));
 }
 
+/*!
+    Destructs the combo box.
+ */
 QxtCheckComboBox::~QxtCheckComboBox()
 {
 }
 
+/*!
+    Returns the check state of the item at \a index.
+ */
 Qt::CheckState QxtCheckComboBox::itemCheckState(int index) const
 {
 	return static_cast<Qt::CheckState>(itemData(index, Qt::CheckStateRole).toInt());
 }
 
+/*!
+    Sets the check state of the item at \a index to \a state.
+ */
 void QxtCheckComboBox::setItemCheckState(int index, Qt::CheckState state)
 {
 	setItemData(index, state, Qt::CheckStateRole);
 }
 
+/*!
+    \property QxtCheckComboBox::checkedItems
+    \brief This property holds the checked items
+ */
 QStringList QxtCheckComboBox::checkedItems() const
 {
 	return qxt_d().checkedItems;
@@ -173,6 +206,13 @@ void QxtCheckComboBox::setCheckedItems(const QStringList& items)
 	}
 }
 
+/*!
+    \property QxtCheckComboBox::defaultText
+    \brief This property holds the default text
+
+    The default text is shown when there is no checked items.
+    The default value is an empty string.
+ */
 QString QxtCheckComboBox::defaultText() const
 {
 	return qxt_d().defaultText;
@@ -183,6 +223,13 @@ void QxtCheckComboBox::setDefaultText(const QString& text)
 	qxt_d().defaultText = text;
 }
 
+/*!
+    \property QxtCheckComboBox::separator
+    \brief This property holds the default text
+
+    The checked items are joined with the separator string.
+    The default value is a comma (",").
+ */
 QString QxtCheckComboBox::separator() const
 {
 	return qxt_d().separator;
@@ -193,6 +240,9 @@ void QxtCheckComboBox::setSeparator(const QString& separator)
 	qxt_d().separator = separator;
 }
 
+/*!
+    \internal
+ */
 void QxtCheckComboBox::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() != Qt::Key_Up && event->key() != Qt::Key_Down)
@@ -201,6 +251,9 @@ void QxtCheckComboBox::keyPressEvent(QKeyEvent* event)
 	}
 }
 
+/*!
+    \internal
+ */
 void QxtCheckComboBox::keyReleaseEvent(QKeyEvent* event)
 {
 	if (event->key() != Qt::Key_Up && event->key() != Qt::Key_Down)

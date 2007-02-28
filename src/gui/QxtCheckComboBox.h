@@ -38,6 +38,9 @@ public:
 	QString separator() const;
 	void setSeparator(const QString& separator);
 	
+signals:
+	void checkedItemsChanged(const QStringList& items);
+	
 protected:
 	void keyPressEvent(QKeyEvent* event);
 	void keyReleaseEvent(QKeyEvent* event);

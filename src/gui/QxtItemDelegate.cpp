@@ -183,8 +183,6 @@ Qt::TextElideMode QxtItemDelegate::elideMode() const
 	return qxt_d().elide;
 }
 
-#ifndef QXT_DOXYGEN_RUN
-
 /*!
     \internal
  */
@@ -253,5 +251,3 @@ QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModel
 		size += QSize(TOP_LEVEL_EXTENT, TOP_LEVEL_EXTENT);
 	return  size;
 }
-
-#endif // QXT_DOXYGEN_RUN
