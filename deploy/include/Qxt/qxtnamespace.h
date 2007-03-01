@@ -31,7 +31,7 @@ released under the Terms of LGPL (see the LICENSE file)
  */
 
 
-#if defined BUILD_QXT
+#if defined BUILD_QXT_QT
 #include <QObject>
 
 class QXT_KIT_EXPORT Qxt  : public QObject
