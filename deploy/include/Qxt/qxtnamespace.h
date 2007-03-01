@@ -7,7 +7,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTGUI_H
 #define QXTGUI_H
 
-#include <QObject>
 #include <Qxt/qxtglobal.h>
 
 /*!
@@ -33,6 +32,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 
 #if defined BUILD_QXT
+#include <QObject>
 
 class QXT_KIT_EXPORT Qxt  : public QObject
 {
