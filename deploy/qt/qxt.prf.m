@@ -18,7 +18,7 @@ macx :
 }
 
 isEmpty(QXTlib):	QXTlib=$${QXTbase}/lib
-isEmpty(QXTinclude):	QXTinclude=$${QXTbase}/include
+isEmpty(QXTinclude):	QXTinclude=$${QXTbase}/include/Qxt/
 isEmpty(QXTbin):	QXTbin=$${QXTbase}/lib
 
 
