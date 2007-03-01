@@ -1,5 +1,0 @@
-target.path  = $${QXTINSTALLDIR}/lib
-docs.path    = $${QXTINSTALLDIR}/doc/libqxt
-include.path = $${QXTINSTALLDIR}/include/Qxt
-bin.path     = $${QXTINSTALLDIR}/bin
-include(../qxtbuild.prf)
