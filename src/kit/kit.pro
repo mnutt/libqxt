@@ -1,21 +1,13 @@
-VERSION 	 =  $$QXVERSION
-TEMPLATE 	 =  lib
-TARGET 		 =  QxtKit
+TARGET       =  QxtKit
 DEPENDPATH 	+= .
-INCLUDEPATH     += .
-DEFINES 	+= BUILD_QXT_KIT
-CONFIG          += qxtbuild convenience
-QT 		 = core
-INCLUDEPATH     += . ../core ../../deploy/include 
-LIBS            += -L../../deploy/libs/  -lQxtCore
-
-
+INCLUDEPATH += . ../core ../../deploy/include 
+DEFINES     += BUILD_QXT_KIT
+CONFIG      += qxtbuild convenience
+QT           = core
+# LIBS        += -L../../deploy/libs/  -lQxtCore
 
 QxtSignalWaiter.sources 	= QxtSignalWaiter.cpp
 QxtEventThread.sources 		= QxtEventThread.cpp
-
-
-
 
 Parts = QxtSignalWaiter QxtTrippleList QxtPairList QxtEventThread
 

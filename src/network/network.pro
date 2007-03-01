@@ -1,5 +1,3 @@
-VERSION          =  $$QXVERSION
-TEMPLATE         =  lib
 TARGET           =  QxtNetwork
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../../deploy/include
@@ -7,7 +5,7 @@ DEFINES         += BUILD_QXT_NETWORK
 CONFIG          += qxtbuild convenience
 QT              =  core network
 
-LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore 
+LIBS            += -L../../deploy/libs/ -lQxtKit
 LIBS            += -lssl	
 
 
