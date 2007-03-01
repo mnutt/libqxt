@@ -1,12 +1,10 @@
-VERSION 	 =  $$QXVERSION
-TEMPLATE 	 =  lib
 TARGET 		 =  QxtCurses
 DEPENDPATH 	+= .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES 	+= BUILD_QXT_CURSES
 CONFIG      += qxtbuild
 QT 		     = core
-LIBS        += -L../../deploy/libs -lQxtCore -lQxtKit -lpanel -lncurses
+LIBS        += -L../../deploy/libs -lQxtKit -lpanel -lncurses
 
 CursesApplication.headers     = QxtCursesApplication.h private/QxtCursesApplication_p.h
 CursesApplication.interfaces  = QxtCursesApplication

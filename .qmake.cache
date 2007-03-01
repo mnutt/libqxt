@@ -2,15 +2,6 @@ QXT_BUILD = core kit gui network sql media curses
 QXT_LIBS = ssl
 QXT_stability = stable
 
-QXVERSION = 0.2
-
-
-
-
-
-
-
-
 #keep macx at the bottom. unix is defined too!
 unix :QXTINSTALLDIR=/usr
 win32:QXTINSTALLDIR=C:\libqxt

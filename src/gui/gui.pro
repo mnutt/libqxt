@@ -1,10 +1,8 @@
-VERSION      = $$QXVERSION
-TEMPLATE     = lib
 TARGET       = QxtGui
 DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
-LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore
+LIBS        += -L../../deploy/libs/ -lQxtKit
 CONFIG      += qxtbuild convenience
 QT           = core gui 
 

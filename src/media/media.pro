@@ -1,12 +1,10 @@
-VERSION 	 =  $$QXVERSION
-TEMPLATE 	 =  lib
 TARGET 		 =  QxtMedia
 DEPENDPATH 	+= .
 INCLUDEPATH += . ../core ../../deploy/include ./private
 DEFINES 	+= BUILD_QXT_MEDIA
 CONFIG      += qxtbuild
 QT 		     = core gui
-LIBS		+= -L../../deploy/libs/ -lQxtKit -lQxtCore
+LIBS		+= -L../../deploy/libs/ -lQxtKit
 LIBS		+= -lavcodec -lavformat -lSDL
 
 QxtAVFile.headers 	= QxtAVFile.h private/QxtAVFile_p.h
