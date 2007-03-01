@@ -4,7 +4,8 @@ INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_KIT
 CONFIG      += qxtbuild convenience
 QT           = core
-# LIBS        += -L../../deploy/libs/  -lQxtCore
+LIBS        += -L../../deploy/libs/  -lQxtCore
+TEMPLATE     = lib
 
 QxtSignalWaiter.sources 	= QxtSignalWaiter.cpp
 QxtEventThread.sources 		= QxtEventThread.cpp

@@ -4,8 +4,9 @@ INCLUDEPATH     += . ../core ../../deploy/include
 DEFINES         += BUILD_QXT_NETWORK
 CONFIG          += qxtbuild convenience
 QT              =  core network
+TEMPLATE        = lib
 
-LIBS            += -L../../deploy/libs/ -lQxtKit
+LIBS            += -L../../deploy/libs/ -lQxtCore -lQxtKit
 LIBS            += -lssl	
 
 
