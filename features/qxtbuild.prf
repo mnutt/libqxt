@@ -1,6 +1,3 @@
-include(../config.pri)
-include(parts.prf)
-
 ModuleBuild  = $$ModuleStabilityCheck($$Parts)
 HEADERS      = $$ModuleHeaders($$ModuleBuild)
 SOURCES      = $$ModuleSources($$ModuleBuild)
@@ -11,7 +8,7 @@ TEMPLATE     = lib
 
 ModuleBuildDebug($$ModuleBuild)
 
-incs.path= $${include.path}/$$TARGET
+incs.path = $${include.path}/$$TARGET
 
 contains(CONFIG,convenience){
 for(part, ModuleBuild){
