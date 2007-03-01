@@ -2,9 +2,10 @@ TARGET       = QxtGui
 DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
-LIBS        += -L../../deploy/libs/ -lQxtKit
+LIBS        += -L../../deploy/libs/ -lQxtKit -lQtCore
 CONFIG      += qxtbuild convenience
 QT           = core gui 
+TEMPLATE     = lib
 
 QxtLabel.sources		= QxtLabel.cpp
 

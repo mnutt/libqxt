@@ -6,6 +6,7 @@ INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_SQL
 CONFIG          += qxtbuild convenience
 QT               = core sql
+TEMPLATE     = lib
 
 INCLUDEPATH     += . ../core ../../deploy/include 
 LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore

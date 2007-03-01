@@ -52,10 +52,6 @@ QXT_DROP_F(critical_function());
 */
 #define QXT_DROP_F(call) {QxtError error_sds = call; if (error_sds != Qxt::NoError )return error_sds; }
 
-
-
-
-
 /*! \relates QxtError
 check for errors
 
@@ -75,40 +71,19 @@ short for  QxtError name = call; if (name != Qxt::NoError )
 #define QXT_DROP_SCOPE(name,call) QxtError name = call; if (name != Qxt::NoError )
 
 
-
-
-
 class QXT_CORE_EXPORT QxtError
-	{
-	public:
-		QxtError(char * file, long line, Qxt::ErrorCode errorcode)
-			{
-			file_m=file;
-			line_m=line;
-			errorcode_m=errorcode;
-			}
+{
+public:
+    QxtError(char * file, long line, Qxt::ErrorCode errorcode);
+    Qxt::ErrorCode errorCode() const;
+    long line() const;
+    char * file() const;
+    operator Qxt::ErrorCode();
 
-
-		Qxt::ErrorCode errorCode() const
-			{return errorcode_m;}
-
-		long line() const
-			{return line_m;}
-
-		char * file() const
-			{return file_m;}
-
-		operator Qxt::ErrorCode()
-			{
-			return errorcode_m;
-			}
-
-
-	private:
-		Qxt::ErrorCode errorcode_m;
-		long line_m;
-		char * file_m;
-	};
-
+private:
+    Qxt::ErrorCode errorcode_m;
+    long line_m;
+    char * file_m;
+};
 
 #endif

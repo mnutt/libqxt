@@ -5,6 +5,7 @@ DEPENDPATH  += .
 INCLUDEPATH += . ../core ../gui ../kit ../../deploy/include 
 LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore -lQxtGui
 CONFIG      += designer plugin debug_and_release build_all
+TEMPLATE     = lib
 
 RESOURCES    = resources.qrc
 

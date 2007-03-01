@@ -1,10 +1,9 @@
 ModuleBuild  = $$ModuleStabilityCheck($$Parts)
-HEADERS      = $$ModuleHeaders($$ModuleBuild)
-SOURCES      = $$ModuleSources($$ModuleBuild)
+HEADERS     += $$ModuleHeaders($$ModuleBuild)
+SOURCES     += $$ModuleSources($$ModuleBuild)
 DESTDIR      = ../../deploy/libs
 INCLUDEPATH += ../../deploy/include
 VERSION      = 0.2
-TEMPLATE     = lib
 
 ModuleBuildDebug($$ModuleBuild)
 

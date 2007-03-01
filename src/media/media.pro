@@ -4,8 +4,9 @@ INCLUDEPATH += . ../core ../../deploy/include ./private
 DEFINES 	+= BUILD_QXT_MEDIA
 CONFIG      += qxtbuild
 QT 		     = core gui
-LIBS		+= -L../../deploy/libs/ -lQxtKit
+LIBS		+= -L../../deploy/libs/ -lQxtCore -lQxtKit
 LIBS		+= -lavcodec -lavformat -lSDL
+TEMPLATE     = lib
 
 QxtAVFile.headers 	= QxtAVFile.h private/QxtAVFile_p.h
 QxtAVFile.interfaces	= QxtAVFile

@@ -44,3 +44,4 @@ defineTest(ModuleBuildDebug) {
     message($$SOURCES)
 }
 
+}
