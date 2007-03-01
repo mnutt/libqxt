@@ -15,13 +15,15 @@ HEADERS += QxtDesignerPlugins.h \
            QxtDesignerPlugin.h \
            QxtLabelPlugin.h       \
            QxtPushButtonPlugin.h  \
-           QxtTreeWidgetPlugin.h
+           QxtTreeWidgetPlugin.h \
+           QxtCheckComboBoxPlugin.h
 
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
            QxtLabelPlugin.cpp  \ 
            QxtPushButtonPlugin.cpp \
-           QxtTreeWidgetPlugin.cpp
+           QxtTreeWidgetPlugin.cpp \
+           QxtCheckComboBoxPlugin.cpp
 
 
 Parts=QxtDesignerPlugins QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox
