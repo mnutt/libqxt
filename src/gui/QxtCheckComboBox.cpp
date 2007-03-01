@@ -7,7 +7,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtCheckComboBox.h"
 #include "private/QxtCheckComboBox_p.h"
 #include <QStyleOptionButton>
-#include <QApplication>
 #include <QMouseEvent>
 #include <QLineEdit>
 
@@ -220,7 +219,11 @@ QString QxtCheckComboBox::defaultText() const
 
 void QxtCheckComboBox::setDefaultText(const QString& text)
 {
-	qxt_d().defaultText = text;
+	if (qxt_d().defaultText != text)
+	{
+		qxt_d().defaultText = text;
+		qxt_d().updateCheckedItems();
+	}
 }
 
 /*!
@@ -237,27 +240,33 @@ QString QxtCheckComboBox::separator() const
 
 void QxtCheckComboBox::setSeparator(const QString& separator)
 {
-	qxt_d().separator = separator;
+	if (qxt_d().separator != separator)
+	{
+		qxt_d().separator = separator;
+		qxt_d().updateCheckedItems();
+	}
 }
 
-/*!
-    \internal
- */
 void QxtCheckComboBox::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() != Qt::Key_Up && event->key() != Qt::Key_Down)
 	{
 		QComboBox::keyPressEvent(event);
 	}
+	else
+	{
+		showPopup();
+	}
 }
 
-/*!
-    \internal
- */
 void QxtCheckComboBox::keyReleaseEvent(QKeyEvent* event)
 {
 	if (event->key() != Qt::Key_Up && event->key() != Qt::Key_Down)
 	{
 		QComboBox::keyReleaseEvent(event);
+	}
+	else
+	{
+		showPopup();
 	}
 }
