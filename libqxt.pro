@@ -9,6 +9,7 @@ win32:include(features/unix/qxtbuild.prf)
 macx:include(features/unix/qxtbuild.prf)
 
 TEMPLATE = subdirs
+DESTDIR      = deploy/libs
 
 docs.files = deploy/docs/*
 
