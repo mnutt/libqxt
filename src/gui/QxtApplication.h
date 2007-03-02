@@ -18,7 +18,7 @@ typedef QList<Identifier> Identifiers;
 typedef QPair<QWidget*, const char*> Receiver;
 typedef QList<Receiver> Receivers;
 
-// #define qxtApp (QxtApplication::instance())
+#define qxtApp (QxtApplication::instance())
 
 class QXT_GUI_EXPORT QxtApplication : public QApplication
 {
@@ -43,7 +43,7 @@ public:
 	bool addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member);
 	bool removeHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member);
 	
-	inline static QxtApplication* instance(); { return static_cast<QxtApplication*>(QApplication::instance()); }
+	inline static QxtApplication* instance() { return static_cast<QxtApplication*>(QApplication::instance()); }
 	
 #ifndef QXT_DOXYGEN_RUN
 protected:
