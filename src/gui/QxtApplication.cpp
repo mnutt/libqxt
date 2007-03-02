@@ -7,6 +7,27 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtApplication.h"
 #include <QWidget>
 
+/*!
+    \class QxtApplication QxtApplication
+    \ingroup gui
+    \brief An application with support for hotkeys aka "global shortcuts".
+
+    QxtApplication introduces hotkeys which trigger
+    even if the application is not active.
+
+    \note Currently supported platforms are \b X11 and \b Windows.
+ */
+
+/*!
+    \fn QxtApplication::instance()
+
+    Returns a pointer to the instance of the application.
+ */
+
+/*!
+    Constructs a new QxtApplication. All other variations
+    of QApplication constructors are supported too.
+ */
 QxtApplication::QxtApplication(int& argc, char** argv)
 	: QApplication(argc, argv)
 {
@@ -26,6 +47,18 @@ QxtApplication::~QxtApplication()
 {
 }
 
+/*!
+    Adds a hotkey using \a modifiers and \a key. The \a member
+    of \a receiver is invoked upon hotkey trigger.
+
+    \return \b true if hotkey registration succeed, \b false otherwise.
+
+    Example usage:
+    \code
+    QxtLabel* label = new QxtLabel("Hello world!");
+    qxtApp->addHotKey(Qt::ShiftModifier | Qt::ControlModifier, Qt::Key_S, label, "show");
+    \endcode
+*/
 bool QxtApplication::addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member)
 {
 	Q_ASSERT(receiver);
@@ -40,6 +73,12 @@ bool QxtApplication::addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWi
 	return false;
 }
 
+/*!
+    Removes the hotkey using \a modifiers and \a key mapped to
+    \a member of \a receiver.
+
+    \return \b true if hotkey unregistration succeed, \b false otherwise.
+*/
 bool QxtApplication::removeHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member)
 {
 	Q_ASSERT(receiver);
