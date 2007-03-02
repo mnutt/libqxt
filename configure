@@ -64,6 +64,10 @@ while (( $# > 0 )); do
 
         rm config.in
         exit
+    else
+        echo "Unrecognized configure option: $1"
+        rm config.in
+        exit
     fi
     shift
 done
