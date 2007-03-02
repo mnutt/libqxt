@@ -1,1 +1,40 @@
-qmake -recursive
+#!/bin/bash
+
+QMAKE_BIN=qmake
+echo "QXT_stability += unknown" > config.in
+
+while (( $# > 0 )); do
+    if [ $1 == "-qmake-bin" ]; then
+        QMAKE_BIN=$2; shift
+    elif [ $1 == "-nomake" ]; then
+        echo "QXT_BUILD -= $2" >> config.in; shift
+    elif [ $1 == "-prefix" ]; then
+        echo "QXTINSTALLDIR = $2" >> config.in; shift
+    elif [ $1 == "-libdir" ]; then
+        echo "target.path = $2" >> config.in; shift
+    elif [ $1 == "-docdir" ]; then
+        echo "docs.path = $2" >> config.in; shift
+    elif [ $1 == "-headerdir" ]; then
+        echo "include.path = $2" >> config.in; shift
+    elif [ $1 == "-bindir" ]; then
+        echo "bin.path = $2" >> config.in; shift
+    elif [ $1 == "-ignore-stability" ]; then
+        echo "QXT_ignore_stability += $2" >> config.in; shift
+    elif [ $1 == "-static" ]; then
+        echo "CONFIG += static" >> config.in
+    elif [ $1 == "-debug" ]; then
+        echo "CONFIG += debug" >> config.in
+    elif [ $1 == "-release" ]; then
+        echo "CONFIG += release" >> config.in
+    elif [ $1 == "-no-stability-unknown" ]; then
+        echo "QXT_stability -= unknown" >> config.in
+    elif [ $1 == "-no-openssl" ]; then
+        echo "QXT_LIBS -= openssl" >> config.in
+    fi
+    shift
+done
+
+[ -f config.pri ] && mv config.pri config.pri.bak
+mv config.in config.pri
+
+$QMAKE_BIN -recursive
