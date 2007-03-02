@@ -27,4 +27,6 @@ win32:QxtApplication.sources	+= QxtApplication_win.cpp
 QxtCheckComboBox.headers	= private/QxtCheckComboBox_p.h
 QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
 
-Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox
+QxtProxyStyle.sources		= QxtProxyStyle.cpp
+
+Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtProxyStyle
