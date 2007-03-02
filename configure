@@ -21,7 +21,7 @@ while (( $# > 0 )); do
     elif [ $1 == "-ignore-stability" ]; then
         echo "QXT_ignore_stability += $2" >> config.in; shift
     elif [ $1 == "-static" ]; then
-        echo "CONFIG += static" >> config.in
+        echo "CONFIG += static staticlib" >> config.in
     elif [ $1 == "-debug" ]; then
         echo "CONFIG += debug" >> config.in
     elif [ $1 == "-release" ]; then
@@ -30,6 +30,40 @@ while (( $# > 0 )); do
         echo "QXT_stability -= unknown" >> config.in
     elif [ $1 == "-no-openssl" ]; then
         echo "QXT_LIBS -= openssl" >> config.in
+    elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
+        echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
+        echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
+        echo "       [-static] [-debug] [-release] [-no-stability-unknown]"
+        echo "       [-no-openssl] [-nomake <module>]"
+        echo
+        echo "Installation options:"
+        echo
+        echo "-prefix <dir> ....... This will install everything relative to <dir>"
+        if uname -a | grep -i Darwin; then
+            echo "                      default: /Library/Frameworks/"
+        else
+            echo "                      default: /usr/"
+        fi
+        echo "-libdir <dir> ....... Libraries will be installed to <dir>"
+        echo "                      default: PREFIX/lib"
+        echo "-docdir <dir> ....... Documentation will be installed to <dir>"
+        echo "                      default: PREFIX/share/doc"
+        echo "-bindir <dir> ....... Executables will be installed to <dir>"
+        echo "                      default: PREFIX/bin"
+        echo "-headerdir <dir> .... Include files will be installed to <dir>"
+        echo "                      default: PREFIX/include"
+        echo "-qmake-bin <path> ... Specifies the path to the qmake executable"
+        echo "                      default: search the system path"
+        echo "-static ............. Compile Qxt as a static library"
+        echo "-debug .............. Build Qxt with debugging symbols"
+        echo "-release ............ Build Qxt without debugging support"
+        echo "-no-stability-unknown Do not build untested classes"
+        echo "-no-openssl ......... Do not link to OpenSSL"
+        echo "-nomake <module> .... Do not compile the specified module"
+        echo "                      options: kit network gui sql media curses"
+
+        rm config.in
+        exit
     fi
     shift
 done
