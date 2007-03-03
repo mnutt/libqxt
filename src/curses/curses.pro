@@ -7,45 +7,45 @@ QT 		     = core
 LIBS        += -L../../deploy/libs -lQxtCore -lQxtKit -lpanel -lncurses
 TEMPLATE     = lib
 
-CursesApplication.headers     = QxtCursesApplication.h private/QxtCursesApplication_p.h
-CursesApplication.interfaces  = QxtCursesApplication
-CursesApplication.sources     = QxtCursesApplication.cpp
-CursesApplication.stability   =
+QxtCursesApplication.headers     = QxtCursesApplication.h private/QxtCursesApplication_p.h
+QxtCursesApplication.interfaces  = QxtCursesApplication
+QxtCursesApplication.sources     = QxtCursesApplication.cpp
+QxtCursesApplication.stability   =
 
-CPoint.headers                = QxtCPoint.h
-CPoint.interfaces             = QxtCPoint
-CPoint.sources                = 
-CPoint.stability              =
+QxtCPoint.headers                = QxtCPoint.h
+QxtCPoint.interfaces             = QxtCPoint
+QxtCPoint.sources                = 
+QxtCPoint.stability              =
 
-CSize.headers                 = QxtCSize.h
-CSize.interfaces              = QxtCSize
-CSize.sources                 = 
-CSize.stability               =
+QxtCSize.headers                 = QxtCSize.h
+QxtCSize.interfaces              = QxtCSize
+QxtCSize.sources                 = 
+QxtCSize.stability               =
 
-CRect.headers                 = QxtCRect.h
-CRect.interfaces              = QxtCRect
-CRect.sources                 =
-CRect.stability               =
+QxtCRect.headers                 = QxtCRect.h
+QxtCRect.interfaces              = QxtCRect
+QxtCRect.sources                 =
+QxtCRect.stability               =
 
-CKeyEvent.headers             = QxtCKeyEvent.h
-CKeyEvent.interfaces          = QxtCKeyEvent
-CKeyEvent.sources             =
-CKeyEvent.stability           =
+QxtCKeyEvent.headers             = QxtCKeyEvent.h
+QxtCKeyEvent.interfaces          = QxtCKeyEvent
+QxtCKeyEvent.sources             =
+QxtCKeyEvent.stability           =
 
-CPaintEvent.headers           = QxtCPaintEvent.h
-CPaintEvent.interfaces        = QxtCPaintEvent
-CPaintEvent.sources           = QxtCPaintEvent.cpp
-CPaintEvent.stability         =
+QxtCPaintEvent.headers           = QxtCPaintEvent.h
+QxtCPaintEvent.interfaces        = QxtCPaintEvent
+QxtCPaintEvent.sources           = QxtCPaintEvent.cpp
+QxtCPaintEvent.stability         =
 
-CWidget.headers               = QxtCWidget.h
-CWidget.interfaces            = QxtCWidget
-CWidget.sources               = QxtCWidget.cpp
-CWidget.stability             =
+QxtCWidget.headers               = QxtCWidget.h
+QxtCWidget.interfaces            = QxtCWidget
+QxtCWidget.sources               = QxtCWidget.cpp
+QxtCWidget.stability             =
 
-CFrame.headers                = QxtCFrame.h
-CFrame.interfaces             = QxtCFrame
-CFrame.sources                = QxtCFrame.cpp
-CFrame.stability              =
+QxtCFrame.headers                = QxtCFrame.h
+QxtCFrame.interfaces             = QxtCFrame
+QxtCFrame.sources                = QxtCFrame.cpp
+QxtCFrame.stability              =
 
-Parts = CursesApplication CPoint CSize CRect CKeyEvent CPaintEvent CWidget CFrame
+Parts = QxtCursesApplication QxtCPoint QxtCSize QxtCRect QxtCKeyEvent QxtCPaintEvent QxtCWidget QxtCFrame
 
