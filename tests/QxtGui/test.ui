@@ -19,14 +19,7 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="0" column="1" >
-    <widget class="QxtPushButton" name="qxtPushButton" >
-     <property name="text" >
-      <string>QxtPushButton</string>
-     </property>
-    </widget>
-   </item>
-   <item rowspan="2" row="0" column="3" >
+   <item rowspan="2" row="1" column="3" >
     <widget class="QxtTreeWidget" name="qxtTreeWidget_2" >
      <property name="decorationStyle" >
       <enum>Qxt::Menulike</enum>
@@ -81,7 +74,7 @@
      </item>
     </widget>
    </item>
-   <item rowspan="2" row="0" column="2" >
+   <item rowspan="2" row="1" column="2" >
     <widget class="QxtTreeWidget" name="qxtTreeWidget" >
      <property name="decorationStyle" >
       <enum>Qxt::Buttonlike</enum>
@@ -133,7 +126,7 @@
      </item>
     </widget>
    </item>
-   <item row="0" column="0" >
+   <item row="1" column="0" >
     <widget class="QxtPushButton" name="qxtPushButton_2" >
      <property name="text" >
       <string>QxtPushButton</string>
@@ -143,7 +136,21 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
+   <item row="2" column="1" >
+    <widget class="QxtLabel" name="qxtLabel" >
+     <property name="text" >
+      <string>QxtLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QxtPushButton" name="qxtPushButton" >
+     <property name="text" >
+      <string>QxtPushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" >
     <widget class="QxtLabel" name="qxtLabel_2" >
      <property name="text" >
       <string>Lorem Ipsum blabum dingelkgagaga fooooo</string>
@@ -156,30 +163,57 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QxtLabel" name="qxtLabel" >
-     <property name="text" >
-      <string>QxtLabel</string>
-     </property>
+   <item row="0" column="3" >
+    <widget class="QxtCheckComboBox" name="qxtCheckComboBox" >
+     <item>
+      <property name="text" >
+       <string>New Item</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>New Item</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>New Item</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>New Item</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>New Item</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QxtCheckComboBox</class>
+   <extends>QComboBox</extends>
+   <header>QxtCheckComboBox</header>
+  </customwidget>
+  <customwidget>
    <class>QxtPushButton</class>
    <extends>QPushButton</extends>
    <header>QxtPushButton</header>
   </customwidget>
   <customwidget>
-   <class>QxtTreeWidget</class>
-   <extends>QTreeWidget</extends>
-   <header>QxtTreeWidget</header>
-  </customwidget>
-  <customwidget>
    <class>QxtLabel</class>
    <extends>QFrame</extends>
    <header>QxtLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>QxtTreeWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>
