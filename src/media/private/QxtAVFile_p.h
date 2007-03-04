@@ -1,9 +1,10 @@
 #include "QxtAVFile.h"
 #include "QxtRingBuffer.h"
-
+#ifndef INT64_C 
+	#define INT64_C Q_INT64_C
+#endif
 #include <ffmpeg/avcodec.h>
 #include <ffmpeg/avformat.h>
-
 
 class QxtAVFilePrivate : public QObject, public QxtPrivate<QxtAVFile>
 	{

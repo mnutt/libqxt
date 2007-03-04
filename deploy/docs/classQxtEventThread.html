@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1>QxtEventThread&lt; T &gt; Class Template Reference<br>
 <small>
 [<a class="el" href="group__kit.html">Kit</a>]</small>
-</h1><!-- doxytag: class="QxtEventThread" -->QObject which can have slots running in a different Thread.  
+</h1><!-- doxytag: class="QxtEventThread" -->run a single QObject in a different thread  
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;QxtEventThread&gt;</code>
@@ -59,16 +59,13 @@ T *&nbsp;</td><td class="memItemRight" valign="bottom"><b>instance_p</b></td></t
 <h3>template&lt;typename T&gt;<br>
  class QxtEventThread&lt; T &gt;</h3>
 
-QObject which can have slots running in a different Thread. 
+run a single QObject in a different thread 
 <p>
-this provides you with the clasic QThread + QObject as receiver solution all in one.<br>
- signals connected with QxtEventThread::connect are executing the slot in a different Thread. for implementation reasons you need to call start() before connect().<p>
-<dl class="warning" compact><dt><b>Warning:</b></dt><dd>slots connected to with anything else then QxtEventThread::connect will execute in the main thread.</dd></dl>
+This provides you with a solution to make a QObject run in a different thread.<br>
+ When you connect to a slot of that Object using QxtEventThread::connect this slot will be executed in the Objects thread.<p>
 <br>
- <br>
 <p>
 usage: <div class="fragment"><pre class="fragment"><a class="code" href="classQxtEventThread.html">QxtEventThread&lt;MyObject&gt;</a> eventthread;
-eventthread.start();
 eventthread.connect(timer,SIGNAL(timout()),SLOT(myslot()));
 </pre></div> 
 <p>

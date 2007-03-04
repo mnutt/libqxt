@@ -36,8 +36,6 @@ width="32" height="32" border="0" /></a></td>
 </h1><!-- doxytag: class="QxtAVFile" -->AV Decoder.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;QxtAVFile&gt;</code>
-<p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
@@ -151,9 +149,9 @@ opens a stream or file from <em>url</em>.
 <div class="memdoc">
 
 <p>
-read an amount of <em>length</em> shorts into the <em>target</em> buffer.<p>
+read an amount of <em>length</em> shorts into the target buffer.<p>
 the result is always stereo interlaced and guarantied to be the expected size.<br>
- Maximum alowed length is one half second. This is 1*samplerate(). 
+ Maximum alowed length is one second. This is 1*samplerate(). 
 </div>
 </div><p>
 <a class="anchor" name="52d4aa3a9fa508a85a544ee5cf4a5064"></a><!-- doxytag: member="QxtAVFile::read" ref="52d4aa3a9fa508a85a544ee5cf4a5064" args="(float *, unsigned long length)" -->
@@ -182,7 +180,7 @@ the result is always stereo interlaced and guarantied to be the expected size.<b
 <div class="memdoc">
 
 <p>
-read an amount of <em>length</em> floats into the <em>target</em> buffer.<p>
+read an amount of <em>length</em> floats into the target buffer.<p>
 This is an overloaded member function, provided for convenience. 
 </div>
 </div><p>
@@ -212,7 +210,7 @@ This is an overloaded member function, provided for convenience.
 <div class="memdoc">
 
 <p>
-read an amount of <em>length</em> chars into the <em>target</em> buffer.<p>
+read an amount of <em>length</em> chars into the target buffer.<p>
 This is an overloaded member function, provided for convenience. 
 </div>
 </div><p>
