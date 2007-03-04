@@ -58,8 +58,7 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>setTabContextMenuPoli
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#3b1a8ef96e696d7af28642d5b53d653b">addTabActions</a> (int index, QList&lt; QAction * &gt; actions)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e71cc919250be0a74be547cc4f726a6f"></a><!-- doxytag: member="QxtTabWidget::clearTabActions" ref="e71cc919250be0a74be547cc4f726a6f" args="(int index)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><b>clearTabActions</b> (int index)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#e71cc919250be0a74be547cc4f726a6f">clearTabActions</a> (int index)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#133ea0f8a7ec3450f4fbaab71edb257f">insertTabAction</a> (int index, QAction *before, QAction *action)</td></tr>
 
@@ -68,18 +67,6 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><b>clearTabActions</b> (
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction</a> (int index, QAction *action)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">QList&lt; QAction * &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions</a> (int index) const</td></tr>
-
-<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="cce406eb24064b4a78aec1df1efe1840"></a><!-- doxytag: member="QxtTabWidget::tabInserted" ref="cce406eb24064b4a78aec1df1efe1840" args="(int index)" -->
-virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><b>tabInserted</b> (int index)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="3f97a2b3706507ec0f0857619b6668d8"></a><!-- doxytag: member="QxtTabWidget::tabRemoved" ref="3f97a2b3706507ec0f0857619b6668d8" args="(int index)" -->
-virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><b>tabRemoved</b> (int index)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d366c42f6bb793fe9e01531603aa45fb"></a><!-- doxytag: member="QxtTabWidget::contextMenuEvent" ref="d366c42f6bb793fe9e01531603aa45fb" args="(QContextMenuEvent *event)" -->
-virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><b>contextMenuEvent</b> (QContextMenuEvent *event)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent</a> (int index, QContextMenuEvent *event)</td></tr>
 
 <tr><td colspan="2"><br><h2>Properties</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">Qt::ContextMenuPolicy&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0">tabContextMenuPolicy</a><code> []</code></td></tr>
@@ -192,6 +179,28 @@ Appends the <em>action</em> to the list of actions of the tab at <em>index</em>.
 
 <p>
 Appends the <em>actions</em> to the list of actions of the tab at <em>index</em>.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction()</a>, <a class="el" href="classQxtTabWidget.html#483d0d48f8c3c787c65a2cdd24e95b3e">addTabAction()</a> </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="e71cc919250be0a74be547cc4f726a6f"></a><!-- doxytag: member="QxtTabWidget::clearTabActions" ref="e71cc919250be0a74be547cc4f726a6f" args="(int index)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void QxtTabWidget::clearTabActions           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>index</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Clears the list of actions of the tab at <em>index</em>.<p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction()</a>, <a class="el" href="classQxtTabWidget.html#483d0d48f8c3c787c65a2cdd24e95b3e">addTabAction()</a> </dd></dl>
 
 </div>
@@ -352,39 +361,6 @@ Returns the (possibly empty) list of actions for the tab at <em>index</em>.<p>
 This signal is emitted whenever the context menu is requested over tab at <em>index</em> at <em>globalPos</em>. 
 </div>
 </div><p>
-<a class="anchor" name="ddd8f604888b15c79a54c1b9b049c35c"></a><!-- doxytag: member="QxtTabWidget::tabContextMenuEvent" ref="ddd8f604888b15c79a54c1b9b049c35c" args="(int index, QContextMenuEvent *event)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void QxtTabWidget::tabContextMenuEvent           </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">QContextMenuEvent *&nbsp;</td>
-          <td class="paramname"> <em>event</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"><code> [protected, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This event handler, for event <em>event</em>, can be reimplemented in a subclass to receive context menu events for the tab at <em>index</em>.<p>
-The handler is called when  tabContextMenuPolicy is <b>Qt::DefaultContextMenu</b>.<p>
-The default implementation ignores the context menu event.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> </dd></dl>
-
-</div>
-</div><p>
 <hr><h2>Property Documentation</h2>
 <a class="anchor" name="7e940acaabc0104aa37b3a1478e1d2d0"></a><!-- doxytag: member="QxtTabWidget::tabContextMenuPolicy" ref="7e940acaabc0104aa37b3a1478e1d2d0" args="" -->
 <div class="memitem">
@@ -400,8 +376,8 @@ The default implementation ignores the context menu event.<p>
 <p>
 This property holds how the tab specific context menus are handled. 
 <p>
-The default value of this property is <b>Qt::DefaultContextMenu</b>, which means the <a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent()</a> handler is called. Other values are <b>Qt::NoContextMenu</b>, <b>Qt::PreventContextMenu</b>, <b>Qt::ActionsContextMenu</b>, and <b>Qt::CustomContextMenu</b>. With <b>Qt::CustomContextMenu</b>, the signal <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> is emitted.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent()</a>, <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a>, <a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions()</a> </dd></dl>
+The default value of this property is <b>Qt::DefaultContextMenu</b>, which means the tabContextMenuEvent() handler is called. Other values are <b>Qt::NoContextMenu</b>, <b>Qt::PreventContextMenu</b>, <b>Qt::ActionsContextMenu</b>, and <b>Qt::CustomContextMenu</b>. With <b>Qt::CustomContextMenu</b>, the signal <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> is emitted.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>tabContextMenuEvent(), <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a>, <a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions()</a> </dd></dl>
 
 </div>
 </div><p>
