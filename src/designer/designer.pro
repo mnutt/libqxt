@@ -16,17 +16,23 @@ HEADERS += QxtDesignerPlugins.h \
            QxtLabelPlugin.h       \
            QxtPushButtonPlugin.h  \
            QxtTreeWidgetPlugin.h \
-           QxtCheckComboBoxPlugin.h
+           QxtCheckComboBoxPlugin.h \
+           QxtStringSpinBoxPlugin.h \
+           QxtStringSpinBoxTaskMenu.h \
+           QxtStringListEditor.h
 
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
            QxtLabelPlugin.cpp  \ 
            QxtPushButtonPlugin.cpp \
            QxtTreeWidgetPlugin.cpp \
-           QxtCheckComboBoxPlugin.cpp
+           QxtCheckComboBoxPlugin.cpp \
+           QxtStringSpinBoxPlugin.cpp \
+           QxtStringSpinBoxTaskMenu.cpp \
+           QxtStringListEditor.cpp
 
 
-Parts=QxtDesignerPlugins QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox
+Parts=QxtDesignerPlugins QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtStringSpinBox
 
 
 

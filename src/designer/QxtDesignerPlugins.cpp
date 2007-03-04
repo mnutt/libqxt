@@ -9,6 +9,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtPushButtonPlugin.h"
 #include "QxtTreeWidgetPlugin.h"
 #include "QxtCheckComboBoxPlugin.h"
+#include "QxtStringSpinBoxPlugin.h"
 #include <QtPlugin>
 
 QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
@@ -17,6 +18,7 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
 	plugins << new QxtLabelPlugin()
 		<< new QxtPushButtonPlugin()
 		<< new QxtCheckComboBoxPlugin()
+		<< new QxtStringSpinBoxPlugin()
 		<< new QxtTreeWidgetPlugin();
 	return plugins;
 }
