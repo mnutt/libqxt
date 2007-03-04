@@ -29,4 +29,6 @@ QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
 
 QxtProxyStyle.sources		= QxtProxyStyle.cpp
 
-Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtProxyStyle
+QxtStringSpinBox.sources	= QxtStringSpinBox.cpp
+
+Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtProxyStyle QxtStringSpinBox
