@@ -6,7 +6,7 @@ CONFIG          += qxtbuild convenience
 CONFIG          -= qt
 QT               = 
 INCLUDEPATH     += . ../../deploy/include 
-TEMPLATE     = lib
+TEMPLATE         = lib
 
 QxtTuple.headers        = QxtTypeList.h QxtTupleList.h
 QxtError.sources        = QxtError.cpp
