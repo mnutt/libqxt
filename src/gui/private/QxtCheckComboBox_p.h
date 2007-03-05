@@ -12,22 +12,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #include <QxtPimpl.h>
 #include "QxtCheckComboBox.h"
 
-class QxtCheckComboBoxPrivate : public QObject, public QxtPrivate<QxtCheckComboBox>
-{
-	Q_OBJECT
-	
-public:
-	QXT_DECLARE_PUBLIC(QxtCheckComboBox);
-	QxtCheckComboBoxPrivate();
-	QString separator;
-	QString defaultText;
-	QStringList checkedItems;
-	
-public slots:
-	void hidePopup();
-	void updateCheckedItems();
-};
-
 class QxtCheckComboView : public QListView
 {
 	Q_OBJECT
@@ -37,6 +21,9 @@ public:
 	~QxtCheckComboView();
 	
 	virtual bool eventFilter(QObject* object, QEvent* event);
+	QxtCheckComboBox::CheckMode mode;
+	bool handleIndicatorRelease(QMouseEvent* event, const QModelIndex& index);
+	bool handleItemRelease(QMouseEvent* event, const QModelIndex& index);
 	
 signals:
 	void hideRequested();
@@ -56,6 +43,23 @@ public:
 	
 signals:
 	void checkStateChanged();
+};
+
+class QxtCheckComboBoxPrivate : public QObject, public QxtPrivate<QxtCheckComboBox>
+{
+	Q_OBJECT
+	
+public:
+	QXT_DECLARE_PUBLIC(QxtCheckComboBox);
+	QxtCheckComboBoxPrivate();
+	QString separator;
+	QString defaultText;
+	QStringList checkedItems;
+	QxtCheckComboView* view;
+	
+public slots:
+	void hidePopup();
+	void updateCheckedItems();
 };
 
 #endif // QXTCHECKCOMBOBOX_P_H
