@@ -9,6 +9,8 @@ TEMPLATE     = lib
 
 RESOURCES    = resources.qrc
 
+target.path = $$[QT_INSTALL_PLUGINS]/designer
+INSTALLS+=target
 
 
 HEADERS += QxtDesignerPlugins.h \
