@@ -29,7 +29,6 @@ public:
 	virtual ~QxtLabel();
 	
 	QString text() const;
-	void setText(const QString& text);
 	
 	Qt::Alignment alignment() const;
 	void setAlignment(Qt::Alignment alignment);
@@ -45,8 +44,12 @@ public:
 	virtual QSize minimumSizeHint() const;
 #endif // QXT_DOXYGEN_RUN
 	
+public slots:
+	void setText(const QString& text);
+	
 signals:
 	void clicked();
+	void textChanged(const QString& text);
 	
 #ifndef QXT_DOXYGEN_RUN
 protected:

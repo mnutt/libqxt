@@ -99,6 +99,7 @@ void QxtLabel::setText(const QString& text)
 	{
 		qxt_d().text = text;
 		qxt_d().updateLabel();
+		emit textChanged(text);
 	}
 }
 
