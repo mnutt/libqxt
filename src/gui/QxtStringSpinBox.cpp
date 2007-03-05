@@ -110,7 +110,7 @@ QValidator::State QxtStringSpinBox::validate(QString& input, int& pos) const
 
 QString QxtStringSpinBox::textFromValue(int value) const
 {
-	Q_ASSERT(value >= 0 && value < qxt_d().strings.size());
+	Q_ASSERT(qxt_d().strings.isEmpty() || (value >= 0 && value < qxt_d().strings.size()));
 	return qxt_d().strings.isEmpty() ? QLatin1String("") : qxt_d().strings.at(value);
 }
 
