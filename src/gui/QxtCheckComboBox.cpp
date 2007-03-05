@@ -44,7 +44,8 @@ void QxtCheckComboBoxPrivate::updateCheckedItems()
 	emit qxt_p().checkedItemsChanged(checkedItems);
 }
 
-QxtCheckComboView::QxtCheckComboView(QWidget* parent) : QListView(parent)
+QxtCheckComboView::QxtCheckComboView(QWidget* parent)
+	: QListView(parent), mode(QxtCheckComboBox::CheckIndicator)
 {
 }
 
@@ -61,26 +62,76 @@ bool QxtCheckComboView::eventFilter(QObject* object, QEvent* event)
 		const QModelIndex& index = indexAt(mouse->pos());
 		if (index.isValid())
 		{
-			// check if the mouse was released over the checkbox
-			QStyleOptionButton option;
-			option.QStyleOption::operator=(viewOptions());
-			option.rect = visualRect(index);
-			const QRect& rect = style()->subElementRect(QStyle::SE_ViewItemCheckIndicator, &option);
-			if (rect.contains(mouse->pos()))
+			bool change = false;
+			switch (mode)
 			{
-				// mouse was released over the check indicator,
-				// bypass combobox and deliver the event just for the listview
+				case QxtCheckComboBox::CheckIndicator:
+					change = handleIndicatorRelease(mouse, index);
+					break;
+					
+				case QxtCheckComboBox::CheckWholeItem:
+					change = handleItemRelease(mouse, index);
+					break;
+					
+				default:
+					qWarning("QxtCheckComboView::eventFilter(): unknown mode");
+					break;
+			}
+			
+			if (change)
+			{
+				// the check state is about to change, bypass
+				// combobox and deliver the event just for the listview
 				QListView::mouseReleaseEvent(mouse);
 			}
 			else
 			{
-				// it's ok to close
+				// otherwise it's ok to close
 				emit hideRequested();
 			}
 			return true;
 		}
 	}
 	return false;
+}
+
+bool QxtCheckComboView::handleIndicatorRelease(QMouseEvent* event, const QModelIndex& index)
+{
+	// check if the mouse was released over the checkbox
+	QStyleOptionButton option;
+	option.QStyleOption::operator=(viewOptions());
+	option.rect = visualRect(index);
+	const QRect& rect = style()->subElementRect(QStyle::SE_ViewItemCheckIndicator, &option);
+	return rect.contains(event->pos());
+}
+
+bool QxtCheckComboView::handleItemRelease(QMouseEvent* event, const QModelIndex& index)
+{
+	// check if the mouse was released over the checkbox
+	QStyleOptionButton option;
+	option.QStyleOption::operator=(viewOptions());
+	option.rect = visualRect(index);
+	const QRect& rect = style()->subElementRect(QStyle::SE_ViewItemCheckIndicator, &option);
+	if (!rect.contains(event->pos()))
+	{
+		Qt::CheckState state = (Qt::CheckState) index.data(Qt::CheckStateRole).toInt();
+		switch (state)
+		{
+			case Qt::Unchecked:
+				state = Qt::Checked;
+				break;
+				
+			case Qt::Checked:
+				state = Qt::Unchecked;
+				break;
+				
+			default:
+				qWarning("QxtCheckComboView::handleItemRelease(): partially checked item");
+				break;
+		}
+		model()->setData(index, state, Qt::CheckStateRole);
+	}
+	return true;
 }
 
 QxtCheckComboModel::QxtCheckComboModel(QObject* parent)
@@ -131,6 +182,15 @@ bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, Q
  */
 
 /*!
+    \enum QxtCheckComboBox::CheckMode
+
+    This enum describes the check mode.
+
+    \value CheckIndicator    The check state changes only via the check indicator (like in item views).
+    \value CheckWholeItem    The check state changes via the whole item (like with a combo box).
+ */
+
+/*!
     \fn QxtCheckComboBox::checkedItemsChanged(const QStringList& items)
 
     This signal is emitted whenever the checked items have been changed.
@@ -144,6 +204,7 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
 	QXT_INIT_PRIVATE(QxtCheckComboBox);
 	QxtCheckComboModel* model = new QxtCheckComboModel(this);
 	QxtCheckComboView*  view  = new QxtCheckComboView(this);
+	qxt_d().view = view;
 	setModel(model);
 	setView(view);
 	
@@ -187,7 +248,7 @@ void QxtCheckComboBox::setItemCheckState(int index, Qt::CheckState state)
 
 /*!
     \property QxtCheckComboBox::checkedItems
-    \brief This property holds the checked items
+    \brief This property holds the checked items.
  */
 QStringList QxtCheckComboBox::checkedItems() const
 {
@@ -207,7 +268,7 @@ void QxtCheckComboBox::setCheckedItems(const QStringList& items)
 
 /*!
     \property QxtCheckComboBox::defaultText
-    \brief This property holds the default text
+    \brief This property holds the default text.
 
     The default text is shown when there is no checked items.
     The default value is an empty string.
@@ -228,7 +289,7 @@ void QxtCheckComboBox::setDefaultText(const QString& text)
 
 /*!
     \property QxtCheckComboBox::separator
-    \brief This property holds the default text
+    \brief This property holds the default text.
 
     The checked items are joined together with the separator string.
     The default value is a comma (",").
@@ -244,6 +305,26 @@ void QxtCheckComboBox::setSeparator(const QString& separator)
 	{
 		qxt_d().separator = separator;
 		qxt_d().updateCheckedItems();
+	}
+}
+
+/*!
+    \property QxtCheckComboBox::checkMode
+    \brief This property holds the check mode.
+
+    The check mode describes item checking behaviour.
+    The default value is \b QxtCheckComboBox::CheckIndicator.
+ */
+QxtCheckComboBox::CheckMode QxtCheckComboBox::checkMode() const
+{
+	return qxt_d().view->mode;
+}
+
+void QxtCheckComboBox::setCheckMode(QxtCheckComboBox::CheckMode mode)
+{
+	if (qxt_d().view->mode != mode)
+	{
+		qxt_d().view->mode = mode;
 	}
 }
 

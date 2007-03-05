@@ -21,8 +21,15 @@ class QXT_GUI_EXPORT QxtCheckComboBox : public QComboBox
 	Q_PROPERTY(QString separator READ separator WRITE setSeparator)
 	Q_PROPERTY(QString defaultText READ defaultText WRITE setDefaultText)
 	Q_PROPERTY(QStringList checkedItems READ checkedItems WRITE setCheckedItems)
+	Q_PROPERTY(QxtCheckComboBox::CheckMode checkMode READ checkMode WRITE setCheckMode)
 	
 public:
+	enum CheckMode
+	{
+		CheckIndicator,
+		CheckWholeItem
+	};
+	
 	explicit QxtCheckComboBox(QWidget* parent = 0);
 	virtual ~QxtCheckComboBox();
 	
@@ -37,6 +44,9 @@ public:
 	
 	QString separator() const;
 	void setSeparator(const QString& separator);
+	
+	CheckMode checkMode() const;
+	void setCheckMode(CheckMode mode);
 	
 signals:
 	void checkedItemsChanged(const QStringList& items);
