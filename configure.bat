@@ -1,4 +1,4 @@
-echo off
+@echo off
 echo qmake -recursive > doqmake.bat
 echo QXT_stability += unknown > config.in
 
@@ -17,6 +17,7 @@ if "%1" == "-debug" goto debug
 if "%1" == "-release" goto release
 if "%1" == "-no-stability-unknown" goto nounknown
 if "%1" == "-no-openssl" goto nossl
+if "%1" == "-msvc" goto msvc
 if "%1" == "-help" goto help
 if "%1" == "--help" goto help
 if "%1" == "/help" goto help
@@ -84,11 +85,15 @@ goto top
     echo QXT_LIBS -= openssl >> config.in
     goto bottom
 
+:msvc
+    echo TEMPLATE = vclib >> config.in
+    goto bottom
+
 :help
     echo Usage: configure [-prefix (dir)] [-libdir (dir)] [-docdir (dir)]
     echo        [-bindir (dir)] [-headerdir (dir)] [-qmake-bin (path)]
     echo        [-static] [-debug] [-release] [-no-stability-unknown]
-    echo        [-no-openssl] [-nomake (module)]
+    echo        [-no-openssl] [-nomake (module)] [-msvc]
     echo.
     echo Installation options:
     echo.
@@ -111,6 +116,7 @@ goto top
     echo -no-openssl ......... Do not link to OpenSSL
     echo -nomake (module) .... Do not compile the specified module
     echo                       options: kit network gui sql media curses
+    echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del config.in
     goto end
