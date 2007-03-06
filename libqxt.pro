@@ -5,8 +5,8 @@
 # Use config.pri to specify compile options.
 #
 unix:!macx:include(features/unix/qxtbuild.prf)
-win32:include(features/unix/qxtbuild.prf)
-macx:include(features/unix/qxtbuild.prf)
+win32:include(features/win32/qxtbuild.prf)
+macx:include(features/macx/qxtbuild.prf)
 
 TEMPLATE = subdirs
 DESTDIR      = deploy/libs
