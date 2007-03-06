@@ -29,7 +29,7 @@ QObject* QxtCursesApplication::focusWidget() {
 }
 
 void QxtCursesApplicationPrivate::handleInput() {
-    int k, v;
+    int k, v = 0;
     do {
         k = getch();
         if(k==ERR) return;
