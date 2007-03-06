@@ -22,7 +22,7 @@ setData(other.data());
 
 bool QxtSqlPackage::isValid()
 	{
-	if ((record >= 0)  and (record < map.count()  ))
+	if ((record >= 0) && (record < map.count()  ))
 		return true;
 	else
 		return false;
@@ -79,7 +79,7 @@ bool QxtSqlPackage::first()
 
 QString QxtSqlPackage::value(QString key)
 	{
-	if ((record<0)or !map.count()) return QString();
+	if ((record<0) || !map.count()) return QString();
 
 	return map.at(record).value(key);
 
