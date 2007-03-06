@@ -181,7 +181,7 @@ void QxtLabel::setRotation(Qxt::Rotation rotation)
 				
 			case Qxt::Clockwise:
 			case Qxt::CounterClockwise:
-				if (prev & Vertical_Mask == 0)
+				if ((prev & Vertical_Mask) == 0)
 				{
 					updateGeometry();
 				}
