@@ -2,6 +2,7 @@ TARGET           =  QxtNetwork
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../../deploy/include
 DEFINES         += BUILD_QXT_NETWORK
+win32: CONFIG   += dll
 CONFIG          += qxtbuild convenience
 QT              =  core network
 TEMPLATE        = lib

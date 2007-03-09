@@ -2,6 +2,7 @@ TARGET       =  QxtKit
 DEPENDPATH 	+= .
 INCLUDEPATH += . ../core ../../deploy/include 
 DEFINES     += BUILD_QXT_KIT
+win32: CONFIG   += dll
 CONFIG      += qxtbuild convenience
 QT           = core
 LIBS        += -L../../deploy/libs/  -lQxtCore

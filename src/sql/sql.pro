@@ -4,6 +4,7 @@ TARGET           =  QxtSql
 DEPENDPATH      += .
 INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_SQL
+win32: CONFIG   += dll
 CONFIG          += qxtbuild convenience
 QT               = core sql
 TEMPLATE     = lib
