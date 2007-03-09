@@ -19,9 +19,7 @@ HEADERS += QxtDesignerPlugins.h \
            QxtPushButtonPlugin.h  \
            QxtTreeWidgetPlugin.h \
            QxtCheckComboBoxPlugin.h \
-           QxtStringSpinBoxPlugin.h \
-           QxtStringSpinBoxTaskMenu.h \
-           QxtStringListEditor.h
+           QxtStringSpinBoxPlugin.h
 
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
@@ -29,9 +27,7 @@ SOURCES += QxtDesignerPlugins.cpp \
            QxtPushButtonPlugin.cpp \
            QxtTreeWidgetPlugin.cpp \
            QxtCheckComboBoxPlugin.cpp \
-           QxtStringSpinBoxPlugin.cpp \
-           QxtStringSpinBoxTaskMenu.cpp \
-           QxtStringListEditor.cpp
+           QxtStringSpinBoxPlugin.cpp
 
 
 Parts=QxtDesignerPlugins QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtStringSpinBox
