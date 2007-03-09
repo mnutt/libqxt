@@ -21,10 +21,6 @@ public:
 	QString includeFile() const;
 	QString name() const;
 	QWidget* createWidget(QWidget* parent);
-	void initialize(QDesignerFormEditorInterface* formEditor);
-	
-private:
-	bool init;
 };
 
 #endif // QXTSTRINGSPINBOXPLUGIN_H
