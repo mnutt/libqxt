@@ -66,5 +66,5 @@ contains(QXT, kit ){
 contains(QXT, core ){
         INCLUDEPATH +=$${QXTinclude}/QxtCore
 	unix : LIBS += -lQxtCore
-	win32: LIBS += -lQxtCore
+	win32: LIBS += -lQxtCore0
         }
