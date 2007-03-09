@@ -3,7 +3,8 @@ TEMPLATE     = lib
 TARGET       = QxtDesignerPlugins
 DEPENDPATH  += .
 INCLUDEPATH += . ../core ../gui ../kit ../../deploy/include 
-LIBS        += -L../../deploy/libs/ -lQxtKit -lQxtCore -lQxtGui
+unix :LIBS        += -L../../deploy/libs/ -lQxtKit  -lQxtCore  -lQxtGui
+win32:LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -lQxtGui0
 CONFIG      += designer plugin debug_and_release build_all
 TEMPLATE     = lib
 
