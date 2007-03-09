@@ -10,7 +10,8 @@ QT               = core sql
 TEMPLATE     = lib
 
 INCLUDEPATH     += . ../core ../../deploy/include 
-LIBS            += -L../../deploy/libs/ -lQxtKit -lQxtCore
+unix : LIBS            += -L../../deploy/libs/ -lQxtKit  -lQxtCore
+win32: LIBS            += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0
 
 
 

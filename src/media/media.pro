@@ -5,7 +5,9 @@ DEFINES         += BUILD_QXT_MEDIA
 win32: CONFIG   += dll
 CONFIG          += qxtbuild convenience
 QT               = core gui
-LIBS            += -L../../deploy/libs/ -lQxtCore -lQxtKit
+unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
+win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
+
 LIBS            += -lavcodec -lavformat -lSDL
 TEMPLATE         = lib
 

@@ -7,7 +7,8 @@ CONFIG          += qxtbuild convenience
 QT              =  core network
 TEMPLATE        = lib
 
-LIBS            += -L../../deploy/libs/ -lQxtCore -lQxtKit
+unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
+win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
 LIBS            += -lssl	
 
 

@@ -5,7 +5,8 @@ DEFINES     += BUILD_QXT_KIT
 win32: CONFIG   += dll
 CONFIG      += qxtbuild convenience
 QT           = core
-LIBS        += -L../../deploy/libs/  -lQxtCore
+unix : LIBS        += -L../../deploy/libs/  -lQxtCore
+win32: LIBS        += -L../../deploy/libs/  -lQxtCore0
 TEMPLATE     = lib
 
 QxtSignalWaiter.sources 	= QxtSignalWaiter.cpp

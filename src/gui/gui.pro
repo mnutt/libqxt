@@ -2,8 +2,12 @@ TARGET       = QxtGui
 DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
-LIBS        += -L../../deploy/libs/ -lQxtKit -lQtCore
+unix : LIBS        += -L../../deploy/libs/ -lQxtKit  -lQtCore 
+win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQtCore0
+
 win32: CONFIG   += dll
+
+
 CONFIG      += qxtbuild convenience
 QT           = core gui 
 TEMPLATE     = lib
