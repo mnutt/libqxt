@@ -2,8 +2,8 @@ TARGET       = QxtGui
 DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
-unix : LIBS        += -L../../deploy/libs/ -lQxtKit  -lQtCore 
-win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQtCore0
+unix : LIBS        += -L../../deploy/libs/ -lQxtKit  -lQxtCore 
+win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0
 
 win32: CONFIG   += dll
 
