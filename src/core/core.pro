@@ -2,6 +2,7 @@ TARGET           =  QxtCore
 DEPENDPATH      += .
 INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_CORE
+win32: CONFIG   += dll
 CONFIG          += qxtbuild convenience
 CONFIG          -= qt
 QT               = 

@@ -2,6 +2,7 @@ TARGET           =  QxtMedia
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../../deploy/include ./private
 DEFINES         += BUILD_QXT_MEDIA
+win32: CONFIG   += dll
 CONFIG          += qxtbuild convenience
 QT               = core gui
 LIBS            += -L../../deploy/libs/ -lQxtCore -lQxtKit
