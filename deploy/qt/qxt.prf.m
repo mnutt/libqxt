@@ -30,22 +30,26 @@ LIBS += -Wl,-rpath,$${QXTlib} -L$${QXTlib}
 
 contains(QXT, curses ){
         INCLUDEPATH +=$${QXTinclude}/QxtCurses
-	LIBS += -lQxtCurses
+	unix : LIBS += -lQxtCurses
+	win32: LIBS += -lQxtCurses0
 	QXT+=kit
         }
 contains(QXT, gui ){
         INCLUDEPATH +=$${QXTinclude}/QxtGui
-	LIBS += -lQxtGui
+	unix : LIBS += -lQxtGui
+	win32: LIBS += -lQxtGui0
 	QXT+=kit
         }
 contains(QXT, network ){
         INCLUDEPATH +=$${QXTinclude}/QxtNetwork
-	LIBS += -lQxtNetwork
+	unix : LIBS += -lQxtNetwork
+	win32: LIBS += -lQxtNetwork0
 	QXT+=kit
         }
 contains(QXT, sql ){
         INCLUDEPATH +=$${QXTinclude}/QxtSql
-	LIBS += -lQxtSql
+	unix : LIBS += -lQxtSql
+	win32: LIBS += -lQxtSql0
 	QXT+=kit
         }
 contains(QXT, media ){
@@ -55,10 +59,12 @@ contains(QXT, media ){
         }
 contains(QXT, kit ){
         INCLUDEPATH +=$${QXTinclude}/QxtKit
-	LIBS += -lQxtKit
+	unix : LIBS += -lQxtKit
+	win32: LIBS += -lQxtKit0
 	QXT+=core
         }
 contains(QXT, core ){
         INCLUDEPATH +=$${QXTinclude}/QxtCore
-	LIBS += -lQxtCore
+	unix : LIBS += -lQxtCore
+	win32: LIBS += -lQxtCore
         }
