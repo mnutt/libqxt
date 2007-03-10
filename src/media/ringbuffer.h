@@ -19,6 +19,29 @@
     $Id: ringbuffer.h 729 2004-07-08 17:21:03Z joq $
 */
 
+
+
+///aep: name mangeling to avoid symbol colision
+
+#define jack_ringbuffer_create   		jack_ringbuffer_create_inside_libqxt
+#define jack_ringbuffer_free 			jack_ringbuffer_free_inside_libqxt
+#define jack_ringbuffer_get_read_vector		jack_ringbuffer_get_read_vector_inside_libqxt
+#define jack_ringbuffer_get_write_vector 	jack_ringbuffer_get_write_vector_inside_libqxt
+#define jack_ringbuffer_read 			jack_ringbuffer_read_inside_libqxt
+#define jack_ringbuffer_peek 			jack_ringbuffer_peek_inside_libqxt
+#define jack_ringbuffer_read_advance 		jack_ringbuffer_read_advance_inside_libqxt
+#define jack_ringbuffer_read_space 		jack_ringbuffer_read_space_inside_libqxt
+#define jack_ringbuffer_mlock 			jack_ringbuffer_mlock_inside_libqxt
+#define jack_ringbuffer_reset 			jack_ringbuffer_reset_inside_libqxt
+#define jack_ringbuffer_write 			jack_ringbuffer_write_inside_libqxt
+#define jack_ringbuffer_write_advance 		jack_ringbuffer_write_advance_inside_libqxt
+#define jack_ringbuffer_write_space 		jack_ringbuffer_write_space_inside_libqxt
+
+///endaep
+
+
+
+
 #ifndef _RINGBUFFER_H
 #define _RINGBUFFER_H
 
