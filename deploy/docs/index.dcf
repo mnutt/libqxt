@@ -1,0 +1,317 @@
+<assistantconfig version="3.2.0">
+<DCF ref="./annotated.html" icon="handbook.png" imagedir="." title="Qxt Reference Documentation">
+
+<section ref="./annotated.html" title="Classes">
+
+<section ref="classQxtApplication.html" title="QxtApplication"> 
+	<keyword ref="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</keyword>
+	<keyword ref="classQxtApplication.html#938c7a60e2cf0642f1d808af3f02e50e">instance</keyword>
+	<keyword ref="classQxtApplication.html#500399160c42c249bb21114d662c3d09">QxtApplication</keyword>
+	<keyword ref="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</keyword>
+</section>
+
+<section ref="classQxtAVFile.html" title="QxtAVFile"> 
+	<keyword ref="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</keyword>
+	<keyword ref="classQxtAVFile.html#778280bc1cbc41f3f874adae19190641">length</keyword>
+	<keyword ref="classQxtAVFile.html#5a10ba6ca80961c46f366bc2f162710b">open</keyword>
+	<keyword ref="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</keyword>
+	<keyword ref="classQxtAVFile.html#32a13ecae2bf559e131d046805cd9f8c">QxtAVFile</keyword>
+	<keyword ref="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</keyword>
+	<keyword ref="classQxtAVFile.html#f3444211edcb9d5d5a5e8eb7b86fbb2c">samplerate</keyword>
+	<keyword ref="classQxtAVFile.html#b030f5b85645f83363bcb2c1c2e4cb70">seek</keyword>
+	<keyword ref="classQxtAVFile.html#954de341b192935aa47ef6cbf9e99406">seekP</keyword>
+	<keyword ref="classQxtAVFile.html#460ea18b92abe99c320a7fd4a224779c">setSamplerate</keyword>
+	<keyword ref="classQxtAVFile.html#d876b40064be1bbb3c25a7001e5225cc">time</keyword>
+	<keyword ref="classQxtAVFile.html#a8a591ebe0ef2633fb7f5bdf4a370a22">timeP</keyword>
+</section>
+
+<section ref="classQxtAVPlayer.html" title="QxtAVPlayer"> 
+	<keyword ref="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</keyword>
+</section>
+
+<section ref="classQxtCheckComboBox.html" title="QxtCheckComboBox"> 
+	<keyword ref="classQxtCheckComboBox.html#c3c7d2e38bb500b0276e23537e9c664d">checkedItemsChanged</keyword>
+	<keyword ref="classQxtCheckComboBox.html#e7c491ba5d2b5cd140d5024da2de079b">checkMode</keyword>
+	<keyword ref="classQxtCheckComboBox.html#898e44005af175ddce03929805ee6b27">CheckMode</keyword>
+	<keyword ref="classQxtCheckComboBox.html#6ddab98d38c229412a060321f1640a3f">defaultText</keyword>
+	<keyword ref="classQxtCheckComboBox.html#6155154f172eace578aea54761135481">itemCheckState</keyword>
+	<keyword ref="classQxtCheckComboBox.html#678823451079b100c6eec699d6089a96">QxtCheckComboBox</keyword>
+	<keyword ref="classQxtCheckComboBox.html#656f5a7488c6f8b71d653596799a9281">separator</keyword>
+	<keyword ref="classQxtCheckComboBox.html#47e17f263a7b4c443172355e73c39802">setItemCheckState</keyword>
+	<keyword ref="classQxtCheckComboBox.html#dc6c67fe288f48125849e8e2b79cdb3b">~QxtCheckComboBox</keyword>
+</section>
+
+<section ref="classQxtCKeyEvent.html" title="QxtCKeyEvent"> 
+	<keyword ref="classQxtCKeyEvent.html#afd5022c64dab55cb62ec2f500906f59">key</keyword>
+	<keyword ref="classQxtCKeyEvent.html#86dd29a40c258824f24a393751edfa54">modifiers</keyword>
+	<keyword ref="classQxtCKeyEvent.html#2d8d0da84b1a1b1902edb533239626c6">nativeScanCode</keyword>
+	<keyword ref="classQxtCKeyEvent.html#f4b06aa56e43a5772ee6639103da9af1">QxtCKeyEvent</keyword>
+</section>
+
+<section ref="classQxtCPoint.html" title="QxtCPoint"> 
+	<keyword ref="classQxtCPoint.html#8b043abf19dc2aa7a0267a95a7d447fb">operator!=</keyword>
+	<keyword ref="classQxtCPoint.html#c3d0731c2b7e770eea0dbc254a14de9d">operator=</keyword>
+	<keyword ref="classQxtCPoint.html#d912c4b50971458fd3a23b077e1e9aae">operator==</keyword>
+	<keyword ref="classQxtCPoint.html#a860573725704b2542ffd8ebf29b2dfc">QxtCPoint</keyword>
+	<keyword ref="classQxtCPoint.html#9d426adf34a42f74b2250e924c9ebd6a">rx</keyword>
+	<keyword ref="classQxtCPoint.html#1cbaeaa0f35993e0a9ed163578aed468">ry</keyword>
+	<keyword ref="classQxtCPoint.html#d05f9ba82baaa39c51028192b920f7b5">setX</keyword>
+	<keyword ref="classQxtCPoint.html#2a3c3a33918b19e8f01dc0be2c241531">setY</keyword>
+	<keyword ref="classQxtCPoint.html#a582cc4cd40487eab9b7c3ce1691512b">x</keyword>
+	<keyword ref="classQxtCPoint.html#a8c43af1633b41a479b4e69295bc127c">y</keyword>
+</section>
+
+<section ref="classQxtCRect.html" title="QxtCRect"> 
+	<keyword ref="classQxtCRect.html#1ef81f186edce18a7debae9f6aafb0f0">bottom</keyword>
+	<keyword ref="classQxtCRect.html#5bd03f261e1274b859011fbbabaffc02">bottomLeft</keyword>
+	<keyword ref="classQxtCRect.html#e6e38d374d4a0705f82b185dc939ad86">bottomRight</keyword>
+	<keyword ref="classQxtCRect.html#4d0cb329f70a6fae3f1bd7973c66d25c">height</keyword>
+	<keyword ref="classQxtCRect.html#e8eadf89314a4e5d554b3ddcce14fcc7">left</keyword>
+	<keyword ref="classQxtCRect.html#debb7d4ee479eb0f2970f94b7d1ec9ec">operator!=</keyword>
+	<keyword ref="classQxtCRect.html#386a73b71a16f578b8093a3c25d79144">operator=</keyword>
+	<keyword ref="classQxtCRect.html#311672e9c4beb6c60758602559037eea">operator==</keyword>
+	<keyword ref="classQxtCRect.html#89bdb49c01563e2f88d69c6c48e91c79">QxtCRect</keyword>
+	<keyword ref="classQxtCRect.html#c72f52e4927af6519a514e3078583f47">right</keyword>
+	<keyword ref="classQxtCRect.html#f4ee1dd6f9aad83cb471f2f121e6d0b4">setBottom</keyword>
+	<keyword ref="classQxtCRect.html#f1ff949c89f4342d3980e027eddbfd41">setBottomLeft</keyword>
+	<keyword ref="classQxtCRect.html#b191119ab061ac88dd190eecff8fae94">setBottomRight</keyword>
+	<keyword ref="classQxtCRect.html#71f2606596a17c2c959fa01031f2a4ad">setHeight</keyword>
+	<keyword ref="classQxtCRect.html#cf47b2bb3720e1c5a9cb53225c01dd8f">setLeft</keyword>
+	<keyword ref="classQxtCRect.html#9b82fac27260b1d647c396af52f36bee">setRight</keyword>
+	<keyword ref="classQxtCRect.html#bd0629b8523a3fca23cfd70a567a5518">setSize</keyword>
+	<keyword ref="classQxtCRect.html#6217827739119ec0da2283370277aa18">setTop</keyword>
+	<keyword ref="classQxtCRect.html#e0c45487b252b09bcb11f77017368ef6">setTopLeft</keyword>
+	<keyword ref="classQxtCRect.html#5bf4787a45b34fa75cab5bdf112f4475">setTopRight</keyword>
+	<keyword ref="classQxtCRect.html#69360dd44b6f62945f994e55c5f42ee6">setWidth</keyword>
+	<keyword ref="classQxtCRect.html#8f08c833f0720c1e24f8f8aaf559230c">setX</keyword>
+	<keyword ref="classQxtCRect.html#70bd59470e4fcb94c8866362703696b7">setY</keyword>
+	<keyword ref="classQxtCRect.html#0285c10134a81e1a8b675f1602f09d24">size</keyword>
+	<keyword ref="classQxtCRect.html#365f9652482b9fcc5e64778eb7da05b6">top</keyword>
+	<keyword ref="classQxtCRect.html#99cb900f9ecbc7d9314b0df5832e2127">topLeft</keyword>
+	<keyword ref="classQxtCRect.html#15491c5bcd52fc2c018397074c1448bb">topRight</keyword>
+	<keyword ref="classQxtCRect.html#36e47f9bfc009f33cda6d2dad4f40e93">width</keyword>
+	<keyword ref="classQxtCRect.html#4c5ecd3fb926d04a49bbcc3ab04f052f">x</keyword>
+	<keyword ref="classQxtCRect.html#bf7a8f6b751923fdf98cc2159a5cb5f7">y</keyword>
+</section>
+
+<section ref="classQxtCSize.html" title="QxtCSize"> 
+	<keyword ref="classQxtCSize.html#8dbd11885f32239c7898737ee3fb7f98">height</keyword>
+	<keyword ref="classQxtCSize.html#e8fbc6b79eb6bfa6f9b46c7504f281c5">operator!=</keyword>
+	<keyword ref="classQxtCSize.html#7506096808740ed066e307f9400551bf">operator=</keyword>
+	<keyword ref="classQxtCSize.html#388d2f7d5d04d3c2d48087938249da11">operator==</keyword>
+	<keyword ref="classQxtCSize.html#30de3109a3876281af0f6004b8f7ea61">QxtCSize</keyword>
+	<keyword ref="classQxtCSize.html#1b02e1058f3f202cb3f116c04c98ab6f">setHeight</keyword>
+	<keyword ref="classQxtCSize.html#4dd62fc9583823a46f195294e2e3b8e7">setWidth</keyword>
+	<keyword ref="classQxtCSize.html#e696d28b65f4d28e41ddc5b2b8555b06">width</keyword>
+</section>
+
+<section ref="classQxtCWidget.html" title="QxtCWidget"> 
+	<keyword ref="classQxtCWidget.html#f309ec1b95be7d27e1896dff38c9165a">handle</keyword>
+	<keyword ref="classQxtCWidget.html#44c995dd5a4e2c1cf2f363e96b57a9e2">height</keyword>
+	<keyword ref="classQxtCWidget.html#322e0d555f48b8579bb5043a3f7395ce">isWindow</keyword>
+	<keyword ref="classQxtCWidget.html#cea0ca78a64ca2a91f63f1698f838648">keyEvent</keyword>
+	<keyword ref="classQxtCWidget.html#aad6a7dcabb3432c2714e3d7b125ba6e">mapToParent</keyword>
+	<keyword ref="classQxtCWidget.html#4a34c969557d8ac2016119f9b947d36f">mapToWindow</keyword>
+	<keyword ref="classQxtCWidget.html#e704ebd1293a7486ee89376c2bc63ba0">move</keyword>
+	<keyword ref="classQxtCWidget.html#1503f1174918ee5f3304b4b370e84ca5">paintEvent</keyword>
+	<keyword ref="classQxtCWidget.html#136e4b4f0efae463f70286672557bfe9">parentWidget</keyword>
+	<keyword ref="classQxtCWidget.html#b31aa2d8f1afdf52ccc2da779abddac9">pos</keyword>
+	<keyword ref="classQxtCWidget.html#0a9497415b242244623bc482da6cc822">QxtCWidget</keyword>
+	<keyword ref="classQxtCWidget.html#b62371b4e4bf0ab7cfe129bb3d593dec">rect</keyword>
+	<keyword ref="classQxtCWidget.html#dd9b3904ccacafd026173c49bec8d1a8">resize</keyword>
+	<keyword ref="classQxtCWidget.html#fc6745be6d7188179794e373ee7e98e3">size</keyword>
+	<keyword ref="classQxtCWidget.html#303d0625dddde0ed8bd18c311ea184db">update</keyword>
+	<keyword ref="classQxtCWidget.html#578e4d95497c84979f5288cc1e5aa59c">width</keyword>
+	<keyword ref="classQxtCWidget.html#35495bd5f50960cd66eaeab1774b5972">window</keyword>
+	<keyword ref="classQxtCWidget.html#1455bdc04c18971ceccc21b18c1a2b1d">winId</keyword>
+	<keyword ref="classQxtCWidget.html#982f0f4d44db29c78c2cac041e469ecb">x</keyword>
+	<keyword ref="classQxtCWidget.html#9dd114dc69195b5f6559bc5a9e32e4d9">y</keyword>
+	<keyword ref="classQxtCWidget.html#9bbafc1f4eaebfc462c8bf7174b749e0">~QxtCWidget</keyword>
+</section>
+
+<section ref="classQxtError.html" title="QxtError"> 
+	<keyword ref="classQxtError.html#087a3a27b63706cc6e4acf9a049a9bf1">QXT_DROP</keyword>
+	<keyword ref="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</keyword>
+	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>
+	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
+</section>
+
+<section ref="classQxtHyperMacros.html" title="QxtHyperMacros"> 
+	<keyword ref="classQxtHyperMacros.html#6d4e1e1dd078a8659466b430c601fb6d">fortimes</keyword>
+</section>
+
+<section ref="classQxtItemDelegate.html" title="QxtItemDelegate"> 
+	<keyword ref="classQxtItemDelegate.html#164f51dc565c77b9751d903551242bcb">decorationStyle</keyword>
+	<keyword ref="classQxtItemDelegate.html#593c068bb974266241f9a48c28200d26">editingFinished</keyword>
+	<keyword ref="classQxtItemDelegate.html#3b3068865e5185d6eb4348c2dcce99d7">editingStarted</keyword>
+	<keyword ref="classQxtItemDelegate.html#aad15b615b46a7be400ed22a46c329b9">elideMode</keyword>
+	<keyword ref="classQxtItemDelegate.html#2caf5f8173ffb4ae092a91547160c9fe">QxtItemDelegate</keyword>
+	<keyword ref="classQxtItemDelegate.html#5a7313c4c5b9ef91624b655ba8258794">~QxtItemDelegate</keyword>
+</section>
+
+<section ref="classQxtLabel.html" title="QxtLabel"> 
+	<keyword ref="classQxtLabel.html#567b7e5e6a5ef51f72369198fd29b80f">alignment</keyword>
+	<keyword ref="classQxtLabel.html#fd3f9137d5f3287c32786395c485f203">clicked</keyword>
+	<keyword ref="classQxtLabel.html#1af8965c7a5ca2605fdeb7c99cb41ad1">elideMode</keyword>
+	<keyword ref="classQxtLabel.html#e348877724b31a69413b2f0a202e8afc">QxtLabel</keyword>
+	<keyword ref="classQxtLabel.html#fac17750ce1b4f63bf868dd239aeb2f2">rotation</keyword>
+	<keyword ref="classQxtLabel.html#8af8301d8b4915ca05226c880a8579da">~QxtLabel</keyword>
+</section>
+
+<section ref="structQxtNull.html" title="QxtNull"> 
+	<keyword ref="structQxtNull.html#4b0a3ddce688e2e9f4af89dbc92cc11f">operator int</keyword>
+	<keyword ref="structQxtNull.html#b68560281f988ea497e63e8d447144a8">SKIP</keyword>
+</section>
+
+<section ref="classQxtNullable.html" title="QxtNullable"> 
+	<keyword ref="classQxtNullable.html#756f8a1a930df1dbb59f813a541d3c44">qxtNull</keyword>
+</section>
+
+<section ref="classQxtPairList.html" title="QxtPairList"> 
+	<keyword ref="classQxtPairList.html#ab663d83258f45a090ad570bac8198f3">find</keyword>
+	<keyword ref="classQxtPairList.html#d43a8617b30886782cecebd06d6d2ca0">list</keyword>
+</section>
+
+<section ref="classQxtPimpl.html" title="QxtPimpl"> 
+	<keyword ref="classQxtPimpl.html#6780f1d0194ebc891614c72b59d5693c">qxt_d</keyword>
+	<keyword ref="classQxtPimpl.html#e70baf9930ff230cd030697ad6e1ed2e">QXT_DECLARE_PRIVATE</keyword>
+	<keyword ref="classQxtPimpl.html#3b24f59fff4ac3f4bf045fc5840c21c9">QXT_DECLARE_PUBLIC</keyword>
+	<keyword ref="classQxtPimpl.html#cd3d3fee0ca06d8bd81463ecd5b7d50c">QXT_INIT_PRIVATE</keyword>
+	<keyword ref="classQxtPimpl.html#6b19167222479c38f892a58588b351e7">qxt_p</keyword>
+</section>
+
+<section ref="classQxtProxyStyle.html" title="QxtProxyStyle"> 
+	<keyword ref="classQxtProxyStyle.html#baf2879916f0cae9d90aea8caedeb5f7">QxtProxyStyle</keyword>
+	<keyword ref="classQxtProxyStyle.html#a0fa2a8509bd90acf844736d73dff9ec">~QxtProxyStyle</keyword>
+</section>
+
+<section ref="classQxtPushButton.html" title="QxtPushButton"> 
+	<keyword ref="classQxtPushButton.html#f3d9a14ff84709afa7b9559005bb0183">QxtPushButton</keyword>
+	<keyword ref="classQxtPushButton.html#20239aa208659a80277421c00829a040">rotation</keyword>
+	<keyword ref="classQxtPushButton.html#4be5345ab8f27d15b1416b42d7b7a661">~QxtPushButton</keyword>
+</section>
+
+<section ref="classQxtRingBuffer.html" title="QxtRingBuffer"> 
+	<keyword ref="classQxtRingBuffer.html#6a3dd1693064a8d9c3e7112a4dd0bc05">available</keyword>
+	<keyword ref="classQxtRingBuffer.html#2a9073c173942b8baab55653b9a4c178">get_read_vector</keyword>
+	<keyword ref="classQxtRingBuffer.html#0d9a7650cdad9dfe9697a7e80d09c530">get_write_vector</keyword>
+	<keyword ref="classQxtRingBuffer.html#56dfcdcc52a8d4ec0ca974629df58a69">peek</keyword>
+	<keyword ref="classQxtRingBuffer.html#d33fa4e9ede80c5767a438cebc240da2">QxtRingBuffer</keyword>
+	<keyword ref="classQxtRingBuffer.html#8476b65cc0b4b96d9488caea99c9f07b">read</keyword>
+	<keyword ref="classQxtRingBuffer.html#0336564508c1046d5ab43aab8fbbf5ae">read_advance</keyword>
+	<keyword ref="classQxtRingBuffer.html#f468a33bfc13cc3903db7bbbf6fd8b66">write</keyword>
+	<keyword ref="classQxtRingBuffer.html#427c5eba0ceb29f5e1342adafd93b892">write_advance</keyword>
+	<keyword ref="classQxtRingBuffer.html#b37a52898e7ec95280fbc4af21d6bf31">~QxtRingBuffer</keyword>
+</section>
+
+<section ref="classQxtRPCPeer.html" title="QxtRPCPeer"> 
+	<keyword ref="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</keyword>
+	<keyword ref="classQxtRPCPeer.html#5648ce9b84625ba3095f9e7a74d7d641">attachSlot</keyword>
+	<keyword ref="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call</keyword>
+	<keyword ref="classQxtRPCPeer.html#c161ca1d6eacf419a108dd700630d77d">callClient</keyword>
+	<keyword ref="classQxtRPCPeer.html#1f2e3dea93cd49da43f5395c5c280b65">callClientList</keyword>
+	<keyword ref="classQxtRPCPeer.html#44516603f5a3c4296a84fb6cfa6e81e6">callClientsExcept</keyword>
+	<keyword ref="classQxtRPCPeer.html#78048057780f8c2fbf065f8e90cd1288">canDeserialize</keyword>
+	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962b23ef21f50f91d35f26b6bd783d7d48">Client</keyword>
+	<keyword ref="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#0124d266f0e5e55abc77803e75a0912e">clientDisconnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#90f0c334f4a390be4ef2b14d93667d7b">clients</keyword>
+	<keyword ref="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f">connect</keyword>
+	<keyword ref="classQxtRPCPeer.html#4355c694771395cf64a1638954274018">deserialize</keyword>
+	<keyword ref="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</keyword>
+	<keyword ref="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender</keyword>
+	<keyword ref="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d">disconnectAll</keyword>
+	<keyword ref="classQxtRPCPeer.html#269132dd30c1d957f2abae3b4ee483b5">disconnectPeer</keyword>
+	<keyword ref="classQxtRPCPeer.html#ae7fcd6b1720ea10f08859a8d896a110">listen</keyword>
+	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96e9df51c9271dbbf16a646608d9acb74e">Peer</keyword>
+	<keyword ref="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#e3fd8e63aceea84eef2a70a8fa50418d">peerDisconnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#cd89d8b304d38cfff4fef3e0c513e1da">peerError</keyword>
+	<keyword ref="classQxtRPCPeer.html#2ca9ef835583cbbb61dae031effea560">QxtRPCPeer</keyword>
+	<keyword ref="classQxtRPCPeer.html#714353c8574c58d05b4e86aaca9fa906">rpcType</keyword>
+	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</keyword>
+	<keyword ref="classQxtRPCPeer.html#b005930688c278ae7b4bcf7b986050a9">serialize</keyword>
+	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a9672139e792ffec15279ddca4b18eca267">Server</keyword>
+	<keyword ref="classQxtRPCPeer.html#1894bd5342357f7d323e2bbeda577533">setRPCType</keyword>
+	<keyword ref="classQxtRPCPeer.html#2656eda811259c6c75702d3952f49afd">stopListening</keyword>
+</section>
+
+<section ref="classQxtSignalWaiter.html" title="QxtSignalWaiter"> 
+	<keyword ref="classQxtSignalWaiter.html#6d99c4de115096bb6b9edf88fa4e249a">QxtSignalWaiter</keyword>
+	<keyword ref="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait</keyword>
+</section>
+
+<section ref="classQxtSqlPackage.html" title="QxtSqlPackage"> 
+	<keyword ref="classQxtSqlPackage.html#8cb821ede737fb9c783aaf9c4af661a9">insert</keyword>
+	<keyword ref="classQxtSqlPackage.html#3c53546ad9510ff1e37aa042d8277594">next</keyword>
+	<keyword ref="classQxtSqlPackage.html#2b9c019a5fc703e65219a57ad94f8033">value</keyword>
+</section>
+
+<section ref="classQxtStringSpinBox.html" title="QxtStringSpinBox"> 
+	<keyword ref="classQxtStringSpinBox.html#98b2ac94565d02a93806589c16b72cf7">QxtStringSpinBox</keyword>
+	<keyword ref="classQxtStringSpinBox.html#09da84b2ceb17568055adf9a9ee20ec0">~QxtStringSpinBox</keyword>
+</section>
+
+<section ref="classQxtTabWidget.html" title="QxtTabWidget"> 
+	<keyword ref="classQxtTabWidget.html#483d0d48f8c3c787c65a2cdd24e95b3e">addTabAction</keyword>
+	<keyword ref="classQxtTabWidget.html#3b1a8ef96e696d7af28642d5b53d653b">addTabActions</keyword>
+	<keyword ref="classQxtTabWidget.html#e71cc919250be0a74be547cc4f726a6f">clearTabActions</keyword>
+	<keyword ref="classQxtTabWidget.html#133ea0f8a7ec3450f4fbaab71edb257f">insertTabAction</keyword>
+	<keyword ref="classQxtTabWidget.html#8b187b30f9bbfeeff27505828bd8e4da">insertTabActions</keyword>
+	<keyword ref="classQxtTabWidget.html#6b8c718aaa0b22efb166803cba77b471">QxtTabWidget</keyword>
+	<keyword ref="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction</keyword>
+	<keyword ref="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions</keyword>
+	<keyword ref="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0">tabContextMenuPolicy</keyword>
+	<keyword ref="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested</keyword>
+	<keyword ref="classQxtTabWidget.html#6b5f66b03699bc99c8a0cb997e526e1f">~QxtTabWidget</keyword>
+</section>
+
+<section ref="classQxtTreeWidget.html" title="QxtTreeWidget"> 
+	<keyword ref="classQxtTreeWidget.html#051c5e5fe88e19d0df7572979b34b9cb">branchesDrawn</keyword>
+	<keyword ref="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</keyword>
+	<keyword ref="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</keyword>
+	<keyword ref="classQxtTreeWidget.html#19b8f33f02812013b0362caca1a2be68">itemCheckStateChanged</keyword>
+	<keyword ref="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</keyword>
+	<keyword ref="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</keyword>
+	<keyword ref="classQxtTreeWidget.html#2f0aaec7459e90be757b3cbb12883c4c">QxtTreeWidget</keyword>
+	<keyword ref="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</keyword>
+</section>
+
+<section ref="classQxtTripple.html" title="QxtTripple"> 
+	<keyword ref="classQxtTripple.html#ee255db6a7eab5004a77995abb8281ab">qMakeTripple</keyword>
+</section>
+
+<section ref="classQxtTrippleList.html" title="QxtTrippleList"> 
+	<keyword ref="classQxtTrippleList.html#9f142f620a50159d53205aa952c43d9b">find</keyword>
+</section>
+
+<section ref="classQxtTuple.html" title="QxtTuple"> 
+	<keyword ref="classQxtTuple.html#30b317bc4e6e5470991f4458317504d4">Qxt1Tuple</keyword>
+	<keyword ref="classQxtTuple.html#698e85ebf27c1804fb111d72267ec01d">Qxt2Tuple</keyword>
+	<keyword ref="classQxtTuple.html#4483070798a6723ea270b53105573b3c">Qxt3Tuple</keyword>
+	<keyword ref="classQxtTuple.html#b452922127ac21a6316124a0f85cb751">Qxt4Tuple</keyword>
+	<keyword ref="classQxtTuple.html#c34c400eb0742456101994fb6f786125">Qxt5Tuple</keyword>
+	<keyword ref="classQxtTuple.html#8578df103dedda1702304ddf762eb73a">Qxt6Tuple</keyword>
+	<keyword ref="classQxtTuple.html#e2f90a73fa88e53736ef007c4a678f5c">Qxt7Tuple</keyword>
+	<keyword ref="classQxtTuple.html#73723332b89afc0d53070821573d0e0f">Qxt8Tuple</keyword>
+	<keyword ref="classQxtTuple.html#17446ec67b52e60a1ca648fa863fe240">Qxt9Tuple</keyword>
+	<keyword ref="classQxtTuple.html#8e0bb5049828a909bfd4935bdf9221f9">QxtLongTuple</keyword>
+</section>
+
+<section ref="ringbuffer_8h.html" title="ringbuffer.h"> 
+	<keyword ref="ringbuffer_8h.html#3738186381d8a7ac314490cde8fead0a">jack_ringbuffer_create_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#2387ca062ccf4182100727f56ff53c42">jack_ringbuffer_free_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#cf7b7181d7097f728897830b99b43fd8">jack_ringbuffer_get_read_vector_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#09f9977d3a800d2af105d6a5f56a2f05">jack_ringbuffer_get_write_vector_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#e274a1b2187236b9c955a4db54320c0d">jack_ringbuffer_mlock_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#19fbf6276704bdfbd644f9ce66b0f549">jack_ringbuffer_peek_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#f3bab3562ec7eb4b39f186719ce6fbd3">jack_ringbuffer_read_advance_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#1c93b966292c8ba9fc0066d7dfd2d192">jack_ringbuffer_read_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#741dbe0bc0565c27bb10cf3ce00cb0c2">jack_ringbuffer_read_space_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#4f5ca7c1cf80a2992ddfa4fd4da9c2be">jack_ringbuffer_reset_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#a13d464397341ca1c278e678acf8c2db">jack_ringbuffer_write_advance_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#571834fb0fe9be8ad7bd4963fc23f329">jack_ringbuffer_write_inside_libqxt</keyword>
+	<keyword ref="ringbuffer_8h.html#5cd67e65a0eb58e5e2077aa6f6378944">jack_ringbuffer_write_space_inside_libqxt</keyword>
+</section>
+</section></DCF>
+</assistantconfig>
