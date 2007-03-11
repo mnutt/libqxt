@@ -22,6 +22,7 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 	{
 	Q_OBJECT
 	Q_PROPERTY(bool preloaded READ preloaded WRITE setPreloaded);
+	Q_PROPERTY(unsigned long samplerate READ samplerate WRITE setSamplerate);
 	QXT_DECLARE_PRIVATE(QxtAVFile);
 
 	public:
@@ -34,6 +35,9 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 
 		bool preloaded() const;
 		QxtError setPreloaded(const bool);
+
+		unsigned long samplerate() const;
+		QxtError setSamplerate(const unsigned long);
 
 		QxtError read(short*, unsigned long length);
 		QxtError read(float*, unsigned long length);
@@ -48,7 +52,6 @@ class QXT_MEDIA_EXPORT QxtAVFile : public QObject
 
 		bool isEof();
 
-		unsigned long samplerate();
 
 	};
 

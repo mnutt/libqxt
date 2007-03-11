@@ -36,6 +36,8 @@ width="32" height="32" border="0" /></a></td>
 </h1><!-- doxytag: class="QxtAVFile" -->AV Decoder.  
 <a href="#_details">More...</a>
 <p>
+<code>#include &lt;QxtAVFile&gt;</code>
+<p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
@@ -51,6 +53,10 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>preloaded</b> () cons
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="edf681fc0113f81b687896ae4cae2985"></a><!-- doxytag: member="QxtAVFile::setPreloaded" ref="edf681fc0113f81b687896ae4cae2985" args="(const bool)" -->
 <a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><b>setPreloaded</b> (const bool)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#f3444211edcb9d5d5a5e8eb7b86fbb2c">samplerate</a> () const</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#460ea18b92abe99c320a7fd4a224779c">setSamplerate</a> (const unsigned long)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="classQxtError.html">QxtError</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</a> (short *, unsigned long length)</td></tr>
 
@@ -70,10 +76,11 @@ bool&nbsp;</td><td class="memItemRight" valign="bottom"><b>preloaded</b> () cons
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#b91a728b33668748a1106dc1a31c92f7">samplerate</a> ()</td></tr>
-
 <tr><td colspan="2"><br><h2>Properties</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</a><code> []</code></td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="c399ff7a23d5e079a9175eed373793e0"></a><!-- doxytag: member="QxtAVFile::long" ref="c399ff7a23d5e079a9175eed373793e0" args="" -->
+unsigned&nbsp;</td><td class="memItemRight" valign="bottom"><b>long</b><code> []</code></td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -121,6 +128,45 @@ Constructs a new <a class="el" href="classQxtAVFile.html">QxtAVFile</a> with <em
 
 <p>
 opens a stream or file from <em>url</em>. 
+</div>
+</div><p>
+<a class="anchor" name="f3444211edcb9d5d5a5e8eb7b86fbb2c"></a><!-- doxytag: member="QxtAVFile::samplerate" ref="f3444211edcb9d5d5a5e8eb7b86fbb2c" args="() const" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long QxtAVFile::samplerate           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+samplerate of the file 
+</div>
+</div><p>
+<a class="anchor" name="460ea18b92abe99c320a7fd4a224779c"></a><!-- doxytag: member="QxtAVFile::setSamplerate" ref="460ea18b92abe99c320a7fd4a224779c" args="(const unsigned long)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classQxtError.html">QxtError</a> QxtAVFile::setSamplerate           </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned long&nbsp;</td>
+          <td class="paramname"> <em>a</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+set the desired samplerate. it will be automaticly resampled 
 </div>
 </div><p>
 <a class="anchor" name="737b1bafd205efb372f7b6bcf0e50969"></a><!-- doxytag: member="QxtAVFile::read" ref="737b1bafd205efb372f7b6bcf0e50969" args="(short *, unsigned long length)" -->
@@ -331,25 +377,6 @@ returns 0 for a stream
 
 <p>
 returns true when the end of the input stream has been reached 
-</div>
-</div><p>
-<a class="anchor" name="b91a728b33668748a1106dc1a31c92f7"></a><!-- doxytag: member="QxtAVFile::samplerate" ref="b91a728b33668748a1106dc1a31c92f7" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned long QxtAVFile::samplerate           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-samplerate of the file 
 </div>
 </div><p>
 <hr><h2>Property Documentation</h2>
