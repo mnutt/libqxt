@@ -84,7 +84,8 @@ namespace Qxt {
                 FileIOError,
                 FormatError,              //10
                 DeviceError,
-                SDLError
+                SDLError,
+		InsufficientMemory
                 };
 
 };

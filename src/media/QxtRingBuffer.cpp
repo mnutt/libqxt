@@ -51,7 +51,28 @@ class QxtRingBufferPrivate : public QxtPrivate<QxtRingBuffer>
 			{
 			return jack_ringbuffer_peek (ring,destination, size);
 			}
-
+		void get_read_vector    (char  **buffer,unsigned long * length)
+			{
+			jack_ringbuffer_data_t  vec;
+			jack_ringbuffer_get_read_vector(ring,&vec);
+			*buffer=vec.buf;
+			*length=vec.len;
+			}
+		void get_write_vector   (char  **buffer,unsigned long * length)
+			{
+			jack_ringbuffer_data_t  vec;
+			jack_ringbuffer_get_write_vector(ring,&vec);
+			*buffer=vec.buf;
+			*length=vec.len;
+			}
+		void read_advance       (unsigned long length)
+			{
+			jack_ringbuffer_read_advance(ring, length);
+			}
+		void write_advance       (unsigned long length)
+			{
+			jack_ringbuffer_write_advance(ring, length);
+			}
 
 	private:
 		jack_ringbuffer_t *  ring;
@@ -61,17 +82,23 @@ class QxtRingBufferPrivate : public QxtPrivate<QxtRingBuffer>
 
 //-----------------------------interface-------------------------------
 
-
+/**
+default constructor. takes the ring \p size as argument
+*/	
 QxtRingBuffer::QxtRingBuffer	(unsigned long size, QObject * parent):QObject(parent)
 	{
 	qxt_d().construct(size);
 	}
-
- QxtRingBuffer::~QxtRingBuffer	()
+/**
+destructor
+*/	
+QxtRingBuffer::~QxtRingBuffer	()
 	{
 	qxt_d().destruct();
 	}
-
+/**
+read \p size bytes to \p destination
+*/	
 unsigned long QxtRingBuffer::read	(char * destination, unsigned long size)
 	{
 	return qxt_d().read(destination,size);
@@ -81,17 +108,60 @@ unsigned long QxtRingBuffer::peek	(char * destination, unsigned long size)
 	{
 	return qxt_d().peek(destination,size);
 	}
-
+/**
+check how much data is there available for read
+*/	
 unsigned long QxtRingBuffer::available	()
 	{
 	return qxt_d().available();
 	}
-
+/**
+write \p size bytes from \p destination to the ring
+*/	
 unsigned long QxtRingBuffer::write	(char * source, unsigned long size)
 	{
 	return qxt_d().write(source,size);
 	}
+/**
+get a direct pointer to data. \n
 
+Use this to get direct READ access. do not write! \n
+don't forget to call read_advance after reading from this pointer.\n
+\p length  is the amount of bytes that can be read straight. \n
+even if available says there is more data, you may not read more then \p length  directly. 
+(the data is not continues in memory!)
+*/	
+void QxtRingBuffer::get_read_vector    (char  **buffer,unsigned long * length)
+	{
+	qxt_d().get_read_vector(buffer,length);
+	}
+/**
+get a direct pointer to data. \n
+
+Use this to get direct WRITE access. do not read! \n
+don't forget to call write_advance after writing  to this pointer.\n
+\p length  is the amount of bytes that can be written straight. \n
+you may not write more then \p length  directly.
+(the data is not continues in memory!)
+*/	
+void QxtRingBuffer::get_write_vector   (char  **buffer,unsigned long * length)
+	{
+	qxt_d().get_write_vector(buffer,length);
+	}
+/**
+call this to indicate how much you have read from the pointer you got from get_read_vector
+*/
+void QxtRingBuffer::read_advance       (unsigned long length)
+	{
+	qxt_d().read_advance (length);
+	}
+/**
+call this to indicate how much you have written from the pointer you got from get_write_vector
+*/
+void QxtRingBuffer::write_advance       (unsigned long length)
+	{
+	qxt_d().write_advance (length);
+	}
 
 
 

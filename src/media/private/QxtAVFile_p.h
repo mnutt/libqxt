@@ -6,6 +6,11 @@
 #include <ffmpeg/avcodec.h>
 #include <ffmpeg/avformat.h>
 
+#ifdef HAVE_SPEEX
+#include "resample/speex_resampler.h"
+#endif
+#include <QMutex>
+
 class QxtAVFilePrivate : public QObject, public QxtPrivate<QxtAVFile>
 	{
 	Q_OBJECT
@@ -34,7 +39,6 @@ class QxtAVFilePrivate : public QObject, public QxtPrivate<QxtAVFile>
 	bool isEof();
 	bool eof;
 
-	unsigned long samplerate();
 	
 
 
@@ -67,5 +71,18 @@ class QxtAVFilePrivate : public QObject, public QxtPrivate<QxtAVFile>
 
 
 
+
+	///system mutex. lock this when doing stuff that could be thread unsafe
+	QMutex mutex;
+
+
+	///resampler
+	unsigned long samplerate() const;
+	QxtError setSamplerate(const unsigned long);
+	unsigned long samplerate_p;
+
+#ifdef HAVE_SPEEX
+	SpeexResamplerState * resampler;
+#endif
 
 	};

@@ -162,13 +162,20 @@ char 	QxtAVFile::timeP()   const
 /*!
 samplerate of the file
 */	
-unsigned long QxtAVFile::samplerate()
+unsigned long QxtAVFile::samplerate() const
 	{
 	return qxt_d().samplerate();
 	}
 
 //-------------------------------------------------------------
-// 
+
+/*!
+set the desired samplerate. it will be automaticly resampled
+*/	
+QxtError QxtAVFile::setSamplerate(const unsigned long a)
+	{
+	return qxt_d().setSamplerate(a);
+	}
 
 
 

@@ -11,6 +11,9 @@ win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
 LIBS            += -lavcodec -lavformat -lSDL
 TEMPLATE         = lib
 
+DEFINES+=HAVE_SPEEX OUTSIDE_SPEEX RANDOM_PREFIX=inside_libqxt
+
+
 QxtAVFile.headers 	= private/QxtAVFile_p.h
 QxtAVFile.sources 	= QxtAVFile.cpp QxtAVFile_p.cpp
 QxtAVFile.stability 	= 
@@ -23,7 +26,7 @@ QxtAVPlayer.sources 	= QxtAVPlayer.cpp
 QxtAVPlayer.stability 	= 
 
 QxtRingBuffer.headers 	= ringbuffer.h
-QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c
+QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c resample/resample.c
 QxtRingBuffer.stability = 
 
 Parts= QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer

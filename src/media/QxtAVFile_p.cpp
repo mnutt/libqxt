@@ -5,18 +5,22 @@
 
 #include <QxtCore/QxtHyperMacros>
 
-
-
 QxtError QxtAVFilePrivate::open(QString filename)
 	{
 	///defaults
 	eof=false;
+	samplerate_p=0;
+
+	#ifdef HAVE_SPEEX
+	resampler=NULL;
+	#endif
 
 	///av init
 	av_register_all();
 	avcodec_init();
 	avcodec_register_all();
 	
+
 	///open the file
 	if (av_open_input_file(&format_context,filename.toLocal8Bit(), NULL, 0, NULL) < 0) QXT_DROP(Qxt::FileIOError);
 
@@ -26,7 +30,7 @@ QxtError QxtAVFilePrivate::open(QString filename)
 	
 	//!find the first audio stream. 
 	AudioStreamIndex=-1;
-	for(int i=0; i<format_context->nb_streams; i++)
+	for(unsigned int i=0; i<format_context->nb_streams; i++)
 		if(format_context->streams[i]->codec->codec_type==CODEC_TYPE_AUDIO)
 			{AudioStreamIndex=i;break;}
 	if(AudioStreamIndex<0)QXT_DROP( Qxt::FormatError);
@@ -42,7 +46,7 @@ QxtError QxtAVFilePrivate::open(QString filename)
 	if (avcodec_open(codec_context, codec)<0)QXT_DROP( Qxt::CodecError);
 
 	//!prepare the huge buffer
-	hugeSize=codec_context->sample_rate;
+	hugeSize=codec_context->sample_rate+AVCODEC_MAX_AUDIO_FRAME_SIZE;
 	hugeBuffer= new char [hugeSize];
 	hugeBuffer[hugeSize-1]='k';
 
@@ -63,6 +67,9 @@ void QxtAVFilePrivate::destroy()
 	if(codec_context)avcodec_close(codec_context);
 	if(format_context)av_close_input_file(format_context);
 	if(ring)delete ring;
+	#ifdef HAVE_SPEEX
+	if(resampler)speex_resampler_destroy(resampler);
+	#endif
 	}
 
 
@@ -83,6 +90,9 @@ QxtError QxtAVFilePrivate::seek(double time)
 	if (format_context->duration<0)	QXT_DROP(Qxt::LogicalError);
 
 	if (av_seek_frame   (format_context, -1,(long)(AV_TIME_BASE*time), 0 )<0) QXT_DROP(Qxt::FormatError);
+
+
+	/*speex_resampler_reset_mem(resampler);*/
 
 	QXT_DROP_OK
 	}
@@ -137,15 +147,6 @@ bool  QxtAVFilePrivate::isEof()
 	};
 
 
-//----------------------------------------------
-
-unsigned long QxtAVFilePrivate::samplerate()
-	{
-	if (!opened)		return 0;
-	if (!codec_context)	return 0;
-	return codec_context->sample_rate;
-	}
-
 
 
 //----------------------------------------------
@@ -156,23 +157,63 @@ QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 	if (isEof())			QXT_DROP(Qxt::EndOfFile);
 	if (length >hugeSize)		QXT_DROP(Qxt::LogicalError);
 	
+	mutex.lock();
 
-	while (ring->available() < length*sizeof(short))
+
+	int write=length;
+	while(write>0)
 		{
+
+		#ifdef HAVE_SPEEX
+		if (samplerate_p!=0 && resampler!=NULL)
+			{
+
+			
+	
+			long unsigned int in_size;
+			char *  in;
+			ring->get_read_vector(&in,&in_size);
+
+			
+			int in_len = (in_size/sizeof(short))/2;
+			
+			int written=write/2;
+			speex_resampler_process_interleaved_int(resampler, (short*)in, &in_len, target, &written);
+	
+		
+			ring->read_advance((in_len*sizeof(short))*2);
+			write-=written*2;
+			target+=written*2;
+
+			}
+		else
+			{
+		#endif		
+			int e=ring->read((char*)target,write*sizeof(short))/sizeof(short);
+			write-=e;
+			target+=e;
+		#ifdef HAVE_SPEEX
+			}
+		#endif
+
+
+ 		if (!write)continue;  //this is a dirty hack :( to get the resampled stream in sync (avoid overread on a realtime stream)
 		///TODO: make it realtime 
 		QxtError e= getFrame();
 		
 		if(e==Qxt::EndOfFile)
 			{
 			eof=true;
+			mutex.unlock();
 			QXT_DROP(Qxt::EndOfFile);
 			}
-
+		
 		QXT_DROP_F(e);
+		
 		}
 
 
-	if (ring->read((char*)target,length*sizeof(short))!=length*sizeof(short))QXT_DROP(Qxt::Bug);
+	mutex.unlock();
 	QXT_DROP_OK
 	}
 //----------------------------------------------
@@ -180,12 +221,22 @@ QxtError QxtAVFilePrivate::read(short* target, unsigned long length)
 QxtError QxtAVFilePrivate::read(float* target, unsigned long length)
 	{
 	short aa[length];
-	short * ab= aa;
 
+
+	short * ab= aa;
+	
+	
 	QXT_DROP_F(read(aa,length));
 
 	fortimes(length)
-		*target++=(float)*ab++ / (float)std::numeric_limits<short>::max();
+		{
+		*target=(float)*ab++ / (float)std::numeric_limits<short>::max();
+		if (*target>1.0)*target=1.0;
+		if (*target<-1.0)*target=-1.0;
+		
+		target++;
+		
+		}
 
 
 	QXT_DROP_OK
@@ -221,10 +272,19 @@ QxtError QxtAVFilePrivate::getFrame()
 	int size = packet.size;
 	uint8_t * inbuf = packet.data;
 
+	
+
+
 	while (size > 0) 
 		{
 		int outbufsize,inlen;
-		inlen = avcodec_decode_audio(codec_context,(short *)hugeBuffer, &outbufsize, inbuf, size);
+		outbufsize=hugeSize;
+		inlen = avcodec_decode_audio2(codec_context,(short *)hugeBuffer,&outbufsize, inbuf,size);
+
+
+
+
+
 		checkHugeBounds();
 		codec_context->frame_number++;
 		
@@ -243,8 +303,8 @@ QxtError QxtAVFilePrivate::getFrame()
 		///if the sample is empty we don't want it
 		if (outbufsize <= 0)
 			continue;
-
-
+		
+		
 		if (codec_context->channels==1)
 			{
 			///doublicate the sample if the source was mono
@@ -264,6 +324,49 @@ QxtError QxtAVFilePrivate::getFrame()
  		av_free_packet (&packet);	///TODO: erm, is this good?
 	QXT_DROP_OK
 	}
+
+
+
+
+
+//----------------------------------------------
+
+unsigned long QxtAVFilePrivate::samplerate() const
+	{
+	if (!opened)		return 0;
+	if (!codec_context)	return 0;
+	if (samplerate_p==0)return codec_context->sample_rate;
+	return samplerate_p;
+	}
+
+
+//----------------------------------------------
+
+QxtError QxtAVFilePrivate::setSamplerate(const unsigned  long a) 
+	{
+	#ifdef HAVE_SPEEX
+
+	mutex.lock();
+	samplerate_p=a;
+
+	if(resampler==NULL)
+		{
+		resampler = speex_resampler_init(2, codec_context->sample_rate, samplerate_p,5);
+		if (resampler==NULL)QXT_DROP(Qxt::InsufficientMemory);	
+		}
+	else
+		{
+		speex_resampler_set_rate(resampler,codec_context->sample_rate, samplerate_p);
+		}	
+
+
+	mutex.unlock();
+	QXT_DROP_OK
+	#else
+	QXT_DROP(Qxt::NotImplemented)
+	#endif
+	}
+
 
 
 
