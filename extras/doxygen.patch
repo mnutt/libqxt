@@ -1,0 +1,272 @@
+Index: VERSION
+===================================================================
+RCS file: /cvsroot/doxygen/VERSION,v
+retrieving revision 1.215
+diff -r1.215 VERSION
+1c1
+< 1.4.5-20051109
+---
+> 1.5.1-20070219
+cvs diff: Diffing CVSROOT
+cvs diff: Diffing addon
+cvs diff: Diffing addon/doxmlparser
+cvs diff: Diffing addon/doxmlparser/examples
+cvs diff: Diffing addon/doxmlparser/examples/metrics
+cvs diff: Diffing addon/doxmlparser/include
+cvs diff: Diffing addon/doxmlparser/src
+cvs diff: Diffing addon/doxmlparser/test
+cvs diff: Diffing addon/doxyapp
+cvs diff: Diffing addon/doxywizard
+cvs diff: Diffing doc
+cvs diff: Diffing examples
+cvs diff: Diffing libmd5
+cvs diff: Diffing libpng
+cvs diff: Diffing packages
+cvs diff: Diffing packages/rpm
+cvs diff: Diffing qtools
+cvs diff: Diffing src
+Index: src/htmlgen.cpp
+===================================================================
+RCS file: /cvsroot/doxygen/src/htmlgen.cpp,v
+retrieving revision 1.144
+diff -r1.144 htmlgen.cpp
+912c912
+<   t << "<h2>";
+---
+>   t << "<h3>";
+917c917
+<   t << "</h2>" << endl;
+---
+>   t << "</h3>" << endl;
+924c924
+<     case SectionInfo::Page:          t << "<h1>"; break;
+---
+>     case SectionInfo::Page:          t << "<h1  align=\"center\" >"; break;
+1184c1184
+<     t << "<tr><td colspan=\"2\"><br><h2>";
+---
+>     t << "<tr><td colspan=\"2\"><br><h3>";
+1197c1197
+<     t << "</h2></td></tr>" << endl;
+---
+>     t << "</h3></td></tr>" << endl;
+1267,1269c1267
+<   DBG_HTML(t << "<!-- startMemberDoc -->" << endl;)
+<   //t << "<p>" << endl;
+<
+---
+>   DBG_HTML(t << "<!-- startMemberDoc -->" << endl;)
+1271,1275c1269
+<   //t << "<table>" << endl;
+<   //t << "  <tr>" << endl;
+<   //t << "    <td>" << endl;
+<   //t << "      <table class=\"memproto\">" << endl;
+<   t << "<div class=\"memproto\">" << endl;
+---
+>   t << "<div class=\"fn\">" << endl;
+1282,1283c1276
+<   //t << "        <tr>" << endl;
+<   //t << "          <td class=\"memtemplate\" colspan=\"5\">";
+---
+>
+1299c1292
+<   t << "      <table class=\"memname\">" << endl;
+---
+> //   t << "      <table>" << endl;
+1301,1302c1294,1295
+<   t << "        <tr>" << endl;
+<   t << "          <td class=\"memname\">";
+---
+> //   t << "        <tr>" << endl;
+>   t << "          <span class=\"memname\">";
+1308c1301
+<   t << "          </td>" << endl;
+---
+>   t << "          </span>" << endl;
+1314,1316c1307
+<   t << "          <td>";
+<   if (openBracket) t << "(";
+<   t << "</td>" << endl;
+---
+>    if (openBracket) t << "(";
+1321,1322c1312
+<   if (first)
+<   {
+---
+>
+1324,1335c1314,1315
+<     t << "          <td class=\"paramtype\">";
+<   }
+<   else
+<   {
+<     DBG_HTML(t << "<!-- startParameterType -->" << endl;)
+<     t << "        <tr>" << endl;
+<     t << "          <td class=\"paramkey\">";
+<     if (key) t << key;
+<     t << "</td>" << endl;
+<     t << "          <td></td>" << endl;
+<     t << "          <td class=\"paramtype\">";
+<   }
+---
+>     t << "          <span class=\"paramtype\">";
+>
+1341c1321
+<   t << "&nbsp;</td>" << endl;
+---
+>   t << "&nbsp;</span>" << endl;
+1347c1327
+<   t << "          <td class=\"paramname\">";
+---
+>   t << "          <span class=\"paramname\">";
+1353,1379c1333,1335
+<   if (last)
+<   {
+<     if (emptyList)
+<     {
+<       t << "          </td>" << endl;
+<       t << "          <td>";
+<       if (closeBracket) t << "&nbsp;)";
+<       t << "&nbsp;</td>" << endl;
+<       t << "          <td width=\"100%\">";
+<     }
+<     else
+<     {
+<       t << "</td><td>&nbsp;</td>" << endl;
+<       t << "        </tr>" << endl;
+<       t << "        <tr>" << endl;
+<       t << "          <td></td>" << endl;
+<       t << "          <td>";
+<       if (closeBracket) t << ")";
+<       t << "</td>" << endl;
+<       t << "          <td></td><td></td><td width=\"100%\">";
+<     }
+<   }
+<   else
+<   {
+<     t << "</td>" << endl;
+<     t << "        </tr>" << endl;
+<   }
+---
+>
+>     t << "</span>" << endl;
+> if (last)  t << ")";
+1385,1386c1341
+<   t << "</td>" << endl;
+<   t << "        </tr>" << endl;
+---
+>
+1392,1399d1346
+<   if (!hasArgs)
+<   {
+<     t << "        </tr>" << endl;
+<   }
+<   t << "      </table>" << endl;
+<   //t << "    </td>" << endl;
+<   //t << "  </tr>" << endl;
+<   //t << "</table>" << endl;
+1400a1348
+>   t << "" << endl;
+1493c1441
+<   t << endl << "</div>" << endl << "</div><p>" << endl;
+---
+>   t << endl << "</p></div>" << endl << "</div><!-- memitem --><br/>" << endl;
+1591c1539
+<     t << "  </ul>\n";
+---
+>     t << "</ul>\n";
+Index: src/htmlgen.h
+===================================================================
+RCS file: /cvsroot/doxygen/src/htmlgen.h,v
+retrieving revision 1.86
+diff -r1.86 htmlgen.h
+62c62
+<     void startTitle() { t << "<h1>"; }
+---
+>     void startTitle() { t << "<h1  align=\"center\">"; }
+88,89c88,89
+<     void startTypewriter() { t << "<code>"; }
+<     void endTypewriter()   { t << "</code>"; }
+---
+>     void startTypewriter() { t << "<pre>"; }
+>     void endTypewriter()   { t << "</pre>"; }
+152,155c152,155
+<     void startSubsection()    { t << "<h2>"; }
+<     void endSubsection()      { t << "</h2>" << endl; }
+<     void startSubsubsection() { t << "<h3>"; }
+<     void endSubsubsection()   { t << "</h3>" << endl; }
+---
+>     void startSubsection()    { t << "<h4>"; }
+>     void endSubsection()      { t << "</h4>" << endl; }
+>     void startSubsubsection() { t << "<h4>"; }
+>     void endSubsubsection()   { t << "</h4>" << endl; }
+230a231,235
+>
+>
+>
+>
+>
+Index: src/memberdef.cpp
+===================================================================
+RCS file: /cvsroot/doxygen/src/memberdef.cpp,v
+retrieving revision 1.170
+diff -r1.170 memberdef.cpp
+217c217
+<       ol.startTypewriter();
+---
+> //       ol.startTypewriter();
+219c219
+<       ol.endTypewriter();
+---
+> //       ol.endTypewriter();
+1348c1348
+<     ol.startTypewriter();
+---
+> //     ol.startTypewriter();
+1350c1350
+<     ol.endTypewriter();
+---
+> //     ol.endTypewriter();
+1356c1356
+<       ol.startTypewriter();
+---
+> //       ol.startTypewriter();
+1369c1369
+<       ol.endTypewriter();
+---
+> //       ol.endTypewriter();
+1375c1375
+<       ol.startTypewriter();
+---
+> //       ol.startTypewriter();
+1389c1389
+<       ol.endTypewriter();
+---
+> //       ol.endTypewriter();
+1768c1768
+<     ol.startTypewriter();
+---
+> //     ol.startTypewriter();
+1809c1809
+<     ol.endTypewriter();
+---
+> //     ol.endTypewriter();
+1814c1814
+<     ol.startTypewriter();
+---
+> //     ol.startTypewriter();
+1816c1816
+<     ol.endTypewriter();
+---
+> //     ol.endTypewriter();
+Index: src/outputgen.h
+===================================================================
+RCS file: /cvsroot/doxygen/src/outputgen.h,v
+retrieving revision 1.87
+diff -r1.87 outputgen.h
+46a47,51
+>
+>
+>
+>
+>
+
