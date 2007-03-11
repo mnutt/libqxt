@@ -12,19 +12,6 @@ CONFIG      += qxtbuild convenience
 QT           = core gui 
 TEMPLATE     = lib
 
-QxtLabel.sources		= QxtLabel.cpp
-
-QxtPushButton.sources		= QxtPushButton.cpp
-
-QxtItemDelegate.sources		= QxtItemDelegate.cpp
-
-QxtTreeWidget.headers		= private/QxtTreeWidget_p.h
-QxtTreeWidget.sources		= QxtTreeWidget.cpp
-
-QxtTreeWidgetItem.sources	= QxtTreeWidgetItem.cpp
-
-QxtTabWidget.sources		= QxtTabWidget.cpp
-
 QxtApplication.sources		= QxtApplication.cpp
 unix:QxtApplication.sources	+= QxtApplication_x11.cpp
 win32:QxtApplication.sources	+= QxtApplication_win.cpp
@@ -32,8 +19,24 @@ win32:QxtApplication.sources	+= QxtApplication_win.cpp
 QxtCheckComboBox.headers	= private/QxtCheckComboBox_p.h
 QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
 
+QxtItemDelegate.sources		= QxtItemDelegate.cpp
+
+QxtLabel.sources		= QxtLabel.cpp
+
 QxtProxyStyle.sources		= QxtProxyStyle.cpp
+
+QxtPushButton.sources		= QxtPushButton.cpp
+
+QxtSpanSlider.sources		= QxtSpanSlider.cpp
 
 QxtStringSpinBox.sources	= QxtStringSpinBox.cpp
 
-Parts=QxtLabel QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtProxyStyle QxtStringSpinBox
+QxtTabWidget.sources		= QxtTabWidget.cpp
+
+QxtTreeWidget.headers		= private/QxtTreeWidget_p.h
+QxtTreeWidget.sources		= QxtTreeWidget.cpp
+
+QxtTreeWidgetItem.sources	= QxtTreeWidgetItem.cpp
+
+
+Parts=QxtApplication QxtCheckComboBox QxtItemDelegate QxtLabel QxtProxyStyle QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem
