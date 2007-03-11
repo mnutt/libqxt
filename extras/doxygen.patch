@@ -254,7 +254,7 @@ diff -r1.49 htmlhelp.cpp
 <  */
 ---
 >
-160,177c142,174
+160,177c142,182
 < {
 <   IndexFieldListIterator ifli(*list);
 <   IndexField *f;
@@ -282,6 +282,9 @@ diff -r1.49 htmlhelp.cpp
 >       for (;(f=ifli.current());++ifli)
 >               {
 >
+>
+>
+>
 >               QCString level1,level2;
 >               int i;
 >               if ((i=f->name.find('?'))!=-1)
@@ -293,6 +296,9 @@ diff -r1.49 htmlhelp.cpp
 >                       {
 >                       level1  = f->name.copy();
 >                       }
+>
+>               if(level1==level2)continue;
+>               if(level1[0]=='~')continue;
 >
 >               if (level1!=lastLevel1)
 >                       {
@@ -306,8 +312,10 @@ diff -r1.49 htmlhelp.cpp
 >                               }
 >
 >                       t << "<section ref=\""<<f->url<< Doxygen::htmlFileExtension<< "\" title=\""<<level1 <<"\"> \n";
+>                       t << "\t<keyword ref=\""<<f->url<< Doxygen::htmlFileExtension << "\">" <<level1<< "</keyword>\n";
+>
 >                               }
-179,255c176,184
+179,255c184,192
 <     if (level1!=lastLevel1)
 <     { // finish old list at level 2
 <       if (level2Started) t << "  </UL>" << endl;
@@ -395,11 +403,11 @@ diff -r1.49 htmlhelp.cpp
 >               lastLevel1 = level1.copy();
 >               }
 >       }
-269c198
+269c206
 <   cf = kf = 0;
 ---
 >   kf = 0;
-283,287c212,214
+283,287c220,222
 < /*! This will create a contents file (index.hhc) and a index file (index.hhk)
 <  *  and write the header of those files.
 <  *  It also creates a project file (index.hhp)
@@ -409,7 +417,7 @@ diff -r1.49 htmlhelp.cpp
 >
 >
 >
-289,386c216,234
+289,386c224,242
 < {
 <   /* open the contents file */
 <   QCString fName = Config_getString("HTML_OUTPUT") + "/index.hhc";
@@ -528,7 +536,7 @@ diff -r1.49 htmlhelp.cpp
 >               "<DCF ref=\"./annotated.html\" icon=\"handbook.png\" imagedir=\".\" title=\"Qxt Reference Documentation\">\n\n"
 >               "<section ref=\"./annotated.html\" title=\"Classes\">\n\n";
 >       }
-390,401c238,241
+390,401c246,249
 < {
 <   if (!theTranslator->idLanguage().isEmpty())
 <   {
@@ -546,7 +554,7 @@ diff -r1.49 htmlhelp.cpp
 >       // default language
 >       return "0x409 English (United States)";
 >       }
-406,459c246,247
+406,459c254,255
 < {
 <   /* Write the project file */
 <   QCString fName = Config_getString("HTML_OUTPUT") + "/index.hhp";
@@ -604,7 +612,7 @@ diff -r1.49 htmlhelp.cpp
 ---
 >       {
 >       }
-476,497c264,273
+476,497c272,281
 <   // end the contents file
 <   cts << "</UL>\n";
 <   cts.unsetDevice();
@@ -638,7 +646,7 @@ diff -r1.49 htmlhelp.cpp
 >       //   createProjectFile();
 >       //   s_languageDict.clear();
 >       }
-499,508c275,277
+499,508c283,285
 < {
 <   int i; for (i=0;i<dc+1;i++) cts << "  ";
 <   cts << "<UL>\n";
@@ -653,7 +661,7 @@ diff -r1.49 htmlhelp.cpp
 >       {
 >       return 0;
 >       }
-510,514c279,281
+510,514c287,289
 < {
 <   int i; for (i=0;i<dc;i++) cts << "  ";
 <   cts << "</UL>\n";
@@ -663,7 +671,7 @@ diff -r1.49 htmlhelp.cpp
 >       {
 >       return 0;
 >       }
-526,552c293
+526,552c301
 <   // If we're using a binary toc then folders cannot have links.
 <   if(Config_getBool("BINARY_TOC") && isDir)
 <   {
