@@ -171,7 +171,9 @@ QxtError QxtAVPlayerPrivate::pause      (bool e)
 
 //--------------------------------interface----------------------------------------------------
 
-
+/**
+default ctor
+*/
 QxtAVPlayer::QxtAVPlayer(QObject * parent):QObject(parent)
 	{
 	connect(&qxt_d(),SIGNAL(eof()),this,SIGNAL(eof()));
