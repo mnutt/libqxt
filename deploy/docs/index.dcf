@@ -39,7 +39,6 @@
 	<keyword ref="classQxtCheckComboBox.html#6155154f172eace578aea54761135481">itemCheckState</keyword>
 	<keyword ref="classQxtCheckComboBox.html#656f5a7488c6f8b71d653596799a9281">separator</keyword>
 	<keyword ref="classQxtCheckComboBox.html#47e17f263a7b4c443172355e73c39802">setItemCheckState</keyword>
-	<keyword ref="classQxtCheckComboBox.html#dc6c67fe288f48125849e8e2b79cdb3b">~QxtCheckComboBox</keyword>
 </section>
 
 <section ref="classQxtCKeyEvent.html" title="QxtCKeyEvent"> 
@@ -127,7 +126,6 @@
 	<keyword ref="classQxtCWidget.html#1455bdc04c18971ceccc21b18c1a2b1d">winId</keyword>
 	<keyword ref="classQxtCWidget.html#982f0f4d44db29c78c2cac041e469ecb">x</keyword>
 	<keyword ref="classQxtCWidget.html#9dd114dc69195b5f6559bc5a9e32e4d9">y</keyword>
-	<keyword ref="classQxtCWidget.html#9bbafc1f4eaebfc462c8bf7174b749e0">~QxtCWidget</keyword>
 </section>
 
 <section ref="classQxtError.html" title="QxtError"> 
@@ -149,7 +147,6 @@
 	<keyword ref="classQxtItemDelegate.html#593c068bb974266241f9a48c28200d26">editingFinished</keyword>
 	<keyword ref="classQxtItemDelegate.html#3b3068865e5185d6eb4348c2dcce99d7">editingStarted</keyword>
 	<keyword ref="classQxtItemDelegate.html#aad15b615b46a7be400ed22a46c329b9">elideMode</keyword>
-	<keyword ref="classQxtItemDelegate.html#5a7313c4c5b9ef91624b655ba8258794">~QxtItemDelegate</keyword>
 </section>
 
 <section ref="classQxtLabel.html" title="QxtLabel"> 
@@ -158,7 +155,6 @@
 	<keyword ref="classQxtLabel.html#fd3f9137d5f3287c32786395c485f203">clicked</keyword>
 	<keyword ref="classQxtLabel.html#1af8965c7a5ca2605fdeb7c99cb41ad1">elideMode</keyword>
 	<keyword ref="classQxtLabel.html#fac17750ce1b4f63bf868dd239aeb2f2">rotation</keyword>
-	<keyword ref="classQxtLabel.html#8af8301d8b4915ca05226c880a8579da">~QxtLabel</keyword>
 </section>
 
 <section ref="structQxtNull.html" title="QxtNull"> 
@@ -189,13 +185,11 @@
 
 <section ref="classQxtProxyStyle.html" title="QxtProxyStyle"> 
 	<keyword ref="classQxtProxyStyle.html">QxtProxyStyle</keyword>
-	<keyword ref="classQxtProxyStyle.html#a0fa2a8509bd90acf844736d73dff9ec">~QxtProxyStyle</keyword>
 </section>
 
 <section ref="classQxtPushButton.html" title="QxtPushButton"> 
 	<keyword ref="classQxtPushButton.html">QxtPushButton</keyword>
 	<keyword ref="classQxtPushButton.html#20239aa208659a80277421c00829a040">rotation</keyword>
-	<keyword ref="classQxtPushButton.html#4be5345ab8f27d15b1416b42d7b7a661">~QxtPushButton</keyword>
 </section>
 
 <section ref="classQxtRingBuffer.html" title="QxtRingBuffer"> 
@@ -208,7 +202,6 @@
 	<keyword ref="classQxtRingBuffer.html#0336564508c1046d5ab43aab8fbbf5ae">read_advance</keyword>
 	<keyword ref="classQxtRingBuffer.html#f468a33bfc13cc3903db7bbbf6fd8b66">write</keyword>
 	<keyword ref="classQxtRingBuffer.html#427c5eba0ceb29f5e1342adafd93b892">write_advance</keyword>
-	<keyword ref="classQxtRingBuffer.html#b37a52898e7ec95280fbc4af21d6bf31">~QxtRingBuffer</keyword>
 </section>
 
 <section ref="classQxtRPCPeer.html" title="QxtRPCPeer"> 
@@ -257,7 +250,6 @@
 
 <section ref="classQxtStringSpinBox.html" title="QxtStringSpinBox"> 
 	<keyword ref="classQxtStringSpinBox.html">QxtStringSpinBox</keyword>
-	<keyword ref="classQxtStringSpinBox.html#09da84b2ceb17568055adf9a9ee20ec0">~QxtStringSpinBox</keyword>
 </section>
 
 <section ref="classQxtTabWidget.html" title="QxtTabWidget"> 
@@ -271,7 +263,6 @@
 	<keyword ref="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions</keyword>
 	<keyword ref="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0">tabContextMenuPolicy</keyword>
 	<keyword ref="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested</keyword>
-	<keyword ref="classQxtTabWidget.html#6b5f66b03699bc99c8a0cb997e526e1f">~QxtTabWidget</keyword>
 </section>
 
 <section ref="classQxtTreeWidget.html" title="QxtTreeWidget"> 
@@ -282,7 +273,6 @@
 	<keyword ref="classQxtTreeWidget.html#19b8f33f02812013b0362caca1a2be68">itemCheckStateChanged</keyword>
 	<keyword ref="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</keyword>
 	<keyword ref="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</keyword>
-	<keyword ref="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</keyword>
 </section>
 
 <section ref="classQxtTripple.html" title="QxtTripple"> 
@@ -307,23 +297,6 @@
 	<keyword ref="classQxtTuple.html#73723332b89afc0d53070821573d0e0f">Qxt8Tuple</keyword>
 	<keyword ref="classQxtTuple.html#17446ec67b52e60a1ca648fa863fe240">Qxt9Tuple</keyword>
 	<keyword ref="classQxtTuple.html#8e0bb5049828a909bfd4935bdf9221f9">QxtLongTuple</keyword>
-</section>
-
-<section ref="ringbuffer_8h.html" title="ringbuffer.h"> 
-	<keyword ref="ringbuffer_8h.html">ringbuffer.h</keyword>
-	<keyword ref="ringbuffer_8h.html#3738186381d8a7ac314490cde8fead0a">jack_ringbuffer_create_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#2387ca062ccf4182100727f56ff53c42">jack_ringbuffer_free_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#cf7b7181d7097f728897830b99b43fd8">jack_ringbuffer_get_read_vector_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#09f9977d3a800d2af105d6a5f56a2f05">jack_ringbuffer_get_write_vector_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#e274a1b2187236b9c955a4db54320c0d">jack_ringbuffer_mlock_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#19fbf6276704bdfbd644f9ce66b0f549">jack_ringbuffer_peek_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#f3bab3562ec7eb4b39f186719ce6fbd3">jack_ringbuffer_read_advance_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#1c93b966292c8ba9fc0066d7dfd2d192">jack_ringbuffer_read_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#741dbe0bc0565c27bb10cf3ce00cb0c2">jack_ringbuffer_read_space_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#4f5ca7c1cf80a2992ddfa4fd4da9c2be">jack_ringbuffer_reset_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#a13d464397341ca1c278e678acf8c2db">jack_ringbuffer_write_advance_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#571834fb0fe9be8ad7bd4963fc23f329">jack_ringbuffer_write_inside_libqxt</keyword>
-	<keyword ref="ringbuffer_8h.html#5cd67e65a0eb58e5e2077aa6f6378944">jack_ringbuffer_write_space_inside_libqxt</keyword>
 </section>
 </section></DCF>
 </assistantconfig>

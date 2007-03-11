@@ -7,24 +7,6 @@ diff -r1.215 VERSION
 < 1.4.5-20051109
 ---
 > 1.5.1-20070219
-cvs diff: Diffing CVSROOT
-cvs diff: Diffing addon
-cvs diff: Diffing addon/doxmlparser
-cvs diff: Diffing addon/doxmlparser/examples
-cvs diff: Diffing addon/doxmlparser/examples/metrics
-cvs diff: Diffing addon/doxmlparser/include
-cvs diff: Diffing addon/doxmlparser/src
-cvs diff: Diffing addon/doxmlparser/test
-cvs diff: Diffing addon/doxyapp
-cvs diff: Diffing addon/doxywizard
-cvs diff: Diffing doc
-cvs diff: Diffing examples
-cvs diff: Diffing libmd5
-cvs diff: Diffing libpng
-cvs diff: Diffing packages
-cvs diff: Diffing packages/rpm
-cvs diff: Diffing qtools
-cvs diff: Diffing src
 Index: src/htmlgen.cpp
 ===================================================================
 RCS file: /cvsroot/doxygen/src/htmlgen.cpp,v
@@ -53,9 +35,9 @@ diff -r1.144 htmlgen.cpp
 1267,1269c1267
 <   DBG_HTML(t << "<!-- startMemberDoc -->" << endl;)
 <   //t << "<p>" << endl;
-<
+<  
 ---
->   DBG_HTML(t << "<!-- startMemberDoc -->" << endl;)
+>   DBG_HTML(t << "<!-- startMemberDoc -->" << endl;) 
 1271,1275c1269
 <   //t << "<table>" << endl;
 <   //t << "  <tr>" << endl;
@@ -68,7 +50,7 @@ diff -r1.144 htmlgen.cpp
 <   //t << "        <tr>" << endl;
 <   //t << "          <td class=\"memtemplate\" colspan=\"5\">";
 ---
->
+> 
 1299c1292
 <   t << "      <table class=\"memname\">" << endl;
 ---
@@ -93,7 +75,7 @@ diff -r1.144 htmlgen.cpp
 <   if (first)
 <   {
 ---
->
+> 
 1324,1335c1314,1315
 <     t << "          <td class=\"paramtype\">";
 <   }
@@ -109,7 +91,7 @@ diff -r1.144 htmlgen.cpp
 <   }
 ---
 >     t << "          <span class=\"paramtype\">";
->
+> 
 1341c1321
 <   t << "&nbsp;</td>" << endl;
 ---
@@ -147,14 +129,14 @@ diff -r1.144 htmlgen.cpp
 <     t << "        </tr>" << endl;
 <   }
 ---
->
+> 
 >     t << "</span>" << endl;
 > if (last)  t << ")";
 1385,1386c1341
 <   t << "</td>" << endl;
 <   t << "        </tr>" << endl;
 ---
->
+> 
 1392,1399d1346
 <   if (!hasArgs)
 <   {
@@ -167,9 +149,9 @@ diff -r1.144 htmlgen.cpp
 1400a1348
 >   t << "" << endl;
 1493c1441
-<   t << endl << "</div>" << endl << "</div><p>" << endl;
+<   t << endl << "</div>" << endl << "</div><p>" << endl; 
 ---
->   t << endl << "</p></div>" << endl << "</div><!-- memitem --><br/>" << endl;
+>   t << endl << "</p></div>" << endl << "</div><!-- memitem --><br/>" << endl; 
 1591c1539
 <     t << "  </ul>\n";
 ---
@@ -200,31 +182,31 @@ diff -r1.86 htmlgen.h
 >     void startSubsubsection() { t << "<h4>"; }
 >     void endSubsubsection()   { t << "</h4>" << endl; }
 230a231,235
->
->
->
->
->
+> 
+> 
+> 
+> 
+> 
 Index: src/htmlhelp.cpp
 ===================================================================
 RCS file: /cvsroot/doxygen/src/htmlhelp.cpp,v
 retrieving revision 1.49
 diff -r1.49 htmlhelp.cpp
 31a32,33
->
+> 
 > #include <iostream>
 120,121c122,127
 <     //printf(">>>>>>>>> HtmlHelpIndex::addItem(%s,%s,%s,%s)\n",
 <     //      level1,level2,url,anchor);
 ---
->
->
->
+> 
+> 
+> 
 > if (reversed)return;//!!
->
->
+> 
+> 
 127a134
->
+> 
 133,158c140
 < /*! Writes the sorted list of index items into a html like list.
 <  *
@@ -249,12 +231,12 @@ diff -r1.49 htmlhelp.cpp
 <  *      b2     -> link to url#anchor
 <  *    a3       -> link to url if hasLink==TRUE
 <  *    a4       -> link to url if hasLink==TRUE
-<  *      b1     -> link to url#anchor
+<  *      b1     -> link to url#anchor 
 <  *  </pre>
 <  */
 ---
->
-160,177c142,182
+> 
+160,177c142,195
 < {
 <   IndexFieldListIterator ifli(*list);
 <   IndexField *f;
@@ -267,60 +249,73 @@ diff -r1.49 htmlhelp.cpp
 <     if ((i=f->name.find('?'))!=-1)
 <     {
 <       level1 = f->name.left(i);
-<       level2 = f->name.right(f->name.length()-i-1);
+<       level2 = f->name.right(f->name.length()-i-1); 
 <     }
 <     else
 <     {
 <       level1  = f->name.copy();
 <     }
 ---
->       {
->       IndexFieldListIterator ifli(*list);
->       IndexField *f;
->       QCString lastLevel1;
->       bool firstrun=true;
->       for (;(f=ifli.current());++ifli)
->               {
->
->
->
->
->               QCString level1,level2;
->               int i;
->               if ((i=f->name.find('?'))!=-1)
->                       {
->                       level1 = f->name.left(i);
->                       level2 = f->name.right(f->name.length()-i-1);
->                       }
->               else
->                       {
->                       level1  = f->name.copy();
->                       }
->
->               if(level1==level2)continue;
->               if(level1[0]=='~')continue;
->
->               if (level1!=lastLevel1)
->                       {
->                       if(firstrun)
->                               {
->                               firstrun=false;
->                               }
->                       else
->                               {
->                               t << "</section>\n\n";
->                               }
->
->                       t << "<section ref=\""<<f->url<< Doxygen::htmlFileExtension<< "\" title=\""<<level1 <<"\"> \n";
->                       t << "\t<keyword ref=\""<<f->url<< Doxygen::htmlFileExtension << "\">" <<level1<< "</keyword>\n";
->
->                               }
-179,255c184,192
+> 	{
+> 	IndexFieldListIterator ifli(*list);
+> 	IndexField *f;
+> 	QCString lastLevel1;
+> 	bool firstrun=true;
+> 	for (;(f=ifli.current());++ifli)
+> 		{
+> 
+> 		
+> 
+> 
+> 		QCString level1,level2;
+> 		int i;
+> 		if ((i=f->name.find('?'))!=-1)
+> 			{
+> 			level1 = f->name.left(i);
+> 			level2 = f->name.right(f->name.length()-i-1); 
+> 			}
+> 		else
+> 			{
+> 			level1  = f->name.copy();
+> 			}
+> 
+> 		
+>  		if(level2[0]=='~')continue;
+> 		if(level1[level1.length ()-1]=='h' && level1[level1.length ()-2]=='.')continue;
+> 
+> 		if (level1!=lastLevel1)
+> 			{
+> 			if(firstrun)
+> 				{
+> 				firstrun=false;
+> 				}
+> 			else
+> 				{
+> 				t << "</section>\n\n";
+> 				}
+> 			
+> 			t << "<section ref=\""<<f->url<< Doxygen::htmlFileExtension<< "\" title=\""<<level1 <<"\"> \n";
+> 			t << "\t<keyword ref=\""<<f->url<< Doxygen::htmlFileExtension << "\">" <<level1<< "</keyword>\n"; 
+> 
+> 				}
+> 
+> 		
+> 
+> 
+> 		if(level1!=level2)
+> 			{
+> 			t << "\t<keyword ref=\""<<f->url<< Doxygen::htmlFileExtension;
+> 			if (!f->anchor.isEmpty() ) t << "#" << f->anchor;  
+> 			t << "\">"<<level2<< "</keyword>\n"; 
+> 			}
+> 		
+> 		lastLevel1 = level1.copy();
+179,255c197,198
 <     if (level1!=lastLevel1)
 <     { // finish old list at level 2
 <       if (level2Started) t << "  </UL>" << endl;
 <       level2Started=FALSE;
-<
+<     
 <       // <Antony>
 <       // Added this code so that an item with only one subitem is written
 <       // without any subitem.
@@ -340,12 +335,12 @@ diff -r1.49 htmlhelp.cpp
 <         level2 = "";
 <       }
 <       // </Antony>
-<
+< 
 <       if (level2.isEmpty())
 <       {
 <         t << "  <LI><OBJECT type=\"text/sitemap\">";
 <         t << "<param name=\"Local\" value=\"" << f->url << Doxygen::htmlFileExtension;
-<         if (!f->anchor.isEmpty() && f->reversed) t << "#" << f->anchor;
+<         if (!f->anchor.isEmpty() && f->reversed) t << "#" << f->anchor;  
 <         t << "\">";
 <         t << "<param name=\"Name\" value=\"" << level1 << "\">"
 <            "</OBJECT>\n";
@@ -356,7 +351,7 @@ diff -r1.49 htmlhelp.cpp
 <         {
 <           t << "  <LI><OBJECT type=\"text/sitemap\">";
 <           t << "<param name=\"Local\" value=\"" << f->url << Doxygen::htmlFileExtension;
-<           if (!f->anchor.isEmpty() && f->reversed) t << "#" << f->anchor;
+<           if (!f->anchor.isEmpty() && f->reversed) t << "#" << f->anchor;  
 <           t << "\">";
 <           t << "<param name=\"Name\" value=\"" << level1 << "\">"
 <                "</OBJECT>\n";
@@ -384,40 +379,33 @@ diff -r1.49 htmlhelp.cpp
 <     {
 <       t << "    <LI><OBJECT type=\"text/sitemap\">";
 <       t << "<param name=\"Local\" value=\"" << f->url << Doxygen::htmlFileExtension;
-<       if (!f->anchor.isEmpty()) t << "#" << f->anchor;
+<       if (!f->anchor.isEmpty()) t << "#" << f->anchor;  
 <       t << "\">";
 <       t << "<param name=\"Name\" value=\"" << level2 << "\">"
 <          "</OBJECT>\n";
 <     }
 <     lastLevel1 = level1.copy();
-<   }
+<   } 
 <   if (level2Started) t << "  </UL>" << endl;
 < }
 ---
->
->
->               t << "\t<keyword ref=\""<<f->url<< Doxygen::htmlFileExtension;
->               if (!f->anchor.isEmpty() ) t << "#" << f->anchor;
->               t << "\">"<<level2<< "</keyword>\n";
->
->               lastLevel1 = level1.copy();
->               }
->       }
-269c206
+> 		} 
+> 	}
+269c212
 <   cf = kf = 0;
 ---
 >   kf = 0;
-283,287c220,222
+283,287c226,228
 < /*! This will create a contents file (index.hhc) and a index file (index.hhk)
-<  *  and write the header of those files.
+<  *  and write the header of those files. 
 <  *  It also creates a project file (index.hhp)
 <  *  \sa finalize()
 <  */
 ---
->
->
->
-289,386c224,242
+> 
+> 
+> 
+289,386c230,248
 < {
 <   /* open the contents file */
 <   QCString fName = Config_getString("HTML_OUTPUT") + "/index.hhc";
@@ -438,7 +426,7 @@ diff -r1.49 htmlhelp.cpp
 <          "<param name=\"FrameName\" value=\"right\">\n"
 <          "</OBJECT>\n"
 <          "<UL>\n";
-<
+<   
 <   /* open the contents file */
 <   fName = Config_getString("HTML_OUTPUT") + "/index.hhk";
 <   kf = new QFile(fName);
@@ -458,7 +446,7 @@ diff -r1.49 htmlhelp.cpp
 <          "<param name=\"FrameName\" value=\"right\">\n"
 <          "</OBJECT>\n"
 <          "<UL>\n";
-<
+< 
 <   /* language codes for Html help
 <      0x405 Czech
 <      0x406 Danish
@@ -517,26 +505,26 @@ diff -r1.49 htmlhelp.cpp
 <   s_languageDict.insert("chinese-traditional", new QCString("0x404 Chinese (Taiwan)"));
 < }
 ---
->       {
->       /* open the contents file */
->       QCString fName = Config_getString("HTML_OUTPUT") + "/index.dcf";
->       kf = new QFile(fName);
->       if (!kf->open(IO_WriteOnly))
->       {
->               err("Could not open file %s for writing\n",fName.data());
->               exit(1);
->       }
->       /* Write the header of the contents file */
->       kts.setDevice(kf);
->       #if QT_VERSION >= 200
->               kts.setEncoding(QTextStream::Latin1);
->       #endif
->
->       kts <<  "<assistantconfig version=\"3.2.0\">\n"
->               "<DCF ref=\"./annotated.html\" icon=\"handbook.png\" imagedir=\".\" title=\"Qxt Reference Documentation\">\n\n"
->               "<section ref=\"./annotated.html\" title=\"Classes\">\n\n";
->       }
-390,401c246,249
+> 	{
+> 	/* open the contents file */
+> 	QCString fName = Config_getString("HTML_OUTPUT") + "/index.dcf";
+> 	kf = new QFile(fName);
+> 	if (!kf->open(IO_WriteOnly))
+> 	{
+> 		err("Could not open file %s for writing\n",fName.data());
+> 		exit(1);
+> 	}
+> 	/* Write the header of the contents file */
+> 	kts.setDevice(kf);
+> 	#if QT_VERSION >= 200
+> 		kts.setEncoding(QTextStream::Latin1);
+> 	#endif
+> 
+> 	kts << 	"<assistantconfig version=\"3.2.0\">\n"
+> 		"<DCF ref=\"./annotated.html\" icon=\"handbook.png\" imagedir=\".\" title=\"Qxt Reference Documentation\">\n\n"
+> 		"<section ref=\"./annotated.html\" title=\"Classes\">\n\n";
+> 	}
+390,401c252,255
 < {
 <   if (!theTranslator->idLanguage().isEmpty())
 <   {
@@ -550,11 +538,11 @@ diff -r1.49 htmlhelp.cpp
 <   return "0x409 English (United States)";
 < }
 ---
->       {
->       // default language
->       return "0x409 English (United States)";
->       }
-406,459c254,255
+> 	{
+> 	// default language
+> 	return "0x409 English (United States)";
+> 	}
+406,459c260,261
 < {
 <   /* Write the project file */
 <   QCString fName = Config_getString("HTML_OUTPUT") + "/index.hhp";
@@ -565,9 +553,9 @@ diff -r1.49 htmlhelp.cpp
 < #if QT_VERSION >= 200
 <     t.setEncoding(QTextStream::Latin1);
 < #endif
-<
-<
-<
+< 
+<    
+<     
 <     QCString indexName="index"+Doxygen::htmlFileExtension;
 <     if (Config_getBool("GENERATE_TREEVIEW")) indexName="main"+Doxygen::htmlFileExtension;
 <     t << "[OPTIONS]\n";
@@ -585,12 +573,12 @@ diff -r1.49 htmlhelp.cpp
 <     if (Config_getBool("BINARY_TOC")) t << "Binary TOC=YES\n";
 <     if (Config_getBool("GENERATE_CHI")) t << "Create CHI file=YES\n";
 <     t << "Title=" << Config_getString("PROJECT_NAME") << endl << endl;
-<
+<     
 <     t << "[WINDOWS]" << endl;
 <     t << "main=\"" << Config_getString("PROJECT_NAME") << "\",\"index.hhc\","
-<          "\"index.hhk\",\"" << indexName << "\",\"" <<
+<          "\"index.hhk\",\"" << indexName << "\",\"" << 
 <          indexName << "\",,,,,0x23520,,0x387e,,,,,,,,0" << endl << endl;
-<
+<     
 <     t << "[FILES]" << endl;
 <     char *s = indexFiles.first();
 <     while (s)
@@ -610,82 +598,82 @@ diff -r1.49 htmlhelp.cpp
 <   }
 < }
 ---
->       {
->       }
-476,497c272,281
+> 	{
+> 	}
+476,497c278,287
 <   // end the contents file
 <   cts << "</UL>\n";
 <   cts.unsetDevice();
 <   cf->close();
 <   delete cf;
-<
+<   
 <   index->writeFields(kts);
-<
+<   
 <   // end the index file
 <   kts << "</UL>\n";
 <   kts.unsetDevice();
 <   kf->close();
 <   delete kf;
-<
+< 
 <   createProjectFile();
 <   s_languageDict.clear();
 < }
-<
-< /*! Increase the level of the contents hierarchy.
+< 
+< /*! Increase the level of the contents hierarchy. 
 <  *  This will start a new unnumbered HTML list in contents file.
 <  *  \sa decContentsDepth()
 <  */
 ---
->       index->writeFields(kts);
->       // end the index file
->       kts << "</section>\n</section></DCF>\n</assistantconfig>\n";
->       kts.unsetDevice();
->       kf->close();
->       delete kf;
->
->       //   createProjectFile();
->       //   s_languageDict.clear();
->       }
-499,508c283,285
+> 	index->writeFields(kts);
+> 	// end the index file
+> 	kts << "</section>\n</section></DCF>\n</assistantconfig>\n";
+> 	kts.unsetDevice();
+> 	kf->close();
+> 	delete kf;
+> 
+> 	//   createProjectFile();
+> 	//   s_languageDict.clear();
+> 	}
+499,508c289,291
 < {
 <   int i; for (i=0;i<dc+1;i++) cts << "  ";
 <   cts << "<UL>\n";
 <   return ++dc;
 < }
-<
+< 
 < /*! Decrease the level of the contents hierarchy.
 <  *  This will end the unnumber HTML list.
 <  *  \sa incContentsDepth()
 <  */
 ---
->       {
->       return 0;
->       }
-510,514c287,289
+> 	{
+> 	return 0;
+> 	}
+510,514c293,295
 < {
 <   int i; for (i=0;i<dc;i++) cts << "  ";
 <   cts << "</UL>\n";
 <   return --dc;
 < }
 ---
->       {
->       return 0;
->       }
-526,552c301
-<   // If we're using a binary toc then folders cannot have links.
-<   if(Config_getBool("BINARY_TOC") && isDir)
+> 	{
+> 	return 0;
+> 	}
+526,552c307
+<   // If we're using a binary toc then folders cannot have links. 
+<   if(Config_getBool("BINARY_TOC") && isDir) 
 <   {
 <     ref = 0;
 <     anchor = 0;
 <   }
-<
+<   
 <   int i; for (i=0;i<dc;i++) cts << "  ";
 <   cts << "<LI><OBJECT type=\"text/sitemap\">";
 <   cts << "<param name=\"Name\" value=\"" << name << "\">";
 <   if (ref)      // made ref optional param - KPW
 <   {
 <     cts << "<param name=\"Local\" value=\"" << ref << Doxygen::htmlFileExtension;
-<     if (anchor) cts << "#" << anchor;
+<     if (anchor) cts << "#" << anchor;  
 <     cts << "\">";
 <   }
 <   cts << "<param name=\"ImageNumber\" value=\"";
@@ -700,17 +688,17 @@ diff -r1.49 htmlhelp.cpp
 <   cts << "\">";
 <   cts << "</OBJECT>\n";
 ---
->
+> 
 Index: src/htmlhelp.h
 ===================================================================
 RCS file: /cvsroot/doxygen/src/htmlhelp.h,v
 retrieving revision 1.29
 diff -r1.29 htmlhelp.h
 86,87c86,87
-<     QFile *cf,*kf;
+<     QFile *cf,*kf; 
 <     QTextStream cts,kts;
 ---
->     QFile *kf;
+>     QFile *kf; 
 >     QTextStream kts;
 Index: src/memberdef.cpp
 ===================================================================
@@ -771,8 +759,8 @@ RCS file: /cvsroot/doxygen/src/outputgen.h,v
 retrieving revision 1.87
 diff -r1.87 outputgen.h
 46a47,51
->
->
->
->
->
+> 
+> 
+> 
+> 
+> 
