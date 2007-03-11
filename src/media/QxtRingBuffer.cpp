@@ -53,17 +53,17 @@ class QxtRingBufferPrivate : public QxtPrivate<QxtRingBuffer>
 			}
 		void get_read_vector    (char  **buffer,unsigned long * length)
 			{
-			jack_ringbuffer_data_t  vec;
-			jack_ringbuffer_get_read_vector(ring,&vec);
-			*buffer=vec.buf;
-			*length=vec.len;
+			jack_ringbuffer_data_t  vec[2];
+			jack_ringbuffer_get_read_vector(ring,vec);
+			*buffer=vec[0].buf;
+			*length=vec[0].len;
 			}
 		void get_write_vector   (char  **buffer,unsigned long * length)
 			{
-			jack_ringbuffer_data_t  vec;
-			jack_ringbuffer_get_write_vector(ring,&vec);
-			*buffer=vec.buf;
-			*length=vec.len;
+			jack_ringbuffer_data_t  vec[2];
+			jack_ringbuffer_get_write_vector(ring,vec);
+			*buffer=vec[0].buf;
+			*length=vec[0].len;
 			}
 		void read_advance       (unsigned long length)
 			{
