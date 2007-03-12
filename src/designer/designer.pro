@@ -5,7 +5,7 @@ DEPENDPATH  += .
 INCLUDEPATH += . ../core ../gui ../kit ../../deploy/include 
 unix :LIBS        += -L../../deploy/libs/ -lQxtKit  -lQxtCore  -lQxtGui
 win32:LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -lQxtGui0
-CONFIG      += designer plugin debug_and_release build_all
+CONFIG      += designer plugin
 TEMPLATE     = lib
 
 RESOURCES    = resources.qrc
@@ -16,23 +16,24 @@ INSTALLS+=target
 
 HEADERS += QxtDesignerPlugins.h \
            QxtDesignerPlugin.h \
-           QxtLabelPlugin.h       \
-           QxtPushButtonPlugin.h  \
-           QxtTreeWidgetPlugin.h \
            QxtCheckComboBoxPlugin.h \
-           QxtStringSpinBoxPlugin.h
+           QxtLabelPlugin.h \
+           QxtPushButtonPlugin.h \
+           QxtSpanSliderPlugin.h \
+           QxtStringSpinBoxPlugin.h \
+           QxtTreeWidgetPlugin.h
 
 SOURCES += QxtDesignerPlugins.cpp \
            QxtDesignerPlugin.cpp \
-           QxtLabelPlugin.cpp  \ 
-           QxtPushButtonPlugin.cpp \
-           QxtTreeWidgetPlugin.cpp \
            QxtCheckComboBoxPlugin.cpp \
-           QxtStringSpinBoxPlugin.cpp
+           QxtLabelPlugin.cpp \
+           QxtPushButtonPlugin.cpp \
+           QxtSpanSliderPlugin.cpp \
+           QxtStringSpinBoxPlugin.cpp \
+           QxtTreeWidgetPlugin.cpp
 
 
-Parts=QxtDesignerPlugins QxtPushButton QxtItemDelegate QxtTreeWidget QxtTreeWidgetItem QxtTabWidget QxtApplication QxtCheckComboBox QxtStringSpinBox
-
+Parts=QxtDesignerPlugins QxtApplication QxtCheckComboBox QxtItemDelegate QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem
 
 
 CONFIG(debug, debug|release) {
