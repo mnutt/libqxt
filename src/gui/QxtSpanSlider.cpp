@@ -31,6 +31,7 @@ public:
 	int upper;
 	int offset;
 	int position;
+	SpanHandle lastPressed;
 	QStyle::SubControl lowerPressed;
 	QStyle::SubControl upperPressed;
 };
@@ -100,6 +101,7 @@ void QxtSpanSliderPrivate::handleMousePress(const QPoint& pos, QStyle::SubContro
 	{
 		position = value;
 		offset = pick(pos - sr.topLeft());
+		lastPressed = handle;
 		p->setSliderDown(true);
 	}
 	if (control != oldControl)
@@ -155,7 +157,7 @@ void QxtSpanSliderPrivate::drawHandle(QStylePainter* painter, SpanHandle handle)
 	initStyleOption(&opt, handle);
 	opt.subControls = QStyle::SC_SliderHandle;
 	QStyle::SubControl pressed = (handle == LowerHandle ? lowerPressed : upperPressed);
-	if (pressed != QStyle::SC_None)
+	if (pressed == QStyle::SC_SliderHandle)
 	{
 		opt.activeSubControls = pressed;
 		opt.state |= QStyle::State_Sunken;
@@ -301,7 +303,7 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
 	opt.subControls = QStyle::SC_SliderTickmarks;
 	painter.drawComplexControl(QStyle::CC_Slider, opt);
 	
-	// groove outside the selection
+	// groove
 	opt.sliderPosition = 0;
 	opt.subControls = QStyle::SC_SliderGroove;
 	painter.drawComplexControl(QStyle::CC_Slider, opt);
@@ -309,16 +311,33 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
 	// handle rects
 	opt.sliderPosition = qxt_d().lower;
 	const QRect lr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
+	const int lrv  = qxt_d().pick(lr.center());
 	opt.sliderPosition = qxt_d().upper;
 	const QRect ur = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
+	const int urv  = qxt_d().pick(ur.center());
 	
 	// span
-	const int minX = qMin(lr.center().x(), ur.center().x());
-	const int maxX = qMax(lr.center().x(), ur.center().x());
-	QRect spanRect(QPoint(minX, opt.rect.center().y()-2), QPoint(maxX, opt.rect.center().y()+1));
+	const int minv = qMin(lrv, urv);
+	const int maxv = qMax(lrv, urv);
+	const QPoint c = opt.rect.adjusted(0,0,-1,-1).center();
+	QRect spanRect;
+	if (orientation() == Qt::Horizontal)
+		spanRect = QRect(QPoint(minv, c.y()-2), QPoint(maxv, c.y()+1));
+	else
+		spanRect = QRect(QPoint(c.x()-2, minv), QPoint(c.x()+1, maxv));
 	qxt_d().drawSpan(&painter, spanRect);
 	
 	// handles
-	qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::LowerHandle);
-	qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::UpperHandle);
+	switch (qxt_d().lastPressed)
+	{
+		case QxtSpanSliderPrivate::LowerHandle:
+			qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::UpperHandle);
+			qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::LowerHandle);
+			break;
+		case QxtSpanSliderPrivate::UpperHandle:
+		default:
+			qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::LowerHandle);
+			qxt_d().drawHandle(&painter, QxtSpanSliderPrivate::UpperHandle);
+			break;
+	}
 }
