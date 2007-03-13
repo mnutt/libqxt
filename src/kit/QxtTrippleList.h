@@ -45,7 +45,7 @@ list.list.append(qMakeTripple(1,2,3.2));
 #include <QxtDefines.h>
 
 template <typename T, typename K,typename L>
-class QXT_DLLEXPORT QxtTrippleList 
+class QXT_KIT_EXPORT QxtTrippleList 
 	{
 
 

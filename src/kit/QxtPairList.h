@@ -46,7 +46,7 @@ list.list.append(qMakePair(1,2));
 
 
 template <typename T, typename K>
-class QXT_DLLEXPORT QxtPairList 
+class QXT_KIT_EXPORT QxtPairList 
 	{
 
 
