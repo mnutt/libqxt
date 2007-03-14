@@ -94,7 +94,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #   		define QXT_CORE_EXPORT __declspec(dllimport)
 #	endif
 
-#	if defined(BUILD_QXT_GUI)
+#	if defined(BUILD_QXT_GUI) || defined(QDESIGNER_EXPORT_WIDGETS)
 #   		define QXT_GUI_EXPORT __declspec(dllexport)
 #	else
 #   		define QXT_GUI_EXPORT __declspec(dllimport)
