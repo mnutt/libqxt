@@ -3,7 +3,7 @@ DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
 unix : LIBS        += -L../../deploy/libs/ -lQxtKit  -lQxtCore 
-win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0
+win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -luser32 # user32 required for (Un)RegisterHotKey() used in QxtApplication_win.cpp
 
 win32: CONFIG   += dll
 
