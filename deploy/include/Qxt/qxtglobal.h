@@ -86,7 +86,7 @@ released under the Terms of LGPL (see the LICENSE file)
 
 
 
-#if defined(Q_OS_WIN32)
+#if defined(QXT_WINDOWS)
 
 #	if defined(BUILD_QXT_CORE)
 #   		define QXT_CORE_EXPORT __declspec(dllexport)
