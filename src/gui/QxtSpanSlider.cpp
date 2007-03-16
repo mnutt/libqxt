@@ -175,6 +175,24 @@ void QxtSpanSliderPrivate::drawHandle(QStylePainter* painter, SpanHandle handle)
  */
 
 /*!
+    \fn QxtSpanSlider::lowerChanged(int lower)
+
+    This signal is emitted whenever the lower boundary has changed.
+ */
+
+/*!
+    \fn QxtSpanSlider::upperChanged(int upper)
+
+    This signal is emitted whenever the upper boundary has changed.
+ */
+
+/*!
+    \fn QxtSpanSlider::spanChanged(int lower, int upper)
+
+    This signal is emitted whenever the span has changed.
+ */
+
+/*!
     Constructs a new QxtSpanSlider with \a parent.
  */
 QxtSpanSlider::QxtSpanSlider(QWidget* parent) : QSlider(parent)
@@ -197,14 +215,13 @@ QxtSpanSlider::~QxtSpanSlider()
 {
 }
 
+/*!
+    \property QxtLabel::lower
+    \brief This property holds the lower boundary value of the span
+ */
 int QxtSpanSlider::lower() const
 {
 	return qMin(qxt_d().lower, qxt_d().upper);
-}
-
-int QxtSpanSlider::upper() const
-{
-	return qMax(qxt_d().lower, qxt_d().upper);
 }
 
 void QxtSpanSlider::setLower(int lower)
@@ -212,15 +229,28 @@ void QxtSpanSlider::setLower(int lower)
 	setSpan(lower, qxt_d().upper);
 }
 
+/*!
+    \property QxtLabel::upper
+    \brief This property holds the upper boundary value of the span
+ */
+int QxtSpanSlider::upper() const
+{
+	return qMax(qxt_d().lower, qxt_d().upper);
+}
+
 void QxtSpanSlider::setUpper(int upper)
 {
 	setSpan(qxt_d().lower, upper);
 }
 
+/*!
+    Sets the span from \a lower to \a upper.
+    \sa upper, lower
+ */
 void QxtSpanSlider::setSpan(int lower, int upper)
 {
-	int l = lower; // qMin(lower, upper);
-	int u = upper; // qMax(lower, upper);
+	const int l = qMin(lower, upper);
+	const int u = qMax(lower, upper);
 	if (l != qxt_d().lower || u != qxt_d().upper)
 	{
 		if (l != qxt_d().lower)
@@ -228,13 +258,12 @@ void QxtSpanSlider::setSpan(int lower, int upper)
 			qxt_d().lower = l;
 			emit lowerChanged(l);
 		}
-		
 		if (u != qxt_d().upper)
 		{
 			qxt_d().upper = u;
 			emit upperChanged(u);
 		}
-		emit spanChanged(l, u);
+		emit spanChanged(qxt_d().lower, qxt_d().upper);
 		update();
 	}
 }
@@ -276,11 +305,29 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
 	
 	if (qxt_d().lowerPressed == QStyle::SC_SliderHandle)
 	{
-		setLower(newPosition);
+		if (newPosition > qxt_d().upper)
+		{
+			qSwap(qxt_d().lower, qxt_d().upper);
+			qSwap(qxt_d().lowerPressed, qxt_d().upperPressed);
+			setUpper(newPosition);
+		}
+		else
+		{
+			setLower(newPosition);
+		}
 	}
 	else if (qxt_d().upperPressed == QStyle::SC_SliderHandle)
 	{
-		setUpper(newPosition);
+		if (newPosition < qxt_d().lower)
+		{
+			qSwap(qxt_d().upper, qxt_d().lower);
+			qSwap(qxt_d().upperPressed, qxt_d().lowerPressed);
+			setLower(newPosition);
+		}
+		else
+		{
+			setUpper(newPosition);
+		}
 	}
 	event->accept();
 }
@@ -319,7 +366,7 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
 	// span
 	const int minv = qMin(lrv, urv);
 	const int maxv = qMax(lrv, urv);
-	const QPoint c = opt.rect.adjusted(0,0,-1,-1).center();
+	const QPoint c = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this).center();
 	QRect spanRect;
 	if (orientation() == Qt::Horizontal)
 		spanRect = QRect(QPoint(minv, c.y()-2), QPoint(maxv, c.y()+1));
