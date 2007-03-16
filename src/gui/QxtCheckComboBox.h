@@ -22,6 +22,7 @@ class QXT_GUI_EXPORT QxtCheckComboBox : public QComboBox
 	Q_PROPERTY(QString defaultText READ defaultText WRITE setDefaultText)
 	Q_PROPERTY(QStringList checkedItems READ checkedItems WRITE setCheckedItems)
 	Q_PROPERTY(QxtCheckComboBox::CheckMode checkMode READ checkMode WRITE setCheckMode)
+	Q_ENUMS(CheckMode)
 	
 public:
 	enum CheckMode
