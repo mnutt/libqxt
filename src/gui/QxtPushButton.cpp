@@ -64,6 +64,8 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
     \brief A QPushButton which can be rotated.
 
     QxtPushButton is a QPushButton which can be rotated.
+
+    \image html qxtpushbutton.png "QxtPushButtons in Plastique style."
  */
 
 /*!
@@ -88,6 +90,15 @@ QxtPushButton::QxtPushButton(const QString& text, QWidget* parent) : QPushButton
 QxtPushButton::QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent) : QPushButton(icon, text, parent)
 {
 	QXT_INIT_PRIVATE(QxtPushButton);
+}
+
+/*!
+    Constructs a new QxtPushButton with \a rotation, \a text and \a parent.
+ */
+QxtPushButton::QxtPushButton(Qxt::Rotation rotation, const QString& text, QWidget* parent) : QPushButton(text, parent)
+{
+	QXT_INIT_PRIVATE(QxtPushButton);
+	setRotation(rotation);
 }
 
 /*!
