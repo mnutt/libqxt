@@ -24,6 +24,7 @@ public:
 	explicit QxtPushButton(QWidget* parent = 0);
 	QxtPushButton(const QString& text, QWidget* parent = 0);
 	QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent = 0);
+	QxtPushButton(Qxt::Rotation rotation, const QString& text, QWidget* parent = 0);
 	virtual ~QxtPushButton();
 	
 	Qxt::Rotation rotation() const;
