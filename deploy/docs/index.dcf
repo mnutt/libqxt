@@ -10,21 +10,6 @@
 	<keyword ref="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</keyword>
 </section>
 
-<section ref="classQxtAVFile.html" title="QxtAVFile"> 
-	<keyword ref="classQxtAVFile.html">QxtAVFile</keyword>
-	<keyword ref="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</keyword>
-	<keyword ref="classQxtAVFile.html#778280bc1cbc41f3f874adae19190641">length</keyword>
-	<keyword ref="classQxtAVFile.html#5a10ba6ca80961c46f366bc2f162710b">open</keyword>
-	<keyword ref="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</keyword>
-	<keyword ref="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</keyword>
-	<keyword ref="classQxtAVFile.html#f3444211edcb9d5d5a5e8eb7b86fbb2c">samplerate</keyword>
-	<keyword ref="classQxtAVFile.html#b030f5b85645f83363bcb2c1c2e4cb70">seek</keyword>
-	<keyword ref="classQxtAVFile.html#954de341b192935aa47ef6cbf9e99406">seekP</keyword>
-	<keyword ref="classQxtAVFile.html#460ea18b92abe99c320a7fd4a224779c">setSamplerate</keyword>
-	<keyword ref="classQxtAVFile.html#d876b40064be1bbb3c25a7001e5225cc">time</keyword>
-	<keyword ref="classQxtAVFile.html#a8a591ebe0ef2633fb7f5bdf4a370a22">timeP</keyword>
-</section>
-
 <section ref="classQxtAVPlayer.html" title="QxtAVPlayer"> 
 	<keyword ref="classQxtAVPlayer.html">QxtAVPlayer</keyword>
 	<keyword ref="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</keyword>
@@ -34,7 +19,6 @@
 	<keyword ref="classQxtCheckComboBox.html">QxtCheckComboBox</keyword>
 	<keyword ref="classQxtCheckComboBox.html#c3c7d2e38bb500b0276e23537e9c664d">checkedItemsChanged</keyword>
 	<keyword ref="classQxtCheckComboBox.html#e7c491ba5d2b5cd140d5024da2de079b">checkMode</keyword>
-	<keyword ref="classQxtCheckComboBox.html#898e44005af175ddce03929805ee6b27">CheckMode</keyword>
 	<keyword ref="classQxtCheckComboBox.html#6ddab98d38c229412a060321f1640a3f">defaultText</keyword>
 	<keyword ref="classQxtCheckComboBox.html#6155154f172eace578aea54761135481">itemCheckState</keyword>
 	<keyword ref="classQxtCheckComboBox.html#656f5a7488c6f8b71d653596799a9281">separator</keyword>
@@ -239,6 +223,14 @@
 <section ref="classQxtSignalWaiter.html" title="QxtSignalWaiter"> 
 	<keyword ref="classQxtSignalWaiter.html">QxtSignalWaiter</keyword>
 	<keyword ref="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait</keyword>
+</section>
+
+<section ref="classQxtSpanSlider.html" title="QxtSpanSlider"> 
+	<keyword ref="classQxtSpanSlider.html">QxtSpanSlider</keyword>
+	<keyword ref="classQxtSpanSlider.html#e391e0ceb135d17414cffa9b70892bf5">lowerChanged</keyword>
+	<keyword ref="classQxtSpanSlider.html#7fc6e87a5ec80c01579157f4893d0117">setSpan</keyword>
+	<keyword ref="classQxtSpanSlider.html#c0b68f434b781977c856ab0c14efe84f">spanChanged</keyword>
+	<keyword ref="classQxtSpanSlider.html#fe9d465dbc34b084cc4bcca420651cab">upperChanged</keyword>
 </section>
 
 <section ref="classQxtSqlPackage.html" title="QxtSqlPackage"> 

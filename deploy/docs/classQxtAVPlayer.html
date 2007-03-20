@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtAVPlayer Class Reference<br>
 <small>
 [<a class="el" href="group__media.html">Media</a>]</small>
-</h1><!-- doxytag: class="QxtAVPlayer" -->simple player using the <a class="el" href="classQxtAVFile.html" title="AV Decoder.">QxtAVFile</a> and SDL  
+</h1><!-- doxytag: class="QxtAVPlayer" -->simple player using the QxtAVFile and SDL  
 <a href="#_details">More...</a>
 <p>
 <pre>#include &lt;QxtAVPlayer&gt;</pre>
@@ -60,7 +60,7 @@ void <b>error</b> (<a class="el" href="classQxtError.html">QxtError</a>)
 <b>QXT_DECLARE_PRIVATE</b> (<a class="el" href="classQxtAVPlayer.html">QxtAVPlayer</a>)
 <li><a class="el" href="classQxtAVPlayer.html#eeaa68d4c1afd22be4bbbb3655856ed7">QxtAVPlayer</a> (QObject *parent=0)
 <li><a class="anchor" name="3f92af83e484347d509e0824d1977fee"></a><!-- doxytag: member="QxtAVPlayer::currentFile" ref="3f92af83e484347d509e0824d1977fee" args="()" -->
-<a class="el" href="classQxtAVFile.html">QxtAVFile</a> * <b>currentFile</b> ()
+QxtAVFile * <b>currentFile</b> ()
 <li>float * <a class="el" href="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</a> ()
 <li><a class="anchor" name="013ba63d884a0e0a5126d85e0fb4ef82"></a><!-- doxytag: member="QxtAVPlayer::peeking" ref="013ba63d884a0e0a5126d85e0fb4ef82" args="()" -->
 bool <b>peeking</b> ()
@@ -73,7 +73,7 @@ void <b>setPeeking</b> (bool)
 bool <b>peeking</b>
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-simple player using the <a class="el" href="classQxtAVFile.html" title="AV Decoder.">QxtAVFile</a> and SDL 
+simple player using the QxtAVFile and SDL 
 <p>
 example: <div class="fragment"><pre class="fragment">QxtAudioPlayer player;
 player.play(<span class="stringliteral">"foo.wav"</span>);
