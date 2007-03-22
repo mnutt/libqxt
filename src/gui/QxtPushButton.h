@@ -29,6 +29,9 @@ public:
 	
 	Qxt::Rotation rotation() const;
 	void setRotation(Qxt::Rotation rotation);
+
+	Qt::TextFormat textFormat() const;
+	void setTextFormat(Qt::TextFormat format);
 	
 #ifndef QXT_DOXYGEN_RUN
 	virtual QSize sizeHint() const;
