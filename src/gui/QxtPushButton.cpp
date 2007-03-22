@@ -151,6 +151,23 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
 	}
 }
 
+QString QxtPushButton::html() const
+{
+	return (qxt_d().doc ? qxt_d().doc->toHtml() : QString());
+}
+
+void QxtPushButton::setHtml(const QString& html)
+{
+	if (!qxt_d().doc)
+	{
+		qxt_d().doc = new QTextDocument(this);
+		qxt_d().doc->setUndoRedoEnabled(false);
+	}
+	qxt_d().format = Qt::RichText;
+	qxt_d().doc->setHtml(html);
+	setText(QString());
+}
+
 /*!
     \property QxtPushButton::textFormat
     \brief This property holds the text format of the button
@@ -172,11 +189,7 @@ void QxtPushButton::setTextFormat(Qt::TextFormat format)
 		switch (format)
 		{
 			case Qt::RichText:
-				if (!qxt_d().doc)
-				{
-					qxt_d().doc = new QTextDocument(text(), this);
-					setText(QString());
-				}
+				setHtml(text());
 				break;
 
 			case Qt::PlainText:
@@ -190,8 +203,6 @@ void QxtPushButton::setTextFormat(Qt::TextFormat format)
 				}
 				break;
 		}
-		updateGeometry();
-		update();
 	}
 }
 
@@ -246,6 +257,10 @@ QSize QxtPushButton::minimumSizeHint() const
 void QxtPushButton::paintEvent(QPaintEvent* event)
 {
 	Q_UNUSED(event);
+	
+	if (qxt_d().format == Qt::RichText && !text().isEmpty())
+		setHtml(text());
+	
 	QStylePainter painter(this);
 	painter.rotate(qxt_d().rot);
 	switch (qxt_d().rot)
@@ -267,18 +282,19 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 			break;
 	}
 	
-	switch (qxt_d().format)
+	painter.drawControl(QStyle::CE_PushButton, qxt_d().getStyleOption());
+	
+	if (qxt_d().format == Qt::RichText)
 	{
-		case Qt::RichText:
-			if (qxt_d().doc)
-			{
-				qxt_d().doc->drawContents(&painter, rect());
-				break;
-			} // intentional fall through if (doc == 0)
-
-		case Qt::PlainText:
-		default:
-			painter.drawControl(QStyle::CE_PushButton, qxt_d().getStyleOption());
-			break;
+		if (qxt_d().doc)
+		{
+			//QRect area = contentsRect();
+			//area.setSize(qxt_d().doc->size().toSize());
+			//area.moveCenter(contentsRect()().center());
+			//qxt_d().doc->drawContents(&painter, area);
+			painter.translate((width() - qxt_d().doc->size().width()) / 2,
+					  (height() - qxt_d().doc->size().height()) / 2);
+			qxt_d().doc->drawContents(&painter, contentsRect());
+		}
 	}
 }
