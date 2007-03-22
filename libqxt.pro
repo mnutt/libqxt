@@ -11,7 +11,10 @@ macx:include(features/macx/qxtbuild.prf)
 TEMPLATE = subdirs
 DESTDIR      = deploy/libs
 
+
 docs.files = deploy/docs/*
+docs.commands = assistant -addContentFile $${docs.path}/index.dcf
+
 
 qxtincludes.path = $${include.path}/Qxt
 qxtincludes.files= deploy/include/Qxt/*
@@ -26,6 +29,8 @@ features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf	
 
 INSTALLS = docs qxtincludes features 
+
+
 
 contains( QXT_BUILD, core ){
     message( building the core )
