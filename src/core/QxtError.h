@@ -60,7 +60,7 @@ QXT_DROP_F(critical_function());
 \endcode
 
 */
-#define QXT_DROP_F(call) {QxtError error_sds = call; if (error_sds != Qxt::NoError )return error_sds; }
+#define QXT_DROP_F(call) {QxtError error_sds = call; if (error_sds != Qxt::NoError ) return error_sds; else (void)0; }
 
 /*! \relates QxtError
 check for errors
