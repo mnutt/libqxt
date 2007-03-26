@@ -85,7 +85,8 @@ namespace Qxt {
                 FormatError,              //10
                 DeviceError,
                 SDLError,
-		InsufficientMemory
+		InsufficientMemory,
+		SeeErrorString
                 };
 
 };
