@@ -30,6 +30,16 @@ short for return  QxtError(__FILE__,__LINE__,x);
 
 
 /*! \relates QxtError
+droping an error inside a function that returns QxtError
+
+aditionaly specifies an errorstring \n
+
+short for return  QxtError(__FILE__,__LINE__,x,s);
+*/
+#define QXT_DROP_S(x,s) return QxtError(__FILE__,__LINE__,x,s);
+
+
+/*! \relates QxtError
 droping no error inside a function that returns QxtError
 
 short for return QxtError(__FILE__,__LINE__,Qxt::NoError);
@@ -74,16 +84,18 @@ short for  QxtError name = call; if (name != Qxt::NoError )
 class QXT_CORE_EXPORT QxtError
 {
 public:
-    QxtError(char * file, long line, Qxt::ErrorCode errorcode);
+    QxtError(char * file, long line, Qxt::ErrorCode errorcode, char * errorString=0);
     Qxt::ErrorCode errorCode() const;
     long line() const;
     char * file() const;
+    char * errorString() const;
     operator Qxt::ErrorCode();
 
 private:
     Qxt::ErrorCode errorcode_m;
     long line_m;
     char * file_m;
+    char * errorString_m;
 };
 
 #endif
