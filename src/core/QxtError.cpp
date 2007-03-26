@@ -1,10 +1,11 @@
 #include "QxtError.h"
 
-QxtError::QxtError(char * file, long line, Qxt::ErrorCode errorcode)
+QxtError::QxtError(char * file, long line, Qxt::ErrorCode errorcode,char * errorString)
 {
     file_m=file;
     line_m=line;
     errorcode_m=errorcode;
+    errorString_m=errorString;
 }
 
 
@@ -19,4 +20,8 @@ char * QxtError::file() const
 
 QxtError::operator Qxt::ErrorCode()
 { return errorcode_m; }
+
+char * QxtError::errorString() const
+{ return errorString_m; }
+
 
