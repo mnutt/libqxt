@@ -11,31 +11,31 @@ released under the Terms of LGPL (see the LICENSE file)
 *******************************************************************/
 
 
-/** \defgroup core
+/** \defgroup core Core
         The Core contains naturaly  the most important parts of Qxt everything is based one. it has no QT depencies and is licenced under pure lgpl
 */
 
-/** \defgroup kit
+/** \defgroup kit Kit
         the kit module contains the base parts of Qxt that depend on QtCore
 */
 
-/** \defgroup sql
+/** \defgroup sql Sql
         parts that depend on QtSql (and at least QtCore)
 */
 
-/** \defgroup network
+/** \defgroup network  Network
         parts that depend on QtNetwork (and at least QtCore)
 */
 
-/** \defgroup gui
+/** \defgroup gui Gui
         parts that depend on QtGui (and at least QtCore)
 */
 
-/** \defgroup media
+/** \defgroup media Media
         special module for Media Classes
 */
 
-/** \defgroup curses
+/** \defgroup curses  Curses
         Qt like ncurses Frontend
 */
 

@@ -9,29 +9,18 @@ released under the Terms of LGPL (see the LICENSE file)
 
 #include <Qxt/qxtglobal.h>
 
-/*!
-    \enum QxtGui::Rotation
 
-    This enum describes the rotation.
+/**
+    \namespace Qxt
+    \ingroup core
+    \brief The Qxt Namespace
 
-    \value NoRotation        No rotation.
-    \value UpsideDown        Upside down (180 degrees).
-    \value Clockwise         Clockwise (90 degrees).
-    \value CounterClockwise  CounterClockwise (-90 degrees).
- */
+    The Qxt Namespace
 
-/*!
-    \enum QxtGui::DecorationStyle
-
-    This enum describes the decoration style.
-
-    \value NoDecoration    No decoration
-    \value Buttonlike      A style like in Qt Designer's Widget Box.
-    \value Menulike        A menu alike style.
- */
+*/
 
 
-#if defined BUILD_QXT_QT
+#if defined BUILD_QXT_QT 
 #include <QObject>
 
 class QXT_KIT_EXPORT Qxt  : public QObject
@@ -40,6 +29,8 @@ class QXT_KIT_EXPORT Qxt  : public QObject
 	Q_ENUMS(Rotation)
 	Q_ENUMS(DecorationStyle)
 	Q_ENUMS(QxtAVFileFlags)
+	Q_ENUMS(ErrorCode)
+
 
 public:
 #else
@@ -47,19 +38,31 @@ namespace Qxt {
 #endif
 
 
+
+
+	/*!
+	\enum Qxt::Rotation
+	This enum describes the rotation.
+	*/
 	enum Rotation
 	{
-		NoRotation		= 0,
-		UpsideDown		= 180,
-		Clockwise		= 90,
-		CounterClockwise	= 270
+		NoRotation		= 0,		/*!< No rotation. */
+		UpsideDown		= 180,		/*!< Upside down (180 degrees). */
+		Clockwise		= 90,		/*!< Clockwise (90 degrees). */
+		CounterClockwise	= 270		/*!< CounterClockwise (-90 degrees).  */
 	};
 	
+	/*!
+	\enum Qxt::DecorationStyle
+
+	This enum describes the decoration style.
+	*/
+
 	enum DecorationStyle
 	{
-		NoDecoration,
-		Buttonlike,
-		Menulike
+		NoDecoration,				/*!< No decoration */
+		Buttonlike,				/*!< A style like in Qt Designer's Widget Box. */
+		Menulike				/*!< A menu alike style. */
 	};
 
 
@@ -69,24 +72,27 @@ namespace Qxt {
                 fullLoad
                 };
 
-
+	/*!
+	\enum Qxt::ErrorCode
+	The error Code dropped by QxtError
+	*/
         enum ErrorCode
                 {
-                NoError,
-                UnknownError,
-                LogicalError,
-		Bug,
-		UnexpectedEndOfFunction,
-		NotImplemented,           //5
-                CodecError,
-                NotInitialised,
-		EndOfFile,
-                FileIOError,
-                FormatError,              //10
-                DeviceError,
-                SDLError,
-		InsufficientMemory,
-		SeeErrorString
+                NoError,				/*!<  */
+                UnknownError,				/*!<  */
+                LogicalError,				/*!<  */
+		Bug,					/*!<  */
+		UnexpectedEndOfFunction,		/*!<  */
+		NotImplemented,           		/*!<  */
+                CodecError,				/*!<  */
+                NotInitialised,				/*!<  */
+		EndOfFile,				/*!<  */
+                FileIOError,				/*!<  */
+                FormatError,				/*!<  */   //10
+                DeviceError,				/*!<  */
+                SDLError,				/*!<  */
+		InsufficientMemory,			/*!<  */
+		SeeErrorString				/*!<  */
                 };
 
 };

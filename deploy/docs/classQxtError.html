@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>QtExtendedLibrary: QxtError Class Reference</title>
+<title>QtExtensionLibrary: QxtError Class Reference</title>
 <link href="stylesheet.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -33,33 +33,34 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtError Class Reference<br>
 <small>
 [<a class="el" href="group__core.html">Core</a>]</small>
-</h1><!-- doxytag: class="QxtError" -->Information about Errors ocuring inside Qxt.  
+</h1><!-- doxytag: class="QxtError" -->Information about Errors ocuring inside <a class="el" href="namespaceQxt.html" title="The Qxt Namespace.">Qxt</a>.  
 <a href="#_details">More...</a>
-<p>
-<pre>#include &lt;QxtError&gt;</pre>
 <p>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="anchor" name="4341a67fc5f3d6562464e689a1741a7a"></a><!-- doxytag: member="QxtError::QxtError" ref="4341a67fc5f3d6562464e689a1741a7a" args="(char *file, long line, Qxt::ErrorCode errorcode)" -->
-<b>QxtError</b> (char *file, long line, Qxt::ErrorCode errorcode)
+<li><a class="anchor" name="fadd44c14c73dabeef1642a88af99006"></a><!-- doxytag: member="QxtError::QxtError" ref="fadd44c14c73dabeef1642a88af99006" args="(char *file, long line, Qxt::ErrorCode errorcode, char *errorString=0)" -->
+<b>QxtError</b> (char *file, long line, <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">Qxt::ErrorCode</a> errorcode, char *errorString=0)
 <li><a class="anchor" name="dc11cd73806f35bbc134570401e9fb2d"></a><!-- doxytag: member="QxtError::errorCode" ref="dc11cd73806f35bbc134570401e9fb2d" args="() const" -->
-Qxt::ErrorCode <b>errorCode</b> () const
+<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">Qxt::ErrorCode</a> <b>errorCode</b> () const
 <li><a class="anchor" name="8570c490b42ceb836f81cd47abbca0fc"></a><!-- doxytag: member="QxtError::line" ref="8570c490b42ceb836f81cd47abbca0fc" args="() const" -->
 long <b>line</b> () const
 <li><a class="anchor" name="7e8ded4d77cb03904a429579ee21526c"></a><!-- doxytag: member="QxtError::file" ref="7e8ded4d77cb03904a429579ee21526c" args="() const" -->
 char * <b>file</b> () const
+<li><a class="anchor" name="3ba9f15fe2d326d42c4cb530534f23fd"></a><!-- doxytag: member="QxtError::errorString" ref="3ba9f15fe2d326d42c4cb530534f23fd" args="() const" -->
+char * <b>errorString</b> () const
 <li><a class="anchor" name="30748abf8104123fd84aaa92fb1a73ec"></a><!-- doxytag: member="QxtError::operator Qxt::ErrorCode" ref="30748abf8104123fd84aaa92fb1a73ec" args="()" -->
 <b>operator Qxt::ErrorCode</b> ()
 </ul>
 <h3>Related Functions</h3>
 (Note that these are not member functions.) <ul>
 <li><a class="el" href="classQxtError.html#087a3a27b63706cc6e4acf9a049a9bf1">QXT_DROP</a>(x)
+<li><a class="el" href="classQxtError.html#ad2b0de584ccbde70d5a1ea41e4f2378">QXT_DROP_S</a>(x, s)
 <li><a class="el" href="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</a>
 <li><a class="el" href="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</a>(call)
 <li><a class="el" href="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</a>(name, call)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-Information about Errors ocuring inside Qxt. 
+Information about Errors ocuring inside <a class="el" href="namespaceQxt.html" title="The Qxt Namespace.">Qxt</a>. 
 <p>
 might add more features in future. 
 <p>
@@ -77,6 +78,23 @@ might add more features in future.
 <p>
 droping an error inside a function that returns <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a><p>
 short for return QxtError(__FILE__,__LINE__,x); 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="ad2b0de584ccbde70d5a1ea41e4f2378"></a><!-- doxytag: member="QxtError::QXT_DROP_S" ref="ad2b0de584ccbde70d5a1ea41e4f2378" args="(x, s)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QXT_DROP_S          </span>
+(          <span class="paramtype">x,           <span class="paramtype">s&nbsp;</span>
+          <span class="paramname"></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+droping an error inside a function that returns <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a><p>
+aditionaly specifies an errorstring <br>
+<p>
+short for return QxtError(__FILE__,__LINE__,x,s); 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="0c7157688eaaf716e11139ebe8399d29"></a><!-- doxytag: member="QxtError::QXT_DROP_OK" ref="0c7157688eaaf716e11139ebe8399d29" args="" -->
@@ -127,7 +145,7 @@ example <div class="fragment"><pre class="fragment"><a class="code" href="classQ
         <a class="code" href="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</a>(error);
         };
 </pre></div><p>
-short for <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a> name = call; if (name != Qxt::NoError )<p>
+short for <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a> name = call; if (name != <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab999f1d620cf9d29d8469ac885c1e2b9d">Qxt::NoError</a> )<p>
 <dl class="warning" compact><dt><b>Warning:</b></dt><dd>: the errors name is valid outside the scope </dd></dl>
 
 </p></div>

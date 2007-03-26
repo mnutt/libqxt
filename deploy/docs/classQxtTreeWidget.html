@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>QtExtendedLibrary: QxtTreeWidget Class Reference</title>
+<title>QtExtensionLibrary: QxtTreeWidget Class Reference</title>
 <link href="stylesheet.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -36,8 +36,6 @@ width="32" height="32" border="0" /></a></td>
 </h1><!-- doxytag: class="QxtTreeWidget" -->An extended tree widget.  
 <a href="#_details">More...</a>
 <p>
-<pre>#include &lt;QxtTreeWidget&gt;</pre>
-<p>
 <h3>Signals</h3>
 <ul>
 <li>void <a class="el" href="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</a> (QTreeWidgetItem *item)
@@ -53,9 +51,9 @@ bool <b>branchesDrawn</b> () const
 <li><a class="anchor" name="e615e643c9895b0b7798fcd7f81d64eb"></a><!-- doxytag: member="QxtTreeWidget::setBranchesDrawn" ref="e615e643c9895b0b7798fcd7f81d64eb" args="(bool draw)" -->
 void <b>setBranchesDrawn</b> (bool draw)
 <li><a class="anchor" name="395e9d15b2684814be0247d50e488eb9"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="395e9d15b2684814be0247d50e488eb9" args="() const" -->
-Qxt::DecorationStyle <b>decorationStyle</b> () const
+<a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <b>decorationStyle</b> () const
 <li><a class="anchor" name="caf9cf1f17f41922a41f22987a56dde8"></a><!-- doxytag: member="QxtTreeWidget::setDecorationStyle" ref="caf9cf1f17f41922a41f22987a56dde8" args="(Qxt::DecorationStyle style)" -->
-void <b>setDecorationStyle</b> (Qxt::DecorationStyle style)
+void <b>setDecorationStyle</b> (<a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> style)
 <li><a class="anchor" name="6bf103c3bfe964689504a461f8af381f"></a><!-- doxytag: member="QxtTreeWidget::elideMode" ref="6bf103c3bfe964689504a461f8af381f" args="() const" -->
 Qt::TextElideMode <b>elideMode</b> () const
 <li><a class="anchor" name="b0216d189b6bce5caab1ea9da5ca7060"></a><!-- doxytag: member="QxtTreeWidget::setElideMode" ref="b0216d189b6bce5caab1ea9da5ca7060" args="(Qt::TextElideMode mode)" -->
@@ -64,7 +62,7 @@ void <b>setElideMode</b> (Qt::TextElideMode mode)
 <h3>Properties</h3>
 <ul>
 <li>bool <a class="el" href="classQxtTreeWidget.html#051c5e5fe88e19d0df7572979b34b9cb">branchesDrawn</a>
-<dl class="el"><dd class="mdescRight">This property holds whether the branches of the tree are drawn.  <a href="#051c5e5fe88e19d0df7572979b34b9cb"></a><br></dl><li>Qxt::DecorationStyle <a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a>
+<dl class="el"><dd class="mdescRight">This property holds whether the branches of the tree are drawn.  <a href="#051c5e5fe88e19d0df7572979b34b9cb"></a><br></dl><li><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a>
 <dl class="el"><dd class="mdescRight">This property holds the top level item decoration style.  <a href="#d82d41a765acac120ab12eb5f6f80c06"></a><br></dl><li>Qt::TextElideMode <a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a>
 <dl class="el"><dd class="mdescRight">This property holds the text elide mode.  <a href="#6b84eee5c85d3065c0271ff6444eef9a"></a><br></dl></ul>
 <h3>Friends</h3>
@@ -175,7 +173,7 @@ The default value is <b>true</b>.
 <a class="anchor" name="d82d41a765acac120ab12eb5f6f80c06"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="d82d41a765acac120ab12eb5f6f80c06" args="" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">Qxt::DecorationStyle QxtTreeWidget::decorationStyle [read, write]          </span>
+          <span class="memname"><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> QxtTreeWidget::decorationStyle [read, write]          </span>
 </div>
 
 <div class="memdoc">
@@ -183,9 +181,9 @@ The default value is <b>true</b>.
 <p>
 This property holds the top level item decoration style. 
 <p>
-Top level items are decorated according to this property. The default value is <b>Qxt::NoDecoration</b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>Setting the property to anything else than <b>Qxt::NoDecoration</b> disables root decoration, sets the column count to <b>1</b> and hides the header.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd>Qxt::DecorationStyle <a class="el" href="classQxtItemDelegate.html" title="An extended item delegate.">QxtItemDelegate</a> </dd></dl>
+Top level items are decorated according to this property. The default value is <b><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">Qxt::NoDecoration</a></b>.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Setting the property to anything else than <b><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">Qxt::NoDecoration</a></b> disables root decoration, sets the column count to <b>1</b> and hides the header.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <a class="el" href="classQxtItemDelegate.html" title="An extended item delegate.">QxtItemDelegate</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
