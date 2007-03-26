@@ -128,7 +128,8 @@
       <item> QXT_DROP_OK </item>
       <item> QXT_DROP_F </item>	    
       <item> QXT_DROP_SCOPE </item>	    
-      <item> fortimes </item>	    
+      <item> QXT_DROP_S </item>	    
+      <item> Qxt </item>	    
     </list>
     <list name="types">
       <item> auto </item>
