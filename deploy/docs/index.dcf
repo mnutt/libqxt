@@ -3,6 +3,35 @@
 
 <section ref="./annotated.html" title="Classes">
 
+<section ref="namespaceQxt.html" title="Qxt"> 
+	<keyword ref="namespaceQxt.html">Qxt</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab410853e8300c2431d07f886306c57d9b">Bug</keyword>
+	<keyword ref="namespaceQxt.html#1310f61428884f46b557d5639b5f270915fe932bde10f910c6dacde930e69c23">Buttonlike</keyword>
+	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b5f84192be187fa76309f3d5b9a8c924a">Clockwise</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabfb41131cb300499a44dbc1246bf21f83">CodecError</keyword>
+	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b0f16e50e2c189a81fc2cfbf941736321">CounterClockwise</keyword>
+	<keyword ref="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">DecorationStyle</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabe78d7b1234f794722175e3b16acbfe48">DeviceError</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab26af71f0bedd201d9287ec6f9d7d5fa2">EndOfFile</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">ErrorCode</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab5227110a73aeb476b877f34011a94aa2">FileIOError</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab160f6bf743548cb717a57bd209679a2c">FormatError</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eaba408a37d28bb2b15caa3f44bfb9db3ab">InsufficientMemory</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab84f245b05ecfd1587545cecb71577425">LogicalError</keyword>
+	<keyword ref="namespaceQxt.html#1310f61428884f46b557d5639b5f2709e771107b012b3d6d51a65ebee34338e8">Menulike</keyword>
+	<keyword ref="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">NoDecoration</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab999f1d620cf9d29d8469ac885c1e2b9d">NoError</keyword>
+	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b0d864eb83ac21959f31e417c58445698">NoRotation</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab28763e8b19fe7acb975456edcb077b6e">NotImplemented</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabbcb6bf82fbb80f8959da0c3693bdeb7b">NotInitialised</keyword>
+	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Rotation</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabb15fa5781c63b8b5ebbc0a5b8b857e8c">SDLError</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabd0d363aff51685c0427598822e60b371">SeeErrorString</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab88d1895cc0fe4d541103c38c45b82c7d">UnexpectedEndOfFunction</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabf8e679f0cb38e00978097915ff530c8e">UnknownError</keyword>
+	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2bac8c5af50f5aa9ab9b6a49f09544cda7">UpsideDown</keyword>
+</section>
+
 <section ref="classQxtApplication.html" title="QxtApplication"> 
 	<keyword ref="classQxtApplication.html">QxtApplication</keyword>
 	<keyword ref="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</keyword>
@@ -117,6 +146,7 @@
 	<keyword ref="classQxtError.html#087a3a27b63706cc6e4acf9a049a9bf1">QXT_DROP</keyword>
 	<keyword ref="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</keyword>
 	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>
+	<keyword ref="classQxtError.html#ad2b0de584ccbde70d5a1ea41e4f2378">QXT_DROP_S</keyword>
 	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
 </section>
 
