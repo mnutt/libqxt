@@ -13,7 +13,7 @@ DESTDIR      = deploy/libs
 
 
 docs.files = deploy/docs/*
-docs.commands = assistant -addContentFile $${docs.path}/index.dcf
+#docs.commands = assistant -addContentFile $${docs.path}/index.dcf
 
 
 qxtincludes.path = $${include.path}/Qxt
