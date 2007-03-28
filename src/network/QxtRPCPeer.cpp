@@ -34,7 +34,7 @@ public:
 
     void receivePeerSignal(QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
               QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant()) const;
-    void receiveClientSignal(int id, QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
+    void receiveClientSignal(quint64 id, QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
               QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant()) const;
 
     void processInput(QTcpSocket* socket, QByteArray& buffer);
@@ -105,7 +105,7 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port) {
     return qxt_d().m_server->listen(iface, port);
 }
 
-void QxtRPCPeer::disconnectPeer(int id) {
+void QxtRPCPeer::disconnectPeer(quint64 id) {
     if(qxt_d().m_rpctype == Server && id==0) {
         qDebug() << "QxtRPCPeer: Server mode does not have a peer";
         return;
@@ -210,9 +210,9 @@ void QxtRPCPeer::call(QString fn, QVariant p1, QVariant p2, QVariant p3, QVarian
     qxt_d().m_peer->write(serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8, p9));
 }
 
-void QxtRPCPeer::callClientList(QList<int> ids, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
+void QxtRPCPeer::callClientList(QList<quint64> ids, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
     QByteArray c = serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8, QVariant());
-    foreach(int id, ids) {
+    foreach(quint64 id, ids) {
         QxtRPCConnection* conn = qxt_d().m_clients.value((QObject*)(id));
         if(!conn) {
             qDebug() << "QxtRPCPeer: no client with id" << id;
@@ -222,12 +222,12 @@ void QxtRPCPeer::callClientList(QList<int> ids, QString fn, QVariant p1, QVarian
     }
 }
 
-void QxtRPCPeer::callClient(int id, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
-    callClientList(QList<int>() << id, fn, p1, p2, p3, p4, p5, p6, p7, p8);
+void QxtRPCPeer::callClient(quint64 id, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
+    callClientList(QList<quint64>() << id, fn, p1, p2, p3, p4, p5, p6, p7, p8);
 }
 
-void QxtRPCPeer::callClientsExcept(int id, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
-    QList<int> cs = clients();
+void QxtRPCPeer::callClientsExcept(quint64 id, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
+    QList<quint64> cs = clients();
     cs.removeAll(id);
     callClientList(cs, fn, p1, p2, p3, p4, p5, p6, p7, p8);
 }
@@ -244,14 +244,14 @@ void QxtRPCPeerPrivate::receivePeerSignal(QString fn, QVariant p0, QVariant p1, 
     }
 }
 
-void QxtRPCPeerPrivate::receiveClientSignal(int id, QString fn, QVariant p0, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7) const {
+void QxtRPCPeerPrivate::receiveClientSignal(quint64 id, QString fn, QVariant p0, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7) const {
     QByteArray sig;
     int numParams;
     foreach(QxtRPCPeerPrivate::MethodID i, attachedSlots.value(fn)) {
         sig = i.first->metaObject()->method(i.second).signature();
         sig = sig.left(sig.indexOf('('));
         numParams = i.first->metaObject()->method(i.second).parameterTypes().count();
-        QMetaObject::invokeMethod(i.first, sig, Q_ARG(int, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7));
+        QMetaObject::invokeMethod(i.first, sig, Q_ARG(quint64, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7));
     }
 }
 #undef QXT_ARG
@@ -280,7 +280,7 @@ void QxtRPCPeer::newConnection() {
         QObject::connect(next, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
         QObject::connect(next, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
         QObject::connect(next, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-        emit clientConnected((int)(next));
+        emit clientConnected((quint64)(next));
     }
 }
 
@@ -313,7 +313,7 @@ void QxtRPCPeer::disconnectSender() {
         qxt_d().m_buffer.append("\n");
         qxt_d().processInput(qxt_d().m_peer, qxt_d().m_buffer);
         qxt_d().m_buffer.clear();
-        emit clientDisconnected((int)(sender()));
+        emit clientDisconnected((quint64)(sender()));
         return;
     }
     conn->buffer.append(conn->socket->readAll());
@@ -330,15 +330,15 @@ void QxtRPCPeerPrivate::processInput(QTcpSocket* socket, QByteArray& buffer) {
         if(socket == m_peer) {
             receivePeerSignal(sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7], sig.second[8]);
         } else {
-            receiveClientSignal((unsigned int)(socket), sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7]);
+            receiveClientSignal((quint64)(socket), sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7]);
         }
     }
 }
 
-QList<int> QxtRPCPeer::clients() const {
-    QList<int> rv;
+QList<quint64> QxtRPCPeer::clients() const {
+    QList<quint64> rv;
     QList<QObject*> cs = qxt_d().m_clients.keys();
-    foreach(QObject* id, cs) rv << (const int)(id);
+    foreach(QObject* id, cs) rv << (const quint64)(id);
     return rv;
 }
 
