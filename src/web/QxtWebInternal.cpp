@@ -52,6 +52,7 @@ void QxtWebInternal::internalPage (int code,QString text,QTextStream &  stream, 
 		stream<<"<h2>The Server was unable to display an internal Page</h2><br />\n";
 		stream<<"for the code: " << code << "<br />\n";
 		stream<<"with aditional info: " << text << "<br />\n";
+		stream<<"This can happen when internal views are missing or corupt.<br />\n";
 		stream<<"Please report this to the site admin\n";
 		}
 	stream.flush ();
@@ -78,7 +79,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 
 
 		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 	else if (code == 404)
@@ -96,7 +97,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 		t.assign("hint",hint);
 
 		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 	else if (code == 4041)
@@ -124,7 +125,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 			);
 
 		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 
@@ -149,7 +150,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 			);
 
 		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 	else if (code == 4043)
@@ -168,7 +169,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 			);
 
 		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 	else 
@@ -184,7 +185,7 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 
 		t.assign("description",description);
 		t.assign("hint",hint);
-		stream<<t.evaluate();
+		stream<<t.render();
 		}
 
 	return true;
