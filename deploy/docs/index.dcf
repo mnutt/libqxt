@@ -39,6 +39,21 @@
 	<keyword ref="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</keyword>
 </section>
 
+<section ref="classQxtAVFile.html" title="QxtAVFile"> 
+	<keyword ref="classQxtAVFile.html">QxtAVFile</keyword>
+	<keyword ref="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</keyword>
+	<keyword ref="classQxtAVFile.html#778280bc1cbc41f3f874adae19190641">length</keyword>
+	<keyword ref="classQxtAVFile.html#5a10ba6ca80961c46f366bc2f162710b">open</keyword>
+	<keyword ref="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</keyword>
+	<keyword ref="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</keyword>
+	<keyword ref="classQxtAVFile.html#f3444211edcb9d5d5a5e8eb7b86fbb2c">samplerate</keyword>
+	<keyword ref="classQxtAVFile.html#b030f5b85645f83363bcb2c1c2e4cb70">seek</keyword>
+	<keyword ref="classQxtAVFile.html#954de341b192935aa47ef6cbf9e99406">seekP</keyword>
+	<keyword ref="classQxtAVFile.html#460ea18b92abe99c320a7fd4a224779c">setSamplerate</keyword>
+	<keyword ref="classQxtAVFile.html#d876b40064be1bbb3c25a7001e5225cc">time</keyword>
+	<keyword ref="classQxtAVFile.html#a8a591ebe0ef2633fb7f5bdf4a370a22">timeP</keyword>
+</section>
+
 <section ref="classQxtAVPlayer.html" title="QxtAVPlayer"> 
 	<keyword ref="classQxtAVPlayer.html">QxtAVPlayer</keyword>
 	<keyword ref="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</keyword>
@@ -224,20 +239,20 @@
 	<keyword ref="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</keyword>
 	<keyword ref="classQxtRPCPeer.html#5648ce9b84625ba3095f9e7a74d7d641">attachSlot</keyword>
 	<keyword ref="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call</keyword>
-	<keyword ref="classQxtRPCPeer.html#c161ca1d6eacf419a108dd700630d77d">callClient</keyword>
-	<keyword ref="classQxtRPCPeer.html#1f2e3dea93cd49da43f5395c5c280b65">callClientList</keyword>
-	<keyword ref="classQxtRPCPeer.html#44516603f5a3c4296a84fb6cfa6e81e6">callClientsExcept</keyword>
+	<keyword ref="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient</keyword>
+	<keyword ref="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2">callClientList</keyword>
+	<keyword ref="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da">callClientsExcept</keyword>
 	<keyword ref="classQxtRPCPeer.html#78048057780f8c2fbf065f8e90cd1288">canDeserialize</keyword>
 	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962b23ef21f50f91d35f26b6bd783d7d48">Client</keyword>
-	<keyword ref="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected</keyword>
-	<keyword ref="classQxtRPCPeer.html#0124d266f0e5e55abc77803e75a0912e">clientDisconnected</keyword>
-	<keyword ref="classQxtRPCPeer.html#90f0c334f4a390be4ef2b14d93667d7b">clients</keyword>
+	<keyword ref="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219">clientConnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#0b542e1bdac54f88b911fcc19662adff">clientDisconnected</keyword>
+	<keyword ref="classQxtRPCPeer.html#3d47284e3fb7fc652718b1fa90829d5b">clients</keyword>
 	<keyword ref="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f">connect</keyword>
 	<keyword ref="classQxtRPCPeer.html#4355c694771395cf64a1638954274018">deserialize</keyword>
 	<keyword ref="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</keyword>
 	<keyword ref="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender</keyword>
 	<keyword ref="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d">disconnectAll</keyword>
-	<keyword ref="classQxtRPCPeer.html#269132dd30c1d957f2abae3b4ee483b5">disconnectPeer</keyword>
+	<keyword ref="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81">disconnectPeer</keyword>
 	<keyword ref="classQxtRPCPeer.html#ae7fcd6b1720ea10f08859a8d896a110">listen</keyword>
 	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96e9df51c9271dbbf16a646608d9acb74e">Peer</keyword>
 	<keyword ref="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected</keyword>

@@ -7,7 +7,7 @@
 #include <QUrl>
 #include <QTimer>
 
-#include <QxtError>
+#include <QxtCore/QxtError>
 
 
 
