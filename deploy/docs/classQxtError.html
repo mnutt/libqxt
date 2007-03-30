@@ -46,8 +46,7 @@ width="32" height="32" border="0" /></a></td>
 long <b>line</b> () const
 <li><a class="anchor" name="7e8ded4d77cb03904a429579ee21526c"></a><!-- doxytag: member="QxtError::file" ref="7e8ded4d77cb03904a429579ee21526c" args="() const" -->
 char * <b>file</b> () const
-<li><a class="anchor" name="3ba9f15fe2d326d42c4cb530534f23fd"></a><!-- doxytag: member="QxtError::errorString" ref="3ba9f15fe2d326d42c4cb530534f23fd" args="() const" -->
-char * <b>errorString</b> () const
+<li>char * <a class="el" href="classQxtError.html#3ba9f15fe2d326d42c4cb530534f23fd">errorString</a> () const
 <li><a class="anchor" name="30748abf8104123fd84aaa92fb1a73ec"></a><!-- doxytag: member="QxtError::operator Qxt::ErrorCode" ref="30748abf8104123fd84aaa92fb1a73ec" args="()" -->
 <b>operator Qxt::ErrorCode</b> ()
 </ul>
@@ -64,6 +63,20 @@ Information about Errors ocuring inside <a class="el" href="namespaceQxt.html" t
 <p>
 might add more features in future. 
 <p>
+<hr><h3>Member Function Documentation</h3>
+<a class="anchor" name="3ba9f15fe2d326d42c4cb530534f23fd"></a><!-- doxytag: member="QxtError::errorString" ref="3ba9f15fe2d326d42c4cb530534f23fd" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">char * QxtError::errorString           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+The Error String or NULL depending how the error was constructed. Be carefull with stack and temporary objects, <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a> just saves the pointer you passed, not the actual data. 
+</p></div>
+</div><!-- memitem --><br/>
 <hr><h3>Friends And Related Function Documentation</h3>
 <a class="anchor" name="087a3a27b63706cc6e4acf9a049a9bf1"></a><!-- doxytag: member="QxtError::QXT_DROP" ref="087a3a27b63706cc6e4acf9a049a9bf1" args="(x)" -->
 <div class="memitem">

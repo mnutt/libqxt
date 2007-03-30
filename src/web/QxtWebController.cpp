@@ -12,7 +12,9 @@
     \brief The part of QxtWeb where your buisness logic code goes
 
 
+	The controllers name is determinated via qts objectName.
 	reimplement this and add actions you want .\n
+
 	An Action is a public slot that gets called when a request includes an action.\n
 
 

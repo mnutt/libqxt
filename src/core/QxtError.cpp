@@ -20,7 +20,11 @@ char * QxtError::file() const
 
 QxtError::operator Qxt::ErrorCode()
 { return errorcode_m; }
-
+/*!
+The Error String or NULL
+depending how the error was constructed. 
+Be carefull with stack and temporary objects, QxtError just saves the pointer you passed, not the actual data.
+*/
 char * QxtError::errorString() const
 { return errorString_m; }
 
