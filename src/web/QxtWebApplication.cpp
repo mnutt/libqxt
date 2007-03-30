@@ -483,7 +483,7 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 				}	
 			stream << "Status: 200 OK\r\n";
 			stream << "Content-Type: text/html\r\n\r\n";
-			stream << view.evaluate();
+			stream << view.render();
 			}
 		
 		

@@ -23,7 +23,7 @@ void QxtHtmlTemplate::assign(QString key, QString value)
 	vars[key] = value.replace("\\", "\\\\").replace("{", "\\{");
 	}
 
-QString QxtHtmlTemplate::evaluate() const 
+QString QxtHtmlTemplate::render() const 
 	{
 	QString output = data;
 	foreach(QString key, vars.keys()) 
