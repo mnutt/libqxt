@@ -39,24 +39,28 @@ contains(QXT, web ){
 	unix : LIBS += -lQxtWeb
 	win32: LIBS += -lQxtWeb0
 	QXT+=kit
+	QT+=network 
         }
 contains(QXT, gui ){
         INCLUDEPATH +=$${QXTinclude}/QxtGui
 	unix : LIBS += -lQxtGui
 	win32: LIBS += -lQxtGui0
 	QXT+=kit
+        QT+=gui
         }
 contains(QXT, network ){
         INCLUDEPATH +=$${QXTinclude}/QxtNetwork
 	unix : LIBS += -lQxtNetwork
 	win32: LIBS += -lQxtNetwork0
 	QXT+=kit
+        QT+=network
         }
 contains(QXT, sql ){
         INCLUDEPATH +=$${QXTinclude}/QxtSql
 	unix : LIBS += -lQxtSql
 	win32: LIBS += -lQxtSql0
 	QXT+=kit
+        QT+=sql
         }
 contains(QXT, media ){
         INCLUDEPATH +=$${QXTinclude}/QxtMedia
