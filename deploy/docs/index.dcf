@@ -158,6 +158,7 @@
 
 <section ref="classQxtError.html" title="QxtError"> 
 	<keyword ref="classQxtError.html">QxtError</keyword>
+	<keyword ref="classQxtError.html#3ba9f15fe2d326d42c4cb530534f23fd">errorString</keyword>
 	<keyword ref="classQxtError.html#087a3a27b63706cc6e4acf9a049a9bf1">QXT_DROP</keyword>
 	<keyword ref="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</keyword>
 	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>

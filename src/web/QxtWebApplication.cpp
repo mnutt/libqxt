@@ -13,14 +13,44 @@
 
 
 
+/*!
+	\class QxtWebApplication QxtWebApplication
+	\ingroup web
+	\brief The Core of QxtWeb
+
+
+	starts a scgi client server listening to scgi connections, and handles all of request handling \n
+
+	You need to define a callback function for the user threads. That callback gets a pointer to the Object the Controllers or any other session persistent data you need will live on. Always define a controller with the name "root".
+	\code
+	void webmain(QObject * space)
+        	{
+        	new QxtWebController(space,"root");
+        	}
+
+	int main(int argc, char *argv[])
+        	{
+        	QCoreApplication app(argc, argv);
+        	QxtWebApplication server(&webmain);
+
+
+        	QXT_DROP_SCOPE(error,server.listen(QHostAddress::Any,4000))
+                	{
+                	qDebug("Unable to start the server: %s.",error.errorString());
+                	return 0;
+                	}	
+
+        	return app.exec();
+        	}
+
+	\endcode
+
+
+*/
 
 
 
-
-
-
-
-///-----------------------interface----------------------------
+//-----------------------interface----------------------------
 
 
 
@@ -51,7 +81,7 @@ QxtError QxtWebApplication::listen(const QHostAddress & address, quint16 port)
 
 
 
-///-----------------------private----------------------------
+//-----------------------private----------------------------
 
 
 QxtWebApplicationPrivate::QxtWebApplicationPrivate(QObject *parent) : QTcpServer(parent) 

@@ -17,7 +17,6 @@ released under the Terms of LGPL (see the LICENSE file)
 
 \brief Information about Errors ocuring inside Qxt
 
-might add more features in future.
 */
 
 /*! \relates QxtError
