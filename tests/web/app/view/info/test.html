@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
+<html>
+<head>
+<title> Fresh Mint Test </title>
+
+<style type="text/css" media="screen"><!--
+
+body 
+	{
+	color: white;
+	background-color: #000;
+	font-size: 14px;
+	}
+
+.x {
+	border:1px solid #ddd;
+	width:100%;
+	}
+
+.x td {
+	border:1px solid #ddd;
+	width:50%;
+	padding: 3px;
+	margin:0px;
+	}
+
+#content1{
+	border:1px solid #ddd;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	margin-left:510px;
+ 	left: 10px; 
+
+
+	}
+
+#content2{
+	border:1px solid #ddd;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	float:left;
+	width:500px;
+	font-size: 10px;
+	}
+		
+
+
+
+a:link, a:visited 
+	{
+	color: #06f;
+	text-decoration: none
+	}
+
+a:hover 
+	{
+	color: red;
+	text-decoration: none
+	}
+
+--></style>
+	</head>
+
+
+<body>
+
+	<div id="content2">
+
+	<table class=x> 
+		<tr style="background: #aaa;"><td colspan=2><b>SERVER:</b></td></tr>
+		<tr><td><b>key</b></td><td><b>value</b></td></tr>
+		<?=server?>
+	</table>
+	</div>
+
+
+
+	<div id="content1">
+
+	<form method="POST" action="<?=url?>">
+	input1:  <input name="input1" /><br/>
+	input2:  <input name="input2" /> &nbsp; <input type=submit /><br/>
+	
+	</form>
+
+	<br />
+
+	<table class="x" padding="0px" spacing="0px">
+		<tr style="background: #aaa;"><td colspan=2><b>POST:</b></td></tr>
+		<tr><td><b>key</b></td><td><b>value</b></td></tr>
+		<?=post?>
+	</table>
+
+	<br />
+
+	</div>
+
+
+
+
+
+
+</body>
+</html>
