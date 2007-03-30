@@ -3,6 +3,111 @@
 #include "QxtWebInternal.h"
 #include "QxtHtmlTemplate.h"
 
+
+
+
+/*!
+    \class QxtWebController QxtWebController
+    \ingroup web
+    \brief The part of QxtWeb where your buisness logic code goes
+
+
+	reimplement this and add actions you want .\n
+	An Action is a public slot that gets called when a request includes an action.\n
+
+
+	<pre>
+	http: //domain/controller/<b>action</b>
+	</pre>
+
+	\n
+	in your implementation: \n
+
+	<pre>
+	public slots:
+		int <b>action</b>()
+			{
+			return 0;
+			}
+	</pre>
+	
+
+
+	a request without action goes to the index action. Don't forget to implement it.\n
+
+
+	if you want the arguments to the request to be passed to your funtion, define them too
+	
+	<pre>
+	http: //domain/controller/action/<b>helloWorld</b>
+	</pre>
+
+	\n
+	in your implementation: \n
+	
+	\code
+		int action(QString parameter1)
+			{
+			parameter1=="helloWorld"
+			return 0;
+			}
+	\endcode
+
+
+	you can use an integer too, or whatever QVariant can be converted too.\n
+	In case you want a "catch all parameters" function, use a QStringList.
+
+	\n
+
+
+	\n \n
+
+	<h3>there are 3 ways to comunicate with the browser:</h3> \n \n
+
+		<h4>the propably best way</h4> is to use the MVC aproach and call assign(key,vale) then let the view render the html by returning a positive value. \n
+
+		\code
+			int action()
+				{
+				assign("text","hello world");
+				return 0;
+				}
+		\endcode
+		
+		the MVC automagic will search for the view fitting your action. this is (depending on your settings):  ./app/view/controller/action.html and fill all ocurances of "<?=text?>" with "hello world". The syntax is based on php and will be extended with QScript as soon as it is released. \n \n \n
+
+		<h4>the second way</h4> is to write the html directly to the stream and return a negative value. \n In this case no view is rendered. You will need to write the respone header too. if you just want a simple "200 FOUND" header, the standard one, you can use QXT_WEB_200.
+
+		\code
+			int action()
+				{
+				QXT_WEB_200
+				document()<<"hello world";
+				return -1;
+				}
+		\endcode
+
+		\n \n \n
+		
+		<h4>the third way</h4> is to use a different view then the proposed one.
+
+		\code
+			int action()
+				{
+				QXT_WEB_200
+				QxtHtmlTemplate view;
+				view.open("./app/view/controller/myotherview.html");
+				view.assign("text","hello world");
+				document()<<view.render();
+				return -2;
+				}
+		\endcode
+
+		
+
+ */
+
+
 QxtWebController::QxtWebController(QObject* parent,QString objectName_c):QObject(parent)
 	{
 	if (!objectName_c.isEmpty())

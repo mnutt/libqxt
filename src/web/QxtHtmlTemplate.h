@@ -12,7 +12,7 @@ class QxtHtmlTemplate : public QObject
 		QxtHtmlTemplate( QObject* parent = 0);
 		bool open(const QString& filename);
 		void assign(QString key, QString value);
-		QString evaluate() const;
+		QString render() const;
 
 	private:
 		QString data;
