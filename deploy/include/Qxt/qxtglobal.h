@@ -39,7 +39,7 @@ released under the Terms of LGPL (see the LICENSE file)
         Qt like ncurses Frontend
 */
 
-/** \defgroup curses  Web
+/** \defgroup web  Web
         Qt like Web Developement tools
 */
 

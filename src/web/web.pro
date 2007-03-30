@@ -16,7 +16,9 @@ TEMPLATE     = lib
 QxtWebApplication.sources		= QxtWebApplication.cpp  QxtWebInternal.cpp
 QxtWebApplication.headers		= QxtWebApplication_p.h QxtWebInternal.h
 
-QxtWebController.sources		= QxtWebController.cpp
+
+QxtWebController.sources		= QxtWebController.cpp 
+
 QxtHtmlTemplate.sources			= QxtHtmlTemplate.cpp
 
 Parts=QxtWebApplication QxtHtmlTemplate QxtWebController
