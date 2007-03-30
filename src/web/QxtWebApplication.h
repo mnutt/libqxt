@@ -17,5 +17,7 @@ class QxtWebApplication : public QObject
 	};
 
 
+
+
 #endif
 

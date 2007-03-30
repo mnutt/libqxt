@@ -21,4 +21,6 @@ QxtWebController.sources		= QxtWebController.cpp
 
 QxtHtmlTemplate.sources			= QxtHtmlTemplate.cpp
 
-Parts=QxtWebApplication QxtHtmlTemplate QxtWebController
+QxtWebSession.sources=  QxtWebSession.cpp
+
+Parts=QxtWebApplication QxtHtmlTemplate QxtWebController QxtWebSession

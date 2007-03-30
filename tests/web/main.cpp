@@ -5,6 +5,7 @@
 #include <QxtWebApplication>
 #include <QxtWebController>
 #include "testcontroller.h"
+#include "clockcontroller.h"
 
 
 
@@ -14,6 +15,7 @@ void webmain(QObject * worker)
 	new QxtWebController(worker,"root");
 	new QxtWebController(worker,"post");
 	new InfoController (worker);
+	new ClockController(worker);
 	}
 
 
