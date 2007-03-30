@@ -6,5 +6,5 @@ INCLUDEPATH += .
 CONFIG+=qxt
 QXT+=core kit web
 
-SOURCES += main.cpp
-HEADERS+=testcontroller.h
+SOURCES += main.cpp clockcontroller.cpp
+HEADERS+=testcontroller.h clockcontroller.h
