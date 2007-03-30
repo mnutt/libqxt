@@ -67,4 +67,9 @@ contains( QXT_BUILD, curses ){
     message( building curses module )
     SUBDIRS += src/curses
 }
+	
+contains( QXT_BUILD, web ){
+    message( building web module )
+    SUBDIRS += src/web
+}
 

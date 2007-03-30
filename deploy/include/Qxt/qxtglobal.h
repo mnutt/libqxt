@@ -39,6 +39,10 @@ released under the Terms of LGPL (see the LICENSE file)
         Qt like ncurses Frontend
 */
 
+/** \defgroup curses  Web
+        Qt like Web Developement tools
+*/
+
 
 
 /**
@@ -126,6 +130,13 @@ released under the Terms of LGPL (see the LICENSE file)
 #   		define QXT_SQL_EXPORT __declspec(dllimport)
 #	endif
 
+#	if defined(BUILD_QXT_WEB)
+#   		define QXT_WEB_EXPORT __declspec(dllexport)
+#	else
+#   		define QXT_WEB_EXPORT __declspec(dllimport)
+#	endif
+
+
 #else
 
 #    define QXT_CORE_EXPORT
@@ -134,6 +145,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #    define QXT_MEDIA_EXPORT
 #    define QXT_NETWORK_EXPORT
 #    define QXT_SQL_EXPORT
+#    define QXT_WEB_EXPORT
 
 
 
@@ -149,11 +161,11 @@ released under the Terms of LGPL (see the LICENSE file)
 
 
 
-#if defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT
+#if defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB
 #define BUILD_QXT_QT
 #endif
 
-#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT
+#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB
 #define BUILD_QXT
 #endif
 

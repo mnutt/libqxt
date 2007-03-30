@@ -115,7 +115,7 @@ goto top
     echo -no-stability-unknown Do not build untested classes
     echo -no-openssl ......... Do not link to OpenSSL
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: kit network gui sql media curses
+    echo                       options: kit network gui sql media curses web
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del config.in
