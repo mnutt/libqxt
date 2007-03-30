@@ -34,6 +34,12 @@ contains(QXT, curses ){
 	win32: LIBS += -lQxtCurses0
 	QXT+=kit
         }
+contains(QXT, web ){
+        INCLUDEPATH +=$${QXTinclude}/QxtWeb
+	unix : LIBS += -lQxtWeb
+	win32: LIBS += -lQxtWeb0
+	QXT+=kit
+        }
 contains(QXT, gui ){
         INCLUDEPATH +=$${QXTinclude}/QxtGui
 	unix : LIBS += -lQxtGui
@@ -68,3 +74,4 @@ contains(QXT, core ){
 	unix : LIBS += -lQxtCore
 	win32: LIBS += -lQxtCore0
         }
+

@@ -46,17 +46,17 @@ width="32" height="32" border="0" /></a></td>
 <h3>Public Slots</h3>
 <ul>
 <li>void <a class="el" href="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call</a> (QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())
-<li>void <a class="el" href="classQxtRPCPeer.html#1f2e3dea93cd49da43f5395c5c280b65">callClientList</a> (QList&lt; int &gt; ids, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
-<li>void <a class="el" href="classQxtRPCPeer.html#c161ca1d6eacf419a108dd700630d77d">callClient</a> (int id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
-<li>void <a class="el" href="classQxtRPCPeer.html#44516603f5a3c4296a84fb6cfa6e81e6">callClientsExcept</a> (int id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
+<li>void <a class="el" href="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2">callClientList</a> (QList&lt; quint64 &gt; ids, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
+<li>void <a class="el" href="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
+<li>void <a class="el" href="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da">callClientsExcept</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender</a> ()
 </ul>
 <h3>Signals</h3>
 <ul>
 <li>void <a class="el" href="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected</a> ()
-<li>void <a class="el" href="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected</a> (int id)
+<li>void <a class="el" href="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219">clientConnected</a> (quint64 id)
 <li>void <a class="el" href="classQxtRPCPeer.html#e3fd8e63aceea84eef2a70a8fa50418d">peerDisconnected</a> ()
-<li>void <a class="el" href="classQxtRPCPeer.html#0124d266f0e5e55abc77803e75a0912e">clientDisconnected</a> (int id)
+<li>void <a class="el" href="classQxtRPCPeer.html#0b542e1bdac54f88b911fcc19662adff">clientDisconnected</a> (quint64 id)
 <li>void <a class="el" href="classQxtRPCPeer.html#cd89d8b304d38cfff4fef3e0c513e1da">peerError</a> (QAbstractSocket::SocketError)
 </ul>
 <h3>Public Member Functions</h3>
@@ -66,10 +66,10 @@ width="32" height="32" border="0" /></a></td>
 <li><a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a> <a class="el" href="classQxtRPCPeer.html#714353c8574c58d05b4e86aaca9fa906">rpcType</a> () const
 <li>void <a class="el" href="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f">connect</a> (QHostAddress addr, int port=80)
 <li>bool <a class="el" href="classQxtRPCPeer.html#ae7fcd6b1720ea10f08859a8d896a110">listen</a> (QHostAddress iface=QHostAddress::Any, int port=80)
-<li>void <a class="el" href="classQxtRPCPeer.html#269132dd30c1d957f2abae3b4ee483b5">disconnectPeer</a> (int id=-1)
+<li>void <a class="el" href="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81">disconnectPeer</a> (quint64 id=-1)
 <li>void <a class="el" href="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d">disconnectAll</a> ()
 <li>void <a class="el" href="classQxtRPCPeer.html#2656eda811259c6c75702d3952f49afd">stopListening</a> ()
-<li>QList&lt; int &gt; <a class="el" href="classQxtRPCPeer.html#90f0c334f4a390be4ef2b14d93667d7b">clients</a> () const
+<li>QList&lt; quint64 &gt; <a class="el" href="classQxtRPCPeer.html#3d47284e3fb7fc652718b1fa90829d5b">clients</a> () const
 <li>void <a class="el" href="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</a> (QObject *sender, const char *signal, QString rpcFunction=QString())
 <li>void <a class="el" href="classQxtRPCPeer.html#5648ce9b84625ba3095f9e7a74d7d641">attachSlot</a> (QString rpcFunction, QObject *recv, const char *slot)
 <li>void <a class="el" href="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</a> (QObject *obj)
@@ -187,14 +187,14 @@ When the connection is complete, the <em><a class="el" href="classQxtRPCPeer.htm
 
 <p>
 Listens on the specified interface on the specified port for connections.<p>
-Attempting to listen while in Client mode or while connected in Peer mode will be ignored with a warning. In Peer mode, only one connection can be active at a time. Additional incoming connections while connected to a peer will be dropped. When a peer connects, the <em><a class="el" href="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected()</a></em> signal will be emitted. In Server mode, multiple connections can be active at a time. Each client that connects will be provided a unique ID, included in the <em><a class="el" href="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected()</a></em> signal that will be emitted. 
+Attempting to listen while in Client mode or while connected in Peer mode will be ignored with a warning. In Peer mode, only one connection can be active at a time. Additional incoming connections while connected to a peer will be dropped. When a peer connects, the <em><a class="el" href="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected()</a></em> signal will be emitted. In Server mode, multiple connections can be active at a time. Each client that connects will be provided a unique ID, included in the <em><a class="el" href="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219">clientConnected()</a></em> signal that will be emitted. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="269132dd30c1d957f2abae3b4ee483b5"></a><!-- doxytag: member="QxtRPCPeer::disconnectPeer" ref="269132dd30c1d957f2abae3b4ee483b5" args="(int id=-1)" -->
+<a class="anchor" name="85cfd11c6acd55e3a36501170110cd81"></a><!-- doxytag: member="QxtRPCPeer::disconnectPeer" ref="85cfd11c6acd55e3a36501170110cd81" args="(quint64 id=-1)" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::disconnectPeer           </span>
-(          <span class="paramtype">int&nbsp;</span>
+(          <span class="paramtype">quint64&nbsp;</span>
           <span class="paramname"> <em>id</em> = -1</span>
 )</div>
 
@@ -202,7 +202,7 @@ Attempting to listen while in Client mode or while connected in Peer mode will b
 
 <p>
 Disconnects from a server, client, or peer.<p>
-Servers must provide a client ID, provided by the <em><a class="el" href="classQxtRPCPeer.html#b00bed8ed5f4304d7fecec556119dc9e">clientConnected()</a></em> signal; clients and peers must not. 
+Servers must provide a client ID, provided by the <em><a class="el" href="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219">clientConnected()</a></em> signal; clients and peers must not. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="52185ce2fc95baae6af7c0e62702cf1d"></a><!-- doxytag: member="QxtRPCPeer::disconnectAll" ref="52185ce2fc95baae6af7c0e62702cf1d" args="()" -->
@@ -231,10 +231,10 @@ Disconnects from all clients, or from the server or peer.
 Stops listening for connections. Any connections still open will remain connected. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="90f0c334f4a390be4ef2b14d93667d7b"></a><!-- doxytag: member="QxtRPCPeer::clients" ref="90f0c334f4a390be4ef2b14d93667d7b" args="() const" -->
+<a class="anchor" name="3d47284e3fb7fc652718b1fa90829d5b"></a><!-- doxytag: member="QxtRPCPeer::clients" ref="3d47284e3fb7fc652718b1fa90829d5b" args="() const" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QList&lt; int &gt; QxtRPCPeer::clients           </span>
+          <span class="memname">QList&lt; quint64 &gt; QxtRPCPeer::clients           </span>
 (          <span class="paramname"></span>
 ) const</div>
 
@@ -332,11 +332,11 @@ This function accepts up to 9 QVariant parameters.<p>
 The receiver is not obligated to act upon the signal. If no server or peer is connected, the call is ignored. In particular, this function does nothing in Server mode. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="1f2e3dea93cd49da43f5395c5c280b65"></a><!-- doxytag: member="QxtRPCPeer::callClientList" ref="1f2e3dea93cd49da43f5395c5c280b65" args="(QList&lt; int &gt; ids, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
+<a class="anchor" name="397977b521252f70cfc78bfc4a7612e2"></a><!-- doxytag: member="QxtRPCPeer::callClientList" ref="397977b521252f70cfc78bfc4a7612e2" args="(QList&lt; quint64 &gt; ids, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::callClientList           </span>
-(          <span class="paramtype">QList&lt; int &gt;&nbsp;</span>
+(          <span class="paramtype">QList&lt; quint64 &gt;&nbsp;</span>
           <span class="paramname"> <em>ids</em>, </span>
           <span class="paramtype">QString&nbsp;</span>
           <span class="paramname"> <em>fn</em>, </span>
@@ -366,11 +366,11 @@ This function accepts up to 8 QVariant parameters.<p>
 The receivers are not obligated to act upon the signal. If no client is connected with a provided ID, the ID is ignored with a warning. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="c161ca1d6eacf419a108dd700630d77d"></a><!-- doxytag: member="QxtRPCPeer::callClient" ref="c161ca1d6eacf419a108dd700630d77d" args="(int id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
+<a class="anchor" name="06f8b65aecd3aa8dde1440601bf2bad2"></a><!-- doxytag: member="QxtRPCPeer::callClient" ref="06f8b65aecd3aa8dde1440601bf2bad2" args="(quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::callClient           </span>
-(          <span class="paramtype">int&nbsp;</span>
+(          <span class="paramtype">quint64&nbsp;</span>
           <span class="paramname"> <em>id</em>, </span>
           <span class="paramtype">QString&nbsp;</span>
           <span class="paramname"> <em>fn</em>, </span>
@@ -400,11 +400,11 @@ This function accepts up to 8 QVariant parameters.<p>
 The receiver is not obligated to act upon the signal. If no client with the given ID is connected, the call will be ignored with a warning. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="44516603f5a3c4296a84fb6cfa6e81e6"></a><!-- doxytag: member="QxtRPCPeer::callClientsExcept" ref="44516603f5a3c4296a84fb6cfa6e81e6" args="(int id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
+<a class="anchor" name="2f9951f98792297abc0d68f68cdf17da"></a><!-- doxytag: member="QxtRPCPeer::callClientsExcept" ref="2f9951f98792297abc0d68f68cdf17da" args="(quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::callClientsExcept           </span>
-(          <span class="paramtype">int&nbsp;</span>
+(          <span class="paramtype">quint64&nbsp;</span>
           <span class="paramname"> <em>id</em>, </span>
           <span class="paramtype">QString&nbsp;</span>
           <span class="paramname"> <em>fn</em>, </span>
@@ -460,11 +460,11 @@ Detaches all signals and slots for the object that emitted the signal connected 
 This signal is emitted after a successful connection to or from a peer or server. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="b00bed8ed5f4304d7fecec556119dc9e"></a><!-- doxytag: member="QxtRPCPeer::clientConnected" ref="b00bed8ed5f4304d7fecec556119dc9e" args="(int id)" -->
+<a class="anchor" name="3ac5875f59d5ee12d79be52284098219"></a><!-- doxytag: member="QxtRPCPeer::clientConnected" ref="3ac5875f59d5ee12d79be52284098219" args="(quint64 id)" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::clientConnected           </span>
-(          <span class="paramtype">int&nbsp;</span>
+(          <span class="paramtype">quint64&nbsp;</span>
           <span class="paramname"> <em>id</em></span>
 ) [signal]</div>
 
@@ -472,7 +472,7 @@ This signal is emitted after a successful connection to or from a peer or server
 
 <p>
 This signal is emitted after a successful connection from a client.<p>
-The given ID is used for <a class="el" href="classQxtRPCPeer.html#269132dd30c1d957f2abae3b4ee483b5">disconnectPeer()</a>, <a class="el" href="classQxtRPCPeer.html#c161ca1d6eacf419a108dd700630d77d">callClient()</a>, and related functions. 
+The given ID is used for <a class="el" href="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81">disconnectPeer()</a>, <a class="el" href="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient()</a>, and related functions. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="e3fd8e63aceea84eef2a70a8fa50418d"></a><!-- doxytag: member="QxtRPCPeer::peerDisconnected" ref="e3fd8e63aceea84eef2a70a8fa50418d" args="()" -->
@@ -488,11 +488,11 @@ The given ID is used for <a class="el" href="classQxtRPCPeer.html#269132dd30c1d9
 This signal is emitted when a peer or server is disconnected. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="0124d266f0e5e55abc77803e75a0912e"></a><!-- doxytag: member="QxtRPCPeer::clientDisconnected" ref="0124d266f0e5e55abc77803e75a0912e" args="(int id)" -->
+<a class="anchor" name="0b542e1bdac54f88b911fcc19662adff"></a><!-- doxytag: member="QxtRPCPeer::clientDisconnected" ref="0b542e1bdac54f88b911fcc19662adff" args="(quint64 id)" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::clientDisconnected           </span>
-(          <span class="paramtype">int&nbsp;</span>
+(          <span class="paramtype">quint64&nbsp;</span>
           <span class="paramname"> <em>id</em></span>
 ) [signal]</div>
 
