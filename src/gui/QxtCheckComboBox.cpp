@@ -151,17 +151,29 @@ Qt::ItemFlags QxtCheckComboModel::flags(const QModelIndex& index) const
 bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
 	bool ok = QStandardItemModel::setData(index, value, role);
-	if (ok && role == Qt::CheckStateRole)
+	if (ok)
 	{
-		emit checkStateChanged();
+		if (role == Qt::CheckStateRole)
+		{
+			emit checkStateChanged();
+		}
+		else if (role == Qt::EditRole)
+		{
+			// a workaround to detect QComboBox::insertItems()
+			QVariant value = index.data(Qt::CheckStateRole);
+			if (!value.isValid())
+			{
+				setData(index, Qt::Unchecked, Qt::CheckStateRole);
+				emit checkStateChanged();
+			}
+		}
 	}
 	return ok;
 }
 
 bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles)
 {
-	// workaround: rely on this that a new item was added
-	// because QComboBox::insertItem() is such a biatch
+	// a workaround to detect QComboBox::insertItem()
 	QMap<int, QVariant> copy = roles;
 	copy.insert(Qt::CheckStateRole, Qt::Unchecked);
 	bool ok = QStandardItemModel::setItemData(index, copy);
