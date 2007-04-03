@@ -33,6 +33,7 @@
 /**
 @author Adam Higerd
 */
+class QxtCsvModelPrivate;
 class QxtCsvModel : public QAbstractTableModel
 {
 Q_OBJECT
