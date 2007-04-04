@@ -86,7 +86,7 @@ goto top
     goto bottom
 
 :msvc
-    echo TEMPLATE = vcsubdirs  >> config.in
+    echo TEMPLATE = vclib  >> config.in
     goto bottom
 
 :help
