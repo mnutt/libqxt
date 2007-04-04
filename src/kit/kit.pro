@@ -11,6 +11,7 @@ TEMPLATE     = lib
 
 QxtSignalWaiter.sources 	= QxtSignalWaiter.cpp
 QxtEventThread.sources 		= QxtEventThread.cpp
+QxtCsvModel.sources 		= QxtCsvModel.cpp
 
 Parts = QxtSignalWaiter QxtTrippleList QxtPairList QxtEventThread QxtCsvModel
 

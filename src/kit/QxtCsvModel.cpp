@@ -31,7 +31,7 @@ public:
     QStringList csvData;
     QStringList header;
     int maxColumn;
-}
+};
 
 QxtCsvModel::QxtCsvModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -164,11 +164,11 @@ bool QxtCsvModel::insertRows(int row, int count, const QModelIndex& parent)
 {
     if(parent!=QModelIndex() || row<0) return false;
     emit beginInsertRows(parent, row, row+count);
-    QxtCsvModelPrivate* d_ptr = qxt_d();
+    QxtCsvModelPrivate& d_ptr = qxt_d();
     if(row>=rowCount()) {
-        for(int i=0;i<count;i++) d_ptr->csvData << "";
+        for(int i=0;i<count;i++) d_ptr.csvData << "";
     } else {
-        for(int i=0;i<count;i++) d_ptr->csvData.insert(row, "");
+        for(int i=0;i<count;i++) d_ptr.csvData.insert(row, "");
     }
     emit endInsertRows();
     return true;
@@ -185,9 +185,9 @@ bool QxtCsvModel::removeRows(int row, int count, const QModelIndex& parent)
     if(row>=rowCount()) return false;
     if(row+count>=rowCount()) count = rowCount()-row;
     emit beginRemoveRows(parent, row, row+count);
-    QxtCsvModelPrivate* d_ptr = qxt_d();
+    QxtCsvModelPrivate& d_ptr = qxt_d();
     for(int i=0;i<count;i++)
-        d_ptr->csvData.removeAt(row);
+        d_ptr.csvData.removeAt(row);
     emit endRemoveRows();
     return true;
 }
@@ -201,21 +201,21 @@ bool QxtCsvModel::insertColumns(int col, int count, const QModelIndex& parent)
 {
     if(parent!=QModelIndex() || col<0) return false;
     emit beginInsertColumns(parent, col, col+count);
-    QxtCsvModelPrivate* d_ptr = qxt_d();
+    QxtCsvModelPrivate& d_ptr = qxt_d();
     if(col<columnCount()) {
         QString before, after;
         for(int i=0;i<rowCount();i++) {
             if(col>0)
-                before = d_ptr->csvData[i].section(QChar(1),0,col-1)+QChar(1);
+                before = d_ptr.csvData[i].section(QChar(1),0,col-1)+QChar(1);
             else
                 before = "";
-            after = d_ptr->csvData[i].section(QChar(1),col);
-            d_ptr->csvData[i] = before + QString(count, QChar(1)) + after;
+            after = d_ptr.csvData[i].section(QChar(1),col);
+            d_ptr.csvData[i] = before + QString(count, QChar(1)) + after;
         }
     }
     for(int i=0;i<count;i++)
-        d_ptr->header.insert(col,"");
-    d_ptr->maxColumn+=count;
+        d_ptr.header.insert(col,"");
+    d_ptr.maxColumn+=count;
     emit endInsertColumns();
     return true;
 }
@@ -231,18 +231,18 @@ bool QxtCsvModel::removeColumns(int col, int count, const QModelIndex& parent)
     if(col>=columnCount()) return false;
     if(col+count>=columnCount()) count = columnCount()-col;
     emit beginRemoveColumns(parent, col, col+count);
-    QxtCsvModelPrivate* d_ptr = qxt_d();
+    QxtCsvModelPrivate& d_ptr = qxt_d();
     QString before, after;
     for(int i=0;i<rowCount();i++) {
         if(col>0)
-            before = d_ptr->csvData[i].section(QChar(1),0,col-1)+QChar(1);
+            before = d_ptr.csvData[i].section(QChar(1),0,col-1)+QChar(1);
         else
             before = "";
-        after = d_ptr->csvData[i].section(QChar(1),col+count);
-        d_ptr->csvData[i] = before + after;
+        after = d_ptr.csvData[i].section(QChar(1),col+count);
+        d_ptr.csvData[i] = before + after;
     }
     for(int i=0;i<count;i++)
-        d_ptr->header.removeAt(col);
+        d_ptr.header.removeAt(col);
     emit endRemoveColumns();
     return true;
 }
@@ -250,7 +250,7 @@ bool QxtCsvModel::removeColumns(int col, int count, const QModelIndex& parent)
 
 void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
 {
-    QxtCsvModelPrivate* d_ptr = qxt_d();
+    QxtCsvModelPrivate& d_ptr = qxt_d();
     int row, col, rows, cols;
     rows = rowCount();
     cols = columnCount();
@@ -259,7 +259,7 @@ void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
     if(withHeader) {
         data = "";
         for(col = 0; col < cols; col++) {
-            data += '"' + d_ptr->header.at(col) + '"';
+            data += '"' + d_ptr.header.at(col) + '"';
             if(col<cols-1) data += separator;
         }
         data += QChar(10);
@@ -268,7 +268,7 @@ void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
     for(row = 0; row < rows; row++) {
         data = "";
         for(col = 0; col < cols; col++) {
-            data += '"' + d_ptr->csvData[row].section(QChar(1),col,col) + '"';
+            data += '"' + d_ptr.csvData[row].section(QChar(1),col,col) + '"';
             if(col<cols-1) data += separator;
         }
         data += QChar(10);
