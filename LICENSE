@@ -1,17 +1,60 @@
 Qt extended Library 
-Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org) and other contributers as named in the sourcecode
+Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org) and other contributers as named in the AUTHERS file
 
 Libqxt depends on Qt and other librarys having their own Licenses.
 
+
 This library is free software; you can redistribute it and/or
-modify it either under the terms of the GNU Lesser License,
-as published by the Free Software Foundation; Version 2.0 or 2.1.
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Lesser General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public
-License and the GNU Public License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+				Intention
+
+In case LGPL is not legal in your country,
+the LGPL becomes invalid, somone goes mad, somone is trying 
+to abuse a mistake in the LGPL, whatever goes wrong,
+we don't want our work lost. So this is a kind of fallback in 
+case whatever goes wrong with the legal things. Remember that the 
+legal agreement is still the LGPL and that forking libqxt into a difference license 
+should never happen. Also this is not a legal text made for lawyers, we just want to 
+state our intention in colloquial speech.
+
+The Contributers of libqxt are mainly people comming from the hacker scene,
+they are into Linux and the idea of open source software.
+
+- We want you to respect their background of open source 
+  and not use their code for any purpose that stands against the 
+  Freedom of Software.
+  Example:
+
+       - You can not own parts of this code. The owner is the comunity.
+
+       - The DRM (Digital Rights Management) is the complete oposite of 
+         the idea of Free Software. It trys to restrict a user and dominate
+         an economic distribution channel.
+
+- We want everyone to have access to the the source without limits.
+  If you are distributing a compiled binary make sure that the user 
+  can access the source and modify the library.
+  Example:
+
+       - It is ok to link closed source software against libqxt
+         as long as you assure the user of your software can modify
+         libqxt in the terms of open source. Means you have to share 
+         the source of libqxt if the user wants it, including any changes
+         you made. But this does not affect your closed source program.
+
+- We dont want to any of our contributions including our names to be
+  part of any political or semi-political propaganda.
+- We want to be credited for our work.
+- This Code is distributed "as is" . There is no Waranty 
+
+
