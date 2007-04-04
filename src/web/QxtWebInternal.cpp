@@ -172,6 +172,60 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 		stream<<t.render();
 		}
 
+	else if (code == 4046)
+		{
+		QxtHtmlTemplate  t;
+		if (!t.open(WebRoot_m+"/internal/404.html"))return false;
+
+		stream<<"Status: 404 NOT FOUND\r\n";
+		stream<<"Content-Type: text/html\r\n";
+		stream<<"\r\n\r\n";
+							 
+		t.assign("description","Invalid flector call \""+description+ "\" !<br>");
+
+		t.assign("hint",
+			"Somehow a request asks for an invalid flektor, or calls the flector with too less arguments. Try to Correct that."
+			);
+
+		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
+		stream<<t.render();
+		}
+
+	else if (code == 5011)
+		{
+		QxtHtmlTemplate  t;
+		if (!t.open(WebRoot_m+"/internal/505.html"))
+			if (!t.open(WebRoot_m+"/internal/error.html"))
+				return false;
+
+		stream<<"Status: 501 Not Implemented\r\n";
+		stream<<"Content-Type: text/html\r\n";
+		stream<<"\r\n\r\n";
+				
+
+		t.assign("code","501");
+			 
+		t.assign("description","The asynchronous action you requested requires a communicator.");
+
+		t.assign("hint",
+			"In your QxtWebApplication  creator callback do the following to add it:"
+			"<small><pre>"
+			+QxtWebInternal::toHtml("#include <QxtWebCommunicator>")+"<br/>"
+		
+			+QxtWebInternal::toHtml("void webmain(QObject * worker) ")+"<br/>"
+			+QxtWebInternal::toHtml(" {")+"<br/>"
+			+QxtWebInternal::toHtml(" new QxtWebCommunicator(worker);")+"<br/>"
+			+QxtWebInternal::toHtml(" }")+"<br/>"
+			+"</pre></small><br/>"
+			);
+
+		stream<<t.render();
+		}
+	else if (code == 204)
+		{
+		stream<<"Status: 205 Reset Content\r\n";
+		stream<<"Content-Type: text/html\r\n\r\n";
+		}
 	else 
 		{
 		QxtHtmlTemplate  t;

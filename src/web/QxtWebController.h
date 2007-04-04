@@ -22,7 +22,7 @@ class QxtWebController : public QObject
 
 	protected:
 
-		QHash<QByteArray, QString>    POST;
+		QHash<QString, QString>    POST;
 		QHash<QByteArray, QByteArray> SERVER;
 
 		QTextStream & document();
@@ -34,7 +34,7 @@ class QxtWebController : public QObject
 		int index();
 
 	private:
-		void push(QHash<QByteArray, QByteArray>,QHash<QByteArray, QString> , QxtHtmlTemplate  *,QTextStream *);
+		void push(QHash<QByteArray, QByteArray>,QHash<QString, QString> , QxtHtmlTemplate  *,QTextStream *);
 
 		QxtHtmlTemplate  * view;
 		QTextStream * stream;

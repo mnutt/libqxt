@@ -61,7 +61,6 @@
 
 	\n
 
-
 	\n \n
 
 	<h3>there are 3 ways to comunicate with the browser:</h3> \n \n
@@ -147,7 +146,7 @@ int QxtWebController::index()
 	}
 
 
-void QxtWebController::push( QHash<QByteArray, QByteArray> server,QHash<QByteArray, QString>  post, QxtHtmlTemplate  *v,QTextStream * s )
+void QxtWebController::push( QHash<QByteArray, QByteArray> server,QHash<QString, QString>  post, QxtHtmlTemplate  *v,QTextStream * s )
 	{
 	view = v;
 	stream=s;
