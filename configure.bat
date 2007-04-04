@@ -1,5 +1,6 @@
 @echo off
-echo qmake -recursive > doqmake.bat
+set QMAKEBIN=qmake
+set MSVCMODE=
 echo QXT_stability += unknown > config.in
 
 :top
@@ -34,7 +35,7 @@ shift
 goto top
 
 :qmakebin
-    echo %2 -recursive > doqmake.bat
+    set QMAKEBIN=%2
     goto bottom2
 
 :nomake
@@ -86,7 +87,12 @@ goto top
     goto bottom
 
 :msvc
+<<<<<<< .mine
+    set MSVCMODE=-tp vc
+    echo TEMPLATE = vcsubdirs  >> config.in
+=======
     echo TEMPLATE = vclib  >> config.in
+>>>>>>> .r331
     goto bottom
 
 :help
@@ -126,6 +132,6 @@ copy config.pri config.pri.bak
 copy config.in config.pri
 del config.in
 
-doqmake.bat
+%QMAKEBIN% %MSVCMODE% -recursive
 
 :end
