@@ -87,12 +87,7 @@ goto top
     goto bottom
 
 :msvc
-<<<<<<< .mine
     set MSVCMODE=-tp vc
-    echo TEMPLATE = vcsubdirs  >> config.in
-=======
-    echo TEMPLATE = vclib  >> config.in
->>>>>>> .r331
     goto bottom
 
 :help
