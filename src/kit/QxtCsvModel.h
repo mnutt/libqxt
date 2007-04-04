@@ -30,12 +30,13 @@
 #include <QStringList>
 #include <QModelIndex>
 #include <QxtPimpl.h>
+#include <Qxt/qxtglobal.h>
 
 /**
 @author Adam Higerd
 */
 class QxtCsvModelPrivate;
-class QxtCsvModel : public QAbstractTableModel
+class QXT_KIT_EXPORT QxtCsvModel : public QAbstractTableModel
 {
 Q_OBJECT
 public:
