@@ -191,6 +191,8 @@ bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, Q
 
     QxtComboBox is a specialized combo box with checkable items.
     All the checked items are collected together on the line edit.
+
+    \image html qxtcheckcombobox.png "QxtCheckComboBox in Plastique style."
  */
 
 /*!
