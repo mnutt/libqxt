@@ -172,6 +172,8 @@ void QxtSpanSliderPrivate::drawHandle(QStylePainter* painter, SpanHandle handle)
 
     QxtSpanSlider is a slider with two handles. QxtSpanSlider is
     handy for letting user to choose an span between min/max.
+
+    \image html qxtspanslider.png "QxtSpanSlider in Plastique style."
  */
 
 /*!
