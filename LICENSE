@@ -1,7 +1,13 @@
 Qt extended Library 
-Copyright (C) 2006 Adam Higerd and Arvid Picciani (aep@exys.org) and other contributers as named in the AUTHERS file
+Copyright (C) 2007 Qxt Foundation
 
 Libqxt depends on Qt and other librarys having their own Licenses.
+
+
+
+In case the Qxt Foundation does not exist yet or is not legal in your country the (c) goes back to the orginal Author
+represented by Adam Higerd and Arvid Picciani <aep@exys.org>   ( Decisions have to be made by both in agreement). 
+
 
 
 This library is free software; you can redistribute it and/or
@@ -23,9 +29,11 @@ the LGPL becomes invalid, somone goes mad, somone is trying
 to abuse a mistake in the LGPL, whatever goes wrong,
 we don't want our work lost. So this is a kind of fallback in 
 case whatever goes wrong with the legal things. Remember that the 
-legal agreement is still the LGPL and that forking libqxt into a difference license 
-should never happen. Also this is not a legal text made for lawyers, we just want to 
-state our intention in colloquial speech.
+legal agreement is still the LGPL and that this statement does not allow you forking!
+Before doing so you have to try to contact at least one of the main contributers.
+Also this is not a legal text made for lawyers, we just want to state our intention in colloquial speech. 
+
+
 
 The Contributers of libqxt are mainly people comming from the hacker scene,
 they are into Linux and the idea of open source software.
