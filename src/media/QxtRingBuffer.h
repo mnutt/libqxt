@@ -16,9 +16,10 @@
 ** If you did not receive a copy of the file try to download it or
 ** contact the libqxt Management
 ** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>
+** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
 **
 ****************************************************************************/
+
 #ifndef  HEADER_GUARD_QxtRingBuffer
 #define  HEADER_GUARD_QxtRingBuffer
 #include <QObject>
