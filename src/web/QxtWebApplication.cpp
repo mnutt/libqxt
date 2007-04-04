@@ -9,8 +9,8 @@
 
 #include <QxtCore/QxtError>
 
-
-
+#include <QMetaObject>
+#include <QMetaMethod>
 
 
 /*!
@@ -294,6 +294,7 @@ void  QxtWebApplicationPrivate::threadfinished()
  QxtWebApplicationThread::QxtWebApplicationThread(void (*callback)(QObject *),QByteArray mint,QObject *parent)
      : QThread(parent)
 	{
+	communicator=NULL;
 	mint_m=mint;
 	callback_m=callback;
 	firstrun=true;
@@ -316,8 +317,37 @@ void  QxtWebApplicationPrivate::threadfinished()
 	{
 	QxtWebApplicationWorker worker;
 
+
 	(*callback_m)(&worker);
  
+	///connecting signals to the client
+
+	communicator  =qFindChild<QxtWebCommunicator *> (&worker);
+
+	worker.communicator=communicator;
+	QList<QxtWebController *> controllers= qFindChildren<QxtWebController *> (&worker);
+
+	QxtWebController * controller;
+	foreach(controller,controllers)
+		{
+		const QMetaObject* meta= controller->metaObject ();
+		
+		int count= meta->methodCount ();
+
+		for (int i=QxtWebController::staticMetaObject.methodCount() ;i < count;i++)
+			{
+			QMetaMethod method=  meta->method (i);
+			if (method.methodType ()!=QMetaMethod::Signal)continue;
+			if (!communicator)///this is here becouse communicators might get controller specific in the future
+				{
+				qWarning("warning: The signal \"%s\" of Controller \"%s\" can not be connected becouse no appropriate comunicator could be found to send signals to the browser. ",method.signature (),qPrintable(controller->objectName()));
+				continue;
+				}
+				connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
+
+			}
+		}
+
 
 	connect(
 		this,   SIGNAL(signal_request_to_worker(QTcpSocket *,servertype)),
@@ -364,15 +394,22 @@ void QxtWebApplicationThread::request(QTcpSocket * socket,servertype &SERVER)
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
 
+QxtWebApplicationWorker::QxtWebApplicationWorker()
+	{
+	communicator=NULL;
+	requestDone=0;
+	}
 
 
 void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype SERVER)
 	{
+	requestDone++;
+
 	if(!tcpSocket)return;
 
 
 	///--------------read the content------------------
-	QHash<QByteArray, QString> POST;
+	QHash<QString, QString> POST;
 
 	int content_size= SERVER["CONTENT_LENGTH"].toInt();
 	while(tcpSocket->bytesAvailable ()<content_size)
@@ -412,29 +449,122 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 		{
 		QList<QByteArray> b =post.split('=');
 		if (b.count()!=2)continue;
-		POST[b[0]]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
+
+		
+
+		POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
 		}
 
 
 
 
-
-	///--------------find controller------------------
 	
+
+
+
+	///--------------find controller or flector------------------
+	
+
+
+
+
 	QByteArray path="404";
-	if(SERVER.count("PATH_INFO"))
+	QList<QByteArray> requestsplit = SERVER["PATH_INFO"].split('/');
+	
+	if (requestsplit.count()>1)
 		{
-		QList<QByteArray> ssi = SERVER["PATH_INFO"].split('/');
-		if (ssi.count()>1)
+		path=requestsplit.at(1);
+		if (path.trimmed().isEmpty())path="root";
+		}
+	else if (requestsplit.count()>0) 
+		path="root";
+
+	
+
+	QStringList flectorin;
+
+
+	if (path.contains(':'))
+		{
+		flectorin=QString(path).split(':',QString::SkipEmptyParts);
+		if (flectorin.count())
 			{
-			path=SERVER["PATH_INFO"].split('/').at(1);
-			if (path.trimmed().isEmpty())path="root";
+			requestsplit.removeAt (0);
+	
+			if (requestsplit.count()>1)
+				{
+				path=requestsplit.at(1);
+				if (path.trimmed().isEmpty())path="root";
+				}
+			else if (requestsplit.count()>0) 
+				path="root";
 			}
-		else if (ssi.count()>0) 
-			path="root";
 		}
 
-	QxtWebController * controller =findChild<QxtWebController *>(path);
+	///find the action
+	QByteArray action="index";	
+	
+	if (requestsplit.count()>2)
+		{
+		action=requestsplit.at(2);
+		if (action.trimmed().isEmpty())action="index";
+		}
+	else if (requestsplit.count()>1) 
+		action="index";
+
+
+
+
+	///--------------flector----------------
+
+	
+	if (requestDone!=1) ///ignore flector on the first request
+	if (flectorin.count())
+		{
+		QString flector=flectorin.at(0);
+
+
+		if (flector=="sync") //client asks for signals
+			{
+			if (!communicator)
+				///TODO: "trap" the browser instead in a redirect loop
+				QxtWebInternal::internalPage(5011,action,tcpSocket);
+				return;
+
+
+			if (!communicator->grabsignals(path))
+				{
+				QxtWebInternal::internalPage(204,"",tcpSocket);
+				return;
+				}
+			}
+
+		else if (flector=="slot") //client sends a slot call
+			{
+			QxtWebController * controller =qFindChild<QxtWebController *> ( this, path );
+			if (!controller) 
+				{
+				QxtWebInternal::internalPage(4041,path,tcpSocket);
+				return;
+				}
+
+			if (communicator)
+				{
+				QxtWebInternal::internalPage(204,"",tcpSocket);
+				return;
+				}
+			else 
+				QxtWebInternal::internalPage(5011,action,tcpSocket);
+				return;
+			}
+		}
+
+
+	///--------------controller------------------
+
+
+	QxtWebController * controller =qFindChild<QxtWebController *> ( this, path );
+				
 
 	if (!controller) 
 		{
@@ -450,18 +580,7 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 		controller->push(SERVER,POST,&view,&stream);
 
 
-		QByteArray action="index";	
-		if(SERVER.count("PATH_INFO"))
-			{
-			QList<QByteArray> ssi = SERVER["PATH_INFO"].split('/');
-			if (ssi.count()>2)
-				{
-				action=SERVER["PATH_INFO"].split('/').at(2);
-				if (action.trimmed().isEmpty())action="index";
-				}
-			else if (ssi.count()>1) 
-				action="index";
-			}
+
 
 		
 		int retVal;

@@ -16,8 +16,8 @@ docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
 
 
-qxtincludes.path = $${include.path}/Qxt
-qxtincludes.files= deploy/include/Qxt/*
+includes.path = $${include.path}/
+includes.files= deploy/include/*
 
 #write the paths to prf file
 unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
@@ -28,7 +28,7 @@ win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} &
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf	
 
-INSTALLS = docs qxtincludes features 
+INSTALLS = docs includes features 
 
 
 

@@ -12,6 +12,8 @@
 #include <QTimer>
 
 #include "QxtWebApplication.h"
+#include "QxtWebCommunicator.h"
+
 
 
 typedef  QHash<QByteArray, QByteArray> servertype;
@@ -48,6 +50,9 @@ class QxtWebApplicationThread : public QThread
 		QWaitCondition started;
 		QMutex  started_m;
  		QTimer lifetime;
+		
+		QxtWebCommunicator * communicator;
+
 		int lifetime_m;
 		bool firstrun;
 		QByteArray mint_m;
@@ -88,7 +93,17 @@ class QxtWebApplicationWorker : public QObject
 	{
 	Q_OBJECT
 	public slots:		
-		void execute_request(QTcpSocket * ,servertype);
+		void execute_request(QTcpSocket * ,servertype );
+
+
+	public:
+		QxtWebApplicationWorker();
+
+
+		QxtWebCommunicator * communicator;
+
+		
+		unsigned long requestDone;
 	};
 
 
