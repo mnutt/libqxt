@@ -7,7 +7,6 @@ released under the Terms of LGPL (see the LICENSE file)
 #include "QxtPushButton.h"
 #include <QStyleOptionButton>
 #include <QStylePainter>
-#include <QTextDocument>
 #include <QMenu>
 
 static const int Vertical_Mask = 0x02;
@@ -21,12 +20,10 @@ public:
 	QStyleOptionButton getStyleOption() const;
 	
 	Qxt::Rotation rot;
-	QTextDocument* doc;
-	Qt::TextFormat format;
 };
 
 QxtPushButtonPrivate::QxtPushButtonPrivate() :
-	rot(Qxt::NoRotation), doc(0), format(Qt::PlainText)
+	rot(Qxt::NoRotation)
 {
 }
 
@@ -68,7 +65,7 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 
     QxtPushButton is a QPushButton which can be rotated.
 
-    \image html qxtpushbutton.png "QxtPushButtons in Plastique style."
+    \image html qxtpushbutton.png "QxtPushButton in Plastique style."
  */
 
 /*!
@@ -151,116 +148,25 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
 	}
 }
 
-QString QxtPushButton::html() const
-{
-	return (qxt_d().doc ? qxt_d().doc->toHtml() : QString());
-}
-
-void QxtPushButton::setHtml(const QString& html)
-{
-	if (!qxt_d().doc)
-	{
-		qxt_d().doc = new QTextDocument(this);
-		qxt_d().doc->setUndoRedoEnabled(false);
-	}
-	qxt_d().format = Qt::RichText;
-	qxt_d().doc->setHtml(html);
-	setText(QString());
-}
-
-/*!
-    \property QxtPushButton::textFormat
-    \brief This property holds the text format of the button
-
-    Supported formats are \b Qt::PlainText and \b Qt::RichText.
-
-    The default format is \b Qt::PlainText.
- */
-Qt::TextFormat QxtPushButton::textFormat() const
-{
-	return qxt_d().format;
-}
-
-void QxtPushButton::setTextFormat(Qt::TextFormat format)
-{
-	if (qxt_d().format != format)
-	{
-		qxt_d().format = format;
-		switch (format)
-		{
-			case Qt::RichText:
-				setHtml(text());
-				break;
-
-			case Qt::PlainText:
-			default:
-				qxt_d().format = Qt::PlainText;
-				if (qxt_d().doc)
-				{
-					setText(qxt_d().doc->toPlainText());
-					delete qxt_d().doc;
-					qxt_d().doc = 0;
-				}
-				break;
-		}
-	}
-}
-
 QSize QxtPushButton::sizeHint() const
 {
-	QSize size;
-	switch (qxt_d().format)
-	{
-		case Qt::RichText:
-			if (qxt_d().doc)
-			{
-				size = qxt_d().doc->size().toSize();
-				break;
-			} // intentional fall through if (doc == 0)
-
-		case Qt::PlainText:
-		default:
-			size = QPushButton::sizeHint();
-			break;
-	}
-
+	QSize size = QPushButton::sizeHint();
 	if (qxt_d().rot & Vertical_Mask)
 		size.transpose();
-
 	return size;
 }
 
 QSize QxtPushButton::minimumSizeHint() const
 {
-	QSize size;
-	switch (qxt_d().format)
-	{
-		case Qt::RichText:
-			if (qxt_d().doc)
-			{
-				size = qxt_d().doc->size().toSize();
-				break;
-			} // intentional fall through if (doc == 0)
-
-		case Qt::PlainText:
-		default:
-			size = QPushButton::minimumSizeHint();
-			break;
-	}
-	
+	QSize size = QPushButton::minimumSizeHint();
 	if (qxt_d().rot & Vertical_Mask)
 		size.transpose();
-
 	return size;
 }
 
 void QxtPushButton::paintEvent(QPaintEvent* event)
 {
 	Q_UNUSED(event);
-	
-	if (qxt_d().format == Qt::RichText && !text().isEmpty())
-		setHtml(text());
-	
 	QStylePainter painter(this);
 	painter.rotate(qxt_d().rot);
 	switch (qxt_d().rot)
@@ -283,18 +189,4 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 	}
 	
 	painter.drawControl(QStyle::CE_PushButton, qxt_d().getStyleOption());
-	
-	if (qxt_d().format == Qt::RichText)
-	{
-		if (qxt_d().doc)
-		{
-			//QRect area = contentsRect();
-			//area.setSize(qxt_d().doc->size().toSize());
-			//area.moveCenter(contentsRect()().center());
-			//qxt_d().doc->drawContents(&painter, area);
-			painter.translate((width() - qxt_d().doc->size().width()) / 2,
-					  (height() - qxt_d().doc->size().height()) / 2);
-			qxt_d().doc->drawContents(&painter, contentsRect());
-		}
-	}
 }
