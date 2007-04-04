@@ -1,0 +1,22 @@
+contains(CONFIG,convenience){
+
+for(part, ModuleBuild){
+	mm=
+ 	for(ii, $${part}.interfaces){
+		mm+=$$ii
+	}
+	mm+=$${part}
+	
+
+	for(i , mm ){
+		incs.files+=$${i}.h
+		message(autogenerating C++ style includes for $${i})
+		
+                system(  echo " \\$${LITERAL_HASH}include \\\"$${part}.h\\\" " > ../../deploy/include/$${TARGET}/$${i})
+                system(  echo  >> ../../deploy/include/$${TARGET}/$${i})
+
+		incs.files+=../../../deploy/include/$${TARGET}/$${i}
+                }
+        }
+
+}
