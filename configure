@@ -6,6 +6,8 @@ echo "QXT_stability += unknown" > config.in
 while (( $# > 0 )); do
     if [ $1 == "-qmake-bin" ]; then
         QMAKE_BIN=$2; shift
+    elif [ $1 == "-bootstrap" ]; then
+        echo "CONFIG += bootstrap" >> config.in; shift
     elif [ $1 == "-nomake" ]; then
         echo "QXT_BUILD -= $2" >> config.in; shift
     elif [ $1 == "-prefix" ]; then
@@ -61,6 +63,8 @@ while (( $# > 0 )); do
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: kit network gui sql media curses web"
+        echo "-bootstrap .......... That should not be needed for release versions."
+        echo "                      warning: will only work on bash > 3.2"
 
         rm config.in
         exit
