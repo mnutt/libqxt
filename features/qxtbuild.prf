@@ -7,6 +7,30 @@ VERSION      = 0.2
 
 ModuleBuildDebug($$ModuleBuild)
 
-incs.path = $${include.path}/$$TARGET/*
+incs.path = $${include.path}/$$TARGET/
+
+
+
+contains(CONFIG,convenience){
+
+for(part, ModuleBuild){
+	mm=
+ 	for(ii, $${part}.interfaces){
+		mm+=$$ii
+	}
+	mm+=$${part}
+	
+
+	for(i , mm ){
+		incs.files+=$${i}.h
+                }
+        }
+
+}
+
+
+
+
+
 
 INSTALLS = target incs
