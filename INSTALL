@@ -27,12 +27,16 @@ assistant -addContentFile C:\libqxt\doc\libqxt\index.dcf
 
 
 ==============WINDOWS-msvc====================
+(you could try  ./configure.bat -msvc and open 
+the solution file in msvc, we recomend compiling on
+commandline though)
 
-
-./configure.bat -msvc
+./configure.bat   
 nmake 
 nmake install
 
 to get the docs into assistant type:
 assistant -addContentFile C:\libqxt\doc\libqxt\index.dcf
+
+
 
