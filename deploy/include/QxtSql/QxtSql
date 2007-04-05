@@ -1,0 +1,4 @@
+
+#include "QxtSqlPackage.h"
+#include "QxtSqlPackageModel.h"
+

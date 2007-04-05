@@ -1,0 +1,6 @@
+
+#include "QxtAVFile.h"
+#include "QxtSdlWidget.h"
+#include "QxtAVPlayer.h"
+#include "QxtRingBuffer.h"
+
