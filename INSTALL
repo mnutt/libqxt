@@ -1,1 +1,38 @@
-please read doc/building.html
+
+
+
+==============LINUX====================
+
+
+./configure --help
+./configure 
+make 
+sudo make install
+
+to get the docs into assistant type:
+assistant -addContentFile /usr/share/doc/libqxt/index.dcf
+
+
+
+==============WINDOWS-mingw====================
+
+
+
+./configure.bat
+make 
+make install
+
+to get the docs into assistant type:
+assistant -addContentFile C:\libqxt\doc\libqxt\index.dcf
+
+
+==============WINDOWS-msvc====================
+
+
+./configure.bat -msvc
+nmake 
+nmake install
+
+to get the docs into assistant type:
+assistant -addContentFile C:\libqxt\doc\libqxt\index.dcf
+
