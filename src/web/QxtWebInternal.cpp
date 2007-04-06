@@ -23,6 +23,7 @@
 #include "QxtWebInternal.h"
 #include "QxtWebApplication_p.h"
 #include "QxtHtmlTemplate.h"
+#include <QUrl>
 
 
 static QString WebRoot_m="./app";
@@ -36,7 +37,7 @@ QString QxtWebInternal::WebRoot()
 
 
 
-
+//---------------------------------------------------------------------------
 
 void QxtWebInternal::internalPage (int code,QString text, QTcpSocket * socket, servertype * SERVER,QString hint)
 	{
@@ -283,6 +284,142 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 	text.replace("}","&#125;");
 	return text;
 	}
+
+//---------------------------------------------------------------------------
+
+bool  QxtWebInternal::readScgiHeaderFromSocket(QTcpSocket * tcpSocket, QHash<QByteArray, QByteArray> & SERVER)
+	{
+	if (!tcpSocket)return false;
+
+
+	///--------------get the header size----------------
+	
+	QByteArray size_in;
+	while(!size_in.endsWith(':'))
+		{
+		if(!tcpSocket->bytesAvailable ())
+			if (!tcpSocket->waitForReadyRead (200))
+				{internalPage(408,"Timeout while waiting for request data.",tcpSocket); return false;}
+
+		char a[4]; ///4? yes, i know i'm paranoid about bounds.
+
+
+		if (!tcpSocket->read (a, 1 ))
+			{internalPage(500,"Socket I/O failure.",tcpSocket); return false;}
+
+		size_in+=a[0];
+
+		if (size_in.size()>20)/// after the 20ths char is an attack atemp for sure
+			{internalPage(400,"The Overflow Protector has been triggered.",tcpSocket); return false;}
+
+		}
+	
+
+	size_in.chop(1);
+	int size=size_in.toInt()+1;
+
+
+	if (size>10240)  ///do not accept headers over 10kb
+		{internalPage(411,"Your Header was too long.",tcpSocket); return false;}
+
+
+	///--------------read the header------------------
+
+	while(tcpSocket->bytesAvailable ()<size)
+		{
+		if (!tcpSocket->waitForReadyRead (200))
+			{internalPage(408,"Timeout while waiting for request data.",tcpSocket); return false;}
+		}
+	QByteArray header_in;
+	header_in.resize(size);
+
+	if (tcpSocket->read (header_in.data(), size )!=size)
+		{ internalPage(500,"Socket I/O failure.",tcpSocket); return false;}
+
+	if (!header_in.endsWith(','))
+		{internalPage(501,"The Post method you tried is not supported.",tcpSocket);return false;}
+	///--------------parse the header------------------
+
+
+	int i=0;
+	QByteArray name="";
+	QByteArray a =header_in;
+	while((i=a.indexOf('\0'))>-1)
+		{
+		if(name=="")
+			{
+			name= a.left(i).replace('\0',"");
+			}
+		else
+			{
+			SERVER[name]=a.left(i).replace('\0',"");
+			name="";
+			}
+		
+		a=a.mid(i+1);
+		}
+
+
+	return true;
+	}
+//---------------------------------------------------------------------------
+
+bool QxtWebInternal::readScgiContentFromSocket(QTcpSocket * tcpSocket,int content_size, QString contentType ,QHash<QString,QString> & POST)
+	{
+	if (!tcpSocket)return false;
+
+	///--------------read the content------------------
+
+	while(tcpSocket->bytesAvailable ()<content_size)
+		{
+		if (!tcpSocket->waitForReadyRead (10000))
+			{
+			QxtWebInternal::internalPage(408,"Timeout while waiting for request data.",tcpSocket);
+			return false;
+			}
+		}
+	
+	QByteArray content_in;
+	content_in.resize(content_size);
+
+
+	if (tcpSocket->read (content_in.data(), content_size )!=content_size)
+		{
+		QxtWebInternal::internalPage(500,"Socket I/O failure.",tcpSocket);
+		return false;
+		}
+
+	
+	if (contentType!="application/x-www-form-urlencoded")
+		{
+		QxtWebInternal::internalPage(501,"The Post method you tried is not supported.",tcpSocket);
+		return false;
+		}
+
+
+	QList<QByteArray> posts = content_in.split('&');
+
+
+	QByteArray post;
+	foreach(post,posts)
+		{
+		QList<QByteArray> b =post.split('=');
+		if (b.count()!=2)continue;
+
+		
+
+		POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
+		}
+
+
+
+
+	
+	return true;
+
+	}
+
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 

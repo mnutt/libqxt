@@ -28,10 +28,16 @@ class QTextStream;
 class QxtWebInternal
 	{
 	public:
+
 		static void internalPage (int code,QString description,QTcpSocket *, QHash<QByteArray, QByteArray>  * SERVER=0,QString hint=QString());
 		static void internalPage (int code,QString description,QTextStream &  stream, QHash<QByteArray, QByteArray>  * SERVER=0,QString hint=QString());
 		static QString toHtml (QString text);
 		static QString WebRoot();
+
+
+		static bool readScgiHeaderFromSocket(QTcpSocket *, QHash<QByteArray, QByteArray> &);
+		static bool readScgiContentFromSocket(QTcpSocket *,int ContentSize, QString contentType ,QHash<QString, QString> & );
+
 
 	private:
 		static bool internalPage_p (int code,QString description,QTextStream &  stream, QHash<QByteArray, QByteArray>  * SERVER=0,QString hint=QString());

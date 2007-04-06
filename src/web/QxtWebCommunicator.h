@@ -1,4 +1,11 @@
+#ifndef QxtWebCommunicatorHEaderCrappasljdnsaidnasd
+#define QxtWebCommunicatorHEaderCrappasljdnsaidnasd
+
+
+
 #include <QObject>
+class QTcpSocket;
+
 
 class QxtWebCommunicator : public QObject
 	{
@@ -6,8 +13,9 @@ class QxtWebCommunicator : public QObject
 
 	public:
 		QxtWebCommunicator(QObject * parent=0);
-
-		void receive(QTcpSocket *);
-		void send(QString);
 	};
+
+
+
+#endif
 

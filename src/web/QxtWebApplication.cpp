@@ -26,7 +26,6 @@
 #include "QxtWebInternal.h"
 #include <QtNetwork>
 #include <QDebug>
-#include <QUrl>
 #include <QTimer>
 
 #include <QxtCore/QxtError>
@@ -138,77 +137,8 @@ void QxtWebApplicationPrivate::incomingConnection(int socketDescriptor)
 		return;
 		}
 
-	///--------------get the header size----------------
-
-	QByteArray size_in;
-	while(!size_in.endsWith(':'))
-		{
-		if(!tcpSocket->bytesAvailable ())
-			if (!tcpSocket->waitForReadyRead (200))
-				{QxtWebInternal::internalPage(408,"Timeout while waiting for request data.",tcpSocket); return;}
-
-		char a[4]; ///4? yes, i know i'm paranoid about bounds.
-
-
-		if (!tcpSocket->read (a, 1 ))
-			{QxtWebInternal::internalPage(500,"Socket I/O failure.",tcpSocket); return;}
-
-		size_in+=a[0];
-
-		if (size_in.size()>20)/// after the 20ths char is an attack atemp for sure
-			{QxtWebInternal::internalPage(400,"The Overflow Protector has been triggered.",tcpSocket); return;}
-
-		}
-	
-
-	size_in.chop(1);
-	int size=size_in.toInt()+1;
-
-
-	if (size>10240)  ///do not accept headers over 10kb
-		{QxtWebInternal::internalPage(411,"Your Header was too long.",tcpSocket); return;}
-
-
-	///--------------read the header------------------
-
-	while(tcpSocket->bytesAvailable ()<size)
-		{
-		if (!tcpSocket->waitForReadyRead (200))
-			{QxtWebInternal::internalPage(408,"Timeout while waiting for request data.",tcpSocket); return;}
-		}
-	QByteArray header_in;
-	header_in.resize(size);
-
-	if (tcpSocket->read (header_in.data(), size )!=size)
-		{ QxtWebInternal::internalPage(500,"Socket I/O failure.",tcpSocket); return;}
-
-	if (!header_in.endsWith(','))
-		{
-		QxtWebInternal::internalPage(501,"The Post method you tried is not supported.",tcpSocket);
-		return;
-		}
-	///--------------parse the header------------------
-
 	QHash<QByteArray, QByteArray> SERVER;
-
-	int i=0;
-	QByteArray name="";
-	QByteArray a =header_in;
-	while((i=a.indexOf('\0'))>-1)
-		{
-		if(name=="")
-			{
-			name= a.left(i).replace('\0',"");
-			}
-		else
-			{
-			SERVER[name]=a.left(i).replace('\0',"");
-			name="";
-			}
-		
-		a=a.mid(i+1);
-		}
-
+	if (!QxtWebInternal::readScgiHeaderFromSocket(tcpSocket,SERVER))return;
 
 	QxtWebApplicationThread *thread;
 	
@@ -234,9 +164,6 @@ void QxtWebApplicationPrivate::incomingConnection(int socketDescriptor)
 			}
  		}
 	
-
-
-
 
 	///TODO: this all is still a serious security hole. an attacker could easily spawn an unlimited amount of threads
 
@@ -345,30 +272,31 @@ void  QxtWebApplicationPrivate::threadfinished()
 	///connecting signals to the client
 
 	communicator  =qFindChild<QxtWebCommunicator *> (&worker);
+	if (!communicator)
+		{
+		qWarning("Yu didnt specify a comunicator. defaulting to built in");
+		communicator=new QxtWebCommunicator;
+		}
 
 	worker.communicator=communicator;
-	QList<QxtWebController *> controllers= qFindChildren<QxtWebController *> (&worker);
-
-	QxtWebController * controller;
-	foreach(controller,controllers)
-		{
-		const QMetaObject* meta= controller->metaObject ();
-		
-		int count= meta->methodCount ();
-
-		for (int i=QxtWebController::staticMetaObject.methodCount() ;i < count;i++)
-			{
-			QMetaMethod method=  meta->method (i);
-			if (method.methodType ()!=QMetaMethod::Signal)continue;
-			if (!communicator)///this is here becouse communicators might get controller specific in the future
-				{
-				qWarning("warning: The signal \"%s\" of Controller \"%s\" can not be connected becouse no appropriate comunicator could be found to send signals to the browser. ",method.signature (),qPrintable(controller->objectName()));
-				continue;
-				}
-				connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
-
-			}
-		}
+// 	QList<QxtWebController *> controllers= qFindChildren<QxtWebController *> (&worker);
+// 
+// 	QxtWebController * controller;
+// 	foreach(controller,controllers)
+// 		{
+// 		const QMetaObject* meta= controller->metaObject ();
+// 		
+// 		int count= meta->methodCount ();
+// 
+// 		for (int i=QxtWebController::staticMetaObject.methodCount() ;i < count;i++)
+// 			{
+// 			QMetaMethod method=  meta->method (i);
+// 			if (method.methodType ()!=QMetaMethod::Signal)continue;
+// 
+// 			connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
+// 
+// 			}
+// 		}
 
 
 	connect(
@@ -405,90 +333,25 @@ void QxtWebApplicationThread::request(QTcpSocket * socket,servertype &SERVER)
 	started_m.unlock();
 	}
 
-
-
-
-
-
-
-
-
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
 
 QxtWebApplicationWorker::QxtWebApplicationWorker()
 	{
 	communicator=NULL;
-	requestDone=0;
 	}
 
 
 void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype SERVER)
 	{
-	requestDone++;
-
 	if(!tcpSocket)return;
 
-
-	///--------------read the content------------------
 	QHash<QString, QString> POST;
+	if (!QxtWebInternal::readScgiContentFromSocket(tcpSocket,SERVER["CONTENT_LENGTH"].toInt(),SERVER["CONTENT_TYPE"],POST))return;
 
-	int content_size= SERVER["CONTENT_LENGTH"].toInt();
-	while(tcpSocket->bytesAvailable ()<content_size)
-		{
-		if (!tcpSocket->waitForReadyRead (10000))
-			{
-			QxtWebInternal::internalPage(408,"Timeout while waiting for request data.",tcpSocket);
-			return;
-			}
-		}
+
+	///--------------find controller ------------------
 	
-	QByteArray content_in;
-	content_in.resize(content_size);
-
-
-	if (tcpSocket->read (content_in.data(), content_size )!=content_size)
-		{
-		QxtWebInternal::internalPage(500,"Socket I/O failure.",tcpSocket);
-		return;
-		}
-
-	
-
-	if (SERVER.count("CONTENT_TYPE"))
-		if (SERVER ["CONTENT_TYPE"]!="application/x-www-form-urlencoded")
-			{
-			QxtWebInternal::internalPage(501,"The Post method you tried is not supported.",tcpSocket);
-			return;
-			}
-
-
-	QList<QByteArray> posts = content_in.split('&');
-
-
-	QByteArray post;
-	foreach(post,posts)
-		{
-		QList<QByteArray> b =post.split('=');
-		if (b.count()!=2)continue;
-
-		
-
-		POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
-		}
-
-
-
-
-	
-
-
-
-	///--------------find controller or flector------------------
-	
-
-
-
 
 	QByteArray path="404";
 	QList<QByteArray> requestsplit = SERVER["PATH_INFO"].split('/');
@@ -501,29 +364,8 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 	else if (requestsplit.count()>0) 
 		path="root";
 
-	
 
-	QStringList flectorin;
-
-
-	if (path.contains(':'))
-		{
-		flectorin=QString(path).split(':',QString::SkipEmptyParts);
-		if (flectorin.count())
-			{
-			requestsplit.removeAt (0);
-	
-			if (requestsplit.count()>1)
-				{
-				path=requestsplit.at(1);
-				if (path.trimmed().isEmpty())path="root";
-				}
-			else if (requestsplit.count()>0) 
-				path="root";
-			}
-		}
-
-	///find the action
+	///--------------find action ------------------
 	QByteArray action="index";	
 	
 	if (requestsplit.count()>2)
@@ -537,53 +379,8 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 
 
 
-	///--------------flector----------------
-
-	
-	if (requestDone!=1) ///ignore flector on the first request
-	if (flectorin.count())
-		{
-		QString flector=flectorin.at(0);
-
-
-		if (flector=="sync") //client asks for signals
-			{
-			if (!communicator)
-				///TODO: "trap" the browser instead in a redirect loop
-				QxtWebInternal::internalPage(5011,action,tcpSocket);
-				return;
-
-
-			if (!communicator->grabsignals(path))
-				{
-				QxtWebInternal::internalPage(204,"",tcpSocket);
-				return;
-				}
-			}
-
-		else if (flector=="slot") //client sends a slot call
-			{
-			QxtWebController * controller =qFindChild<QxtWebController *> ( this, path );
-			if (!controller) 
-				{
-				QxtWebInternal::internalPage(4041,path,tcpSocket);
-				return;
-				}
-
-			if (communicator)
-				{
-				QxtWebInternal::internalPage(204,"",tcpSocket);
-				return;
-				}
-			else 
-				QxtWebInternal::internalPage(5011,action,tcpSocket);
-				return;
-			}
-		}
-
 
 	///--------------controller------------------
-
 
 	QxtWebController * controller =qFindChild<QxtWebController *> ( this, path );
 				
