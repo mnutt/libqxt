@@ -167,6 +167,8 @@ void QxtWebWidget::assign(QString key, QString value)
 
  void QxtWebWidget::paintEvent(QTextStream & stream)
 	{
+	qDebug("update");
+
 	QxtWebInternal::internalPage(404,
 		
 		"You are seeing this page becouse someone forgot to reimplement the paintEvent function of this Controller. (\""+objectName()+"\")<br/>"

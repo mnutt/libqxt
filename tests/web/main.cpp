@@ -24,18 +24,17 @@
 
 
 #include <QxtWebApplication>
-#include <QxtWebController>
+#include <QxtWebWidget>
 #include <QxtWebCommunicator>
 #include "testcontroller.h"
 
 
 
-
 void webmain(QObject * worker)
 	{
-	new QxtWebController(worker,"root");
-	new QxtWebController(worker,"post");
-	new InfoController (worker);
+	new QxtWebWidget(worker,"root");
+	new QxtWebWidget(worker,"post");
+ 	new InfoController (worker);
 	new QxtWebCommunicator(worker);
 	}
 

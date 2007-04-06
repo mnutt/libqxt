@@ -19,22 +19,41 @@
 ** <http://libqxt.sourceforge.net>  <aep@exys.org>
 **
 ****************************************************************************/
-#include <QxtWebController>
 
 
-class InfoController : public QxtWebController
+
+#include <QxtWebWidget>
+#include <QxtHtmlTemplate>
+#include <QTimer>
+
+
+class InfoController : public QxtWebWidget
 	{
 	Q_OBJECT
 	public:
- 		InfoController(QObject* parent):QxtWebController(parent,"info"){}
-
+ 		InfoController(QObject* parent);
 	public slots:
-		int index()
-			{
-			assign("url",SERVER["REQUEST_URI"]);
-			return 0;
-			}
+		int plopp();
+	protected:
+		virtual void paintEvent(QTextStream & stream);
+	private slots:
+		void sec1();
+		void sec2();
+		void sec3();
 
+
+	private:
+		QxtHtmlTemplate view;
+	};
+
+
+
+
+
+
+
+
+		/*
 		int test()
 			{
 			QByteArray server;
@@ -67,12 +86,5 @@ class InfoController : public QxtWebController
 			assign("server",server);
 			return 0;
 			}
-
-		int NoSuchView()
-			{
-			return 0;
-			}
-	};
-
-
+		*/
 

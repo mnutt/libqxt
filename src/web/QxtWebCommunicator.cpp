@@ -3,6 +3,7 @@
 #include "QxtWebWidget.h"
 #include <QTcpSocket>
 
+#include <QDebug>
 
 
 QxtWebCommunicator::QxtWebCommunicator(QObject * parent):QObject(parent)
@@ -17,16 +18,19 @@ QxtWebCommunicator::QxtWebCommunicator(QObject * parent):QObject(parent)
 void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteArray> SERVER)
 	{
 	if(!tcpSocket)return;
+	connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
+
+
 
 	///delete the current holding socket
-	if(holdsocket && false)
-		{
-		holdsocket->write("204  No Content\r\n");
-		holdsocket->write("Content-Type: text/html\r\n\r\n\r\n");	
-		holdsocket->disconnectFromHost();
-		holdsocket->waitForDisconnected();
-		holdsocket->deleteLater();
-		}
+// 	if(holdsocket)
+// 		{
+//  		holdsocket->write("Status: 204  No Content\r\n");
+// 		holdsocket->write("Content-Type: text/html\r\n\r\n\r\n");	
+// 		holdsocket->disconnectFromHost();
+// 		holdsocket->waitForDisconnected();
+// 		holdsocket->deleteLater();
+// 		}
 
 	///hold this one
 	holdsocket=tcpSocket;
@@ -50,6 +54,14 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 		}
 	else if (requestsplit.count()>0) 
 		path="root";
+
+
+
+
+
+	///--------------inflector ------------------
+	qDebug()<<path;
+	if (path==":sync")return;
 
 
 	///--------------find action ------------------
@@ -96,6 +108,8 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 
 		}
 
+	
+
 
 	}
 
@@ -110,7 +124,6 @@ void QxtWebCommunicator::update()
 
 	QTextStream stream(holdsocket);
 
-	qDebug("update");
 	QxtWebWidget * w= reinterpret_cast<QxtWebWidget * >(QObject::sender());
 	w->renderTo(stream);
 
