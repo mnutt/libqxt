@@ -42,8 +42,6 @@ class InfoController : public QxtWebWidget
 		void sec2();
 		void sec3();
 		void sec4();
-
-
 	private:
 		QxtHtmlTemplate view;
 	};
