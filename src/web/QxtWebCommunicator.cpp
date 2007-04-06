@@ -60,10 +60,27 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 
 
 	///--------------sync ------------------
-	if (path==":")
+	QByteArray trace_in;
+	QByteArray a =SERVER["HTTP_COOKIE"];
+	QList<QByteArray> l= a.split(';');
+
+	a="";
+	foreach(a,l)
+		{
+		a=a.trimmed();
+		if (a.startsWith("trace"))
+			{
+			trace_in=a.mid(6);
+			break;
+			}
+		}
+	
+
+	if (tracelist.remove(trace_in))  ///asume a sync
 		{
 		return;
 		}
+
 
 
 
@@ -128,6 +145,27 @@ void QxtWebCommunicator::update()
 	QTextStream stream(holdsocket);
 
 	QxtWebWidget * w= reinterpret_cast<QxtWebWidget * >(QObject::sender());
+
+
+
+	QByteArray trace;
+	do
+		{trace=QByteArray(				///TODO: secure randomness
+				QByteArray::number(qrand())+
+				QByteArray::number(qrand())
+				);
+		}
+	while(tracelist.count(trace)>0);
+
+
+	tracelist[trace]="";
+
+
+	stream<<"Status: 200 OK\r\n";
+	stream<<"Content-Type: text/html\r\n";
+ 	stream<<"Set-Cookie: trace="<<trace<<"; path=/;\r\n";
+	stream<<"\r\n\r\n";
+
 	w->renderTo(stream);
 
 

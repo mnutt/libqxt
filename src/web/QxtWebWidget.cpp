@@ -169,10 +169,9 @@ void QxtWebWidget::assign(QString key, QString value)
 	{
 	qDebug("update");
 
-	QxtWebInternal::internalPage(404,
-		
+	stream<<
 		"You are seeing this page becouse someone forgot to reimplement the paintEvent function of this Controller. (\""+objectName()+"\")<br/>"
-		,stream,0,
+		<<
 		"When you inherit from QxtWebController, this is the minimal code: "
 		"<small><pre>"		
 		+QxtWebInternal::toHtml("#include <QxtWebController>")+"<br/>"
@@ -186,8 +185,7 @@ void QxtWebWidget::assign(QString key, QString value)
 		+QxtWebInternal::toHtml("    int QxtWebController::index()")+"<br/>"
 		+QxtWebInternal::toHtml("            {return 0;}")+"<br/>"
 		+QxtWebInternal::toHtml("}")+"<br/>"
-		+"</pre></small><br/>"
-		);
+		+"</pre></small><br/>";
 	
 	}
 
