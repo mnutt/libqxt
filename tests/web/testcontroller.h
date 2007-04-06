@@ -34,6 +34,7 @@ class InfoController : public QxtWebWidget
  		InfoController(QObject* parent);
 	public slots:
 		int plopp();
+		int index();
 	protected:
 		virtual void paintEvent(QTextStream & stream);
 	private slots:

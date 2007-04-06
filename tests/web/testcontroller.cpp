@@ -11,6 +11,9 @@ InfoController::InfoController(QObject* parent):QxtWebWidget(parent,"info")
 	}
 
 
+
+
+
 int InfoController::plopp()
 	{
 	QTimer::singleShot(1000,this,SLOT(sec1()));
@@ -21,7 +24,12 @@ int InfoController::plopp()
 	return 0;
 	}
 
-
+int InfoController::index()
+	{
+	view.assign("body","<a href=/info/plopp/>click me</a>");
+	emit(update());
+	return 0;
+	}
  void InfoController::paintEvent(QTextStream & stream)
 	{
 	stream<<"Status: 200  OK\r\n";
