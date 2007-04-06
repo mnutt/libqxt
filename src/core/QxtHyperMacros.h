@@ -45,7 +45,7 @@ hypermacros use templates in order to work
 
 
 template<typename T>
-class QXT_CORE_EXPORT QxtHyperValue
+class  QxtHyperValue
 	{
 	public:
 
