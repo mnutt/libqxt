@@ -30,7 +30,6 @@ class QxtWebCommunicator : public QObject
 
 	private:
 		QTcpSocket * holdsocket;
-		QTextStream * stream;
 
 
 		QHash<QByteArray,QByteArray> tracelist;
