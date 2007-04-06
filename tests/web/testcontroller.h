@@ -40,6 +40,7 @@ class InfoController : public QxtWebWidget
 		void sec1();
 		void sec2();
 		void sec3();
+		void sec4();
 
 
 	private:
