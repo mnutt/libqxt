@@ -17,15 +17,10 @@ class QxtWebCommunicator : public QObject
 	public:
 		QxtWebCommunicator(QObject * parent);
 
-
+		void initAfterCreate();
 
 
 		void incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteArray> SERVER);
-
-
-		int getwriteChannel(QTextStream ** stream);
-		void closeWriteChannel(int c);
-
 
 
 	public slots:

@@ -49,6 +49,8 @@ class QxtWebWidget : public QObject
 	private slots:
 		int index();
 
+
+
 	friend class QxtWebCommunicator;
 
 	private:
