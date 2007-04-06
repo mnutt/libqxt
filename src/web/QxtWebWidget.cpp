@@ -24,7 +24,7 @@
 #include "QxtWebApplication_p.h"
 #include "QxtWebInternal.h"
 #include "QxtHtmlTemplate.h"
-
+#include <QDebug>
 
 
 

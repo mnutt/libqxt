@@ -19,7 +19,7 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 	if(!tcpSocket)return;
 
 	///delete the current holding socket
-	if(holdsocket)
+	if(holdsocket && false)
 		{
 		holdsocket->write("204  No Content\r\n");
 		holdsocket->write("Content-Type: text/html\r\n\r\n\r\n");	
@@ -98,39 +98,43 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 
 
 	}
-int QxtWebCommunicator::getwriteChannel(QTextStream ** s)
-	{
-	if (!holdsocket)return 0;
-	if (!stream)
-		{
-		stream=new QTextStream(holdsocket);	
-		}
 
-
-	*s=stream;	
-	return 1;
-	}
-
-void QxtWebCommunicator::closeWriteChannel(int )
-	{
-	if (!holdsocket)return;
-	if (stream){stream->flush (); delete stream; stream=NULL;}
-
-	holdsocket->disconnectFromHost();
-	holdsocket->waitForDisconnected();
-	holdsocket->deleteLater();
-	holdsocket=NULL;	
-	}
 
 
 
 
 void QxtWebCommunicator::update()
 	{
+	if (!holdsocket)return;
+	if (stream)delete stream;
+
+	QTextStream stream(holdsocket);
+
 	qDebug("update");
 	QxtWebWidget * w= reinterpret_cast<QxtWebWidget * >(QObject::sender());
-	QTextStream * stream;
-	if (!getwriteChannel(&stream))return;
-	w->renderTo(*stream);
-	closeWriteChannel(0);
+	w->renderTo(stream);
+
+
+
+	stream.flush (); 
+	holdsocket->disconnectFromHost();
+	holdsocket->waitForDisconnected();
+	holdsocket->deleteLater();
+	holdsocket=NULL;
 	}
+
+
+
+
+
+
+
+
+
+void QxtWebCommunicator::initAfterCreate()
+	{
+	}
+
+
+
+

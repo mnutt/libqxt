@@ -269,7 +269,7 @@ void  QxtWebApplicationPrivate::threadfinished()
 
 	(*callback_m)(&worker);
  
-	///connecting signals to the client
+
 
 	communicator  =qFindChild<QxtWebCommunicator *> (&worker);
 	if (!communicator)
@@ -278,7 +278,14 @@ void  QxtWebApplicationPrivate::threadfinished()
 		communicator=new QxtWebCommunicator(&worker);
 		}
 
+
+
 	worker.communicator=communicator;
+
+	communicator->initAfterCreate();
+
+
+	///connecting signals to the client
  	QList<QxtWebWidget *> controllers= qFindChildren<QxtWebWidget *> (&worker);
  
  	QxtWebWidget * controller;
@@ -302,10 +309,10 @@ void  QxtWebApplicationPrivate::threadfinished()
 
 		///temp hack
 		connect(controller,SIGNAL(update()),communicator,SLOT(update()));
-
-
-
  		}
+
+
+
 
 
 	connect(
