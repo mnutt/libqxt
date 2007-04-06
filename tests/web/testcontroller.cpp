@@ -32,8 +32,6 @@ int InfoController::index()
 	}
  void InfoController::paintEvent(QTextStream & stream)
 	{
-	stream<<"Status: 200  OK\r\n";
-	stream<<"Content-Type: text/html\r\n\r\n\r\n";
 	stream<<view.render();
 	}
 

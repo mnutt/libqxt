@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QHash>
 #include <QTextStream>
+#include <QMutex>
 
 class QTcpSocket;
 
@@ -33,6 +34,10 @@ class QxtWebCommunicator : public QObject
 
 
 		QHash<QByteArray,QByteArray> tracelist;
+
+
+		QMutex mutex;
+
 	};
 
 

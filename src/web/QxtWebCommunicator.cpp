@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 
 #include <QDebug>
+#include <QMutexLocker>
 
 
 QxtWebCommunicator::QxtWebCommunicator(QObject * parent):QObject(parent)
@@ -75,6 +76,7 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 			}
 		}
 	
+	QMutexLocker locker(&mutex); //this is for debug. if it deadlocks, we're doomed
 
 	if (tracelist.remove(trace_in))  ///asume a sync
 		{
@@ -140,6 +142,7 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 void QxtWebCommunicator::update()
 	{
 	if (!holdsocket)return;
+	
 	if (stream)delete stream;
 
 	QTextStream stream(holdsocket);
@@ -150,14 +153,14 @@ void QxtWebCommunicator::update()
 
 	QByteArray trace;
 	do
-		{trace=QByteArray(				///TODO: secure randomness
+		{trace=QByteArray(
 				QByteArray::number(qrand())+
 				QByteArray::number(qrand())
 				);
 		}
 	while(tracelist.count(trace)>0);
 
-
+	QMutexLocker locker(&mutex); //this is for debug. if it deadlocks, we're doomed
 	tracelist[trace]="";
 
 

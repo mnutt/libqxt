@@ -303,12 +303,12 @@ void  QxtWebApplicationPrivate::threadfinished()
  			if (method.methodType ()!=QMetaMethod::Signal)continue;
  
 
- 			connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
+ 			connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()),Qt::QueuedConnection);
  			}
 
 
 		///temp hack
-		connect(controller,SIGNAL(update()),communicator,SLOT(update()));
+		connect(controller,SIGNAL(update()),communicator,SLOT(update()),Qt::QueuedConnection);
  		}
 
 
