@@ -145,15 +145,14 @@ QxtWebWidget::QxtWebWidget(QObject* parent,QString objectName_c):QObject(parent)
 
 int QxtWebWidget::index()
 	{
+	emit(update());
 	return -1;
 	}
 
 
-void QxtWebWidget::renderTo(QTcpSocket * tcpSocket)
+void QxtWebWidget::renderTo(QTextStream & stream)
 	{
-	QTextStream  stream(tcpSocket);
 	paintEvent(stream);
-	stream.flush ();
 	}
 
 
@@ -187,6 +186,7 @@ void QxtWebWidget::assign(QString key, QString value)
 		+QxtWebInternal::toHtml("}")+"<br/>"
 		+"</pre></small><br/>"
 		);
+	
 	}
 
 

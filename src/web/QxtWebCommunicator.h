@@ -23,11 +23,19 @@ class QxtWebCommunicator : public QObject
 		void incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteArray> SERVER);
 
 
-		bool openWriteStream(QTextStream * stream);
-		void closeWriteStream();
+		int getwriteChannel(QTextStream ** stream);
+		void closeWriteChannel(int c);
 
-	public:
+
+
+	public slots:
+		void update();
+
+
+	private:
 		QTcpSocket * holdsocket;
+		QTextStream * stream;
+
 
 
 	};
