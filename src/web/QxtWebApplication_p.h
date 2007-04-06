@@ -125,7 +125,6 @@ class QxtWebApplicationWorker : public QObject
 		QxtWebCommunicator * communicator;
 
 		
-		unsigned long requestDone;
 	};
 
 
