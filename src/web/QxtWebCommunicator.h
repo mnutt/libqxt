@@ -32,7 +32,7 @@ class QxtWebCommunicator : public QObject
 		QTextStream * stream;
 
 
-
+		QHash<QByteArray,QByteArray> tracelist;
 	};
 
 
