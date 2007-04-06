@@ -45,7 +45,7 @@ class QxtWebWidget : public QObject
 	protected:
 		virtual void paintEvent(QTextStream & stream);
 		void clear();
-		void assign(QString key, QString value);
+		void update();
 	private slots:
 		int index();
 
@@ -56,7 +56,7 @@ class QxtWebWidget : public QObject
 	private:
 		void renderTo(QTextStream & stream);
 	signals:
-		void update();
+		void update_signal();
 	};
 
 #endif

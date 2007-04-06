@@ -32,8 +32,6 @@
 
 void webmain(QObject * worker)
 	{
-	new QxtWebWidget(worker,"root");
-	new QxtWebWidget(worker,"post");
  	new InfoController (worker);
 	new QxtWebCommunicator(worker);
 	}

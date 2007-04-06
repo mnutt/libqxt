@@ -145,7 +145,7 @@ QxtWebWidget::QxtWebWidget(QObject* parent,QString objectName_c):QObject(parent)
 
 int QxtWebWidget::index()
 	{
-	emit(update());
+	update();
 	return -1;
 	}
 
@@ -156,11 +156,9 @@ void QxtWebWidget::renderTo(QTextStream & stream)
 	}
 
 
-void QxtWebWidget::assign(QString key, QString value)
+void QxtWebWidget::update()
 	{
-	qWarning("QxtWebController::assign can only be called within a web slot");
-	return;
-// 	view->assign(key,value);
+	emit(update());
 	}
 
 
