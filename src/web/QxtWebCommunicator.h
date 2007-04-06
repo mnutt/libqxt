@@ -4,6 +4,9 @@
 
 
 #include <QObject>
+#include <QHash>
+#include <QTextStream>
+
 class QTcpSocket;
 
 
@@ -12,7 +15,21 @@ class QxtWebCommunicator : public QObject
 	Q_OBJECT
 
 	public:
-		QxtWebCommunicator(QObject * parent=0);
+		QxtWebCommunicator(QObject * parent);
+
+
+
+
+		void incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteArray> SERVER);
+
+
+		bool openWriteStream(QTextStream * stream);
+		void closeWriteStream();
+
+	public:
+		QTcpSocket * holdsocket;
+
+
 	};
 
 
