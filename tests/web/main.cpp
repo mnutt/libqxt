@@ -27,7 +27,6 @@
 #include <QxtWebController>
 #include <QxtWebCommunicator>
 #include "testcontroller.h"
-#include "button.h"
 
 
 
@@ -37,7 +36,6 @@ void webmain(QObject * worker)
 	new QxtWebController(worker,"root");
 	new QxtWebController(worker,"post");
 	new InfoController (worker);
-	new Button(worker);
 	new QxtWebCommunicator(worker);
 	}
 

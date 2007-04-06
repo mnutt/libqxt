@@ -20,46 +20,45 @@
 **
 ****************************************************************************/
 
-#ifndef QXTWEBCONTROLLER_HEADERGUARD
-#define QXTWEBCONTROLLER_HEADERGUARD
+#ifndef QXTWEBWIDGET_HEADERGUARD
+#define QXTWEBWIDGET_HEADERGUARD
 
 #include <QObject>
 #include <QStringList>
 #include <QTextStream>
 #include <QHash>
+#include <QBuffer>
 
 #include <QxtCore/QxtPimpl>
 
 
 #define  QXT_WEB_200 { document() << "Status: 200 OK\r\n"; document() << "Content-Type: text/html\r\n\r\n";  }
 
+class QTcpSocket;
 
-class QxtHtmlTemplate;
-class QxtWebController : public QObject 
+class QxtWebWidget : public QObject 
 	{
 	Q_OBJECT
 
 	public:
-		QxtWebController(QObject* parent, QString objectName=QString());
+		QxtWebWidget(QObject* parent, QString objectName=QString());
+
+
 
 	protected:
+		virtual void paintEvent(QTextStream & stream);
 
-		QHash<QString, QString>    POST;
-		QHash<QByteArray, QByteArray> SERVER;
-
-		QTextStream & document();
+		void clear();
 		void assign(QString key, QString value);
-
-	friend class QxtWebApplicationWorker;
 
 	private slots:
 		int index();
 
-	private:
-		void push(QHash<QByteArray, QByteArray>,QHash<QString, QString> , QxtHtmlTemplate  *,QTextStream *);
 
-		QxtHtmlTemplate  * view;
-		QTextStream * stream;
+	friend class QxtWebApplicationWorker;
+
+	private:
+		void renderTo(QTcpSocket * tcpSocket);
 	};
 
 #endif

@@ -368,6 +368,12 @@ bool QxtWebInternal::readScgiContentFromSocket(QTcpSocket * tcpSocket,int conten
 	{
 	if (!tcpSocket)return false;
 
+	if (!content_size)
+		{
+		return true;
+		}
+
+
 	///--------------read the content------------------
 
 	while(tcpSocket->bytesAvailable ()<content_size)

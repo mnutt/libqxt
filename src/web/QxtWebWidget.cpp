@@ -20,7 +20,7 @@
 **
 ****************************************************************************/
 
-#include "QxtWebController.h"
+#include "QxtWebWidget.h"
 #include "QxtWebApplication_p.h"
 #include "QxtWebInternal.h"
 #include "QxtHtmlTemplate.h"
@@ -29,7 +29,7 @@
 
 
 /*!
-    \class QxtWebController QxtWebController
+    \class QxtWebWidget QxtWebWidget
     \ingroup web
     \brief The part of QxtWeb where your buisness logic code goes
 
@@ -131,20 +131,47 @@
  */
 
 
-QxtWebController::QxtWebController(QObject* parent,QString objectName_c):QObject(parent)
+QxtWebWidget::QxtWebWidget(QObject* parent,QString objectName_c):QObject(parent)
 	{
+
 	if (!objectName_c.isEmpty())
 		setObjectName(objectName_c);
 
-	view=0;
 	}
 
-int QxtWebController::index()
+
+
+
+
+int QxtWebWidget::index()
+	{
+	return -1;
+	}
+
+
+void QxtWebWidget::renderTo(QTcpSocket * tcpSocket)
+	{
+	QTextStream  stream(tcpSocket);
+	paintEvent(stream);
+	stream.flush ();
+	}
+
+
+void QxtWebWidget::assign(QString key, QString value)
+	{
+	qWarning("QxtWebController::assign can only be called within a web slot");
+	return;
+// 	view->assign(key,value);
+	}
+
+
+
+ void QxtWebWidget::paintEvent(QTextStream & stream)
 	{
 	QxtWebInternal::internalPage(404,
 		
-		"You are seeing this page becouse someone forgot to reimplement the index function of this Controller. (\""+objectName()+"\")<br/>"
-		,document(),0,
+		"You are seeing this page becouse someone forgot to reimplement the paintEvent function of this Controller. (\""+objectName()+"\")<br/>"
+		,stream,0,
 		"When you inherit from QxtWebController, this is the minimal code: "
 		"<small><pre>"		
 		+QxtWebInternal::toHtml("#include <QxtWebController>")+"<br/>"
@@ -159,35 +186,24 @@ int QxtWebController::index()
 		+QxtWebInternal::toHtml("            {return 0;}")+"<br/>"
 		+QxtWebInternal::toHtml("}")+"<br/>"
 		+"</pre></small><br/>"
-
-
 		);
-
-
-	return -1;
 	}
 
 
-void QxtWebController::push( QHash<QByteArray, QByteArray> server,QHash<QString, QString>  post, QxtHtmlTemplate  *v,QTextStream * s )
-	{
-	view = v;
-	stream=s;
-	POST=post;
-	SERVER=server;
-	}
 
-QTextStream & QxtWebController::document()
-	{
-	return *stream;
-	}
+///TODO: hack the view in here somewhere
+// 		QxtHtmlTemplate  view;
+// 
+// 		if (retVal>-1)
+// 			{
+// 			if (!view.open(QxtWebInternal::WebRoot()+"/view/"+path+"/"+action+".html"))
+// 				{
+// 				QxtWebInternal::internalPage(4043,action,tcpSocket,0,path);
+// 				return;
+// 				}	
+// 			stream << "Status: 200 OK\r\n";
+// 			stream << "Content-Type: text/html\r\n\r\n";
+// 			stream << view.render();
+// 			}
 
-void QxtWebController::assign(QString key, QString value)
-	{
-	if (!view)
-		{
-		qWarning("QxtWebController::assign can only be called within a web slot");
-		return;
-		}
-	view->assign(key,value);
-	}
 
