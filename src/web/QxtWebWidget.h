@@ -55,7 +55,7 @@ class QxtWebWidget : public QObject
 		int index();
 
 
-	friend class QxtWebApplicationWorker;
+	friend class QxtWebCommunicator;
 
 	private:
 		void renderTo(QTcpSocket * tcpSocket);
