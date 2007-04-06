@@ -10,7 +10,6 @@
 QxtWebCommunicator::QxtWebCommunicator(QObject * parent):QObject(parent)
 	{
 	holdsocket=NULL;
-	stream=NULL;
 	};
 
 
@@ -19,7 +18,6 @@ QxtWebCommunicator::QxtWebCommunicator(QObject * parent):QObject(parent)
 void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteArray> SERVER)
 	{
 	if(!tcpSocket)return;
-	connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
 
 
 
@@ -57,7 +55,6 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 		path="root";
 
 
-	qDebug()<<path;
 
 
 	///--------------sync ------------------
@@ -143,7 +140,6 @@ void QxtWebCommunicator::update()
 	{
 	if (!holdsocket)return;
 	
-	if (stream)delete stream;
 
 	QTextStream stream(holdsocket);
 

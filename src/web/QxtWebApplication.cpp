@@ -136,6 +136,7 @@ void QxtWebApplicationPrivate::incomingConnection(int socketDescriptor)
 		{
 		return;
 		}
+	connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
 
 	QHash<QByteArray, QByteArray> SERVER;
 	if (!QxtWebInternal::readScgiHeaderFromSocket(tcpSocket,SERVER))return;

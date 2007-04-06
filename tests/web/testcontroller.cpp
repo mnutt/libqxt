@@ -38,27 +38,27 @@ int InfoController::index()
 
 void InfoController::sec1()
 	{
-	view.assign("body","<strong>ZOMG!!!!</strong>");
+	view.assign("body","<a href=/info/plopp/>click me</a><br/><strong>HA!!</strong>");
 	emit(update());
 	}
 
 
 void InfoController::sec2()
 	{
-	view.assign("body","<strong>This is AAAAASYNC!!!</strong>");
+	view.assign("body","<a href=/info/plopp/>click me</a><br/><strong>This is asyncrounus!!!</strong>");
 	emit(update());
 	}
 
 
 void InfoController::sec3()
 	{
-	view.assign("body","<strong>seriously, it is!</strong>");
+	view.assign("body","<a href=/info/plopp/>click me</a><br/><strong>seriously, it is.</strong>");
 	emit(update());
 	}
 
 void InfoController::sec4()
 	{
-	view.assign("body","<strong>stop watching this. it might make you go mad.</strong>");
+	view.assign("body","<strong>Ok i think you had enough, go and do something usefull.</strong>");
 	emit(update());
 	}
 
