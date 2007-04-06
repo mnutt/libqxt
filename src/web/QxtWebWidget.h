@@ -32,7 +32,6 @@
 #include <QxtCore/QxtPimpl>
 
 
-#define  QXT_WEB_200 { document() << "Status: 200 OK\r\n"; document() << "Content-Type: text/html\r\n\r\n";  }
 
 class QTcpSocket;
 
@@ -43,22 +42,19 @@ class QxtWebWidget : public QObject
 	public:
 		QxtWebWidget(QObject* parent, QString objectName=QString());
 
-
-
 	protected:
 		virtual void paintEvent(QTextStream & stream);
-
 		void clear();
 		void assign(QString key, QString value);
-
 	private slots:
 		int index();
-
 
 	friend class QxtWebCommunicator;
 
 	private:
-		void renderTo(QTcpSocket * tcpSocket);
+		void renderTo(QTextStream & stream);
+	signals:
+		void update();
 	};
 
 #endif

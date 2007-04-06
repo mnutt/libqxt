@@ -274,29 +274,38 @@ void  QxtWebApplicationPrivate::threadfinished()
 	communicator  =qFindChild<QxtWebCommunicator *> (&worker);
 	if (!communicator)
 		{
-		qWarning("Yu didnt specify a comunicator. defaulting to built in");
+		qWarning("Yu didnt create a communicator. defaulting to built in");
 		communicator=new QxtWebCommunicator(&worker);
 		}
 
 	worker.communicator=communicator;
-// 	QList<QxtWebController *> controllers= qFindChildren<QxtWebController *> (&worker);
-// 
-// 	QxtWebController * controller;
-// 	foreach(controller,controllers)
-// 		{
-// 		const QMetaObject* meta= controller->metaObject ();
-// 		
-// 		int count= meta->methodCount ();
-// 
-// 		for (int i=QxtWebController::staticMetaObject.methodCount() ;i < count;i++)
-// 			{
-// 			QMetaMethod method=  meta->method (i);
-// 			if (method.methodType ()!=QMetaMethod::Signal)continue;
-// 
-// 			connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
-// 
-// 			}
-// 		}
+ 	QList<QxtWebWidget *> controllers= qFindChildren<QxtWebWidget *> (&worker);
+ 
+ 	QxtWebWidget * controller;
+ 	foreach(controller,controllers)
+ 		{
+
+ 		const QMetaObject* meta= controller->metaObject ();
+ 		
+ 		int count= meta->methodCount ();
+
+ 		for (int i=QxtWebWidget::staticMetaObject.methodCount() ;i < count;i++)
+ 			{
+ 			QMetaMethod method=  meta->method (i);
+
+ 			if (method.methodType ()!=QMetaMethod::Signal)continue;
+ 
+
+ 			connect(controller,qPrintable("2"+QString (method.signature ())),communicator,SLOT(update()));
+ 			}
+
+
+		///temp hack
+		connect(controller,SIGNAL(update()),communicator,SLOT(update()));
+
+
+
+ 		}
 
 
 	connect(
