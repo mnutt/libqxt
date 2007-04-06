@@ -13,7 +13,7 @@ LIBS            += -lssl
 
 
 QxtBlowFish.sources 	= QxtBlowFish.cpp
-QxtBlowFish.stability 	= +linux-g++ +win32-g++
+QxtBlowFish.stability 	= +linux-g++ -win32-g++
 
 QxtRPCPeer.sources 	= QxtRPCPeer.cpp
 QxtRPCPeer.stability 	= +linux-g++ +win32-g++
