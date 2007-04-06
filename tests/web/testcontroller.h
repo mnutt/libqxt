@@ -51,7 +51,7 @@ class InfoController : public QxtWebController
 
 	
 			QByteArray post;
-			QHashIterator<QByteArray, QString> ii2(POST);
+			QHashIterator<QString, QString> ii2(POST);
 			while (ii2.hasNext()) 
 				{
 				ii2.next();

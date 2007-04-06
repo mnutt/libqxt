@@ -17,11 +17,11 @@ QxtWebApplication.sources		= QxtWebApplication.cpp  QxtWebInternal.cpp
 QxtWebApplication.headers		= QxtWebApplication_p.h QxtWebInternal.h
 
 
-QxtWebController.sources		= QxtWebController.cpp 
+QxtWebWidget.sources		        = QxtWebWidget.cpp
 QxtWebCommunicator.sources		= QxtWebCommunicator.cpp
 
 QxtHtmlTemplate.sources			= QxtHtmlTemplate.cpp
 
 QxtWebSession.sources=  QxtWebSession.cpp
 
-Parts=QxtWebApplication QxtHtmlTemplate QxtWebController QxtWebSession  QxtWebCommunicator
+Parts=QxtWebApplication QxtHtmlTemplate QxtWebWidget QxtWebSession  QxtWebCommunicator

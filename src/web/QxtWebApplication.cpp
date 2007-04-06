@@ -22,7 +22,7 @@
 
 #include "QxtWebApplication_p.h"
 #include "QxtHtmlTemplate.h"
-#include "QxtWebController.h"
+#include "QxtWebWidget.h"
 #include "QxtWebInternal.h"
 #include <QtNetwork>
 #include <QDebug>
@@ -382,7 +382,7 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 
 	///--------------controller------------------
 
-	QxtWebController * controller =qFindChild<QxtWebController *> ( this, path );
+	QxtWebWidget * controller =qFindChild<QxtWebWidget *> ( this, path );
 				
 
 	if (!controller) 
@@ -392,13 +392,6 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 		}
 	else
 		{
-		QxtHtmlTemplate  view;
-		QTextStream  stream(tcpSocket);
-
-		///push the request to the controller
-		controller->push(SERVER,POST,&view,&stream);
-
-
 
 
 		
@@ -412,20 +405,10 @@ void QxtWebApplicationWorker::execute_request(QTcpSocket * tcpSocket,servertype 
 			return;
 			}
 		
-		if (retVal>-1)
-			{
-			if (!view.open(QxtWebInternal::WebRoot()+"/view/"+path+"/"+action+".html"))
-				{
-				QxtWebInternal::internalPage(4043,action,tcpSocket,0,path);
-				return;
-				}	
-			stream << "Status: 200 OK\r\n";
-			stream << "Content-Type: text/html\r\n\r\n";
-			stream << view.render();
-			}
-		
-		
-		stream.flush ();
+
+		///temporary sync
+
+ 		controller->renderTo(tcpSocket);
 		tcpSocket->disconnectFromHost();
 		tcpSocket->waitForDisconnected();
 		tcpSocket->deleteLater();
