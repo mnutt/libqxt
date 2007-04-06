@@ -62,28 +62,7 @@ void QxtWebCommunicator::incoming(QTcpSocket * tcpSocket,QHash<QByteArray,QByteA
 	///--------------sync ------------------
 	if (path==":")
 		{
-		///when there is a sync flag in the first request, asume someone just copyied the url and strip the flag
-		static bool iAmNewHere=true;
-
-		if (iAmNewHere)
-			{
-			iAmNewHere=false;
-		
-			requestsplit. removeAt (1);
-
-			 path="404";
-			if (requestsplit.count()>1)
-				{
-				path=requestsplit.at(1);
-				if (path.trimmed().isEmpty())path="root";
-				}
-			else if (requestsplit.count()>0) 
-				path="root";
-			}
-		else
-			{
-			return;
-			}
+		return;
 		}
 
 

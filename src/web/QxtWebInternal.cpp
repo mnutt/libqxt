@@ -100,8 +100,8 @@ bool QxtWebInternal::internalPage_p (int code,QString description, QTextStream &
 		///TODO  when there are no cookies available, we end in recursive page loads
 
 
-
-		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"]);
+									///the replace strips a potential sync flag
+		if (SERVER)t.assign("url",(*SERVER)["REQUEST_URI"].replace("/:/","/").replace("/:","/"));
 		stream<<t.render();
 		}
 
