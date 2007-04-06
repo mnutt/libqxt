@@ -145,7 +145,7 @@ void QxtWebCommunicator::update()
 
 	QxtWebWidget * w= reinterpret_cast<QxtWebWidget * >(QObject::sender());
 
-
+	if (!w)return;
 
 	QByteArray trace;
 	do

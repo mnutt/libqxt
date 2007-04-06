@@ -158,7 +158,7 @@ void QxtWebWidget::renderTo(QTextStream & stream)
 
 void QxtWebWidget::update()
 	{
-	emit(update());
+	emit(update_signal());
 	}
 
 
