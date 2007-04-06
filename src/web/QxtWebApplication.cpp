@@ -309,7 +309,7 @@ void  QxtWebApplicationPrivate::threadfinished()
 
 
 		///temp hack
-		connect(controller,SIGNAL(update()),communicator,SLOT(update()),Qt::QueuedConnection);
+		connect(controller,SIGNAL(update_signal()),communicator,SLOT(update()),Qt::QueuedConnection);
  		}
 
 
