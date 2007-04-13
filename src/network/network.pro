@@ -12,7 +12,6 @@ include (../../config.pri)
 
 unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
 win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
-LIBS            += -lssl	
 
 
 
@@ -27,4 +26,5 @@ contains(DEFINES,HAVE_OPENSSL){
 QxtBlowFish.sources 	= QxtBlowFish.cpp
 QxtBlowFish.stability 	= +linux-g++ -win32-g++
 Parts+=QxtBlowFish
+LIBS            += -lssl	
 }
