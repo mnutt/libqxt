@@ -3,5 +3,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-LIBS+=-lssl
+LIBS+=-lavcodec -lavformat
 QT=core

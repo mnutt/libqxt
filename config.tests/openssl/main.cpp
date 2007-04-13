@@ -10,7 +10,7 @@ int main(int,char**)
 
 	unsigned char * foo;
 	BF_set_key(&key, 1,foo);
-
+	return 0;
 	}
 
 

@@ -8,15 +8,12 @@ QT               = core gui
 unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
 win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
 
-LIBS            += -lavcodec -lavformat -lSDL
+LIBS            +=  -lSDL
 TEMPLATE         = lib
 
 DEFINES+=HAVE_SPEEX OUTSIDE_SPEEX RANDOM_PREFIX=inside_libqxt
 
 
-QxtAVFile.headers 	= private/QxtAVFile_p.h
-QxtAVFile.sources 	= QxtAVFile.cpp QxtAVFile_p.cpp
-QxtAVFile.stability 	= 
 
 QxtSdlWidget.sources 	= QxtSdlWidget.cpp
 QxtSdlWidget.stability 	= 
@@ -29,7 +26,17 @@ QxtRingBuffer.headers 	= ringbuffer.h
 QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c resample/resample.c
 QxtRingBuffer.stability = 
 
-Parts= QxtAVFile QxtSdlWidget QxtAVPlayer QxtRingBuffer
+Parts= QxtSdlWidget QxtAVPlayer QxtRingBuffer
 
 
 
+
+
+
+contains(DEFINES,HAVE_FFMPEG){
+QxtAVFile.headers 	= private/QxtAVFile_p.h
+QxtAVFile.sources 	= QxtAVFile.cpp QxtAVFile_p.cpp
+QxtAVFile.stability 	= 	
+Parts+= QxtAVFile
+LIBS            += -lavcodec -lavformat
+}

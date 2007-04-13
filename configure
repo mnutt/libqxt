@@ -122,12 +122,7 @@ fi
 
 
 #openssl
-if ! which $QMAKE_BIN >/dev/null 2>&1; then
-	echo >&2 "You don't seem to have 'qmake' in your PATH."
-        echo >&2 "Cannot proceed."
-        exit 1
-fi
-
+echo "checking for openssl"
 cd $TESTDIR/openssl
 $QMAKE_BIN  >/dev/null 2>&1
 $MAKE clean >/dev/null 2>&1
@@ -142,6 +137,22 @@ else
 	echo "DEFINES+=HAVE_OPENSSL">>$PROJECT_ROOT/config.in
 fi
 
+
+#ffmpeg
+echo "checking for ffmpeg"
+cd $TESTDIR/ffmpeg
+$QMAKE_BIN  >/dev/null 2>&1
+$MAKE clean >/dev/null 2>&1
+[ -f ./ffmpeg ] && rm ./ffmpeg
+
+$MAKE >/dev/null 2>&1
+
+if ! ./ffmpeg >/dev/null 2>&1; then
+	echo >&2 "warning: test for ffmpeg failed."
+	echo >&2 "warning: some parts of qxt might be disabled or malfunction"
+else
+	echo "DEFINES+=HAVE_FFMPEG">>$PROJECT_ROOT/config.in
+fi
 
  
 #====finaly running qmake====
