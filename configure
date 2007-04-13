@@ -1,6 +1,26 @@
 #!/bin/bash
 
+#==some defaults==
 QMAKE_BIN=qmake
+WHICH=which
+
+TESTDIR=config.tests
+
+
+# the name of this script
+relconf=`basename $0`
+# the directory of this script (the root)
+relpath=`dirname $0`
+relpath=`(cd "$relpath"; /bin/pwd)`
+# the current directory is the "build tree" or "object tree"
+PROJECT_ROOT=`/bin/pwd`
+
+
+
+
+
+#==parse configure options==
+
 echo "QXT_stability += unknown" > config.in
 
 while (( $# > 0 )); do
@@ -75,6 +95,72 @@ while (( $# > 0 )); do
     fi
     shift
 done
+
+
+
+#==begin some autodetection==
+
+
+
+# qmake?
+if ! $WHICH $QMAKE_BIN >/dev/null 2>&1; then
+	echo >&2 "You don't seem to have 'qmake' in your PATH."
+        echo >&2 "Cannot proceed."
+        exit 1
+fi
+
+
+# find a make command
+if [ -z "$MAKE" ]; then
+    MAKE=
+    for mk in gmake make; do
+        if "$WHICH" $mk >/dev/null 2>&1; then
+            MAKE=`$WHICH $mk`
+            break
+        fi
+    done
+    if [ -z "$MAKE" ]; then
+        echo >&2 "You don't seem to have 'make' or 'gmake' in your PATH."
+        echo >&2 "Cannot proceed."
+        exit 1
+    fi
+fi
+
+
+
+
+
+#openssl
+
+
+
+if ! which $QMAKE_BIN >/dev/null 2>&1; then
+	echo >&2 "You don't seem to have 'qmake' in your PATH."
+        echo >&2 "Cannot proceed."
+        exit 1
+fi
+
+
+
+
+cd $PROJECT_ROOT/$TESTDIR
+cd openssl
+$QMAKE_BIN  >/dev/null 2>&1
+$MAKE >/dev/null 2>&1
+
+if ! ./openssl >/dev/null 2>&1; then
+	echo >&2 "test for openssl failed"
+else
+	echo "DEFINES+=HAVE_OPENSSL">>$PROJECT_ROOT/config.in
+fi
+
+
+ 
+
+
+
+echo "autodetection finished. running qmake."
+cd  $PROJECT_ROOT
 
 [ -f config.pri ] && mv config.pri config.pri.bak
 mv config.in config.pri
