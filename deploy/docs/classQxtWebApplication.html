@@ -50,7 +50,7 @@ starts a scgi client server listening to scgi connections, and handles all of re
 <p>
 You need to define a callback function for the user threads. That callback gets a pointer to the Object the Controllers or any other session persistent data you need will live on. Always define a controller with the name "root". <div class="fragment"><pre class="fragment">        <span class="keywordtype">void</span> webmain(QObject * space)
                 {
-                <span class="keyword">new</span> <a class="code" href="classQxtWebController.html" title="The part of QxtWeb where your buisness logic code goes.">QxtWebController</a>(space,<span class="stringliteral">"root"</span>);
+                <span class="keyword">new</span> QxtWebController(space,<span class="stringliteral">"root"</span>);
                 }
 
         <span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[])
