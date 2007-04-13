@@ -12,6 +12,18 @@ PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
 TESTDIR=$PROJECT_ROOT/config.tests
 
 
+
+
+# Define some colors for neet output
+C_RED='\e[1;31m'
+C_BLUE='\e[1;34m'
+C_GREEN='\e[1;32m'
+C_CYAN='\e[1;36m'
+C_NONE='\e[0m' # No Color
+
+
+
+
 #====parse configure options====
 
 echo "QXT_stability += unknown" > config.in
@@ -122,39 +134,63 @@ fi
 
 
 #openssl
-echo "checking for openssl"
+echo -en "checking for openssl\t"
 cd $TESTDIR/openssl
 $QMAKE_BIN  >/dev/null 2>&1
+echo -n "."
 $MAKE clean >/dev/null 2>&1
 [ -f ./openssl ] && rm ./openssl
-
+echo -n "."
 $MAKE >/dev/null 2>&1
-
-if ! ./openssl >/dev/null 2>&1; then
-	echo >&2 "warning: test for openssl failed."
-	echo >&2 "warning: some parts of qxt might be disabled or malfunction"
-else
+echo -n "."
+if ./openssl >/dev/null 2>&1; then
+	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
 	echo "DEFINES+=HAVE_OPENSSL">>$PROJECT_ROOT/config.in
+else
+	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
 fi
 
 
 #ffmpeg
-echo "checking for ffmpeg"
+echo -en "checking for ffmpeg\t"
 cd $TESTDIR/ffmpeg
 $QMAKE_BIN  >/dev/null 2>&1
+echo -n "."
 $MAKE clean >/dev/null 2>&1
 [ -f ./ffmpeg ] && rm ./ffmpeg
-
+echo -n "."
 $MAKE >/dev/null 2>&1
-
-if ! ./ffmpeg >/dev/null 2>&1; then
-	echo >&2 "warning: test for ffmpeg failed."
-	echo >&2 "warning: some parts of qxt might be disabled or malfunction"
-else
+echo -n "."
+if  ./ffmpeg >/dev/null 2>&1; then
+	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
 	echo "DEFINES+=HAVE_FFMPEG">>$PROJECT_ROOT/config.in
+else
+	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
 fi
 
- 
+
+#sdl
+echo -en "checking for SDL\t"
+cd $TESTDIR/sdl
+$QMAKE_BIN  >/dev/null 2>&1
+echo -n "."
+$MAKE clean >/dev/null 2>&1
+[ -f ./sdl ] && rm ./sdl
+echo -n "."
+$MAKE >/dev/null 2>&1
+echo -n "."
+
+if  ./sdl >/dev/null 2>&1; then
+	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
+	echo "DEFINES+=HAVE_SDL">>$PROJECT_ROOT/config.in
+
+else
+	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
+fi
+
+
+
+
 #====finaly running qmake====
 echo "autodetection finished. running qmake."
 cd  $PROJECT_ROOT
