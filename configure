@@ -130,10 +130,14 @@ fi
 
 cd $TESTDIR/openssl
 $QMAKE_BIN  >/dev/null 2>&1
+$MAKE clean >/dev/null 2>&1
+[ -f ./openssl ] && rm ./openssl
+
 $MAKE >/dev/null 2>&1
 
 if ! ./openssl >/dev/null 2>&1; then
-	echo >&2 "test for openssl failed"
+	echo >&2 "warning: test for openssl failed."
+	echo >&2 "warning: some parts of qxt might be disabled or malfunction"
 else
 	echo "DEFINES+=HAVE_OPENSSL">>$PROJECT_ROOT/config.in
 fi
@@ -148,3 +152,4 @@ cd  $PROJECT_ROOT
 mv config.in config.pri
 
 $QMAKE_BIN -recursive
+
