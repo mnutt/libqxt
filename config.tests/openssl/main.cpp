@@ -3,8 +3,6 @@
 
 
 
-
-
 int main(int,char**)
 	{
 	BF_KEY key;
