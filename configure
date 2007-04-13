@@ -1,25 +1,18 @@
 #!/bin/bash
 
-#==some defaults==
+#====some defaults====
 QMAKE_BIN=qmake
 WHICH=which
 
-TESTDIR=config.tests
 
-
-# the name of this script
-relconf=`basename $0`
 # the directory of this script (the root)
-relpath=`dirname $0`
-relpath=`(cd "$relpath"; /bin/pwd)`
-# the current directory is the "build tree" or "object tree"
-PROJECT_ROOT=`/bin/pwd`
+PROJECT_ROOT=`dirname $0`
+PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
+
+TESTDIR=$PROJECT_ROOT/config.tests
 
 
-
-
-
-#==parse configure options==
+#====parse configure options====
 
 echo "QXT_stability += unknown" > config.in
 
@@ -98,7 +91,9 @@ done
 
 
 
-#==begin some autodetection==
+
+
+#====begin some autodetection====
 
 
 
@@ -108,7 +103,6 @@ if ! $WHICH $QMAKE_BIN >/dev/null 2>&1; then
         echo >&2 "Cannot proceed."
         exit 1
 fi
-
 
 # find a make command
 if [ -z "$MAKE" ]; then
@@ -127,24 +121,14 @@ if [ -z "$MAKE" ]; then
 fi
 
 
-
-
-
 #openssl
-
-
-
 if ! which $QMAKE_BIN >/dev/null 2>&1; then
 	echo >&2 "You don't seem to have 'qmake' in your PATH."
         echo >&2 "Cannot proceed."
         exit 1
 fi
 
-
-
-
-cd $PROJECT_ROOT/$TESTDIR
-cd openssl
+cd $TESTDIR/openssl
 $QMAKE_BIN  >/dev/null 2>&1
 $MAKE >/dev/null 2>&1
 
@@ -156,9 +140,7 @@ fi
 
 
  
-
-
-
+#====finaly running qmake====
 echo "autodetection finished. running qmake."
 cd  $PROJECT_ROOT
 
