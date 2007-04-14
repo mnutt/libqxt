@@ -11,7 +11,7 @@ PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
 
 TESTDIR=$PROJECT_ROOT/config.tests
 
-
+CONFIG_LOG=$PROJECT_ROOT/config.log
 
 
 # Define some colors for neet output
@@ -106,11 +106,12 @@ done
 
 
 #====begin some autodetection====
+>$CONFIG_LOG
 
 
 
 # qmake?
-if ! $WHICH $QMAKE_BIN >/dev/null 2>&1; then
+if ! $WHICH $QMAKE_BIN >>$CONFIG_LOG 2>&1; then
 	echo >&2 "You don't seem to have 'qmake' in your PATH."
         echo >&2 "Cannot proceed."
         exit 1
@@ -120,7 +121,7 @@ fi
 if [ -z "$MAKE" ]; then
     MAKE=
     for mk in gmake make; do
-        if "$WHICH" $mk >/dev/null 2>&1; then
+        if "$WHICH" $mk >>$CONFIG_LOG 2>&1; then
             MAKE=`$WHICH $mk`
             break
         fi
@@ -133,62 +134,34 @@ if [ -z "$MAKE" ]; then
 fi
 
 
-#openssl
-echo -en "checking for openssl\t"
-cd $TESTDIR/openssl
-$QMAKE_BIN  >/dev/null 2>&1
-echo -n "."
-$MAKE clean >/dev/null 2>&1
-[ -f ./openssl ] && rm ./openssl
-echo -n "."
-$MAKE >/dev/null 2>&1
-echo -n "."
-if ./openssl >/dev/null 2>&1; then
-	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
-	echo "DEFINES+=HAVE_OPENSSL">>$PROJECT_ROOT/config.in
-else
-	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
-fi
 
 
-#ffmpeg
-echo -en "checking for ffmpeg\t"
-cd $TESTDIR/ffmpeg
-$QMAKE_BIN  >/dev/null 2>&1
-echo -n "."
-$MAKE clean >/dev/null 2>&1
-[ -f ./ffmpeg ] && rm ./ffmpeg
-echo -n "."
-$MAKE >/dev/null 2>&1
-echo -n "."
-if  ./ffmpeg >/dev/null 2>&1; then
-	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
-	echo "DEFINES+=HAVE_FFMPEG">>$PROJECT_ROOT/config.in
-else
-	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
-fi
+configtest()
+	{
+	echo -en "checking for $1\t" 
+	echo -e  " \n\n $1\n" >>$CONFIG_LOG
+	cd $TESTDIR/$1
+	$QMAKE_BIN  >>$CONFIG_LOG 2>&1
+	echo -n "."
+	$MAKE clean >>$CONFIG_LOG 2>&1
+	[ -f ./$1 ] && rm ./$1
+	echo -n "."
+	$MAKE >>$CONFIG_LOG 2>&1
+	echo -n "."
+	if ./$1 >>$CONFIG_LOG 2>&1; then
+		echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
+		echo "DEFINES+=HAVE_$2">>$PROJECT_ROOT/config.in
+	else
+		echo -e >&2 "  [${C_RED}failed${C_NONE}] "
+	fi
+	}
 
 
-#sdl
-echo -en "checking for SDL\t"
-cd $TESTDIR/sdl
-$QMAKE_BIN  >/dev/null 2>&1
-echo -n "."
-$MAKE clean >/dev/null 2>&1
-[ -f ./sdl ] && rm ./sdl
-echo -n "."
-$MAKE >/dev/null 2>&1
-echo -n "."
 
-if  ./sdl >/dev/null 2>&1; then
-	echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
-	echo "DEFINES+=HAVE_SDL">>$PROJECT_ROOT/config.in
-
-else
-	echo -e >&2 "  [${C_RED}failed${C_NONE}] "
-fi
-
-
+configtest openssl OPENSSL
+configtest ffmpeg  FFMPEG
+configtest sdl     SDL
+configtest curses  CURSES
 
 
 #====finaly running qmake====
