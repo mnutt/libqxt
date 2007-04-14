@@ -287,7 +287,8 @@ void  QxtWebApplicationPrivate::threadfinished()
 
 
 	///connecting signals to the client
- 	QList<QxtWebWidget *> controllers= qFindChildren<QxtWebWidget *> (&worker);
+ 	QList<QxtWebWidget *> controllers;
+	controllers = qFindChildren<QxtWebWidget *> (&worker);
  
  	QxtWebWidget * controller;
  	foreach(controller,controllers)
