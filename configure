@@ -171,5 +171,9 @@ cd  $PROJECT_ROOT
 [ -f config.pri ] && mv config.pri config.pri.bak
 mv config.in config.pri
 
-$QMAKE_BIN -recursive
+$QMAKE_BIN -recursive 2>>$CONFIG_LOG
+
+
+echo -e >&2 "${C_CYAN}configure finished. run $MAKE now.${C_NONE}\n"
+
 
