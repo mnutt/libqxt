@@ -149,10 +149,10 @@ configtest()
 	$MAKE >>$CONFIG_LOG 2>&1
 	echo -n "."
 	if ./$1 >>$CONFIG_LOG 2>&1; then
-		echo -e >&2 "  [${C_GREEN}sucess${C_NONE}] "
+		echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
 		echo "DEFINES+=HAVE_$2">>$PROJECT_ROOT/config.in
 	else
-		echo -e >&2 "  [${C_RED}failed${C_NONE}] "
+		echo -e >&2 "  [${C_RED}failure${C_NONE}] "
 	fi
 	}
 
