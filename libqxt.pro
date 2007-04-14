@@ -63,10 +63,13 @@ contains( QXT_BUILD, media ){
     SUBDIRS += src/media
 }
 
+contains(DEFINES,HAVE_CURSES){
 contains( QXT_BUILD, curses ){
     message( building curses module )
     SUBDIRS += src/curses
 }
+}
+
 	
 contains( QXT_BUILD, web ){
     message( building web module )
