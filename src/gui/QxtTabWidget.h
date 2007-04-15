@@ -55,14 +55,14 @@ public:
 signals:
 	void tabContextMenuRequested(int index, const QPoint& globalPos);
 	
-#ifndef QXT_DOXYGEN_RUN
 protected:
+#ifndef QXT_DOXYGEN_RUN
 	virtual void tabInserted(int index);
 	virtual void tabRemoved(int index);
 	
 	virtual void contextMenuEvent(QContextMenuEvent* event);
-	virtual void tabContextMenuEvent(int index, QContextMenuEvent* event);
 #endif // QXT_DOXYGEN_RUN
+	virtual void tabContextMenuEvent(int index, QContextMenuEvent* event);
 };
 
 #endif // QXTQXTTABWIDGET_H
