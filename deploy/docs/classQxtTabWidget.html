@@ -56,6 +56,10 @@ void <b>setTabContextMenuPolicy</b> (Qt::ContextMenuPolicy policy)
 <li>void <a class="el" href="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction</a> (int index, QAction *action)
 <li>QList&lt; QAction * &gt; <a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions</a> (int index) const
 </ul>
+<h3>Protected Member Functions</h3>
+<ul>
+<li>virtual void <a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent</a> (int index, QContextMenuEvent *event)
+</ul>
 <h3>Properties</h3>
 <ul>
 <li>Qt::ContextMenuPolicy <a class="el" href="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0">tabContextMenuPolicy</a>
@@ -64,8 +68,24 @@ void <b>setTabContextMenuPolicy</b> (Qt::ContextMenuPolicy policy)
 An extended QTabWidget. 
 <p>
 <a class="el" href="classQxtTabWidget.html" title="An extended QTabWidget.">QxtTabWidget</a> provides some convenience for handling tab specific context menus.<p>
-Tab specific close buttons and movable tabs are already on the way, so I won't bother with them for now as it would require a whole lot of rewriting anyway.<p>
-<a href="http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891">http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891</a> 
+Example usage: <div class="fragment"><pre class="fragment">        <a class="code" href="classQxtTabWidget.html" title="An extended QTabWidget.">QxtTabWidget</a>* tabWidget = <span class="keyword">new</span> <a class="code" href="classQxtTabWidget.html#6b8c718aaa0b22efb166803cba77b471">QxtTabWidget</a>();
+        tabWidget-&gt;addTab(tab0, <span class="stringliteral">"1"</span>);
+        tabWidget-&gt;addTab(tab1, <span class="stringliteral">"2"</span>);
+        
+        QList&lt;QAction*&gt; actions0;
+        actions0 &lt;&lt; <span class="keyword">new</span> QAction(<span class="stringliteral">"Quisque"</span>, tab0) &lt;&lt; <span class="keyword">new</span> QAction(<span class="stringliteral">"Aenean"</span>, tab0);
+        QList&lt;QAction*&gt; actions1;
+        actions1 &lt;&lt; <span class="keyword">new</span> QAction(<span class="stringliteral">"Phasellus"</span>, tab1) &lt;&lt; <span class="keyword">new</span> QAction(<span class="stringliteral">"Maecenas"</span>, tab1);
+        
+        tabWidget-&gt;<a class="code" href="classQxtTabWidget.html#707a9d27875f0c2a30e2e2a8be05aacd">setTabContextMenuPolicy</a>(Qt::ActionsContextMenu);
+        tabWidget-&gt;<a class="code" href="classQxtTabWidget.html#3b1a8ef96e696d7af28642d5b53d653b">addTabActions</a>(0, actions0);
+        tabWidget-&gt;<a class="code" href="classQxtTabWidget.html#3b1a8ef96e696d7af28642d5b53d653b">addTabActions</a>(1, actions1);
+</pre></div><p>
+<div align="center">
+<img src="qxttabwidget.png" alt="qxttabwidget.png">
+<p><strong>QxtTabWidget in WindowsXP style.</strong></p></div>
+ <dl class="note" compact><dt><b>Note:</b></dt><dd>Tab specific close buttons and movable tabs are already on the way, so I won't bother with them for now as it would require a whole lot of rewriting anyway. <a href="http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891">http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891</a> </dd></dl>
+
 <p>
 <hr><h3>Constructor &amp; Destructor Documentation</h3>
 <a class="anchor" name="6b8c718aaa0b22efb166803cba77b471"></a><!-- doxytag: member="QxtTabWidget::QxtTabWidget" ref="6b8c718aaa0b22efb166803cba77b471" args="(QWidget *parent=0)" -->
@@ -238,6 +258,26 @@ Returns the (possibly empty) list of actions for the tab at <em>index</em>.<p>
 This signal is emitted whenever the context menu is requested over tab at <em>index</em> at <em>globalPos</em>. 
 </p></div>
 </div><!-- memitem --><br/>
+<a class="anchor" name="ddd8f604888b15c79a54c1b9b049c35c"></a><!-- doxytag: member="QxtTabWidget::tabContextMenuEvent" ref="ddd8f604888b15c79a54c1b9b049c35c" args="(int index, QContextMenuEvent *event)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">void QxtTabWidget::tabContextMenuEvent           </span>
+(          <span class="paramtype">int&nbsp;</span>
+          <span class="paramname"> <em>index</em>, </span>
+          <span class="paramtype">QContextMenuEvent *&nbsp;</span>
+          <span class="paramname"> <em>event</em></span>
+) [protected, virtual]</div>
+
+<div class="memdoc">
+
+<p>
+This event handler, for event <em>event</em>, can be reimplemented in a subclass to receive context menu events for the tab at <em>index</em>.<p>
+The handler is called when <b>tabContextMenuPolicy</b> is <b>Qt::DefaultContextMenu</b>.<p>
+The default implementation ignores the context menu event.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0" title="This property holds how the tab specific context menus are handled.">tabContextMenuPolicy</a>, <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
 <hr><h3>Property Documentation</h3>
 <a class="anchor" name="7e940acaabc0104aa37b3a1478e1d2d0"></a><!-- doxytag: member="QxtTabWidget::tabContextMenuPolicy" ref="7e940acaabc0104aa37b3a1478e1d2d0" args="" -->
 <div class="memitem">
@@ -250,8 +290,8 @@ This signal is emitted whenever the context menu is requested over tab at <em>in
 <p>
 This property holds how the tab specific context menus are handled. 
 <p>
-The default value of this property is <b>Qt::DefaultContextMenu</b>, which means the tabContextMenuEvent() handler is called. Other values are <b>Qt::NoContextMenu</b>, <b>Qt::PreventContextMenu</b>, <b>Qt::ActionsContextMenu</b>, and <b>Qt::CustomContextMenu</b>. With <b>Qt::CustomContextMenu</b>, the signal <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> is emitted.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd>tabContextMenuEvent(), <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a>, <a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions()</a> </dd></dl>
+The default value of this property is <b>Qt::DefaultContextMenu</b>, which means that the <a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent()</a> handler is called. Other values are <b>Qt::NoContextMenu</b>, <b>Qt::PreventContextMenu</b>, <b>Qt::ActionsContextMenu</b>, and <b>Qt::CustomContextMenu</b>. With <b>Qt::CustomContextMenu</b>, the signal <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a> is emitted.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent()</a>, <a class="el" href="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested()</a>, <a class="el" href="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
