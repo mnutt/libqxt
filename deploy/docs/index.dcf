@@ -299,6 +299,7 @@
 	<keyword ref="classQxtTabWidget.html#8b187b30f9bbfeeff27505828bd8e4da">insertTabActions</keyword>
 	<keyword ref="classQxtTabWidget.html#a325cfa3ca44b5fb65a8eb3daa368328">removeTabAction</keyword>
 	<keyword ref="classQxtTabWidget.html#e64e47de465ab6284a70a39c1437f610">tabActions</keyword>
+	<keyword ref="classQxtTabWidget.html#ddd8f604888b15c79a54c1b9b049c35c">tabContextMenuEvent</keyword>
 	<keyword ref="classQxtTabWidget.html#7e940acaabc0104aa37b3a1478e1d2d0">tabContextMenuPolicy</keyword>
 	<keyword ref="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested</keyword>
 </section>

@@ -77,7 +77,7 @@
 
 
 
-
+#define QXT_VERSION (  (2<<16) + (2<<8) + 3 ) 
 
 
 
