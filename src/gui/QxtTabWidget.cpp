@@ -35,11 +35,16 @@ class QxtTabWidgetPrivate : public QxtPrivate<QxtTabWidget>
 public:
 	QXT_DECLARE_PUBLIC(QxtTabWidget);
 	
+	QxtTabWidgetPrivate();
 	int tabIndexAt(const QPoint& pos) const;
 	
 	QList<Actions> actions;
 	Qt::ContextMenuPolicy policy;
 };
+
+QxtTabWidgetPrivate::QxtTabWidgetPrivate() : policy(Qt::DefaultContextMenu)
+{
+}
 
 int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 {
@@ -58,9 +63,26 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 
     QxtTabWidget provides some convenience for handling tab specific context menus.
 
-    Tab specific close buttons and movable tabs are already on the way, so I won't
-    bother with them for now as it would require a whole lot of rewriting anyway.
+    Example usage:
+    \code
+	QxtTabWidget* tabWidget = new QxtTabWidget();
+	tabWidget->addTab(tab0, "1");
+	tabWidget->addTab(tab1, "2");
+	
+	QList<QAction*> actions0;
+	actions0 << new QAction("Quisque", tab0) << new QAction("Aenean", tab0);
+	QList<QAction*> actions1;
+	actions1 << new QAction("Phasellus", tab1) << new QAction("Maecenas", tab1);
+	
+	tabWidget->setTabContextMenuPolicy(Qt::ActionsContextMenu);
+	tabWidget->addTabActions(0, actions0);
+	tabWidget->addTabActions(1, actions1);
+	\endcode
 
+	\image html qxttabwidget.png "QxtTabWidget in WindowsXP style."
+
+    \note Tab specific close buttons and movable tabs are already on the way, so I 
+	won't bother with them for now as it would require a whole lot of rewriting anyway.
     http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891
  */
 
@@ -91,8 +113,8 @@ QxtTabWidget::~QxtTabWidget()
     \brief This property holds how the tab specific context menus are handled.
 
     The default value of this property is \b Qt::DefaultContextMenu,
-    which means the tabContextMenuEvent() handler is called. Other values
-    are \b Qt::NoContextMenu, \b Qt::PreventContextMenu,
+    which means that the tabContextMenuEvent() handler is called. 
+	Other values are \b Qt::NoContextMenu, \b Qt::PreventContextMenu,
     \b Qt::ActionsContextMenu, and \b Qt::CustomContextMenu. With
     \b Qt::CustomContextMenu, the signal tabContextMenuRequested() is
     emitted.
@@ -292,6 +314,7 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
 			{
 				tabContextMenuEvent(index, event);
 			}
+			break;
 	}
 }
 
@@ -299,12 +322,12 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
     This event handler, for event \a event, can be reimplemented in a
     subclass to receive context menu events for the tab at \a index.
 
-    The handler is called when \l tabContextMenuPolicy is
+    The handler is called when \b tabContextMenuPolicy is
     \b Qt::DefaultContextMenu.
 
     The default implementation ignores the context menu event.
 
-    \sa tabContextMenuRequested()
+    \sa tabContextMenuPolicy, tabContextMenuRequested()
  */
 void QxtTabWidget::tabContextMenuEvent(int index, QContextMenuEvent* event)
 {
