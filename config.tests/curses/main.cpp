@@ -1,9 +1,11 @@
-#error no checks defined yet
+#include <curses.h>
+#include <panel.h>
 
-int main(int,char**)
-	{
-	return 0;
-	}
-
-
+int main(int argc, char** argv)
+{
+    WINDOW w;
+    SCREEN s;
+    PANEL p;
+    return 0;
+}
 
