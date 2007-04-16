@@ -36,6 +36,7 @@ class QXT_GUI_EXPORT QxtPushButton : public QPushButton
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtPushButton);
 	Q_PROPERTY(Qxt::Rotation rotation READ rotation WRITE setRotation)
+	Q_PROPERTY(Qt::TextFormat textFormat READ textFormat WRITE setTextFormat)
 	
 public:
 	explicit QxtPushButton(QWidget* parent = 0);
@@ -46,6 +47,9 @@ public:
 	
 	Qxt::Rotation rotation() const;
 	void setRotation(Qxt::Rotation rotation);
+	
+	Qt::TextFormat textFormat() const;
+	void setTextFormat(Qt::TextFormat format);
 	
 #ifndef QXT_DOXYGEN_RUN
 	virtual QSize sizeHint() const;

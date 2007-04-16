@@ -23,7 +23,9 @@
 
 #include "QxtPushButton.h"
 #include <QStyleOptionButton>
+#include <QTextDocument>
 #include <QStylePainter>
+#include <QStyle>
 #include <QMenu>
 
 static const int Vertical_Mask = 0x02;
@@ -34,14 +36,23 @@ public:
 	QXT_DECLARE_PUBLIC(QxtPushButton);
 	QxtPushButtonPrivate();
 	
+	bool isRichText() const;
 	QStyleOptionButton getStyleOption() const;
 	
+	QString text;
 	Qxt::Rotation rot;
+	QTextDocument* doc;
+	Qt::TextFormat format;
 };
 
 QxtPushButtonPrivate::QxtPushButtonPrivate() :
-	rot(Qxt::NoRotation)
+	rot(Qxt::NoRotation), doc(0), format(Qt::PlainText)
 {
+}
+
+bool QxtPushButtonPrivate::isRichText() const
+{
+	return (format == Qt::RichText) || (format == Qt::AutoText && Qt::mightBeRichText(qxt_p().text()));
 }
 
 QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
@@ -69,7 +80,8 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 		option.state |= QStyle::State_On;
 	if (!qxt_p().isFlat() && !qxt_p().isDown())
 		option.state |= QStyle::State_Raised;
-	option.text = qxt_p().text();
+	if (!isRichText())
+		option.text = qxt_p().text();
 	option.icon = qxt_p().icon();
 	option.iconSize = qxt_p().iconSize();
 	return option;
@@ -78,9 +90,10 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 /*!
     \class QxtPushButton QxtPushButton
     \ingroup gui
-    \brief A QPushButton which can be rotated.
+    \brief A QPushButton with rotation and rich text support.
 
-    QxtPushButton is a QPushButton which can be rotated.
+    QxtPushButton is a QPushButton which can be rotated. In addition, QxtPushButton
+    provides rich text support.
 
     \image html qxtpushbutton.png "QxtPushButton in Plastique style."
  */
@@ -165,9 +178,48 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
 	}
 }
 
+/*!
+    \property QxtPushButton::textFormat
+    \brief This property holds the text format of the button
+
+    Supported formats are \b Qt::PlainText and \b Qt::RichText.
+
+    The default format is \b Qt::PlainText.
+*/
+Qt::TextFormat QxtPushButton::textFormat() const
+{
+	return qxt_d().format;
+}
+
+void QxtPushButton::setTextFormat(Qt::TextFormat format)
+{
+	if (qxt_d().format != format)
+	{
+		qxt_d().format = format;
+		if (qxt_d().isRichText())
+		{
+			qxt_d().doc = new QTextDocument(this);
+			qxt_d().doc->setUndoRedoEnabled(false);
+		}
+		else
+		{
+			delete qxt_d().doc;
+			qxt_d().doc = 0;
+		}
+		qxt_d().text.clear();
+		update();
+		updateGeometry();
+	}
+}
+
 QSize QxtPushButton::sizeHint() const
 {
-	QSize size = QPushButton::sizeHint();
+	QSize size;
+	if (qxt_d().isRichText())
+		size = qxt_d().doc->size().toSize();
+	else
+		size = QPushButton::sizeHint();
+	
 	if (qxt_d().rot & Vertical_Mask)
 		size.transpose();
 	return size;
@@ -175,7 +227,12 @@ QSize QxtPushButton::sizeHint() const
 
 QSize QxtPushButton::minimumSizeHint() const
 {
-	QSize size = QPushButton::minimumSizeHint();
+	QSize size;
+	if (qxt_d().isRichText())
+		size = qxt_d().doc->size().toSize();
+	else
+		size = QPushButton::minimumSizeHint();
+	
 	if (qxt_d().rot & Vertical_Mask)
 		size.transpose();
 	return size;
@@ -184,6 +241,15 @@ QSize QxtPushButton::minimumSizeHint() const
 void QxtPushButton::paintEvent(QPaintEvent* event)
 {
 	Q_UNUSED(event);
+	
+	// the only reliable way to detect text changes
+	if (text() != qxt_d().text)
+	{
+		qxt_d().text = text();
+		if (qxt_d().isRichText())
+			qxt_d().doc->setHtml(qxt_d().text);
+	}
+	
 	QStylePainter painter(this);
 	painter.rotate(qxt_d().rot);
 	switch (qxt_d().rot)
@@ -205,5 +271,19 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 			break;
 	}
 	
-	painter.drawControl(QStyle::CE_PushButton, qxt_d().getStyleOption());
+	const QStyleOptionButton option = qxt_d().getStyleOption();
+	painter.drawControl(QStyle::CE_PushButton, option);
+	if (qxt_d().isRichText())
+	{
+		// TODO: take rotation into account
+		int dx = static_cast<int>((width() - qxt_d().doc->size().width()) / 2);
+		int dy = static_cast<int>((height() - qxt_d().doc->size().height()) / 2);
+		if (option.state & (QStyle::State_On | QStyle::State_Sunken))
+		{
+			dx += style()->pixelMetric(QStyle::PM_ButtonShiftHorizontal, &option, this);
+			dy += style()->pixelMetric(QStyle::PM_ButtonShiftVertical, &option, this);
+		}
+		painter.translate(dx, dy);
+		qxt_d().doc->drawContents(&painter, contentsRect());
+	}
 }
