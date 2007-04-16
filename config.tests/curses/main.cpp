@@ -4,8 +4,11 @@
 int main(int argc, char** argv)
 {
     WINDOW w;
-    SCREEN s;
     PANEL p;
+    (void)(w);
+    (void)(p);
+    (void)(argc);
+    (void)(argv);
     return 0;
 }
 
