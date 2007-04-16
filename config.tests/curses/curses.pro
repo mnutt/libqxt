@@ -3,5 +3,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-LIBS+=-lnolibsdefinedyet
-QT=core
+LIBS += -lpanel -lncurses
+CONFIG -= qt
