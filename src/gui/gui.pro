@@ -3,7 +3,7 @@ DEPENDPATH  += .
 INCLUDEPATH += . ../core ../../deploy/include
 DEFINES     += BUILD_QXT_GUI
 unix : LIBS        += -L../../deploy/libs/ -lQxtKit  -lQxtCore 
-win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -luser32 # user32 required for (Un)RegisterHotKey() used in QxtApplication_win.cpp
+win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -luser32 # user32 required for (Un)RegisterHotKey() and GetActiveWindow()
 
 win32: CONFIG   += dll
 
@@ -18,6 +18,10 @@ win32:QxtApplication.sources	+= QxtApplication_win.cpp
 
 QxtCheckComboBox.headers	= private/QxtCheckComboBox_p.h
 QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
+
+QxtDesktopWidget.sources	+= QxtDesktopWidget.cpp
+unix:QxtDesktopWidget.sources	+= QxtDesktopWidget_x11.cpp
+win32:QxtDesktopWidget.sources	+= QxtDesktopWidget_win.cpp
 
 QxtItemDelegate.sources		= QxtItemDelegate.cpp
 
@@ -39,4 +43,4 @@ QxtTreeWidget.sources		= QxtTreeWidget.cpp
 QxtTreeWidgetItem.sources	= QxtTreeWidgetItem.cpp
 
 
-Parts=QxtApplication QxtCheckComboBox QxtItemDelegate QxtLabel QxtProxyStyle QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem
+Parts=QxtApplication QxtCheckComboBox QxtDesktopWidget QxtItemDelegate QxtLabel QxtProxyStyle QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem
