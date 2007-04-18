@@ -33,7 +33,7 @@ class QxtHeaderViewPrivate
 
     draws actions directly into the header. it's like a toolbar for your ItemView.
 
-    \image html qxtheaderview.png "QxtLabel with a few actions."
+    \image html qxtheaderview.png "QxtHeaderView with a few actions."
  */
 
 /*!
