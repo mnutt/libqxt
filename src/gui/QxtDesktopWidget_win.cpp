@@ -33,3 +33,13 @@ WId QxtDesktopWidget::findWindow(const QString& title) const
 {
 	// FindWindow
 }
+
+WId QxtDesktopWidget::windowAt(const QPoint& pos) const
+{
+	// WindowFromPoint
+}
+
+QRect QxtDesktopWidget::windowGeometry(WId window) const
+{
+	// GetWindowRect
+}

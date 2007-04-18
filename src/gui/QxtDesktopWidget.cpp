@@ -28,6 +28,8 @@
     \ingroup gui
     \brief QxtDesktopWidget provides means for finding certain native windows.
 
+	\todo Add notice about QWidget::create()?
+
     \note Currently supported platforms are \b X11 and \b Windows.
  */
 
