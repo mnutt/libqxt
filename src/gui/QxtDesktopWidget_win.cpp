@@ -24,29 +24,46 @@
 #include "QxtDesktopWidget.h"
 #include <qt_windows.h>
 
-WId QxtDesktopWidget::activeWindow() const
+WId QxtDesktopWidget::activeNativeWindow() const
 {
-	// GetActiveWindow
-	return 0;
+	return ::GetForegroundWindow();
 }
 
-WId QxtDesktopWidget::findWindow(const QString& title) const
+WId QxtDesktopWidget::findNativeWindow(const QString& title) const
 {
-	// FindWindow
-	Q_UNUSED(title);
-	return 0;
+	return ::FindWindow(NULL, title.utf16());
 }
 
-WId QxtDesktopWidget::windowAt(const QPoint& pos) const
+WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
 {
-	// WindowFromPoint
-	Q_UNUSED(pos);
-	return 0;
+	// TODO: fix me
+	HWND res;
+	POINT pt;
+	pt.x = pos.x();
+	pt.y = pos.y();
+	return ::WindowFromPoint(pt);
 }
 
-QRect QxtDesktopWidget::windowGeometry(WId window) const
+QString QxtDesktopWidget::nativeWindowTitle(WId window) const
 {
-	// GetWindowRect
-	Q_UNUSED(window);
-	return QRect();
+	TCHAR str[256];
+	QString title;
+	int len = ::GetWindowText(window, str, 256);
+	if (len > 0)
+		title.setUtf16(str, len);
+	return title;
+}
+
+QRect QxtDesktopWidget::nativeWindowGeometry(WId window) const
+{
+	RECT rc;
+	QRect rect;
+	if (::GetWindowRect(window, &rc))
+	{
+		rect.setTop(rc.top);
+		rect.setBottom(rc.bottom);
+		rect.setLeft(rc.left);
+		rect.setRight(rc.right);
+	}
+	return rect;
 }

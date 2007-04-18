@@ -25,7 +25,7 @@
 #include <QX11Info>
 #include <X11/Xutil.h>
 
-WId QxtDesktopWidget::activeWindow() const
+WId QxtDesktopWidget::activeNativeWindow() const
 {
 //	XGetInputFocus(display, focus_return, revert_to_return)
 //		Display *display;
@@ -78,19 +78,25 @@ static WId qxt_findWindowHelper(WId wid, const QString& title)
 	return 0;
 }
 
-WId QxtDesktopWidget::findWindow(const QString& title) const
+WId QxtDesktopWidget::findNativeWindow(const QString& title) const
 {
 	return qxt_findWindowHelper(QX11Info::appRootWindow(), title);
 }
 
-WId QxtDesktopWidget::windowAt(const QPoint& pos) const
+WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
 {
 	// XQueryTree + XGetGeometry ???
 	Q_UNUSED(pos);
 	return 0;
 }
 
-QRect QxtDesktopWidget::windowGeometry(WId window) const
+QString QxtDesktopWidget::nativeWindowTitle(WId window) const
+{
+	// XFetchName
+	return QString();
+}
+
+QRect QxtDesktopWidget::nativeWindowGeometry(WId window) const
 {
 	// XGetGeometry
 	Q_UNUSED(window);

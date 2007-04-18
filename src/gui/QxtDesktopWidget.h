@@ -33,10 +33,11 @@ public:
 	QxtDesktopWidget();
 	~QxtDesktopWidget();
 	
-	WId activeWindow() const;
-	WId findWindow(const QString& title) const;
-	WId windowAt(const QPoint& pos) const;
-	QRect windowGeometry(WId window) const;
+	WId activeNativeWindow() const;
+	WId findNativeWindow(const QString& title) const;
+	WId nativeWindowAt(const QPoint& pos) const;
+	QString nativeWindowTitle(WId window) const;
+	QRect nativeWindowGeometry(WId window) const;
 };
 
 #endif // QXTDESKTOPWIDGET_H
