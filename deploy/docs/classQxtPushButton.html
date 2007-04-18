@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtPushButton Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtPushButton" -->A QPushButton which can be rotated.  
+</h1><!-- doxytag: class="QxtPushButton" -->A QPushButton with rotation and rich text support.  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Member Functions</h3>
@@ -47,15 +47,20 @@ width="32" height="32" border="0" /></a></td>
 <a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Qxt::Rotation</a> <b>rotation</b> () const
 <li><a class="anchor" name="e5d965cd5c43427d72244077c9d0c3f5"></a><!-- doxytag: member="QxtPushButton::setRotation" ref="e5d965cd5c43427d72244077c9d0c3f5" args="(Qxt::Rotation rotation)" -->
 void <b>setRotation</b> (<a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Qxt::Rotation</a> rotation)
+<li><a class="anchor" name="bc146c78d3f508df90e88ebfa8b17a5e"></a><!-- doxytag: member="QxtPushButton::textFormat" ref="bc146c78d3f508df90e88ebfa8b17a5e" args="() const" -->
+Qt::TextFormat <b>textFormat</b> () const
+<li><a class="anchor" name="931d93e4f38921a38a592d9052ec503b"></a><!-- doxytag: member="QxtPushButton::setTextFormat" ref="931d93e4f38921a38a592d9052ec503b" args="(Qt::TextFormat format)" -->
+void <b>setTextFormat</b> (Qt::TextFormat format)
 </ul>
 <h3>Properties</h3>
 <ul>
 <li><a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Qxt::Rotation</a> <a class="el" href="classQxtPushButton.html#20239aa208659a80277421c00829a040">rotation</a>
-<dl class="el"><dd class="mdescRight">This property holds the rotation of the button.  <a href="#20239aa208659a80277421c00829a040"></a><br></dl></ul>
+<dl class="el"><dd class="mdescRight">This property holds the rotation of the button.  <a href="#20239aa208659a80277421c00829a040"></a><br></dl><li>Qt::TextFormat <a class="el" href="classQxtPushButton.html#509b0691de19c693a96ee41d96bd22ce">textFormat</a>
+<dl class="el"><dd class="mdescRight">This property holds the text format of the button.  <a href="#509b0691de19c693a96ee41d96bd22ce"></a><br></dl></ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-A QPushButton which can be rotated. 
+A QPushButton with rotation and rich text support. 
 <p>
-<a class="el" href="classQxtPushButton.html" title="A QPushButton which can be rotated.">QxtPushButton</a> is a QPushButton which can be rotated.<p>
+<a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> is a QPushButton which can be rotated. In addition, <a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> provides rich text support.<p>
 <div align="center">
 <img src="qxtpushbutton.png" alt="qxtpushbutton.png">
 <p><strong>QxtPushButton in Plastique style.</strong></p></div>
@@ -73,7 +78,7 @@ A QPushButton which can be rotated.
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton which can be rotated.">QxtPushButton</a> with <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> with <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="cf839a3fe256d8f8ed25e58309724ab8"></a><!-- doxytag: member="QxtPushButton::QxtPushButton" ref="cf839a3fe256d8f8ed25e58309724ab8" args="(const QString &amp;text, QWidget *parent=0)" -->
@@ -89,7 +94,7 @@ Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButt
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton which can be rotated.">QxtPushButton</a> with <em>text</em> and <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> with <em>text</em> and <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="80cf8a9fe32ad4a6fb4593121da51a71"></a><!-- doxytag: member="QxtPushButton::QxtPushButton" ref="80cf8a9fe32ad4a6fb4593121da51a71" args="(const QIcon &amp;icon, const QString &amp;text, QWidget *parent=0)" -->
@@ -107,7 +112,7 @@ Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButt
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton which can be rotated.">QxtPushButton</a> with <em>icon</em>, <em>text</em> and <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> with <em>icon</em>, <em>text</em> and <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="7cc0df1a124abd6fe13a327b21e422e5"></a><!-- doxytag: member="QxtPushButton::QxtPushButton" ref="7cc0df1a124abd6fe13a327b21e422e5" args="(Qxt::Rotation rotation, const QString &amp;text, QWidget *parent=0)" -->
@@ -125,7 +130,7 @@ Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButt
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton which can be rotated.">QxtPushButton</a> with <em>rotation</em>, <em>text</em> and <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtPushButton.html" title="A QPushButton with rotation and rich text support.">QxtPushButton</a> with <em>rotation</em>, <em>text</em> and <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="4be5345ab8f27d15b1416b42d7b7a661"></a><!-- doxytag: member="QxtPushButton::~QxtPushButton" ref="4be5345ab8f27d15b1416b42d7b7a661" args="()" -->
@@ -156,6 +161,21 @@ This property holds the rotation of the button.
 The button is rotated according to this property. The default value is <b><a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b0d864eb83ac21959f31e417c58445698">Qxt::NoRotation</a></b>.<p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Qxt::Rotation</a> </dd></dl>
 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="509b0691de19c693a96ee41d96bd22ce"></a><!-- doxytag: member="QxtPushButton::textFormat" ref="509b0691de19c693a96ee41d96bd22ce" args="" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">Qt::TextFormat QxtPushButton::textFormat [read, write]          </span>
+</div>
+
+<div class="memdoc">
+
+<p>
+This property holds the text format of the button. 
+<p>
+Supported formats are <b>Qt::PlainText</b> and <b>Qt::RichText</b>.<p>
+The default format is <b>Qt::PlainText</b>. 
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
