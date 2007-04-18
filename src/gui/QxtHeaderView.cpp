@@ -1,5 +1,4 @@
 #include "QxtHeaderView.h"
-#include "QxtHeaderView_p.h"
 #include <QPainter>
 #include <QApplication>
 #include <QDebug>
@@ -7,32 +6,44 @@
 #include <QAction>
 
 
-QxtHeaderView::QxtHeaderView (Qt::Orientation o ,CategorieTree *parent):QHeaderView(o,parent)
-	{
-	QXT_INIT_PRIVATE (QxtHeaderView);
-	qxt_d()->construct();
-	}
+class QxtHeaderViewPrivate
+    {
+    public:
+
+        QxtHeaderViewPrivate()
+              {
+              action_size=NULL;
+              }
+
+        QSize action_size_c() const
+                {
+                return *action_size;
+                }
+
+        QList<QAction *> actions;
+	QSize * action_size;
+
+    };
 
 
-void QxtHeaderViewPrivate::construct();
+
+
+QxtHeaderView::QxtHeaderView (Qt::Orientation o ,QWidget *parent):QHeaderView(o,parent)
 	{
-	action_size=NULL;
+        priv = new QxtHeaderViewPrivate;
 	setStretchLastSection(true);
 	QStyleOptionViewItem  option;
 	option.initFrom(this);
-	action_size= new QSize( QApplication::style()->subElementRect(QStyle::SE_ViewItemCheckIndicator,&option).size());
+	priv->action_size= new QSize( QApplication::style()->subElementRect(QStyle::SE_ViewItemCheckIndicator,&option).size());
 	}
+
 
 
 //-----------------------------------------------------------------
 
 void QxtHeaderView::addAction(QAction * a)
 	{
-	qxt_d()->addAction(a);
-	}
-void QxtHeaderViewPrivate::addAction(QAction * a)
-	{
-	actions.append(a);
+	priv->actions.append(a);
 	}
 
 //-----------------------------------------------------------------
@@ -41,7 +52,7 @@ void QxtHeaderViewPrivate::addAction(QAction * a)
 
 
 
-void QxtHeaderViewPrivate::paintSection ( QPainter * painter, const QRect & rm, int logicalIndex ) const
+void QxtHeaderView::paintSection ( QPainter * painter, const QRect & rm, int logicalIndex ) const
 	{
 	QRect rect=rm;
 
@@ -51,39 +62,39 @@ void QxtHeaderViewPrivate::paintSection ( QPainter * painter, const QRect & rm, 
 
 
 
-	int moved =qxt_p()->subPaint(painter, rect, logicalIndex,*action_size,10);
+	int moved =subPaint(painter, rect, logicalIndex,priv->action_size_c(),10);
 	rect.adjust(0,0,-moved,0);
 
 
 	QAction * a;
-	foreach(a, actions)
+	foreach(a, priv->actions)
 		{
-		rect.adjust(0,0,-action_size->width()-10,0);	///shrink the available space rect
+		rect.adjust(0,0,-priv->action_size->width()-10,0);	///shrink the available space rect
 		QIcon img = a->icon();
-		QRect r=QStyle::alignedRect ( Qt::LeftToRight, Qt::AlignRight | Qt::AlignVCenter, *action_size,rect);
+		QRect r=QStyle::alignedRect ( Qt::LeftToRight, Qt::AlignRight | Qt::AlignVCenter, *priv->action_size,rect);
  		img.paint(painter, r.x(), r.y(), r.width(), r.height(), Qt::AlignCenter);
 		}
 	}
 
-void  QxtHeaderViewPrivate::mousePressEvent ( QMouseEvent * m )
+void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 	{
-	if (!action_size)return;
+	if (!priv->action_size)return;
 
 	
-	if ( m->x()>(width()-action_size->width()-10))
+	if ( m->x()>(width()-priv->action_size->width()-10))
 		{
-		if (actions.count()>0)
-			actions[0]->trigger();
+		if (priv->actions.count()>0)
+			priv->actions[0]->trigger();
 		}
-	else if ( m->x()>(width()-(action_size->width()*2)-20))
+	else if ( m->x()>(width()-(priv->action_size->width()*2)-20))
 		{
-		if (actions.count()>1)
-			actions[1]->trigger();
+		if (priv->actions.count()>1)
+			priv->actions[1]->trigger();
 		}
-	else if ( m->x()>(width()-(action_size->width()*3)-30))
+	else if ( m->x()>(width()-(priv->action_size->width()*3)-30))
 		{
-		if (actions.count()>2)
-			actions[2]->trigger();
+		if (priv->actions.count()>2)
+			priv->actions[2]->trigger();
 		}
 
 	}
@@ -92,7 +103,7 @@ void  QxtHeaderViewPrivate::mousePressEvent ( QMouseEvent * m )
 //-----------------------------------------------------------------
 
 
-int QxtHeaderView::subPaint(QPainter * painter, const QRect & rect, int logicalIndex,QSize icon_size, int spacing);
+int QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
 	{
 	return 0;
 	}

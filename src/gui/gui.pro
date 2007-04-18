@@ -43,8 +43,7 @@ QxtTreeWidget.sources		= QxtTreeWidget.cpp
 QxtTreeWidgetItem.sources	= QxtTreeWidgetItem.cpp
 
 
-QxtHeaderView.headers =  QxtHeaderView_p.h
 QxtHeaderView.sources =  QxtHeaderView.cpp
 
 
-Parts=QxtApplication QxtCheckComboBox QxtDesktopWidget QxtItemDelegate QxtLabel QxtProxyStyle QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem QxtHeaderView
+Parts=QxtApplication QxtCheckComboBox QxtDesktopWidget QxtHeaderView QxtItemDelegate QxtLabel QxtProxyStyle QxtPushButton QxtSpanSlider QxtStringSpinBox QxtTabWidget QxtTreeWidget QxtTreeWidgetItem 
