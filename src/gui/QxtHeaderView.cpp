@@ -26,7 +26,21 @@ class QxtHeaderViewPrivate
     };
 
 
+/*!
+    \class QxtHeaderView QxtHeaderView
+    \ingroup gui
+    \brief a headerview that can have QActions
 
+    draws actions directly into the header. it's like a toolbar for your ItemView.
+
+    \image html qxtheaderview.png "QxtLabel with a few actions."
+ */
+
+/*!
+    \fn QxtHeaderView::QxtHeaderView()
+
+   default Constructor
+ */
 
 QxtHeaderView::QxtHeaderView (Qt::Orientation o ,QWidget *parent):QHeaderView(o,parent)
 	{
@@ -40,10 +54,12 @@ QxtHeaderView::QxtHeaderView (Qt::Orientation o ,QWidget *parent):QHeaderView(o,
 
 
 //-----------------------------------------------------------------
-
-void QxtHeaderView::addAction(QAction * a)
+/*!
+    adds a new QAction \a action to the header.
+ */
+void QxtHeaderView::addAction(QAction * action)
 	{
-	priv->actions.append(a);
+	priv->actions.append(action);
 	}
 
 //-----------------------------------------------------------------
@@ -101,7 +117,10 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 
 
 //-----------------------------------------------------------------
-
+/*!
+    reimplement this to add your own icons or widgets to the header.\n
+    it must return the width you took for your own drawing, so the other icons will start behind that.
+ */
 
 int QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
 	{

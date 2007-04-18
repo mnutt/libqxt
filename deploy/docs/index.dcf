@@ -156,6 +156,10 @@
 	<keyword ref="classQxtCWidget.html#9dd114dc69195b5f6559bc5a9e32e4d9">y</keyword>
 </section>
 
+<section ref="classQxtDesktopWidget.html" title="QxtDesktopWidget"> 
+	<keyword ref="classQxtDesktopWidget.html">QxtDesktopWidget</keyword>
+</section>
+
 <section ref="classQxtError.html" title="QxtError"> 
 	<keyword ref="classQxtError.html">QxtError</keyword>
 	<keyword ref="classQxtError.html#3ba9f15fe2d326d42c4cb530534f23fd">errorString</keyword>
@@ -164,6 +168,12 @@
 	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>
 	<keyword ref="classQxtError.html#ad2b0de584ccbde70d5a1ea41e4f2378">QXT_DROP_S</keyword>
 	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
+</section>
+
+<section ref="classQxtHeaderView.html" title="QxtHeaderView"> 
+	<keyword ref="classQxtHeaderView.html">QxtHeaderView</keyword>
+	<keyword ref="classQxtHeaderView.html#42ee7306dd191c8eb6d5665b743041eb">addAction</keyword>
+	<keyword ref="classQxtHeaderView.html#7c2f3533d9d194ef51b0662e26bfce43">subPaint</keyword>
 </section>
 
 <section ref="classQxtHyperMacros.html" title="QxtHyperMacros"> 
@@ -220,6 +230,7 @@
 <section ref="classQxtPushButton.html" title="QxtPushButton"> 
 	<keyword ref="classQxtPushButton.html">QxtPushButton</keyword>
 	<keyword ref="classQxtPushButton.html#20239aa208659a80277421c00829a040">rotation</keyword>
+	<keyword ref="classQxtPushButton.html#509b0691de19c693a96ee41d96bd22ce">textFormat</keyword>
 </section>
 
 <section ref="classQxtRingBuffer.html" title="QxtRingBuffer"> 

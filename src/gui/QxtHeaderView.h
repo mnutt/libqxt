@@ -13,7 +13,7 @@ class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
 
 	public:
 		QxtHeaderView (Qt::Orientation orientation ,QWidget * parent);	
-		void addAction(QAction * );
+		void addAction(QAction * action);
 	protected:
 		virtual int subPaint(QPainter * painter, const QRect & rect, int logicalIndex,QSize icon_size, int spacing) const;
 
