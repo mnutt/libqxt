@@ -35,6 +35,8 @@ public:
 	
 	WId activeWindow() const;
 	WId findWindow(const QString& title) const;
+	WId windowAt(const QPoint& pos) const;
+	QRect windowGeometry(WId window) const;
 };
 
 #endif // QXTDESKTOPWIDGET_H
