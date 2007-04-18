@@ -86,9 +86,13 @@ WId QxtDesktopWidget::findWindow(const QString& title) const
 WId QxtDesktopWidget::windowAt(const QPoint& pos) const
 {
 	// XQueryTree + XGetGeometry ???
+	Q_UNUSED(pos);
+	return 0;
 }
 
 QRect QxtDesktopWidget::windowGeometry(WId window) const
 {
 	// XGetGeometry
+	Q_UNUSED(window);
+	return QRect();
 }

@@ -27,19 +27,26 @@
 WId QxtDesktopWidget::activeWindow() const
 {
 	// GetActiveWindow
+	return 0;
 }
 
 WId QxtDesktopWidget::findWindow(const QString& title) const
 {
 	// FindWindow
+	Q_UNUSED(title);
+	return 0;
 }
 
 WId QxtDesktopWidget::windowAt(const QPoint& pos) const
 {
 	// WindowFromPoint
+	Q_UNUSED(pos);
+	return 0;
 }
 
 QRect QxtDesktopWidget::windowGeometry(WId window) const
 {
 	// GetWindowRect
+	Q_UNUSED(window);
+	return QRect();
 }
