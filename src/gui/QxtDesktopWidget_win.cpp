@@ -44,7 +44,7 @@ WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
 	return ::WindowFromPoint(pt);
 }
 
-QString QxtDesktopWidget::nativeWindowTitle(WId window) const
+QString QxtDesktopWidget::nativeWindowTitle(WId window)
 {
 	TCHAR str[256];
 	QString title;

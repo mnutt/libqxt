@@ -36,7 +36,7 @@ public:
 	WId activeNativeWindow() const;
 	WId findNativeWindow(const QString& title) const;
 	WId nativeWindowAt(const QPoint& pos) const;
-	QString nativeWindowTitle(WId window) const;
+	static QString nativeWindowTitle(WId window);
 	QRect nativeWindowGeometry(WId window) const;
 };
 

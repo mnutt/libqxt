@@ -27,11 +27,6 @@
 
 WId QxtDesktopWidget::activeNativeWindow() const
 {
-//	XGetInputFocus(display, focus_return, revert_to_return)
-//		Display *display;
-//		Window *focus_return;
-//		int *revert_to_return;
-	
 	Window focus;
 	int revert = 0;
 	Display* display = QX11Info::display();
@@ -41,14 +36,6 @@ WId QxtDesktopWidget::activeNativeWindow() const
 
 static WId qxt_findWindowHelper(WId wid, const QString& title)
 {
-//	Status XQueryTree(display, w, root_return, parent_return, children_return, nchildren_return)
-//		Display *display;
-//		Window w;
-//		Window *root_return;
-//		Window *parent_return;
-//		Window **children_return;
-//		unsigned int *nchildren_return;
-	
 	Window root;
 	Window parent;
 	uint count = 0;
@@ -58,20 +45,18 @@ static WId qxt_findWindowHelper(WId wid, const QString& title)
 	{
 		for (uint i = 0; i < count; ++i)
 		{
+			if (QxtDesktopWidget::nativeWindowTitle(children[i]) == title)
+			{
+				XFree(children);
+				return children[i];
+			}
+			
 			Window window = qxt_findWindowHelper(children[i], title);
 			if (window)
-				return window;
-			
-			char* name = 0;
-			if (XFetchName(display, children[i], &name))
 			{
-				if (title == name)
-				{
-					XFree(name);
-					return children[i];
-				}
+				XFree(children);
+				return window;
 			}
-			XFree(name);
 		}
 	}
 	XFree(children);
@@ -90,15 +75,32 @@ WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
 	return 0;
 }
 
-QString QxtDesktopWidget::nativeWindowTitle(WId window) const
+QString QxtDesktopWidget::nativeWindowTitle(WId window)
 {
-	// XFetchName
-	return QString();
+	QString name;
+	char* str = 0;
+	if (XFetchName(QX11Info::display(), window, &str))
+	{
+		name = QString::fromLatin1(str);
+	}
+	XFree(str);
+	return name;
 }
 
 QRect QxtDesktopWidget::nativeWindowGeometry(WId window) const
 {
-	// XGetGeometry
-	Q_UNUSED(window);
-	return QRect();
+	QRect rect;
+	int x = 0;
+	int y = 0;
+	uint width = 0;
+	uint height = 0;
+	uint depth = 0;
+	uint border = 0;
+	Window root;
+	Display* display = QX11Info::display();
+	if (XGetGeometry(display, window, &root, &x, &y, &width, &height, &border, &depth))
+	{
+		rect = QRect(x, y, width, height);
+	}
+	return rect;
 }
