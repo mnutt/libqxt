@@ -99,22 +99,33 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 	{
 	if (!priv->action_size)return;
 
-	
-	if ( m->x()>(width()-priv->action_size->width()-priv->space))
-		{
-		if (priv->actions.count()>0)
-			priv->actions[0]->trigger();
-		}
-	else if ( m->x()>(width()-(priv->action_size->width()*2)-priv->space*2))
-		{
-		if (priv->actions.count()>1)
-			priv->actions[1]->trigger();
-		}
-	else if ( m->x()>(width()-(priv->action_size->width()*3)-priv->space*3))
-		{
-		if (priv->actions.count()>2)
-			priv->actions[2]->trigger();
-		}
+        int moved= subClick(m,priv->action_size_c(), priv->space ) ;
+
+
+        int wm=width()-moved;
+
+        if(m->x()>wm)return;
+
+        int i=0;
+        while(wm>0)
+                {
+                wm-=priv->action_size_c().width();
+                wm-=priv->space*2;
+
+                if (i>priv->actions.count())break;
+
+                if (m->x() >  wm)
+                        {
+                        priv->actions[i]->trigger();
+                        break;
+                        }
+
+                i++;
+                }
+
+
+//                 v
+//         | x | x | x |
 
 	}
 
