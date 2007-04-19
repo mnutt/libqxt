@@ -135,7 +135,7 @@ int QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) cons
     it must return the width you took for your own drawing, so the other icons will start behind that.
  */
 
-int QxtHeaderView::subClick(QMouseEvent * ,QSize , int) const
+int QxtHeaderView::subClick(QMouseEvent * ,QSize , int) 
         {
         return 0;
         }
