@@ -15,8 +15,8 @@ class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
 		QxtHeaderView (Qt::Orientation orientation ,QWidget * parent);	
 		void addAction(QAction * action);
 	protected:
-		virtual int subPaint(QPainter * painter, const QRect & rect, int logicalIndex,QSize icon_size, int spacing) const;
-
+		virtual int subPaint(QPainter * painter, const QRect & rect, int logicalIndex,QSize  icon_size, int spacing) const;
+		virtual int subClick(QMouseEvent * m,QSize icon_size, int spacing ) const;
 
 	signals:
 		void checkBoxChanged(bool);

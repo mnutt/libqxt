@@ -12,6 +12,7 @@ class QxtHeaderViewPrivate
 
         QxtHeaderViewPrivate()
               {
+		space=10;
               action_size=NULL;
               }
 
@@ -22,6 +23,7 @@ class QxtHeaderViewPrivate
 
         QList<QAction *> actions;
 	QSize * action_size;
+	int space;
 
     };
 
@@ -72,23 +74,24 @@ void QxtHeaderView::paintSection ( QPainter * painter, const QRect & rm, int log
 	{
 	QRect rect=rm;
 
+
 	painter->save();
 	QHeaderView::paintSection(painter,rect,logicalIndex);
 	painter->restore();
 
 
 
-	int moved =subPaint(painter, rect, logicalIndex,priv->action_size_c(),10);
+	int moved =subPaint(painter, rect, logicalIndex,priv->action_size_c(),priv->space);
 	rect.adjust(0,0,-moved,0);
 
-
+	rect.adjust(0,0,-priv->space,0);
 	QAction * a;
 	foreach(a, priv->actions)
 		{
-		rect.adjust(0,0,-priv->action_size->width()-10,0);	///shrink the available space rect
 		QIcon img = a->icon();
 		QRect r=QStyle::alignedRect ( Qt::LeftToRight, Qt::AlignRight | Qt::AlignVCenter, *priv->action_size,rect);
  		img.paint(painter, r.x(), r.y(), r.width(), r.height(), Qt::AlignCenter);
+		rect.adjust(0,0,-priv->action_size->width()-priv->space,0);	///shrink the available space rect
 		}
 	}
 
@@ -97,17 +100,17 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 	if (!priv->action_size)return;
 
 	
-	if ( m->x()>(width()-priv->action_size->width()-10))
+	if ( m->x()>(width()-priv->action_size->width()-priv->space))
 		{
 		if (priv->actions.count()>0)
 			priv->actions[0]->trigger();
 		}
-	else if ( m->x()>(width()-(priv->action_size->width()*2)-20))
+	else if ( m->x()>(width()-(priv->action_size->width()*2)-priv->space*2))
 		{
 		if (priv->actions.count()>1)
 			priv->actions[1]->trigger();
 		}
-	else if ( m->x()>(width()-(priv->action_size->width()*3)-30))
+	else if ( m->x()>(width()-(priv->action_size->width()*3)-priv->space*3))
 		{
 		if (priv->actions.count()>2)
 			priv->actions[2]->trigger();
@@ -120,11 +123,20 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 /*!
     reimplement this to add your own icons or widgets to the header.\n
     it must return the width you took for your own drawing, so the other icons will start behind that.
+    do not forget to reimplement subClick, to at least return the taken sizte too. 
  */
 
 int QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
-	{
-	return 0;
-	}
+        {
+        return 0;
+        }
+/*!
+    reimplement this to add your own icons or widgets to the header.\n
+    it must return the width you took for your own drawing, so the other icons will start behind that.
+ */
 
+int QxtHeaderView::subClick(QMouseEvent * ,QSize , int) const
+        {
+        return 0;
+        }
 
