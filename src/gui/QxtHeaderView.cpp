@@ -74,10 +74,11 @@ void  QxtHeaderView::mouseMoveEvent ( QMouseEvent * m )
         int wm=width()-moved;
         if(m->x()>wm){setToolTip (QString());leaveEvent ( m );  return;}
         int i=0;
+        wm-=priv->space;
         while(wm>0)
                 {
                 wm-=priv->action_size_c().width();
-                wm-=priv->space*2;
+                wm-=priv->space;
 
                 if (i>(priv->actions.count()-1))break;
 
@@ -133,10 +134,11 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
         if(m->x()>wm)return;
 
         int i=0;
+        wm-=priv->space;
         while(wm>0)
                 {
                 wm-=priv->action_size_c().width();
-                wm-=priv->space*2;
+                wm-=priv->space;
 
                 if (i>(priv->actions.count()-1))break;
 
