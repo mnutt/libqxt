@@ -112,7 +112,7 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
                 wm-=priv->action_size_c().width();
                 wm-=priv->space*2;
 
-                if (i>priv->actions.count())break;
+                if (i>(priv->actions.count()-1))break;
 
                 if (m->x() >  wm)
                         {
