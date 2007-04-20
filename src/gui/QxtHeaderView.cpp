@@ -51,6 +51,7 @@ QxtHeaderView::QxtHeaderView (Qt::Orientation o ,QWidget *parent):QHeaderView(o,
 	QStyleOptionViewItem  option;
 	option.initFrom(this);
 	priv->action_size= new QSize( QApplication::style()->subElementRect(QStyle::SE_ViewItemCheckIndicator,&option).size());
+        setMouseTracking (true );
 	}
 
 
@@ -66,8 +67,32 @@ void QxtHeaderView::addAction(QAction * action)
 
 //-----------------------------------------------------------------
 
+void  QxtHeaderView::mouseMoveEvent ( QMouseEvent * m )
+        {
+	if (!priv->action_size){setToolTip (QString()); leaveEvent ( m );     return;}
+	int moved = subWidth(priv->action_size_c(),priv->space);
+        int wm=width()-moved;
+        if(m->x()>wm){setToolTip (QString());leaveEvent ( m );  return;}
+        int i=0;
+        while(wm>0)
+                {
+                wm-=priv->action_size_c().width();
+                wm-=priv->space*2;
 
+                if (i>(priv->actions.count()-1))break;
 
+                if (m->x() >  wm)
+                        {
+                        setToolTip (priv->actions[i]->toolTip ());
+                        return;
+                        }
+                i++;
+                }
+
+        setToolTip (QString());
+        leaveEvent ( m );
+
+        }
 
 
 void QxtHeaderView::paintSection ( QPainter * painter, const QRect & rm, int logicalIndex ) const
@@ -80,8 +105,8 @@ void QxtHeaderView::paintSection ( QPainter * painter, const QRect & rm, int log
 	painter->restore();
 
 
-
-	int moved =subPaint(painter, rect, logicalIndex,priv->action_size_c(),priv->space);
+        subPaint(painter, rect, logicalIndex,priv->action_size_c(),priv->space);
+	int moved = subWidth(priv->action_size_c(),priv->space);
 	rect.adjust(0,0,-moved,0);
 
 	rect.adjust(0,0,-priv->space,0);
@@ -99,7 +124,8 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 	{
 	if (!priv->action_size)return;
 
-        int moved= subClick(m,priv->action_size_c(), priv->space ) ;
+        subClick(m,priv->action_size_c(), priv->space ) ;
+	int moved = subWidth(priv->action_size_c(),priv->space);
 
 
         int wm=width()-moved;
@@ -132,22 +158,26 @@ void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
 
 //-----------------------------------------------------------------
 /*!
-    reimplement this to add your own icons or widgets to the header.\n
-    it must return the width you took for your own drawing, so the other icons will start behind that.
-    do not forget to reimplement subClick, to at least return the taken sizte too. 
+        reimplement this to add your own icons, widgets, or whatever to the header.\n
  */
 
-int QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
+void QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
+        {
+        }
+/*! 
+        reimplement this to receive clicks to your own icons,widgets, etc...
+ */
+
+void QxtHeaderView::subClick(QMouseEvent * ,QSize , int) 
+        {
+
+        }
+/*! 
+        when reimplementing subPaint and/or subClick  you must also override this function and return the width your custom drawing takes,
+        so the QActions know where to start.
+ */
+
+int QxtHeaderView::subWidth(QSize , int ) const
         {
         return 0;
         }
-/*!
-    reimplement this to add your own icons or widgets to the header.\n
-    it must return the width you took for your own drawing, so the other icons will start behind that.
- */
-
-int QxtHeaderView::subClick(QMouseEvent * ,QSize , int) 
-        {
-        return 0;
-        }
-
