@@ -38,11 +38,15 @@ GOTO handle_subroutine
     
     del %PROJECT_ROOT%\config.in >>Nul  2>&1
     del %PROJECT_ROOT%\config.log >>Nul  2>&1
+    del %PROJECT_ROOT%\depends.pri >>Nul 2>&1
+
+    echo #depends.pri > %PROJECT_ROOT%\depends.pri
     
     ::this is a workaround for supporting win9x
     ::win9x does not support passing all commandline params with %*
     :: %CALL_SUB% func_readArgs %*
     :: 
+   
     shift
     
     GOTO lbl_func_readArgs
@@ -166,12 +170,28 @@ GOTO RETURN
 :lbl_func_readArgs
     set QMAKEBIN=qmake
     set MSVCMODE=
-    echo QXT_stability += unknown > config.in
+    echo include(depends.pri) > %PROJECT_ROOT%\config.in
+    echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
     
     :top
     if "%0" == "" goto finish
     if "%0" == "-qmake-bin" (
         set QMAKEBIN=%1
+        goto bottom2
+    )
+
+    if "%0" == "-I" (
+        echo INCLUDEPATH += "%1" >> %PROJECT_ROOT%\depends.pri
+        goto bottom2	
+    )
+   
+    if "%0" == "-L" (
+        echo LIBS += -L"%1" >> %PROJECT_ROOT%\depends.pri
+        goto bottom2
+    )
+
+    if "%0" == "-l" (
+        echo LIBS += -l"%1" >> %PROJECT_ROOT%\depends.pri
         goto bottom2
     )
     
@@ -276,6 +296,9 @@ GOTO RETURN
         echo                       default: PREFIX/include
         echo -qmake-bin (path) ... Specifies the path to the qmake executable
         echo                       default: search the system path
+        echo -L (path)............ Specifies the a additional library search path
+        echo -I (path)............ Specifies the a additional include search path
+        echo -l (path)............ Add a custom library
         echo -static ............. Compile Qxt as a static library
         echo -debug .............. Build Qxt with debugging symbols
         echo -release ............ Build Qxt without debugging support
