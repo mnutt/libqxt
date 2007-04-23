@@ -56,13 +56,13 @@ GOTO handle_subroutine
     %CALL_SUB% func_detectTools
     IF %LAST_FUNC_RET% == 1 goto RETURN
     
-    %CALL_SUB% func_testLibs openssl OPENSSL network
+    %CALL_SUB% func_testLibs openssl OPENSSL 
 
-    %CALL_SUB% func_testLibs ffmpeg FFMPEG media
+    %CALL_SUB% func_testLibs ffmpeg FFMPEG 
     
-    %CALL_SUB% func_testLibs sdl SDL media
+    %CALL_SUB% func_testLibs sdl SDL
     
-    %CALL_SUB% func_testLibs curses CURSES curses
+    %CALL_SUB% func_testLibs curses CURSES 
     
     echo autodetection finished running qmake
     cd %PROJECT_ROOT%
@@ -75,7 +75,6 @@ GOTO RETURN
 :: ----func_test3rdParty Test for 3rdparty libs
 :: param 0 name of lib
 :: param 1 name param to add to project file
-:: param 2 Qxt Package that needs this lib
 ::-----------------------------------------
 :func_testLibs
 echo func_testLibs
@@ -100,8 +99,6 @@ echo func_testLibs
 
     :lbl_testLibs_error
     echo .....[FAILED]
-    echo .....not creating %2
-    echo QXT_BUILD -= %2 >> %PROJECT_ROOT%\config.in
     SET LAST_FUNC_RET=1
     
     :lbl_testLibs_end
