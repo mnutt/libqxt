@@ -93,7 +93,7 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 		QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
 		\endcode 
 		*/		
- 		void insert(const QSqlQuery& query);
+ 		void insert(QSqlQuery query);
 
 		///Returns the number of rows stored
 		int count() const;
@@ -102,7 +102,7 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 		QByteArray data() const;
 
 		///deserialise data
-		void setData(const QByteArray^ data);
+		void setData(const QByteArray& data);
 
 		///return a specific row as Hash
 		QHash<QString,QString> hash(int index);

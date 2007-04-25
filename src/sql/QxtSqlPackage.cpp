@@ -90,7 +90,7 @@ QString QxtSqlPackage::value(const QString& key)
 
 
 
-void QxtSqlPackage::insert(const QSqlQuery& query)
+void QxtSqlPackage::insert(QSqlQuery query)
 {
     map.clear();
     record=-1;
