@@ -24,20 +24,16 @@
 #ifndef QXTDESKTOPWIDGET_H
 #define QXTDESKTOPWIDGET_H
 
-#include <QDesktopWidget>
+#include <QWidget>
 #include <Qxt/qxtglobal.h>
 
-class QXT_GUI_EXPORT QxtDesktopWidget : public QDesktopWidget
+class QXT_GUI_EXPORT QxtDesktopWidget
 {
 public:
-	QxtDesktopWidget();
-	~QxtDesktopWidget();
-	
-	WId activeNativeWindow() const;
-	WId findNativeWindow(const QString& title) const;
-	WId nativeWindowAt(const QPoint& pos) const;
-	static QString nativeWindowTitle(WId window);
-	QRect nativeWindowGeometry(WId window) const;
-};
+	static WId activeWindow();
+	static WId findWindow(const QString& title);
+	static WId windowAt(const QPoint& pos);
+	static QString windowTitle(WId window);
+	static QRect windowGeometry(WId window);};
 
 #endif // QXTDESKTOPWIDGET_H

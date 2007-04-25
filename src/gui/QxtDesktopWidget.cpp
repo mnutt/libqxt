@@ -26,61 +26,88 @@
 /*!
     \class QxtDesktopWidget QxtDesktopWidget
     \ingroup gui
-    \brief QxtDesktopWidget provides means for finding certain native windows.
+    \brief QxtDesktopWidget provides means for accessing native windows.
 
-	\todo Add notice about QWidget::create()?
+    \todo Add notice about QWidget::create()?
 
     \note Currently supported platforms are \b X11 and \b Windows.
  */
 
 /*!
-    \fn QxtDesktopWidget::activeWindow() const
+    \fn QxtDesktopWidget::activeWindow()
 
     Returns a native window system identifier of the active window.
 
-    \note The window is, of course, not necessarily a QWidget.
-
-    Example usage on X11:
+    Example usage:
     \code
-    QxtDesktopWidget desktop;
-    WId wid = desktop.activeWindow();
-    
-    char* name = 0;
-    if (XFetchName(QX11Info::display(), wid, &name))
-       qDebug() << name; // "Mail - Kontact"
-    XFree(name);
+    WId wid = QxtDesktopWidget::activeWindow();
+    QString title = QxtDesktopWidget::windowTitle(wid);
+    qDebug() << "Currently active window is:" << title;
     \endcode
+
+    \note The window is, of course, not necessarily a QWidget.
 
     \sa QApplication::activeWindow()
  */
 
 /*!
-    \fn QxtDesktopWidget::findWindow(const QString& title) const
+    \fn QxtDesktopWidget::findWindow(const QString& title)
 
     Returns a native window system identifier of the window with given \a title.
 
-    \note The window is, of course, not necessarily a QWidget.
-
-    Example usage on X11:
+    Example usage:
     \code
-    QxtDesktopWidget desktop;
-    WId wid = desktop.findWindow("Mail - Kontact");
-    XRaiseWindow(QX11Info::display(), wid);
+    WId wid = QxtDesktopWidget::findWindow("Mail - Kontact");
+    QPixmap screenshot = QPixmap::grabWindow(wid);
     \endcode
 
-    \sa QWidget::find(WId id)
+    \note The window is, of course, not necessarily a QWidget.
+
+    \sa QWidget::find()
  */
 
 /*!
-    Constructs a new QxtDesktopWidget.
+    \fn QxtDesktopWidget::windowAt(const QPoint& pos)
+
+    Returns a native window system identifier of the window if any at \a pos.
+
+    Example usage:
+    \code
+    WId wid = QxtDesktopWidget::findWindow("Mail - Kontact");
+    QPixmap screenshot = QPixmap::grabWindow(wid);
+    \endcode
+
+    \note The window is, of course, not necessarily a QWidget.
+
+    \sa QApplication::widgetAt()
  */
-QxtDesktopWidget::QxtDesktopWidget()
-{
-}
 
 /*!
-    Destructs the desktop widget.
+    \fn QxtDesktopWidget::windowTitle(WId window)
+
+    Returns the title of the native \a window.
+
+    Example usage:
+    \code
+    WId wid = QxtDesktopWidget::activeWindow();
+    QString title = QxtDesktopWidget::windowTitle(wid);
+    qDebug() << "Currently active window is:" << title;
+    \endcode
+
+    \sa QWidget::windowTitle()
  */
-QxtDesktopWidget::~QxtDesktopWidget()
-{
-}
+
+/*!
+    \fn QxtDesktopWidget::windowGeometry(WId window)
+
+    Returns the geometry of the native \a window.
+
+    Example usage:
+    \code
+    WId wid = QxtDesktopWidget::activeWindow();
+    QRect geometry = QxtDesktopWidget::windowGeometry(wid);
+    qDebug() << "Geometry of the window is:" << geometry;
+    \endcode
+
+    \sa QWidget::frameGeometry()
+ */
