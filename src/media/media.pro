@@ -14,16 +14,19 @@ DEFINES+=HAVE_SPEEX OUTSIDE_SPEEX RANDOM_PREFIX=inside_libqxt
 
 
 
-
+contains(DEFINES,HAVE_SDL){
 QxtAVPlayer.headers 	=  private/QxtAVPlayer_p.h
 QxtAVPlayer.sources 	= QxtAVPlayer.cpp
 QxtAVPlayer.stability 	= 
+Parts+= QxtAVPlayer
+}
+
 
 QxtRingBuffer.headers 	= ringbuffer.h
 QxtRingBuffer.sources 	= QxtRingBuffer.cpp ringbuffer.c resample/resample.c
 QxtRingBuffer.stability = 
 
-Parts=QxtAVPlayer QxtRingBuffer
+Parts=QxtRingBuffer
 
 
 
