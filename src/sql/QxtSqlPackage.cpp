@@ -110,18 +110,17 @@ QString QxtSqlPackage::value(QString key)
 
 
 void QxtSqlPackage::insert(QSqlQuery query)
-	{
+{
 	map.clear();
 	record=-1;
 
-#if 0
-    /*query will be invalid next is not called first*/
+    /*query will be invalid if next is not called first*/
     if(!query.isValid())
         query.next();
 
 	QSqlRecord infoRecord = query.record();
     int iNumCols = infoRecord.count();
-    QVector<QString> tableMap = QVector<QString>(iNumCols,QString());
+    QVector<QString> tableMap = QVector<QString>(iNumCols);
         
     /*first create a map of index->colname pairs*/
 	for(int iLoop = 0; iLoop < iNumCols; iLoop++)
@@ -143,27 +142,7 @@ void QxtSqlPackage::insert(QSqlQuery query)
         map.append(hash);
 				
     }while(query.next());
-
-#else
-
-	while (query.next())
-		{
-		
-		QSqlRecord rec =  query.record ();
-		QHash<QString,QString> hash;
-		
-		
-		for (int i =0 ; i < rec.count();i++)
-				{
-				QSqlField f = rec.field(i);
-				hash[f.name()]=f.value().toString();
-				}
-			
-		map.append(hash);
-		
-		}
-#endif	
-	}
+}
 
 
 int QxtSqlPackage::count() const
