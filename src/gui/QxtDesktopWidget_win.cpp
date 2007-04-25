@@ -26,7 +26,7 @@
 
 static const int BUFLEN = 256;
 
-WId QxtDesktopWidget::activeWindow() const
+WId QxtDesktopWidget::activeWindow()
 {
 	return ::GetForegroundWindow();
 }
