@@ -25,7 +25,7 @@
 #include <QX11Info>
 #include <X11/Xutil.h>
 
-WId QxtDesktopWidget::activeNativeWindow() const
+WId QxtDesktopWidget::activeWindow()
 {
 	Window focus;
 	int revert = 0;
@@ -45,7 +45,7 @@ static WId qxt_findWindowHelper(WId wid, const QString& title)
 	{
 		for (uint i = 0; i < count; ++i)
 		{
-			if (QxtDesktopWidget::nativeWindowTitle(children[i]) == title)
+			if (QxtDesktopWidget::windowTitle(children[i]) == title)
 			{
 				XFree(children);
 				return children[i];
@@ -63,19 +63,19 @@ static WId qxt_findWindowHelper(WId wid, const QString& title)
 	return 0;
 }
 
-WId QxtDesktopWidget::findNativeWindow(const QString& title) const
+WId QxtDesktopWidget::findWindow(const QString& title)
 {
 	return qxt_findWindowHelper(QX11Info::appRootWindow(), title);
 }
 
-WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
+WId QxtDesktopWidget::windowAt(const QPoint& pos)
 {
 	// XQueryTree + XGetGeometry ???
 	Q_UNUSED(pos);
 	return 0;
 }
 
-QString QxtDesktopWidget::nativeWindowTitle(WId window)
+QString QxtDesktopWidget::windowTitle(WId window)
 {
 	QString name;
 	char* str = 0;
@@ -87,7 +87,7 @@ QString QxtDesktopWidget::nativeWindowTitle(WId window)
 	return name;
 }
 
-QRect QxtDesktopWidget::nativeWindowGeometry(WId window) const
+QRect QxtDesktopWidget::windowGeometry(WId window)
 {
 	QRect rect;
 	int x = 0;

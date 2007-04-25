@@ -24,37 +24,43 @@
 #include "QxtDesktopWidget.h"
 #include <qt_windows.h>
 
-WId QxtDesktopWidget::activeNativeWindow() const
+static const int BUFLEN = 256;
+
+WId QxtDesktopWidget::activeWindow() const
 {
 	return ::GetForegroundWindow();
 }
 
-WId QxtDesktopWidget::findNativeWindow(const QString& title) const
+WId QxtDesktopWidget::findWindow(const QString& title)
 {
-	return ::FindWindow(NULL, title.utf16());
+	WId window;
+	wchar_t* str = new wchar_t[title.length()];
+	if (title.toWCharArray(str))
+		window = ::FindWindow(NULL, str);
+	delete[] str;
+	return window;
 }
 
-WId QxtDesktopWidget::nativeWindowAt(const QPoint& pos) const
+WId QxtDesktopWidget::windowAt(const QPoint& pos)
 {
 	// TODO: fix me
-	HWND res;
 	POINT pt;
 	pt.x = pos.x();
 	pt.y = pos.y();
 	return ::WindowFromPoint(pt);
 }
 
-QString QxtDesktopWidget::nativeWindowTitle(WId window)
+QString QxtDesktopWidget::windowTitle(WId window)
 {
-	TCHAR str[256];
+	wchar_t str[BUFLEN];
 	QString title;
-	int len = ::GetWindowText(window, str, 256);
+	int len = ::GetWindowText(window, str, BUFLEN);
 	if (len > 0)
-		title.setUtf16(str, len);
+		title = QString::fromWCharArray(str, len);
 	return title;
 }
 
-QRect QxtDesktopWidget::nativeWindowGeometry(WId window) const
+QRect QxtDesktopWidget::windowGeometry(WId window)
 {
 	RECT rc;
 	QRect rect;
