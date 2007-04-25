@@ -126,31 +126,36 @@ GOTO RETURN
     echo testing for make
 
     :detectTools_test_make
+    
     echo    testing for nmake
     nmake /? >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-    IF NOT %ERRORLEVEL% == 0 (
-        echo    testing for gnu make
-        make -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-        IF NOT %ERRORLEVEL% == 0 (
-            echo    testing for mingw32-make
-            mingw32-make  -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-            IF NOT %ERRORLEVEL% == 0 (
-                echo    You don't seem to have 'make' or 'nmake' in your PATH. 
-                echo    Cannot proceed.
-                SET LAST_FUNC_RET=1
-                GOTO RETURN
-            )
-            echo    using mingw32-make
-            SET MAKE=mingw32-make
-            GOTO detectTools_end_test_make
-        )
-        echo    using make
-        SET MAKE=make
-        GOTO detectTools_end_test_make
-        
-    )
+    IF NOT %ERRORLEVEL% == 0 GOTO lbl_test_gmake
     echo    using nmake
     SET MAKE=nmake
+    GOTO detectTools_end_test_make
+    
+    :lbl_test_gmake
+    echo    testing for gnu make
+    make -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    IF NOT %ERRORLEVEL% == 0 GOTO lbl_test_mingw
+    echo    using make
+    SET MAKE=make
+    GOTO detectTools_end_test_make
+    
+    :lbl_test_mingw
+    echo    testing for mingw32-make
+    mingw32-make  -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    IF NOT %ERRORLEVEL% == 0   GOTO lbl_make_not_found
+    echo    using mingw32-make
+    SET MAKE=mingw32-make
+    GOTO detectTools_end_test_make     
+     
+    :lbl_no_make
+    echo    You don't seem to have 'make' or 'nmake' in your PATH. 
+    echo    Cannot proceed.
+    SET LAST_FUNC_RET=1
+    GOTO RETURN    
+
     :detectTools_end_test_make
     SET LAST_FUNC_RET=0
 GOTO RETURN
