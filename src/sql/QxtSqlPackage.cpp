@@ -114,6 +114,37 @@ void QxtSqlPackage::insert(QSqlQuery query)
 	map.clear();
 	record=-1;
 
+#if 0
+    /*query will be invalid next is not called first*/
+    if(!query.isValid())
+        query.next();
+
+	QSqlRecord infoRecord = query.record();
+    int iNumCols = infoRecord.count();
+    QVector<QString> tableMap = QVector<QString>(iNumCols,QString());
+        
+    /*first create a map of index->colname pairs*/
+	for(int iLoop = 0; iLoop < iNumCols; iLoop++)
+    {
+        tableMap[iLoop] = infoRecord.fieldName(iLoop);
+    }
+	
+    /*now use this created map to get column names
+     *this should be faster than querying the QSqlRecord every time
+     *but that depends on the databasetype and size of the table (number of rows and cols)
+     */
+    do
+    {
+        QHash<QString,QString> hash;
+        for(int iColLoop = 0; iColLoop < iNumCols; iColLoop++)
+        {
+            hash[tableMap[iColLoop]] = query.value(iColLoop).toString();
+        }
+        map.append(hash);
+				
+    }while(query.next());
+
+#else
 
 	while (query.next())
 		{
@@ -131,9 +162,7 @@ void QxtSqlPackage::insert(QSqlQuery query)
 		map.append(hash);
 		
 		}
-	
-	
-	
+#endif	
 	}
 
 
