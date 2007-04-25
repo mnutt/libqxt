@@ -36,9 +36,9 @@ GOTO handle_subroutine
     SET CONFIG_LOG=config.log
     SET LAST_FUNC_RET=0
     
-    del %PROJECT_ROOT%\config.in >>Nul  2>&1
-    del %PROJECT_ROOT%\config.log >>Nul  2>&1
-    del %PROJECT_ROOT%\depends.pri >>Nul 2>&1
+    del %PROJECT_ROOT%\config.in >>Nul
+    del %PROJECT_ROOT%\config.log >>Nul
+    del %PROJECT_ROOT%\depends.pri >>Nul
 
     echo #depends.pri > %PROJECT_ROOT%\depends.pri
     
@@ -77,19 +77,17 @@ GOTO RETURN
 :: param 1 name param to add to project file
 ::-----------------------------------------
 :func_testLibs
-echo func_testLibs
-    echo %2
     echo testing for %0 
     echo %0 >>%PROJECT_ROOT%\%CONFIG_LOG%
     cd %TESTDIR%\%0
-    %QMAKE% >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    %QMAKE% >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF NOT %ERRORLEVEL% == 0 (
         GOTO lbl_testLibs_error       
     )
     
-    %MAKE% clean >>Nul 2>&1
+    %MAKE% clean >>Nul
     
-    %MAKE% >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    %MAKE% >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF %ERRORLEVEL% == 0 (
         echo DEFINES+=HAVE_%1% >>%PROJECT_ROOT%\config.in
         echo .....[SUCCESS]
@@ -114,7 +112,7 @@ GOTO RETURN
     ::checking for Qmake
     echo    testing for qmake
     
-    qmake -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    qmake -v >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF NOT %ERRORLEVEL% == 0 (
     echo    You don't seem to have 'qmake' in your PATH.
     echo    Cannot proceed.
@@ -128,7 +126,7 @@ GOTO RETURN
     :detectTools_test_make
     
     echo    testing for nmake
-    nmake /? >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    nmake /? >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF NOT %ERRORLEVEL% == 0 GOTO lbl_test_gmake
     echo    using nmake
     SET MAKE=nmake
@@ -136,7 +134,7 @@ GOTO RETURN
     
     :lbl_test_gmake
     echo    testing for gnu make
-    make -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    make -v >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF NOT %ERRORLEVEL% == 0 GOTO lbl_test_mingw
     echo    using make
     SET MAKE=make
@@ -144,7 +142,7 @@ GOTO RETURN
     
     :lbl_test_mingw
     echo    testing for mingw32-make
-    mingw32-make  -v >>%PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+    mingw32-make  -v >>%PROJECT_ROOT%\%CONFIG_LOG%
     IF NOT %ERRORLEVEL% == 0   GOTO lbl_make_not_found
     echo    using mingw32-make
     SET MAKE=mingw32-make
@@ -162,9 +160,9 @@ GOTO RETURN
 
 :: ----func_compile
 :func_compile
-    copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >>Nul  2>&1
-    copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >>Nul  2>&1
-    del %PROJECT_ROOT%\config.in >>Nul type conf 2>&1
+    copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >>Nul
+    copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >>Nul
+    del %PROJECT_ROOT%\config.in >>Nul
     %QMAKE% %MSVCMODE% -recursive
 GOTO RETURN
 
