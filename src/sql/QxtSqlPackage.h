@@ -33,8 +33,6 @@ Sometimes you want to set sql results over network or store them into files. Qxt
 for confidence the interface is similiar to QSqlQuery.
 */
 
-
-
 #ifndef QXTSQLPACKAGE_H
 #define QXTSQLPACKAGE_H
 #include <QObject>
@@ -43,18 +41,13 @@ for confidence the interface is similiar to QSqlQuery.
 #include <QtSql>
 #include <Qxt/qxtglobal.h>
 
-
-
 class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
-
 {
-
-
 	Q_OBJECT
 
 	public:
 		QxtSqlPackage(QObject *parent = 0);
-		QxtSqlPackage( const QxtSqlPackage & other,QObject *parent = 0 );
+		QxtSqlPackage(const QxtSqlPackage & other,QObject *parent = 0);
 
 		///determinates if the package curently points to a valid row
 		bool isValid();
@@ -90,7 +83,7 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 		QString name = query.value("name");	
 		\endcode 
 		*/
-		QString value(QString key);
+		QString value(const QString& key);
 
 		/** \brief read from QSqlQuery
 		
@@ -100,7 +93,7 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 		QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
 		\endcode 
 		*/		
- 		void insert(QSqlQuery query);
+ 		void insert(const QSqlQuery& query);
 
 		///Returns the number of rows stored
 		int count() const;
@@ -109,16 +102,16 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 		QByteArray data() const;
 
 		///deserialise data
-		void setData(QByteArray data) ;
+		void setData(const QByteArray^ data);
 
 		///return a specific row as Hash
 		QHash<QString,QString> hash(int index);
 		///return the curent row as Hash
 		QHash<QString,QString> hash();
-		QxtSqlPackage & operator= ( const QxtSqlPackage & other );
+		QxtSqlPackage& operator= (const QxtSqlPackage& other);
 
 	private:
-		QList <QHash<QString,QString> > map;
+		QList<QHash<QString,QString> > map;
 		int record;
 };
 
