@@ -22,6 +22,17 @@
 
 #include "QxtAVFile.h"
 #include "QxtAVPlayer.h"
+
+
+
+
+#ifef HAVE_SDL
+
+
+
+
+
+
 #include "QxtAVPlayer_p.h"
 #include <QxtCore/QxtHyperMacros>
 #include <limits> 
@@ -247,3 +258,20 @@ void QxtAVPlayer::setPeeking(bool e)
 	{
 	qxt_d().peeking=e;
 	}
+
+
+
+
+
+
+
+
+#else
+
+
+
+#endif
+
+
+
+
