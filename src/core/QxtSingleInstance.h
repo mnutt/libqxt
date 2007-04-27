@@ -91,4 +91,14 @@ QxtSingleInstance::~QxtSingleInstance()
   sem_close(m_sem);
 }
 
-
+/* Code by pwuertz for Unix systems
+#include <unistd.h>
+QSettings settings(QSettings::IniFormat, QSettings::UserScope,"quantum","qcamera");
+int pid = settings.value("lock_pid",-1).toInt();
+if (getpgid(pid) != -1) {
+    printf("qcamera is still runnung (pid %d)\n",pid);
+    return 0;
+} else {
+    settings.setValue("lock_pid",getpid());
+}
+*/
