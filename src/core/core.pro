@@ -3,13 +3,20 @@ DEPENDPATH      += .
 INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_CORE
 win32: CONFIG   += dll
-CONFIG          += qxtbuild convenience
 CONFIG          -= qt
 QT               = 
 INCLUDEPATH     += . ../../deploy/include 
 TEMPLATE         = lib
 
-QxtTuple.headers        = QxtTypeList.h QxtTupleList.h
-QxtError.sources        = QxtError.cpp
+HEADERS   = 	QxtTypeList.h QxtTupleList.h 	\
+		QxtNull.h			\
+		QxtNullable.h			\
+		QxtSingleInstance.h 		\
+		QxtTripple.h			\
+		QxtTuple.h			\
+		QxtPimpl.h			\
+		QxtError.h			\
+		QxtHyperMacros.h	
 
-Parts = QxtNull QxtNullable  QxtSingleInstance QxtTripple QxtTuple  QxtPimpl QxtError QxtHyperMacros
+SOURCES	=	QxtError.cpp
+
