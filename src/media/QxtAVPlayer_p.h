@@ -1,5 +1,9 @@
 #include "QxtAVPlayer.h"
+
+#ifef HAVE_SDL
 #include <SDL/SDL.h>
+#endif
+
 
 class QxtAVPlayerPrivate : public QObject, public QxtPrivate<QxtAVPlayer>
 	{
@@ -7,8 +11,11 @@ class QxtAVPlayerPrivate : public QObject, public QxtPrivate<QxtAVPlayer>
 	QXT_DECLARE_PUBLIC(QxtAVPlayer);	
 	public:
 		QxtAVPlayerPrivate();
-		
+	
+#ifef HAVE_SDL
 		SDL_AudioSpec 	got_spec;
+#endif
+
 		QxtAVFile * 	avfile;
 		unsigned long samplerate;
 		float volume_m;

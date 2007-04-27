@@ -3,7 +3,6 @@ DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../../deploy/include ./private
 DEFINES         += BUILD_QXT_MEDIA
 win32: CONFIG   += dll
-CONFIG          += qxtbuild convenience
 QT               = core gui
 unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
 win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
@@ -14,12 +13,10 @@ DEFINES+=HAVE_SPEEX OUTSIDE_SPEEX RANDOM_PREFIX=inside_libqxt
 
 
 
-contains(DEFINES,HAVE_SDL){
 QxtAVPlayer.headers 	=  private/QxtAVPlayer_p.h
 QxtAVPlayer.sources 	= QxtAVPlayer.cpp
 QxtAVPlayer.stability 	= 
 Parts+= QxtAVPlayer
-}
 
 
 QxtRingBuffer.headers 	= ringbuffer.h
