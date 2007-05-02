@@ -8,20 +8,20 @@ win32: LIBS        += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0 -luser32 # user3
 win32: CONFIG   += dll
 
 
-CONFIG      += qxtbuild convenience
+CONFIG      += qxtbuild convenience staticlib
 QT           = core gui 
 TEMPLATE     = lib
 
 QxtApplication.sources		= QxtApplication.cpp
-unix:QxtApplication.sources	+= QxtApplication_x11.cpp
-win32:QxtApplication.sources	+= QxtApplication_win.cpp
+#unix:QxtApplication.sources	+= QxtApplication_x11.cpp
+QxtApplication.sources	+= QxtApplication_win.cpp
 
 QxtCheckComboBox.headers	= private/QxtCheckComboBox_p.h
 QxtCheckComboBox.sources	= QxtCheckComboBox.cpp
 
-QxtDesktopWidget.sources	+= QxtDesktopWidget.cpp
-unix:QxtDesktopWidget.sources	+= QxtDesktopWidget_x11.cpp
-win32:QxtDesktopWidget.sources	+= QxtDesktopWidget_win.cpp
+#QxtDesktopWidget.sources	+= QxtDesktopWidget.cpp
+#unix:QxtDesktopWidget.sources	+= QxtDesktopWidget_x11.cpp
+#QxtDesktopWidget.sources	+= QxtDesktopWidget_win.cpp
 
 QxtItemDelegate.sources		= QxtItemDelegate.cpp
 
