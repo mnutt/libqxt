@@ -1,3 +1,4 @@
+#if 0
 #include "QxtHeaderView.h"
 #include <QPainter>
 #include <QApplication>
@@ -183,3 +184,4 @@ int QxtHeaderView::subWidth(QSize , int ) const
         {
         return 0;
         }
+#endif

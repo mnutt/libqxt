@@ -1,3 +1,4 @@
+#if 0
 #ifndef QxtHeaderViewHHGuard
 #define QxtHeaderViewHHGuard
 #include <Qxt/qxtglobal.h>
@@ -26,9 +27,10 @@ class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
 		virtual void mousePressEvent ( QMouseEvent * m );
                 virtual void mouseMoveEvent ( QMouseEvent * event );
 
-                QxtHeaderViewPrivate * priv;
+                QxtHeaderViewPrivate * priv;///TODO NO. this is wrong!!!
 
 	};
 
 
+#endif
 #endif
