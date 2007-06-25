@@ -6,7 +6,7 @@ Copyright (C) 2007 Qxt Foundation
 Until the Qxt Foundation is legally established, copyright for the
 source code falls back to the original contributor. For information about the
 status of the Qxt Foundation, or about the copyright status of any part of Qxt,
-contact Adam Higerd <coda@bobandgeorge.com> or Arvid Picciani <aep@exys.org>.
+contact the Qxt project maintainers at <libqxt@gmail.com>. 
 
 Once the Qxt Foundation has been legally established, all contributors must
 transfer all copyright interest to the Qxt Foundation before their submissions
@@ -18,10 +18,15 @@ This library is free software; you can redistribute it and/or modify it under
 the terms of the GNU Lesser General Public License as published by the Free
 Software Foundation; version 2.1.
 
+Future versions of the source code of this library may be redistributed and/or
+modified under the terms of the Common Public License; version 1.0.
+
 This library is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-details. (See the included file entitled LGPL.)
+details about the LGPL (see the included file entitled LGPL) or the Common
+Public License for more information about the CPM (see the included file
+entitled cpl1.0.txt).
 
 Parts of Qxt depend on Qt 4 and/or other libraries that have their own
 licenses. Qxt is independent of these licenses; however, use of these other
@@ -31,13 +36,13 @@ libraries is subject to their respective license agreements.
 
 The following section describes the opinions and intent of the Qxt Foundation
 with regards to the licensing and use of the Qxt source code and library. In
-the event that the GNU LGPL is found to be illegal or invalid, or if any
-application or clause of the license is subjected to question or abuse, this
-section is a general statement of the desired interpretation.
+the event that the CPL is found to be illegal or invalid, or if any application
+or clause of the license is subjected to question or abuse, this section is a
+general statement of the desired interpretation.
 
 This section has no legal standing and the statements made here are strictly
-subject to the text of the LGPL; that is, if this section and the LGPL are in
-disagreement, the text of the LGPL takes precedence. In no way does this
+subject to the text of the CPL; that is, if this section and the CPL are in
+disagreement, the text of the CPL takes precedence. In no way does this
 intent grant you any additional rights or impose any additional restrictions.
 
 If you have questions about licensing, contact the maintainers.
