@@ -1,15 +1,15 @@
 TARGET          =  QxtDesignerPlugins
-DESTDIR         = .lib
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../gui
 win32: CONFIG   += dll
 QT               = core gui
 INCLUDEPATH     += .
-VERSION          = 0.2.4
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG      += designer plugin
+CONFIG += qxtbuild
+
 
 target.path = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS+=target

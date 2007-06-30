@@ -1,38 +1,14 @@
-ModuleBuild  = $$ModuleStabilityCheck($$Parts)
-HEADERS     += $$ModuleHeaders($$ModuleBuild)
-SOURCES     += $$ModuleSources($$ModuleBuild)
-DESTDIR      = ../../deploy/libs
-INCLUDEPATH += ../../deploy/include
-VERSION      = 0.2
-
-ModuleBuildDebug($$ModuleBuild)
+VERSION      = 0.2.4
 
 incs.path = $${include.path}/$$TARGET/
 
-
-
 contains(CONFIG,convenience){
 
-for(part, ModuleBuild){
-	mm=
- 	for(ii, $${part}.interfaces){
-		mm+=$$ii
-	}
-	mm+=$${part}
-	
-
-	for(i , mm ){
-		incs.files+=$${i}.h
-                }
+for(header,HEADERS){
+	incs.files+=$$header
         }
-
 }
-
-
-
-
-
-
+incs.files+=../../deploy/include/$${TARGET}/*
 
 INSTALLS = target incs
 
