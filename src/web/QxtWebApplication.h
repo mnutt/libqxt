@@ -24,8 +24,8 @@
 #define QXTWEBAPPLICATION_HEADER_GIAURX_H
 
 #include <QObject>
-#include <QxtCore/QxtError>
-#include <QxtCore/QxtPimpl>
+#include <QxtError.h>
+#include <QxtPimpl.h>
 #include <QHostAddress>
 
 class QxtWebApplicationPrivate;

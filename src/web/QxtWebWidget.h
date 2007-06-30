@@ -29,7 +29,7 @@
 #include <QHash>
 #include <QBuffer>
 
-#include <QxtCore/QxtPimpl>
+#include <QxtPimpl.h>
 
 
 
