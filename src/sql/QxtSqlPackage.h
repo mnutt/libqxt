@@ -39,7 +39,7 @@ for confidence the interface is similiar to QSqlQuery.
 #include <QHash>
 #include <QList>
 #include <QtSql>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 {
