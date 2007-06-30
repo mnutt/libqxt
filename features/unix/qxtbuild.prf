@@ -1,4 +1,3 @@
-include(../functions.pri)
 QXTINSTALLDIR = /usr
 include(../../config.pri)
 isEmpty(target.path):  target.path   = $${QXTINSTALLDIR}/lib
