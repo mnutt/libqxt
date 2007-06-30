@@ -20,12 +20,12 @@
 **
 ****************************************************************************/
 
-#ifndef ___BLOWFISH_H___
-#define ___BLOWFISH_H___
+#ifndef QXT__BLOWFISH_H_sadasd
+#define QXT__BLOWFISH_H_sadasd
 
 #include <QByteArray>
 #include <QObject>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 
 class QXT_NETWORK_EXPORT QxtBlowFish : public QObject

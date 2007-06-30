@@ -1,29 +1,16 @@
-TARGET           =  QxtNetwork
+TARGET          =  QxtNetwork
+DESTDIR         = .lib
 DEPENDPATH      += .
-INCLUDEPATH     += . ../core ../../deploy/include
+INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_NETWORK
 win32: CONFIG   += dll
-CONFIG          += qxtbuild convenience
-QT              =  core network
-TEMPLATE        = lib
-include (../../config.pri)
+QT               = core network
+INCLUDEPATH     += .
+VERSION          = 0.2.4
+TEMPLATE         = lib
+MOC_DIR          = .moc
+OBJECTS_DIR      = .obj
 
-unix : LIBS            += -L../../deploy/libs/ -lQxtCore  -lQxtKit
-win32: LIBS            += -L../../deploy/libs/ -lQxtCore0 -lQxtKit0
-
-QxtRPCPeer.sources 	= QxtRPCPeer.cpp
-QxtRPCPeer.stability 	= +linux-g++ +win32-g++
-
-Parts = QxtRPCPeer
-unix {
-    Parts += QxtNamedPipe
-    QxtNamedPipe.sources = QxtNamedPipe_unix.cpp
-    QxtNamedPipe.stability = +linux-g++ +macx-g++
-}
-
-contains(DEFINES,HAVE_OPENSSL){
-    QxtBlowFish.sources 	= QxtBlowFish.cpp
-    QxtBlowFish.stability 	= +linux-g++ -win32-g++
-    Parts                  += QxtBlowFish
-    LIBS                   += -lssl	
-}
+HEADERS += QxtBlowFish.h QxtNamedPipe.h QxtRPCPeer.h
+SOURCES += QxtBlowFish.cpp QxtRPCPeer.cpp
+unix: SOURCES += QxtNamedPipe_unix.cpp 
