@@ -23,7 +23,7 @@
 
 #include <QThread>
 
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 namespace QxtInternal{
 class QxtThreadConnectionSender : public QObject
 	{

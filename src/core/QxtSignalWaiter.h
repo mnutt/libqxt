@@ -23,7 +23,7 @@
 
 #ifndef QXTSIGNALWAITER_H
 #define QXTSIGNALWAITER_H
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 #include <QObject>
 
