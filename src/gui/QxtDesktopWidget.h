@@ -25,7 +25,7 @@
 #define QXTDESKTOPWIDGET_H
 
 #include <QWidget>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 class QXT_GUI_EXPORT QxtDesktopWidget
 {

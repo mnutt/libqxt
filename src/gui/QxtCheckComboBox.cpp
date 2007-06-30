@@ -22,7 +22,7 @@
 
 
 #include "QxtCheckComboBox.h"
-#include "private/QxtCheckComboBox_p.h"
+#include "QxtCheckComboBox_p.h"
 #include <QStyleOptionButton>
 #include <QMouseEvent>
 #include <QLineEdit>

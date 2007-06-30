@@ -25,8 +25,8 @@
 #define QXTTREEWIDGETITEM_H
 
 #include <QTreeWidgetItem>
-#include <Qxt/qxtglobal.h>
-#include <Qxt/qxtnamespace.h>
+#include <qxtglobal.h>
+#include <qxtnamespace.h>
 
 class QXT_GUI_EXPORT QxtTreeWidgetItem : public QTreeWidgetItem
 {

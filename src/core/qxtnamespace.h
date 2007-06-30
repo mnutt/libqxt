@@ -7,7 +7,7 @@ released under the Terms of LGPL (see the LICENSE file)
 #ifndef QXTNAMSPACE_GUARD_H
 #define QXTNAMSPACE_GUARD_H
 
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 
 /**
