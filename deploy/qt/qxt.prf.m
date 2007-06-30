@@ -32,45 +32,39 @@ contains(QXT, curses ){
         INCLUDEPATH +=$${QXTinclude}/QxtCurses
 	unix : LIBS += -lQxtCurses
 	win32: LIBS += -lQxtCurses0
-	QXT+=kit
+	QXT+=core
         }
 contains(QXT, web ){
         INCLUDEPATH +=$${QXTinclude}/QxtWeb
 	unix : LIBS += -lQxtWeb
 	win32: LIBS += -lQxtWeb0
-	QXT+=kit
+	QXT+=core
 	QT+=network 
         }
 contains(QXT, gui ){
         INCLUDEPATH +=$${QXTinclude}/QxtGui
 	unix : LIBS += -lQxtGui
 	win32: LIBS += -lQxtGui0
-	QXT+=kit
+	QXT+=core
         QT+=gui
         }
 contains(QXT, network ){
         INCLUDEPATH +=$${QXTinclude}/QxtNetwork
 	unix : LIBS += -lQxtNetwork
 	win32: LIBS += -lQxtNetwork0
-	QXT+=kit
+	QXT+=core
         QT+=network
         }
 contains(QXT, sql ){
         INCLUDEPATH +=$${QXTinclude}/QxtSql
 	unix : LIBS += -lQxtSql
 	win32: LIBS += -lQxtSql0
-	QXT+=kit
+	QXT+=core
         QT+=sql
         }
 contains(QXT, media ){
         INCLUDEPATH +=$${QXTinclude}/QxtMedia
 	LIBS += -lQxtMedia
-	QXT+=kit
-        }
-contains(QXT, kit ){
-        INCLUDEPATH +=$${QXTinclude}/QxtKit
-	unix : LIBS += -lQxtKit
-	win32: LIBS += -lQxtKit0
 	QXT+=core
         }
 contains(QXT, core ){

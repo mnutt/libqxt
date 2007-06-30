@@ -1,15 +1,2 @@
 
-#include "QxtApplication.h"
-#include "QxtCheckComboBox.h"
-#include "QxtDesktopWidget.h"
-#include "QxtItemDelegate.h"
-#include "QxtLabel.h"
-#include "QxtProxyStyle.h"
-#include "QxtPushButton.h"
-#include "QxtSpanSlider.h"
-#include "QxtStringSpinBox.h"
-#include "QxtTabWidget.h"
-#include "QxtTreeWidget.h"
-#include "QxtTreeWidgetItem.h"
-#include "QxtHeaderView.h"
 
