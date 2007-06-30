@@ -23,7 +23,7 @@
 
 #include "QxtTreeWidget.h"
 #include "QxtItemDelegate.h"
-#include "private/QxtTreeWidget_p.h"
+#include "QxtTreeWidget_p.h"
 #include <QHeaderView>
 
 QxtTreeWidgetPrivate::QxtTreeWidgetPrivate() : branches(true)

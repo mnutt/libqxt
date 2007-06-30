@@ -25,8 +25,8 @@
 #define QXTCHECKCOMBOBOX_H
 
 #include <QComboBox>
-#include <Qxt/qxtglobal.h>
-#include <Qxt/qxtnamespace.h>
+#include <qxtglobal.h>
+#include <qxtnamespace.h>
 #include <QxtPimpl.h>
 
 class QxtCheckComboBoxPrivate;

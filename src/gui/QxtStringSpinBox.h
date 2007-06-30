@@ -25,7 +25,7 @@
 #define QXTSTRINGSPINBOX_H
 
 #include <QSpinBox>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 #include <QxtPimpl.h>
 
 class QxtStringSpinBoxPrivate;

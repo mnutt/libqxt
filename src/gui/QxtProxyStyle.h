@@ -25,7 +25,7 @@
 #define QXTPROXYSTYLE_H
 
 #include <QStyle>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 class QXT_GUI_EXPORT QxtProxyStyle : public QStyle
 {

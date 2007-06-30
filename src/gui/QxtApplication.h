@@ -28,7 +28,7 @@
 #include <QList>
 #include <QMultiHash>
 #include <QApplication>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 typedef QPair<uint, uint> Identifier;
 typedef QList<Identifier> Identifiers;
