@@ -28,7 +28,7 @@
 #include <QDebug>
 #include <QTimer>
 
-#include <QxtCore/QxtError>
+#include <QxtError.h>
 
 #include <QMetaObject>
 #include <QMetaMethod>

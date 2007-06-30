@@ -1,27 +1,27 @@
-TARGET       = QxtWeb
-DEPENDPATH  += .
-INCLUDEPATH += . ../core ../kit ../../deploy/include
-DEFINES     += BUILD_QXT_WEB
-
-unix : LIBS += -L../../deploy/libs/ -lQxtKit  -lQxtCore 
-win32: LIBS += -L../../deploy/libs/ -lQxtKit0 -lQxtCore0
-
+TARGET          =  QxtWeb
+DESTDIR         = .lib
+DEPENDPATH      += .
+INCLUDEPATH     += . ../core
+DEFINES         += BUILD_QXT_WEB
 win32: CONFIG   += dll
+QT               = core network
+INCLUDEPATH     += .
+VERSION          = 0.2.4
+TEMPLATE         = lib
+MOC_DIR          = .moc
+OBJECTS_DIR      = .obj
 
 
-CONFIG      += qxtbuild convenience
-QT           = core network
-TEMPLATE     = lib
-
-QxtWebApplication.sources		= QxtWebApplication.cpp  QxtWebInternal.cpp
-QxtWebApplication.headers		= QxtWebApplication_p.h QxtWebInternal.h
-
-
-QxtWebWidget.sources		        = QxtWebWidget.cpp
-QxtWebCommunicator.sources		= QxtWebCommunicator.cpp
-
-QxtHtmlTemplate.sources			= QxtHtmlTemplate.cpp
-
-QxtWebSession.sources=  QxtWebSession.cpp
-
-Parts=QxtWebApplication QxtHtmlTemplate QxtWebWidget QxtWebSession  QxtWebCommunicator
+HEADERS += QxtHtmlTemplate.h \
+           QxtWebApplication.h \
+           QxtWebApplication_p.h \
+           QxtWebCommunicator.h \
+           QxtWebInternal.h \
+           QxtWebSession.h \
+           QxtWebWidget.h
+SOURCES += QxtHtmlTemplate.cpp \
+           QxtWebApplication.cpp \
+           QxtWebCommunicator.cpp \
+           QxtWebInternal.cpp \
+           QxtWebSession.cpp \
+           QxtWebWidget.cpp
