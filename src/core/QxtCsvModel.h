@@ -31,7 +31,7 @@
 #include <QStringList>
 #include <QModelIndex>
 #include <QxtPimpl.h>
-#include <Qxt/qxtglobal.h>
+#include <qxtglobal.h>
 
 /**
 @author Adam Higerd
