@@ -96,7 +96,7 @@ somefunction(1);
 
 
 template<typename T>
-class QXT_DLLEXPORT QxtNullable {
+class QXT_CORE_EXPORT QxtNullable {
     public:
 
         QxtNullable(QxNullableNull);

@@ -54,7 +54,7 @@ void MyObject::myFunction() {
 QxtSignalWaiter is, sadly, not reentrant. In particular, only one QxSignalWaiter object can be safely waiting at a time. If a second QxSignalWaiter is used while the first is waiting, the first will not return until the second has timed out or successfully caught its signal. A later revision of the class may be able to solve this problem. Until then, be careful not to rely on two QxtSignalWaiter objects at the same time.
 
 */
-class QXT_KIT_EXPORT QxtSignalWaiter : public QObject {
+class QXT_CORE_EXPORT QxtSignalWaiter : public QObject {
 Q_OBJECT
 public:
 

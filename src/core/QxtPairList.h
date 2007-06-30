@@ -63,7 +63,7 @@ list.list.append(qMakePair(1,2));
 
 
 template <typename T, typename K>
-class QXT_KIT_EXPORT QxtPairList 
+class QXT_CORE_EXPORT QxtPairList 
 	{
 
 
