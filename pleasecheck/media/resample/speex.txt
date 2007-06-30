@@ -1,5 +1,0 @@
-this is stolen from
-http://svn.xiph.org/trunk/speex/libspeex/resample.c
-http://svn.xiph.org/trunk/speex/include/speex/speex_resampler.h
-
-revision 12712

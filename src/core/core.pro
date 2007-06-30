@@ -15,6 +15,6 @@ CONFIG += qxtbuild  convenience
 
 HEADERS += qxtglobal.h qxtnamespace.h \
            QxtCsvModel.h QxtError.h QxtEventThread.h QxtHyperMacros.h QxtNull.h QxtNullable.h QxtPairList.h QxtPimpl.h  \
-           QxtSignalWaiter.h QxtSingleInstance.h QxtTripple.h  QxtTrippleList.h QxtTuple.h QxtTupleList.h QxtTypeList.h
+           QxtSignalWaiter.h QxtSingleInstance.h  QxtTuple.h QxtTupleList.h QxtTypeList.h
 
 SOURCES += QxtCsvModel.cpp QxtError.cpp QxtEventThread.cpp QxtSignalWaiter.cpp
