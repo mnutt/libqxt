@@ -37,10 +37,6 @@ contains( QXT_BUILD, core ){
     SUBDIRS += src/core	
 }
 
-contains( QXT_BUILD, kit ){
-    message( building kit module )
-    SUBDIRS += src/kit
-}
 
 contains( QXT_BUILD, gui ){
     message( building gui module )
