@@ -53,5 +53,4 @@ unixware-cc:             PLATFORM=unixware-cc
 unixware-g++:            PLATFORM=unixware-g++
 win32-g++:               PLATFORM=win32-g++
 
-QXT_BUILD = core kit gui network sql web  
-#QXT_BUILD += media curses   #broken
+QXT_BUILD = core gui network sql web  
