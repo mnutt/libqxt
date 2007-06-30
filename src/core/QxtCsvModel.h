@@ -37,7 +37,7 @@
 @author Adam Higerd
 */
 class QxtCsvModelPrivate;
-class QXT_KIT_EXPORT QxtCsvModel : public QAbstractTableModel
+class QXT_CORE_EXPORT QxtCsvModel : public QAbstractTableModel
 {
 Q_OBJECT
 public:

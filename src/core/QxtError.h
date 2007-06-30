@@ -19,21 +19,12 @@
 ****************************************************************************/
 
 
-#if defined(Q_OS_WIN32)
-#	if defined(BUILD_QXT_CORE)
-#   		define QXT_CORE_EXPORT __declspec(dllexport)
-#	else
-#   		define QXT_CORE_EXPORT __declspec(dllimport)
-#	endif
-#else
-#    define QXT_CORE_EXPORT
-#endif
-
 
 
 #ifndef QXTERROR_H
 #define QXTERROR_H
-
+#include <qxtglobal.h>
+#include <qxtnamespace.h>
 
 /**
 \class QxtError QxtError
@@ -105,27 +96,6 @@ short for  QxtError name = call; if (name != Qxt::NoError )
 #define QXT_DROP_SCOPE(name,call) QxtError name = call; if (name != Qxt::NoError )
 
 
-namespace Qxt {
-
-    enum ErrorCode
-                {
-                NoError,				/*!< everything fine  */
-                UnknownError,				/*!< a not defined error */
-                LogicalError,				/*!< something happened that makes no sense (e.g. you tryed to compare apples and bananas) */
-		Bug,					/*!< that should not happen. please report any ocurence of it. */
-		UnexpectedEndOfFunction,		/*!< suddenly the function returned where it should not. please report this behaiviour */
-		NotImplemented,           		/*!< the feature you requested has not been implemented for this situation. this could also mean you are trying to compare apples and bananas. */
-                CodecError,				/*!< Something went wrong with some codec. Please check if your codec is supported */
-                NotInitialised,				/*!< Somone tryed to call a function of an object that needs to be start() ed  or something like it. */
-		EndOfFile,				/*!< The end of the Input has been reached. There is no more data. */
-                FileIOError,				/*!< File Input/Output Error*/
-                FormatError,				/*!< The Format of the input is corupted or not supported. */   //10
-                DeviceError,				/*!< The Device of the Computer reported failure or we are not able to comunicate with it.*/
-                SDLError,				/*!< SDL reported an error */
-		InsufficientMemory,			/*!< Not enough memory to perform the action. */
-		SeeErrorString				/*!< The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors. */
-                };
-}
 
 
 
