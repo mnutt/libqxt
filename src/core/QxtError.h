@@ -5,9 +5,7 @@
 ** This file is part of the QxtCore module of the Qt eXTension library
 **
 ** This library is free software; you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation; either
-** version 2.1 of the License, or any later version.
+** modify it under the terms of the Common Public License version 1.0.
 **
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -16,7 +14,7 @@
 ** If you did not receive a copy of the file try to download it or
 ** contact the libqxt Management
 ** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
+** <http://libqxt.sourceforge.net> <libqxt@gmail.com>
 **
 ****************************************************************************/
 
