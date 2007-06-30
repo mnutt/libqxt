@@ -1,7 +1,2 @@
 
-#include "QxtWebApplication.h"
-#include "QxtHtmlTemplate.h"
-#include "QxtWebWidget.h"
-#include "QxtWebSession.h"
-#include "QxtWebCommunicator.h"
 
