@@ -21,7 +21,7 @@
 ****************************************************************************/
 #include "QxtError.h"
 
-QxtError::QxtError(char * file, long line, Qxt::ErrorCode errorcode,char * errorString)
+QxtError::QxtError(const char * file, long line, Qxt::ErrorCode errorcode,const char * errorString)
 {
     file_m=file;
     line_m=line;
@@ -36,7 +36,7 @@ Qxt::ErrorCode QxtError::errorCode() const
 long QxtError::line() const
 { return line_m; }
 
-char * QxtError::file() const
+const char * QxtError::file() const
 { return file_m; }
 
 QxtError::operator Qxt::ErrorCode()
@@ -46,7 +46,7 @@ The Error String or NULL
 depending how the error was constructed. 
 Be carefull with stack and temporary objects, QxtError just saves the pointer you passed, not the actual data.
 */
-char * QxtError::errorString() const
+const char * QxtError::errorString() const
 { return errorString_m; }
 
 

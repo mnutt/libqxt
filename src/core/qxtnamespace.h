@@ -92,7 +92,15 @@ namespace Qxt {
                 DeviceError,				/*!< The Device of the Computer reported failure or we are not able to comunicate with it.*/
                 SDLError,				/*!< SDL reported an error */
 		InsufficientMemory,			/*!< Not enough memory to perform the action. */
-		SeeErrorString				/*!< The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors. */
+		SeeErrorString,				/*!< The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors. */
+
+		UnexpectedNullParameter,
+		ClientTimeout,
+		SocketIOError,
+		ParserError,
+		HeaderTooLong
+
+
                 };
 
 };

@@ -103,19 +103,19 @@ short for  QxtError name = call; if (name != Qxt::NoError )
 class QXT_CORE_EXPORT QxtError
 {
 public:
-    QxtError(char * file, long line, Qxt::ErrorCode errorcode, char * errorString=0);
+    QxtError(const char * file, long line, Qxt::ErrorCode errorcode, const char * errorString=0);
     Qxt::ErrorCode errorCode() const;
     long line() const;
-    char * file() const;
-    char * errorString() const;
+    const char * file() const;
+    const char * errorString() const;
     operator Qxt::ErrorCode();
 
 
 private:
     Qxt::ErrorCode errorcode_m;
     long line_m;
-    char * file_m;
-    char * errorString_m;
+    const char * file_m;
+    const char * errorString_m;
 };
 
 #endif
