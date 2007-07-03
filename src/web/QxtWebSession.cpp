@@ -1,7 +1,7 @@
 #include "QxtWebSession.h"
 #include <QSqlQuery>
 #include <QVariant>
-#define SESSTIMOUT "'00:00:10'"
+#define SESSTIMOUT "'00:10:00'"
 QxtWebSession::QxtWebSession ( QByteArray cookie_m, QSqlDatabase dbf ):QMap<QString,QString>()
         {
         QSqlQuery ("DELETE from `sessions`  WHERE `timeout`<now()",db);
