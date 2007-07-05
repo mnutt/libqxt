@@ -33,56 +33,123 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtDesktopWidget Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtDesktopWidget" --><a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for finding certain native windows.">QxtDesktopWidget</a> provides means for finding certain native windows.  
+</h1><!-- doxytag: class="QxtDesktopWidget" --><a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for accessing native windows.">QxtDesktopWidget</a> provides means for accessing native windows.  
 <a href="#_details">More...</a>
 <p>
-<h3>Public Member Functions</h3>
+<h3>Static Public Member Functions</h3>
 <ul>
-<li><a class="el" href="classQxtDesktopWidget.html#30b999ec4e102ca36f16216daf5b8725">QxtDesktopWidget</a> ()
-<li><a class="el" href="classQxtDesktopWidget.html#ef43b1e2d7dcf1e456121ae4f5056ebd">~QxtDesktopWidget</a> ()
-<li><a class="anchor" name="e67e2e3afa9e283aea98c84fb74a86cd"></a><!-- doxytag: member="QxtDesktopWidget::activeNativeWindow" ref="e67e2e3afa9e283aea98c84fb74a86cd" args="() const" -->
-WId <b>activeNativeWindow</b> () const
-<li><a class="anchor" name="3ae362bb198c00d97998de2aee79ac72"></a><!-- doxytag: member="QxtDesktopWidget::findNativeWindow" ref="3ae362bb198c00d97998de2aee79ac72" args="(const QString &amp;title) const " -->
-WId <b>findNativeWindow</b> (const QString &amp;title) const 
-<li><a class="anchor" name="dca34c53754e13950763c4ea7aa1541c"></a><!-- doxytag: member="QxtDesktopWidget::nativeWindowAt" ref="dca34c53754e13950763c4ea7aa1541c" args="(const QPoint &amp;pos) const" -->
-WId <b>nativeWindowAt</b> (const QPoint &amp;pos) const
-<li><a class="anchor" name="71ec92f9ef37fdb274c10d8f2478cfa1"></a><!-- doxytag: member="QxtDesktopWidget::nativeWindowTitle" ref="71ec92f9ef37fdb274c10d8f2478cfa1" args="(WId window) const" -->
-QString <b>nativeWindowTitle</b> (WId window) const
-<li><a class="anchor" name="2eb21fe77af23d9f4787817aa383eef9"></a><!-- doxytag: member="QxtDesktopWidget::nativeWindowGeometry" ref="2eb21fe77af23d9f4787817aa383eef9" args="(WId window) const" -->
-QRect <b>nativeWindowGeometry</b> (WId window) const
+<li>static WId <a class="el" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">activeWindow</a> ()
+<li>static WId <a class="el" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">findWindow</a> (const QString &amp;title)
+<li>static WId <a class="el" href="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">windowAt</a> (const QPoint &amp;pos)
+<li>static QString <a class="el" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle</a> (WId window)
+<li>static QRect <a class="el" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">windowGeometry</a> (WId window)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-<a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for finding certain native windows.">QxtDesktopWidget</a> provides means for finding certain native windows. 
+<a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for accessing native windows.">QxtDesktopWidget</a> provides means for accessing native windows. 
 <p>
 <dl compact><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Add notice about QWidget::create()?</dd></dl>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>Currently supported platforms are <b>X11</b> and <b>Windows</b>. </dd></dl>
 
 <p>
-<hr><h3>Constructor &amp; Destructor Documentation</h3>
-<a class="anchor" name="30b999ec4e102ca36f16216daf5b8725"></a><!-- doxytag: member="QxtDesktopWidget::QxtDesktopWidget" ref="30b999ec4e102ca36f16216daf5b8725" args="()" -->
+<hr><h3>Member Function Documentation</h3>
+<a class="anchor" name="e1c718e93fbc52197de0d22eb8724b6d"></a><!-- doxytag: member="QxtDesktopWidget::activeWindow" ref="e1c718e93fbc52197de0d22eb8724b6d" args="()" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QxtDesktopWidget::QxtDesktopWidget           </span>
+          <span class="memname">WId QxtDesktopWidget::activeWindow           </span>
 (          <span class="paramname"></span>
-)</div>
+) [static]</div>
 
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for finding certain native windows.">QxtDesktopWidget</a>. 
+Returns a native window system identifier of the active window.<p>
+Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
+    QString title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
+    qDebug() &lt;&lt; <span class="stringliteral">"Currently active window is:"</span> &lt;&lt; title;
+</pre></div><p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is, of course, not necessarily a QWidget.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QApplication::activeWindow() </dd></dl>
+
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="ef43b1e2d7dcf1e456121ae4f5056ebd"></a><!-- doxytag: member="QxtDesktopWidget::~QxtDesktopWidget" ref="ef43b1e2d7dcf1e456121ae4f5056ebd" args="()" -->
+<a class="anchor" name="7a6d22e1fd22b4e61f06ce0edb018b92"></a><!-- doxytag: member="QxtDesktopWidget::findWindow" ref="7a6d22e1fd22b4e61f06ce0edb018b92" args="(const QString &amp;title)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QxtDesktopWidget::~QxtDesktopWidget           </span>
-(          <span class="paramname"></span>
-)</div>
+          <span class="memname">WId QxtDesktopWidget::findWindow           </span>
+(          <span class="paramtype">const QString &amp;&nbsp;</span>
+          <span class="paramname"> <em>title</em></span>
+) [static]</div>
 
 <div class="memdoc">
 
 <p>
-Destructs the desktop widget. 
+Returns a native window system identifier of the window with given <em>title</em>.<p>
+Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">QxtDesktopWidget::findWindow</a>(<span class="stringliteral">"Mail - Kontact"</span>);
+    QPixmap screenshot = QPixmap::grabWindow(wid);
+</pre></div><p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is, of course, not necessarily a QWidget.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::find() </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="f424794b34191da68f8f300b07d47bd2"></a><!-- doxytag: member="QxtDesktopWidget::windowAt" ref="f424794b34191da68f8f300b07d47bd2" args="(const QPoint &amp;pos)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">WId QxtDesktopWidget::windowAt           </span>
+(          <span class="paramtype">const QPoint &amp;&nbsp;</span>
+          <span class="paramname"> <em>pos</em></span>
+) [static]</div>
+
+<div class="memdoc">
+
+<p>
+Returns a native window system identifier of the window if any at <em>pos</em>.<p>
+Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">QxtDesktopWidget::findWindow</a>(<span class="stringliteral">"Mail - Kontact"</span>);
+    QPixmap screenshot = QPixmap::grabWindow(wid);
+</pre></div><p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is, of course, not necessarily a QWidget.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QApplication::widgetAt() </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="fcd7cb40e6f4d131c1fabd5eec56d69a"></a><!-- doxytag: member="QxtDesktopWidget::windowTitle" ref="fcd7cb40e6f4d131c1fabd5eec56d69a" args="(WId window)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QString QxtDesktopWidget::windowTitle           </span>
+(          <span class="paramtype">WId&nbsp;</span>
+          <span class="paramname"> <em>window</em></span>
+) [static]</div>
+
+<div class="memdoc">
+
+<p>
+Returns the title of the native <em>window</em>.<p>
+Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
+    QString title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
+    qDebug() &lt;&lt; <span class="stringliteral">"Currently active window is:"</span> &lt;&lt; title;
+</pre></div><p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::windowTitle() </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="fd0a0bd2510b8482ad7b5c585ba020ad"></a><!-- doxytag: member="QxtDesktopWidget::windowGeometry" ref="fd0a0bd2510b8482ad7b5c585ba020ad" args="(WId window)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QRect QxtDesktopWidget::windowGeometry           </span>
+(          <span class="paramtype">WId&nbsp;</span>
+          <span class="paramname"> <em>window</em></span>
+) [static]</div>
+
+<div class="memdoc">
+
+<p>
+Returns the geometry of the native <em>window</em>.<p>
+Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
+    QRect geometry = <a class="code" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">QxtDesktopWidget::windowGeometry</a>(wid);
+    qDebug() &lt;&lt; <span class="stringliteral">"Geometry of the window is:"</span> &lt;&lt; geometry;
+</pre></div><p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::frameGeometry() </dd></dl>
+
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
