@@ -11,6 +11,18 @@ MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG += qxtbuild  convenience
 
-HEADERS += QxtBlowFish.h QxtNamedPipe.h QxtRPCPeer.h
-SOURCES += QxtBlowFish.cpp QxtRPCPeer.cpp
-unix: SOURCES += QxtNamedPipe_unix.cpp 
+
+
+HEADERS +=  QxtRPCPeer.h
+SOURCES += QxtRPCPeer.cpp
+
+include(../../config.pri)
+contains(DEFINES,HAVE_OPENSSL){
+HEADERS += QxtBlowFish.h 
+SOURCES += QxtBlowFish.cpp
+LIBS+=-lssl
+}
+
+
+#HEADERS += QxtNamedPipe.h
+#unix: SOURCES += QxtNamedPipe_unix.cpp 
