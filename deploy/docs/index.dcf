@@ -39,26 +39,6 @@
 	<keyword ref="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</keyword>
 </section>
 
-<section ref="classQxtAVFile.html" title="QxtAVFile"> 
-	<keyword ref="classQxtAVFile.html">QxtAVFile</keyword>
-	<keyword ref="classQxtAVFile.html#2fccee778be49f65d4bad162cfa686aa">isEof</keyword>
-	<keyword ref="classQxtAVFile.html#778280bc1cbc41f3f874adae19190641">length</keyword>
-	<keyword ref="classQxtAVFile.html#5a10ba6ca80961c46f366bc2f162710b">open</keyword>
-	<keyword ref="classQxtAVFile.html#a7baa4bb28788c051f577e24fc73e754">preloaded</keyword>
-	<keyword ref="classQxtAVFile.html#737b1bafd205efb372f7b6bcf0e50969">read</keyword>
-	<keyword ref="classQxtAVFile.html#f3444211edcb9d5d5a5e8eb7b86fbb2c">samplerate</keyword>
-	<keyword ref="classQxtAVFile.html#b030f5b85645f83363bcb2c1c2e4cb70">seek</keyword>
-	<keyword ref="classQxtAVFile.html#954de341b192935aa47ef6cbf9e99406">seekP</keyword>
-	<keyword ref="classQxtAVFile.html#460ea18b92abe99c320a7fd4a224779c">setSamplerate</keyword>
-	<keyword ref="classQxtAVFile.html#d876b40064be1bbb3c25a7001e5225cc">time</keyword>
-	<keyword ref="classQxtAVFile.html#a8a591ebe0ef2633fb7f5bdf4a370a22">timeP</keyword>
-</section>
-
-<section ref="classQxtAVPlayer.html" title="QxtAVPlayer"> 
-	<keyword ref="classQxtAVPlayer.html">QxtAVPlayer</keyword>
-	<keyword ref="classQxtAVPlayer.html#a03dbc3e3ecaca553c44154feb364d16">peek</keyword>
-</section>
-
 <section ref="classQxtCheckComboBox.html" title="QxtCheckComboBox"> 
 	<keyword ref="classQxtCheckComboBox.html">QxtCheckComboBox</keyword>
 	<keyword ref="classQxtCheckComboBox.html#c3c7d2e38bb500b0276e23537e9c664d">checkedItemsChanged</keyword>
@@ -69,111 +49,23 @@
 	<keyword ref="classQxtCheckComboBox.html#47e17f263a7b4c443172355e73c39802">setItemCheckState</keyword>
 </section>
 
-<section ref="classQxtCKeyEvent.html" title="QxtCKeyEvent"> 
-	<keyword ref="classQxtCKeyEvent.html">QxtCKeyEvent</keyword>
-	<keyword ref="classQxtCKeyEvent.html#afd5022c64dab55cb62ec2f500906f59">key</keyword>
-	<keyword ref="classQxtCKeyEvent.html#86dd29a40c258824f24a393751edfa54">modifiers</keyword>
-	<keyword ref="classQxtCKeyEvent.html#2d8d0da84b1a1b1902edb533239626c6">nativeScanCode</keyword>
-</section>
-
-<section ref="classQxtCPoint.html" title="QxtCPoint"> 
-	<keyword ref="classQxtCPoint.html">QxtCPoint</keyword>
-	<keyword ref="classQxtCPoint.html#8b043abf19dc2aa7a0267a95a7d447fb">operator!=</keyword>
-	<keyword ref="classQxtCPoint.html#c3d0731c2b7e770eea0dbc254a14de9d">operator=</keyword>
-	<keyword ref="classQxtCPoint.html#d912c4b50971458fd3a23b077e1e9aae">operator==</keyword>
-	<keyword ref="classQxtCPoint.html#9d426adf34a42f74b2250e924c9ebd6a">rx</keyword>
-	<keyword ref="classQxtCPoint.html#1cbaeaa0f35993e0a9ed163578aed468">ry</keyword>
-	<keyword ref="classQxtCPoint.html#d05f9ba82baaa39c51028192b920f7b5">setX</keyword>
-	<keyword ref="classQxtCPoint.html#2a3c3a33918b19e8f01dc0be2c241531">setY</keyword>
-	<keyword ref="classQxtCPoint.html#a582cc4cd40487eab9b7c3ce1691512b">x</keyword>
-	<keyword ref="classQxtCPoint.html#a8c43af1633b41a479b4e69295bc127c">y</keyword>
-</section>
-
-<section ref="classQxtCRect.html" title="QxtCRect"> 
-	<keyword ref="classQxtCRect.html">QxtCRect</keyword>
-	<keyword ref="classQxtCRect.html#1ef81f186edce18a7debae9f6aafb0f0">bottom</keyword>
-	<keyword ref="classQxtCRect.html#5bd03f261e1274b859011fbbabaffc02">bottomLeft</keyword>
-	<keyword ref="classQxtCRect.html#e6e38d374d4a0705f82b185dc939ad86">bottomRight</keyword>
-	<keyword ref="classQxtCRect.html#4d0cb329f70a6fae3f1bd7973c66d25c">height</keyword>
-	<keyword ref="classQxtCRect.html#e8eadf89314a4e5d554b3ddcce14fcc7">left</keyword>
-	<keyword ref="classQxtCRect.html#debb7d4ee479eb0f2970f94b7d1ec9ec">operator!=</keyword>
-	<keyword ref="classQxtCRect.html#386a73b71a16f578b8093a3c25d79144">operator=</keyword>
-	<keyword ref="classQxtCRect.html#311672e9c4beb6c60758602559037eea">operator==</keyword>
-	<keyword ref="classQxtCRect.html#c72f52e4927af6519a514e3078583f47">right</keyword>
-	<keyword ref="classQxtCRect.html#f4ee1dd6f9aad83cb471f2f121e6d0b4">setBottom</keyword>
-	<keyword ref="classQxtCRect.html#f1ff949c89f4342d3980e027eddbfd41">setBottomLeft</keyword>
-	<keyword ref="classQxtCRect.html#b191119ab061ac88dd190eecff8fae94">setBottomRight</keyword>
-	<keyword ref="classQxtCRect.html#71f2606596a17c2c959fa01031f2a4ad">setHeight</keyword>
-	<keyword ref="classQxtCRect.html#cf47b2bb3720e1c5a9cb53225c01dd8f">setLeft</keyword>
-	<keyword ref="classQxtCRect.html#9b82fac27260b1d647c396af52f36bee">setRight</keyword>
-	<keyword ref="classQxtCRect.html#bd0629b8523a3fca23cfd70a567a5518">setSize</keyword>
-	<keyword ref="classQxtCRect.html#6217827739119ec0da2283370277aa18">setTop</keyword>
-	<keyword ref="classQxtCRect.html#e0c45487b252b09bcb11f77017368ef6">setTopLeft</keyword>
-	<keyword ref="classQxtCRect.html#5bf4787a45b34fa75cab5bdf112f4475">setTopRight</keyword>
-	<keyword ref="classQxtCRect.html#69360dd44b6f62945f994e55c5f42ee6">setWidth</keyword>
-	<keyword ref="classQxtCRect.html#8f08c833f0720c1e24f8f8aaf559230c">setX</keyword>
-	<keyword ref="classQxtCRect.html#70bd59470e4fcb94c8866362703696b7">setY</keyword>
-	<keyword ref="classQxtCRect.html#0285c10134a81e1a8b675f1602f09d24">size</keyword>
-	<keyword ref="classQxtCRect.html#365f9652482b9fcc5e64778eb7da05b6">top</keyword>
-	<keyword ref="classQxtCRect.html#99cb900f9ecbc7d9314b0df5832e2127">topLeft</keyword>
-	<keyword ref="classQxtCRect.html#15491c5bcd52fc2c018397074c1448bb">topRight</keyword>
-	<keyword ref="classQxtCRect.html#36e47f9bfc009f33cda6d2dad4f40e93">width</keyword>
-	<keyword ref="classQxtCRect.html#4c5ecd3fb926d04a49bbcc3ab04f052f">x</keyword>
-	<keyword ref="classQxtCRect.html#bf7a8f6b751923fdf98cc2159a5cb5f7">y</keyword>
-</section>
-
-<section ref="classQxtCSize.html" title="QxtCSize"> 
-	<keyword ref="classQxtCSize.html">QxtCSize</keyword>
-	<keyword ref="classQxtCSize.html#8dbd11885f32239c7898737ee3fb7f98">height</keyword>
-	<keyword ref="classQxtCSize.html#e8fbc6b79eb6bfa6f9b46c7504f281c5">operator!=</keyword>
-	<keyword ref="classQxtCSize.html#7506096808740ed066e307f9400551bf">operator=</keyword>
-	<keyword ref="classQxtCSize.html#388d2f7d5d04d3c2d48087938249da11">operator==</keyword>
-	<keyword ref="classQxtCSize.html#1b02e1058f3f202cb3f116c04c98ab6f">setHeight</keyword>
-	<keyword ref="classQxtCSize.html#4dd62fc9583823a46f195294e2e3b8e7">setWidth</keyword>
-	<keyword ref="classQxtCSize.html#e696d28b65f4d28e41ddc5b2b8555b06">width</keyword>
-</section>
-
-<section ref="classQxtCWidget.html" title="QxtCWidget"> 
-	<keyword ref="classQxtCWidget.html">QxtCWidget</keyword>
-	<keyword ref="classQxtCWidget.html#f309ec1b95be7d27e1896dff38c9165a">handle</keyword>
-	<keyword ref="classQxtCWidget.html#44c995dd5a4e2c1cf2f363e96b57a9e2">height</keyword>
-	<keyword ref="classQxtCWidget.html#322e0d555f48b8579bb5043a3f7395ce">isWindow</keyword>
-	<keyword ref="classQxtCWidget.html#cea0ca78a64ca2a91f63f1698f838648">keyEvent</keyword>
-	<keyword ref="classQxtCWidget.html#aad6a7dcabb3432c2714e3d7b125ba6e">mapToParent</keyword>
-	<keyword ref="classQxtCWidget.html#4a34c969557d8ac2016119f9b947d36f">mapToWindow</keyword>
-	<keyword ref="classQxtCWidget.html#e704ebd1293a7486ee89376c2bc63ba0">move</keyword>
-	<keyword ref="classQxtCWidget.html#1503f1174918ee5f3304b4b370e84ca5">paintEvent</keyword>
-	<keyword ref="classQxtCWidget.html#136e4b4f0efae463f70286672557bfe9">parentWidget</keyword>
-	<keyword ref="classQxtCWidget.html#b31aa2d8f1afdf52ccc2da779abddac9">pos</keyword>
-	<keyword ref="classQxtCWidget.html#b62371b4e4bf0ab7cfe129bb3d593dec">rect</keyword>
-	<keyword ref="classQxtCWidget.html#dd9b3904ccacafd026173c49bec8d1a8">resize</keyword>
-	<keyword ref="classQxtCWidget.html#fc6745be6d7188179794e373ee7e98e3">size</keyword>
-	<keyword ref="classQxtCWidget.html#303d0625dddde0ed8bd18c311ea184db">update</keyword>
-	<keyword ref="classQxtCWidget.html#578e4d95497c84979f5288cc1e5aa59c">width</keyword>
-	<keyword ref="classQxtCWidget.html#35495bd5f50960cd66eaeab1774b5972">window</keyword>
-	<keyword ref="classQxtCWidget.html#1455bdc04c18971ceccc21b18c1a2b1d">winId</keyword>
-	<keyword ref="classQxtCWidget.html#982f0f4d44db29c78c2cac041e469ecb">x</keyword>
-	<keyword ref="classQxtCWidget.html#9dd114dc69195b5f6559bc5a9e32e4d9">y</keyword>
-</section>
-
 <section ref="classQxtDesktopWidget.html" title="QxtDesktopWidget"> 
 	<keyword ref="classQxtDesktopWidget.html">QxtDesktopWidget</keyword>
+	<keyword ref="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">activeWindow</keyword>
+	<keyword ref="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">findWindow</keyword>
+	<keyword ref="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">windowAt</keyword>
+	<keyword ref="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">windowGeometry</keyword>
+	<keyword ref="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle</keyword>
 </section>
 
 <section ref="classQxtError.html" title="QxtError"> 
 	<keyword ref="classQxtError.html">QxtError</keyword>
-	<keyword ref="classQxtError.html#3ba9f15fe2d326d42c4cb530534f23fd">errorString</keyword>
+	<keyword ref="classQxtError.html#de29bcb8a65d8078828ef6284e0bf315">errorString</keyword>
 	<keyword ref="classQxtError.html#087a3a27b63706cc6e4acf9a049a9bf1">QXT_DROP</keyword>
 	<keyword ref="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</keyword>
 	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>
 	<keyword ref="classQxtError.html#ad2b0de584ccbde70d5a1ea41e4f2378">QXT_DROP_S</keyword>
 	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
-</section>
-
-<section ref="classQxtHeaderView.html" title="QxtHeaderView"> 
-	<keyword ref="classQxtHeaderView.html">QxtHeaderView</keyword>
-	<keyword ref="classQxtHeaderView.html#42ee7306dd191c8eb6d5665b743041eb">addAction</keyword>
-	<keyword ref="classQxtHeaderView.html#7c2f3533d9d194ef51b0662e26bfce43">subPaint</keyword>
 </section>
 
 <section ref="classQxtHyperMacros.html" title="QxtHyperMacros"> 
@@ -233,18 +125,6 @@
 	<keyword ref="classQxtPushButton.html#509b0691de19c693a96ee41d96bd22ce">textFormat</keyword>
 </section>
 
-<section ref="classQxtRingBuffer.html" title="QxtRingBuffer"> 
-	<keyword ref="classQxtRingBuffer.html">QxtRingBuffer</keyword>
-	<keyword ref="classQxtRingBuffer.html#6a3dd1693064a8d9c3e7112a4dd0bc05">available</keyword>
-	<keyword ref="classQxtRingBuffer.html#2a9073c173942b8baab55653b9a4c178">get_read_vector</keyword>
-	<keyword ref="classQxtRingBuffer.html#0d9a7650cdad9dfe9697a7e80d09c530">get_write_vector</keyword>
-	<keyword ref="classQxtRingBuffer.html#56dfcdcc52a8d4ec0ca974629df58a69">peek</keyword>
-	<keyword ref="classQxtRingBuffer.html#8476b65cc0b4b96d9488caea99c9f07b">read</keyword>
-	<keyword ref="classQxtRingBuffer.html#0336564508c1046d5ab43aab8fbbf5ae">read_advance</keyword>
-	<keyword ref="classQxtRingBuffer.html#f468a33bfc13cc3903db7bbbf6fd8b66">write</keyword>
-	<keyword ref="classQxtRingBuffer.html#427c5eba0ceb29f5e1342adafd93b892">write_advance</keyword>
-</section>
-
 <section ref="classQxtRPCPeer.html" title="QxtRPCPeer"> 
 	<keyword ref="classQxtRPCPeer.html">QxtRPCPeer</keyword>
 	<keyword ref="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</keyword>
@@ -294,7 +174,7 @@
 	<keyword ref="classQxtSqlPackage.html">QxtSqlPackage</keyword>
 	<keyword ref="classQxtSqlPackage.html#8cb821ede737fb9c783aaf9c4af661a9">insert</keyword>
 	<keyword ref="classQxtSqlPackage.html#3c53546ad9510ff1e37aa042d8277594">next</keyword>
-	<keyword ref="classQxtSqlPackage.html#2b9c019a5fc703e65219a57ad94f8033">value</keyword>
+	<keyword ref="classQxtSqlPackage.html#6b0d004f679ee988b13f3b45588f789a">value</keyword>
 </section>
 
 <section ref="classQxtStringSpinBox.html" title="QxtStringSpinBox"> 
@@ -323,16 +203,6 @@
 	<keyword ref="classQxtTreeWidget.html#19b8f33f02812013b0362caca1a2be68">itemCheckStateChanged</keyword>
 	<keyword ref="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</keyword>
 	<keyword ref="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</keyword>
-</section>
-
-<section ref="classQxtTripple.html" title="QxtTripple"> 
-	<keyword ref="classQxtTripple.html">QxtTripple</keyword>
-	<keyword ref="classQxtTripple.html#ee255db6a7eab5004a77995abb8281ab">qMakeTripple</keyword>
-</section>
-
-<section ref="classQxtTrippleList.html" title="QxtTrippleList"> 
-	<keyword ref="classQxtTrippleList.html">QxtTrippleList</keyword>
-	<keyword ref="classQxtTrippleList.html#9f142f620a50159d53205aa952c43d9b">find</keyword>
 </section>
 
 <section ref="classQxtTuple.html" title="QxtTuple"> 
