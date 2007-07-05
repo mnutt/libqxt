@@ -15,7 +15,6 @@ CONFIG += qxtbuild  convenience
 HEADERS += QxtHtmlTemplate.h \
 	   QxtScgiApplication.h \
            QxtScgiApplication_p.h \
-           QxtScgiController.h \
-           QxtWebSession.h
+           QxtScgiController.h 
 
-SOURCES += QxtScgiApplication.cpp QxtHtmlTemplate.cpp  QxtScgiController.cpp QxtWebSession.cpp
+SOURCES += QxtScgiApplication.cpp QxtHtmlTemplate.cpp  QxtScgiController.cpp
