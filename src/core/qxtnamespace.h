@@ -23,12 +23,11 @@ released under the Terms of LGPL (see the LICENSE file)
 #if defined BUILD_QXT
 #include <QObject>
 
-class QXT_KIT_EXPORT Qxt  : public QObject
+class QXT_CORE_EXPORT Qxt  : public QObject
 {
 	Q_OBJECT
 	Q_ENUMS(Rotation)
 	Q_ENUMS(DecorationStyle)
-	Q_ENUMS(QxtAVFileFlags)
 	Q_ENUMS(ErrorCode)
 
 

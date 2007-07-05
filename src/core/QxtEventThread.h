@@ -77,7 +77,7 @@ class QxtEventThreadPrivate : public QThread
 
 
 template<typename T>
-class QXT_KIT_EXPORT QxtEventThread : public QxtInternal::QxtEventThreadPrivate
+class QXT_CORE_EXPORT QxtEventThread : public QxtInternal::QxtEventThreadPrivate
 	{
 	public:
 	QxtEventThread(QObject *parent=0):QxtEventThreadPrivate(parent)
