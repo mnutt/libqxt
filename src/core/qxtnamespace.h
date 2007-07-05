@@ -20,7 +20,7 @@ released under the Terms of LGPL (see the LICENSE file)
 */
 
 
-#if defined BUILD_QXT_QT 
+#if defined BUILD_QXT
 #include <QObject>
 
 class QXT_KIT_EXPORT Qxt  : public QObject
@@ -66,12 +66,6 @@ namespace Qxt {
 	};
 
 
-        enum QxtAVFileFlags
-                {
-                preload,
-                fullLoad
-                };
-
 	/*!
 	\enum Qxt::ErrorCode
 	The error Code dropped by QxtError
@@ -93,12 +87,11 @@ namespace Qxt {
                 SDLError,				/*!< SDL reported an error */
 		InsufficientMemory,			/*!< Not enough memory to perform the action. */
 		SeeErrorString,				/*!< The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors. */
-
-		UnexpectedNullParameter,
-		ClientTimeout,
-		SocketIOError,
-		ParserError,
-		HeaderTooLong
+		UnexpectedNullParameter,		/*!< NULL was passed where it shouldn't. */
+		ClientTimeout,				/*!< The Client didn't answer within the expected time rang. */
+		SocketIOError,				/*!< Socket Input/Output Error*/
+		ParserError,				/*!< Unable to parse the requested string or file.*/
+		HeaderTooLong				/*!< The Header that was passed for parsing was too long.*/
 
 
                 };

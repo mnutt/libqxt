@@ -47,9 +47,6 @@ width="32" height="32" border="0" /></a></td>
 <a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f270915fe932bde10f910c6dacde930e69c23">Buttonlike</a>, 
 <a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709e771107b012b3d6d51a65ebee34338e8">Menulike</a>
  }
-<li>enum <b>QxtAVFileFlags</b> { <b>preload</b>, 
-<b>fullLoad</b>
- }
 <li>enum <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">ErrorCode</a> { <br>
 &nbsp;&nbsp;<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab999f1d620cf9d29d8469ac885c1e2b9d">NoError</a>, 
 <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabf8e679f0cb38e00978097915ff530c8e">UnknownError</a>, 
@@ -69,12 +66,12 @@ width="32" height="32" border="0" /></a></td>
 &nbsp;&nbsp;<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabb15fa5781c63b8b5ebbc0a5b8b857e8c">SDLError</a>, 
 <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eaba408a37d28bb2b15caa3f44bfb9db3ab">InsufficientMemory</a>, 
 <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabd0d363aff51685c0427598822e60b371">SeeErrorString</a>, 
-<b>UnexpectedNullParameter</b>, 
+<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabe02830597acb97fc075fc97c5d0c5365">UnexpectedNullParameter</a>, 
 <br>
-&nbsp;&nbsp;<b>ClientTimeout</b>, 
-<b>SocketIOError</b>, 
-<b>ParserError</b>, 
-<b>HeaderTooLong</b>
+&nbsp;&nbsp;<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabcdb8d4418de8f2e720cb320fe1c53f41">ClientTimeout</a>, 
+<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabfedee65753f3f8b9ebe507278b6ea8f9">SocketIOError</a>, 
+<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabdbcec2b11c6768395d9a9a65de9c61e9">ParserError</a>, 
+<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab9cab9cc121e942cd4aac6cbd9e043df7">HeaderTooLong</a>
 <br>
  }
 </ul>
@@ -147,6 +144,16 @@ SDL reported an error </td></tr>
 Not enough memory to perform the action. </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eabd0d363aff51685c0427598822e60b371"></a><!-- doxytag: member="SeeErrorString" ref="e8f989a7afc9ce63525ed66b94959eabd0d363aff51685c0427598822e60b371" args="" -->SeeErrorString</em>&nbsp;</td><td>
 The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eabe02830597acb97fc075fc97c5d0c5365"></a><!-- doxytag: member="UnexpectedNullParameter" ref="e8f989a7afc9ce63525ed66b94959eabe02830597acb97fc075fc97c5d0c5365" args="" -->UnexpectedNullParameter</em>&nbsp;</td><td>
+NULL was passed where it shouldn't. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eabcdb8d4418de8f2e720cb320fe1c53f41"></a><!-- doxytag: member="ClientTimeout" ref="e8f989a7afc9ce63525ed66b94959eabcdb8d4418de8f2e720cb320fe1c53f41" args="" -->ClientTimeout</em>&nbsp;</td><td>
+The Client didn't answer within the expected time rang. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eabfedee65753f3f8b9ebe507278b6ea8f9"></a><!-- doxytag: member="SocketIOError" ref="e8f989a7afc9ce63525ed66b94959eabfedee65753f3f8b9ebe507278b6ea8f9" args="" -->SocketIOError</em>&nbsp;</td><td>
+Socket Input/Output Error </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eabdbcec2b11c6768395d9a9a65de9c61e9"></a><!-- doxytag: member="ParserError" ref="e8f989a7afc9ce63525ed66b94959eabdbcec2b11c6768395d9a9a65de9c61e9" args="" -->ParserError</em>&nbsp;</td><td>
+Unable to parse the requested string or file. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="e8f989a7afc9ce63525ed66b94959eab9cab9cc121e942cd4aac6cbd9e043df7"></a><!-- doxytag: member="HeaderTooLong" ref="e8f989a7afc9ce63525ed66b94959eab9cab9cc121e942cd4aac6cbd9e043df7" args="" -->HeaderTooLong</em>&nbsp;</td><td>
+The Header that was passed for parsing was too long. </td></tr>
 </table>
 </dl>
 
