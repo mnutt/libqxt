@@ -13,7 +13,8 @@
                                 { \
                                 qDebug("the error handler apears to be broken (return code: %i )",i); \
                                 abort(); \
-                                } }
+                                } \
+                                tcpSocket->disconnectFromHost();}
 
 
 
@@ -76,6 +77,9 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 		};
 
 
+        qDebug("%s",SERVER["REQUEST_URI"].constData());
+
+
 	///--------------find controller ------------------
 	QByteArray path="404";
 	QList<QByteArray> requestsplit = SERVER["REQUEST_URI"].split('/');
@@ -106,6 +110,7 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 
 
 	tcpSocket->disconnectFromHost();
+        qDebug("disconnected");
 	}
 
 
@@ -186,7 +191,7 @@ QxtError SCGI::header(QTcpSocket * tcpSocket,server_t & SERVER)
 			}
 		else
 			{
-			SERVER[name]=a.left(i).replace('\0',"");
+			SERVER[name]=a.left(i).replace('\0',"").replace("%20"," ");
 			name="";
 			}
 		

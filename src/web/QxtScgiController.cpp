@@ -6,6 +6,12 @@
 #include "QxtScgiApplication.h"
 
 
+QString QxtScgiController::WebRoot()
+        {
+        return QCoreApplication::applicationDirPath()+"/../";
+        }
+
+
 QxtScgiController::QxtScgiController(QString name,QxtScgiApplication *parent):QObject(parent)
         {
         stream_m=0;
