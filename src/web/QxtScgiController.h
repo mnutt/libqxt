@@ -16,6 +16,9 @@ class QxtScgiController : public QObject
 
                 int invoke(QTcpSocket * ,server_t &);
 
+
+                static QString WebRoot();
+
         public slots:
 		 int index()
                         {
