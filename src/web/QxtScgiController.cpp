@@ -234,9 +234,6 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
                 }
 
 	stream_m->flush ();
-	socket->disconnectFromHost();
-	socket->waitForDisconnected();
-	socket->deleteLater();
         stream_m=0;
 
         return retVal;
