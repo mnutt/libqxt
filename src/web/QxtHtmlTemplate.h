@@ -23,23 +23,19 @@
 #ifndef QXTHTMLTEMPLATE_H
 #define QXTHTMLTEMPLATE_H
 
-#include <QObject>
+#include <QMap>
 #include <QString>
 #include <QHash>
 
-class QxtHtmlTemplate : public QObject 
+class QxtHtmlTemplate : public QMap<QString,QString>
 	{
-	Q_OBJECT
 	public:
-		QxtHtmlTemplate( QObject* parent = 0);
+		QxtHtmlTemplate();
 		bool open(const QString& filename);
-		void assign(QString key, QString value);
 		QString render() const;
-		void clear();
 
 	private:
 		QString data;
-		QHash<QString, QString> vars;
 	};
 
 #endif
