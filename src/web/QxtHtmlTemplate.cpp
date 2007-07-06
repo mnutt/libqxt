@@ -23,8 +23,7 @@
 #include "QxtHtmlTemplate.h"
 #include <QFile>
 
-QxtHtmlTemplate::QxtHtmlTemplate(QObject* 
-parent) : QObject(parent) 
+QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString,QString>()
 	{
 	}
 
@@ -39,23 +38,13 @@ bool QxtHtmlTemplate::open(const QString& filename)
 	return true;
 	}
 
-
-void QxtHtmlTemplate::assign(QString key, QString value) 
-	{
-	vars[key] = value.replace("\\", "\\\\").replace("{", "\\{");
-	}
-
 QString QxtHtmlTemplate::render() const 
 	{
 	QString output = data;
-	foreach(QString key, vars.keys()) 
+	foreach(QString key, keys()) 
 		{
-		output = output.replace("<?="+key+"?>", vars[key]);
+		output = output.replace("<?="+key+"?>", value(key));
 		}
 	return output;
 	}
 
-void QxtHtmlTemplate::clear()
-        {
-        vars.clear();
-        }
