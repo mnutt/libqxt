@@ -35,6 +35,7 @@ class QxtHtmlTemplate : public QObject
 		bool open(const QString& filename);
 		void assign(QString key, QString value);
 		QString render() const;
+		void clear();
 
 	private:
 		QString data;

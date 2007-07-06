@@ -54,3 +54,8 @@ QString QxtHtmlTemplate::render() const
 		}
 	return output;
 	}
+
+void QxtHtmlTemplate::clear()
+        {
+        vars.clear();
+        }
