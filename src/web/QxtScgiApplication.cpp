@@ -103,6 +103,9 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
                         senderror("/error/index/"+QString::number(i).toUtf8()+"//"+path);
                         }
                 }
+
+
+	tcpSocket->disconnectFromHost();
 	}
 
 
