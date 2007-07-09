@@ -2,6 +2,7 @@
 #include <QTcpSocket>
 #include <QStringList>
 #include <QDebug>
+#include <QUrl>
 
 #include "QxtScgiApplication.h"
 
@@ -21,30 +22,32 @@ QxtScgiController::QxtScgiController(QString name,QxtScgiApplication *parent):QO
 int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
         {
         SERVER=SERVER_i;
-	QList<QByteArray> args = SERVER["REQUEST_URI"].split('/');
+	QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
 
 
         ///--------------find action ------------------
 	QByteArray action="index";	
-	if (args.count()>2)
+	if (args_d.count()>2)
 		{
-		action=args.at(2);
+		action=args_d.at(2);
 		if (action.trimmed().isEmpty())action="index";
 		}
-	else if (args.count()>1) 
+	else if (args_d.count()>1) 
 		action="index";
 
 
-	if (args.count()>3)
+	if (args_d.count()>3)
                 {
-                args.removeFirst();
-                args.removeFirst();
-                args.removeFirst();
+                args_d.removeFirst();
+                args_d.removeFirst();
+                args_d.removeFirst();
                 }
         else
-                args.clear();
+                args_d.clear();
 
-
+	QStringList args;
+	foreach(QByteArray arg,args_d)
+		args<<QUrl::fromPercentEncoding(arg);
 
         QTextStream strm (socket);
         stream_m=  &strm;
