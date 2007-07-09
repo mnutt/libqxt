@@ -61,6 +61,7 @@ void QxtScgiApplicationPrivate::init()
 
 void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 	{
+	qDebug("-> incomming");
 	QTcpSocket * tcpSocket = new QTcpSocket;
 	if (!tcpSocket->setSocketDescriptor(socketDescriptor)) 
 		{
@@ -110,7 +111,7 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 
 
 	tcpSocket->disconnectFromHost();
-        qDebug("disconnected");
+        qDebug("<- disconnected\n\n");
 	}
 
 
