@@ -13,13 +13,13 @@ class test : public QxtScgiController
 
 		 int index()
                         {
-			echo()<<"Status: 200 OK\r\nContent-Type: text/html\r\n\r\n";
+			echo()<<"Status: 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n";
 			echo()<<"foo";
                         return 0;
                         }
 		 int index(QString a, QString b=QString("default"), QString c=QString("default2"))
                         {
-			echo()<<"Status: 200 OK\r\nContent-Type: text/html\r\n\r\n";
+			echo()<<"Status: 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n";
 			echo()<<"a: "<<a<<"<br/> b: "<<b<<"<br/> c: "<<c;
                         return 0;
                         }
@@ -39,7 +39,7 @@ class err : public QxtScgiController
 		 int index(QString a=QString("500"),QString b=QString(),QString c=QString(),QString d=QString(),
 			QString e=QString(),QString f=QString(),QString g=QString())
                         {
-			echo()<<"Status: 404 NOT FOUND\r\nContent-Type: text/html\r\n\r\n";
+			echo()<<"Status: 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\n\r\n";
 			echo()<<"shits<br/>"
 			"error "<<a<<"<br/>"
 			<<b<<"<br/>"
