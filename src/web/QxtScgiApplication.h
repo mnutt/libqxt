@@ -5,7 +5,6 @@
 #include <QxtPimpl.h>
 #include <QHostAddress>
 #include <QMetaType>
-#include <QxtError.h>
 #include <QMap>
 
 typedef  QMap<QByteArray, QByteArray> server_t;
