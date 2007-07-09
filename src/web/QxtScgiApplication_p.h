@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QTextStream>
 #include "QxtScgiApplication.h"
+#include <QxtError.h>
 
 //----------------------------------------------------------------------
 class QxtScgiController;

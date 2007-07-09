@@ -26,12 +26,42 @@ class test : public QxtScgiController
 
         };
 
+class err : public QxtScgiController
+        {
+        Q_OBJECT
+        public:
+                err(QxtScgiApplication *parent):QxtScgiController("error",parent)
+			{
+			}
+
+	public slots:
+
+		 int index(QString a=QString("500"),QString b=QString(),QString c=QString(),QString d=QString(),
+			QString e=QString(),QString f=QString(),QString g=QString())
+                        {
+			echo()<<"Status: 404 NOT FOUND\r\nContent-Type: text/html\r\n\r\n";
+			echo()<<"shits<br/>"
+			"error "<<a<<"<br/>"
+			<<b<<"<br/>"
+			<<c<<"<br/>"
+			<<d<<"<br/>"
+			<<e<<"<br/>"
+			<<f<<"<br/>"
+			<<g<<"<br/>";
+                        return 0;
+                        }
+
+        };
+
+
+
+
+
 int main(int argc, char *argv[])
 	{
 	QxtScgiApplication app(argc, argv);
 	test t(&app);
-	QxtScgiController e("error",&app);
-
+	err e(&app);
 	return app.exec(4000);
 	}
 

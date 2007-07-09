@@ -4,19 +4,6 @@
 #include <QtNetwork>
 #include <QDebug>
 #include <QTimer>
-#include <QxtError.h>
-
-
-#define senderror(errorpath)     {    SERVER["REQUEST_URI"]=errorpath;  \
-                        int i=errorhandler->invoke(tcpSocket,SERVER); \
-                        if(i!=0) \
-                                { \
-                                qDebug("the error handler apears to be broken (return code: %i )",i); \
-                                abort(); \
-                                } \
-                                tcpSocket->disconnectFromHost();}
-
-
 
 //-----------------------interface----------------------------
 
@@ -73,10 +60,8 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 	server_t SERVER;
 	QXT_DROP_SCOPE(error,SCGI::header(tcpSocket,SERVER))
 		{
-                senderror("/error/index/500/");
-		return;
+                SERVER["REQUEST_URI"]="/error/index/500/";
 		};
-
 
         qDebug("%s",SERVER["REQUEST_URI"].constData());
 
@@ -97,17 +82,31 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 	QxtScgiController * controller =qFindChild<QxtScgiController *> (&qxt_p(), path );
 	if (!controller) 
 		{
-                senderror("/error/index/4041/"+path);
-		return;
+		qDebug("controller '%s' not found",path.constData()); 
+                SERVER["REQUEST_URI"]="/error/index/4041/"+path;
+		controller=errorhandler;
 		}
-	else
-                {
-                int i=controller->invoke(tcpSocket,SERVER);
-                if(i)
-                        {
-                        senderror("/error/index/"+QString::number(i).toUtf8()+"//"+path);
-                        }
-                }
+
+	int i=controller->invoke(tcpSocket,SERVER);
+	if(i)
+		{
+		if (controller==errorhandler)
+			{
+			qDebug("the error handler apears to be broken (return code: %i )",i); 
+			abort();
+			}
+		else
+			{
+			SERVER["REQUEST_URI"]="/error/index/"+QString::number(i).toUtf8()+"//"+path;
+			i=errorhandler->invoke(tcpSocket,SERVER);
+			if (i)
+				{
+				qDebug("the error handler apears to be broken (return code: %i )",i); 
+				abort();
+				}
+
+			}
+		}
 
 
 	tcpSocket->disconnectFromHost();
