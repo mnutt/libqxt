@@ -15,6 +15,7 @@ QString QxtScgiController::WebRoot()
 
 QxtScgiController::QxtScgiController(QString name,QxtScgiApplication *parent):QObject(parent)
         {
+        socket_m=0;
         stream_m=0;
         setObjectName(name);
         }
@@ -51,6 +52,7 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 
         QTextStream strm (socket);
         stream_m=  &strm;
+        socket_m=socket;
 
         int retVal=666;
 	if (args.count()>8)
@@ -141,7 +143,7 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 
 	stream_m->flush ();
         stream_m=0;
-
+        socket_m=0;
         return retVal;
         };
 

@@ -35,9 +35,15 @@ class QxtScgiController : public QObject
                         assert(stream_m);
                         return *stream_m;
                         }
+                QTcpSocket * socket()
+                        {
+                        assert(socket_m);
+                        return socket_m;
+                        }
                 server_t SERVER;
         private:
                 QTextStream *stream_m;
+                QTcpSocket *socket_m;
 
 
         };
