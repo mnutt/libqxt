@@ -93,7 +93,7 @@ void QxtScgiApplicationPrivate::incomingConnection(int socketDescriptor)
 		if (controller==errorhandler)
 			{
 			qDebug("the error handler apears to be broken (return code: %i )",i); 
-			abort();
+                        tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\n500 INTERNAL SERVER ERROR");
 			}
 		else
 			{
