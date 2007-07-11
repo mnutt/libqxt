@@ -32,7 +32,7 @@ bool QxtHtmlTemplate::open(const QString& filename)
 	{
 	QFile f(filename);
 	f.open(QIODevice::ReadOnly);
-	data = f.readAll();
+	data = QString::fromLocal8Bit(f.readAll());
 	f.close();
 	if (data.isEmpty())return false;
 	return true;
