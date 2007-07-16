@@ -4,15 +4,16 @@
 QMAKE_BIN=qmake
 WHICH=which
 
+QMAKE_PARAMS=""
+if uname -a | grep -iq Darwin; then
+    QMAKE_PARAMS="-spec macx-g++"
+fi
 
 # the directory of this script (the root)
 PROJECT_ROOT=`dirname $0`
 PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
-
 TESTDIR=$PROJECT_ROOT/config.tests
-
 CONFIG_LOG=$PROJECT_ROOT/config.log
-
 
 # Define some colors for neet output
 C_RED='\e[1;31m'
@@ -20,9 +21,6 @@ C_BLUE='\e[1;34m'
 C_GREEN='\e[1;32m'
 C_CYAN='\e[1;36m'
 C_NONE='\e[0m' # No Color
-
-
-
 
 #====parse configure options====
 
@@ -66,7 +64,7 @@ while (( $# > 0 )); do
         echo "Installation options:"
         echo
         echo "-prefix <dir> ....... This will install everything relative to <dir>"
-        if uname -a | grep -i Darwin; then
+        if uname -a | grep -iq Darwin; then
             echo "                      default: /Library/Frameworks/"
         else
             echo "                      default: /usr/"
@@ -101,14 +99,8 @@ while (( $# > 0 )); do
     shift
 done
 
-
-
-
-
 #====begin some autodetection====
 >$CONFIG_LOG
-
-
 
 # qmake?
 if ! $WHICH $QMAKE_BIN >>$CONFIG_LOG 2>&1; then
@@ -121,7 +113,7 @@ fi
 if [ -z "$MAKE" ]; then
     MAKE=
     for mk in gmake make; do
-        if "$WHICH" $mk >>$CONFIG_LOG 2>&1; then
+        if "$WHICH" $mk | grep -qv "no "; then
             MAKE=`$WHICH $mk`
             break
         fi
@@ -133,15 +125,12 @@ if [ -z "$MAKE" ]; then
     fi
 fi
 
-
-
-
 configtest()
-	{
+{
 	echo -en "checking for $1\t" 
 	echo -e  " \n\n $1\n" >>$CONFIG_LOG
 	cd $TESTDIR/$1
-	$QMAKE_BIN  >>$CONFIG_LOG 2>&1
+	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG 2>&1
 	echo -n "."
 	$MAKE clean >>$CONFIG_LOG 2>&1
 	[ -f ./$1 ] && rm ./$1
@@ -154,9 +143,7 @@ configtest()
 	else
 		echo -e >&2 "  [${C_RED}failure${C_NONE}] "
 	fi
-	}
-
-
+}
 
 configtest qt4     QT
 configtest openssl OPENSSL
@@ -172,7 +159,7 @@ cd  $PROJECT_ROOT
 [ -f config.pri ] && mv config.pri config.pri.bak
 mv config.in config.pri
 
-$QMAKE_BIN -recursive 2>>$CONFIG_LOG
+$QMAKE_BIN $QMAKE_PARAMS -recursive 2>>$CONFIG_LOG
 
 
 echo -e >&2 "${C_CYAN}configure finished. run $MAKE now.${C_NONE}\n"

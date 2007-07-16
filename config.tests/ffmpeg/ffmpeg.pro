@@ -6,3 +6,4 @@ INCLUDEPATH += .
 SOURCES += main.cpp
 LIBS+=-lavcodec -lavformat
 QT=core
+CONFIG -= app_bundle

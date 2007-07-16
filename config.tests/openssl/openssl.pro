@@ -6,3 +6,4 @@ INCLUDEPATH += .
 SOURCES += main.cpp
 LIBS+=-lssl
 QT=core
+CONFIG -= app_bundle
