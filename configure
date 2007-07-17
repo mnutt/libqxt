@@ -4,9 +4,15 @@
 QMAKE_BIN=qmake
 WHICH=which
 
-QMAKE_PARAMS=""
+NO_OPENSSL=0
+NO_FFMPEG=0
+
 if uname -a | grep -iq Darwin; then
+    DEFAULT_LIBS="/Library/Frameworks"
     QMAKE_PARAMS="-spec macx-g++"
+else
+    DEFAULT_LIBS="PREFIX/lib"
+    QMAKE_PARAMS=""
 fi
 
 # the directory of this script (the root)
@@ -15,7 +21,7 @@ PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
 TESTDIR=$PROJECT_ROOT/config.tests
 CONFIG_LOG=$PROJECT_ROOT/config.log
 
-# Define some colors for neet output
+# Define some colors for neat output
 C_RED='\e[1;31m'
 C_BLUE='\e[1;34m'
 C_GREEN='\e[1;32m'
@@ -55,6 +61,7 @@ while (( $# > 0 )); do
         echo "QXT_stability -= unknown" >> config.in
     elif [ $1 == "-no-openssl" ]; then
         echo "QXT_LIBS -= openssl" >> config.in
+        NO_OPENSSL=1
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
@@ -64,13 +71,9 @@ while (( $# > 0 )); do
         echo "Installation options:"
         echo
         echo "-prefix <dir> ....... This will install everything relative to <dir>"
-        if uname -a | grep -iq Darwin; then
-            echo "                      default: /Library/Frameworks/"
-        else
-            echo "                      default: /usr/"
-        fi
+        echo "                      default: /usr/local/Qxt"
         echo "-libdir <dir> ....... Libraries will be installed to <dir>"
-        echo "                      default: PREFIX/lib"
+        echo "                      default: $DEFAULT_LIBS"
         echo "-docdir <dir> ....... Documentation will be installed to <dir>"
         echo "                      default: PREFIX/share/doc"
         echo "-bindir <dir> ....... Executables will be installed to <dir>"
@@ -85,7 +88,7 @@ while (( $# > 0 )); do
         echo "-no-stability-unknown Do not build untested classes"
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-nomake <module> .... Do not compile the specified module"
-        echo "                      options: kit network gui sql media curses web"
+        echo "                      options: network gui sql media web designer"
         echo "-bootstrap .......... That should not be needed for release versions."
         echo "                      warning: will only work on bash > 3.2"
 
@@ -146,10 +149,10 @@ configtest()
 }
 
 configtest qt4     QT
-configtest openssl OPENSSL
-configtest ffmpeg  FFMPEG
-#configtest sdl     SDL
-configtest curses  CURSES
+if [[ "$NO_OPENSSL" == "0" ]]; then
+    configtest openssl OPENSSL
+fi
+#configtest curses  CURSES
 
 
 #====finaly running qmake====
@@ -161,7 +164,4 @@ mv config.in config.pri
 
 $QMAKE_BIN $QMAKE_PARAMS -recursive 2>>$CONFIG_LOG
 
-
 echo -e >&2 "${C_CYAN}configure finished. run $MAKE now.${C_NONE}\n"
-
-

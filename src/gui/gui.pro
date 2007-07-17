@@ -1,15 +1,16 @@
-TARGET          =  QxtGui
-#DESTDIR         = .lib
+TARGET           = QxtGui
+DESTDIR          = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_GUI
 win32: CONFIG   += dll
 QT               = core gui
+QXT              = core
 INCLUDEPATH     += . 
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
-CONFIG += qxtbuild  convenience
+CONFIG          += qxt qxtbuild convenience
 
 HEADERS += QxtApplication.h QxtCheckComboBox.h QxtCheckComboBox_p.h QxtDesktopWidget.h QxtHeaderView.h  \
            QxtItemDelegate.h QxtLabel.h QxtProxyStyle.h QxtPushButton.h QxtSpanSlider.h QxtStringSpinBox.h  \
@@ -19,4 +20,6 @@ SOURCES += QxtApplication.cpp  QxtCheckComboBox.cpp QxtDesktopWidget.cpp \
            QxtSpanSlider.cpp QxtStringSpinBox.cpp QxtTabWidget.cpp QxtTreeWidget.cpp QxtTreeWidgetItem.cpp 
 
 unix:  SOURCES += QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp
+macx:  SOURCES -= QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp QxtApplication.cpp
+macx:  HEADERS -= QxtApplication.h
 win32: SOURCES += QxtDesktopWidget_win.cpp   QxtApplication_win.cpp

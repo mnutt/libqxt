@@ -20,7 +20,7 @@ released under the Terms of LGPL (see the LICENSE file)
 */
 
 
-#if defined BUILD_QXT
+#if defined BUILD_QXT | defined Q_MOC_RUN
 #include <QObject>
 
 class QXT_CORE_EXPORT Qxt  : public QObject
