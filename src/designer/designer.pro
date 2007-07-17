@@ -3,6 +3,7 @@ DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../gui
 win32: CONFIG   += dll
 QT               = core gui
+QXT              = core gui
 INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
