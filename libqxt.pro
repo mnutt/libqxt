@@ -41,7 +41,7 @@ contains( QXT_BUILD, core ){
 contains( QXT_BUILD, gui ){
     message( building gui module )
     SUBDIRS += src/gui
-    SUBDIRS += src/designer
+    contains( QXT_BUILD, designer ): SUBDIRS += src/designer
 }
 
 contains( QXT_BUILD, network ){
@@ -52,11 +52,6 @@ contains( QXT_BUILD, network ){
 contains( QXT_BUILD, sql ){
     message( building sql module )
     SUBDIRS += src/sql
-}
-
-contains( QXT_BUILD, media ){
-    message( building media module )
-    SUBDIRS += src/media
 }
 
 contains(DEFINES,HAVE_CURSES){

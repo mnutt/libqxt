@@ -1,19 +1,14 @@
 VERSION      = 0.2.4
-
-incs.path = $${include.path}/$$TARGET/
+incs.path    = $${include.path}/$$TARGET/
 
 contains(CONFIG,convenience){
-
-for(header,HEADERS){
-	incs.files+=$$header
-        }
+    for(header,HEADERS){
+        incs.files += $$header
+    }
 }
-incs.files+=../../deploy/include/$${TARGET}/*
+
+incs.files += ../../deploy/include/$${TARGET}/*
+QMAKE_LFLAGS += -L../../deploy/libs/
 
 INSTALLS = target incs
-
-
-
-
-
-
+include(../../deploy/qt/qxt.prf)

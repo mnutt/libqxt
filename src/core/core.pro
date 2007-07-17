@@ -1,5 +1,5 @@
-TARGET          =  QxtCore
-#DESTDIR         = .lib
+TARGET           = QxtCore
+DESTDIR          = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_CORE
