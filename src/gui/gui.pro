@@ -20,6 +20,6 @@ SOURCES += QxtApplication.cpp  QxtCheckComboBox.cpp QxtDesktopWidget.cpp \
            QxtSpanSlider.cpp QxtStringSpinBox.cpp QxtTabWidget.cpp QxtTreeWidget.cpp QxtTreeWidgetItem.cpp 
 
 unix:  SOURCES += QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp
-macx:  SOURCES -= QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp QxtApplication.cpp
-macx:  HEADERS -= QxtApplication.h
+macx:  SOURCES -= QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp
+macx:  SOURCES += QxtApplication_mac.cpp
 win32: SOURCES += QxtDesktopWidget_win.cpp   QxtApplication_win.cpp
