@@ -30,7 +30,7 @@
 #include <QPair>
 #include <QString>
 #include <QHostAddress>
-#include <QxtPimpl.h>
+#include <qxtpimpl.h>
 
 class QxtRPCPeerPrivate;
 /*!

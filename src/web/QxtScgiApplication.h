@@ -2,7 +2,7 @@
 #define QScgiApplication_HEADER_GIAURX_H
 
 #include <QCoreApplication>
-#include <QxtPimpl.h>
+#include <qxtpimpl.h>
 #include <QHostAddress>
 #include <QMetaType>
 #include <QMap>

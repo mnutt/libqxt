@@ -4,7 +4,7 @@
 #include <QAbstractSocket>
 #include <QString>
 #include <QByteArray>
-#include <QxtPimpl.h>
+#include <qxtpimpl.h>
 
 class QxtNamedPipePrivate;
 class QxtNamedPipe : public QAbstractSocket {
