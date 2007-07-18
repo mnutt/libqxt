@@ -8,7 +8,7 @@ contains(CONFIG,convenience){
 }
 
 incs.files += ../../deploy/include/$${TARGET}/*
-QMAKE_LFLAGS += -L../../deploy/libs/
+LIBS += -L../../deploy/libs/
 
 INSTALLS = target incs
 include(../../deploy/qt/qxt.prf)
