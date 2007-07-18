@@ -11,6 +11,7 @@ TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG          += qxt qxtbuild convenience
+win32:LIBS      += -luser32
 
 HEADERS += qxtapplication.h \
            qxtcheckcombobox.h \
