@@ -8,30 +8,41 @@ INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
-CONFIG      += designer plugin
-CONFIG += qxtbuild
+CONFIG          += designer plugin qxtbuild
 
 
 target.path = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS+=target
 
 
-HEADERS += QxtCheckComboBoxPlugin.h \
-           QxtDesignerPlugin.h \
-           QxtDesignerPlugins.h \
-           QxtLabelPlugin.h \
-           QxtPushButtonPlugin.h \
-           QxtSpanSliderPlugin.h \
-           QxtStringSpinBoxPlugin.h \
-           QxtTreeWidgetPlugin.h
-SOURCES += QxtCheckComboBoxPlugin.cpp \
-           QxtDesignerPlugin.cpp \
-           QxtDesignerPlugins.cpp \
-           QxtLabelPlugin.cpp \
-           QxtPushButtonPlugin.cpp \
-           QxtSpanSliderPlugin.cpp \
-           QxtStringSpinBoxPlugin.cpp \
-           QxtTreeWidgetPlugin.cpp
+HEADERS += qxtcheckcomboboxplugin.h \
+           qxtdesignerplugin.h \
+           qxtdesignerplugins.h \
+           qxtgroupboxplugin.h \
+           qxtlabelplugin.h \
+           qxtlistwidgetplugin.h \
+           qxtprogresslabelplugin.h \
+           qxtpushbuttonplugin.h \
+           qxtspansliderplugin.h \
+           qxtstarsplugin.h \
+           qxtstringspinboxplugin.h \
+           qxttablewidgetplugin.h \
+           qxttreewidgetplugin.h
+
+SOURCES += qxtcheckcomboboxplugin.cpp \
+           qxtdesignerplugin.cpp \
+           qxtdesignerplugins.cpp \
+           qxtgroupboxplugin.cpp \
+           qxtlabelplugin.cpp \
+           qxtlistwidgetplugin.cpp \
+           qxtprogresslabelplugin.cpp \
+           qxtpushbuttonplugin.cpp \
+           qxtspansliderplugin.cpp \
+           qxtstarsplugin.cpp \
+           qxtstringspinboxplugin.cpp \
+           qxttablewidgetplugin.cpp \
+           qxttreewidgetplugin.cpp
+
 RESOURCES += resources.qrc
 
 
