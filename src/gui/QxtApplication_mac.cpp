@@ -32,13 +32,13 @@ static quint32 hotKeySerial = 0;
 static bool qxt_mac_handler_installed = false;
 
 OSStatus qxt_mac_handle_hot_key(EventHandlerCallRef nextHandler, EventRef event, void* data) {
-    qDebug() << event;
+    // pass event to the app event filter
+    qApp->macEventFilter(nextHandler, event);
     return noErr;
 }
 
 bool QxtApplication::macEventFilter(EventHandlerCallRef caller, EventRef event)
 {
-    qDebug() << GetEventClass(event) << ":" << GetEventKind(event);
     if(GetEventClass(event) == kEventClassKeyboard && GetEventKind(event) == kEventHotKeyPressed) {
         EventHotKeyID keyID;
         GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(keyID), NULL, &keyID);
