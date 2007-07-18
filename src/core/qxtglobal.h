@@ -107,7 +107,7 @@
 #   		define QXT_CORE_EXPORT __declspec(dllimport)
 #	endif
 
-#	if defined(BUILD_QXT_GUI) || defined(QDESIGNER_EXPORT_WIDGETS)
+#	if defined(BUILD_QXT_GUI)
 #   		define QXT_GUI_EXPORT __declspec(dllexport)
 #	else
 #   		define QXT_GUI_EXPORT __declspec(dllimport)
