@@ -30,7 +30,7 @@
 #include <QString>
 #include <QStringList>
 #include <QModelIndex>
-#include <QxtPimpl.h>
+#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 /**
