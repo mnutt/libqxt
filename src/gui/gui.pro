@@ -6,7 +6,7 @@ DEFINES         += BUILD_QXT_GUI
 win32: CONFIG   += dll
 QT               = core gui
 QXT              = core
-INCLUDEPATH     += . 
+INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
@@ -41,9 +41,10 @@ HEADERS += qxtapplication.h \
            qxttabwidget.h \
            qxttooltip.h \
            qxttooltip_p.h \
-           QxtTreeWidget.h \
-           QxtTreeWidget_p.h \
-           QxtTreeWidgetItem.h
+           qxttreewidget.h \
+           qxttreewidget_p.h \
+           qxttreewidgetitem.h
+
 SOURCES += qxtapplication.cpp \
            qxtcheckcombobox.cpp \
            qxtconfigdialog.cpp \
