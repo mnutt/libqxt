@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,15 +13,7 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxttabwidget.h"
 #include <QContextMenuEvent>
 #include <QApplication>
@@ -65,25 +58,23 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 
     Example usage:
     \code
-	QxtTabWidget* tabWidget = new QxtTabWidget();
-	tabWidget->addTab(tab0, "1");
-	tabWidget->addTab(tab1, "2");
-	
-	QList<QAction*> actions0;
-	actions0 << new QAction("Quisque", tab0) << new QAction("Aenean", tab0);
-	QList<QAction*> actions1;
-	actions1 << new QAction("Phasellus", tab1) << new QAction("Maecenas", tab1);
-	
-	tabWidget->setTabContextMenuPolicy(Qt::ActionsContextMenu);
-	tabWidget->addTabActions(0, actions0);
-	tabWidget->addTabActions(1, actions1);
-	\endcode
+    QxtTabWidget* tabWidget = new QxtTabWidget();
+    tabWidget->addTab(tab0, "1");
+    tabWidget->addTab(tab1, "2");
 
-	\image html qxttabwidget.png "QxtTabWidget in WindowsXP style."
+    QList<QAction*> actions0;
+    actions0 << new QAction("Quisque", tab0) << new QAction("Aenean", tab0);
+    QList<QAction*> actions1;
+    actions1 << new QAction("Phasellus", tab1) << new QAction("Maecenas", tab1);
 
-    \note Tab specific close buttons and movable tabs are already on the way, so I 
-	won't bother with them for now as it would require a whole lot of rewriting anyway.
-    http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891
+    tabWidget->setTabContextMenuPolicy(Qt::ActionsContextMenu);
+    tabWidget->addTabActions(0, actions0);
+    tabWidget->addTabActions(1, actions1);
+    \endcode
+
+    \image html qxttabwidget.png "QxtTabWidget in WindowsXP style."
+
+    \note http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891
  */
 
 /*!
@@ -114,9 +105,9 @@ QxtTabWidget::~QxtTabWidget()
 
     The default value of this property is \b Qt::DefaultContextMenu,
     which means that the tabContextMenuEvent() handler is called. 
-	Other values are \b Qt::NoContextMenu, \b Qt::PreventContextMenu,
-    \b Qt::ActionsContextMenu, and \b Qt::CustomContextMenu. With
-    \b Qt::CustomContextMenu, the signal tabContextMenuRequested() is
+    Other values are \b Qt::NoContextMenu, \b Qt::PreventContextMenu
+    (since Qt 4.2), \b Qt::ActionsContextMenu, and \b Qt::CustomContextMenu.
+    With \b Qt::CustomContextMenu, the signal tabContextMenuRequested() is
     emitted.
 
     \sa tabContextMenuEvent(), tabContextMenuRequested(), tabActions()
@@ -143,6 +134,73 @@ void QxtTabWidget::addTabAction(int index, QAction* action)
 }
 
 /*!
+    This convenience function creates a new action with \a text. The function
+    adds the newly created action to the list of actions of the tab at
+    \a index, and returns it.
+
+    \sa addTabAction()
+ */
+QAction* QxtTabWidget::addTabAction(int index, const QString& text)
+{
+	return addTabAction(index, QIcon(), text, 0, 0);
+}
+
+/*!
+    This convenience function creates a new action with \a icon and \a text.
+    The function adds the newly created action to the list of actions of the
+    tab at \a index, and returns it.
+
+    \sa addTabAction()
+ */
+QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString& text)
+{
+	return addTabAction(index, icon, text, 0, 0);
+}
+
+/*!
+    This convenience function creates a new action with \a text and
+    an optional \a shortcut. The action's triggered() signal is 
+    connected to the \a receiver's \a member slot. The function adds
+    the newly created action to the list of actions of the tab at 
+    \a index, and returns it.
+
+    \note In order to make it possible for the shortcut to work even
+    when the context menu is not open, the action must be added to
+    a visible widget. The corresponding tab is a good alternative.
+
+    \code
+    QWidget* tab = createNewTab();
+    tabWidget->addTab(tab, title);
+    QAction* action = tabWidget->addTabAction(index, tr("Close"), this, SLOT(closeCurrentTab()), tr("Ctrl+W"));
+    tab->addAction(act);
+    \endcode
+
+    \sa addTabAction(), QWidget::addAction()
+ */
+QAction* QxtTabWidget::addTabAction(int index, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut)
+{
+	return addTabAction(index, QIcon(), text, receiver, member, shortcut);
+}
+
+/*!
+    This convenience function creates a new action with \a icon, \a text
+    and an optional \a shortcut. The action's triggered() signal is connected
+    to the \a receiver's \a member slot. The function adds the newly created
+    action to the list of actions of the tab at \a index, and returns it.
+
+    \sa addTabAction()
+ */
+QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut)
+{
+	QAction* action = new QAction(icon, text, this);
+	addTabAction(index, action);
+	if (receiver && member)
+		connect(action, SIGNAL(triggered()), receiver, member);
+	action->setShortcut(shortcut);
+	return action;
+}
+
+/*!
     Appends the \a actions to the list of actions of the
     tab at \a index.
 
@@ -159,6 +217,8 @@ void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
 /*!
     Clears the list of actions of the tab at \a index.
 
+    \note Only actions owned by the tab widget are deleted.
+
     \sa removeTabAction(), addTabAction()
  */
 void QxtTabWidget::clearTabActions(int index)
@@ -167,10 +227,10 @@ void QxtTabWidget::clearTabActions(int index)
 	
 	while (qxt_d().actions[index].count())
 	{
-		QAction* action = qxt_d().actions[index].takeLast();
-		QActionEvent e(QEvent::ActionRemoved, action);
-		QApplication::sendEvent(this, &e);
-		delete action;
+		QAction* action = qxt_d().actions[index].last();
+		removeTabAction(index, action);
+		if (action->parent() == this)
+			delete action;
 	}
 }
 
@@ -203,10 +263,6 @@ void QxtTabWidget::insertTabAction(int index, QAction* before, QAction* action)
 	}
 	qxt_d().actions[index].insert(pos, action);
 
-// TODO: ouch, i really didn't think of anything like this would come up! :)
-//	QActionPrivate *apriv = action->d_func();
-//	apriv->widgets.append(this);
-
 	QActionEvent e(QEvent::ActionAdded, action, before);
 	QApplication::sendEvent(this, &e);
 }
@@ -230,6 +286,8 @@ void QxtTabWidget::insertTabActions(int index, QAction* before, QList<QAction*> 
     Removes the action \a action from the list of actions of the
     tab at \a index.
 
+    \note The removed action is not deleted.
+
     \sa insertTabAction(), tabActions(), insertTabAction()
  */
 void QxtTabWidget::removeTabAction(int index, QAction* action)
@@ -241,10 +299,6 @@ void QxtTabWidget::removeTabAction(int index, QAction* action)
 		qWarning("QxtTabWidget::removeTabAction: Attempt to remove a null action");
 		return;
 	}
-
-// TODO: ouch, i really didn't think of anything like this would come up! :)
-//	QActionPrivate *apriv = action->d_func();
-//	apriv->widgets.removeAll(this);
 
 	if (qxt_d().actions[index].removeAll(action))
 	{
@@ -290,9 +344,11 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
 			event->ignore();
 			break;
 			
+#if QT_VERSION >= 0x040200
 		case Qt::PreventContextMenu:
 			event->accept();
 			break;
+#endif // QT_VERSION
 		
 		case Qt::ActionsContextMenu:
 			if (index != -1 && qxt_d().actions.at(index).count())

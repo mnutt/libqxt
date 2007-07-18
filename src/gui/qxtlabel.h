@@ -42,7 +42,7 @@ class QXT_GUI_EXPORT QxtLabel : public QFrame
 	
 public:
 	explicit QxtLabel(QWidget* parent = 0, Qt::WindowFlags flags = 0);
-	QxtLabel(const QString& text, QWidget* parent = 0, Qt::WindowFlags flags = 0);
+	explicit QxtLabel(const QString& text, QWidget* parent = 0, Qt::WindowFlags flags = 0);
 	virtual ~QxtLabel();
 	
 	QString text() const;

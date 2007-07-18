@@ -38,7 +38,7 @@ class QXT_GUI_EXPORT QxtStringSpinBox : public QSpinBox
 	
 public:
 	explicit QxtStringSpinBox(QWidget* pParent = 0);
-	~QxtStringSpinBox();
+	virtual ~QxtStringSpinBox();
 	
 	const QStringList& strings() const;
 	void setStrings(const QStringList& strings);

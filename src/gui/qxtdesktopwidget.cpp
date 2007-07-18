@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,31 +13,65 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxtdesktopwidget.h"
+#include <QStringList>
 
 /*!
     \class QxtDesktopWidget QxtDesktopWidget
     \ingroup gui
     \brief QxtDesktopWidget provides means for accessing native windows.
 
-    \todo Add notice about QWidget::create()?
+    \note QxtDesktopWidget is portable in principle, but be careful while
+    using it since you are probably about to do something non-portable.
+
+    <P>Advanced example usage:
+    \code
+    class NativeWindow : public QWidget {
+        public:
+            NativeWindow(WId wid) {
+                QWidget::create(wid, false, false); // window, initializeWindow, destroyOldWindow
+            }
+            ~NativeWindow() {
+                QWidget::destroy(false, false); // destroyWindow, destroySubWindows
+            }
+    };
+    \endcode
+
+    \code
+    WindowList windows = QxtDesktopWidget::windows();
+    QStringList titles = QxtDesktopWidget::windowTitles();
+    bool ok = false;
+    QString title = QInputDialog::getItem(0, "Choose Window", "Choose a window to be hid:", titles, 0, false, &ok);
+    if (ok)
+    {
+        int index = titles.indexOf(title);
+        if (index != -1)
+        {
+            NativeWindow window(windows.at(index));
+            window.hide();
+        }
+    }
+    \endcode
 
     \note Currently supported platforms are \b X11 and \b Windows.
  */
 
 /*!
+    \fn QxtDesktopWidget::windows()
+
+    Returns the list of native window system identifiers.
+
+    \note The windows are not necessarily QWidgets.
+
+    \sa QApplication::topLevelWidgets(), windowTitles()
+ */
+
+
+/*!
     \fn QxtDesktopWidget::activeWindow()
 
-    Returns a native window system identifier of the active window.
+    Returns the native window system identifier of the active window if any.
 
     Example usage:
     \code
@@ -45,7 +80,7 @@
     qDebug() << "Currently active window is:" << title;
     \endcode
 
-    \note The window is, of course, not necessarily a QWidget.
+    \note The window is not necessarily a QWidget.
 
     \sa QApplication::activeWindow()
  */
@@ -53,7 +88,7 @@
 /*!
     \fn QxtDesktopWidget::findWindow(const QString& title)
 
-    Returns a native window system identifier of the window with given \a title.
+    Returns the native window system identifier of the window if any with given \a title.
 
     Example usage:
     \code
@@ -61,7 +96,7 @@
     QPixmap screenshot = QPixmap::grabWindow(wid);
     \endcode
 
-    \note The window is, of course, not necessarily a QWidget.
+    \note The window is not necessarily a QWidget.
 
     \sa QWidget::find()
  */
@@ -69,15 +104,16 @@
 /*!
     \fn QxtDesktopWidget::windowAt(const QPoint& pos)
 
-    Returns a native window system identifier of the window if any at \a pos.
+    Returns the native window system identifier of the window if any at \a pos.
 
     Example usage:
     \code
-    WId wid = QxtDesktopWidget::findWindow("Mail - Kontact");
+    QPoint point = // a mouse press or something
+    WId wid = QxtDesktopWidget::windowAt(point);
     QPixmap screenshot = QPixmap::grabWindow(wid);
     \endcode
 
-    \note The window is, of course, not necessarily a QWidget.
+    \note The window is not necessarily a QWidget.
 
     \sa QApplication::widgetAt()
  */
@@ -94,7 +130,22 @@
     qDebug() << "Currently active window is:" << title;
     \endcode
 
-    \sa QWidget::windowTitle()
+    \sa QWidget::windowTitle(), windowTitles()
+ */
+
+/*!
+    \fn QxtDesktopWidget::windowTitles()
+
+    Returns a list of native window titles.
+
+    Example usage:
+    \code
+    qDebug() << "Windows:";
+    foreach (QString title, QxtDesktopWidget::windowTitles())
+       qDebug() << title;
+    \endcode
+
+    \sa QWidget::windowTitle(), windowTitle(), windows()
  */
 
 /*!
@@ -106,8 +157,17 @@
     \code
     WId wid = QxtDesktopWidget::activeWindow();
     QRect geometry = QxtDesktopWidget::windowGeometry(wid);
-    qDebug() << "Geometry of the window is:" << geometry;
+    qDebug() << "Geometry of the active window is:" << geometry;
     \endcode
 
     \sa QWidget::frameGeometry()
  */
+
+QStringList QxtDesktopWidget::windowTitles()
+{
+	WindowList windows = QxtDesktopWidget::windows();
+	QStringList titles;
+	foreach (WId window, windows)
+		titles += QxtDesktopWidget::windowTitle(window);
+	return titles;
+}

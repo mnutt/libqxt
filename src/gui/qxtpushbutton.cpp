@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,16 +13,9 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxtpushbutton.h"
+#include <QAbstractTextDocumentLayout>
 #include <QStyleOptionButton>
 #include <QTextDocument>
 #include <QStylePainter>
@@ -41,18 +35,28 @@ public:
 	
 	QString text;
 	Qxt::Rotation rot;
-	QTextDocument* doc;
 	Qt::TextFormat format;
+	mutable QTextDocument* doc;
 };
 
 QxtPushButtonPrivate::QxtPushButtonPrivate() :
-	rot(Qxt::NoRotation), doc(0), format(Qt::PlainText)
+	rot(Qxt::NoRotation), format(Qt::PlainText), doc(0)
 {
 }
 
 bool QxtPushButtonPrivate::isRichText() const
 {
-	return (format == Qt::RichText) || (format == Qt::AutoText && Qt::mightBeRichText(qxt_p().text()));
+#if QT_VERSION >= 0x040200
+	bool rich = (format == Qt::RichText) || (format == Qt::AutoText && Qt::mightBeRichText(qxt_p().text()));
+	if (rich && !doc)
+	{
+		doc = new QTextDocument(const_cast<QxtPushButton*>(&qxt_p()));
+		doc->setUndoRedoEnabled(false);
+	}
+#else // QT_VERSION < 0x040200
+	bool rich = false;
+#endif // QT_VERSION
+	return rich;
 }
 
 QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
@@ -81,21 +85,23 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 	if (!qxt_p().isFlat() && !qxt_p().isDown())
 		option.state |= QStyle::State_Raised;
 	if (!isRichText())
+	{
 		option.text = qxt_p().text();
-	option.icon = qxt_p().icon();
-	option.iconSize = qxt_p().iconSize();
+		option.icon = qxt_p().icon();
+		option.iconSize = qxt_p().iconSize();
+	}
 	return option;
 }
 
 /*!
     \class QxtPushButton QxtPushButton
     \ingroup gui
-    \brief A QPushButton with rotation and rich text support.
+    \brief An extended QPushButton with rotation and rich text support.
 
     QxtPushButton is a QPushButton which can be rotated. In addition, QxtPushButton
     provides rich text support.
 
-    \image html qxtpushbutton.png "QxtPushButton in Plastique style."
+    \image html qxtpushbutton.png "QxtPushButton in action."
  */
 
 /*!
@@ -116,6 +122,8 @@ QxtPushButton::QxtPushButton(const QString& text, QWidget* parent) : QPushButton
 
 /*!
     Constructs a new QxtPushButton with \a icon, \a text and \a parent.
+
+    \note An icon is not rendered when using rich text.
  */
 QxtPushButton::QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent) : QPushButton(icon, text, parent)
 {
@@ -182,10 +190,14 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
     \property QxtPushButton::textFormat
     \brief This property holds the text format of the button
 
-    Supported formats are \b Qt::PlainText and \b Qt::RichText.
+    Supported formats are \b Qt::PlainText, \b Qt::RichText and \b Qt::AutoText.
 
     The default format is \b Qt::PlainText.
-*/
+
+    \note Rich text requires Qt 4.2 or newer.
+
+    \sa Qt::TextFormat
+ */
 Qt::TextFormat QxtPushButton::textFormat() const
 {
 	return qxt_d().format;
@@ -196,12 +208,7 @@ void QxtPushButton::setTextFormat(Qt::TextFormat format)
 	if (qxt_d().format != format)
 	{
 		qxt_d().format = format;
-		if (qxt_d().isRichText())
-		{
-			qxt_d().doc = new QTextDocument(this);
-			qxt_d().doc->setUndoRedoEnabled(false);
-		}
-		else
+		if (!qxt_d().isRichText())
 		{
 			delete qxt_d().doc;
 			qxt_d().doc = 0;
@@ -216,7 +223,7 @@ QSize QxtPushButton::sizeHint() const
 {
 	QSize size;
 	if (qxt_d().isRichText())
-		size = qxt_d().doc->size().toSize();
+		size = qxt_d().doc->documentLayout()->documentSize().toSize();
 	else
 		size = QPushButton::sizeHint();
 	
@@ -229,7 +236,7 @@ QSize QxtPushButton::minimumSizeHint() const
 {
 	QSize size;
 	if (qxt_d().isRichText())
-		size = qxt_d().doc->size().toSize();
+		size = qxt_d().doc->documentLayout()->documentSize().toSize();
 	else
 		size = QPushButton::minimumSizeHint();
 	
@@ -248,6 +255,7 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 		qxt_d().text = text();
 		if (qxt_d().isRichText())
 			qxt_d().doc->setHtml(qxt_d().text);
+		updateGeometry();
 	}
 	
 	QStylePainter painter(this);
@@ -273,17 +281,37 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
 	
 	const QStyleOptionButton option = qxt_d().getStyleOption();
 	painter.drawControl(QStyle::CE_PushButton, option);
+	
+#if QT_VERSION >= 0x040200
 	if (qxt_d().isRichText())
 	{
-		// TODO: take rotation into account
-		int dx = static_cast<int>((width() - qxt_d().doc->size().width()) / 2);
-		int dy = static_cast<int>((height() - qxt_d().doc->size().height()) / 2);
+		int dx = 0;
+		int dy = 0;
 		if (option.state & (QStyle::State_On | QStyle::State_Sunken))
 		{
 			dx += style()->pixelMetric(QStyle::PM_ButtonShiftHorizontal, &option, this);
 			dy += style()->pixelMetric(QStyle::PM_ButtonShiftVertical, &option, this);
 		}
-		painter.translate(dx, dy);
-		qxt_d().doc->drawContents(&painter, contentsRect());
+		
+		QRect area = rect();
+		const QSizeF docSize = qxt_d().doc->documentLayout()->documentSize();
+		if (qxt_d().rot & Vertical_Mask)
+		{
+			dx += static_cast<int>((height() - docSize.width())  / 2);
+			dy += static_cast<int>((width()  - docSize.height()) / 2);
+			painter.translate(dx, dy);
+			
+			QSize size = area.size();
+			size.transpose();
+			area.setSize(size);
+		}
+		else
+		{
+			dx += static_cast<int>((width()  - docSize.width())  / 2);
+			dy += static_cast<int>((height() - docSize.height()) / 2);
+			painter.translate(dx, dy);
+		}
+		qxt_d().doc->drawContents(&painter, area);
 	}
+#endif // QT_VERSION
 }

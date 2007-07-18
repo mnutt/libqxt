@@ -41,7 +41,6 @@ class QXT_GUI_EXPORT QxtApplication : public QApplication
 {
 public:
 	QxtApplication(int& argc, char** argv);
-#ifndef QXT_DOXYGEN_RUN
 	QxtApplication(int& argc, char** argv, bool GUIenabled);
 	QxtApplication(int& argc, char** argv, Type type);
 #if defined(Q_WS_X11)
@@ -50,6 +49,7 @@ public:
 #endif // Q_WS_X11
 	virtual ~QxtApplication();
 		
+#ifndef QXT_DOXYGEN_RUN
 #if defined(Q_WS_X11)
 	virtual bool x11EventFilter(XEvent* event);
 #elif defined(Q_WS_WIN)

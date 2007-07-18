@@ -40,9 +40,9 @@ class QXT_GUI_EXPORT QxtPushButton : public QPushButton
 	
 public:
 	explicit QxtPushButton(QWidget* parent = 0);
-	QxtPushButton(const QString& text, QWidget* parent = 0);
-	QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent = 0);
-	QxtPushButton(Qxt::Rotation rotation, const QString& text, QWidget* parent = 0);
+	explicit QxtPushButton(const QString& text, QWidget* parent = 0);
+	explicit QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent = 0);
+	explicit QxtPushButton(Qxt::Rotation rotation, const QString& text, QWidget* parent = 0);
 	virtual ~QxtPushButton();
 	
 	Qxt::Rotation rotation() const;

@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,19 +13,28 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxtdesktopwidget.h"
 #include <qt_windows.h>
 
-static const int BUFLEN = 256;
+static WindowList qxt_Windows;
+
+BOOL CALLBACK qxt_EnumWindowsProc(HWND hwnd, LPARAM lParam)
+{
+	Q_UNUSED(lParam);
+	if (::IsWindowVisible(hwnd))
+		qxt_Windows += hwnd;
+	return TRUE;
+}
+
+WindowList QxtDesktopWidget::windows()
+{
+	qxt_Windows.clear();
+	HDESK hdesk = ::OpenInputDesktop(0, FALSE, DESKTOP_READOBJECTS);
+	::EnumDesktopWindows(hdesk, qxt_EnumWindowsProc, 0);
+	::CloseDesktop(hdesk);
+	return qxt_Windows;
+}
 
 WId QxtDesktopWidget::activeWindow()
 {
@@ -33,17 +43,12 @@ WId QxtDesktopWidget::activeWindow()
 
 WId QxtDesktopWidget::findWindow(const QString& title)
 {
-	WId window;
-	wchar_t* str = new wchar_t[title.length()];
-	if (title.toWCharArray(str))
-		window = ::FindWindow(NULL, str);
-	delete[] str;
-	return window;
+	std::wstring str = title.toStdWString();
+	return ::FindWindow(NULL, str.c_str());
 }
 
 WId QxtDesktopWidget::windowAt(const QPoint& pos)
 {
-	// TODO: fix me
 	POINT pt;
 	pt.x = pos.x();
 	pt.y = pos.y();
@@ -52,11 +57,15 @@ WId QxtDesktopWidget::windowAt(const QPoint& pos)
 
 QString QxtDesktopWidget::windowTitle(WId window)
 {
-	wchar_t str[BUFLEN];
 	QString title;
-	int len = ::GetWindowText(window, str, BUFLEN);
-	if (len > 0)
-		title = QString::fromWCharArray(str, len);
+	int len = ::GetWindowTextLength(window);
+	if (len >= 0)
+	{
+		wchar_t* buf = new wchar_t[len+1];
+		len = ::GetWindowText(window, buf, len+1);
+		title = QString::fromStdWString(std::wstring(buf, len));
+		delete[] buf;
+	}
 	return title;
 }
 

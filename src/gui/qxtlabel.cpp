@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,21 +13,16 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxtlabel.h"
 #include <QTime>
 #include <QEvent>
 #include <QPainter>
 #include <QFontMetrics>
 #include <QApplication>
+#if QT_VERSION < 0x040200
+#include <QAbstractItemDelegate>
+#endif // QT_VERSION
 
 static const int Vertical_Mask = 0x02;
 
@@ -62,20 +58,24 @@ void QxtLabelPrivate::updateLabel()
 /*!
     \class QxtLabel QxtLabel
     \ingroup gui
-    \brief A simplified label which is able to show elided and rotated text.
+    \brief A label which is able to show elided and rotated plain text.
 
-    QxtLabel is a simple label widget able to show elided and rotated plain text.
+    QxtLabel is a label which is able to show elided and rotated plain text.
     In addition, QxtLabel provides a signal for clicking.
 
     \image html qxtlabel.png "QxtLabel in action."
-
-    \note Requires Qt 4.2 or newer.
  */
 
 /*!
     \fn QxtLabel::clicked()
 
     This signal is emitted whenever the label has been clicked.
+
+    \note A combination of mouse button press and release in shorter
+    time than \b QApplication::doubleClickInterval is considered
+    as a click.
+
+    \sa QApplication::doubleClickInterval
  */
 
 /*!
@@ -129,7 +129,7 @@ void QxtLabel::setText(const QString& text)
     The text is aligned according to this property.
     The default value is \b Qt::AlignCenter.
 
-    \sa text
+    \sa text, Qt::Alignment
  */
 Qt::Alignment QxtLabel::alignment() const
 {
@@ -152,7 +152,7 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
     The text is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
-    \sa text
+    \sa text, Qt::TextElideMode
  */
 Qt::TextElideMode QxtLabel::elideMode() const
 {
@@ -226,8 +226,10 @@ QSize QxtLabel::minimumSizeHint() const
 {
 	switch (qxt_d().mode)
 	{
+#if QT_VERSION >= 0x040200
 		case Qt::ElideNone:
 			return sizeHint();
+#endif // QT_VERSION
 		default:
 		{
 			const QFontMetrics& fm = fontMetrics();
@@ -271,7 +273,11 @@ void QxtLabel::paintEvent(QPaintEvent* event)
 		r = QRect(r.topLeft(), s);
 	}
 	
+#if QT_VERSION < 0x040200
+	const QString elidedText = QAbstractItemDelegate::elidedText(fontMetrics(), r.width(), qxt_d().mode, qxt_d().text);
+#else // QT_VERSION >= 0x040200
 	const QString elidedText = fontMetrics().elidedText(qxt_d().text, qxt_d().mode, r.width());
+#endif // QT_VERSION
 	p.drawText(r, qxt_d().align, elidedText);
 }
 
