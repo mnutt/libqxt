@@ -12,14 +12,62 @@ MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG          += qxt qxtbuild convenience
 
-HEADERS += QxtApplication.h QxtCheckComboBox.h QxtCheckComboBox_p.h QxtDesktopWidget.h QxtHeaderView.h  \
-           QxtItemDelegate.h QxtLabel.h QxtProxyStyle.h QxtPushButton.h QxtSpanSlider.h QxtStringSpinBox.h  \
-           QxtTabWidget.h QxtTreeWidget.h QxtTreeWidget_p.h QxtTreeWidgetItem.h
-SOURCES += QxtApplication.cpp  QxtCheckComboBox.cpp QxtDesktopWidget.cpp \
-           QxtHeaderView.cpp  QxtItemDelegate.cpp QxtLabel.cpp QxtProxyStyle.cpp QxtPushButton.cpp  \
-           QxtSpanSlider.cpp QxtStringSpinBox.cpp QxtTabWidget.cpp QxtTreeWidget.cpp QxtTreeWidgetItem.cpp 
+HEADERS += qxtapplication.h \
+           qxtcheckcombobox.h \
+           qxtcheckcombobox_p.h \
+           qxtconfigdialog.h \
+           qxtconfigdialog_p.h \
+           qxtconfirmationmessage.h \
+           qxtdesktopwidget.h \
+           qxtdockwidget.h \
+           qxtgroupbox.h \
+           qxtheaderview.h \
+           qxtitemdelegate.h \
+           qxtlabel.h \
+           qxtlistwidget.h \
+           qxtlistwidget_p.h \
+           qxtlistwidgetitem.h \
+           qxtprogresslabel.h \
+           qxtproxystyle.h \
+           qxtpushbutton.h \
+           qxtspanslider.h \
+           qxtstars.h \
+           qxtstringspinbox.h \
+           qxttablewidget.h \
+           qxttablewidget_p.h \
+           qxttablewidgetitem.h \
+           qxttabwidget.h \
+           qxttooltip.h \
+           qxttooltip_p.h \
+           QxtTreeWidget.h \
+           QxtTreeWidget_p.h \
+           QxtTreeWidgetItem.h
+SOURCES += qxtapplication.cpp \
+           qxtcheckcombobox.cpp \
+           qxtconfigdialog.cpp \
+           qxtconfirmationmessage.cpp \
+           qxtdesktopwidget.cpp \
+           qxtdockwidget.cpp \
+           qxtgroupbox.cpp \
+           qxtheaderview.cpp \
+           qxtitemdelegate.cpp \
+           qxtlabel.cpp \
+           qxtlistwidget.cpp \
+           qxtlistwidgetitem.cpp \
+           qxtprogresslabel.cpp \
+           qxtproxystyle.cpp \
+           qxtpushbutton.cpp \
+           qxtspanslider.cpp \
+           qxtstars.cpp \
+           qxtstringspinbox.cpp \
+           qxttablewidget.cpp \
+           qxttablewidgetitem.cpp \
+           qxttabwidget.cpp \
+           qxttooltip.cpp \
+           qxttreewidget.cpp \
+           qxttreewidgetItem.cpp
 
-unix:  SOURCES += QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp
-macx:  SOURCES -= QxtDesktopWidget_x11.cpp   QxtApplication_x11.cpp
-macx:  SOURCES += QxtApplication_mac.cpp
-win32: SOURCES += QxtDesktopWidget_win.cpp   QxtApplication_win.cpp
+unix:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
+macx:  SOURCES -= qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
+macx:  SOURCES += qxtapplication_mac.cpp
+win32: SOURCES += qxtdesktopwidget_win.cpp   qxtapplication_win.cpp
