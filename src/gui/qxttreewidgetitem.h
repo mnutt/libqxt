@@ -32,19 +32,22 @@ class QXT_GUI_EXPORT QxtTreeWidgetItem : public QTreeWidgetItem
 {
 public:
 	explicit QxtTreeWidgetItem(int type = Type);
-	QxtTreeWidgetItem(const QStringList& strings, int type = Type);
-	QxtTreeWidgetItem(QTreeWidget* parent, int type = Type);
-	QxtTreeWidgetItem(QTreeWidget* parent, const QStringList& strings, int type = Type);
-	QxtTreeWidgetItem(QTreeWidget* parent, QTreeWidgetItem* preceding, int type = Type);
-	QxtTreeWidgetItem(QTreeWidgetItem* parent, int type = Type);
-	QxtTreeWidgetItem(QTreeWidgetItem* parent, const QStringList& strings, int type = Type);
-	QxtTreeWidgetItem(QTreeWidgetItem* parent, QTreeWidgetItem* preceding, int type = Type);
-	QxtTreeWidgetItem(const QxtTreeWidgetItem& other);
+	explicit QxtTreeWidgetItem(const QStringList& strings, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidget* parent, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidget* parent, const QStringList& strings, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidget* parent, QTreeWidgetItem* preceding, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidgetItem* parent, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidgetItem* parent, const QStringList& strings, int type = Type);
+	explicit QxtTreeWidgetItem(QTreeWidgetItem* parent, QTreeWidgetItem* preceding, int type = Type);
+	explicit QxtTreeWidgetItem(const QxtTreeWidgetItem& other);
 	virtual ~QxtTreeWidgetItem();
+	
+	bool testFlag(Qt::ItemFlag flag) const;
+	void setFlag(Qt::ItemFlag flag, bool enabled = true);
 	
 #ifndef QXT_DOXYGEN_RUN
 	virtual void setData(int column, int role, const QVariant& value);
 #endif // QXT_DOXYGEN_RUN
 };
 
-#endif // QXTTREEWIDGET_H
+#endif // QXTTREEWIDGETITEM_H

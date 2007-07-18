@@ -45,6 +45,10 @@ public:
 	void setTabContextMenuPolicy(Qt::ContextMenuPolicy policy);
 	
 	void addTabAction(int index, QAction* action);
+	QAction* addTabAction(int index, const QString& text);
+	QAction* addTabAction(int index, const QIcon& icon, const QString& text);
+	QAction* addTabAction(int index, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut = 0);
+	QAction* addTabAction(int index, const QIcon& icon, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut = 0);
 	void addTabActions(int index, QList<QAction*> actions);
 	void clearTabActions(int index);
 	void insertTabAction(int index, QAction* before, QAction* action);

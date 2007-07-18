@@ -124,7 +124,7 @@ bool QxtCheckComboView::handleIndicatorRelease(QMouseEvent* event, const QModelI
 
 bool QxtCheckComboView::handleItemRelease(QMouseEvent* event, const QModelIndex& index)
 {
-	// check if the mouse was released over the checkbox
+	// check if the mouse was released outside the checkbox
 	QStyleOptionButton option;
 	option.QStyleOption::operator=(viewOptions());
 	option.rect = visualRect(index);
@@ -204,10 +204,10 @@ bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, Q
 /*!
     \class QxtCheckComboBox QxtCheckComboBox
     \ingroup gui
-    \brief A combo box with checkable items.
+    \brief An extended QComboBox with checkable items.
 
     QxtComboBox is a specialized combo box with checkable items.
-    All the checked items are collected together on the line edit.
+    Checked items are collected together in the line edit.
 
     \image html qxtcheckcombobox.png "QxtCheckComboBox in Plastique style."
  */
@@ -217,8 +217,19 @@ bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, Q
 
     This enum describes the check mode.
 
-    \value CheckIndicator    The check state changes only via the check indicator (like in item views).
-    \value CheckWholeItem    The check state changes via the whole item (like with a combo box).
+    \sa QxtCheckComboBox::checkMode
+ */
+
+/*!
+    \var QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckIndicator
+
+    The check state changes only via the check indicator (like in item views).
+ */
+
+/*!
+    \var QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckWholeItem
+
+    The check state changes via the whole item (like with a combo box).
  */
 
 /*!
@@ -241,7 +252,7 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
 	
 	// these 2 lines below are important and must be
 	// applied AFTER QComboBox::setView() because
-	// QComboBox installs it's own filter on the view
+	// QComboBox installs its own filter on the view
 	view->installEventFilter(view);			// <--- !!!
 	view->viewport()->installEventFilter(view);	// <--- !!!
 	
@@ -301,7 +312,7 @@ void QxtCheckComboBox::setCheckedItems(const QStringList& items)
     \property QxtCheckComboBox::defaultText
     \brief This property holds the default text.
 
-    The default text is shown when there is no checked items.
+    The default text is shown when there are no checked items.
     The default value is an empty string.
  */
 QString QxtCheckComboBox::defaultText() const
@@ -320,7 +331,7 @@ void QxtCheckComboBox::setDefaultText(const QString& text)
 
 /*!
     \property QxtCheckComboBox::separator
-    \brief This property holds the default text.
+    \brief This property holds the default separator.
 
     The checked items are joined together with the separator string.
     The default value is a comma (",").
@@ -345,6 +356,8 @@ void QxtCheckComboBox::setSeparator(const QString& separator)
 
     The check mode describes item checking behaviour.
     The default value is \b QxtCheckComboBox::CheckIndicator.
+
+    \sa QxtCheckComboBox::CheckMode
  */
 QxtCheckComboBox::CheckMode QxtCheckComboBox::checkMode() const
 {

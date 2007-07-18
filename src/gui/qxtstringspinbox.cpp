@@ -88,6 +88,8 @@ void QxtStringSpinBox::setStrings(const QStringList& strings)
 {
 	qxt_d().strings = strings;
 	setRange(0, strings.size() - 1);
+	if (!strings.isEmpty())
+		setValue(0);
 }
 
 void QxtStringSpinBox::fixup(QString& input) const

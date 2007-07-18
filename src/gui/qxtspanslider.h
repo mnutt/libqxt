@@ -35,29 +35,30 @@ class QXT_GUI_EXPORT QxtSpanSlider : public QSlider
 {
 	Q_OBJECT
 	QXT_DECLARE_PRIVATE(QxtSpanSlider);
-	Q_PROPERTY(int lower READ lower WRITE setLower)
-	Q_PROPERTY(int upper READ upper WRITE setUpper)
-	
+	Q_PROPERTY(int lowerValue READ lowerValue WRITE setLowerValue)
+	Q_PROPERTY(int upperValue READ upperValue WRITE setUpperValue)
+
 public:
 	explicit QxtSpanSlider(QWidget* parent = 0);
-	QxtSpanSlider(Qt::Orientation orientation, QWidget* parent = 0);
+	explicit QxtSpanSlider(Qt::Orientation orientation, QWidget* parent = 0);
 	virtual ~QxtSpanSlider();
-	
-	int lower() const;
-	int upper() const;
-	
+
+	int lowerValue() const;
+	int upperValue() const;
+
 public slots:
-	void setLower(int lower);
-	void setUpper(int upper);
+	void setLowerValue(int lower);
+	void setUpperValue(int upper);
 	void setSpan(int lower, int upper);
-	
+
 signals:
 	void spanChanged(int lower, int upper);
-	void lowerChanged(int lower);
-	void upperChanged(int upper);
-	
+	void lowerValueChanged(int lower);
+	void upperValueChanged(int upper);
+
 #ifndef QXT_DOXYGEN_RUN
 protected:
+	virtual void keyPressEvent(QKeyEvent* event);
 	virtual void mousePressEvent(QMouseEvent* event);
 	virtual void mouseMoveEvent(QMouseEvent* event);
 	virtual void mouseReleaseEvent(QMouseEvent* event);

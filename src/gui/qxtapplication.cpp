@@ -27,10 +27,12 @@
 /*!
     \class QxtApplication QxtApplication
     \ingroup gui
-    \brief An application with support for hotkeys aka "global shortcuts".
+    \brief An extended QApplication with support for hotkeys aka "global shortcuts".
 
-    QxtApplication introduces hotkeys which trigger
-    even if the application is not active.
+    QxtApplication introduces hotkeys which trigger even if the application is not
+    active. This makes it easy to implement applications that react to certain
+    shortcuts still if some other application is active or if the application is
+    for example minimized to the system tray.
 
     \note Currently supported platforms are \b X11 and \b Windows.
  */
@@ -38,13 +40,11 @@
 /*!
     \fn QxtApplication::instance()
 
-    Returns a pointer to the instance of the application.
+    Returns a pointer to the instance of the application object.
+
+    A convenience macro \b qxtApp is also available.
  */
 
-/*!
-    Constructs a new QxtApplication. All other variations
-    of QApplication constructors are supported too.
- */
 QxtApplication::QxtApplication(int& argc, char** argv)
 	: QApplication(argc, argv)
 {

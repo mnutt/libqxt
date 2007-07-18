@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,28 +13,19 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxttreewidgetitem.h"
 #include "qxttreewidget.h"
 
 /*!
     \class QxtTreeWidgetItem QxtTreeWidgetItem
     \ingroup gui
-    \brief An extended tree widget item.
+    \brief An extended QTreeWidgetItem.
 
-    QxtTreeWidgetItem provides means for offering check state change signals.
+    QxtTreeWidgetItem provides means for offering check state change signals and
+    convenience methods for testing and setting flags.
 
     \sa QxtTreeWidget
-
-    \note Requires Qt 4.2 or newer.
  */
 
 
@@ -84,6 +76,29 @@ QxtTreeWidgetItem::QxtTreeWidgetItem(const QxtTreeWidgetItem& other)
 
 QxtTreeWidgetItem::~QxtTreeWidgetItem()
 {
+}
+
+/*!
+    Returns \b true if the \a flag is set, otherwise \b false.
+
+    \sa setFlag(), QTreeWidgetItem::flags(), Qt::ItemFlag
+ */
+bool QxtTreeWidgetItem::testFlag(Qt::ItemFlag flag) const
+{
+	return (flags() & flag);
+}
+
+/*!
+    If \a enabled is \b true, the item \a flag is enabled; otherwise, it is disabled.
+
+    \sa testFlag(), QTreeWidgetItem::setFlags(), Qt::ItemFlag
+ */
+void QxtTreeWidgetItem::setFlag(Qt::ItemFlag flag, bool enabled)
+{
+	if (enabled)
+		setFlags(flags() | flag);
+	else
+		setFlags(flags() & ~flag);
 }
 
 void QxtTreeWidgetItem::setData(int column, int role, const QVariant& value)

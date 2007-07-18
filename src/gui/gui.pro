@@ -23,6 +23,7 @@ HEADERS += qxtapplication.h \
            qxtgroupbox.h \
            qxtheaderview.h \
            qxtitemdelegate.h \
+           qxtitemdelegate_p.h \
            qxtlabel.h \
            qxtlistwidget.h \
            qxtlistwidget_p.h \
@@ -31,6 +32,7 @@ HEADERS += qxtapplication.h \
            qxtproxystyle.h \
            qxtpushbutton.h \
            qxtspanslider.h \
+           qxtspanslider_p.h \
            qxtstars.h \
            qxtstringspinbox.h \
            qxttablewidget.h \

@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,22 +13,15 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxttreewidget.h"
 #include "qxtitemdelegate.h"
 #include "qxttreewidget_p.h"
 #include <QHeaderView>
 
-QxtTreeWidgetPrivate::QxtTreeWidgetPrivate() : branches(true)
+QxtTreeWidgetPrivate::QxtTreeWidgetPrivate()
 {
+	
 }
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
@@ -60,20 +54,18 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 /*!
     \class QxtTreeWidget QxtTreeWidget
     \ingroup gui
-    \brief An extended tree widget.
+    \brief An extended QTreeWidget with additional signals.
 
     QxtTreeWidget offers an optional top level item decoration
-    and most commonly requested signals.
+    and a few most commonly requested signals.
 
     \image html qxttreewidget.png "QxtTreeWidget with Qxt::Menulike and Qxt::Buttonlike decoration styles, respectively."
-
-    \note Requires Qt 4.2 or newer.
  */
 
 /*!
     \fn QxtTreeWidget::itemEditingStarted(QTreeWidgetItem* item)
 
-    This signal is emitted immediately after the editing of \a item has been started.
+    This signal is emitted after the editing of \a item has been started.
 
     \sa itemEditingFinished()
  */
@@ -81,7 +73,7 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 /*!
     \fn QxtTreeWidget::itemEditingFinished(QTreeWidgetItem* item)
 
-    This signal is emitted immediately after the editing of \a item has been finished.
+    This signal is emitted after the editing of \a item has been finished.
 
     \sa itemEditingStarted()
  */
@@ -91,9 +83,9 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 
     This signal is emitted whenever the check state of \a item has changed.
 
-    \note Use QxtTreeWidgetItems in order to enable this feature.
+    \note Use QxtTreeWidgetItem in order to enable this feature.
 
-    \sa QxtTreeWidgetItem
+    \sa QxtTreeWidgetItem, QTreeWidgetItem::checkState()
  */
 
 /*!
@@ -102,9 +94,14 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 QxtTreeWidget::QxtTreeWidget(QWidget* parent) : QTreeWidget(parent)
 {
 	QXT_INIT_PRIVATE(QxtTreeWidget);
-	setItemDelegate(new QxtItemDelegate(this));
+	QxtItemDelegate* delegate = new QxtItemDelegate(this);
+	connect(delegate, SIGNAL(editingStarted(const QModelIndex&)),
+		&qxt_d(), SLOT(informStartEditing(const QModelIndex&)));
+	connect(delegate, SIGNAL(editingFinished(const QModelIndex&)),
+		&qxt_d(), SLOT(informFinishEditing(const QModelIndex&)));
 	connect(this, SIGNAL(itemPressed(QTreeWidgetItem*, int)),
 		&qxt_d(), SLOT(expandCollapse(QTreeWidgetItem*)));
+	setItemDelegate(delegate);
 }
 
 /*!
@@ -115,22 +112,6 @@ QxtTreeWidget::~QxtTreeWidget()
 }
 
 /*!
-    \property QxtTreeWidget::branchesDrawn
-    \brief This property holds whether the branches of the tree are drawn
-
-    The default value is \b true.
- */
-bool QxtTreeWidget::branchesDrawn() const
-{
-	return qxt_d().branches;
-}
-
-void QxtTreeWidget::setBranchesDrawn(bool draw)
-{
-	qxt_d().branches = draw;
-}
-
-/*!
     \property QxtTreeWidget::decorationStyle
     \brief This property holds the top level item decoration style
 
@@ -138,10 +119,10 @@ void QxtTreeWidget::setBranchesDrawn(bool draw)
     The default value is \b Qxt::NoDecoration.
 
     \note Setting the property to anything else than \b Qxt::NoDecoration
-    disables root decoration, sets the column count to \b 1 and
-    hides the header.
+    hides the header and sets \b QTreeView::rootIsDecorated to \b false
+    (to avoid multiple branch indicators).
 
-    \sa Qxt::DecorationStyle QxtItemDelegate
+    \sa Qxt::DecorationStyle QTreeView::rootIsDecorated
  */
 Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
 {
@@ -157,7 +138,6 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 		if (style != Qxt::NoDecoration)
 		{
 			setRootIsDecorated(false);
-			setColumnCount(1);
 			header()->hide();
 		}
 		reset();
@@ -173,7 +153,7 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 
     \note The property has effect only for decorated top level items.
 
-    \sa decorationStyle
+    \sa decorationStyle, Qt::TextElideMode
  */
 Qt::TextElideMode QxtTreeWidget::elideMode() const
 {
@@ -186,16 +166,5 @@ void QxtTreeWidget::setElideMode(Qt::TextElideMode mode)
 	{
 		qxt_d().delegate()->setElideMode(mode);
 		reset();
-	}
-}
-
-/*!
-    \internal
- */
-void QxtTreeWidget::drawBranches(QPainter* painter, const QRect& rect, const QModelIndex& index) const
-{
-	if (qxt_d().branches)
-	{
-		QTreeWidget::drawBranches(painter, rect, index);
 	}
 }

@@ -73,7 +73,6 @@
 
     Using the custom style for a single widget:
     \code
-    QWidget* widget = ...;
     QString defaultStyle = widget->style()->objectName();
     widget->setStyle(new MyCustomStyle(defaultStyle));
     \endcode
@@ -81,11 +80,14 @@
 
 /*!
     Constructs a new QxtProxyStyle for \a style.
-    See QStyleFactory for supported styles.
+    See QStyleFactory::keys() for supported styles.
+
+    \sa QStyleFactory::keys()
  */
 QxtProxyStyle::QxtProxyStyle(const QString& baseStyle)
 	: QStyle(), style(QStyleFactory::create(baseStyle))
 {
+	setObjectName(QLatin1String("proxy"));
 }
 
 /*!

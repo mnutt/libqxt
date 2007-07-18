@@ -27,13 +27,18 @@
 #include <QWidget>
 #include "qxtglobal.h"
 
+typedef QList<WId> WindowList;
+
 class QXT_GUI_EXPORT QxtDesktopWidget
 {
 public:
+	static WindowList windows();
 	static WId activeWindow();
 	static WId findWindow(const QString& title);
 	static WId windowAt(const QPoint& pos);
 	static QString windowTitle(WId window);
-	static QRect windowGeometry(WId window);};
+	static QStringList windowTitles();
+	static QRect windowGeometry(WId window);
+};
 
 #endif // QXTDESKTOPWIDGET_H

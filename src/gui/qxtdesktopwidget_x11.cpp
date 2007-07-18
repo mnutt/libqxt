@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) Qxt Foundation. Some rights reserved.
+** Copyright (C) J-P Nurmi <jpnurmi@gmail.com>. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtGui module of the
+** Qt eXTension library <http://libqxt.sourceforge.net>
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -12,18 +13,47 @@
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 ** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
-** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
-**
 ****************************************************************************/
-
-
 #include "qxtdesktopwidget.h"
 #include <QX11Info>
 #include <X11/Xutil.h>
+
+static void qxt_getWindowProperty(Window wid, Atom prop, int maxlen, Window** data, int* count)
+{
+	Atom type = 0;
+	int format = 0;
+	unsigned long after = 0;
+	XGetWindowProperty(QX11Info::display(), wid, prop, 0, maxlen / 4, False, AnyPropertyType, 
+			   &type, &format, (unsigned long*) count, &after, (unsigned char**) data);
+}
+
+static QRect qxt_getWindowRect(Window wid)
+{
+	QRect rect;
+	XWindowAttributes attr;
+	if (XGetWindowAttributes(QX11Info::display(), wid, &attr))
+	{
+		 rect = QRect(attr.x, attr.y, attr.width, attr.height);
+	}
+	return rect;
+}
+
+WindowList QxtDesktopWidget::windows()
+{
+	static Atom net_clients = 0;
+	if (!net_clients)
+		net_clients = XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST_STACKING", True);
+	
+	int count = 0;
+	Window* list = 0;
+	qxt_getWindowProperty(QX11Info::appRootWindow(), net_clients, 1024 * sizeof(Window), &list, &count);
+	
+	WindowList res;
+	for (int i = 0; i < count; ++i)
+		res += list[i];
+	XFree(list);
+	return res;
+}
 
 WId QxtDesktopWidget::activeWindow()
 {
@@ -34,45 +64,35 @@ WId QxtDesktopWidget::activeWindow()
 	return focus;
 }
 
-static WId qxt_findWindowHelper(WId wid, const QString& title)
-{
-	Window root;
-	Window parent;
-	uint count = 0;
-	Window* children = 0;
-	Display* display = QX11Info::display();
-	if (XQueryTree(display, wid, &root, &parent, &children, &count))
-	{
-		for (uint i = 0; i < count; ++i)
-		{
-			if (QxtDesktopWidget::windowTitle(children[i]) == title)
-			{
-				XFree(children);
-				return children[i];
-			}
-			
-			Window window = qxt_findWindowHelper(children[i], title);
-			if (window)
-			{
-				XFree(children);
-				return window;
-			}
-		}
-	}
-	XFree(children);
-	return 0;
-}
-
 WId QxtDesktopWidget::findWindow(const QString& title)
 {
-	return qxt_findWindowHelper(QX11Info::appRootWindow(), title);
+	Window result = 0;
+	WindowList list = windows();
+	foreach (Window wid, list)
+	{
+		if (windowTitle(wid) == title)
+		{
+			result = wid;
+			break;
+		}
+	}
+	return result;
 }
 
 WId QxtDesktopWidget::windowAt(const QPoint& pos)
 {
-	// XQueryTree + XGetGeometry ???
-	Q_UNUSED(pos);
-	return 0;
+	Window result = 0;
+	WindowList list = windows();
+	for (int i = list.size() - 1; i >= 0; --i)
+	{
+		WId wid = list.at(i);
+		if (windowGeometry(wid).contains(pos))
+		{
+			result = wid;
+			break;
+		}
+	}
+	return result;
 }
 
 QString QxtDesktopWidget::windowTitle(WId window)
@@ -89,18 +109,25 @@ QString QxtDesktopWidget::windowTitle(WId window)
 
 QRect QxtDesktopWidget::windowGeometry(WId window)
 {
-	QRect rect;
-	int x = 0;
-	int y = 0;
-	uint width = 0;
-	uint height = 0;
-	uint depth = 0;
-	uint border = 0;
-	Window root;
+	QRect rect = qxt_getWindowRect(window);
+	
+	Window root = 0;
+	Window parent = 0;
+	Window* children = 0;
+	unsigned int count = 0;
 	Display* display = QX11Info::display();
-	if (XGetGeometry(display, window, &root, &x, &y, &width, &height, &border, &depth))
+	if (XQueryTree(display, window, &root, &parent, &children, &count))
 	{
-		rect = QRect(x, y, width, height);
+		window = parent; // exclude decoration
+		XFree(children);
+		while (window != 0 && XQueryTree(display, window, &root, &parent, &children, &count))
+		{
+			XWindowAttributes attr;
+			if (parent != 0 && XGetWindowAttributes(display, parent, &attr))
+				rect.translate(QRect(attr.x, attr.y, attr.width, attr.height).topLeft());
+			window = parent;
+			XFree(children);
+		}
 	}
 	return rect;
 }
