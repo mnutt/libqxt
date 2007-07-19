@@ -220,6 +220,8 @@ protected:
      * Reimplement this function in a subclass to allow QxtRPCPeer to understand a different protocol.
      * If you reimplement it, be sure to remove the processed portion of the data from the reference parameter.
      * Return "qMakePair(QString(), QList<QVariant>())" if the deserialized data doesn't invoke a signal.
+     * Return "qMakePair(QString(), QList<QVariant>() << QVariant())" if the protocol has been violated and
+     * the connection should be severed.
      */
     virtual QPair<QString, QList<QVariant> > deserialize(QByteArray& data);
     /*!

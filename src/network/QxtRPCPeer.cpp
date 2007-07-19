@@ -350,6 +350,16 @@ void QxtRPCPeer::disconnectSender() {
 void QxtRPCPeerPrivate::processInput(QTcpSocket* socket, QByteArray& buffer) {
     while(qxt_p().canDeserialize(buffer)) {
         QPair<QString, QList<QVariant> > sig = qxt_p().deserialize(buffer);
+        if(sig.first.isEmpty()) {
+            if(sig.second.count() == 1 && !sig.second.at(0).isValid()) {
+                if(socket == m_peer)
+                    qxt_p().disconnectPeer();
+                else
+                    qxt_p().disconnectPeer((quint64)(socket));
+                return;
+            }
+            continue;
+        }
         if(socket == m_peer) {
             receivePeerSignal(sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7], sig.second[8]);
         } else {
@@ -406,6 +416,12 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data) {
     QList<QVariant> v;
     QVariant t;
     str >> signal >> argCount;
+
+    if(str.status() == QDataStream::ReadCorruptData) {
+        v << QVariant();
+        return qMakePair(QString(), v);
+    }
+
     for(int i=0; i<argCount; i++) {
         str >> t;
         v << t;
