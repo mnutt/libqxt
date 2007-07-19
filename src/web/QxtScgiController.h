@@ -12,7 +12,7 @@ class QxtScgiController : public QObject
         {
         Q_OBJECT
         public:
-                QxtScgiController(QString name,QxtScgiApplication *parent);
+                QxtScgiController(QString name);
 
                 int invoke(QTcpSocket * ,server_t &);
 
