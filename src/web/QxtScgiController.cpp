@@ -2,6 +2,7 @@
 #include <QTcpSocket>
 #include <QStringList>
 #include <QDebug>
+#include <QCoreApplication>
 #include <QUrl>
 
 #include "QxtScgiApplication.h"
@@ -12,8 +13,8 @@ QString QxtScgiController::WebRoot()
         return QCoreApplication::applicationDirPath()+"/../";
         }
 
-
-QxtScgiController::QxtScgiController(QString name,QxtScgiApplication *parent):QObject(parent)
+ 
+QxtScgiController::QxtScgiController(QString name):QObject(QCoreApplication::instance())
         {
         socket_m=0;
         stream_m=0;

@@ -5,7 +5,7 @@ class test : public QxtScgiController
         {
         Q_OBJECT
         public:
-                test(QxtScgiApplication *parent):QxtScgiController("root",parent)
+                test():QxtScgiController("root")
 			{
 			}
 
@@ -30,7 +30,7 @@ class err : public QxtScgiController
         {
         Q_OBJECT
         public:
-                err(QxtScgiApplication *parent):QxtScgiController("error",parent)
+                err():QxtScgiController("error")
 			{
 			}
 
@@ -60,8 +60,8 @@ class err : public QxtScgiController
 int main(int argc, char *argv[])
 	{
 	QxtScgiApplication app(argc, argv);
-	test t(&app);
-	err e(&app);
+	test t;
+	err e;
 	return app.exec(4000);
 	}
 
