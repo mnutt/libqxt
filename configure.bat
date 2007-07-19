@@ -6,9 +6,9 @@ SET TESTDIR=%PROJECT_ROOT%\config.tests
 SET CONFIG_LOG=config.log
 SET LAST_FUNC_RET=0
 
-del %PROJECT_ROOT%\config.in >>Nul
-del %PROJECT_ROOT%\config.log >>Nul
-del %PROJECT_ROOT%\depends.pri >>Nul
+if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
+if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
+if exist %PROJECT_ROOT%\depends.pri del %PROJECT_ROOT%\depends.pri
 
 echo #depends.pri > %PROJECT_ROOT%\depends.pri
     
@@ -159,78 +159,95 @@ echo    Cannot proceed.
 goto end
 
 :qmakeOK
+if "%QMAKESPEC%" == "win32-msvc"     goto testnmake
+if "%QMAKESPEC%" == "win32-msvc.net" goto testnmake
+if "%QMAKESPEC%" == "win32-msvc2005" goto testnmake
+
+:testmingw
+echo    Testing for mingw32-make...
+call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto testnmake
+echo        Using mingw32-make. 
+SET MAKE=mingw32-make
+GOTO detectTools_end_test_make     
+
+:testnmake
+if "%QMAKESPEC%" == "win32-g++"     goto testgmake
 echo    Testing for nmake...
-nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto nmakeERR
-echo    Using nmake.
+call nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto testgmake
+echo        Using nmake.
 SET MAKE=nmake
 GOTO detectTools_end_test_make
 
-:nmakeERR
+:testgmake
 echo    Testing for GNU make...
-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto gmakeERR
-echo    Using GNU make.
+call make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto missingmake
+echo        Using GNU make.
 SET MAKE=make
 GOTO detectTools_end_test_make
-
-:gmakeERR
-echo    Testing for mingw32-make...
-mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto mingwmakeERR
-echo    Using mingw32-make. 
-SET MAKE=mingw32-make
-GOTO detectTools_end_test_make     
  
-:mingwmakeERR
-echo    You don't seem to have 'make.' 'mingw32-make,' or 'nmake' in your PATH. 
+:missingmake
+echo    You don't seem to have 'mingw32-make', 'nmake' or 'make' in your PATH. 
 echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
-if "%OPENSSL%"=="0" goto skipopenssltest
-echo Testing for OpenSSL... 
+if "%OPENSSL%"=="0" goto detectcurses
+echo    Testing for OpenSSL... 
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\openssl
 %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto testfailed
-%MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-%MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto testfailed
+if errorlevel 1 goto opensslfailed
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto opensslfailed
+set OPENSSL=1
+goto detectcurses 
 
-:skipopenssltest
+:opensslfailed
+set OPENSSL=0
+echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
+
+:detectcurses
 if "%CURSES%"=="0" goto skipcursestest
-echo Testing for curses... 
+echo    Testing for curses... 
 echo curses... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\curses
 %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto testfailed
-%MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-%MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto testfailed
-
+if errorlevel 1 goto cursesfailed
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto cursesfailed
+set CURSES=1
 goto alltestsok
 
-:testfailed
-echo Test failed. Cannot proceed.
-goto end
+:cursesfailed
+set CURSES=0
+echo QXT_BUILD -= curses >> %PROJECT_ROOT%\config.in
 
 :skipcursestest
 :alltestsok
 cd %PROJECT_ROOT%
 
-echo Configuration successful. Generating makefiles.
+echo    Configuration successful.
+if "%OPENSSL%"=="1" echo        OpenSSL enabled.
+if "%OPENSSL%"=="0" echo        OpenSSL disabled.
+if "%CURSES%"=="1"  echo        curses enabled.
+if "%CURSES%"=="0"  echo        curses disabled.
+echo    Generating makefiles...
 copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >> %PROJECT_ROOT%\%CONFIG_LOG%
 copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >> %PROJECT_ROOT%\%CONFIG_LOG%
 del %PROJECT_ROOT%\config.in >> %PROJECT_ROOT%\%CONFIG_LOG%
 %QMAKE% %MSVCMODE% -recursive
 if errorlevel 1 goto mainqmakeERR
 
-echo Makefiles generated. Run %MAKE% now.
+echo    Makefiles generated. Run %MAKE% now.
 goto end
 
 :mainqmakeERR
-echo Error running qmake. Cannot proceed.
+echo    Error running qmake. Cannot proceed.
 goto end
 
 :end 
