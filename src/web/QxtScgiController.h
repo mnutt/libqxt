@@ -6,6 +6,11 @@
 #include <QTextStream>
 #include <cassert>
 
+
+///default return header
+#define HTML_OK  "Status: 200 OK\r\nContent-Type: text/html\r\n\r\n";
+
+
 class QxtScgiApplication;
 class QTcpSocket;
 class QxtScgiController : public QObject
