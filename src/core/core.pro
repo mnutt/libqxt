@@ -13,8 +13,25 @@ CONFIG += qxtbuild  convenience
 
 
 
-HEADERS += qxtglobal.h qxtnamespace.h \
-           QxtCsvModel.h QxtError.h QxtEventThread.h QxtHyperMacros.h QxtNull.h QxtNullable.h QxtPairList.h qxtpimpl.h  \
-           QxtSignalWaiter.h QxtSingleInstance.h  QxtTuple.h QxtTupleList.h QxtTypeList.h
+HEADERS += QxtCsvModel.h \
+           QxtError.h \
+           QxtEventThread.h \
+           qxtglobal.h \
+           QxtHyperMacros.h \
+           qxtmetaobject.h \
+           qxtnamespace.h \
+           QxtNull.h \
+           QxtNullable.h \
+           QxtPairList.h \
+           qxtpimpl.h \
+           QxtSignalWaiter.h \
+           QxtSingleInstance.h \
+           QxtTuple.h \
+           QxtTupleList.h \
+           QxtTypeList.h
 
-SOURCES += QxtCsvModel.cpp QxtError.cpp QxtEventThread.cpp QxtSignalWaiter.cpp
+SOURCES += QxtCsvModel.cpp \
+           QxtError.cpp \
+           QxtEventThread.cpp \
+           qxtmetaobject.cpp \
+           QxtSignalWaiter.cpp
