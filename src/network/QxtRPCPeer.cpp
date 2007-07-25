@@ -360,6 +360,7 @@ void QxtRPCPeerPrivate::processInput(QTcpSocket* socket, QByteArray& buffer) {
             }
             continue;
         }
+        while(sig.second.count() < 9) sig.second << QVariant();
         if(socket == m_peer) {
             receivePeerSignal(sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7], sig.second[8]);
         } else {
