@@ -46,6 +46,7 @@ class QxtScgiController : public QObject
                         return socket_m;
                         }
                 server_t SERVER;
+                post_t POST;
         private:
                 QTextStream *stream_m;
                 QTcpSocket *socket_m;

@@ -4,11 +4,7 @@
 #include <QCoreApplication>
 #include <qxtpimpl.h>
 #include <QHostAddress>
-#include <QMetaType>
-#include <QMap>
-
-typedef  QMap<QByteArray, QByteArray> server_t;
-Q_DECLARE_METATYPE(server_t)
+#include <QxtWeb.h>
 
 class QxtScgiApplicationPrivate;
 class QxtScgiApplication: public QCoreApplication

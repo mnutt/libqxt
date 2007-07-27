@@ -27,6 +27,12 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 	QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
 
 
+        QxtWeb::readContentFromSocket(socket,SERVER,POST);
+
+
+
+
+
         ///--------------find action ------------------
 	QByteArray action="index";	
 	if (args_d.count()>2)
