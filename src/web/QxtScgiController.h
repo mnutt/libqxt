@@ -11,6 +11,8 @@
 #define HTML_OK  "Status: 200 OK\r\nContent-Type: text/html\r\n\r\n";
 
 
+
+
 class QxtScgiApplication;
 class QTcpSocket;
 class QxtScgiController : public QObject
@@ -35,16 +37,10 @@ class QxtScgiController : public QObject
                         }
 
         protected:
-                QTextStream & echo()
-                        {
-                        assert(stream_m);
-                        return *stream_m;
-                        }
-                QTcpSocket * socket()
-                        {
-                        assert(socket_m);
-                        return socket_m;
-                        }
+                QTextStream & echo();
+                QTcpSocket * socket();
+		QString self();
+
                 server_t SERVER;
                 post_t POST;
         private:
