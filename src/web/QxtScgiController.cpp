@@ -21,6 +21,25 @@ QxtScgiController::QxtScgiController(QString name):QObject(QCoreApplication::ins
         setObjectName(name);
         }
 
+
+QTextStream & QxtScgiController::echo()
+	{
+	assert(stream_m);
+	return *stream_m;
+	}
+QTcpSocket * QxtScgiController::socket()
+	{
+	assert(socket_m);
+	return socket_m;
+	}
+
+
+QString QxtScgiController::self()
+	{
+	return "/"+objectName();
+	}
+
+
 int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
         {
         SERVER=SERVER_i;
