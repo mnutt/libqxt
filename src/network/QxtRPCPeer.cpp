@@ -170,13 +170,20 @@ void QxtRPCPeer::stopListening() {
 
 void QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
     QByteArray sig(signal);
+    if (!sig.startsWith("2"))
+           qWarning("QxtRPCPeer: Attempt to bind non-signal. use the SIGNAL macro!");
     if(rpcFunction=="") rpcFunction = sig.mid(1,sig.indexOf('(')-1);
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
     spec->rpcFunction = rpcFunction;
     qxt_d().attachedSignals.insertMulti(sender, spec);
+    qDebug()<<"warning: "<<__FILE__<<__LINE__<<"(QxtRPCPeer::attachSignal) assuming rpcFunction:"<<rpcFunction;
+    ///FIXME: use normalizedsignature, then remove above warning
 }
 
 void QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
+    ///FIXME: use normalizedsignature on a real SIGNAL
+    if (!QByteArray(slot).startsWith("1"))
+           qWarning("QxtRPCPeer: Attempt to bind non-slot. use the SLOT macro!");
     qxt_d().attachedSlots[rpcFunction].append(QPair<QObject*, int>(recv, recv->metaObject()->indexOfMethod(recv->metaObject()->normalizedSignature(slot).mid(1))));
 }
 
@@ -378,7 +385,13 @@ QList<quint64> QxtRPCPeer::clients() const {
 
 QxtIntrospector::QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char* signal): QObject(parent) {
     peer = parent;
-    int idx = source->metaObject()->indexOfSignal(QByteArray(signal).mid(1).constData());
+    QByteArray sig_ba = QByteArray(signal).mid(1);
+    ///FIXME: use normalizedsignature
+    const char * sig=sig_ba.constData();
+    int idx = source->metaObject()->indexOfSignal(sig);
+    if(idx<0)
+         qWarning("no such signal: %s",sig_ba.constData());
+
     // Our "method" will have the first ID not used by the superclass.
     QMetaObject::connect(source, idx, this, QObject::staticMetaObject.methodCount());
     QObject::connect(source, SIGNAL(destroyed()), peer, SLOT(detachSender()));
