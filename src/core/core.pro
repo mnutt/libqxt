@@ -25,7 +25,7 @@ HEADERS += QxtCsvModel.h \
            QxtPairList.h \
            qxtpimpl.h \
            QxtSignalWaiter.h \
-           QxtSingleInstance.h \
+           QxtSemaphore.h \
            QxtTuple.h \
            QxtTupleList.h \
            QxtTypeList.h
@@ -34,4 +34,6 @@ SOURCES += QxtCsvModel.cpp \
            QxtError.cpp \
            QxtEventThread.cpp \
            qxtmetaobject.cpp \
-           QxtSignalWaiter.cpp
+           QxtSignalWaiter.cpp \
+           QxtSemaphore.cpp
+
