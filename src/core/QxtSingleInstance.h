@@ -47,7 +47,7 @@ QxtSingleInstance tst("AnRealyLongUniqueString_MYAPPLICATIOn83247");
 
 
 
-#ifdef Q_WS_WIN
+#ifndef Q_WS_WIN
 
 #include <semaphore.h>
 #include <fcntl.h>
