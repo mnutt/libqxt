@@ -1,3 +1,6 @@
+#ifndef QXTSEMAPHORE_H_NNN
+#define QXTSEMAPHORE_H_NNN
+
 #include <qxtpimpl.h>
 #include <QString>
 
@@ -12,3 +15,5 @@ class QxtSemaphore
 	private:
     		QXT_DECLARE_PRIVATE(QxtSemaphore);
 	};
+
+#endif
