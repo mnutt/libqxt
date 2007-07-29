@@ -24,6 +24,3 @@ int main(int argc, char** argv)
 	slider.show();
 	app.exec();
 	};
-
-
-#include "main.moc"
