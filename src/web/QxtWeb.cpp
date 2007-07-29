@@ -11,7 +11,7 @@ QxtError QxtWeb::readContentFromSocket(QTcpSocket * tcpSocket,server_t & SERVER 
 		QXT_DROP(Qxt::UnexpectedNullParameter);
 
 
-        int content_size=SERVER["CONTENT_SIZE"].toInt();
+        int content_size=SERVER["CONTENT_LENGTH"].toInt();
 
 	if (content_size<1)
 		{
