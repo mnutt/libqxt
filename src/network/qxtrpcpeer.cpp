@@ -189,11 +189,11 @@ void QxtRPCPeer::stopListening() {
 }
 
 bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
+    const QMetaObject* meta = sender->metaObject();
     QByteArray sig(meta->normalizedSignature(signal).mid(1));
-    QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(sig.constData());
-    if(methodID == -1 || meta->method(methodID)->methodType() != QMetaMethod::Signal) {
-        qWarning() << "QxtRPCPeer::attachSlot: No such signal " << slot;
+    if(methodID == -1 || meta->method(methodID).methodType() != QMetaMethod::Signal) {
+        qWarning() << "QxtRPCPeer::attachSlot: No such signal " << signal;
         return false;
     }
     if(rpcFunction=="") rpcFunction = sig;
@@ -204,16 +204,16 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFu
 }
 
 bool QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
-    QMetaObject* meta = recv->metaObject();
+    const QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
-    if(methodID == -1 || meta->method(methodID)->methodType() == QMetaMethod::Method) {
+    if(methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method) {
         qWarning() << "QxtRPCPeer::attachSlot: No such slot " << slot;
         return false;
     }
 
     QString fn;
     if(rpcFunction[0] == '1' && rpcFunction.contains('(') && rpcFunction.contains(')')) {
-        fn = QMetaObject::normalizeSignature(rpcFunction.toLocal8Bit().constData().mid(1));
+        fn = QMetaObject::normalizedSignature(rpcFunction.toLocal8Bit().mid(1).constData());
     } else {
         fn = rpcFunction.simplified();
     }
