@@ -31,8 +31,8 @@ class RPCTest: public QObject
 			{ 
 			QxtFifo io;
 			QxtRPCPeer peer(&io);
-  			QVERIFY2(peer.attachSignal (this, SIGNAL(  wave())),"cannot attach signal");
- 			QVERIFY2(peer.attachSlot (SIGNAL(wave()),this, SIGNAL( counterwave())),"cannot attach slot"); 
+  			QVERIFY2(peer.attachSignal (this, SIGNAL(  wave  ( ) ) ),"cannot attach signal");
+ 			QVERIFY2(peer.attachSlot (  SIGNAL(   wave (    )   ),this, SIGNAL( counterwave()) ),"cannot attach slot"); 
 
 			QSignalSpy spy(this, SIGNAL(counterwave()));
 			QSignalSpy spyr(&io, SIGNAL(readyRead()));
