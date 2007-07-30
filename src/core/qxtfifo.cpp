@@ -31,6 +31,8 @@
 
 */
 #include "qxtfifo.h" 
+#include <QDebug>
+
 QxtFifo::QxtFifo():QIODevice()
 	{
 	setOpenMode (QIODevice::ReadWrite);
@@ -67,7 +69,7 @@ bool QxtFifo::isSequential () const
 
 qint64 QxtFifo::bytesAvailable () const
 	{
-	return q.size();
+	return q.count();
 	}
 
 
