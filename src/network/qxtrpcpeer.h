@@ -133,8 +133,10 @@ public:
      * When the attached signal is emitted, it will be transmitted to all connected servers, clients, or peers.
      * If an optional rpcFunction is provided, it will be used in place of the name of the transmitted signal.
      * Use the SIGNAL() macro to specify the signal, just as you would for QObject::connect().
+     *
+     * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
      */
-    void attachSignal(QObject* sender, const char* signal, QString rpcFunction = QString());
+    bool attachSignal(QObject* sender, const char* signal, QString rpcFunction = QString());
 
     /*!
      * Attaches the given slot. 
@@ -142,10 +144,12 @@ public:
      * When a signal with the name given by rpcFunction is received from the network, the attached slot is executed. 
      * Use the SLOT() macro to specify the slot, just as you would for QObject::connect(). 
      *
+     * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
+     *
      * \Note In Server mode, the first parameter of the slot must be int id. The parameters of the signal follow.
      * For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(int, QString)) on the server.
      */
-    void attachSlot(QString rpcFunction, QObject* recv, const char* slot);
+    bool attachSlot(QString rpcFunction, QObject* recv, const char* slot);
 
     /*!
      * Detaches all signals and slots for the given object.

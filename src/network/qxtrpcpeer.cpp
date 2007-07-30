@@ -188,26 +188,27 @@ void QxtRPCPeer::stopListening() {
     qxt_d().m_server->close();
 }
 
-void QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
+bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
     QByteArray sig(meta->normalizedSignature(signal).mid(1));
     QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(sig.constData());
     if(methodID == -1 || meta->method(methodID)->methodType() != QMetaMethod::Signal) {
         qWarning() << "QxtRPCPeer::attachSlot: No such signal " << slot;
-        return;
+        return false;
     }
     if(rpcFunction=="") rpcFunction = sig;
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
     spec->rpcFunction = rpcFunction.simplified();
     qxt_d().attachedSignals.insertMulti(sender, spec);
+    return true;
 }
 
-void QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
+bool QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
     QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
     if(methodID == -1 || meta->method(methodID)->methodType() == QMetaMethod::Method) {
         qWarning() << "QxtRPCPeer::attachSlot: No such slot " << slot;
-        return;
+        return false;
     }
 
     QString fn;
@@ -218,6 +219,7 @@ void QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot
     }
 
     qxt_d().attachedSlots[fn].append(QPair<QObject*, int>(recv, recv->metaObject()->indexOfMethod(recv->metaObject()->normalizedSignature(slot).mid(1))));
+    return true;
 }
 
 void QxtRPCPeer::detachSender() {
