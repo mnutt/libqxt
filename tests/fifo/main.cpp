@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QByteArray>
 #include <QDataStream>
-
 class QxtFifoPipeTest: public QObject
 	{
 	Q_OBJECT 
@@ -29,7 +28,19 @@ class QxtFifoPipeTest: public QObject
 			QSignalSpy spyr(io, SIGNAL(readyRead()));
 			io->write("hello");
 			QVERIFY2 (spyr.count()> 0, "not emitting readyRead" );
+			io->readAll();
 			}
+
+
+		void size()
+			{
+			QByteArray data("askdoamsdoiasmdpoeiowaopimwaioemfowefnwaoief");
+			QVERIFY(io->write(data)==data.size());
+			QVERIFY(io->bytesAvailable()==data.size());
+			io->readAll();
+			QVERIFY(io->bytesAvailable()==0);
+			}
+
 
 		void cleanupTestCase()
 			{
