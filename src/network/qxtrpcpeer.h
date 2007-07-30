@@ -54,10 +54,6 @@ class QxtRPCPeerPrivate;
 class QxtRPCPeer : public QObject {
 Q_OBJECT
 public:
-    /*!
-     * Creates a QxtRPCPeer object with the given parent.
-     */
-    QxtRPCPeer(QObject* parent = 0);
 
     /*!
      * This enum is used with the \a setRPCType() to describe the role played in a connection. It is also returned by \a rpcType().
@@ -67,6 +63,17 @@ public:
         Client, /**< Connect to a server. */
         Peer    /**< Listen for a connection or connect to a peer. */
     };
+
+
+        /*!
+        * Creates a QxtRPCPeer object with the given parent  and type using a tcp socket
+        */
+        QxtRPCPeer(RPCTypes type=QxtRPCPeer::Peer, QObject* parent = 0);
+        /*!
+        * Creates a QxtRPCPeer object with the given parent  and type on the specified io device
+        */
+        QxtRPCPeer(QIODevice* , RPCTypes type=QxtRPCPeer::Peer, QObject* parent = 0);
+
 
     /*!
      * Sets the RPC type. 
