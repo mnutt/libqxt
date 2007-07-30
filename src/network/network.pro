@@ -24,5 +24,5 @@ LIBS+=-lssl
 }
 
 
-#HEADERS += qxtnamedpipe.h
-#unix: SOURCES += qxtnamedpipe_unix.cpp 
+HEADERS += qxtnamedpipe.h
+SOURCES += qxtnamedpipe.cpp

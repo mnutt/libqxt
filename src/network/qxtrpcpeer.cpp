@@ -483,5 +483,11 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data) {
 }
 
 bool QxtRPCPeer::canDeserialize(const QByteArray& buffer) const {
-    return buffer.indexOf('\n') != -1;
+        if (buffer.indexOf('\n') == -1)
+                {
+                qWarning("unable to deserialise given data");
+                return false;
+                }
+    return true;
+        
 }
