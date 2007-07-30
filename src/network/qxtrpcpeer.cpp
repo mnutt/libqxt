@@ -28,6 +28,7 @@
 #include <QMultiHash>
 #include <QDebug>
 #include <QMetaMethod>
+#include <cassert>
 
 class QxtIntrospector: public QObject {
     // This class MANUALLY implements the necessary parts of QObject.
@@ -60,7 +61,7 @@ public:
     void receiveClientSignal(quint64 id, QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
               QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant()) const;
 
-    void processInput(QTcpSocket* socket, QByteArray& buffer);
+    void processInput(QIODevice* socket, QByteArray& buffer);
 
     // Object -> introspector for each signal
     QMultiHash<QObject*, QxtIntrospector*> attachedSignals;
@@ -71,28 +72,39 @@ public:
     typedef QHash<QObject*, QxtRPCConnection*> ConnHash;
     ConnHash m_clients;
     QTcpServer* m_server;
-    QTcpSocket* m_peer;
+    QIODevice* m_peer;  ///aep: doom
 
     QByteArray m_buffer;
     int m_rpctype;
 };
 
-QxtRPCPeer::QxtRPCPeer(QObject* parent): QObject(parent) {
-    QXT_INIT_PRIVATE(QxtRPCPeer);
-    qxt_d().m_rpctype = Peer;
-    qxt_d().m_server = new QTcpServer(this);
-    qxt_d().m_peer = new QTcpSocket(this);
+QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent): QObject(parent) 
+        {
+        QxtRPCPeer::QxtRPCPeer(new QTcpSocket(this),type,parent);
+        }
 
-    QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-    QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
-}
+
+
+QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent): QObject(parent)
+        {
+        QXT_INIT_PRIVATE(QxtRPCPeer);
+        qxt_d().m_rpctype = type;
+        qxt_d().m_server = new QTcpServer(this);
+        qxt_d().m_peer = device;
+        QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
+        QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+        }
+
+
+ 
+
 
 void QxtRPCPeer::setRPCType(RPCTypes type) {
-    if(qxt_d().m_peer->state()!= QAbstractSocket::UnconnectedState || qxt_d().m_server->isListening()) {
+    if(qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening()) {
         qDebug() << "QxtRPCPeer: Cannot change RPC types while connected or listening";
         return;
     }
@@ -107,18 +119,20 @@ void QxtRPCPeer::connect(QHostAddress addr, int port) {
     if(qxt_d().m_rpctype == Server) {
         qDebug() << "QxtRPCPeer: Cannot connect outward in Server mode";
         return;
-    } else if(qxt_d().m_peer->state()!=QAbstractSocket::UnconnectedState) {
+    } else if(qxt_d().m_peer->isOpen ()) {
         qDebug() << "QxtRPCPeer: Already connected";
         return;
     }
-    qxt_d().m_peer->connectToHost(addr, port);
+    QTcpSocket * sock  = qobject_cast<QTcpSocket*>(qxt_d().m_peer);
+    assert(sock);
+    sock->connectToHost(addr, port);
 }
 
 bool QxtRPCPeer::listen(QHostAddress iface, int port) {
     if(qxt_d().m_rpctype == Client) {
         qDebug() << "QxtRPCPeer: Cannot listen in Client mode";
         return false;
-    } else if(qxt_d().m_rpctype == Peer && qxt_d().m_peer->state()!=QAbstractSocket::UnconnectedState) {
+    } else if(qxt_d().m_rpctype == Peer && qxt_d().m_peer->isOpen ()) {
         qDebug() << "QxtRPCPeer: Cannot listen while connected to a peer";
         return false;
     } else if(qxt_d().m_server->isListening()) {
@@ -138,7 +152,7 @@ void QxtRPCPeer::disconnectPeer(quint64 id) {
     }
     QxtRPCConnection* conn;
     if(id==0) {
-        qxt_d().m_peer->disconnectFromHost();
+        qxt_d().m_peer->close();
     } else if((conn = qxt_d().m_clients.take((QObject*)(id)))!= 0) {
         conn->socket->disconnectFromHost();
         conn->socket->deleteLater();
@@ -236,7 +250,11 @@ QByteArray QxtRPCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant 
 }
 
 void QxtRPCPeer::call(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) {
-    if(qxt_d().m_peer->state()!= QAbstractSocket::ConnectedState) return;
+    if(!qxt_d().m_peer->isOpen ())
+                {
+                qWarning("can't call on a closed device");
+                 return;
+                }
     qxt_d().m_peer->write(serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8, p9));
 }
 
@@ -289,7 +307,7 @@ void QxtRPCPeerPrivate::receiveClientSignal(quint64 id, QString fn, QVariant p0,
 void QxtRPCPeer::newConnection() {
     QTcpSocket* next = qxt_d().m_server->nextPendingConnection();
     if(qxt_d().m_rpctype == QxtRPCPeer::Peer) {
-        if(qxt_d().m_peer->state()!= QAbstractSocket::UnconnectedState) {
+        if(qxt_d().m_peer->isOpen ()) {
             qDebug() << "QxtRPCPeer: Rejected connection from " << next->peerAddress().toString() << "; another peer is connected";
             next->disconnectFromHost();
             next->deleteLater();
@@ -354,7 +372,7 @@ void QxtRPCPeer::disconnectSender() {
     qxt_d().m_clients.remove(sender());
 }
 
-void QxtRPCPeerPrivate::processInput(QTcpSocket* socket, QByteArray& buffer) {
+void QxtRPCPeerPrivate::processInput(QIODevice* socket, QByteArray& buffer) {
     while(qxt_p().canDeserialize(buffer)) {
         QPair<QString, QList<QVariant> > sig = qxt_p().deserialize(buffer);
         if(sig.first.isEmpty()) {
