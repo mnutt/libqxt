@@ -79,15 +79,10 @@ public:
 };
 
 QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent) : QObject(parent) {
-        if (!device->isOpen())
-                {
-                qWarning("QxtRPCPeer::the device you passed is not open!");
-                }
-
         QXT_INIT_PRIVATE(QxtRPCPeer);
         qxt_d().m_rpctype = type;
         qxt_d().m_server = new QTcpServer(this);
-        qxt_d().m_peer = device;
+        qxt_d().m_peer = new QTcpSocket(this);
         QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
         QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
         QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
@@ -97,6 +92,11 @@ QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent) : QObject(parent) {
 }
 
 QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObject(parent) {
+        if (!device->isOpen())
+                {
+                qWarning("QxtRPCPeer::the device you passed is not open!");
+                }
+
     QXT_INIT_PRIVATE(QxtRPCPeer);
     qxt_d().m_rpctype = type;
     qxt_d().m_server = new QTcpServer(this);
