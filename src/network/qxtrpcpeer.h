@@ -136,7 +136,7 @@ public:
      *
      * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
      */
-    bool attachSignal(QObject* sender, const char* signal, QString rpcFunction = QString());
+    bool attachSignal(QObject* sender, const char* signal, const char * rpcSignal = "");
 
     /*!
      * Attaches the given slot. 
@@ -149,7 +149,7 @@ public:
      * \Note In Server mode, the first parameter of the slot must be int id. The parameters of the signal follow.
      * For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(int, QString)) on the server.
      */
-    bool attachSlot(QString rpcFunction, QObject* recv, const char* slot);
+    bool attachSlot(const char * rpcSignal, QObject* recv, const char* slot);
 
     /*!
      * Detaches all signals and slots for the given object.

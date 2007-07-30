@@ -101,11 +101,15 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
     qxt_d().m_rpctype = type;
     qxt_d().m_server = new QTcpServer(this);
     qxt_d().m_peer = device;
-    QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
+
+    if (qobject_cast<QTcpSocket *>(device)!=0)
+	{
+    	QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
+    	QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
+    	QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
+	QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
+	}
     QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-    QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
     QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
@@ -188,7 +192,8 @@ void QxtRPCPeer::stopListening() {
     qxt_d().m_server->close();
 }
 
-bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
+bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal,const char * rpcF) {
+    QByteArray rpcFunction(rpcF);
     const QMetaObject* meta = sender->metaObject();
     QByteArray sig(meta->normalizedSignature(signal).mid(1));
     int methodID = meta->indexOfMethod(sig.constData());
@@ -203,7 +208,14 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFu
     return true;
 }
 
-bool QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
+bool QxtRPCPeer::attachSlot(const char * rpcF, QObject* recv, const char* slot) {
+    QByteArray rpcFunction(rpcF);
+
+    if(!rpcFunction.startsWith('2')) 
+		{
+		qWarning("QxtRPCPeer::attachSlot use the SIGNAL macro to define the rpc signal");
+		}
+    rpcFunction= QMetaObject::normalizedSignature(rpcFunction).mid(1);
     const QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
     if(methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method) {
@@ -213,7 +225,7 @@ bool QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot
 
     QString fn;
     if(rpcFunction[0] == '1' && rpcFunction.contains('(') && rpcFunction.contains(')')) {
-        fn = QMetaObject::normalizedSignature(rpcFunction.toLocal8Bit().mid(1).constData());
+        fn = QMetaObject::normalizedSignature(rpcFunction.mid(1).constData());
     } else {
         fn = rpcFunction.simplified();
     }
@@ -486,7 +498,6 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data) {
 bool QxtRPCPeer::canDeserialize(const QByteArray& buffer) const {
         if (buffer.indexOf('\n') == -1)
                 {
-                qWarning("unable to deserialise given data");
                 return false;
                 }
     return true;

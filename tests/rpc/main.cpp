@@ -1,6 +1,6 @@
 /** ***** QxtRPCPeer loopback test ******/
 #include <QxtRPCPeer>
-#include <QxtNamedPipe>
+#include <QxtFifo>
 #include <QCoreApplication>
 #include <QTest>
 #include <QSignalSpy>
@@ -29,18 +29,13 @@ class RPCTest: public QObject
 
 		void loopback()
 			{ 
-			QxtNamedPipe out("helloiamapipe");
-			QVERIFY2(out.open(QIODevice::ReadWrite),"open failed");
-			QxtRPCPeer peer(&out);
-  			QVERIFY2(peer.attachSignal (this, SIGNAL(wave())),"cannot attach signal");
-
-			QxtNamedPipe in("helloiamapipe");
-			QVERIFY2(in.open(QIODevice::ReadWrite),"open failed");
-			QxtRPCPeer peer2(&in);
- 			QVERIFY2(peer2.attachSlot ( "wave",this, SLOT(counterwavesl())),"cannot attach slot"); 
+			QxtFifo io;
+			QxtRPCPeer peer(&io);
+  			QVERIFY2(peer.attachSignal (this, SIGNAL(  wave())),"cannot attach signal");
+ 			QVERIFY2(peer.attachSlot (SIGNAL(wave()),this, SIGNAL( counterwave())),"cannot attach slot"); 
 
 			QSignalSpy spy(this, SIGNAL(counterwave()));
-			QSignalSpy spyr(&in, SIGNAL(readyRead()));
+			QSignalSpy spyr(&io, SIGNAL(readyRead()));
 
  			emit(wave());
 
@@ -54,7 +49,6 @@ class RPCTest: public QObject
 			QVERIFY2 (spy.count()< 2, "wtf, two signals received?" );
 
 			QList<QVariant> arguments = spy.takeFirst();
-			QVERIFY2(arguments.at(0).toString() == "world","argument screwed");
 			}
  		void cleanupTestCase(){ }
 
