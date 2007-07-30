@@ -33,7 +33,7 @@
 #include "qxtfifo.h" 
 #include <QDebug>
 
-QxtFifo::QxtFifo():QIODevice()
+QxtFifo::QxtFifo(QObject *parent):QIODevice(parent)
 	{
 	setOpenMode (QIODevice::ReadWrite);
 	}
