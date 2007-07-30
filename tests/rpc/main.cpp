@@ -13,14 +13,6 @@ class RPCTest: public QObject
 	Q_OBJECT
 	private:
 		QxtRPCPeer* peer;
-
-	public slots:
-		 void counterwavesl()
-			{
-			qDebug("hey");
-			emit(counterwave());
-			}
-
  
 	private slots:
  		void initTestCase(){ }
@@ -31,13 +23,13 @@ class RPCTest: public QObject
 			{ 
 			QxtFifo io;
 			QxtRPCPeer peer(&io);
-  			QVERIFY2(peer.attachSignal (this, SIGNAL(  wave  ( ) ) ),"cannot attach signal");
- 			QVERIFY2(peer.attachSlot (  SIGNAL(   wave (    )   ),this, SIGNAL( counterwave()) ),"cannot attach slot"); 
+  			QVERIFY2(peer.attachSignal (this, SIGNAL(  wave  ( QString ) ) ),"cannot attach signal");
+ 			QVERIFY2(peer.attachSlot (  SIGNAL(   wave (  QString  )   ),this, SIGNAL( counterwave(QString  )) ),"cannot attach slot"); 
 
-			QSignalSpy spy(this, SIGNAL(counterwave()));
+			QSignalSpy spy(this, SIGNAL(counterwave(QString)));
 			QSignalSpy spyr(&io, SIGNAL(readyRead()));
 
- 			emit(wave());
+ 			emit(wave("world"));
 
 			QCoreApplication::processEvents ();
 			QCoreApplication::processEvents ();
@@ -49,12 +41,13 @@ class RPCTest: public QObject
 			QVERIFY2 (spy.count()< 2, "wtf, two signals received?" );
 
 			QList<QVariant> arguments = spy.takeFirst();
+			QVERIFY2(arguments.at(0).toString()=="world","argument missmatch");
 			}
  		void cleanupTestCase(){ }
 
 	signals:
-		void wave();
-		void counterwave();
+		void wave(QString);
+		void counterwave(QString);
  };
 
 
