@@ -21,7 +21,7 @@
 ****************************************************************************/
 
 
-#include "QxtRPCPeer.h"
+#include "qxtrpcpeer.h"
 #include <QObject>
 #include <QTcpSocket>
 #include <QTcpServer>

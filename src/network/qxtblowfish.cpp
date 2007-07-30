@@ -21,7 +21,7 @@
 ****************************************************************************/
 
 
-#include "QxtBlowFish.h"
+#include "qxtblowfish.h"
 #include <openssl/blowfish.h>
 
 

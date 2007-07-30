@@ -13,16 +13,16 @@ CONFIG += qxtbuild  convenience
 
 
 
-HEADERS +=  QxtRPCPeer.h
-SOURCES += QxtRPCPeer.cpp
+HEADERS +=  qxtrpcpeer.h
+SOURCES += qxtrpcpeer.cpp
 
 include(../../config.pri)
 contains(DEFINES,HAVE_OPENSSL){
-HEADERS += QxtBlowFish.h 
-SOURCES += QxtBlowFish.cpp
+HEADERS += qxtblowfish.h 
+SOURCES += qxtblowfish.cpp
 LIBS+=-lssl
 }
 
 
-#HEADERS += QxtNamedPipe.h
-#unix: SOURCES += QxtNamedPipe_unix.cpp 
+#HEADERS += qxtnamedpipe.h
+#unix: SOURCES += qxtnamedpipe_unix.cpp 
