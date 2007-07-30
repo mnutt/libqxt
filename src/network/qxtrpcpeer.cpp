@@ -111,7 +111,7 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
 
 void QxtRPCPeer::setRPCType(RPCTypes type) {
     if(qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening()) {
-        qDebug() << "QxtRPCPeer: Cannot change RPC types while connected or listening";
+        qWarning() << "QxtRPCPeer: Cannot change RPC types while connected or listening";
         return;
     }
     qxt_d().m_rpctype = type;
@@ -123,10 +123,10 @@ QxtRPCPeer::RPCTypes QxtRPCPeer::rpcType() const {
 
 void QxtRPCPeer::connect(QHostAddress addr, int port) {
     if(qxt_d().m_rpctype == Server) {
-        qDebug() << "QxtRPCPeer: Cannot connect outward in Server mode";
+        qWarning() << "QxtRPCPeer: Cannot connect outward in Server mode";
         return;
     } else if(qxt_d().m_peer->isOpen ()) {
-        qDebug() << "QxtRPCPeer: Already connected";
+        qWarning() << "QxtRPCPeer: Already connected";
         return;
     }
     QTcpSocket * sock  = qobject_cast<QTcpSocket*>(qxt_d().m_peer);
@@ -136,13 +136,13 @@ void QxtRPCPeer::connect(QHostAddress addr, int port) {
 
 bool QxtRPCPeer::listen(QHostAddress iface, int port) {
     if(qxt_d().m_rpctype == Client) {
-        qDebug() << "QxtRPCPeer: Cannot listen in Client mode";
+        qWarning() << "QxtRPCPeer: Cannot listen in Client mode";
         return false;
     } else if(qxt_d().m_rpctype == Peer && qxt_d().m_peer->isOpen ()) {
-        qDebug() << "QxtRPCPeer: Cannot listen while connected to a peer";
+        qWarning() << "QxtRPCPeer: Cannot listen while connected to a peer";
         return false;
     } else if(qxt_d().m_server->isListening()) {
-        qDebug() << "QxtRPCPeer: Already listening";
+        qWarning() << "QxtRPCPeer: Already listening";
         return false;
     }
     return qxt_d().m_server->listen(iface, port);
@@ -150,10 +150,10 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port) {
 
 void QxtRPCPeer::disconnectPeer(quint64 id) {
     if(qxt_d().m_rpctype == Server && id==0) {
-        qDebug() << "QxtRPCPeer: Server mode does not have a peer";
+        qWarning() << "QxtRPCPeer: Server mode does not have a peer";
         return;
     } else if(qxt_d().m_rpctype!= Server && id!=0) {
-        qDebug() << "QxtRPCPeer: Must specify a client ID to disconnect";
+        qWarning() << "QxtRPCPeer: Must specify a client ID to disconnect";
         return;
     }
     QxtRPCConnection* conn;
@@ -164,7 +164,7 @@ void QxtRPCPeer::disconnectPeer(quint64 id) {
         conn->socket->deleteLater();
         delete conn;
     } else {
-        qDebug() << "QxtRPCPeer: no client with id " << id;
+        qWarning() << "QxtRPCPeer: no client with id " << id;
     }
 }
 
@@ -182,29 +182,42 @@ void QxtRPCPeer::disconnectAll() {
 
 void QxtRPCPeer::stopListening() {
     if(!qxt_d().m_server->isListening()) {
-        qDebug() << "QxtRPCPeer: Not listening";
+        qWarning() << "QxtRPCPeer: Not listening";
         return;
     }
     qxt_d().m_server->close();
 }
 
 void QxtRPCPeer::attachSignal(QObject* sender, const char* signal, QString rpcFunction) {
-    QByteArray sig(signal);
-    if (!sig.startsWith("2"))
-           qWarning("QxtRPCPeer: Attempt to bind non-signal. use the SIGNAL macro!");
-    if(rpcFunction=="") rpcFunction = sig.mid(1,sig.indexOf('(')-1);
+    QByteArray sig(meta->normalizedSignature(signal).mid(1));
+    QMetaObject* meta = recv->metaObject();
+    int methodID = meta->indexOfMethod(sig.constData());
+    if(methodID == -1 || meta->method(methodID)->methodType() != QMetaMethod::Signal) {
+        qWarning() << "QxtRPCPeer::attachSlot: No such signal " << slot;
+        return;
+    }
+    if(rpcFunction=="") rpcFunction = sig;
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
-    spec->rpcFunction = rpcFunction;
+    spec->rpcFunction = rpcFunction.simplified();
     qxt_d().attachedSignals.insertMulti(sender, spec);
-    qDebug()<<"warning: "<<__FILE__<<__LINE__<<"(QxtRPCPeer::attachSignal) assuming rpcFunction:"<<rpcFunction;
-    ///FIXME: use normalizedsignature, then remove above warning
 }
 
 void QxtRPCPeer::attachSlot(QString rpcFunction, QObject* recv, const char* slot) {
-    ///FIXME: use normalizedsignature on a real SIGNAL
-    if (!QByteArray(slot).startsWith("1"))
-           qWarning("QxtRPCPeer: Attempt to bind non-slot. use the SLOT macro!");
-    qxt_d().attachedSlots[rpcFunction].append(QPair<QObject*, int>(recv, recv->metaObject()->indexOfMethod(recv->metaObject()->normalizedSignature(slot).mid(1))));
+    QMetaObject* meta = recv->metaObject();
+    int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
+    if(methodID == -1 || meta->method(methodID)->methodType() == QMetaMethod::Method) {
+        qWarning() << "QxtRPCPeer::attachSlot: No such slot " << slot;
+        return;
+    }
+
+    QString fn;
+    if(rpcFunction[0] == '1' && rpcFunction.contains('(') && rpcFunction.contains(')')) {
+        fn = QMetaObject::normalizeSignature(rpcFunction.toLocal8Bit().constData().mid(1));
+    } else {
+        fn = rpcFunction.simplified();
+    }
+
+    qxt_d().attachedSlots[fn].append(QPair<QObject*, int>(recv, recv->metaObject()->indexOfMethod(recv->metaObject()->normalizedSignature(slot).mid(1))));
 }
 
 void QxtRPCPeer::detachSender() {
@@ -269,7 +282,7 @@ void QxtRPCPeer::callClientList(QList<quint64> ids, QString fn, QVariant p1, QVa
     foreach(quint64 id, ids) {
         QxtRPCConnection* conn = qxt_d().m_clients.value((QObject*)(id));
         if(!conn) {
-            qDebug() << "QxtRPCPeer: no client with id" << id;
+            qWarning() << "QxtRPCPeer: no client with id" << id;
         } else {
             conn->socket->write(c);
         }
@@ -314,7 +327,7 @@ void QxtRPCPeer::newConnection() {
     QTcpSocket* next = qxt_d().m_server->nextPendingConnection();
     if(qxt_d().m_rpctype == QxtRPCPeer::Peer) {
         if(qxt_d().m_peer->isOpen ()) {
-            qDebug() << "QxtRPCPeer: Rejected connection from " << next->peerAddress().toString() << "; another peer is connected";
+            qWarning() << "QxtRPCPeer: Rejected connection from " << next->peerAddress().toString() << "; another peer is connected";
             next->disconnectFromHost();
             next->deleteLater();
         } else {
@@ -346,21 +359,21 @@ void QxtRPCPeer::dataAvailable() {
     } else {
         QxtRPCConnection* conn = qxt_d().m_clients.value(sender());
         if(!conn) {
-            qDebug() << "QxtRPCPeer: Unrecognized client object connected to dataAvailable";
+            qWarning() << "QxtRPCPeer: Unrecognized client object connected to dataAvailable";
             return;
         }
         conn->buffer.append(conn->socket->readAll());
         qxt_d().processInput(conn->socket, (conn->buffer));
         return;
     }
-    qDebug() << "QxtRPCPeer: Unrecognized peer object connected to dataAvailable";
+    qWarning() << "QxtRPCPeer: Unrecognized peer object connected to dataAvailable";
 }
 
 void QxtRPCPeer::disconnectSender() {
     QxtRPCConnection* conn = qxt_d().m_clients.value(sender());
     if(!conn) {
         if(qxt_d().m_peer!= qobject_cast<QTcpSocket*>(sender())) {
-            qDebug() << "QxtRPCPeer: Unrecognized object connected to disconnectSender";
+            qWarning() << "QxtRPCPeer: Unrecognized object connected to disconnectSender";
             return;
         }
         qxt_d().m_buffer.append(qxt_d().m_peer->readAll());
