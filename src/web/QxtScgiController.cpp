@@ -46,7 +46,11 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 	QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
 
 
-        QxtWeb::readContentFromSocket(socket,SERVER,POST);
+
+        QXT_DROP_SCOPE(error,QxtWeb::readContentFromSocket(socket,SERVER,POST))
+	       {
+	       qDebug()<<"parsing post failed"<<error;
+	       };
 
 
 

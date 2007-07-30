@@ -56,7 +56,7 @@ Note that the semaphore is autoaticly unlocked on destruction, but not on segfau
 
 			bool trylock()
 				{
-				sem_m = (unsigned ) CreateSemaphore ( NULL , 1 , 2 , (WCHAR* )qPrintable("Global\\"+name) );
+				sem_m = (unsigned ) CreateSemaphoreA ( NULL , 1 , 2 , qPrintable("Global\\"+name) );
 				if (sem_m == 0 )
 					return false;
 				return true;
