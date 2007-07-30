@@ -3,5 +3,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-CONFIG+=QXT
+CONFIG+=QXT debug
 QXT+=network gui
