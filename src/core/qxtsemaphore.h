@@ -3,9 +3,10 @@
 
 #include <qxtpimpl.h>
 #include <QString>
+#include <qxtglobal.h>
 
 class QxtSemaphorePrivate;
-class QxtSemaphore 
+class QXT_CORE_EXPORT QxtSemaphore 
 	{
 	public:
 		QxtSemaphore(QString );
