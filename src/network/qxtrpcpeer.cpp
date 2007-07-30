@@ -397,7 +397,8 @@ void QxtRPCPeerPrivate::processInput(QIODevice* socket, QByteArray& buffer) {
     while(qxt_p().canDeserialize(buffer)) {
         QPair<QString, QList<QVariant> > sig = qxt_p().deserialize(buffer);
         if(sig.first.isEmpty()) {
-            if(sig.second.count() == 1 && !sig.second.at(0).isValid()) {
+            if(sig.second.count()) {
+                qWarning() << "QxtRPCPeer: Invalid data received; disconnecting";
                 if(socket == m_peer)
                     qxt_p().disconnectPeer();
                 else
