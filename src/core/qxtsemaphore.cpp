@@ -21,7 +21,7 @@
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
-#include "QxtSemaphore.h"
+#include "qxtsemaphore.h"
 
 /**
 \class QxtSemaphore QxtSemaphore

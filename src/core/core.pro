@@ -5,35 +5,30 @@ INCLUDEPATH     += .
 DEFINES         += BUILD_QXT_CORE
 win32: CONFIG   += dll
 QT               = core
-INCLUDEPATH     += . 
+INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG += qxtbuild  convenience
 
 
-
-HEADERS += QxtCsvModel.h \
-           QxtError.h \
-           QxtEventThread.h \
+HEADERS += qxtcsvmodel.h \
+           qxterror.h \
            qxtglobal.h \
-           QxtHyperMacros.h \
+           qxthypermacros.h \
            qxtmetaobject.h \
            qxtnamespace.h \
-           QxtNull.h \
-           QxtNullable.h \
-           QxtPairList.h \
+           qxtnull.h \
+           qxtnullable.h \
+           qxtpairList.h \
            qxtpimpl.h \
-           QxtSignalWaiter.h \
-           QxtSemaphore.h \
-           QxtTuple.h \
-           QxtTupleList.h \
-           QxtTypeList.h
-
-SOURCES += QxtCsvModel.cpp \
-           QxtError.cpp \
-           QxtEventThread.cpp \
+           qxtsemaphore.h \
+           qxtsignalwaiter.h \
+           qxttuple.h \
+           qxttuplelist.h \
+           qxttypelist.h
+SOURCES += qxtcsvmodel.cpp \
+           qxterror.cpp \
            qxtmetaobject.cpp \
-           QxtSignalWaiter.cpp \
-           QxtSemaphore.cpp
-
+           qxtsemaphore.cpp \
+           qxtsignalwaiter.cpp
