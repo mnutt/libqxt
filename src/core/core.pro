@@ -26,9 +26,11 @@ HEADERS += qxtcsvmodel.h \
            qxtsignalwaiter.h \
            qxttuple.h \
            qxttuplelist.h \
-           qxttypelist.h
+           qxttypelist.h \
+           qxtfifo.h
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \
            qxtmetaobject.cpp \
            qxtsemaphore.cpp \
-           qxtsignalwaiter.cpp
+           qxtsignalwaiter.cpp \
+           qxtfifo.cpp
