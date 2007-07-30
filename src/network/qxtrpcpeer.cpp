@@ -78,30 +78,22 @@ public:
     int m_rpctype;
 };
 
-QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent): QObject(parent) 
-        {
-        QxtRPCPeer::QxtRPCPeer(new QTcpSocket(this),type,parent);
-        }
+QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent) : QObject(parent) {
+    QxtRPCPeer::QxtRPCPeer(new QTcpSocket(this), type, parent);
+}
 
-
-
-QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent): QObject(parent)
-        {
-        QXT_INIT_PRIVATE(QxtRPCPeer);
-        qxt_d().m_rpctype = type;
-        qxt_d().m_server = new QTcpServer(this);
-        qxt_d().m_peer = device;
-        QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
-        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
-        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
-        QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-        QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-        QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
-        }
-
-
- 
-
+QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObject(parent) {
+    QXT_INIT_PRIVATE(QxtRPCPeer);
+    qxt_d().m_rpctype = type;
+    qxt_d().m_server = new QTcpServer(this);
+    qxt_d().m_peer = device;
+    QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
+    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
+    QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
+    QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
+    QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
+    QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+}
 
 void QxtRPCPeer::setRPCType(RPCTypes type) {
     if(qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening()) {

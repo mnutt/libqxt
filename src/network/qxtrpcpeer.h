@@ -64,16 +64,17 @@ public:
         Peer    /**< Listen for a connection or connect to a peer. */
     };
 
+    /*!
+    * Creates a QxtRPCPeer object with the given parent and type. Unless changed later, this object will use QTcpSocket for its I/O device.
+    */
+    QxtRPCPeer(RPCTypes type = QxtRPCPeer::Peer, QObject* parent = 0);
 
-        /*!
-        * Creates a QxtRPCPeer object with the given parent  and type using a tcp socket
-        */
-        QxtRPCPeer(RPCTypes type=QxtRPCPeer::Peer, QObject* parent = 0);
-        /*!
-        * Creates a QxtRPCPeer object with the given parent  and type on the specified io device
-        */
-        QxtRPCPeer(QIODevice* , RPCTypes type=QxtRPCPeer::Peer, QObject* parent = 0);
-
+    /*!
+    * Creates a QxtRPCPeer object with the given parent and type and connects it to the specified I/O device.
+    * 
+    * Note that the I/O device must already be opened for reading and writing. This constructor cannot be used for Server mode.
+    */
+    QxtRPCPeer(QIODevice* device, RPCTypes type = QxtRPCPeer::Peer, QObject* parent = 0);
 
     /*!
      * Sets the RPC type. 
@@ -81,16 +82,19 @@ public:
      * Attempting to change the RPC type while listening or connected will be ignored with a warning.
      */
     void setRPCType(RPCTypes type);
+
     /*!
      * Returns the current RPC type.
      */
     RPCTypes rpcType() const;
+
     /*!
      * Connects to the specified peer or server on the selected port.
      *
      * When the connection is complete, the \a peerConnected() signal will be emitted.  If an error occurs, the \a peerError() signal will be emitted.
      */
     void connect(QHostAddress addr, int port = 80);
+
     /*!
      * Listens on the specified interface on the specified port for connections. 
      *
@@ -100,16 +104,19 @@ public:
      * included in the \a clientConnected() signal that will be emitted.
      */
     bool listen(QHostAddress iface = QHostAddress::Any, int port = 80);
+
     /*!
      * Disconnects from a server, client, or peer.
      *
      * Servers must provide a client ID, provided by the \a clientConnected() signal; clients and peers must not.
      */
     void disconnectPeer(quint64 id = -1);
+
     /*!
      * Disconnects from all clients, or from the server or peer.
      */
     void disconnectAll();
+
     /*!
      * Stops listening for connections. Any connections still open will remain connected.
      */
@@ -128,6 +135,7 @@ public:
      * Use the SIGNAL() macro to specify the signal, just as you would for QObject::connect().
      */
     void attachSignal(QObject* sender, const char* signal, QString rpcFunction = QString());
+
     /*!
      * Attaches the given slot. 
      *
@@ -138,6 +146,7 @@ public:
      * For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(int, QString)) on the server.
      */
     void attachSlot(QString rpcFunction, QObject* recv, const char* slot);
+
     /*!
      * Detaches all signals and slots for the given object.
      */
@@ -154,6 +163,7 @@ public slots:
      */
     void call(QString fn, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
               QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant(), QVariant p9 = QVariant());
+
     /*!
      * Sends the signal with the given parameter list to the provided list of clients.
      *
@@ -164,6 +174,7 @@ public slots:
      */
     void callClientList(QList<quint64> ids, QString fn, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
               QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant());
+
     /*!
      * Sends the signal fn with the given parameter list to the specified client.
      *
@@ -173,6 +184,7 @@ public slots:
      */
     void callClient(quint64 id, QString fn, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
               QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant());
+
     /*!
      * Sends the signal fn with the given parameter list to all connected clients except for the client specified.
      *
@@ -183,6 +195,7 @@ public slots:
      */
     void callClientsExcept(quint64 id, QString fn, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
               QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant());
+
     /*!
      * Detaches all signals and slots for the object that emitted the signal connected to detachSender().
      */
@@ -193,20 +206,24 @@ signals:
      * This signal is emitted after a successful connection to or from a peer or server.
      */
     void peerConnected();
+
     /*!
      * This signal is emitted after a successful connection from a client. 
      *
      * The given ID is used for disconnectPeer(), callClient(), and related functions.
      */
     void clientConnected(quint64 id);
+
     /*!
      * This signal is emitted when a peer or server is disconnected.
      */
     void peerDisconnected();
+
     /*!
      * This signal is emitted when a client disconnects. The given ID is no longer valid.
      */
     void clientDisconnected(quint64 id);
+
     /*!
      * This signal is emitted whenever an error occurs on a socket.
      *
@@ -221,6 +238,7 @@ protected:
      * Reimplement this function in a subclass to allow QxtRPCPeer to use a different protocol.
      */
     virtual QByteArray serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const;
+
     /*!
      * Deserializes network data into a signal name and a list of parameters.
      *
@@ -231,6 +249,7 @@ protected:
      * the connection should be severed.
      */
     virtual QPair<QString, QList<QVariant> > deserialize(QByteArray& data);
+
     /*!
      * Indicates whether the data currently received from the network can be deserialized.
      *
