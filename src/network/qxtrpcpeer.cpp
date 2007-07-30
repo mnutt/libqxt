@@ -437,7 +437,7 @@ QList<quint64> QxtRPCPeer::clients() const {
 
 QxtIntrospector::QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char* signal): QObject(parent) {
     peer = parent;
-    QByteArray sig_ba = QByteArray(signal).mid(1);
+    QByteArray sig_ba = QMetaObject::normalizedSignature(QByteArray(signal).mid(1));
     ///FIXME: use normalizedsignature
     const char * sig=sig_ba.constData();
     int idx = source->metaObject()->indexOfSignal(sig);
