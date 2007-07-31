@@ -5,6 +5,7 @@
 #include <QBuffer>
 #include <QDebug>
 #include <QByteArray>
+#include <QThread>
 
 class QxtnamedPipeTest: public QObject
 	{
@@ -12,9 +13,9 @@ class QxtnamedPipeTest: public QObject
 	private slots:
 		void loopback()
 			{ 
-			QxtNamedPipe out("helloiamapipe");
-			QVERIFY2(out.open(QIODevice::WriteOnly),"open failed");
-			QxtNamedPipe in("helloiamapipe");
+			QxtNamedPipe out("/tmp/QxtNamedPipe");
+			QVERIFY2(out.open(QIODevice::ReadWrite),"open failed");
+			QxtNamedPipe in("/tmp/QxtNamedPipe");
 			QVERIFY2(in.open(QIODevice::ReadOnly),"open failed");
 
 			QSignalSpy spyr(&in, SIGNAL(readyRead()));
