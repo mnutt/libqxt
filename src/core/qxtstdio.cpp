@@ -38,7 +38,6 @@ qint64 QxtStdio::readData ( char * data, qint64 maxSize )
 	}
 qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 	{
-	qDebug("write %i,%s",maxSize,data);
 	qint64 i=0;
 	for (;i<maxSize;i++)
 		{
@@ -51,7 +50,6 @@ qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 
 
 		}
-	qDebug("written %i,%s",i,data);
 // 	emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
 	return i;
 	}
