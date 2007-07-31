@@ -165,7 +165,7 @@ public slots:
      * The receiver is not obligated to act upon the signal. If no server or peer is connected, the call is ignored.
      * In particular, this function does nothing in Server mode.
      */
-    void call(QString fn, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
+    void call(const char *signal, QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(), QVariant p4 = QVariant(),
               QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant(), QVariant p9 = QVariant());
 
     /*!

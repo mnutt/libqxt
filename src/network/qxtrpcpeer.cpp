@@ -282,13 +282,17 @@ QByteArray QxtRPCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant 
     return rv;
 }
 
-void QxtRPCPeer::call(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) {
+void QxtRPCPeer::call(const char * signal , QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) {
+
+    QByteArray sig(signal);
+        if (sig.startsWith("2"))
+                sig=QMetaObject::normalizedSignature(sig.mid(1).constData());
     if(!qxt_d().m_peer->isOpen ())
                 {
                 qWarning("can't call on a closed device");
                  return;
                 }
-    qxt_d().m_peer->write(serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8, p9));
+    qxt_d().m_peer->write(serialize(sig, p1, p2, p3, p4, p5, p6, p7, p8, p9));
 }
 
 void QxtRPCPeer::callClientList(QList<quint64> ids, QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8) {
@@ -461,7 +465,7 @@ int QxtIntrospector::qt_metacall(QMetaObject::Call _c, int _id, void **_a) {
             QVariant v[9];
             int n = argTypes.size();
             for(int i=0; i<n; i++) v[i] = QVariant(argTypes[i], _a[i+1]);
-            peer->call(rpcFunction, v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8]);
+            peer->call(rpcFunction.toUtf8().constData(), v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8]);
         }
         _id -= 1;
     }
