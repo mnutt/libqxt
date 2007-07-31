@@ -1,6 +1,6 @@
 /** ***** QxtRPCPeer loopback test ******/
 #include <QxtRPCPeer>
-#include <QxtFifo>
+#include <qxtfifo.h>
 #include <QCoreApplication>
 #include <QTest>
 #include <QSignalSpy>
@@ -30,6 +30,29 @@ class RPCTest: public QObject
 			QSignalSpy spyr(&io, SIGNAL(readyRead()));
 
  			emit(wave("world"));
+
+			QCoreApplication::processEvents ();
+			QCoreApplication::processEvents ();
+
+
+			QVERIFY2 (spyr.count()> 0, "buffer not emitting readyRead" );
+
+			QVERIFY2 (spy.count()> 0, "no signal received" );
+			QVERIFY2 (spy.count()< 2, "wtf, two signals received?" );
+
+			QList<QVariant> arguments = spy.takeFirst();
+			QVERIFY2(arguments.at(0).toString()=="world","argument missmatch");
+			}
+		void directcall()
+			{ 
+			QxtFifo io;
+			QxtRPCPeer peer(&io);
+ 			QVERIFY2(peer.attachSlot (  SIGNAL(   wave (  QString  )   ),this, SIGNAL( counterwave(QString  )) ),"cannot attach slot"); 
+
+			QSignalSpy spy(this, SIGNAL(counterwave(QString)));
+			QSignalSpy spyr(&io, SIGNAL(readyRead()));
+
+ 			peer.call(SIGNAL(wave   ( QString   )  ),QString("world"));
 
 			QCoreApplication::processEvents ();
 			QCoreApplication::processEvents ();
