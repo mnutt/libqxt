@@ -10,7 +10,7 @@
 \brief QIODevice support for stdin and stdout
 
 including readyRead() signal
-note that when using this class, the buffer for stdin will be disabled, and NOT reenabled on destruction
+note that when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
 
 perfect as a counter part for QProcess
 */
@@ -18,6 +18,8 @@ perfect as a counter part for QProcess
 QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 	{
 	setvbuf ( stdin , NULL , _IONBF , 0 );
+	setvbuf ( stdout , NULL , _IONBF , 0 );
+
 	setOpenMode (QIODevice::ReadWrite);
 	notify = new QSocketNotifier ( fileno(stdin),QSocketNotifier::Read,this );
 	connect(notify, SIGNAL(activated(int)),this,SLOT(activated(int)));
@@ -36,13 +38,20 @@ qint64 QxtStdio::readData ( char * data, qint64 maxSize )
 	}
 qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 	{
+	qDebug("write %i,%s",maxSize,data);
 	qint64 i=0;
 	for (;i<maxSize;i++)
 		{
 		char c=*data++;
-		if (putchar(c)!=c)
-			break;
+		putchar(c);
+
+///FIXME: why the heck is that not working... the C99 standard says it should...
+// 		if (putchar(c)!=c)		
+// 			break;
+
+
 		}
+	qDebug("written %i,%s",i,data);
 // 	emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
 	return i;
 	}
