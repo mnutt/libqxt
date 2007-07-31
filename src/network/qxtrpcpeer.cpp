@@ -201,7 +201,7 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal,const char * r
         qWarning() << "QxtRPCPeer::attachSlot: No such signal " << signal;
         return false;
     }
-    if(rpcFunction=="") rpcFunction = sig;
+    if(rpcFunction=="") rpcFunction = meta->normalizedSignature(signal);
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
     spec->rpcFunction = rpcFunction.simplified();
     qxt_d().attachedSignals.insertMulti(sender, spec);
@@ -209,13 +209,13 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal,const char * r
 }
 
 bool QxtRPCPeer::attachSlot(const char * rpcF, QObject* recv, const char* slot) {
-    QByteArray rpcFunction(rpcF);
+    QByteArray rpcFunction= QMetaObject::normalizedSignature(rpcF);
 
     if(!rpcFunction.startsWith('2')) 
 		{
 		qWarning("QxtRPCPeer::attachSlot use the SIGNAL macro to define the rpc signal");
 		}
-    rpcFunction= QMetaObject::normalizedSignature(rpcFunction).mid(1);
+
     const QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
     if(methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method) {
@@ -284,9 +284,8 @@ QByteArray QxtRPCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant 
 
 void QxtRPCPeer::call(const char * signal , QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) {
 
-    QByteArray sig(signal);
-        if (sig.startsWith("2"))
-                sig=QMetaObject::normalizedSignature(sig.mid(1).constData());
+    QByteArray sig=QMetaObject::normalizedSignature(signal);
+
     if(!qxt_d().m_peer->isOpen ())
                 {
                 qWarning("can't call on a closed device");
