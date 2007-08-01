@@ -78,6 +78,19 @@ public:
     int m_rpctype;
 };
 
+QxtRPCPeer::QxtRPCPeer(QObject* parent) : QObject(parent) {
+        QXT_INIT_PRIVATE(QxtRPCPeer);
+        qxt_d().m_rpctype = Peer;
+        qxt_d().m_server = new QTcpServer(this);
+        qxt_d().m_peer = new QTcpSocket(this);
+        QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
+        QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
+        QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+}
+
 QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent) : QObject(parent) {
         QXT_INIT_PRIVATE(QxtRPCPeer);
         qxt_d().m_rpctype = type;
@@ -192,30 +205,25 @@ void QxtRPCPeer::stopListening() {
     qxt_d().m_server->close();
 }
 
-bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal,const char * rpcF) {
-    QByteArray rpcFunction(rpcF);
+bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, const QByteArray& rpcFunction) {
     const QMetaObject* meta = sender->metaObject();
     QByteArray sig(meta->normalizedSignature(signal).mid(1));
     int methodID = meta->indexOfMethod(sig.constData());
     if(methodID == -1 || meta->method(methodID).methodType() != QMetaMethod::Signal) {
-        qWarning() << "QxtRPCPeer::attachSlot: No such signal " << signal;
+        qWarning() << "QxtRPCPeer::attachSignal: No such signal " << signal;
         return false;
     }
-    if(rpcFunction=="") rpcFunction = meta->normalizedSignature(signal);
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
-    spec->rpcFunction = rpcFunction.simplified();
+    if(!rpcFunction.isEmpty()) {
+        spec->rpcFunction = rpcFunction.simplified();
+    } else {
+        spec->rpcFunction = sig;
+    }
     qxt_d().attachedSignals.insertMulti(sender, spec);
     return true;
 }
 
-bool QxtRPCPeer::attachSlot(const char * rpcF, QObject* recv, const char* slot) {
-    QByteArray rpcFunction= QMetaObject::normalizedSignature(rpcF);
-
-    if(!rpcFunction.startsWith('2')) 
-		{
-		qWarning("QxtRPCPeer::attachSlot use the SIGNAL macro to define the rpc signal");
-		}
-
+bool QxtRPCPeer::attachSlot(const QByteArray& rpcFunction, QObject* recv, const char* slot) {
     const QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
     if(methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method) {

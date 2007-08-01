@@ -65,9 +65,14 @@ public:
     };
 
     /*!
+    * Creates a QxtRPCPeer object with the given parent. Unless changed later, this object will use Peer mode and QTcpSocket for its I/O device.
+    */
+    QxtRPCPeer(QObject* parent = 0);
+
+    /*!
     * Creates a QxtRPCPeer object with the given parent and type. Unless changed later, this object will use QTcpSocket for its I/O device.
     */
-    QxtRPCPeer(RPCTypes type = QxtRPCPeer::Peer, QObject* parent = 0);
+    QxtRPCPeer(RPCTypes type, QObject* parent = 0);
 
     /*!
     * Creates a QxtRPCPeer object with the given parent and type and connects it to the specified I/O device.
@@ -136,7 +141,7 @@ public:
      *
      * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
      */
-    bool attachSignal(QObject* sender, const char* signal, const char * rpcSignal = "");
+    bool attachSignal(QObject* sender, const char* signal, const QByteArray& rpcFunction = QByteArray());
 
     /*!
      * Attaches the given slot. 
@@ -149,7 +154,7 @@ public:
      * \Note In Server mode, the first parameter of the slot must be int id. The parameters of the signal follow.
      * For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(int, QString)) on the server.
      */
-    bool attachSlot(const char * rpcSignal, QObject* recv, const char* slot);
+    bool attachSlot(const QByteArray& rpcFunction, QObject* recv, const char* slot);
 
     /*!
      * Detaches all signals and slots for the given object.
