@@ -4,23 +4,62 @@
 **
 ** This file is part of the QxtCore module of the Qt eXTension library
 **
-** This library is free software; you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation; either
-** version 2.1 of the License, or any later version.
+** This library is free software; you can redistribute it and/or modify it
+** under the terms of th Common Public License, version 1.0, as published by
+** IBM.
 **
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+** FITNESS FOR A PARTICULAR PURPOSE. 
 **
-** There is aditional information in the LICENSE file of libqxt.
-** If you did not receive a copy of the file try to download it or
-** contact the libqxt Management
+** You should have received a copy of the CPL along with this file.
+** See the LICENSE file and the cpl1.0.txt file included with the source
+** distribution for more information. If you did not receive a copy of the
+** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>  <coda@bobandgeorge.com>
+** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
 
-#include "QxtHtmlTemplate.h"
+/*!
+        \class QxtHtmlTemplate QxtHtmlTemplate
+        \ingroup web
+        \brief Basic Html Template Engine
+
+        open a file containing html code and php style variables.
+        use the square bracket operators to assign content for a variable
+
+        \code
+        QxtHtmlTemplate index;
+        if(!index.open)
+                return 404;
+        index["content"]="hello world";
+        echo()<<index.render();
+        \endcode
+        the realatet html code would look like:
+        \code
+        <html>
+        <head>
+                <title>Test Page</title>
+        </head>
+                <?=content?>
+        </html>
+        \endcode
+*/
+
+/*!
+        \fn QxtHtmlTemplate::open(const QString& filename)
+        Returns true on sucess and false on failure.
+        note that it will also return false for an empty html file.
+
+        \fn QString QxtHtmlTemplate::render() const 
+        Uses the variables you set and renders the opened file.
+        returns an empty string on failure.
+        Does NOT take care of not assigned variables, they will remain in the returned string
+ */
+
+#include "qxthtmltemplate.h"
 #include <QFile>
 
 QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString,QString>()
@@ -34,7 +73,8 @@ bool QxtHtmlTemplate::open(const QString& filename)
 	f.open(QIODevice::ReadOnly);
 	data = QString::fromLocal8Bit(f.readAll());
 	f.close();
-	if (data.isEmpty())return false;
+	if (data.isEmpty())
+                return false;
 	return true;
 	}
 

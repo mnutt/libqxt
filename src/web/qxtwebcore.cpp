@@ -1,9 +1,70 @@
+/****************************************************************************
+**
+** Copyright (C) Qxt Foundation. Some rights reserved.
+**
+** This file is part of the QxtCore module of the Qt eXTension library
+**
+** This library is free software; you can redistribute it and/or modify it
+** under the terms of th Common Public License, version 1.0, as published by
+** IBM.
+**
+** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+** FITNESS FOR A PARTICULAR PURPOSE. 
+**
+** You should have received a copy of the CPL along with this file.
+** See the LICENSE file and the cpl1.0.txt file included with the source
+** distribution for more information. If you did not receive a copy of the
+** license, contact the Qxt Foundation.
+** 
+** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+**
+****************************************************************************/
 #include "qxtwebcore.h"
 #include "qxtwebcore_p.h"
 #include <QTimer>
 #include <QUrl>
 #include "qxtwebcontroller.h"
 #include <QCoreApplication>
+/*!
+        \class QxtWebCore QxtWebCore
+        \ingroup web
+        \brief qxtweb application core class. communicates, delegates, does all of the magic ;)
+
+
+        QxtWebCore is a lighweight class using QxtRPCPeer and QxtStdio. It Provides your Application 
+        with an interface to a transport such as mod_qt , sige or any other implementation of it, and does the controller delegation for you.
+
+        construct one webcore object in the main function of your application.
+        you must contruct it AFTER QCoreApplication and BEFORe any controllers.
+
+        \code
+        int main(int argc,char ** argv)
+                {
+                QCoreApplication  app(argc,argv);
+                QxtWebCore core;
+                QxtWebController controller("root");
+                app.exec();
+                }
+        \endcode
+*/
+
+/*!
+        \fn static QxtWebCore* instance();
+        singleton accessor
+        \fn static void send(QByteArray);
+        Send data to the client. Use this rarely, but use it always when sending binary data such as images.
+        normal text/html comunication should be done using the controllers echo() function
+        note that after you called send the first time you cannot modify the header anymore
+        sending may be ignored by the transport when there is no client currently handled
+        \fn static QxtRPCPeer * peer();
+        direct access to the QxtRPCPeer used for communicating with the transport
+        the returned pointer is valid during the whole lifetime of the program
+        \fn static QxtError parseString(QByteArray str, post_t & POST);
+        much like phps parse_string
+ */
+
 
 static QxtWebCore * singleton_m=0;
 
