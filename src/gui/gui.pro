@@ -44,7 +44,9 @@ HEADERS += qxtapplication.h \
            qxttooltip_p.h \
            qxttreewidget.h \
            qxttreewidget_p.h \
-           qxttreewidgetitem.h
+           qxttreewidgetitem.h\
+	   qxtstringvalidator.h\
+	   qxtstringvalidator_p.h
 
 SOURCES += qxtapplication.cpp \
            qxtcheckcombobox.cpp \
@@ -69,7 +71,8 @@ SOURCES += qxtapplication.cpp \
            qxttabwidget.cpp \
            qxttooltip.cpp \
            qxttreewidget.cpp \
-           qxttreewidgetItem.cpp
+           qxttreewidgetItem.cpp\
+	   qxtstringvalidator.cpp
 
 unix:!macx:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
 macx {
