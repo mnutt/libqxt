@@ -78,7 +78,7 @@ void QxtStringValidator::fixup ( QString & input ) const
     if(qxt_d().data.contains(input,qxt_d().cs))
         return;
 
-    QRegExp match(QString("^%1.*").arg(input));
+    QRegExp match(QString("^\\%1.*").arg(input));
     match.setCaseSensitivity(qxt_d().cs);
     int iPossibleStringIndex = qxt_d().data.indexOf(match);
 
@@ -97,7 +97,7 @@ void QxtStringValidator::setStringList(QStringList &stringList)
 
 /*!
     Returns Acceptable if the string input matches a item in the stringlist.
-    Returns Intermediate if the string input matches a item in the stringlist partial.
+    Returns Intermediate if the string input matches a item in the stringlist partial or if input is empty.
     Returns Invalid otherwise.
 
     Note: A partial match means the beginning of the strings are matching:
@@ -107,13 +107,16 @@ QValidator::State QxtStringValidator::validate ( QString & input, int & pos ) co
 {
     Q_UNUSED(pos);
 
+    if(input.isEmpty())
+        return QValidator::Intermediate;
+
     if(qxt_d().data.contains(input,qxt_d().cs))
     {
         qDebug()<<input<<" is QValidator::Acceptable";
         return QValidator::Acceptable;
     }
 
-    QRegExp match(QString("^%1.*").arg(input));
+    QRegExp match(QString("^\\%1.*").arg(input));
     match.setCaseSensitivity(qxt_d().cs);
 
     if(qxt_d().data.indexOf(match) >= 0)
