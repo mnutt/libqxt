@@ -1,8 +1,8 @@
-#ifndef QxtScgiController_H_sapoidnasoas
-#define QxtScgiController_H_sapoidnasoas
+#ifndef QxtWebController_H_sapoidnasoas
+#define QxtWebController_H_sapoidnasoas
 
 #include <QObject>
-#include "QxtScgiApplication.h"
+#include "qxtwebcore.h"
 #include <QTextStream>
 #include <cassert>
 
@@ -13,15 +13,13 @@
 
 
 
-class QxtScgiApplication;
-class QTcpSocket;
-class QxtScgiController : public QObject
+class QxtWebController : public QObject
         {
         Q_OBJECT
         public:
-                QxtScgiController(QString name);
+                QxtWebController(QString name);
 
-                int invoke(QTcpSocket * ,server_t &);
+                int invoke(server_t &);
 
 
                 static QString WebRoot();
@@ -29,23 +27,18 @@ class QxtScgiController : public QObject
         public slots:
 		 int index()
                         {
-			echo()<<"Status: 404 NOT FOUND\r\n";
-			echo()<<"Content-Type: text/html\r\n";
-			echo()<<"\r\n\r\n";
 			echo()<<"overwrite the index function of this controller("+objectName()+")";
-                        return 0;
+                        return 404;
                         }
 
         protected:
                 QTextStream & echo();
-                QTcpSocket * socket();
 		QString self();
 
                 server_t SERVER;
                 post_t POST;
         private:
                 QTextStream *stream_m;
-                QTcpSocket *socket_m;
 
 
         };
