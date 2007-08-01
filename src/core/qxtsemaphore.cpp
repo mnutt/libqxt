@@ -92,7 +92,7 @@ Note that the semaphore is autoaticly unlocked on destruction, but not on segfau
 			bool trylock()
 				{
 				m_sem=sem_open(qPrintable(name), O_CREAT, S_IRUSR | S_IWUSR, 1);
-				if((int)(m_sem)==SEM_FAILED || sem_trywait(m_sem)) 
+				if(m_sem==SEM_FAILED || sem_trywait(m_sem)) 
 					{
 					m_sem=NULL;
 					s_N=true;
