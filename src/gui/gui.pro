@@ -71,7 +71,10 @@ SOURCES += qxtapplication.cpp \
            qxttreewidget.cpp \
            qxttreewidgetItem.cpp
 
-unix:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
-macx:  SOURCES -= qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
-macx:  SOURCES += qxtapplication_mac.cpp
+unix:!macx:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
+macx {
+       SOURCES += qxtapplication_mac.cpp
+       SOURCES -= qxtdesktopwidget.cpp
+       HEADERS -= qxtdesktopwidget.h
+}
 win32: SOURCES += qxtdesktopwidget_win.cpp   qxtapplication_win.cpp
