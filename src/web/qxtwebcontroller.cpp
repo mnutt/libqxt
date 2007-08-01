@@ -1,56 +1,49 @@
-#include "QxtScgiController.h"
+#include "qxtwebcontroller.h"
 #include <QTcpSocket>
 #include <QStringList>
 #include <QDebug>
 #include <QCoreApplication>
 #include <QUrl>
+#include "qxtwebcore.h"
 
-#include "QxtScgiApplication.h"
 
-
-QString QxtScgiController::WebRoot()
+QString QxtWebController::WebRoot()
         {
         return QCoreApplication::applicationDirPath()+"/../";
         }
 
  
-QxtScgiController::QxtScgiController(QString name):QObject(QCoreApplication::instance())
+QxtWebController::QxtWebController(QString name):QObject(QCoreApplication::instance())
         {
-        socket_m=0;
         stream_m=0;
         setObjectName(name);
         }
 
 
-QTextStream & QxtScgiController::echo()
+QTextStream & QxtWebController::echo()
 	{
 	assert(stream_m);
 	return *stream_m;
 	}
-QTcpSocket * QxtScgiController::socket()
-	{
-	assert(socket_m);
-	return socket_m;
-	}
 
 
-QString QxtScgiController::self()
+QString QxtWebController::self()
 	{
 	return "/"+objectName();
 	}
 
 
-int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
+int QxtWebController::invoke(server_t & SERVER_i)
         {
         SERVER=SERVER_i;
 	QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
 
 
 
-        QXT_DROP_SCOPE(error,QxtWeb::readContentFromSocket(socket,SERVER,POST))
-	       {
-	       qDebug()<<"parsing post failed"<<error;
-	       };
+//         QXT_DROP_SCOPE(error,QxtWeb::readContentFromSocket(socket,SERVER,POST))
+// 	       {
+// 	       qDebug()<<"parsing post failed"<<error;
+// 	       };
 
 
 
@@ -80,9 +73,9 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 	foreach(QByteArray arg,args_d)
 		args<<QUrl::fromPercentEncoding(arg);
 
-        QTextStream strm (socket);
+        QByteArray buffer;
+        QTextStream strm (&buffer);
         stream_m=  &strm;
-        socket_m=socket;
 
         int retVal=666;
 	if (args.count()>8)
@@ -91,7 +84,7 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 		Q_ARG(QString, args.at(0)),Q_ARG(QString, args.at(1)),Q_ARG(QString, args.at(2)),Q_ARG(QString, args.at(3))
 		,Q_ARG(QString, args.at(4)),Q_ARG(QString, args.at(5)),Q_ARG(QString, args.at(6)),Q_ARG(QString, args.at(8))))
 			{
-			retVal=4042;
+			retVal=4042; ///FIXME: the return value of the invoke has a meaning, handle it!
 			}
 		}
 	else if (args.count()>7)
@@ -171,9 +164,12 @@ int QxtScgiController::invoke(QTcpSocket * socket,server_t & SERVER_i)
 			}
 		}
 
+
+
+
 	stream_m->flush ();
         stream_m=0;
-        socket_m=0;
+        QxtWebCore::send(buffer);
         return retVal;
         };
 

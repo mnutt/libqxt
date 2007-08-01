@@ -1,11 +1,11 @@
 TARGET          =  QxtWeb
 #DESTDIR         = .lib
 DEPENDPATH      += .
-INCLUDEPATH     += . ../core
+INCLUDEPATH     += . ../core ../network
 DEFINES         += BUILD_QXT_WEB
 win32: CONFIG   += dll
 QT               = core network
-QXT              = core
+QXT              = core network
 INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
@@ -13,9 +13,6 @@ OBJECTS_DIR      = .obj
 CONFIG          += qxtbuild convenience
 
 
-HEADERS += QxtHtmlTemplate.h \
-	   QxtScgiApplication.h \
-           QxtScgiApplication_p.h \
-           QxtScgiController.h   QxtWeb.h
+HEADERS+= qxthtmltemplate.h  qxtwebcore.h  qxtwebcontroller.h  qxtwebcore_p.h  
+SOURCES+= qxthtmltemplate.cpp  qxtwebcore.cpp  qxtwebcontroller.cpp 
 
-SOURCES += QxtScgiApplication.cpp QxtHtmlTemplate.cpp  QxtScgiController.cpp QxtWeb.cpp
