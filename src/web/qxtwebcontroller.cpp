@@ -1,14 +1,14 @@
 #include "qxtwebcontroller.h"
-#include <QTcpSocket>
+#include "qxtwebcore.h"
 #include <QStringList>
 #include <QDebug>
 #include <QCoreApplication>
 #include <QUrl>
-#include "qxtwebcore.h"
-
+static QTextStream  nullstream;
 
 QString QxtWebController::WebRoot()
         {
+
         return QCoreApplication::applicationDirPath()+"/../";
         }
 
@@ -22,7 +22,11 @@ QxtWebController::QxtWebController(QString name):QObject(QCoreApplication::insta
 
 QTextStream & QxtWebController::echo()
 	{
-	assert(stream_m);
+	if(!stream_m)
+                {
+                qDebug("QxtWebController::echo() no stream open");
+                return nullstream;
+                }
 	return *stream_m;
 	}
 
@@ -37,17 +41,6 @@ int QxtWebController::invoke(server_t & SERVER_i)
         {
         SERVER=SERVER_i;
 	QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
-
-
-
-//         QXT_DROP_SCOPE(error,QxtWeb::readContentFromSocket(socket,SERVER,POST))
-// 	       {
-// 	       qDebug()<<"parsing post failed"<<error;
-// 	       };
-
-
-
-
 
         ///--------------find action ------------------
 	QByteArray action="index";	
@@ -163,9 +156,6 @@ int QxtWebController::invoke(server_t & SERVER_i)
 			retVal=4042;
 			}
 		}
-
-
-
 
 	stream_m->flush ();
         stream_m=0;
