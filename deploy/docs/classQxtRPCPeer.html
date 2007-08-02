@@ -45,7 +45,7 @@ width="32" height="32" border="0" /></a></td>
 </ul>
 <h3>Public Slots</h3>
 <ul>
-<li>void <a class="el" href="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call</a> (QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())
+<li>void <a class="el" href="classQxtRPCPeer.html#f943f1c5e7df1cd6b9c79b4bd52b9620">call</a> (const char *signal, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2">callClientList</a> (QList&lt; quint64 &gt; ids, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da">callClientsExcept</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
@@ -62,6 +62,8 @@ width="32" height="32" border="0" /></a></td>
 <h3>Public Member Functions</h3>
 <ul>
 <li><a class="el" href="classQxtRPCPeer.html#2ca9ef835583cbbb61dae031effea560">QxtRPCPeer</a> (QObject *parent=0)
+<li><a class="el" href="classQxtRPCPeer.html#554d31a27d1093dc9ca3df8dc93cbde0">QxtRPCPeer</a> (<a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a> type, QObject *parent=0)
+<li><a class="el" href="classQxtRPCPeer.html#9d57f7ba1ad9a3aff8afab6632c417df">QxtRPCPeer</a> (QIODevice *device, <a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a> type=QxtRPCPeer::Peer, QObject *parent=0)
 <li>void <a class="el" href="classQxtRPCPeer.html#1894bd5342357f7d323e2bbeda577533">setRPCType</a> (<a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a> type)
 <li><a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a> <a class="el" href="classQxtRPCPeer.html#714353c8574c58d05b4e86aaca9fa906">rpcType</a> () const
 <li>void <a class="el" href="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f">connect</a> (QHostAddress addr, int port=80)
@@ -70,8 +72,8 @@ width="32" height="32" border="0" /></a></td>
 <li>void <a class="el" href="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d">disconnectAll</a> ()
 <li>void <a class="el" href="classQxtRPCPeer.html#2656eda811259c6c75702d3952f49afd">stopListening</a> ()
 <li>QList&lt; quint64 &gt; <a class="el" href="classQxtRPCPeer.html#3d47284e3fb7fc652718b1fa90829d5b">clients</a> () const
-<li>void <a class="el" href="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</a> (QObject *sender, const char *signal, QString rpcFunction=QString())
-<li>void <a class="el" href="classQxtRPCPeer.html#5648ce9b84625ba3095f9e7a74d7d641">attachSlot</a> (QString rpcFunction, QObject *recv, const char *slot)
+<li>bool <a class="el" href="classQxtRPCPeer.html#4eb80c74da193ca1d734abe0f3454f38">attachSignal</a> (QObject *sender, const char *signal, const QByteArray &amp;rpcFunction=QByteArray())
+<li>bool <a class="el" href="classQxtRPCPeer.html#7af929741223c53c2e4dc834238e4ff8">attachSlot</a> (const QByteArray &amp;rpcFunction, QObject *recv, const char *slot)
 <li>void <a class="el" href="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</a> (QObject *obj)
 </ul>
 <h3>Protected Member Functions</h3>
@@ -87,7 +89,7 @@ Transmits Qt signals over a network connection.
 <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> is a tool that encapsulates Qt signals and transmits them over a network connection. The signal is subsequently re-emitted on the receiving end of the connection.<p>
 <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> can operate in peer-to-peer mode (that is, one-to-one) or client-server (that is, one-to-many) mode. In peer or server mode, <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> can listen for and accept incoming connections. In peer or client mode, <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> can connect to a listening peer or server.<p>
 All data types used in attached signals and slots must be declared and registered with QMetaType using Q_DECLARE_METATYPE and qRegisterMetaType, and they must have stream operators registered with qRegisterMetaTypeStreamOperators.<p>
-The limits on the number of parameters passed to <a class="el" href="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call()</a> and related functions are a restriction of Qt, which limits parameters on a signal or slot to 10. 
+The limits on the number of parameters passed to <a class="el" href="classQxtRPCPeer.html#f943f1c5e7df1cd6b9c79b4bd52b9620">call()</a> and related functions are a restriction of Qt, which limits parameters on a signal or slot to 10. 
 <p>
 <hr><h3>Member Enumeration Documentation</h3>
 <a class="anchor" name="d424ed62e2eb2df6b0ccd075a0656a96"></a><!-- doxytag: member="QxtRPCPeer::RPCTypes" ref="d424ed62e2eb2df6b0ccd075a0656a96" args="" -->
@@ -124,7 +126,42 @@ Listen for a connection or connect to a peer. </td></tr>
 <div class="memdoc">
 
 <p>
-Creates a <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> object with the given parent. 
+Creates a <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> object with the given parent. Unless changed later, this object will use Peer mode and QTcpSocket for its I/O device. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="554d31a27d1093dc9ca3df8dc93cbde0"></a><!-- doxytag: member="QxtRPCPeer::QxtRPCPeer" ref="554d31a27d1093dc9ca3df8dc93cbde0" args="(RPCTypes type, QObject *parent=0)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QxtRPCPeer::QxtRPCPeer           </span>
+(          <span class="paramtype"><a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a>&nbsp;</span>
+          <span class="paramname"> <em>type</em>, </span>
+          <span class="paramtype">QObject *&nbsp;</span>
+          <span class="paramname"> <em>parent</em> = 0</span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Creates a <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> object with the given parent and type. Unless changed later, this object will use QTcpSocket for its I/O device. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="9d57f7ba1ad9a3aff8afab6632c417df"></a><!-- doxytag: member="QxtRPCPeer::QxtRPCPeer" ref="9d57f7ba1ad9a3aff8afab6632c417df" args="(QIODevice *device, RPCTypes type=QxtRPCPeer::Peer, QObject *parent=0)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QxtRPCPeer::QxtRPCPeer           </span>
+(          <span class="paramtype">QIODevice *&nbsp;</span>
+          <span class="paramname"> <em>device</em>, </span>
+          <span class="paramtype"><a class="el" href="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96">RPCTypes</a>&nbsp;</span>
+          <span class="paramname"> <em>type</em> = QxtRPCPeer::Peer, </span>
+          <span class="paramtype">QObject *&nbsp;</span>
+          <span class="paramname"> <em>parent</em> = 0</span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Creates a <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> object with the given parent and type and connects it to the specified I/O device.<p>
+Note that the I/O device must already be opened for reading and writing. This constructor cannot be used for Server mode. 
 </p></div>
 </div><!-- memitem --><br/>
 <hr><h3>Member Function Documentation</h3>
@@ -244,30 +281,31 @@ Stops listening for connections. Any connections still open will remain connecte
 Returns a list of client IDs for all connected clients. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="2f47d94290f68e34c52abe94b4d73283"></a><!-- doxytag: member="QxtRPCPeer::attachSignal" ref="2f47d94290f68e34c52abe94b4d73283" args="(QObject *sender, const char *signal, QString rpcFunction=QString())" -->
+<a class="anchor" name="4eb80c74da193ca1d734abe0f3454f38"></a><!-- doxytag: member="QxtRPCPeer::attachSignal" ref="4eb80c74da193ca1d734abe0f3454f38" args="(QObject *sender, const char *signal, const QByteArray &amp;rpcFunction=QByteArray())" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">void QxtRPCPeer::attachSignal           </span>
+          <span class="memname">bool QxtRPCPeer::attachSignal           </span>
 (          <span class="paramtype">QObject *&nbsp;</span>
           <span class="paramname"> <em>sender</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>signal</em>, </span>
-          <span class="paramtype">QString&nbsp;</span>
-          <span class="paramname"> <em>rpcFunction</em> = QString()</span>
+          <span class="paramtype">const QByteArray &amp;&nbsp;</span>
+          <span class="paramname"> <em>rpcFunction</em> = QByteArray()</span>
 )</div>
 
 <div class="memdoc">
 
 <p>
 Attaches the given signal.<p>
-When the attached signal is emitted, it will be transmitted to all connected servers, clients, or peers. If an optional rpcFunction is provided, it will be used in place of the name of the transmitted signal. Use the SIGNAL() macro to specify the signal, just as you would for QObject::connect(). 
+When the attached signal is emitted, it will be transmitted to all connected servers, clients, or peers. If an optional rpcFunction is provided, it will be used in place of the name of the transmitted signal. Use the SIGNAL() macro to specify the signal, just as you would for QObject::connect().<p>
+Like QObject::connect(), attachSignal returns false if the connection cannot be established. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="5648ce9b84625ba3095f9e7a74d7d641"></a><!-- doxytag: member="QxtRPCPeer::attachSlot" ref="5648ce9b84625ba3095f9e7a74d7d641" args="(QString rpcFunction, QObject *recv, const char *slot)" -->
+<a class="anchor" name="7af929741223c53c2e4dc834238e4ff8"></a><!-- doxytag: member="QxtRPCPeer::attachSlot" ref="7af929741223c53c2e4dc834238e4ff8" args="(const QByteArray &amp;rpcFunction, QObject *recv, const char *slot)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">void QxtRPCPeer::attachSlot           </span>
-(          <span class="paramtype">QString&nbsp;</span>
+          <span class="memname">bool QxtRPCPeer::attachSlot           </span>
+(          <span class="paramtype">const QByteArray &amp;&nbsp;</span>
           <span class="paramname"> <em>rpcFunction</em>, </span>
           <span class="paramtype">QObject *&nbsp;</span>
           <span class="paramname"> <em>recv</em>, </span>
@@ -280,6 +318,7 @@ When the attached signal is emitted, it will be transmitted to all connected ser
 <p>
 Attaches the given slot.<p>
 When a signal with the name given by rpcFunction is received from the network, the attached slot is executed. Use the SLOT() macro to specify the slot, just as you would for QObject::connect().<p>
+Like QObject::connect(), attachSignal returns false if the connection cannot be established.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>In Server mode, the first parameter of the slot must be int id. The parameters of the signal follow. For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(int, QString)) on the server. </dd></dl>
 
 </p></div>
@@ -298,12 +337,12 @@ When a signal with the name given by rpcFunction is received from the network, t
 Detaches all signals and slots for the given object. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="ff6bd5527acbe000d11d1e6bc26a53e3"></a><!-- doxytag: member="QxtRPCPeer::call" ref="ff6bd5527acbe000d11d1e6bc26a53e3" args="(QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())" -->
+<a class="anchor" name="f943f1c5e7df1cd6b9c79b4bd52b9620"></a><!-- doxytag: member="QxtRPCPeer::call" ref="f943f1c5e7df1cd6b9c79b4bd52b9620" args="(const char *signal, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">void QxtRPCPeer::call           </span>
-(          <span class="paramtype">QString&nbsp;</span>
-          <span class="paramname"> <em>fn</em>, </span>
+(          <span class="paramtype">const char *&nbsp;</span>
+          <span class="paramname"> <em>signal</em>, </span>
           <span class="paramtype">QVariant&nbsp;</span>
           <span class="paramname"> <em>p1</em> = QVariant(), </span>
           <span class="paramtype">QVariant&nbsp;</span>
@@ -562,7 +601,7 @@ Reimplement this function in a subclass to allow <a class="el" href="classQxtRPC
 
 <p>
 Deserializes network data into a signal name and a list of parameters.<p>
-Reimplement this function in a subclass to allow <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> to understand a different protocol. If you reimplement it, be sure to remove the processed portion of the data from the reference parameter. Return "qMakePair(QString(), QList&lt;QVariant&gt;())" if the deserialized data doesn't invoke a signal. 
+Reimplement this function in a subclass to allow <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> to understand a different protocol. If you reimplement it, be sure to remove the processed portion of the data from the reference parameter. Return "qMakePair(QString(), QList&lt;QVariant&gt;())" if the deserialized data doesn't invoke a signal. Return "qMakePair(QString(), QList&lt;QVariant&gt;() &lt;&lt; QVariant())" if the protocol has been violated and the connection should be severed. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="78048057780f8c2fbf065f8e90cd1288"></a><!-- doxytag: member="QxtRPCPeer::canDeserialize" ref="78048057780f8c2fbf065f8e90cd1288" args="(const QByteArray &amp;buffer) const" -->

@@ -33,47 +33,97 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtSpanSlider Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtSpanSlider" -->A slider with two handles.  
+</h1><!-- doxytag: class="QxtSpanSlider" -->A QSlider with two handles.  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Slots</h3>
 <ul>
-<li><a class="anchor" name="fc974be0a788e3fd1fd3014c81cfb0aa"></a><!-- doxytag: member="QxtSpanSlider::setLower" ref="fc974be0a788e3fd1fd3014c81cfb0aa" args="(int lower)" -->
-void <b>setLower</b> (int lower)
-<li><a class="anchor" name="0b9ce8368865bd0c8e50077d5501e098"></a><!-- doxytag: member="QxtSpanSlider::setUpper" ref="0b9ce8368865bd0c8e50077d5501e098" args="(int upper)" -->
-void <b>setUpper</b> (int upper)
+<li><a class="anchor" name="61c59417faf46c042b2af6a641bacc44"></a><!-- doxytag: member="QxtSpanSlider::setLowerValue" ref="61c59417faf46c042b2af6a641bacc44" args="(int lower)" -->
+void <b>setLowerValue</b> (int lower)
+<li><a class="anchor" name="9c450417490fdc20f96a0f64ffa1ad85"></a><!-- doxytag: member="QxtSpanSlider::setUpperValue" ref="9c450417490fdc20f96a0f64ffa1ad85" args="(int upper)" -->
+void <b>setUpperValue</b> (int upper)
 <li>void <a class="el" href="classQxtSpanSlider.html#7fc6e87a5ec80c01579157f4893d0117">setSpan</a> (int lower, int upper)
 </ul>
 <h3>Signals</h3>
 <ul>
 <li>void <a class="el" href="classQxtSpanSlider.html#c0b68f434b781977c856ab0c14efe84f">spanChanged</a> (int lower, int upper)
-<li>void <a class="el" href="classQxtSpanSlider.html#e391e0ceb135d17414cffa9b70892bf5">lowerChanged</a> (int lower)
-<li>void <a class="el" href="classQxtSpanSlider.html#fe9d465dbc34b084cc4bcca420651cab">upperChanged</a> (int upper)
+<li>void <a class="el" href="classQxtSpanSlider.html#6706d537da77862af4cfa81ed9226dff">lowerValueChanged</a> (int lower)
+<li>void <a class="el" href="classQxtSpanSlider.html#c2573b58ea0e48029663a70d88df53dc">upperValueChanged</a> (int upper)
 </ul>
 <h3>Public Member Functions</h3>
 <ul>
 <li><a class="el" href="classQxtSpanSlider.html#bde2b3b4b0acbd77dd52e08ad4bf2bfb">QxtSpanSlider</a> (QWidget *parent=0)
 <li><a class="el" href="classQxtSpanSlider.html#8d00d77eae05c43ebcb569c081285abf">QxtSpanSlider</a> (Qt::Orientation orientation, QWidget *parent=0)
 <li>virtual <a class="el" href="classQxtSpanSlider.html#c368255787b1c162969c360a6a155557">~QxtSpanSlider</a> ()
-<li><a class="anchor" name="b5fb266729864cfb7b4c0cab82375195"></a><!-- doxytag: member="QxtSpanSlider::lower" ref="b5fb266729864cfb7b4c0cab82375195" args="() const" -->
-int <b>lower</b> () const
-<li><a class="anchor" name="2f86cb5396a3b9c87a9ce7d21376ae2c"></a><!-- doxytag: member="QxtSpanSlider::upper" ref="2f86cb5396a3b9c87a9ce7d21376ae2c" args="() const" -->
-int <b>upper</b> () const
+<li><a class="anchor" name="a9c155920c46c1caad81ed05a2482352"></a><!-- doxytag: member="QxtSpanSlider::lowerValue" ref="a9c155920c46c1caad81ed05a2482352" args="() const" -->
+int <b>lowerValue</b> () const
+<li><a class="anchor" name="ad68bfae3d523bcdee2e4a394d22bcc0"></a><!-- doxytag: member="QxtSpanSlider::upperValue" ref="ad68bfae3d523bcdee2e4a394d22bcc0" args="() const" -->
+int <b>upperValue</b> () const
 </ul>
 <h3>Properties</h3>
 <ul>
-<li><a class="anchor" name="8aa6691093463f1b27f54808fecec060"></a><!-- doxytag: member="QxtSpanSlider::lower" ref="8aa6691093463f1b27f54808fecec060" args="" -->
-int <b>lower</b>
-<li><a class="anchor" name="0e3bc837324c55e26132a9b0d1af1c6f"></a><!-- doxytag: member="QxtSpanSlider::upper" ref="0e3bc837324c55e26132a9b0d1af1c6f" args="" -->
-int <b>upper</b>
-</ul>
+<li><a class="anchor" name="e2c130ff27659483db0b749a24a5bdb9"></a><!-- doxytag: member="QxtSpanSlider::lowerValue" ref="e2c130ff27659483db0b749a24a5bdb9" args="" -->
+int <a class="el" href="classQxtSpanSlider.html#e2c130ff27659483db0b749a24a5bdb9">lowerValue</a>
+<dl class="el"><dd class="mdescRight">This property holds the lower value of the span. <br></dl><li><a class="anchor" name="dbef852408f0429f8fa7550cd528a5dc"></a><!-- doxytag: member="QxtSpanSlider::upperValue" ref="dbef852408f0429f8fa7550cd528a5dc" args="" -->
+int <a class="el" href="classQxtSpanSlider.html#dbef852408f0429f8fa7550cd528a5dc">upperValue</a>
+<dl class="el"><dd class="mdescRight">This property holds the upper value of the span. <br></dl></ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-A slider with two handles. 
+A QSlider with two handles. 
 <p>
-<a class="el" href="classQxtSpanSlider.html" title="A slider with two handles.">QxtSpanSlider</a> is a slider with two handles. <a class="el" href="classQxtSpanSlider.html" title="A slider with two handles.">QxtSpanSlider</a> is handy for letting user to choose an span between min/max.<p>
+<a class="el" href="classQxtSpanSlider.html" title="A QSlider with two handles.">QxtSpanSlider</a> is a slider with two handles. <a class="el" href="classQxtSpanSlider.html" title="A QSlider with two handles.">QxtSpanSlider</a> is handy for letting user to choose an span between min/max.<p>
+The span color is calculated based on <b>QPalette::Highlight</b>.<p>
+The keys are bound according to the following table: <table border="1" cellspacing="3" cellpadding="3">
+<tr>
+<td><b>Orientation</b></td><td><b>Key</b></td><td><b>Handle</b> </td></tr>
+<tr>
+<td>Qt::Horizontal</td><td>Qt::Key_Left</td><td>lower </td></tr>
+<tr>
+<td>Qt::Horizontal</td><td>Qt::Key_Right</td><td>lower </td></tr>
+<tr>
+<td>Qt::Horizontal</td><td>Qt::Key_Up</td><td>upper </td></tr>
+<tr>
+<td>Qt::Horizontal</td><td>Qt::Key_Down</td><td>upper </td></tr>
+<tr>
+<td>Qt::Vertical</td><td>Qt::Key_Up</td><td>lower </td></tr>
+<tr>
+<td>Qt::Vertical</td><td>Qt::Key_Down</td><td>lower </td></tr>
+<tr>
+<td>Qt::Vertical</td><td>Qt::Key_Left</td><td>upper </td></tr>
+<tr>
+<td>Qt::Vertical</td><td>Qt::Key_Right</td><td>upper </td></tr>
+</table>
+<p>
+Keys are bound by the time the slider is created. A key is bound to same handle for the lifetime of the slider. So even if the handle representation might change from lower to upper, the same key binding remains.<p>
 <div align="center">
 <img src="qxtspanslider.png" alt="qxtspanslider.png">
 <p><strong>QxtSpanSlider in Plastique style.</strong></p></div>
+ <dl class="note" compact><dt><b>Note:</b></dt><dd><a class="el" href="classQxtSpanSlider.html" title="A QSlider with two handles.">QxtSpanSlider</a> inherits <b>QSlider</b> for implementation specific reasons. Adjusting any single handle specific properties like <ul>
+<li>
+<b>QAbstractSlider::sliderPosition</b> </li>
+<li>
+<b>QAbstractSlider::value</b> </li>
+</ul>
+has no effect. However, all slider specific properties like <ul>
+<li>
+<b>QAbstractSlider::invertedAppearance</b> </li>
+<li>
+<b>QAbstractSlider::invertedControls</b> </li>
+<li>
+<b>QAbstractSlider::minimum</b> </li>
+<li>
+<b>QAbstractSlider::maximum</b> </li>
+<li>
+<b>QAbstractSlider::orientation</b> </li>
+<li>
+<b>QAbstractSlider::pageStep</b> </li>
+<li>
+<b>QAbstractSlider::singleStep</b> </li>
+<li>
+<b>QSlider::tickInterval</b> </li>
+<li>
+<b>QSlider::tickPosition</b> </li>
+</ul>
+are taken into consideration. </dd></dl>
 
 <p>
 <hr><h3>Constructor &amp; Destructor Documentation</h3>
@@ -88,7 +138,7 @@ A slider with two handles.
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtSpanSlider.html" title="A slider with two handles.">QxtSpanSlider</a> with <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtSpanSlider.html" title="A QSlider with two handles.">QxtSpanSlider</a> with <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="8d00d77eae05c43ebcb569c081285abf"></a><!-- doxytag: member="QxtSpanSlider::QxtSpanSlider" ref="8d00d77eae05c43ebcb569c081285abf" args="(Qt::Orientation orientation, QWidget *parent=0)" -->
@@ -99,12 +149,12 @@ Constructs a new <a class="el" href="classQxtSpanSlider.html" title="A slider wi
           <span class="paramname"> <em>orientation</em>, </span>
           <span class="paramtype">QWidget *&nbsp;</span>
           <span class="paramname"> <em>parent</em> = 0</span>
-)</div>
+) [explicit]</div>
 
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtSpanSlider.html" title="A slider with two handles.">QxtSpanSlider</a> with <em>orientation</em> and <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtSpanSlider.html" title="A QSlider with two handles.">QxtSpanSlider</a> with <em>orientation</em> and <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="c368255787b1c162969c360a6a155557"></a><!-- doxytag: member="QxtSpanSlider::~QxtSpanSlider" ref="c368255787b1c162969c360a6a155557" args="()" -->
@@ -134,7 +184,7 @@ Destructs the slider.
 <div class="memdoc">
 
 <p>
-Sets the span from <em>lower</em> to <em>upper</em>. <dl class="see" compact><dt><b>See also:</b></dt><dd>upper, lower </dd></dl>
+Sets the span from <em>lower</em> to <em>upper</em>. <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtSpanSlider.html#dbef852408f0429f8fa7550cd528a5dc" title="This property holds the upper value of the span.">upperValue</a>, <a class="el" href="classQxtSpanSlider.html#e2c130ff27659483db0b749a24a5bdb9" title="This property holds the lower value of the span.">lowerValue</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -154,10 +204,10 @@ Sets the span from <em>lower</em> to <em>upper</em>. <dl class="see" compact><dt
 This signal is emitted whenever the span has changed. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="e391e0ceb135d17414cffa9b70892bf5"></a><!-- doxytag: member="QxtSpanSlider::lowerChanged" ref="e391e0ceb135d17414cffa9b70892bf5" args="(int lower)" -->
+<a class="anchor" name="6706d537da77862af4cfa81ed9226dff"></a><!-- doxytag: member="QxtSpanSlider::lowerValueChanged" ref="6706d537da77862af4cfa81ed9226dff" args="(int lower)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QxtSpanSlider::lowerChanged           </span>
+          <span class="memname">QxtSpanSlider::lowerValueChanged           </span>
 (          <span class="paramtype">int&nbsp;</span>
           <span class="paramname"> <em>lower</em></span>
 ) [signal]</div>
@@ -165,13 +215,13 @@ This signal is emitted whenever the span has changed.
 <div class="memdoc">
 
 <p>
-This signal is emitted whenever the lower boundary has changed. 
+This signal is emitted whenever the lower value has changed. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="fe9d465dbc34b084cc4bcca420651cab"></a><!-- doxytag: member="QxtSpanSlider::upperChanged" ref="fe9d465dbc34b084cc4bcca420651cab" args="(int upper)" -->
+<a class="anchor" name="c2573b58ea0e48029663a70d88df53dc"></a><!-- doxytag: member="QxtSpanSlider::upperValueChanged" ref="c2573b58ea0e48029663a70d88df53dc" args="(int upper)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QxtSpanSlider::upperChanged           </span>
+          <span class="memname">QxtSpanSlider::upperValueChanged           </span>
 (          <span class="paramtype">int&nbsp;</span>
           <span class="paramname"> <em>upper</em></span>
 ) [signal]</div>
@@ -179,7 +229,7 @@ This signal is emitted whenever the lower boundary has changed.
 <div class="memdoc">
 
 <p>
-This signal is emitted whenever the upper boundary has changed. 
+This signal is emitted whenever the upper value has changed. 
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />

@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtCheckComboBox Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtCheckComboBox" -->A combo box with checkable items.  
+</h1><!-- doxytag: class="QxtCheckComboBox" -->An extended QComboBox with checkable items.  
 <a href="#_details">More...</a>
 <p>
 <h3>Signals</h3>
@@ -68,15 +68,15 @@ void <b>setCheckMode</b> (CheckMode mode)
 <h3>Properties</h3>
 <ul>
 <li>QString <a class="el" href="classQxtCheckComboBox.html#656f5a7488c6f8b71d653596799a9281">separator</a>
-<dl class="el"><dd class="mdescRight">This property holds the default text.  <a href="#656f5a7488c6f8b71d653596799a9281"></a><br></dl><li>QString <a class="el" href="classQxtCheckComboBox.html#6ddab98d38c229412a060321f1640a3f">defaultText</a>
+<dl class="el"><dd class="mdescRight">This property holds the default separator.  <a href="#656f5a7488c6f8b71d653596799a9281"></a><br></dl><li>QString <a class="el" href="classQxtCheckComboBox.html#6ddab98d38c229412a060321f1640a3f">defaultText</a>
 <dl class="el"><dd class="mdescRight">This property holds the default text.  <a href="#6ddab98d38c229412a060321f1640a3f"></a><br></dl><li><a class="anchor" name="6a59cb8c831df353da849273131b3d0a"></a><!-- doxytag: member="QxtCheckComboBox::checkedItems" ref="6a59cb8c831df353da849273131b3d0a" args="" -->
 QStringList <a class="el" href="classQxtCheckComboBox.html#6a59cb8c831df353da849273131b3d0a">checkedItems</a>
 <dl class="el"><dd class="mdescRight">This property holds the checked items. <br></dl><li>QxtCheckComboBox::CheckMode <a class="el" href="classQxtCheckComboBox.html#e7c491ba5d2b5cd140d5024da2de079b">checkMode</a>
 <dl class="el"><dd class="mdescRight">This property holds the check mode.  <a href="#e7c491ba5d2b5cd140d5024da2de079b"></a><br></dl></ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-A combo box with checkable items. 
+An extended QComboBox with checkable items. 
 <p>
-QxtComboBox is a specialized combo box with checkable items. All the checked items are collected together on the line edit.<p>
+QxtComboBox is a specialized combo box with checkable items. Checked items are collected together in the line edit.<p>
 <div align="center">
 <img src="qxtcheckcombobox.png" alt="qxtcheckcombobox.png">
 <p><strong>QxtCheckComboBox in Plastique style.</strong></p></div>
@@ -94,7 +94,7 @@ QxtComboBox is a specialized combo box with checkable items. All the checked ite
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtCheckComboBox.html" title="A combo box with checkable items.">QxtCheckComboBox</a> with <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtCheckComboBox.html" title="An extended QComboBox with checkable items.">QxtCheckComboBox</a> with <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="dc6c67fe288f48125849e8e2b79cdb3b"></a><!-- doxytag: member="QxtCheckComboBox::~QxtCheckComboBox" ref="dc6c67fe288f48125849e8e2b79cdb3b" args="()" -->
@@ -165,7 +165,7 @@ This signal is emitted whenever the checked items have been changed.
 <div class="memdoc">
 
 <p>
-This property holds the default text. 
+This property holds the default separator. 
 <p>
 The checked items are joined together with the separator string. The default value is a comma (","). 
 </p></div>
@@ -181,7 +181,7 @@ The checked items are joined together with the separator string. The default val
 <p>
 This property holds the default text. 
 <p>
-The default text is shown when there is no checked items. The default value is an empty string. 
+The default text is shown when there are no checked items. The default value is an empty string. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="e7c491ba5d2b5cd140d5024da2de079b"></a><!-- doxytag: member="QxtCheckComboBox::checkMode" ref="e7c491ba5d2b5cd140d5024da2de079b" args="" -->
@@ -195,7 +195,9 @@ The default text is shown when there is no checked items. The default value is a
 <p>
 This property holds the check mode. 
 <p>
-The check mode describes item checking behaviour. The default value is <b>QxtCheckComboBox::CheckIndicator</b>. 
+The check mode describes item checking behaviour. The default value is <b>QxtCheckComboBox::CheckIndicator</b>.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QxtCheckComboBox::CheckMode </dd></dl>
+
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />

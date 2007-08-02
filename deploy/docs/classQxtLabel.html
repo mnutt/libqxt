@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtLabel Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtLabel" -->A simplified label which is able to show elided and rotated text.  
+</h1><!-- doxytag: class="QxtLabel" -->A label which is able to show elided and rotated plain text.  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Slots</h3>
@@ -76,13 +76,12 @@ QString <a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430"
 <dl class="el"><dd class="mdescRight">This property holds the elide mode of the text.  <a href="#1af8965c7a5ca2605fdeb7c99cb41ad1"></a><br></dl><li><a class="el" href="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Qxt::Rotation</a> <a class="el" href="classQxtLabel.html#fac17750ce1b4f63bf868dd239aeb2f2">rotation</a>
 <dl class="el"><dd class="mdescRight">This property holds the rotation of the label.  <a href="#fac17750ce1b4f63bf868dd239aeb2f2"></a><br></dl></ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-A simplified label which is able to show elided and rotated text. 
+A label which is able to show elided and rotated plain text. 
 <p>
-<a class="el" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a> is a simple label widget able to show elided and rotated plain text. In addition, <a class="el" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a> provides a signal for clicking.<p>
+<a class="el" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a> is a label which is able to show elided and rotated plain text. In addition, <a class="el" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a> provides a signal for clicking.<p>
 <div align="center">
 <img src="qxtlabel.png" alt="qxtlabel.png">
 <p><strong>QxtLabel in action.</strong></p></div>
- <dl class="note" compact><dt><b>Note:</b></dt><dd>Requires Qt 4.2 or newer. </dd></dl>
 
 <p>
 <hr><h3>Constructor &amp; Destructor Documentation</h3>
@@ -99,7 +98,7 @@ A simplified label which is able to show elided and rotated text.
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a> with <em>parent</em> and <em>flags</em>. 
+Constructs a new <a class="el" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a> with <em>parent</em> and <em>flags</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="7d669be99cdeb3d740c8fbb35ba5ebc9"></a><!-- doxytag: member="QxtLabel::QxtLabel" ref="7d669be99cdeb3d740c8fbb35ba5ebc9" args="(const QString &amp;text, QWidget *parent=0, Qt::WindowFlags flags=0)" -->
@@ -112,12 +111,12 @@ Constructs a new <a class="el" href="classQxtLabel.html" title="A simplified lab
           <span class="paramname"> <em>parent</em> = 0, </span>
           <span class="paramtype">Qt::WindowFlags&nbsp;</span>
           <span class="paramname"> <em>flags</em> = 0</span>
-)</div>
+) [explicit]</div>
 
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a> with <em>text</em>, <em>parent</em> and <em>flags</em>. 
+Constructs a new <a class="el" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a> with <em>text</em>, <em>parent</em> and <em>flags</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="8af8301d8b4915ca05226c880a8579da"></a><!-- doxytag: member="QxtLabel::~QxtLabel" ref="8af8301d8b4915ca05226c880a8579da" args="()" -->
@@ -144,7 +143,10 @@ Destructs the label.
 <div class="memdoc">
 
 <p>
-This signal is emitted whenever the label has been clicked. 
+This signal is emitted whenever the label has been clicked.<p>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>A combination of mouse button press and release in shorter time than <b>QApplication::doubleClickInterval</b> is considered as a click.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd>QApplication::doubleClickInterval </dd></dl>
+
 </p></div>
 </div><!-- memitem --><br/>
 <hr><h3>Property Documentation</h3>
@@ -160,7 +162,7 @@ This signal is emitted whenever the label has been clicked.
 This property holds the alignment of the text. 
 <p>
 The text is aligned according to this property. The default value is <b>Qt::AlignCenter</b>.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430" title="This property holds the text of the label.">text</a> </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430" title="This property holds the text of the label.">text</a>, Qt::Alignment </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -176,7 +178,7 @@ The text is aligned according to this property. The default value is <b>Qt::Alig
 This property holds the elide mode of the text. 
 <p>
 The text is elided according to this property. The default value is <b>Qt::ElideMiddle</b>.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430" title="This property holds the text of the label.">text</a> </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtLabel.html#62d0ce110fe3e51ea6ea82cd8e60d430" title="This property holds the text of the label.">text</a>, Qt::TextElideMode </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
