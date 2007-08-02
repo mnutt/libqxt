@@ -68,6 +68,16 @@
 
 
 static QxtWebCore * singleton_m=0;
+static QxtRPCPeer * peer=0;
+
+
+void qxtwebcoremessagehandler(QtMsgType type, const char *msg)
+        {
+        peer->call(SIGNAL(message(int,QByteArray)),type,QByteArray(msg));
+        if(type==QtFatalMsg)
+                abort();
+
+        }
 
 //-----------------------interface----------------------------
 QxtWebCore::QxtWebCore():QObject()
@@ -76,36 +86,55 @@ QxtWebCore::QxtWebCore():QObject()
                 qFatal("you're trying to construct QxtWebCore twice!");
 	qRegisterMetaType<server_t>("server_t");
         qRegisterMetaTypeStreamOperators<server_t>("server_t");
+
+
+        singleton_m=this;
+        ::peer=new QxtRPCPeer(new QxtStdio(this));
+
+        qInstallMsgHandler(qxtwebcoremessagehandler);
+
 	QXT_INIT_PRIVATE(QxtWebCore);
         qxt_d().init();
+        
 	}
 
+QxtWebCore::~QxtWebCore()
+        {
+        singleton_m=0;
+        }
 
 QxtWebCore * QxtWebCore::instance()
         {
         if(!singleton_m)
-                singleton_m=new QxtWebCore;
+                qFatal("no QxtWebCore constructed");
         return singleton_m;
         }
 void QxtWebCore::send(QByteArray a)
         {
-        peer()->call(SIGNAL(send(QByteArray)),a);
+        ::peer->call(SIGNAL(send(QByteArray)),a);
         }
 void QxtWebCore::header(QByteArray a,QByteArray b)
         {
-        peer()->call(SIGNAL(header(QByteArray,QByteArray)),a,b);
+        ::peer->call(SIGNAL(header(QByteArray,QByteArray)),a,b);
         }
 
 QxtRPCPeer * QxtWebCore::peer()
         {
-        return instance()->qxt_d().peer;
+        return ::peer;
+        }
+
+
+
+
+server_t &  QxtWebCore::SERVER()
+        {
+        return instance()->qxt_d().currentservert;
         }
 
 //-----------------------implementation----------------------------
 
 QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QObject(parent)
         {
-        peer=new QxtRPCPeer(new QxtStdio(this));
         }
 void QxtWebCorePrivate::init()
         {
@@ -115,7 +144,9 @@ void QxtWebCorePrivate::init()
 void  QxtWebCorePrivate::request(server_t SERVER)
         {
         qDebug("%s",SERVER["REQUEST_URI"].constData());
+        currentservert=SERVER;
 
+        emit(qxt_p().request());
 
 	///--------------find controller ------------------
 	QByteArray path="404";
