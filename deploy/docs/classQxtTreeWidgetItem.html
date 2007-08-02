@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtTreeWidgetItem Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtTreeWidgetItem" -->An extended tree widget item.  
+</h1><!-- doxytag: class="QxtTreeWidgetItem" -->An extended QTreeWidgetItem.  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Member Functions</h3>
@@ -56,15 +56,51 @@ width="32" height="32" border="0" /></a></td>
 <b>QxtTreeWidgetItem</b> (QTreeWidgetItem *parent, QTreeWidgetItem *preceding, int type=Type)
 <li><a class="anchor" name="693bccbbe2109b3c4ea597a08f859d1d"></a><!-- doxytag: member="QxtTreeWidgetItem::QxtTreeWidgetItem" ref="693bccbbe2109b3c4ea597a08f859d1d" args="(const QxtTreeWidgetItem &amp;other)" -->
 <b>QxtTreeWidgetItem</b> (const <a class="el" href="classQxtTreeWidgetItem.html">QxtTreeWidgetItem</a> &amp;other)
+<li>bool <a class="el" href="classQxtTreeWidgetItem.html#e491465ce40ed4bc67c7fdcef0cefe05">testFlag</a> (Qt::ItemFlag flag) const
+<li>void <a class="el" href="classQxtTreeWidgetItem.html#a1bbe7c560845660de10e821da344add">setFlag</a> (Qt::ItemFlag flag, bool enabled=true)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-An extended tree widget item. 
+An extended QTreeWidgetItem. 
 <p>
-<a class="el" href="classQxtTreeWidgetItem.html" title="An extended tree widget item.">QxtTreeWidgetItem</a> provides means for offering check state change signals.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html" title="An extended tree widget.">QxtTreeWidget</a></dd></dl>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>Requires Qt 4.2 or newer. </dd></dl>
+<a class="el" href="classQxtTreeWidgetItem.html" title="An extended QTreeWidgetItem.">QxtTreeWidgetItem</a> provides means for offering check state change signals and convenience methods for testing and setting flags.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html" title="An extended QTreeWidget with additional signals.">QxtTreeWidget</a> </dd></dl>
 
 <p>
+<hr><h3>Member Function Documentation</h3>
+<a class="anchor" name="e491465ce40ed4bc67c7fdcef0cefe05"></a><!-- doxytag: member="QxtTreeWidgetItem::testFlag" ref="e491465ce40ed4bc67c7fdcef0cefe05" args="(Qt::ItemFlag flag) const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">bool QxtTreeWidgetItem::testFlag           </span>
+(          <span class="paramtype">Qt::ItemFlag&nbsp;</span>
+          <span class="paramname"> <em>flag</em></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+Returns <b>true</b> if the <em>flag</em> is set, otherwise <b>false</b>.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidgetItem.html#a1bbe7c560845660de10e821da344add">setFlag()</a>, QTreeWidgetItem::flags(), Qt::ItemFlag </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="a1bbe7c560845660de10e821da344add"></a><!-- doxytag: member="QxtTreeWidgetItem::setFlag" ref="a1bbe7c560845660de10e821da344add" args="(Qt::ItemFlag flag, bool enabled=true)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">void QxtTreeWidgetItem::setFlag           </span>
+(          <span class="paramtype">Qt::ItemFlag&nbsp;</span>
+          <span class="paramname"> <em>flag</em>, </span>
+          <span class="paramtype">bool&nbsp;</span>
+          <span class="paramname"> <em>enabled</em> = true</span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+If <em>enabled</em> is <b>true</b>, the item <em>flag</em> is enabled; otherwise, it is disabled.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidgetItem.html#e491465ce40ed4bc67c7fdcef0cefe05">testFlag()</a>, QTreeWidgetItem::setFlags(), Qt::ItemFlag </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
 <address><hr />
 
 <div align="center">

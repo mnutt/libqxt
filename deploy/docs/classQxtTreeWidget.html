@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtTreeWidget Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtTreeWidget" -->An extended tree widget.  
+</h1><!-- doxytag: class="QxtTreeWidget" -->An extended QTreeWidget with additional signals.  
 <a href="#_details">More...</a>
 <p>
 <h3>Signals</h3>
@@ -46,10 +46,6 @@ width="32" height="32" border="0" /></a></td>
 <ul>
 <li><a class="el" href="classQxtTreeWidget.html#2f0aaec7459e90be757b3cbb12883c4c">QxtTreeWidget</a> (QWidget *parent=0)
 <li>virtual <a class="el" href="classQxtTreeWidget.html#04aa2645e8ac62f89d7d95e4c2fa937d">~QxtTreeWidget</a> ()
-<li><a class="anchor" name="bec122fc2562b5e5ce9c32927c4b34f9"></a><!-- doxytag: member="QxtTreeWidget::branchesDrawn" ref="bec122fc2562b5e5ce9c32927c4b34f9" args="() const" -->
-bool <b>branchesDrawn</b> () const
-<li><a class="anchor" name="e615e643c9895b0b7798fcd7f81d64eb"></a><!-- doxytag: member="QxtTreeWidget::setBranchesDrawn" ref="e615e643c9895b0b7798fcd7f81d64eb" args="(bool draw)" -->
-void <b>setBranchesDrawn</b> (bool draw)
 <li><a class="anchor" name="395e9d15b2684814be0247d50e488eb9"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="395e9d15b2684814be0247d50e488eb9" args="() const" -->
 <a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <b>decorationStyle</b> () const
 <li><a class="anchor" name="caf9cf1f17f41922a41f22987a56dde8"></a><!-- doxytag: member="QxtTreeWidget::setDecorationStyle" ref="caf9cf1f17f41922a41f22987a56dde8" args="(Qxt::DecorationStyle style)" -->
@@ -61,8 +57,7 @@ void <b>setElideMode</b> (Qt::TextElideMode mode)
 </ul>
 <h3>Properties</h3>
 <ul>
-<li>bool <a class="el" href="classQxtTreeWidget.html#051c5e5fe88e19d0df7572979b34b9cb">branchesDrawn</a>
-<dl class="el"><dd class="mdescRight">This property holds whether the branches of the tree are drawn.  <a href="#051c5e5fe88e19d0df7572979b34b9cb"></a><br></dl><li><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a>
+<li><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</a>
 <dl class="el"><dd class="mdescRight">This property holds the top level item decoration style.  <a href="#d82d41a765acac120ab12eb5f6f80c06"></a><br></dl><li>Qt::TextElideMode <a class="el" href="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</a>
 <dl class="el"><dd class="mdescRight">This property holds the text elide mode.  <a href="#6b84eee5c85d3065c0271ff6444eef9a"></a><br></dl></ul>
 <h3>Friends</h3>
@@ -71,13 +66,12 @@ void <b>setElideMode</b> (Qt::TextElideMode mode)
 class <a class="el" href="classQxtTreeWidget.html#30b29153bef2cd9bd879c3c037969c44">QxtTreeWidgetItem</a>
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-An extended tree widget. 
+An extended QTreeWidget with additional signals. 
 <p>
-<a class="el" href="classQxtTreeWidget.html" title="An extended tree widget.">QxtTreeWidget</a> offers an optional top level item decoration and most commonly requested signals.<p>
+<a class="el" href="classQxtTreeWidget.html" title="An extended QTreeWidget with additional signals.">QxtTreeWidget</a> offers an optional top level item decoration and a few most commonly requested signals.<p>
 <div align="center">
 <img src="qxttreewidget.png" alt="qxttreewidget.png">
 <p><strong>QxtTreeWidget with Qxt::Menulike and Qxt::Buttonlike decoration styles, respectively.</strong></p></div>
- <dl class="note" compact><dt><b>Note:</b></dt><dd>Requires Qt 4.2 or newer. </dd></dl>
 
 <p>
 <hr><h3>Constructor &amp; Destructor Documentation</h3>
@@ -92,7 +86,7 @@ An extended tree widget.
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtTreeWidget.html" title="An extended tree widget.">QxtTreeWidget</a> with <em>parent</em>. 
+Constructs a new <a class="el" href="classQxtTreeWidget.html" title="An extended QTreeWidget with additional signals.">QxtTreeWidget</a> with <em>parent</em>. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="04aa2645e8ac62f89d7d95e4c2fa937d"></a><!-- doxytag: member="QxtTreeWidget::~QxtTreeWidget" ref="04aa2645e8ac62f89d7d95e4c2fa937d" args="()" -->
@@ -120,7 +114,7 @@ Destructs the tree widget.
 <div class="memdoc">
 
 <p>
-This signal is emitted immediately after the editing of <em>item</em> has been started.<p>
+This signal is emitted after the editing of <em>item</em> has been started.<p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished()</a> </dd></dl>
 
 </p></div>
@@ -136,7 +130,7 @@ This signal is emitted immediately after the editing of <em>item</em> has been s
 <div class="memdoc">
 
 <p>
-This signal is emitted immediately after the editing of <em>item</em> has been finished.<p>
+This signal is emitted after the editing of <em>item</em> has been finished.<p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted()</a> </dd></dl>
 
 </p></div>
@@ -153,26 +147,12 @@ This signal is emitted immediately after the editing of <em>item</em> has been f
 
 <p>
 This signal is emitted whenever the check state of <em>item</em> has changed.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>Use QxtTreeWidgetItems in order to enable this feature.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidgetItem.html" title="An extended tree widget item.">QxtTreeWidgetItem</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Use <a class="el" href="classQxtTreeWidgetItem.html" title="An extended QTreeWidgetItem.">QxtTreeWidgetItem</a> in order to enable this feature.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidgetItem.html" title="An extended QTreeWidgetItem.">QxtTreeWidgetItem</a>, QTreeWidgetItem::checkState() </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
 <hr><h3>Property Documentation</h3>
-<a class="anchor" name="051c5e5fe88e19d0df7572979b34b9cb"></a><!-- doxytag: member="QxtTreeWidget::branchesDrawn" ref="051c5e5fe88e19d0df7572979b34b9cb" args="" -->
-<div class="memitem">
-<div class="fn">
-          <span class="memname">bool QxtTreeWidget::branchesDrawn [read, write]          </span>
-</div>
-
-<div class="memdoc">
-
-<p>
-This property holds whether the branches of the tree are drawn. 
-<p>
-The default value is <b>true</b>. 
-</p></div>
-</div><!-- memitem --><br/>
 <a class="anchor" name="d82d41a765acac120ab12eb5f6f80c06"></a><!-- doxytag: member="QxtTreeWidget::decorationStyle" ref="d82d41a765acac120ab12eb5f6f80c06" args="" -->
 <div class="memitem">
 <div class="fn">
@@ -185,8 +165,8 @@ The default value is <b>true</b>.
 This property holds the top level item decoration style. 
 <p>
 Top level items are decorated according to this property. The default value is <b><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">Qxt::NoDecoration</a></b>.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>Setting the property to anything else than <b><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">Qxt::NoDecoration</a></b> disables root decoration, sets the column count to <b>1</b> and hides the header.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> <a class="el" href="classQxtItemDelegate.html" title="An extended item delegate.">QxtItemDelegate</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>Setting the property to anything else than <b><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709f268de61a8b78f9f97961f06029f4863">Qxt::NoDecoration</a></b> hides the header and sets <b>QTreeView::rootIsDecorated</b> to <b>false</b> (to avoid multiple branch indicators).</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="namespaceQxt.html#1310f61428884f46b557d5639b5f2709">Qxt::DecorationStyle</a> QTreeView::rootIsDecorated </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -203,7 +183,7 @@ This property holds the text elide mode.
 <p>
 The text of a decorated top level item is elided according to this property. The default value is <b>Qt::ElideMiddle</b>.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>The property has effect only for decorated top level items.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06" title="This property holds the top level item decoration style.">decorationStyle</a> </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06" title="This property holds the top level item decoration style.">decorationStyle</a>, Qt::TextElideMode </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>

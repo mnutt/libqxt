@@ -5,6 +5,7 @@
 
 <section ref="namespaceQxt.html" title="Qxt"> 
 	<keyword ref="namespaceQxt.html">Qxt</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab7189b6df2f8281547712a92d9691583d">Auth</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab410853e8300c2431d07f886306c57d9b">Bug</keyword>
 	<keyword ref="namespaceQxt.html#1310f61428884f46b557d5639b5f270915fe932bde10f910c6dacde930e69c23">Buttonlike</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabcdb8d4418de8f2e720cb320fe1c53f41">ClientTimeout</keyword>
@@ -26,6 +27,7 @@
 	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b0d864eb83ac21959f31e417c58445698">NoRotation</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab28763e8b19fe7acb975456edcb077b6e">NotImplemented</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabbcb6bf82fbb80f8959da0c3693bdeb7b">NotInitialised</keyword>
+	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab2632dd230506f45782f4b5bc3bee1c1b">Overflow</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabdbcec2b11c6768395d9a9a65de9c61e9">ParserError</keyword>
 	<keyword ref="namespaceQxt.html#fdc1f653d0be7cc2e9d7eeb6ec19eb2b">Rotation</keyword>
 	<keyword ref="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabb15fa5781c63b8b5ebbc0a5b8b857e8c">SDLError</keyword>
@@ -54,13 +56,57 @@
 	<keyword ref="classQxtCheckComboBox.html#47e17f263a7b4c443172355e73c39802">setItemCheckState</keyword>
 </section>
 
+<section ref="classQxtConfigDialog.html" title="QxtConfigDialog"> 
+	<keyword ref="classQxtConfigDialog.html">QxtConfigDialog</keyword>
+	<keyword ref="classQxtConfigDialog.html#757f257f7c29d644d66b842bccc7ef6a">addPage</keyword>
+	<keyword ref="classQxtConfigDialog.html#6c970641003999796e3fd0b0d67e4709">currentIndexChanged</keyword>
+	<keyword ref="classQxtConfigDialog.html#2522da5089d1443538dd93d5abfd4d2b">currentPage</keyword>
+	<keyword ref="classQxtConfigDialog.html#d3b60daee59cc4f56ad2b4bc1cefa341">hoverEffect</keyword>
+	<keyword ref="classQxtConfigDialog.html#4a0eae141f67b27c2262a24d17f1f216">indexOf</keyword>
+	<keyword ref="classQxtConfigDialog.html#3c348da9223fc9f2c767f27376a716ef">insertPage</keyword>
+	<keyword ref="classQxtConfigDialog.html#39187bf4b23f26347a11a9db70a3c60f">isPageEnabled</keyword>
+	<keyword ref="classQxtConfigDialog.html#b016ac15d8f79994afcc7750cb32f9c6">isPageHidden</keyword>
+	<keyword ref="classQxtConfigDialog.html#13b23cefac908d1c8187d612c7ee6697">listWidget</keyword>
+	<keyword ref="classQxtConfigDialog.html#c8b81b41d079e78041ed39f768cd7b4c">page</keyword>
+	<keyword ref="classQxtConfigDialog.html#1175cbf4e966e77ea96cec1473a42ee3">pageIcon</keyword>
+	<keyword ref="classQxtConfigDialog.html#f6ed36006ff20fcbefc1253d66d21f56">pageTitle</keyword>
+	<keyword ref="classQxtConfigDialog.html#2b8326b401496bb50dd471e979757cda">pageToolTip</keyword>
+	<keyword ref="classQxtConfigDialog.html#230a0098df1233073c4a0e23bc51ac13">pageWhatsThis</keyword>
+	<keyword ref="classQxtConfigDialog.html#44bd9ee3ba12f3d05f12eb7dfc20190d">removePage</keyword>
+	<keyword ref="classQxtConfigDialog.html#16b7588e1b93dfdc6bb991d2667407e6">setCurrentPage</keyword>
+	<keyword ref="classQxtConfigDialog.html#4cb4f0b4edc82c91188b413613fd7aae">setPageEnabled</keyword>
+	<keyword ref="classQxtConfigDialog.html#4ec6e20380f1709e60e7ffad2226af0a">setPageHidden</keyword>
+	<keyword ref="classQxtConfigDialog.html#4e723acd281147346cfbaa4db05bd56a">setPageIcon</keyword>
+	<keyword ref="classQxtConfigDialog.html#a62e57beca853057af4a3fe08a9eb29f">setPageTitle</keyword>
+	<keyword ref="classQxtConfigDialog.html#17f8bd3d9df8a783143e8e1c724de6c8">setPageToolTip</keyword>
+	<keyword ref="classQxtConfigDialog.html#42c52f07e851ebfede6849f0c6bc94f0">setPageWhatsThis</keyword>
+	<keyword ref="classQxtConfigDialog.html#50227de28f01b0d5c8fea8d55cbdc593">stackedWidget</keyword>
+</section>
+
+<section ref="classQxtConfirmationMessage.html" title="QxtConfirmationMessage"> 
+	<keyword ref="classQxtConfirmationMessage.html">QxtConfirmationMessage</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#2006266d8affe781174cf585ff8d4abc">confirmationText</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#cf11a522244c7ffd61634178a70c56e0">exec</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#4bd73bec06a229cdc0352635a8687699">reset</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#d6873100e70647724cd1e2d7c0da2adf">setSettingsPath</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#30b3ff7b28881cf97d20b179632106ee">setSettingsScope</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#da0fbd70b86b73e36857391297224019">settingsPath</keyword>
+	<keyword ref="classQxtConfirmationMessage.html#bd20351810a77e45608f3a2c59867e1b">settingsScope</keyword>
+</section>
+
 <section ref="classQxtDesktopWidget.html" title="QxtDesktopWidget"> 
 	<keyword ref="classQxtDesktopWidget.html">QxtDesktopWidget</keyword>
 	<keyword ref="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">activeWindow</keyword>
 	<keyword ref="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">findWindow</keyword>
 	<keyword ref="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">windowAt</keyword>
 	<keyword ref="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">windowGeometry</keyword>
+	<keyword ref="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</keyword>
 	<keyword ref="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle</keyword>
+	<keyword ref="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles</keyword>
+</section>
+
+<section ref="classQxtDockWidget.html" title="QxtDockWidget"> 
+	<keyword ref="classQxtDockWidget.html">QxtDockWidget</keyword>
 </section>
 
 <section ref="classQxtError.html" title="QxtError"> 
@@ -71,6 +117,18 @@
 	<keyword ref="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</keyword>
 	<keyword ref="classQxtError.html#ad2b0de584ccbde70d5a1ea41e4f2378">QXT_DROP_S</keyword>
 	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
+</section>
+
+<section ref="classQxtGroupBox.html" title="QxtGroupBox"> 
+	<keyword ref="classQxtGroupBox.html">QxtGroupBox</keyword>
+	<keyword ref="classQxtGroupBox.html#ba496a650834bd948eab93cb7a2fad1d">setCollapsed</keyword>
+	<keyword ref="classQxtGroupBox.html#722b3ebd3b3bcadc8f5054c47b0d2fe1">setExpanded</keyword>
+</section>
+
+<section ref="classQxtHtmlTemplate.html" title="QxtHtmlTemplate"> 
+	<keyword ref="classQxtHtmlTemplate.html">QxtHtmlTemplate</keyword>
+	<keyword ref="classQxtHtmlTemplate.html#2021a270d66b4a390aa15d4bf94955ce">open</keyword>
+	<keyword ref="classQxtHtmlTemplate.html#0f36666aa6baf9234778b6b500f97fbc">render</keyword>
 </section>
 
 <section ref="classQxtHyperMacros.html" title="QxtHyperMacros"> 
@@ -84,6 +142,8 @@
 	<keyword ref="classQxtItemDelegate.html#593c068bb974266241f9a48c28200d26">editingFinished</keyword>
 	<keyword ref="classQxtItemDelegate.html#3b3068865e5185d6eb4348c2dcce99d7">editingStarted</keyword>
 	<keyword ref="classQxtItemDelegate.html#aad15b615b46a7be400ed22a46c329b9">elideMode</keyword>
+	<keyword ref="classQxtItemDelegate.html#4a72e90eb63966705440e9e853a3f857">progressTextFormat</keyword>
+	<keyword ref="classQxtItemDelegate.html#6e9b763493051927cfaab07b3cb5f793">progressTextVisible</keyword>
 </section>
 
 <section ref="classQxtLabel.html" title="QxtLabel"> 
@@ -92,6 +152,19 @@
 	<keyword ref="classQxtLabel.html#fd3f9137d5f3287c32786395c485f203">clicked</keyword>
 	<keyword ref="classQxtLabel.html#1af8965c7a5ca2605fdeb7c99cb41ad1">elideMode</keyword>
 	<keyword ref="classQxtLabel.html#fac17750ce1b4f63bf868dd239aeb2f2">rotation</keyword>
+</section>
+
+<section ref="classQxtListWidget.html" title="QxtListWidget"> 
+	<keyword ref="classQxtListWidget.html">QxtListWidget</keyword>
+	<keyword ref="classQxtListWidget.html#eb44b3168d349b046b5c4ad351faa442">itemCheckStateChanged</keyword>
+	<keyword ref="classQxtListWidget.html#41f46cde9f615200cafa140bcd8d1d48">itemEditingFinished</keyword>
+	<keyword ref="classQxtListWidget.html#71aec78eda7abb733fbb2cce006a6b99">itemEditingStarted</keyword>
+</section>
+
+<section ref="classQxtListWidgetItem.html" title="QxtListWidgetItem"> 
+	<keyword ref="classQxtListWidgetItem.html">QxtListWidgetItem</keyword>
+	<keyword ref="classQxtListWidgetItem.html#9c84f101b3b4f8e36e34204170069ff7">setFlag</keyword>
+	<keyword ref="classQxtListWidgetItem.html#2a360e2260c350e94685b7fa29a9c35a">testFlag</keyword>
 </section>
 
 <section ref="structQxtNull.html" title="QxtNull"> 
@@ -120,6 +193,16 @@
 	<keyword ref="classQxtPimpl.html#6b19167222479c38f892a58588b351e7">qxt_p</keyword>
 </section>
 
+<section ref="classQxtProgressLabel.html" title="QxtProgressLabel"> 
+	<keyword ref="classQxtProgressLabel.html">QxtProgressLabel</keyword>
+	<keyword ref="classQxtProgressLabel.html#a00f4ec65fa776a0d36c5fbea8e0b342">contentFormat</keyword>
+	<keyword ref="classQxtProgressLabel.html#36a9733ae436adf2deb008e58c222e9a">refresh</keyword>
+	<keyword ref="classQxtProgressLabel.html#f982958423b15ed99ba2c32fa6d51973">restart</keyword>
+	<keyword ref="classQxtProgressLabel.html#8d96e47266a92c24eddef75ca8646705">setValue</keyword>
+	<keyword ref="classQxtProgressLabel.html#ca179b6b690f7aa0f0a1d269728e672a">timeFormat</keyword>
+	<keyword ref="classQxtProgressLabel.html#271b8d30364ae3bc2160c7be4ea7fd41">updateInterval</keyword>
+</section>
+
 <section ref="classQxtProxyStyle.html" title="QxtProxyStyle"> 
 	<keyword ref="classQxtProxyStyle.html">QxtProxyStyle</keyword>
 </section>
@@ -132,9 +215,9 @@
 
 <section ref="classQxtRPCPeer.html" title="QxtRPCPeer"> 
 	<keyword ref="classQxtRPCPeer.html">QxtRPCPeer</keyword>
-	<keyword ref="classQxtRPCPeer.html#2f47d94290f68e34c52abe94b4d73283">attachSignal</keyword>
-	<keyword ref="classQxtRPCPeer.html#5648ce9b84625ba3095f9e7a74d7d641">attachSlot</keyword>
-	<keyword ref="classQxtRPCPeer.html#ff6bd5527acbe000d11d1e6bc26a53e3">call</keyword>
+	<keyword ref="classQxtRPCPeer.html#4eb80c74da193ca1d734abe0f3454f38">attachSignal</keyword>
+	<keyword ref="classQxtRPCPeer.html#7af929741223c53c2e4dc834238e4ff8">attachSlot</keyword>
+	<keyword ref="classQxtRPCPeer.html#f943f1c5e7df1cd6b9c79b4bd52b9620">call</keyword>
 	<keyword ref="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient</keyword>
 	<keyword ref="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2">callClientList</keyword>
 	<keyword ref="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da">callClientsExcept</keyword>
@@ -169,10 +252,10 @@
 
 <section ref="classQxtSpanSlider.html" title="QxtSpanSlider"> 
 	<keyword ref="classQxtSpanSlider.html">QxtSpanSlider</keyword>
-	<keyword ref="classQxtSpanSlider.html#e391e0ceb135d17414cffa9b70892bf5">lowerChanged</keyword>
+	<keyword ref="classQxtSpanSlider.html#6706d537da77862af4cfa81ed9226dff">lowerValueChanged</keyword>
 	<keyword ref="classQxtSpanSlider.html#7fc6e87a5ec80c01579157f4893d0117">setSpan</keyword>
 	<keyword ref="classQxtSpanSlider.html#c0b68f434b781977c856ab0c14efe84f">spanChanged</keyword>
-	<keyword ref="classQxtSpanSlider.html#fe9d465dbc34b084cc4bcca420651cab">upperChanged</keyword>
+	<keyword ref="classQxtSpanSlider.html#c2573b58ea0e48029663a70d88df53dc">upperValueChanged</keyword>
 </section>
 
 <section ref="classQxtSqlPackage.html" title="QxtSqlPackage"> 
@@ -182,8 +265,46 @@
 	<keyword ref="classQxtSqlPackage.html#6b0d004f679ee988b13f3b45588f789a">value</keyword>
 </section>
 
+<section ref="classQxtStars.html" title="QxtStars"> 
+	<keyword ref="classQxtStars.html">QxtStars</keyword>
+	<keyword ref="classQxtStars.html#28f69c41ee4741352e3b13c048cea8b7">readOnly</keyword>
+	<keyword ref="classQxtStars.html#0e9f0b8970f9276d4e15485536cae041">starSize</keyword>
+</section>
+
 <section ref="classQxtStringSpinBox.html" title="QxtStringSpinBox"> 
 	<keyword ref="classQxtStringSpinBox.html">QxtStringSpinBox</keyword>
+</section>
+
+<section ref="classQxtStringValidator.html" title="QxtStringValidator"> 
+	<keyword ref="classQxtStringValidator.html">QxtStringValidator</keyword>
+	<keyword ref="classQxtStringValidator.html#5b7fbec4fa285926ada645549896ed36">caseSensitivity</keyword>
+	<keyword ref="classQxtStringValidator.html#3594b8adeb2a51c521989b7f1e0a49d1">fixup</keyword>
+	<keyword ref="classQxtStringValidator.html#7fe11726b02b5425f1e919b9d28e125b">lookupModel</keyword>
+	<keyword ref="classQxtStringValidator.html#1a2646150bcc77158e00d25d17c25fc2">lookupRole</keyword>
+	<keyword ref="classQxtStringValidator.html#86e252225b341da2a0b12c0cde5857db">recursiveLookup</keyword>
+	<keyword ref="classQxtStringValidator.html#1ec428ef079b1106e63a7ce82bc1d729">setCaseSensitivity</keyword>
+	<keyword ref="classQxtStringValidator.html#f4f8ae1c5d49960a33498efeaa8fbe29">setLookupModel</keyword>
+	<keyword ref="classQxtStringValidator.html#a256cc6fdb54c2c0bdcc4267427447f2">setLookupRole</keyword>
+	<keyword ref="classQxtStringValidator.html#bce48dd314cfcf28bfc1573f41008970">setRecursiveLookup</keyword>
+	<keyword ref="classQxtStringValidator.html#21506876031f02333fcbbbb3be11eea6">setStartModelIndex</keyword>
+	<keyword ref="classQxtStringValidator.html#c675d147b68cc34db4158e3bb795a969">setStringList</keyword>
+	<keyword ref="classQxtStringValidator.html#dafd55f64cd3151051301f5dff3c88a8">setWrappingLookup</keyword>
+	<keyword ref="classQxtStringValidator.html#5d237117148bff24950a5112b000c08c">startModelIndex</keyword>
+	<keyword ref="classQxtStringValidator.html#e95f8fc0634db4ac196437700ffb1e7a">validate</keyword>
+	<keyword ref="classQxtStringValidator.html#f45a6ebb489e0638395da41fbfc6aaf6">wrappingLookup</keyword>
+</section>
+
+<section ref="classQxtTableWidget.html" title="QxtTableWidget"> 
+	<keyword ref="classQxtTableWidget.html">QxtTableWidget</keyword>
+	<keyword ref="classQxtTableWidget.html#6fca4e12204367ed2a3f62aafc8b1b90">itemCheckStateChanged</keyword>
+	<keyword ref="classQxtTableWidget.html#f6be318df1d9d94e18bd5acffdc33ebd">itemEditingFinished</keyword>
+	<keyword ref="classQxtTableWidget.html#196ac7e06d1b525647132ff3e747aa3d">itemEditingStarted</keyword>
+</section>
+
+<section ref="classQxtTableWidgetItem.html" title="QxtTableWidgetItem"> 
+	<keyword ref="classQxtTableWidgetItem.html">QxtTableWidgetItem</keyword>
+	<keyword ref="classQxtTableWidgetItem.html#7ff4affc5325e76187052a2d34789f14">setFlag</keyword>
+	<keyword ref="classQxtTableWidgetItem.html#e75485eefa991d78fa7d504f640145a3">testFlag</keyword>
 </section>
 
 <section ref="classQxtTabWidget.html" title="QxtTabWidget"> 
@@ -200,14 +321,33 @@
 	<keyword ref="classQxtTabWidget.html#d522fb334c56aa2e865508e042c74137">tabContextMenuRequested</keyword>
 </section>
 
+<section ref="classQxtToolTip.html" title="QxtToolTip"> 
+	<keyword ref="classQxtToolTip.html">QxtToolTip</keyword>
+	<keyword ref="classQxtToolTip.html#1a4e47ed91629ee291118e12e81f3824">hide</keyword>
+	<keyword ref="classQxtToolTip.html#02e39847e0227fa95fdb9015157f8993">margin</keyword>
+	<keyword ref="classQxtToolTip.html#7fc43fbf59f367e443c7728e5bfb1066">opacity</keyword>
+	<keyword ref="classQxtToolTip.html#8594a699126f87df2abb177332372032">setMargin</keyword>
+	<keyword ref="classQxtToolTip.html#13393aef69cbd0ea4fa4160c498c8be2">setOpacity</keyword>
+	<keyword ref="classQxtToolTip.html#a26c6f6bfc1c7c098bb03f554bd6ba66">setToolTip</keyword>
+	<keyword ref="classQxtToolTip.html#0e89b465ec096c5b1a1dae26bb3c3aaf">setToolTipRect</keyword>
+	<keyword ref="classQxtToolTip.html#c2b0b69670b345dcb522bea6e89917a4">show</keyword>
+	<keyword ref="classQxtToolTip.html#cbd030657ab04e9dde5917fc7a89c32c">toolTip</keyword>
+	<keyword ref="classQxtToolTip.html#b82fa1126c2829361b37c24e666ff477">toolTipRect</keyword>
+</section>
+
 <section ref="classQxtTreeWidget.html" title="QxtTreeWidget"> 
 	<keyword ref="classQxtTreeWidget.html">QxtTreeWidget</keyword>
-	<keyword ref="classQxtTreeWidget.html#051c5e5fe88e19d0df7572979b34b9cb">branchesDrawn</keyword>
 	<keyword ref="classQxtTreeWidget.html#d82d41a765acac120ab12eb5f6f80c06">decorationStyle</keyword>
 	<keyword ref="classQxtTreeWidget.html#6b84eee5c85d3065c0271ff6444eef9a">elideMode</keyword>
 	<keyword ref="classQxtTreeWidget.html#19b8f33f02812013b0362caca1a2be68">itemCheckStateChanged</keyword>
 	<keyword ref="classQxtTreeWidget.html#614beb6b5c7a272c30823eb4b3b408ca">itemEditingFinished</keyword>
 	<keyword ref="classQxtTreeWidget.html#2f80d0770ff2ad1904e26ed236d8e4ee">itemEditingStarted</keyword>
+</section>
+
+<section ref="classQxtTreeWidgetItem.html" title="QxtTreeWidgetItem"> 
+	<keyword ref="classQxtTreeWidgetItem.html">QxtTreeWidgetItem</keyword>
+	<keyword ref="classQxtTreeWidgetItem.html#a1bbe7c560845660de10e821da344add">setFlag</keyword>
+	<keyword ref="classQxtTreeWidgetItem.html#e491465ce40ed4bc67c7fdcef0cefe05">testFlag</keyword>
 </section>
 
 <section ref="classQxtTuple.html" title="QxtTuple"> 

@@ -33,12 +33,17 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtApplication Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtApplication" -->An application with support for hotkeys aka "global shortcuts".  
+</h1><!-- doxytag: class="QxtApplication" -->An extended QApplication with support for hotkeys aka "global shortcuts".  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="el" href="classQxtApplication.html#500399160c42c249bb21114d662c3d09">QxtApplication</a> (int &amp;argc, char **argv)
+<li><a class="anchor" name="500399160c42c249bb21114d662c3d09"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="500399160c42c249bb21114d662c3d09" args="(int &amp;argc, char **argv)" -->
+<b>QxtApplication</b> (int &amp;argc, char **argv)
+<li><a class="anchor" name="310d91ee70fdd372ed1c02349090476d"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="310d91ee70fdd372ed1c02349090476d" args="(int &amp;argc, char **argv, bool GUIenabled)" -->
+<b>QxtApplication</b> (int &amp;argc, char **argv, bool GUIenabled)
+<li><a class="anchor" name="f0b6244d50d8920d3ab5ded4d230e8ed"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="f0b6244d50d8920d3ab5ded4d230e8ed" args="(int &amp;argc, char **argv, Type type)" -->
+<b>QxtApplication</b> (int &amp;argc, char **argv, Type type)
 <li>bool <a class="el" href="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)
 <li>bool <a class="el" href="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)
 </ul>
@@ -47,29 +52,12 @@ width="32" height="32" border="0" /></a></td>
 <li>static <a class="el" href="classQxtApplication.html">QxtApplication</a> * <a class="el" href="classQxtApplication.html#938c7a60e2cf0642f1d808af3f02e50e">instance</a> ()
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-An application with support for hotkeys aka "global shortcuts". 
+An extended QApplication with support for hotkeys aka "global shortcuts". 
 <p>
-<a class="el" href="classQxtApplication.html" title="An application with support for hotkeys aka "global shortcuts".">QxtApplication</a> introduces hotkeys which trigger even if the application is not active.<p>
+<a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> introduces hotkeys which trigger even if the application is not active. This makes it easy to implement applications that react to certain shortcuts still if some other application is active or if the application is for example minimized to the system tray.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>Currently supported platforms are <b>X11</b> and <b>Windows</b>. </dd></dl>
 
 <p>
-<hr><h3>Constructor &amp; Destructor Documentation</h3>
-<a class="anchor" name="500399160c42c249bb21114d662c3d09"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="500399160c42c249bb21114d662c3d09" args="(int &amp;argc, char **argv)" -->
-<div class="memitem">
-<div class="fn">
-          <span class="memname">QxtApplication::QxtApplication           </span>
-(          <span class="paramtype">int &amp;&nbsp;</span>
-          <span class="paramname"> <em>argc</em>, </span>
-          <span class="paramtype">char **&nbsp;</span>
-          <span class="paramname"> <em>argv</em></span>
-)</div>
-
-<div class="memdoc">
-
-<p>
-Constructs a new <a class="el" href="classQxtApplication.html" title="An application with support for hotkeys aka "global shortcuts".">QxtApplication</a>. All other variations of QApplication constructors are supported too. 
-</p></div>
-</div><!-- memitem --><br/>
 <hr><h3>Member Function Documentation</h3>
 <a class="anchor" name="f703462cf0b966d6666998a1a9a06793"></a><!-- doxytag: member="QxtApplication::addHotKey" ref="f703462cf0b966d6666998a1a9a06793" args="(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)" -->
 <div class="memitem">
@@ -90,7 +78,7 @@ Constructs a new <a class="el" href="classQxtApplication.html" title="An applica
 <p>
 Adds a hotkey using <em>modifiers</em> and <em>key</em>. The <em>member</em> of <em>receiver</em> is invoked upon hotkey trigger.<p>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd><b>true</b> if hotkey registration succeed, <b>false</b> otherwise.</dd></dl>
-Example usage: <div class="fragment"><pre class="fragment">    <a class="code" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a>* label = <span class="keyword">new</span> <a class="code" href="classQxtLabel.html" title="A simplified label which is able to show elided and rotated text.">QxtLabel</a>(<span class="stringliteral">"Hello world!"</span>);
+Example usage: <div class="fragment"><pre class="fragment">    <a class="code" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a>* label = <span class="keyword">new</span> <a class="code" href="classQxtLabel.html" title="A label which is able to show elided and rotated plain text.">QxtLabel</a>(<span class="stringliteral">"Hello world!"</span>);
     qxtApp-&gt;addHotKey(Qt::ShiftModifier | Qt::ControlModifier, Qt::Key_S, label, <span class="stringliteral">"show"</span>);
 </pre></div> 
 </p></div>
@@ -127,7 +115,8 @@ Removes the hotkey using <em>modifiers</em> and <em>key</em> mapped to <em>membe
 <div class="memdoc">
 
 <p>
-Returns a pointer to the instance of the application. 
+Returns a pointer to the instance of the application object.<p>
+A convenience macro <b>qxtApp</b> is also available. 
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
