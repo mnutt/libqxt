@@ -26,6 +26,8 @@
 
 #include <QxtPimpl>
 #include <QStringList>
+#include <QModelIndex>
+#include <QPointer>
 
 class QxtStringValidator;
 
@@ -36,14 +38,18 @@ class QxtStringValidatorPrivate : public QxtPrivate<QxtStringValidator>
         QXT_DECLARE_PUBLIC(QxtStringValidator);
 
         QStringList data;
+        bool isUserModel;
+        QPointer<QAbstractItemModel> model;
         Qt::CaseSensitivity cs;
+        int lookupColumn;
+        int lookupRole;
+        Qt::MatchFlags userFlags;
+        QModelIndex lookupStartModelIndex;
+
+        QModelIndex lookupPartialMatch(const QString &value) const;
+        QModelIndex lookupExactMatch(const QString &value) const;
+        QModelIndex lookup(const QString &value,const Qt::MatchFlags  &matchFlags) const;
         
 };
-
-QxtStringValidatorPrivate::QxtStringValidatorPrivate() : cs(Qt::CaseSensitive)
-{
-}
-
-
 
 #endif //__QXTSTRINGLISTVALIDATOR_P_H__
