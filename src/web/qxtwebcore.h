@@ -47,11 +47,15 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
                 QxtWebCore ();
                 static QxtWebCore* instance();
                 static void send(QByteArray);
-                static QxtRPCPeer * peer();
+                static void header(QByteArray,QByteArray);
+
 
                 /*helper*/
                 static QxtError parseString(QByteArray str, post_t & POST);
 //                 static QxtError readContentFromSocket(QTcpSocket *,server_t &, post_t &);
+
+        protected:
+                 static QxtRPCPeer * peer();
 
 	};
 
