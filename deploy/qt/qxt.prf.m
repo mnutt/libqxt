@@ -47,7 +47,7 @@ contains(QXT, web) {
     macx:        LIBS += -framework QxtWeb
     unix:!macx:  LIBS += -lQxtWeb
     win32:       LIBS += -lQxtWeb0
-    QXT += core
+    QXT += core network
     QT  += network 
 }
 contains(QXT, gui) {
