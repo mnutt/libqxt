@@ -61,6 +61,7 @@
         \fn static QxtRPCPeer * peer();
         direct access to the QxtRPCPeer used for communicating with the transport
         the returned pointer is valid during the whole lifetime of the program
+        when subclassing QxtWebCore this can be used to implement a different protocoll
         \fn static QxtError parseString(QByteArray str, post_t & POST);
         much like phps parse_string
  */
@@ -90,6 +91,11 @@ void QxtWebCore::send(QByteArray a)
         {
         peer()->call(SIGNAL(send(QByteArray)),a);
         }
+void QxtWebCore::header(QByteArray a,QByteArray b)
+        {
+        peer()->call(SIGNAL(header(QByteArray,QByteArray)),a,b);
+        }
+
 QxtRPCPeer * QxtWebCore::peer()
         {
         return instance()->qxt_d().peer;
