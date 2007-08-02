@@ -30,12 +30,13 @@
 #include <QStringListModel>
 #include <QFlags>
 
-QxtStringValidatorPrivate::QxtStringValidatorPrivate() : cs(Qt::CaseSensitive)
+QxtStringValidatorPrivate::QxtStringValidatorPrivate() : isUserModel(false)
                                                        , model(0)
+                                                       , cs(Qt::CaseSensitive)
                                                        , lookupColumn(0)
                                                        , lookupRole(Qt::EditRole)
-                                                       , isUserModel(false)
                                                        , userFlags(Qt::MatchWrap)
+                                                       , lookupStartModelIndex(QModelIndex())
 {
 }
 
@@ -147,7 +148,6 @@ void QxtStringValidator::setStringList(const QStringList &stringList)
     qxt_d().lookupStartModelIndex = QModelIndex();
     qxt_d().lookupRole = Qt::EditRole;
     qxt_d().model = new QStringListModel(stringList,this);
-    qxt_d().data = stringList;
 }
 
 /*!

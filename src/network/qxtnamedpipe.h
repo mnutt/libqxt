@@ -5,9 +5,10 @@
 #include <QString>
 #include <QByteArray>
 #include <qxtpimpl.h>
+#include <qxtglobal.h>
 
 class QxtNamedPipePrivate;
-class QxtNamedPipe : public QAbstractSocket {
+class QXT_NETWORK_EXPORT QxtNamedPipe : public QAbstractSocket {
 Q_OBJECT
 public:
     QxtNamedPipe(const QString& name = QString(), QObject* parent = 0);

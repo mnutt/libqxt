@@ -31,6 +31,7 @@
 #include <QString>
 #include <QHostAddress>
 #include <qxtpimpl.h>
+#include <qxtglobal.h>
 
 class QxtRPCPeerPrivate;
 /*!
@@ -51,7 +52,7 @@ class QxtRPCPeerPrivate;
  * The limits on the number of parameters passed to call() and related functions are a restriction of Qt,
  * which limits parameters on a signal or slot to 10.
  */ 
-class QxtRPCPeer : public QObject {
+class QXT_NETWORK_EXPORT QxtRPCPeer : public QObject {
 Q_OBJECT
 public:
 

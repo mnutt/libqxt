@@ -21,8 +21,8 @@
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
-#ifndef __QXTSTRINGLISTVALIDATOR_P_H__
-#define __QXTSTRINGLISTVALIDATOR_P_H__
+#ifndef QXTSTRINGLISTVALIDATOR_P_H_INCLUDED
+#define QXTSTRINGLISTVALIDATOR_P_H_INCLUDED
 
 #include <QxtPimpl>
 #include <QStringList>
@@ -37,7 +37,6 @@ class QxtStringValidatorPrivate : public QxtPrivate<QxtStringValidator>
         QxtStringValidatorPrivate();
         QXT_DECLARE_PUBLIC(QxtStringValidator);
 
-        QStringList data;
         bool isUserModel;
         QPointer<QAbstractItemModel> model;
         Qt::CaseSensitivity cs;
@@ -52,4 +51,4 @@ class QxtStringValidatorPrivate : public QxtPrivate<QxtStringValidator>
         
 };
 
-#endif //__QXTSTRINGLISTVALIDATOR_P_H__
+#endif //QXTSTRINGLISTVALIDATOR_P_H_INCLUDED

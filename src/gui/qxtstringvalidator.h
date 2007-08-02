@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef __QXTSTRINGLISTVALIDATOR_H__
-#define __QXTSTRINGLISTVALIDATOR_H__
+#ifndef QXTSTRINGLISTVALIDATOR_H_INCLUDED
+#define QXTSTRINGLISTVALIDATOR_H_INCLUDED
 
 #include <QValidator>
 #include <QStringList>
@@ -64,4 +64,4 @@ class QXT_GUI_EXPORT QxtStringValidator : public QValidator
         QXT_DECLARE_PRIVATE(QxtStringValidator);
 };
 
-#endif //__QXTSTRINGLISTVALIDATOR_H__
+#endif //QXTSTRINGLISTVALIDATOR_H_INCLUDED
