@@ -27,17 +27,19 @@
 
 #include <QValidator>
 #include <QStringList>
+#include <QModelIndex>
 #include "qxtpimpl.h"
 #include "qxtglobal.h"
 
 class QxtStringValidatorPrivate;
+class QAbstractItemModel;
 
 class QXT_GUI_EXPORT QxtStringValidator : public QValidator
 {
     Q_OBJECT
 
     public:
-        QxtStringValidator (QObject * parent, const QStringList &stringList = QStringList()); 
+        QxtStringValidator (QObject * parent); 
         ~QxtStringValidator ();
         
         virtual void fixup ( QString & input ) const;
@@ -45,8 +47,18 @@ class QXT_GUI_EXPORT QxtStringValidator : public QValidator
 
         Qt::CaseSensitivity caseSensitivity () const;
         void setCaseSensitivity ( Qt::CaseSensitivity caseSensitivity );
+        void setStartModelIndex(const QModelIndex &index);
+        void setStringList(const QStringList &stringList);
+        void setRecursiveLookup(bool enable);
+        void setWrappingLookup(bool enable);
+        void setLookupModel(QAbstractItemModel *model);
+        void setLookupRole(const int role);
 
-        void setStringList(QStringList &stringList);
+        QModelIndex startModelIndex() const;
+        bool recursiveLookup() const;
+        bool wrappingLookup() const;
+        QAbstractItemModel * lookupModel() const;
+        int lookupRole() const;
 
     private:
         QXT_DECLARE_PRIVATE(QxtStringValidator);
