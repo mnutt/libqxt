@@ -39,5 +39,5 @@ class QxtWebCorePrivate : public QObject,public QxtPrivate<QxtWebCore>
                 void request(server_t a);
                 void startup();
         private:
-                QxtRPCPeer * peer;
+                server_t currentservert;
 	};

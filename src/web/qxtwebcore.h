@@ -45,9 +45,11 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
 	QXT_DECLARE_PRIVATE(QxtWebCore);
 	public:
                 QxtWebCore ();
+                ~QxtWebCore ();
                 static QxtWebCore* instance();
                 static void send(QByteArray);
                 static void header(QByteArray,QByteArray);
+                static server_t & SERVER();
 
 
                 /*helper*/
@@ -56,6 +58,10 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
 
         protected:
                  static QxtRPCPeer * peer();
+
+
+        signals:
+                void request();
 
 	};
 
