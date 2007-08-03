@@ -27,14 +27,16 @@
 #include <QUrl>
 #include "qxtwebcontroller.h"
 #include <QCoreApplication>
+#include <QTcpSocket>
+#include <QVariant>
 /*!
         \class QxtWebCore QxtWebCore
         \ingroup web
         \brief qxtweb application core class. communicates, delegates, does all of the magic ;)
 
 
-        QxtWebCore is a lighweight class using QxtRPCPeer and QxtStdio. It Provides your Application 
-        with an interface to a transport such as mod_qt , sige or any other implementation of it, and does the controller delegation for you.
+        QxtWebCore is the base class of your web application.
+        it listens to the scgi protocoll
 
         construct one webcore object in the main function of your application.
         you must contruct it AFTER QCoreApplication and BEFORe any controllers.
@@ -43,7 +45,8 @@
         int main(int argc,char ** argv)
                 {
                 QCoreApplication  app(argc,argv);
-                QxtWebCore core;
+                QxtWebCore core();
+                core.listen(8080);
                 QxtWebController controller("root");
                 app.exec();
                 }
@@ -58,26 +61,18 @@
         normal text/html comunication should be done using the controllers echo() function
         note that after you called send the first time you cannot modify the header anymore
         sending may be ignored by the transport when there is no client currently handled
-        \fn static QxtRPCPeer * peer();
-        direct access to the QxtRPCPeer used for communicating with the transport
-        the returned pointer is valid during the whole lifetime of the program
-        when subclassing QxtWebCore this can be used to implement a different protocoll
+        \fn static QIODevice * socket();
+        direct access to a iodevice for writing binary data.
+        You shouldn't use that unless it's absolutly nessesary
         \fn static QxtError parseString(QByteArray str, post_t & POST);
         much like phps parse_string
  */
 
 
 static QxtWebCore * singleton_m=0;
-static QxtRPCPeer * peer=0;
 
 
-void qxtwebcoremessagehandler(QtMsgType type, const char *msg)
-        {
-        peer->call(SIGNAL(message(int,QByteArray)),type,QByteArray(msg));
-        if(type==QtFatalMsg)
-                abort();
 
-        }
 
 //-----------------------interface----------------------------
 QxtWebCore::QxtWebCore():QObject()
@@ -89,13 +84,8 @@ QxtWebCore::QxtWebCore():QObject()
 
 
         singleton_m=this;
-        ::peer=new QxtRPCPeer(new QxtStdio(this));
-
-        qInstallMsgHandler(qxtwebcoremessagehandler);
 
 	QXT_INIT_PRIVATE(QxtWebCore);
-        qxt_d().init();
-        
 	}
 
 QxtWebCore::~QxtWebCore()
@@ -111,39 +101,62 @@ QxtWebCore * QxtWebCore::instance()
         }
 void QxtWebCore::send(QByteArray a)
         {
-        ::peer->call(SIGNAL(send(QByteArray)),a);
+        instance()->qxt_d().send(a);
         }
 void QxtWebCore::header(QByteArray a,QByteArray b)
         {
-        ::peer->call(SIGNAL(header(QByteArray,QByteArray)),a,b);
+        instance()->qxt_d().header(a,b);
         }
-
-QxtRPCPeer * QxtWebCore::peer()
-        {
-        return ::peer;
-        }
-
-
-
 
 server_t &  QxtWebCore::SERVER()
         {
         return instance()->qxt_d().currentservert;
         }
 
+QIODevice * QxtWebCore::socket()
+        {
+        return instance()->qxt_d().socket_m;
+        }
+
+int QxtWebCore::listen (quint16 port ,const QHostAddress & address )
+        {
+        return qxt_d().listen(address,port);
+        }
+
+
+
 //-----------------------implementation----------------------------
 
-QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QObject(parent)
+QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QTcpServer(parent)
         {
         }
-void QxtWebCorePrivate::init()
-        {
-        QTimer::singleShot(10,this,SLOT(startup()));
-        };
 
-void  QxtWebCorePrivate::request(server_t SERVER)
+
+void QxtWebCorePrivate::incomingConnection(int socketDescriptor)
         {
-        qDebug("%s",SERVER["REQUEST_URI"].constData());
+        header_sent=false;
+        answer.clear();
+        qDebug("%i, -> incomming",(int)time(NULL));
+	QTcpSocket * tcpSocket = new QTcpSocket;
+	if (!tcpSocket->setSocketDescriptor(socketDescriptor)) 
+		{
+		return;
+		}
+        socket_m=tcpSocket;
+	connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
+
+	server_t SERVER;
+	int eee1=readHeaderFromSocket(tcpSocket,SERVER);
+
+        if(eee1)
+		{
+                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nHEADER NOT READABLE");
+		}
+
+
+        qDebug("%i, %s -> %s",(int)time(NULL),SERVER["HTTP_HOST"].constData(),SERVER["REQUEST_URI"].constData());
+
+
         currentservert=SERVER;
 
         emit(qxt_p().request());
@@ -164,10 +177,7 @@ void  QxtWebCorePrivate::request(server_t SERVER)
 	QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
 	if (!controller) 
 		{
-                peer->call(SIGNAL(header(QByteArray,QByteArray)),"Status","404");
-                peer->call(SIGNAL(send(QByteArray)),QByteArray("<h1>controller  "+path+" not found</h1>"));
-                peer->call(SIGNAL(close()));
-                peer->call(SIGNAL(ready()));
+                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
 		qDebug("controller '%s' not found",path.constData()); 
                 return;
 		}
@@ -175,18 +185,54 @@ void  QxtWebCorePrivate::request(server_t SERVER)
 	int i=controller->invoke(SERVER);
 	if(i)
                 {
-                peer->call(SIGNAL(header(QByteArray,QByteArray)),"Status","500");
-                peer->call(SIGNAL(send(QByteArray)),QByteArray("<h1>stupid me, no implementation for error codes!</h1>"));
+                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
                 }
 
-        peer->call(SIGNAL(close()));
-        peer->call(SIGNAL(ready()));
+        tcpSocket->disconnectFromHost();
+
         }
-void  QxtWebCorePrivate::startup()
+
+
+void QxtWebCorePrivate::sendheader()
         {
-        peer->attachSlot (SIGNAL(request(server_t)),this ,SLOT(request(server_t)));
-        peer->call(SIGNAL(ready()));
+        if(!header_sent)
+                {
+                if(!answer.contains("Status"))
+                        answer["Status"]="200 OK";
+                if(!answer.contains("Content-Type"))
+                        answer["Content-Type"]="text/html; charset=utf-8";
+
+                server_t::const_iterator i = answer.constBegin();
+                while (i != answer.constEnd()) 
+                        {
+                        socket_m->write(i.key()+": "+i.value()+"\r\n");
+                        ++i;
+                        }
+                socket_m->write("\r\n");
+                header_sent=true;
+                }
         }
+
+void QxtWebCorePrivate::header(QByteArray k ,QByteArray v)
+        {
+        answer[k]=v;
+        }
+void QxtWebCorePrivate::send(QByteArray a)
+        {
+        if(socket_m)
+                {
+                sendheader();
+                socket_m->write(a);
+                }
+        else
+		qDebug()<<"<send attemp when no connection open";
+        }
+
+
+
+
+
+
 
 //-----------------------helper----------------------------
 
@@ -246,3 +292,104 @@ QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
 		}
 	QXT_DROP_OK
 	}
+
+
+
+
+
+
+int QxtWebCorePrivate::readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER)
+	{
+	if (!tcpSocket)
+		return 5012;
+
+
+	///--------------get the header size----------------
+	
+	QByteArray size_in;
+	while(!size_in.endsWith(':'))
+		{
+		if(!tcpSocket->bytesAvailable ())
+			if (!tcpSocket->waitForReadyRead (200))
+                                return 50033;
+
+		char a[4]; ///4? yes, i know i'm paranoid about bounds.
+
+
+		if (!tcpSocket->read (a, 1 ))
+                                return 50034;
+
+		size_in+=a[0];
+
+		if (size_in.size()>20)/// after the 20ths char is an attack atemp for sure
+                                return 50034;
+
+		}
+	
+
+	size_in.chop(1);
+	int size=size_in.toInt()+1;
+
+
+	if (size>10240)  ///do not accept headers over 10kb
+                                return 50037;
+
+
+	///--------------read the header------------------
+
+	while(tcpSocket->bytesAvailable ()<size)
+		{
+		if (!tcpSocket->waitForReadyRead (200))
+                                return 50033;
+		}
+	QByteArray header_in;
+	header_in.resize(size);
+
+	if (tcpSocket->read (header_in.data(), size )!=size)
+                                return 50034;
+
+	if (!header_in.endsWith(','))
+                                return 50090;
+	///--------------parse the header------------------
+
+
+	int i=0;
+	QByteArray name="";
+	QByteArray a =header_in;
+	while((i=a.indexOf('\0'))>-1)
+		{
+		if(name=="")
+			{
+			name= a.left(i).replace('\0',"");
+			}
+		else
+			{
+			SERVER[name]=a.left(i).replace('\0',"").replace("%20"," ");
+			name="";
+			}
+		
+		a=a.mid(i+1);
+		}
+
+
+        return 0;
+	}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
