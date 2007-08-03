@@ -24,11 +24,30 @@
 #ifndef QXTMETAOBJECT_H
 #define QXTMETAOBJECT_H
 
+#include <QMetaObject>
+#include <QGenericArgument>
 class QByteArray;
+class QxtBoundFunction;
+class QxtBoundArgument;
 
 namespace QxtMetaObject
 {
 	QByteArray methodName(const char* method);
+    QxtBoundFunction* bind(QObject* recv, const char* invokable,
+                           QGenericArgument p1 = QGenericArgument(),
+                           QGenericArgument p2 = QGenericArgument(),
+                           QGenericArgument p3 = QGenericArgument(),
+                           QGenericArgument p4 = QGenericArgument(),
+                           QGenericArgument p5 = QGenericArgument(),
+                           QGenericArgument p6 = QGenericArgument(),
+                           QGenericArgument p7 = QGenericArgument(),
+                           QGenericArgument p8 = QGenericArgument(),
+                           QGenericArgument p9 = QGenericArgument(),
+                           QGenericArgument p10 = QGenericArgument());
+    bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
+                 Qt::ConnectionType type = Qt::AutoConnection);
 }
+
+#define QXT_BIND(i) QGenericArgument("QxtBoundArgument", reinterpret_cast<void*>(i))
 
 #endif // QXTMETAOBJECT_H
