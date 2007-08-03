@@ -1,5 +1,5 @@
 TARGET          =  QxtNetwork
-#DESTDIR         =  ../../deploy/libs 
+DESTDIR         =  ../../deploy/libs 
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_NETWORK
