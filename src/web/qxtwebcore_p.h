@@ -23,21 +23,26 @@
 ****************************************************************************/
 #include "qxtwebcore.h"
 #include <QTextStream>
-#include <qxtstdio.h>
+#include <QTcpServer>
+#include <QTcpSocket>
 
 class QxtScgiController;
-class QxtWebCorePrivate : public QObject,public QxtPrivate<QxtWebCore>
+class QxtWebCorePrivate : public QTcpServer,public QxtPrivate<QxtWebCore>
 	{
 	Q_OBJECT
 	QXT_DECLARE_PUBLIC(QxtWebCore);
 
 	public:
 		QxtWebCorePrivate(QObject *parent = 0);
-                void init();
+                int readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER);
+                void send(QByteArray);
+                void sendheader();
+                void header(QByteArray,QByteArray);
 
-        private slots:
-                void request(server_t a);
-                void startup();
-        private:
+                virtual void incomingConnection(int socketDescriptor);
+
                 server_t currentservert;
+                QTcpSocket * socket_m;
+                bool header_sent;
+                server_t answer;
 	};

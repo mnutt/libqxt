@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTextStream>
+#include <QVariant>
 #include "qxtwebcore.h"
 
 class QxtWebController : public QObject

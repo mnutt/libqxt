@@ -27,17 +27,18 @@
 #include <QObject>
 #include <QMap>
 #include <QMetaType>
+
 #include <qxtpimpl.h>
 #include <qxterror.h>
-#include <qxtrpcpeer.h>
 #include <qxtglobal.h>
+#include <QHostAddress>
 
 typedef  QMap<QByteArray, QByteArray> server_t;
 typedef  QMap<QString, QVariant> post_t;
 
 
 Q_DECLARE_METATYPE(server_t)
-
+class QIODevice;
 class QxtWebCorePrivate;
 class QXT_WEB_EXPORT QxtWebCore: public QObject
 	{
@@ -50,14 +51,13 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
                 static void send(QByteArray);
                 static void header(QByteArray,QByteArray);
                 static server_t & SERVER();
-
+                static QIODevice * socket();
+                int listen (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
 
                 /*helper*/
                 static QxtError parseString(QByteArray str, post_t & POST);
 //                 static QxtError readContentFromSocket(QTcpSocket *,server_t &, post_t &);
 
-        protected:
-                 static QxtRPCPeer * peer();
 
 
         signals:
