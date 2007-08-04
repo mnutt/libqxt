@@ -29,6 +29,7 @@
 #include <QCoreApplication>
 #include <QTcpSocket>
 #include <QVariant>
+#include <QtDebug>
 /*!
         \class QxtWebCore QxtWebCore
         \ingroup web
