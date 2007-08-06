@@ -28,11 +28,14 @@ HEADERS += qxtcsvmodel.h \
            qxttuplelist.h \
            qxttypelist.h \
            qxtfifo.h \
-           qxtstdio.h
+           qxtstdio.h \
+	   qxtfilelock_p.h\
+           qxtfilelock.h
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \
            qxtmetaobject.cpp \
            qxtsemaphore.cpp \
            qxtsignalwaiter.cpp \
            qxtfifo.cpp \
-           qxtstdio.cpp
+           qxtstdio.cpp\
+           qxtfilelock.cpp
