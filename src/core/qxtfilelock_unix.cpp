@@ -76,8 +76,9 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
                     int currLockEnd = currLock->offset()+currLock->length();
                     
                     /*do we have to check for threads here?*/
-                    if(newLockStart >= currLockStart && newLockStart <= currLockEnd ||
-                        newLockEnd >= currLockStart && newLockEnd <= currLockEnd )
+                    if(newLockStart >= currLockStart  && newLockStart <= currLockEnd ||
+                        newLockEnd >= currLockStart    && newLockEnd <= currLockEnd ||
+                        newLockStart < currLockStart     && newLockEnd > currLockEnd)
                     {
                         /*same lock region if one of both locks are exclusive we have a collision*/
                         if(lock->mode() == QxtFileLock::WriteLockWait || lock->mode() == QxtFileLock::WriteLock ||
