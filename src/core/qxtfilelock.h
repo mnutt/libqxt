@@ -15,7 +15,7 @@ class QXT_CORE_EXPORT QxtFileLock : public QObject
             
     public:
         
-        enum Lockmode
+        enum Mode
         {
             ReadLockWait,
             ReadLock,
@@ -23,22 +23,21 @@ class QXT_CORE_EXPORT QxtFileLock : public QObject
             WriteLock
         };
         
-        QxtFileLock(QFile *file, const off_t offset,const off_t length,const int mode = WriteLockWait);
+        QxtFileLock(QFile *file, const off_t offset,const off_t length,const QxtFileLock::Mode mode = WriteLockWait);
         ~QxtFileLock();
-        off_t offset();
-        off_t length();
-        bool locked();
-        QFile *file();
+        
+        off_t offset() const;
+        off_t length() const;
+        bool isActive() const;
+        QFile *file() const;
+        QxtFileLock::Mode mode() const;
         
     public slots:
         bool lock();
         bool unlock();
         
     private:
+        QxtFileLock(const QxtFileLock &other);
         QXT_DECLARE_PRIVATE(QxtFileLock);
 };
-
-
-
-
 #endif

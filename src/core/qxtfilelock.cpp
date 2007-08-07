@@ -1,27 +1,12 @@
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
 
- QxtFileLockRegistry::QxtFileLockRegistry()
-{
-}
-
-QxtFileLockRegistry& QxtFileLockRegistry::instance()
-{
-    static QxtFileLockRegistry instance;
-    return instance;
-}
-
-bool QxtFileLockRegistry::canRegisterLock(QxtFileLock * lock)
-{
-    return false;
-}
-
-QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait)
+QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait), isLocked(false)
 {
     
 }
 
- QxtFileLock::QxtFileLock(QFile *file,const off_t offset,const off_t length,const int mode) : QObject(file)
+ QxtFileLock::QxtFileLock(QFile *file,const off_t offset,const off_t length,const QxtFileLock::Mode mode) : QObject(file)
 {
     QXT_INIT_PRIVATE(QxtFileLock);
     connect(file,SIGNAL(aboutToClose()),this,SLOT(unlock()));
@@ -32,32 +17,27 @@ QxtFileLock::~QxtFileLock()
     unlock();
 }
 
-off_t QxtFileLock::offset()
+off_t QxtFileLock::offset() const
 {
-    return 0;
+    return qxt_d().offset;
 }
 
-bool QxtFileLock::locked()
+bool QxtFileLock::isActive() const
 {
-    return false;
+    return qxt_d().isLocked;
 }
 
-off_t QxtFileLock::length()
+off_t QxtFileLock::length() const
 {
-    return 0;
+    return qxt_d().length;
 }
 
-bool QxtFileLock::unlock()
-{
-    return false;
-}
-
-bool QxtFileLock::lock()
-{
-    return false;
-}
-
-QFile * QxtFileLock::file()
+QFile * QxtFileLock::file() const
 {
     return qobject_cast<QFile *>(parent());
+}
+
+QxtFileLock::Mode QxtFileLock::mode() const
+{
+    return qxt_d().mode;
 }
