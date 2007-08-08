@@ -143,7 +143,7 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QGenericArgument p1
     connSlot = QMetaObject::normalizedSignature(connSlot += ")");
 
     if(!QMetaObject::checkConnectArgs(recvSlot.constData(), connSlot.constData())) {
-        qWarning() << "WxtMetaObject::bind: provided parameters " << connSlot.mid(connSlot.indexOf('(')) << " is incompatible with " << invokable;
+        qWarning() << "QxtMetaObject::bind: provided parameters " << connSlot.mid(connSlot.indexOf('(')) << " is incompatible with " << invokable;
         return 0;
     }
 
