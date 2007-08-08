@@ -24,20 +24,14 @@
 
 /**
 \class QxtNullable QxtNullable
-
 \ingroup core
-
 \brief distinct null value compatible with any data type.
 
-
-
-
-in general it's a templated abstraction to allow any data type to be expressed with a null value distinct from any real value.
-
-you can use it for skipable arguments. 
+in general it's a templated abstraction to allow any data type to be
+expressed with a null value distinct from any real value. An example
+of such a use is for optional arguments.
 \n 
 prepare a function for argument skipping:
-
 
 \code
 void  somefunction( qxtNull(int,a) , qxtNull(int,b) )
@@ -56,8 +50,6 @@ if (!a.isNull())
 }
 \endcode
 
-
-
 usage:
 \code
 
@@ -69,56 +61,34 @@ somefunction(1);
 
 */
 
-
-
-
 #ifndef QXTNULLABLE_H
 #define QXTNULLABLE_H
 #include <qxtglobal.h>
-
-
-
 
 /*! \relates QxtNullable
  * defines a skipable argument with type \a t and variable name \a n  
  */
 #define qxtNull(t,n)	  QxtNullable<t> n = QxtNullable<t>()
 
-
-
-
-
-
-
-
 #include <QxtNull.h>
-
-
-
-
 
 template<typename T>
 class QXT_CORE_EXPORT QxtNullable {
     public:
-
         QxtNullable(QxNullableNull);
-
         QxtNullable(const T& p);
-
         QxtNullable();
 	
 	///determinates if the Value is set to something meaningfull
         bool isNull() const;
 
 	///delete Value
-	void nullify();
-
+        void nullify();
+        
         T& value() const;
-
         operator T() const;
+        void operator=(const T& p);
 
-
-	void operator=(const T& p);
     private:
         T* val;
 };
@@ -130,7 +100,7 @@ QxtNullable<T>::QxtNullable(QxNullableNull) {
 
 template<typename T>
 QxtNullable<T>::QxtNullable(const T& p) {
-val = const_cast<T*>(&p);
+    val = const_cast<T*>(&p);
 }
 
 template<typename T>
@@ -154,17 +124,13 @@ bool QxtNullable<T>::isNull() const {
 }
 
 template<typename T>
-void QxtNullable<T>::nullify() 
-	{
+void QxtNullable<T>::nullify() {
 	val=0;
-	}
+}
 
 template<typename T>
-
-void QxtNullable<T>::operator=(const T& p) 
-	{
+void QxtNullable<T>::operator=(const T& p) {
 	val = const_cast<T*>(&p);
-	}
-
+}
 
 #endif

@@ -26,24 +26,42 @@
 
 #include <QMetaObject>
 #include <QGenericArgument>
+#include "qxtnullable.h"
 class QByteArray;
-class QxtBoundFunction;
 class QxtBoundArgument;
+
+#define QXT_PROTO_10ARGS(T) T p1 = T(), T p2 = T(), T p3 = T(), T p4 = T(), \
+        T p5 = T(), T p6 = T(), T p7 = T(), T p8 = T(), T p9 = T(), T p10 = T()
+#define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
+class QxtBoundFunction : public QObject {
+Q_OBJECT
+public:
+    template <class T>
+    QxtNullable<T> invoke(QXT_PROTO_10ARGS(QVariant));
+
+    template <class T>
+    QxtNullable<T> invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QVariant));
+
+    bool invoke(QXT_PROTO_10ARGS(QVariant));
+    bool invoke(Qt::ConnectionType, QXT_PROTO_10ARGS(QVariant));
+    bool invoke(QXT_PROTO_10ARGS(QGenericArgument)); 
+    bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument));
+    bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument));
+
+    virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue,
+            QXT_PROTO_10ARGS(QGenericArgument)) = 0;
+};
+
 
 namespace QxtMetaObject
 {
-	QByteArray methodName(const char* method);
-    QxtBoundFunction* bind(QObject* recv, const char* invokable,
-                           QGenericArgument p1 = QGenericArgument(),
-                           QGenericArgument p2 = QGenericArgument(),
-                           QGenericArgument p3 = QGenericArgument(),
-                           QGenericArgument p4 = QGenericArgument(),
-                           QGenericArgument p5 = QGenericArgument(),
-                           QGenericArgument p6 = QGenericArgument(),
-                           QGenericArgument p7 = QGenericArgument(),
-                           QGenericArgument p8 = QGenericArgument(),
-                           QGenericArgument p9 = QGenericArgument(),
-                           QGenericArgument p10 = QGenericArgument());
+    QByteArray methodName(const char* method);
+    QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
+    QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
+    template <typename FP>
+    QxtBoundFunction* bind(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
+    template <class T, typename FP>
+    QxtBoundFunction* bind(T* recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
     bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
                  Qt::ConnectionType type = Qt::AutoConnection);
 }

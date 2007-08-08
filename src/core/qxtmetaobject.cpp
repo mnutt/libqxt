@@ -96,13 +96,13 @@ namespace QxtMetaObject
  */
 QByteArray methodName(const char* method)
 {
-	QByteArray name = QMetaObject::normalizedSignature(method);
-	if (name.startsWith("1") || name.startsWith("2"))
-		name = name.mid(1);
-	const int idx = name.indexOf("(");
-	if (idx != -1)
-		name.truncate(idx);
-	return name;
+    QByteArray name = QMetaObject::normalizedSignature(method);
+    if (name.startsWith("1") || name.startsWith("2"))
+        name = name.mid(1);
+    const int idx = name.indexOf("(");
+    if (idx != -1)
+        name.truncate(idx);
+    return name;
 }
 
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QGenericArgument p1, QGenericArgument p2,
