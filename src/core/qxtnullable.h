@@ -70,12 +70,12 @@ somefunction(1);
  */
 #define qxtNull(t,n)	  QxtNullable<t> n = QxtNullable<t>()
 
-#include <QxtNull.h>
+#include <qxtnull.h>
 
 template<typename T>
 class QXT_CORE_EXPORT QxtNullable {
     public:
-        QxtNullable(QxNullableNull);
+        QxtNullable(QxtNull);
         QxtNullable(const T& p);
         QxtNullable();
 	
@@ -94,7 +94,7 @@ class QXT_CORE_EXPORT QxtNullable {
 };
 
 template<typename T>
-QxtNullable<T>::QxtNullable(QxNullableNull) {
+QxtNullable<T>::QxtNullable(QxtNull) {
     val = 0;
 }
 

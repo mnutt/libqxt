@@ -25,34 +25,16 @@
 #define QXTMETAOBJECT_H
 
 #include <QMetaObject>
+#include <QVariant>
 #include <QGenericArgument>
 #include "qxtnullable.h"
 class QByteArray;
 class QxtBoundArgument;
+class QxtBoundFunction;
 
 #define QXT_PROTO_10ARGS(T) T p1 = T(), T p2 = T(), T p3 = T(), T p4 = T(), \
         T p5 = T(), T p6 = T(), T p7 = T(), T p8 = T(), T p9 = T(), T p10 = T()
 #define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
-class QxtBoundFunction : public QObject {
-Q_OBJECT
-public:
-    template <class T>
-    QxtNullable<T> invoke(QXT_PROTO_10ARGS(QVariant));
-
-    template <class T>
-    QxtNullable<T> invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QVariant));
-
-    bool invoke(QXT_PROTO_10ARGS(QVariant));
-    bool invoke(Qt::ConnectionType, QXT_PROTO_10ARGS(QVariant));
-    bool invoke(QXT_PROTO_10ARGS(QGenericArgument)); 
-    bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument));
-    bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument));
-
-    virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue,
-            QXT_PROTO_10ARGS(QGenericArgument)) = 0;
-};
-
-
 namespace QxtMetaObject
 {
     QByteArray methodName(const char* method);
