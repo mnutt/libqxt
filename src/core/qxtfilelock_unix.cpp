@@ -3,8 +3,14 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+/*include pthread to make errno threadsafe*/
+#include <pthread.h>
+#include <errno.h>
 #include <QPointer>
 #include <QMutableLinkedListIterator>
+#include <QDebug>
 
 /*!
  * \internal this class is used on *nix to register all locks created by a process and to let locks on *nix act like locks on windows
@@ -76,21 +82,33 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
                     int currLockEnd = currLock->offset()+currLock->length();
                     
                     /*do we have to check for threads here?*/
-                    if(newLockStart >= currLockStart  && newLockStart <= currLockEnd ||
-                        newLockEnd >= currLockStart    && newLockEnd <= currLockEnd ||
-                        newLockStart < currLockStart     && newLockEnd > currLockEnd)
+                    if(newLockEnd >= currLockStart  && newLockStart <= currLockEnd)
                     {
+                        qDebug()<<"we may have a collision";
+                        qDebug()<<newLockEnd<<" >= "<<currLockStart<<"  &&  "<<newLockStart<<" <= "<<currLockEnd;
+                        
                         /*same lock region if one of both locks are exclusive we have a collision*/
                         if(lock->mode() == QxtFileLock::WriteLockWait || lock->mode() == QxtFileLock::WriteLock ||
                            currLock->mode() == QxtFileLock::WriteLockWait || currLock->mode() == QxtFileLock::WriteLock)
-                            return false;
+                        {
+                            qDebug()<<"Okay if this is not the same thread using the same handle there is a collision";
+                            /*the same thread  can lock the same region with the same handle*/
+                            
+                            qDebug()<<"! ("<<lock->thread()<<" == "<<currLock->thread()<<" && "<<lock->file()->handle()<<" == "<<currLock->file()->handle()<<")";
+                            
+                            if(! (lock->thread() == currLock->thread() && lock->file()->handle() == currLock->file()->handle()))
+                            {
+                                    qDebug()<<"Collision";
+                                    return false;
+                            }
+                        }
                     }
                 }
             }
             else //remove dead locks
                 iterator.remove();
         }
-        
+        qDebug()<<"The lock is okay";
         /*here we can insert the lock into the list and return*/
         procLocks.append(QPointer<QxtFileLock>(lock));
         return true;
@@ -112,8 +130,27 @@ bool QxtFileLock::unlock()
     if(file() && file()->isOpen() && isActive())
     {
         /*first remove real lock*/
+        int lockmode,  locktype;
+        int result = -1;
+        struct  flock lockDesc;
+        
+        lockmode = F_SETLK;
+        locktype = F_UNLCK;
+        
+        errno = 0;
+        do
+        {
+            lockDesc.l_type = locktype;
+            lockDesc.l_whence = SEEK_SET;
+            lockDesc.l_start = qxt_d().offset;
+            lockDesc.l_len = qxt_d().length;
+            lockDesc.l_pid = 0;
+            result = fcntl (this->file()->handle(), lockmode, &lockDesc);
+        }while (result && errno == EINTR);
         
         QxtFileLockRegistry::instance().removeLock(this);
+        qxt_d().isLocked = false;
+        return true;
     }
     return false;
 }
@@ -122,10 +159,80 @@ bool QxtFileLock::lock()
 {
     if(file() && file()->isOpen())
     {
-        if(QxtFileLockRegistry::instance().registerLock(this))
-        {
-            /*now get lock*/
+        /*this has to block if we can get no lock*/
+        
+        bool locked = false;
+        
+         while(1)
+         {
+             locked = QxtFileLockRegistry::instance().registerLock(this);
+             if(locked)
+                 break;
+             else
+             {
+                 if(qxt_d().mode == ReadLockWait || qxt_d().mode == WriteLockWait)
+                     usleep(1000 * 5);
+                 else
+                     return false;
+             }
+         }
+         
+        /*now get real lock*/
+        int lockmode,
+        locktype;
+        
+        int result = -1;
+        
+        struct  flock lockDesc;
+
+        switch (qxt_d().mode)
+        {            
+            case    ReadLock:
+                lockmode = F_SETLK;
+                locktype = F_RDLCK;
+                break;
+        
+            case    ReadLockWait:
+                lockmode = F_SETLKW;
+                locktype = F_RDLCK;
+                break;
+        
+            case    WriteLock:
+                lockmode = F_SETLK;
+                locktype = F_WRLCK;
+                break;
+        
+            case    WriteLockWait:
+                lockmode = F_SETLKW;
+                locktype = F_WRLCK;
+                break;
+        
+            default:
+                QxtFileLockRegistry::instance().removeLock(this);
+                return (-1);
+                break;
         }
+        
+       errno = 0;
+        do
+        {
+            lockDesc.l_type = locktype;
+            lockDesc.l_whence = SEEK_SET;
+            lockDesc.l_start = qxt_d().offset;
+            lockDesc.l_len = qxt_d().length;
+            lockDesc.l_pid = 0;
+            result = fcntl (this->file()->handle(), lockmode, &lockDesc);
+        } while (result && errno == EINTR);
+        
+        /*we dot get the lock unregister from lockregistry and return*/
+        if(result == -1)
+        {
+            QxtFileLockRegistry::instance().removeLock(this);
+            return false;
+        }
+        
+        qxt_d().isLocked = true;
+        return true;
     }
     return false;
 }
