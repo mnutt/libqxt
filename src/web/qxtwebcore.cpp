@@ -58,16 +58,22 @@
         \fn static QxtWebCore* instance();
         singleton accessor
         \fn static void send(QByteArray);
-        Send data to the client. Use this rarely, but use it always when sending binary data such as images.
-        normal text/html comunication should be done using the controllers echo() function
-        note that after you called send the first time you cannot modify the header anymore
+        Send data to the client. Use this rarely, but use it always when sending binary data such as images. \n
+        normal text/html comunication should be done using the controllers echo() function \n
+        note that after you called send the first time you cannot modify the header anymore \n
         sending may be ignored by the transport when there is no client currently handled
         \fn static QIODevice * socket();
-        direct access to a iodevice for writing binary data.
+        direct access to a iodevice for writing binary data. \n
         You shouldn't use that unless it's absolutly nessesary
         \fn static QxtError parseString(QByteArray str, post_t & POST);
-        much like phps parse_string
- */
+        much like phps parse_string \n
+        \fn static QByteArray readContent(int maxsize=5000);
+        reads the content from the current socket if any has sent. \n
+        returns an empty QByteArray on any error.  \n
+        the content is cut at maxsize and not read from the socket.  \n
+        FIXME:\warning: this function is BLOCKING.  while content is read from the client, no other requests can be handled.
+        FIXME:\warning: due to paranoid timeouts this might not work for slow clients
+ */ 
 
 
 static QxtWebCore * singleton_m=0;
@@ -237,27 +243,31 @@ void QxtWebCorePrivate::send(QByteArray a)
 
 //-----------------------helper----------------------------
 
-#if 0
-QxtError QxtWebCore::readContentFromSocket(QTcpSocket * tcpSocket,server_t & SERVER , post_t & POST)
+static QByteArray readContent(int maxsize)
 	{
+        QIODevice * tcpSocket= QxtWebCore::socket();
+        server_t SERVER= QxtWebCore::SERVER();
+
 	if (!tcpSocket)
-		QXT_DROP(Qxt::UnexpectedNullParameter);
+		return QByteArray();
 
 
         int content_size=SERVER["CONTENT_LENGTH"].toInt();
 
 	if (content_size<1)
 		{
-		QXT_DROP_OK
+                return QByteArray();
 		}
 
+        if(content_size>maxsize)
+                content_size=maxsize;
 
 	///--------------read the content------------------
 
 	while(tcpSocket->bytesAvailable ()<content_size)
 		{
-		if (!tcpSocket->waitForReadyRead (10000))
-                        QXT_DROP(Qxt::ClientTimeout);
+		if (!tcpSocket->waitForReadyRead (2000))
+                        return QByteArray();
 		}
 	
 	QByteArray content_in;
@@ -265,21 +275,18 @@ QxtError QxtWebCore::readContentFromSocket(QTcpSocket * tcpSocket,server_t & SER
 
 
 	if (tcpSocket->read (content_in.data(), content_size )!=content_size)
-				QXT_DROP(Qxt::SocketIOError);
+                return QByteArray();
 
 
 	
 	if (SERVER["CONTENT_TYPE"]!="application/x-www-form-urlencoded")
-		QXT_DROP_S(Qxt::NotImplemented,"This Post method is not supported.");
+                return QByteArray();
 
-
-        QXT_DROP_F(parseString(content_in,POST));
-	QXT_DROP_OK
+        return content_in;
 	}
 
 
 
-#endif
 
 QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
 	{

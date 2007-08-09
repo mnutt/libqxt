@@ -24,7 +24,6 @@ class QxtWebController : public QObject
                 QTextStream & echo();
                 QString self();
                 server_t SERVER;
-                post_t POST;
         private:
                 QTextStream *stream_m;
         };
