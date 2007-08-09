@@ -56,12 +56,13 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
 
                 /*helper*/
                 static QxtError parseString(QByteArray str, post_t & POST);
-                static QByteArray readContent(int maxsize);
+                static QByteArray readContent(int maxsize=5000);
 
 
 
         signals:
                 void request();
+                void aboutToClose();
 
 	};
 
