@@ -243,7 +243,7 @@ void QxtWebCorePrivate::send(QByteArray a)
 
 //-----------------------helper----------------------------
 
-static QByteArray readContent(int maxsize)
+QByteArray QxtWebCore::readContent(int maxsize)
 	{
         QIODevice * tcpSocket= QxtWebCore::socket();
         server_t SERVER= QxtWebCore::SERVER();
