@@ -186,6 +186,8 @@ void QxtWebCorePrivate::incomingConnection(int socketDescriptor)
 		{
                 tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
 		qDebug("controller '%s' not found",path.constData()); 
+                emit(qxt_p().aboutToClose());
+                tcpSocket->disconnectFromHost();
                 return;
 		}
 
@@ -194,9 +196,8 @@ void QxtWebCorePrivate::incomingConnection(int socketDescriptor)
                 {
                 tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
                 }
-
+        emit(qxt_p().aboutToClose());
         tcpSocket->disconnectFromHost();
-
         }
 
 
