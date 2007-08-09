@@ -10,6 +10,9 @@ QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLo
 {
     QXT_INIT_PRIVATE(QxtFileLock);
     connect(file,SIGNAL(aboutToClose()),this,SLOT(unlock()));
+    qxt_d().offset = offset;
+    qxt_d().length = length;
+    qxt_d().mode = mode;
 }
 
 QxtFileLock::~QxtFileLock()
