@@ -38,12 +38,13 @@ class QxtBoundFunction;
 namespace QxtMetaObject
 {
     QByteArray methodName(const char* method);
-    QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
+    QByteArray methodSignature(const char* method);
     QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
+    QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
     template <typename FP>
-    QxtBoundFunction* bind(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
+    QxtBoundFunction* bindFunction(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
     template <class T, typename FP>
-    QxtBoundFunction* bind(T* recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
+    QxtBoundFunction* bindMethod(T recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
     bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
                  Qt::ConnectionType type = Qt::AutoConnection);
 }

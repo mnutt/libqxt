@@ -26,7 +26,6 @@
 #define QXTNULL_DEFINED
 #include <qxtglobal.h>
 
-
 /**
 \class QxtNull QxtNull
 
@@ -44,11 +43,12 @@ struct QXT_CORE_EXPORT QxtNull {
  */
     operator int() const { return 0; }
     enum { isNull = true };
-} 
+};
+
 /*! \relates QxtNull
  * A predefined null object that can be assigned to any QxtNullable object.
  */
-qxtNull;
+extern QxtNull qxtNull;
 
 #ifndef QXT_NO_MACROS
 /*! \relates QxtNull
