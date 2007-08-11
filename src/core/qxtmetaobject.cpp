@@ -22,6 +22,7 @@
 **
 ****************************************************************************/
 #include "qxtmetaobject.h"
+#include "qxtboundfunction.h"
 
 #include <QByteArray>
 #include <QMetaObject>
@@ -32,14 +33,32 @@ class QxtBoundArgument {
     // This class intentionally left blank
 };
 Q_DECLARE_METATYPE(QxtBoundArgument)
-    
-class QxtBoundFunction : public QObject {
+
+QxtBoundFunction::QxtBoundFunction(QObject* parent) : QObject(parent) {
+    // initializer only
+}
+
+#define QXT_ARG(i) ((argCount>i)?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument())
+#define QXT_VAR_ARG(i) (p ## i .isValid())?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument()
+bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QVariant)) {
+    return invoke(type, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
+}
+
+bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QGenericArgument)) {
+    return invoke(type, QGenericReturnArgument(), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+}
+
+bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QVariant)) {
+    return invoke(type, returnValue, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
+}
+
+class QxtBoundSlot : public QxtBoundFunction {
 public:
     QByteArray sig, bindTypes[10];
     QGenericArgument arg[10], p[10];
     void* data[10];
 
-    QxtBoundFunction(QObject* receiver, const char* invokable, QGenericArgument* params[10], QByteArray types[10]) : QObject(receiver), sig(invokable) {
+    QxtBoundSlot(QObject* receiver, const char* invokable, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunction(receiver), sig(invokable) {
         for(int i=0; i<10; i++) {
             if(!params[i]) break;
             if(QByteArray(params[i]->name()) == "QxtBoundArgument") {
@@ -52,7 +71,7 @@ public:
         }
     }
     
-    ~QxtBoundFunction() {
+    ~QxtBoundSlot() {
         for(int i=0; i<10; i++) {
             if(arg[i].name() == 0) return;
             if(QByteArray(arg[i].name()) != "QxtBoundArgument") QMetaType::destroy(QMetaType::type(arg[i].name()), arg[i].data());
@@ -78,6 +97,21 @@ public:
         }
         return _id;
     }
+
+    virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
+        QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
+        for(int i = 0; i < 10; i++) {
+            if(QByteArray(arg[i].name()) == "QxtBoundArgument") {
+                p[i] = *args[(int)(arg[i].data())-1];
+            }
+        }
+
+        if(!QMetaObject::invokeMethod(parent(), QxtMetaObject::methodName(sig.constData()), type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])) {
+            qWarning() << "QxtBoundFunction: call to" << sig << "failed";
+            return false;
+        }
+        return true;
+    }
 };
 
 namespace QxtMetaObject
@@ -96,18 +130,52 @@ namespace QxtMetaObject
  */
 QByteArray methodName(const char* method)
 {
-    QByteArray name = QMetaObject::normalizedSignature(method);
-    if (name.startsWith("1") || name.startsWith("2"))
-        name = name.mid(1);
+    QByteArray name = methodSignature(method);
     const int idx = name.indexOf("(");
     if (idx != -1)
         name.truncate(idx);
     return name;
 }
 
-QxtBoundFunction* bind(QObject* recv, const char* invokable, QGenericArgument p1, QGenericArgument p2,
-        QGenericArgument p3, QGenericArgument p4, QGenericArgument p5, QGenericArgument p6,
-        QGenericArgument p7, QGenericArgument p8, QGenericArgument p9, QGenericArgument p10) {
+QByteArray methodSignature(const char* method)
+{
+    QByteArray name = QMetaObject::normalizedSignature(method);
+    if (name.startsWith("1") || name.startsWith("2"))
+        return name.mid(1);
+    return name;
+}
+
+QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant)) {
+    if(!recv) {
+        qWarning() << "QxtMetaObject::bind: cannot connect to null QObject";
+        return 0;
+    }
+
+    QVariant* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
+    QByteArray connSlot("2"), recvSlot(QMetaObject::normalizedSignature(invokable));
+    const QMetaObject* meta = recv->metaObject();
+    int methodID = meta->indexOfMethod(QxtMetaObject::methodSignature(recvSlot.constData()));
+    if(methodID == -1) {
+        qWarning() << "QxtMetaObject::bind: no such method " << recvSlot;
+        return 0;
+    }
+    QMetaMethod method = meta->method(methodID);
+    int argCount = method.parameterTypes().count();
+    const QList<QByteArray> paramTypes = method.parameterTypes();
+
+    for(int i=0; i<argCount; i++) {
+        if(paramTypes[i] == "QxtBoundArgument") continue;
+        int type = QMetaType::type(paramTypes[i].constData());
+        if(!args[i]->canConvert((QVariant::Type)type)) {
+            qWarning() << "QxtMetaObject::bind: incompatible parameter list for " << recvSlot;
+            return 0;
+        }
+    }
+
+    return QxtMetaObject::bind(recv, invokable, QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9), QXT_ARG(10));
+}
+
+QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QGenericArgument)) {
     if(!recv) {
         qWarning() << "QxtMetaObject::bind: cannot connect to null QObject";
         return 0;
@@ -116,7 +184,7 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QGenericArgument p1
     QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
     QByteArray connSlot("2"), recvSlot(QMetaObject::normalizedSignature(invokable)), bindTypes[10];
     const QMetaObject* meta = recv->metaObject();
-    int methodID = meta->indexOfMethod(recvSlot.mid(1).constData());
+    int methodID = meta->indexOfMethod(QxtMetaObject::methodSignature(recvSlot.constData()).constData());
     if(methodID == -1) {
         qWarning() << "QxtMetaObject::bind: no such method " << recvSlot;
         return 0;
@@ -147,7 +215,7 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QGenericArgument p1
         return 0;
     }
 
-    return new QxtBoundFunction(recv, invokable, args, bindTypes);
+    return new QxtBoundSlot(recv, invokable, args, bindTypes);
 }
 
 bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {

@@ -27,8 +27,9 @@ HEADERS += qxtcsvmodel.h \
            qxttypelist.h \
            qxtfifo.h \
            qxtstdio.h \
-	   qxtfilelock_p.h\
-           qxtfilelock.h
+           qxtfilelock_p.h\
+           qxtfilelock.h\
+           qxtboundfunction.h
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \
            qxtmetaobject.cpp \
@@ -37,6 +38,7 @@ SOURCES += qxtcsvmodel.cpp \
            qxtfifo.cpp \
            qxtstdio.cpp\
            qxtfilelock.cpp \
-           qxtfilelock_unix.cpp
+           qxtfilelock_unix.cpp \
+           qxtnull.cpp
 
 
