@@ -52,13 +52,13 @@ bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument re
     return invoke(type, returnValue, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
 }
 
-class QxtBoundSlot : public QxtBoundFunction {
+class QxtBoundFunctionBase : public QxtBoundFunction {
 public:
-    QByteArray sig, bindTypes[10];
+    QByteArray bindTypes[10];
     QGenericArgument arg[10], p[10];
     void* data[10];
-
-    QxtBoundSlot(QObject* receiver, const char* invokable, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunction(receiver), sig(invokable) {
+    
+    QxtBoundFunctionBase(QObject* parent, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunction(parent) {
         for(int i=0; i<10; i++) {
             if(!params[i]) break;
             if(QByteArray(params[i]->name()) == "QxtBoundArgument") {
@@ -70,8 +70,8 @@ public:
             bindTypes[i] = types[i];
         }
     }
-    
-    ~QxtBoundSlot() {
+
+    ~QxtBoundFunctionBase() {
         for(int i=0; i<10; i++) {
             if(arg[i].name() == 0) return;
             if(QByteArray(arg[i].name()) != "QxtBoundArgument") QMetaType::destroy(QMetaType::type(arg[i].name()), arg[i].data());
@@ -89,13 +89,20 @@ public:
                         p[i] = QGenericArgument(bindTypes[i].constData(), _a[(int)(arg[i].data())]);
                     }
                 }
-                if(!QMetaObject::invokeMethod(parent(), QxtMetaObject::methodName(sig.constData()), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])) {
-                    qWarning() << "QxtBoundFunction: call to " << sig << " failed";
-                }
+                invoke(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
             }
             _id = -1;
         }
         return _id;
+    }
+};
+
+class QxtBoundSlot : public QxtBoundFunctionBase {
+public:
+    QByteArray sig;
+
+    QxtBoundSlot(QObject* receiver, const char* invokable, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunctionBase(receiver, params, types), sig(invokable) {
+        // initializers only
     }
 
     virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
