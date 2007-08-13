@@ -25,7 +25,9 @@ public:
             return qxtNull;
         }
         T retval;
-        if(invoke(type, QGenericReturnArgument(qVariantFromValue<T>(*reinterpret_cast<T*>(0)).typeName(), reinterpret_cast<void*>(&retval)), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)) {
+        // I know this is a totally ugly function call
+        if(invoke(type, QGenericReturnArgument(qVariantFromValue<T>(*reinterpret_cast<T*>(0)).typeName(), reinterpret_cast<void*>(&retval)),
+                  p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)) {
             return retval;
         } else {
             return qxtNull;
