@@ -130,6 +130,10 @@ int QxtWebCore::listen (quint16 port ,const QHostAddress & address )
         return qxt_d().listen(address,port);
         }
 
+void QxtWebCore::redirect(QString location,int code)
+        {
+         instance()->qxt_d().redirect(location,code);
+        }
 
 
 //-----------------------implementation----------------------------
@@ -237,6 +241,14 @@ void QxtWebCorePrivate::send(QByteArray a)
         }
 
 
+void QxtWebCorePrivate::redirect(QString loc,int code)
+        {
+        if(loc.isEmpty())
+                loc="/";
+        QxtWebCore::header("Status",QString::number(code).toUtf8());
+        QxtWebCore::header("Location",loc.toUtf8());
+        send(QString("<a href=\""+loc+"\">"+loc+"</a>").toUtf8());
+        }
 
 
 

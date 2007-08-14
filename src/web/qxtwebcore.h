@@ -54,6 +54,9 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
                 static QIODevice * socket();
                 int listen (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
 
+
+                static void redirect(QString location,int code=303);
+
                 /*helper*/
                 static QxtError parseString(QByteArray str, post_t & POST);
                 static QByteArray readContent(int maxsize=5000);
