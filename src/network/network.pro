@@ -16,13 +16,6 @@ CONFIG += qxtbuild  convenience
 HEADERS +=  qxtrpcpeer.h
 SOURCES += qxtrpcpeer.cpp
 
-include(../../config.pri)
-contains(DEFINES,HAVE_OPENSSL){
-HEADERS += qxtblowfish.h 
-SOURCES += qxtblowfish.cpp
-LIBS+=-lssl
-}
-
 
 #HEADERS += qxtnamedpipe.h
 #SOURCES += qxtnamedpipe.cpp

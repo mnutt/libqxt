@@ -25,7 +25,7 @@
 #include <openssl/blowfish.h>
 
 
-static 	BF_KEY * key;
+static 	BF_KEY * key;   ///FIXME: holy crap, what am i doing here?!
 
 
 
