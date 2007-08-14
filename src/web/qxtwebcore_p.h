@@ -38,6 +38,7 @@ class QxtWebCorePrivate : public QTcpServer,public QxtPrivate<QxtWebCore>
                 void send(QByteArray);
                 void sendheader();
                 void header(QByteArray,QByteArray);
+                void redirect(QString,int );
 
                 virtual void incomingConnection(int socketDescriptor);
 
