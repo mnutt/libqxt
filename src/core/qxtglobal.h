@@ -52,6 +52,10 @@
         Qt like Web Developement tools
 */
 
+/** \defgroup crypto  Crypto
+        Tools for encryption and hashing
+*/
+
 
 
 /**
@@ -139,6 +143,12 @@
 #   		define QXT_WEB_EXPORT __declspec(dllimport)
 #	endif
 
+#	if defined(BUILD_QXT_CRYPTO)
+#   		define QXT_CRYPTO_EXPORT __declspec(dllexport)
+#	else
+#   		define QXT_CRYPTO_EXPORT __declspec(dllimport)
+#	endif
+
 
 #else
 
@@ -148,6 +158,7 @@
 #    define QXT_NETWORK_EXPORT
 #    define QXT_SQL_EXPORT
 #    define QXT_WEB_EXPORT
+#    define QXT_CRYPTO_EXPORT
 
 
 
@@ -163,7 +174,7 @@
 
 
 
-#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB
+#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO
 #define BUILD_QXT
 #endif
 

@@ -66,4 +66,8 @@ contains( QXT_BUILD, web ){
     message( building web module )
     SUBDIRS += src/web
 }
+contains( QXT_BUILD, crypto ){
+    message( building crypto module )
+    SUBDIRS += src/crypto
+}
 

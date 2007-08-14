@@ -33,6 +33,15 @@ unix:!macx:LIBS += -Wl,-rpath,$${QXTlib}
 macx:LIBS       += -F$${QXTlib}
 LIBS            += -L$${QXTlib}
 
+
+contains(QXT, crypto) {
+    INCLUDEPATH       += $${QXTinclude}/QxtCrypto
+    macx: INCLUDEPATH += $${QXTlib}/QxtCrypto.framework/HEADERS/
+    macx:        LIBS += -framework QxtCrypto
+    unix:!macx:  LIBS += -lQxtCrypto
+    win32:       LIBS += -lQxtCrypto0
+    QXT += core
+}
 contains(QXT, curses) {
     INCLUDEPATH       += $${QXTinclude}/QxtCurses
     macx: INCLUDEPATH += $${QXTlib}/QxtCurses.framework/HEADERS/
@@ -92,4 +101,5 @@ contains(QXT, core) {
     unix:!macx:  LIBS += -lQxtCore
     win32:       LIBS += -lQxtCore0
 }
+
 
