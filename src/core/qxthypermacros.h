@@ -42,7 +42,8 @@ hypermacros use templates in order to work
 /*! \relates QxtHyperMacros
  * just do something n times
  */
-#define fortimes(times) for (QxtHyperValue<typeof(times)> hyperhyperthingyhopefullynooneusesthisnamehere=0; hyperhyperthingyhopefullynooneusesthisnamehere<times; hyperhyperthingyhopefullynooneusesthisnamehere++)
+#define fortimes(times) for (QxtHyperValue<typeof(times)> hyperhyperthingyhopefullynooneusesthisnamehere=QxtHyperValue<typeof(times)>(0); hyperhyperthingyhopefullynooneusesthisnamehere<times; hyperhyperthingyhopefullynooneusesthisnamehere++)
+
 
 
 
