@@ -52,10 +52,11 @@ public:
     inline bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
         return invoke(Qt::AutoConnection, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) = 0;
+    bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument));
 
 protected:
     QxtBoundFunction(QObject* parent = 0);
+    virtual bool invokeImpl(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) = 0;
 };
 
 

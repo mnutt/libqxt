@@ -34,6 +34,8 @@ class QxtBoundArgument {
 };
 Q_DECLARE_METATYPE(QxtBoundArgument)
 
+class QxtBoundFunctionBase;
+
 QxtBoundFunction::QxtBoundFunction(QObject* parent) : QObject(parent) {
     // initializer only
 }
@@ -89,13 +91,27 @@ public:
                         p[i] = QGenericArgument(bindTypes[i].constData(), _a[(int)(arg[i].data())]);
                     }
                 }
-                invoke(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+                invokeImpl(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
             }
             _id = -1;
         }
         return _id;
     }
+
+    bool invokeBase(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
+        for(int i = 0; i < 10; i++) {
+            if(QByteArray(arg[i].name()) == "QxtBoundArgument") {
+                p[i] = *args[(int)(arg[i].data())-1];
+            }
+        }
+        return invokeImpl(type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+    }
 };
+
+bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
+    return reinterpret_cast<QxtBoundFunctionBase*>(this)->invokeBase(type, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+}
 
 class QxtBoundSlot : public QxtBoundFunctionBase {
 public:
@@ -105,15 +121,8 @@ public:
         // initializers only
     }
 
-    virtual bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
-        QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
-        for(int i = 0; i < 10; i++) {
-            if(QByteArray(arg[i].name()) == "QxtBoundArgument") {
-                p[i] = *args[(int)(arg[i].data())-1];
-            }
-        }
-
-        if(!QMetaObject::invokeMethod(parent(), QxtMetaObject::methodName(sig.constData()), type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9])) {
+    virtual bool invokeImpl(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
+        if(!QMetaObject::invokeMethod(parent(), QxtMetaObject::methodName(sig.constData()), type, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)) {
             qWarning() << "QxtBoundFunction: call to" << sig << "failed";
             return false;
         }
