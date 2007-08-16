@@ -20,7 +20,7 @@ class QxtAbstractWebConnector : public QObject
 
                 virtual void close()=0;
         signals:
-                void incomming(server_t &);
+                void incomming(server_t );
                 void aboutToClose();
         };
 

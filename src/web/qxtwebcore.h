@@ -58,6 +58,8 @@ class QXT_WEB_EXPORT QxtWebCore: public QObject
                 static void send(QString);
                 static void close();
                 static void header(QString,QString);
+                static void sendHeader();
+
                 static server_t & SERVER();
                 static QIODevice * socket();
 
