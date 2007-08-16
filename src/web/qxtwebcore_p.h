@@ -49,6 +49,6 @@ class QxtWebCorePrivate : public QObject,public QxtPrivate<QxtWebCore>
                 QTextDecoder *decoder;
                 QTextEncoder *encoder;
         public slots:
-                void incomming(server_t & SERVER);
+                void incomming(server_t  SERVER);
 
 	};

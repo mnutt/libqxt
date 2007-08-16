@@ -95,7 +95,7 @@ QxtWebCore::QxtWebCore(QxtAbstractWebConnector * pt):QObject()
         QXT_INIT_PRIVATE(QxtWebCore);
         qxt_d().connector=pt;
         connect(pt,SIGNAL(aboutToClose()),this,SIGNAL(aboutToClose()));
-        connect(pt,SIGNAL(incomming(server_t &)),&qxt_d(),SLOT(incomming(server_t &)));
+        connect(pt,SIGNAL(incomming(server_t)),&qxt_d(),SLOT(incomming(server_t)));
         }
 
 QxtWebCore::~QxtWebCore()
@@ -148,6 +148,10 @@ void QxtWebCore::setCodec ( QTextCodec * codec )
 void QxtWebCore::close()
         {
         instance()->qxt_d().close();
+        }
+void QxtWebCore::sendHeader()
+        {
+        instance()->qxt_d().sendheader();
         }
 
 //-----------------------implementation----------------------------
@@ -210,7 +214,7 @@ void QxtWebCorePrivate::redirect(QString l,int code)
 
 
 
-void QxtWebCorePrivate::incomming(server_t & SERVER)
+void QxtWebCorePrivate::incomming(server_t  SERVER)
         {
         header_sent=false;
         answer.clear();

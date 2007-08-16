@@ -8,7 +8,8 @@ class QxtStdStreambufDevice : public QIODevice
 	{
 	Q_OBJECT
 	public:
-		QxtStdStreambufDevice(std::streambuf *,QObject * parent=0);
+		QxtStdStreambufDevice(std::streambuf *,QObject * parent=0); /// one rw device
+		QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent=0); ///one for read and one for write
 
 		virtual bool isSequential () const;
 		virtual qint64 bytesAvailable () const;
@@ -19,6 +20,8 @@ class QxtStdStreambufDevice : public QIODevice
 
         private:
                 std::streambuf * buff;
+                std::streambuf * buff_w;
+
 	};
 
 #endif
