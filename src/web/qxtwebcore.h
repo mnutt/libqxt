@@ -18,7 +18,7 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 #ifndef QxtWebCore_HEADER_GIAURX_H
@@ -28,8 +28,9 @@
 #include <QMap>
 #include <QMetaType>
 
-#include <qxtpimpl.h>
 #include <qxterror.h>
+#include <qxtpimpl.h>
+
 #include <qxtglobal.h>
 #include <QHostAddress>
 
@@ -39,35 +40,42 @@ typedef  QMap<QString, QVariant> post_t;
 
 Q_DECLARE_METATYPE(server_t)
 class QIODevice;
+class QxtAbstractWebConnector;
+class QTextCodec;
 class QxtWebCorePrivate;
 class QXT_WEB_EXPORT QxtWebCore: public QObject
-	{
-	Q_OBJECT
-	QXT_DECLARE_PRIVATE(QxtWebCore);
-	public:
-                QxtWebCore ();
+        {
+        Q_OBJECT
+        QXT_DECLARE_PRIVATE(QxtWebCore);
+        public:
+                QxtWebCore (QxtAbstractWebConnector *);
                 ~QxtWebCore ();
-                static QxtWebCore* instance();
-                static void send(QByteArray);
-                static void header(QByteArray,QByteArray);
+
+                int start (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
+
+                static void setCodec ( QTextCodec * codec );
+
+                static void send(QString);
+                static void close();
+                static void header(QString,QString);
                 static server_t & SERVER();
                 static QIODevice * socket();
-                int listen (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
-
 
                 static void redirect(QString location,int code=303);
 
+
+
+
+                static QxtWebCore * instance();
+
                 /*helper*/
                 static QxtError parseString(QByteArray str, post_t & POST);
-                static QByteArray readContent(int maxsize=5000);
-
-
+                static QByteArray content(int maxsize=5000);
 
         signals:
                 void request();
                 void aboutToClose();
-
-	};
+        };
 
 
 
