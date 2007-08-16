@@ -245,7 +245,7 @@ void QxtWebCorePrivate::incomming(server_t & SERVER)
 		}
 
 	int i=controller->invoke(SERVER);
-	if(i!=0 || i!=2)
+	if(i!=0 && i!=2)
                 {
                 header("Status","500");
                 send("ERROR HANDLING NOT IMPLEMENTED");
