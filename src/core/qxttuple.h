@@ -334,7 +334,7 @@ using QxtType::QxtTuple;
  * Declares an extended tuple with ten or more columns. Pay special attention to the syntax of the tenth parameter, which
  * must be a QxtTypeList, not a storage type.
 \code  
-QxtLongTuple(int, int, int, int, int, int, int, int, int, QxtTypeList<int>) tuple; // correct way to implement a 10-tuple
+QxtLongTuple(int, int, int, int, int, int, int, int, int, Qxt1TypeList(int)) tuple; // correct way to implement a 10-tuple
 QxtLongTuple(int, int, int, int, int, int, int, int, int, int) tuple;              // this will produce a (very long) compile-time error
 \endcode
  */
