@@ -18,32 +18,37 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 #include "qxtwebcore.h"
 #include <QTextStream>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QTextEncoder>
 
 class QxtScgiController;
-class QxtWebCorePrivate : public QTcpServer,public QxtPrivate<QxtWebCore>
+class QxtWebCorePrivate : public QObject,public QxtPrivate<QxtWebCore>
 	{
 	Q_OBJECT
 	QXT_DECLARE_PUBLIC(QxtWebCore);
 
 	public:
 		QxtWebCorePrivate(QObject *parent = 0);
-                int readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER);
-                void send(QByteArray);
+                void send(QString);
                 void sendheader();
-                void header(QByteArray,QByteArray);
+                void header(QString,QString);
                 void redirect(QString,int );
+                void close();
 
-                virtual void incomingConnection(int socketDescriptor);
 
+                QxtAbstractWebConnector * connector;
                 server_t currentservert;
-                QTcpSocket * socket_m;
                 bool header_sent;
                 server_t answer;
+                QTextDecoder *decoder;
+                QTextEncoder *encoder;
+        public slots:
+                void incomming(server_t & SERVER);
+
 	};

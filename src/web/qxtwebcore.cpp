@@ -18,11 +18,13 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 #include "qxtwebcore.h"
+#include "qxtabstractwebconnector.h"
 #include "qxtwebcore_p.h"
+
 #include <QTimer>
 #include <QUrl>
 #include "qxtwebcontroller.h"
@@ -30,6 +32,9 @@
 #include <QTcpSocket>
 #include <QVariant>
 #include <QtDebug>
+#include <QUrl>
+
+
 /*!
         \class QxtWebCore QxtWebCore
         \ingroup web
@@ -78,39 +83,32 @@
 
 static QxtWebCore * singleton_m=0;
 
-
-
-
 //-----------------------interface----------------------------
-QxtWebCore::QxtWebCore():QObject()
-	{
+QxtWebCore::QxtWebCore(QxtAbstractWebConnector * pt):QObject()
+        {
         if(singleton_m)
                 qFatal("you're trying to construct QxtWebCore twice!");
-	qRegisterMetaType<server_t>("server_t");
+        qRegisterMetaType<server_t>("server_t");
         qRegisterMetaTypeStreamOperators<server_t>("server_t");
 
-
         singleton_m=this;
-
-	QXT_INIT_PRIVATE(QxtWebCore);
-	}
+        QXT_INIT_PRIVATE(QxtWebCore);
+        qxt_d().connector=pt;
+        connect(pt,SIGNAL(aboutToClose()),this,SIGNAL(aboutToClose()));
+        connect(pt,SIGNAL(incomming(server_t &)),&qxt_d(),SLOT(incomming(server_t &)));
+        }
 
 QxtWebCore::~QxtWebCore()
         {
         singleton_m=0;
         }
 
-QxtWebCore * QxtWebCore::instance()
-        {
-        if(!singleton_m)
-                qFatal("no QxtWebCore constructed");
-        return singleton_m;
-        }
-void QxtWebCore::send(QByteArray a)
+
+void QxtWebCore::send(QString a)
         {
         instance()->qxt_d().send(a);
         }
-void QxtWebCore::header(QByteArray a,QByteArray b)
+void QxtWebCore::header(QString a,QString b)
         {
         instance()->qxt_d().header(a,b);
         }
@@ -122,49 +120,100 @@ server_t &  QxtWebCore::SERVER()
 
 QIODevice * QxtWebCore::socket()
         {
-        return instance()->qxt_d().socket_m;
+        return instance()->qxt_d().connector->socket();
         }
 
-int QxtWebCore::listen (quint16 port ,const QHostAddress & address )
+int QxtWebCore::start (quint16 port ,const QHostAddress & address )
         {
-        return qxt_d().listen(address,port);
+        return instance()->qxt_d().connector->start(port,address);
         }
 
 void QxtWebCore::redirect(QString location,int code)
         {
-         instance()->qxt_d().redirect(location,code);
+        instance()->qxt_d().redirect(location,code);
         }
 
+QxtWebCore * QxtWebCore::instance()
+        {
+        if(!singleton_m)
+                qFatal("no QxtWebCore constructed");
+        return singleton_m;
+        }
+void QxtWebCore::setCodec ( QTextCodec * codec )
+        {
+        instance()->qxt_d().decoder=codec->makeDecoder();
+        instance()->qxt_d().encoder=codec->makeEncoder();
+        }
+
+void QxtWebCore::close()
+        {
+        instance()->qxt_d().close();
+        }
 
 //-----------------------implementation----------------------------
 
-QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QTcpServer(parent)
+
+
+
+QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QObject(parent),QxtPrivate<QxtWebCore>()
         {
+        connector=0;
+        decoder=0;
+        encoder=0;
+        }
+
+void QxtWebCorePrivate::send(QString str)
+        {
+        sendheader();
+
+        if (encoder)
+                connector->socket()->write(encoder->fromUnicode (str));
+        else
+                connector->socket()->write(str.toUtf8());
+
+        }
+void QxtWebCorePrivate::close()
+        {
+        sendheader();
+        connector->close();
+        }
+
+void QxtWebCorePrivate::sendheader()
+        {
+        if(!header_sent)
+                {
+                header_sent=true;
+                connector->sendHeader(answer);
+                }
+        }
+void QxtWebCorePrivate::header(QString k,QString v)
+        {
+        if (encoder)
+                answer[encoder->fromUnicode (k)]=encoder->fromUnicode (v);
+        else
+                answer[k.toUtf8()]=v.toUtf8();
+
+        }
+void QxtWebCorePrivate::redirect(QString l,int code)
+        {
+        QByteArray loc =QUrl(l).toEncoded ();
+
+        if(loc.isEmpty())
+                loc="/";
+        QxtWebCore::header("Status",QString::number(code).toUtf8());
+        QxtWebCore::header("Location",loc);
+        send(QString("<a href=\""+loc+"\">"+loc+"</a>"));
         }
 
 
-void QxtWebCorePrivate::incomingConnection(int socketDescriptor)
+
+
+
+
+void QxtWebCorePrivate::incomming(server_t & SERVER)
         {
         header_sent=false;
         answer.clear();
-        qDebug("%i, -> incomming",(int)time(NULL));
-	QTcpSocket * tcpSocket = new QTcpSocket;
-	if (!tcpSocket->setSocketDescriptor(socketDescriptor)) 
-		{
-		return;
-		}
-        socket_m=tcpSocket;
-	connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
-
-	server_t SERVER;
-	int eee1=readHeaderFromSocket(tcpSocket,SERVER);
-
-        if(eee1)
-		{
-                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nHEADER NOT READABLE");
-		}
-
-
         qDebug("%i, %s -> %s",(int)time(NULL),SERVER["HTTP_HOST"].constData(),SERVER["REQUEST_URI"].constData());
 
 
@@ -188,67 +237,30 @@ void QxtWebCorePrivate::incomingConnection(int socketDescriptor)
 	QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
 	if (!controller) 
 		{
-                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
+                header("Status","500");
+                send("ERROR HANDLING NOT IMPLEMENTED");
+                close();
 		qDebug("controller '%s' not found",path.constData()); 
-                emit(qxt_p().aboutToClose());
-                tcpSocket->disconnectFromHost();
                 return;
 		}
 
 	int i=controller->invoke(SERVER);
-	if(i)
+	if(i!=0 || i!=2)
                 {
-                tcpSocket->write("Status: 500 INTERNAL SERVER ERROR\r\ncontent-type: text/html\r\n\r\nERROR HANDLING NOT IMPLEMENTED");
+                header("Status","500");
+                send("ERROR HANDLING NOT IMPLEMENTED");
                 }
-        emit(qxt_p().aboutToClose());
-        tcpSocket->disconnectFromHost();
+        if(i!=2) ///FIXME temporary solution for keepalive
+                close();
         }
 
 
-void QxtWebCorePrivate::sendheader()
-        {
-        if(!header_sent)
-                {
-                if(!answer.contains("Status"))
-                        answer["Status"]="200 OK";
-                if(!answer.contains("Content-Type"))
-                        answer["Content-Type"]="text/html; charset=utf-8";
-
-                server_t::const_iterator i = answer.constBegin();
-                while (i != answer.constEnd()) 
-                        {
-                        socket_m->write(i.key()+": "+i.value()+"\r\n");
-                        ++i;
-                        }
-                socket_m->write("\r\n");
-                header_sent=true;
-                }
-        }
-
-void QxtWebCorePrivate::header(QByteArray k ,QByteArray v)
-        {
-        answer[k]=v;
-        }
-void QxtWebCorePrivate::send(QByteArray a)
-        {
-        if(socket_m)
-                {
-                sendheader();
-                socket_m->write(a);
-                }
-        else
-		qDebug()<<"<send attemp when no connection open";
-        }
 
 
-void QxtWebCorePrivate::redirect(QString loc,int code)
-        {
-        if(loc.isEmpty())
-                loc="/";
-        QxtWebCore::header("Status",QString::number(code).toUtf8());
-        QxtWebCore::header("Location",loc.toUtf8());
-        send(QString("<a href=\""+loc+"\">"+loc+"</a>").toUtf8());
-        }
+
+
+
+
 
 
 
@@ -256,7 +268,7 @@ void QxtWebCorePrivate::redirect(QString loc,int code)
 
 //-----------------------helper----------------------------
 
-QByteArray QxtWebCore::readContent(int maxsize)
+QByteArray QxtWebCore::content(int maxsize)
 	{
         QIODevice * tcpSocket= QxtWebCore::socket();
         server_t SERVER= QxtWebCore::SERVER();
@@ -313,102 +325,6 @@ QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
 		}
 	QXT_DROP_OK
 	}
-
-
-
-
-
-
-int QxtWebCorePrivate::readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER)
-	{
-	if (!tcpSocket)
-		return 5012;
-
-
-	///--------------get the header size----------------
-	
-	QByteArray size_in;
-	while(!size_in.endsWith(':'))
-		{
-		if(!tcpSocket->bytesAvailable ())
-			if (!tcpSocket->waitForReadyRead (200))
-                                return 50033;
-
-		char a[4]; ///4? yes, i know i'm paranoid about bounds.
-
-
-		if (!tcpSocket->read (a, 1 ))
-                                return 50034;
-
-		size_in+=a[0];
-
-		if (size_in.size()>20)/// after the 20ths char is an attack atemp for sure
-                                return 50034;
-
-		}
-	
-
-	size_in.chop(1);
-	int size=size_in.toInt()+1;
-
-
-	if (size>10240)  ///do not accept headers over 10kb
-                                return 50037;
-
-
-	///--------------read the header------------------
-
-	while(tcpSocket->bytesAvailable ()<size)
-		{
-		if (!tcpSocket->waitForReadyRead (200))
-                                return 50033;
-		}
-	QByteArray header_in;
-	header_in.resize(size);
-
-	if (tcpSocket->read (header_in.data(), size )!=size)
-                                return 50034;
-
-	if (!header_in.endsWith(','))
-                                return 50090;
-	///--------------parse the header------------------
-
-
-	int i=0;
-	QByteArray name="";
-	QByteArray a =header_in;
-	while((i=a.indexOf('\0'))>-1)
-		{
-		if(name=="")
-			{
-			name= a.left(i).replace('\0',"");
-			}
-		else
-			{
-			SERVER[name]=a.left(i).replace('\0',"").replace("%20"," ");
-			name="";
-			}
-		
-		a=a.mid(i+1);
-		}
-
-
-        return 0;
-	}
-//---------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
