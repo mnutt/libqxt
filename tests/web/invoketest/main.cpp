@@ -1,7 +1,7 @@
 #include <QCoreApplication>
 #include <QxtWebCore>
 #include <QxtWebController>
-
+#include <QxtScgiConnector>
 class test : public QxtWebController
         {
         Q_OBJECT
@@ -58,8 +58,8 @@ class err : public QxtWebController
 int main(int argc, char *argv[])
 	{
 	QCoreApplication app(argc, argv);
-	QxtWebCore core;
-	core.listen(4000);
+	QxtWebCore core(new QxtScgiConnector());
+	core.start(4000);
 	test t;
 	err e;
 	return app.exec();
