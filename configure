@@ -147,6 +147,7 @@ if [[ "$NO_OPENSSL" == "0" ]]; then
     configtest openssl OPENSSL
 fi
 #configtest curses  CURSES
+configtest fcgi  FCGI
 
 
 #====finaly running qmake====
