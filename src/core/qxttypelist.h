@@ -62,4 +62,61 @@ struct QxtTypeList<NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, NoExtend, N
 using QxtType::QxtTypeList;
 #endif
 
+#ifndef QXT_NO_MACROS
+/*! \relates QxtTypeList
+ * Declares a one-column tuple.
+ */
+#define Qxt1TypeList(a) QxtTypeList<a >
+
+/*! \relates QxtTypeList
+ * Declares a two-column tuple, similar to QPair.
+ */
+#define Qxt2TypeList(a, b) QxtTypeList<a, b >
+
+/*! \relates QxtTypeList
+ * Declares a three-column tuple, similar to QxtTriple.
+ */
+#define Qxt3TypeList(a, b, c) QxtTypeList<a, b, c >
+
+/*! \relates QxtTypeList
+ * Declares a four-column tuple.
+ */
+#define Qxt4TypeList(a, b, c, d) QxtTypeList<a, b, c, d >
+
+/*! \relates QxtTypeList
+ * Declares a five-column tuple.
+ */
+#define Qxt5TypeList(a, b, c, d, e) QxtTypeList<a, b, c, d, e >
+
+/*! \relates QxtTypeList
+ * Declares a six-column tuple.
+ */
+#define Qxt6TypeList(a, b, c, d, e, f) QxtTypeList<a, b, c, d, e, f >
+
+/*! \relates QxtTypeList
+ * Declares a seven-column tuple.
+ */
+#define Qxt7TypeList(a, b, c, d, e, f, g) QxtTypeList<a, b, c, d, e, f, g >
+
+/*! \relates QxtTypeList
+ * Declares an eight-column tuple.
+ */
+#define Qxt8TypeList(a, b, c, d, e, f, g, h) QxtTypeList<a, b, c, d, e, f, g, h >
+
+/*! \relates QxtTypeList
+ * Declares a nine-column tuple.
+ */
+#define Qxt9TypeList(a, b, c, d, e, f, g, h, i) QxtTypeList<a, b, c, d, e, f, g, h, i >
+
+/*! \relates QxtTypeList
+ * Declares an extended tuple with ten or more columns. Pay special attention to the syntax of the tenth parameter, which
+ * must be a QxtTypeList, not a storage type.
+\code  
+QxtLongTypeList(int, int, int, int, int, int, int, int, int, Qxt1TypeList(int)) tuple; // correct way to implement a 10-tuple
+QxtLongTypeList(int, int, int, int, int, int, int, int, int, int) tuple;              // this will produce a (very long) compile-time error
+\endcode
+ */
+#define QxtLongTypeList(a, b, c, d, e, f, g, h, i, extend) QxtTypeList<a, b, c, d, e, f, g, h, i, extend >
+#endif
+
 #endif
