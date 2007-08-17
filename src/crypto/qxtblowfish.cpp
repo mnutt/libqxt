@@ -71,7 +71,7 @@ QByteArray  QxtBlowFish::encrypt(QByteArray in)
 	{
 	QByteArray out(in);
 	int num =0;
-	unsigned char  ivec [8];
+	unsigned char  ivec [9];
 	ivec[0]=(unsigned char )3887;
 	ivec[1]=(unsigned char )3432;
 	ivec[2]=(unsigned char )3887;
@@ -108,7 +108,7 @@ QByteArray  QxtBlowFish::decrypt(QByteArray in)
 	QByteArray out(in);
 	
 	int num =0;
-	unsigned char  ivec [8];
+	unsigned char  ivec [9];
 	ivec[0]=(unsigned char )3887;
 	ivec[1]=(unsigned char )3432;
 	ivec[2]=(unsigned char )3887;
