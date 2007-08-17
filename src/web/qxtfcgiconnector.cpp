@@ -27,6 +27,12 @@ QIODevice * QxtFcgiConnector::socket()
         }
 
 
+QByteArray QxtFcgiConnector::content(quint64 maxsize)
+        {
+        return  qxt_d().io->read(maxsize);
+        }
+
+
 void QxtFcgiConnector::sendHeader(server_t & answer)
                 {
                 if(!answer.contains("Status"))
@@ -80,58 +86,14 @@ void QxtFcgiConnectorPrivate::run()
 
                 io= new QxtStdStreambufDevice (&fio_in,&fio_out);
 
-
-
-
-
-
-                // Although FastCGI supports writing before reading,
-                // many http clients (browsers) don't support it (so
-                // the connection deadlocks until a timeout expires!).
-                char * content;
-
-                char * clenstr = FCGX_GetParam("CONTENT_LENGTH", request.envp);
-                unsigned long clen = STDIN_MAX;
-
-                if (clenstr)
-                        {
-                        clen = strtol(clenstr, &clenstr, 10);
-                        if (*clenstr)
-                                {
-                                QTextStream(io)    << "can't parse \"CONTENT_LENGTH="
-                                        << FCGX_GetParam("CONTENT_LENGTH", request.envp)
-                                        << "\"\n";
-                                clen = STDIN_MAX;
-                                }
-
-                        // *always* put a cap on the amount of data that will be read
-                        if (clen > STDIN_MAX) clen = STDIN_MAX;
-
-                        content = new char[clen];
-
-                        clen =io->read(content, clen);
-                        }
-                else
-                        {
-                        // *never* read stdin when CONTENT_LENGTH is missing or unparsable
-                        content = 0;
-                        clen = 0;
-                        }
-
-                // Chew up any remaining stdin - this shouldn't be necessary
-                // but is because mod_fastcgi doesn't handle it correctly.
-                io->readAll();
-
-
-
                 server_t SERVER;
                 const char * const * envp=request.envp;
                 for ( ; *envp; ++envp)
                         {
-                        QList<QByteArray> l= QByteArray(*envp).split('=');
-                        if (l.count()==2)
-                                SERVER[l.at(0)]=l.at(1);
+                        QByteArray ee(*envp);
+                        SERVER[ee.left(ee.indexOf('='))]=ee.mid(ee.indexOf('=')+1);
                         }
+
 
 
                 /*
@@ -144,7 +106,6 @@ void QxtFcgiConnectorPrivate::run()
                 */
 
 
-
                 emit(qxt_p().incomming(SERVER));
                 /// heck this is a frikin waste of RAM, cpu and my nerves.
                 /// I hope those arrogants retards burn in hell for it.
@@ -152,8 +113,7 @@ void QxtFcgiConnectorPrivate::run()
                         QxtSignalWaiter::wait(this,SIGNAL(close_ss()));
                 open=false;
                 delete(io);io=0;
-                if (content)
-                        delete []content;
+
                 }
         }
 

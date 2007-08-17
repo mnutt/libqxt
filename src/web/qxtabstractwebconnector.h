@@ -19,6 +19,9 @@ class QxtAbstractWebConnector : public QObject
                 virtual void sendHeader(server_t &)=0;
 
                 virtual void close()=0;
+
+                virtual QByteArray content(quint64 maxsize)=0;
+
         signals:
                 void incomming(server_t );
                 void aboutToClose();

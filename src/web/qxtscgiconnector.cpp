@@ -18,7 +18,7 @@ class QxtScgiConnectorPrivate : public QTcpServer,public QxtPrivate<QxtScgiConne
                                 }
                         socket_m=tcpSocket;
                         connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
-                        server_t SERVER;
+                        SERVER.clear();
                         int eee1=readHeaderFromSocket(tcpSocket,SERVER);
                         if(eee1)
                                 {
@@ -29,7 +29,7 @@ class QxtScgiConnectorPrivate : public QTcpServer,public QxtPrivate<QxtScgiConne
                         }
 
                 QTcpSocket * socket_m;
-
+                server_t SERVER;
 
 
 int readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER)
@@ -153,6 +153,51 @@ void  QxtScgiConnector::close()
         qxt_d().socket_m->close();
         }
 
+
+QByteArray QxtScgiConnector::content(quint64 maxsize)
+	{
+        QIODevice * tcpSocket=  qxt_d().socket_m;
+
+	if (!tcpSocket)
+		return QByteArray();
+
+
+        int content_size= qxt_d().SERVER["CONTENT_LENGTH"].toInt();
+
+        qDebug()<<"receiving content"<<content_size;
+
+
+	if (content_size<1)
+		{
+                return QByteArray();
+		}
+
+        if(content_size>maxsize)
+                content_size=maxsize;
+
+	///--------------read the content------------------
+
+
+
+
+
+	while(tcpSocket->bytesAvailable ()<content_size)
+		{
+		if (!tcpSocket->waitForReadyRead (2000))
+                        return QByteArray();
+		}
+	
+	QByteArray content_in;
+	content_in.resize(content_size);
+
+
+	if (tcpSocket->read (content_in.data(), content_size )!=content_size)
+                return QByteArray();
+
+
+        tcpSocket->readAll(); //fix apache fcgi bug
+        return content_in;
+	}
 
 
 

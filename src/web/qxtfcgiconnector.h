@@ -22,7 +22,7 @@ class QxtFcgiConnector : public QxtAbstractWebConnector
 
                 virtual void close();
 
-
+                virtual QByteArray content(quint64 maxsize);
         };
 
 

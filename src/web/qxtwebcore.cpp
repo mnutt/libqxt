@@ -273,48 +273,9 @@ void QxtWebCorePrivate::incomming(server_t  SERVER)
 //-----------------------helper----------------------------
 
 QByteArray QxtWebCore::content(int maxsize)
-	{
-        QIODevice * tcpSocket= QxtWebCore::socket();
-        server_t SERVER= QxtWebCore::SERVER();
-
-	if (!tcpSocket)
-		return QByteArray();
-
-
-        int content_size=SERVER["CONTENT_LENGTH"].toInt();
-
-	if (content_size<1)
-		{
-                return QByteArray();
-		}
-
-        if(content_size>maxsize)
-                content_size=maxsize;
-
-	///--------------read the content------------------
-
-	while(tcpSocket->bytesAvailable ()<content_size)
-		{
-		if (!tcpSocket->waitForReadyRead (2000))
-                        return QByteArray();
-		}
-	
-	QByteArray content_in;
-	content_in.resize(content_size);
-
-
-	if (tcpSocket->read (content_in.data(), content_size )!=content_size)
-                return QByteArray();
-
-
-	
-	if (SERVER["CONTENT_TYPE"]!="application/x-www-form-urlencoded")
-                return QByteArray();
-
-        return content_in;
-	}
-
-
+        {
+        return instance()->qxt_d().connector->content(maxsize);
+        }
 
 
 QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
