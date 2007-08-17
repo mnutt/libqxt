@@ -29,7 +29,10 @@ QIODevice * QxtFcgiConnector::socket()
 
 QByteArray QxtFcgiConnector::content(quint64 maxsize)
         {
-        return  qxt_d().io->read(maxsize);
+        QByteArray a= qxt_d().io->read(maxsize);
+        qxt_d().io->readAll();  //apache handler bug
+        return a;
+
         }
 
 
