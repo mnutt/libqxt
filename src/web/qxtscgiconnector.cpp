@@ -186,7 +186,7 @@ QByteArray QxtScgiConnector::content(quint64 maxsize)
 		return QByteArray();
 
 
-        int content_size= qxt_d().SERVER["CONTENT_LENGTH"].toInt();
+	unsigned int content_size= qxt_d().SERVER["CONTENT_LENGTH"].toUInt();
 
         qDebug()<<"receiving content"<<content_size;
 
