@@ -12,6 +12,7 @@ MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG          += qxtbuild convenience
 win32:LIBS      += -luser32
+include(../../config.pri)
 
 HEADERS += qxtapplication.h \
            qxtcheckcombobox.h \

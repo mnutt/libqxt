@@ -10,6 +10,7 @@ TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG += qxtbuild  convenience
+include(../../config.pri)
 
 HEADERS += qxtsqlpackage.h   qxtsqlpackagemodel.h qxtsqlquery.h
 SOURCES += qxtsqlpackage.cpp qxtsqlpackagemodel.cpp

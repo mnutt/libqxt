@@ -9,6 +9,7 @@ TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG          += designer plugin qxtbuild
+include(../../config.pri)
 
 
 target.path = $$[QT_INSTALL_PLUGINS]/designer
