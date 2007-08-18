@@ -30,7 +30,7 @@ HEADERS += qxtcsvmodel.h \
            qxtfilelock_p.h\
            qxtfilelock.h\
            qxtboundfunction.h \
-	   qxtstdstreambufdevice.h
+	       qxtstdstreambufdevice.h
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \
            qxtmetaobject.cpp \
@@ -39,7 +39,8 @@ SOURCES += qxtcsvmodel.cpp \
            qxtfifo.cpp \
            qxtstdio.cpp\
            qxtfilelock.cpp \
-           qxtfilelock_unix.cpp \
            qxtnull.cpp \
            qxtstdstreambufdevice.cpp
 
+unix:  SOURCES += qxtfilelock_unix.cpp
+win32: SOURCES += qxtfilelock_win.cpp
