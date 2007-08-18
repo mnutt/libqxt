@@ -18,7 +18,7 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 #include "qxtcsvmodel.h"
