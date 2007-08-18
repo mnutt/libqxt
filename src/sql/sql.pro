@@ -11,5 +11,5 @@ MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG += qxtbuild  convenience
 
-HEADERS += QxtSqlPackage.h QxtSqlPackageModel.h QxtSqlQuery.h
-SOURCES += QxtSqlPackage.cpp QxtSqlPackageModel.cpp
+HEADERS += qxtsqlpackage.h   qxtsqlpackagemodel.h qxtsqlquery.h
+SOURCES += qxtsqlpackage.cpp qxtsqlpackagemodel.cpp

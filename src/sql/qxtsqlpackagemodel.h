@@ -34,7 +34,7 @@
 #ifndef QXTSQLTABLEMODEL_H
 #define QXTSQLTABLEMODEL_H
 #include <QAbstractTableModel>
-#include <QxtSqlPackage.h>
+#include <qxtsqlpackage.h>
 #include <qxtglobal.h>
 #include <QHash>
 
