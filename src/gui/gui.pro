@@ -22,6 +22,7 @@ HEADERS += qxtapplication.h \
            qxtconfirmationmessage.h \
            qxtdesktopwidget.h \
            qxtdockwidget.h \
+           qxtgui.h \
            qxtgroupbox.h \
            qxtheaderview.h \
            qxtitemdelegate.h \
