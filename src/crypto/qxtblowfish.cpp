@@ -27,10 +27,6 @@
 #include <openssl/blowfish.h>
 
 
-static 	BF_KEY * key;   ///FIXME: holy crap, what am i doing here?!
-
-
-
 
 /**
 \class QxtBlowFish QxtBlowFish
@@ -59,6 +55,11 @@ a= fish.decrypt(a);
 QxtBlowFish::QxtBlowFish(QObject * parent) :QObject(parent)
 	{
 	key=new BF_KEY;
+	}
+
+QxtBlowFish::~QxtBlowFish()
+	{
+	delete(key);
 	}
 
 

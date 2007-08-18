@@ -20,13 +20,11 @@ SOURCES += qxthash.cpp
 
 include(../../config.pri)
 
-#doesn't actualy work. dunno what's wrong
-
-#contains(DEFINES,HAVE_OPENSSL){
-#HEADERS += qxtblowfish.h
-#SOURCES += qxtblowfish.cpp
-#LIBS+=-lssl
-#}
+contains(DEFINES,HAVE_OPENSSL){
+HEADERS += qxtblowfish.h
+SOURCES += qxtblowfish.cpp
+LIBS+=-lssl
+}
 
 
 

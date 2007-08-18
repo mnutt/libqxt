@@ -28,17 +28,21 @@
 #include <QByteArray>
 #include <QObject>
 #include <qxtglobal.h>
-
-
+struct bf_key_st;
 class QXT_NETWORK_EXPORT QxtBlowFish : public QObject
 {
 	Q_OBJECT
 	
 	public:
 		QxtBlowFish(QObject * parent = 0);
+		~QxtBlowFish();
+
 		void setPassword(QByteArray);
 		QByteArray encrypt(QByteArray);
 		QByteArray decrypt(QByteArray);
+
+	private:
+		bf_key_st * key;
 
 };
 
