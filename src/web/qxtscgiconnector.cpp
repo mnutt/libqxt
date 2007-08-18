@@ -1,6 +1,7 @@
 #include "qxtscgiconnector.h"
 #include <QTcpSocket>
 #include <QTcpServer>
+#include <ctime>
 
 class QxtScgiConnectorPrivate : public QTcpServer,public QxtPrivate<QxtScgiConnector>
 	{

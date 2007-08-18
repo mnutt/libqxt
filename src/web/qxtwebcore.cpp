@@ -33,6 +33,7 @@
 #include <QVariant>
 #include <QtDebug>
 #include <QUrl>
+#include <ctime>
 
 
 /*!
