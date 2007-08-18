@@ -16,7 +16,7 @@ shift
 set QMAKEBIN=qmake
 set MSVCMODE=
 set OPENSSL=1
-set CURSES=1
+set FCGI=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
 echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
 
@@ -63,7 +63,7 @@ echo LIBS += -l"%1" >> %PROJECT_ROOT%\depends.pri
 goto bottom2
 
 :nomake
-if "%1"=="curses" set CURSES=0
+if "%1"=="fcgi" set FCGI=0
 echo QXT_BUILD -= %1 >> %PROJECT_ROOT%\config.in
 goto bottom2
 
@@ -142,7 +142,7 @@ goto top
     echo -release ............ Build Qxt without debugging support
     echo -no-openssl ......... Do not link to OpenSSL
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: kit network gui sql media curses web
+    echo                       options: network gui sql media web designer
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %PROJECT_ROOT%\config.in
@@ -194,7 +194,7 @@ echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
-if "%OPENSSL%"=="0" goto detectcurses
+if "%OPENSSL%"=="0" goto detectfcgi
 echo    Testing for OpenSSL... 
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\openssl
@@ -204,38 +204,38 @@ call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto opensslfailed
 set OPENSSL=1
-goto detectcurses 
+goto detectfcgi
 
 :opensslfailed
 set OPENSSL=0
 echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
 
-:detectcurses
-if "%CURSES%"=="0" goto skipcursestest
-echo    Testing for curses... 
-echo curses... >> %PROJECT_ROOT%\%CONFIG_LOG%
-cd %TESTDIR%\curses
+:detectfcgi
+if "%FCGI%"=="0" goto skipfcgitest
+echo    Testing for FastCGI...
+echo fcgi... >> %PROJECT_ROOT%\%CONFIG_LOG%
+cd %TESTDIR%\fcgi
 %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto cursesfailed
+if errorlevel 1 goto fcgifailed
 call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto cursesfailed
-set CURSES=1
+if errorlevel 1 goto fcgifailed
+set FCGI=1
 goto alltestsok
 
-:cursesfailed
-set CURSES=0
-echo QXT_BUILD -= curses >> %PROJECT_ROOT%\config.in
+:fcgifailed
+set FCGI=0
+echo QXT_BUILD -= fcgi >> %PROJECT_ROOT%\config.in
 
-:skipcursestest
+:skipfcgitest
 :alltestsok
 cd %PROJECT_ROOT%
 
 echo    Configuration successful.
 if "%OPENSSL%"=="1" echo        OpenSSL enabled.
 if "%OPENSSL%"=="0" echo        OpenSSL disabled.
-if "%CURSES%"=="1"  echo        curses enabled.
-if "%CURSES%"=="0"  echo        curses disabled.
+if "%FCGI%"=="1"    echo        FastCGI enabled.
+if "%FCGI%"=="0"    echo        FastCGI disabled.
 echo    Generating makefiles...
 copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >> %PROJECT_ROOT%\%CONFIG_LOG%
 copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >> %PROJECT_ROOT%\%CONFIG_LOG%
