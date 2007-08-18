@@ -20,7 +20,7 @@
  **
  ****************************************************************************/
 
-#include "QxtSqlPackage.h"
+#include "qxtsqlpackage.h"
 #include <QBuffer>
 #include <QDataStream>
 

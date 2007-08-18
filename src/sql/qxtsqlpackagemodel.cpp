@@ -20,7 +20,7 @@
 **
 ****************************************************************************/
 
-#include "QxtSqlPackageModel.h"
+#include "qxtsqlpackagemodel.h"
 
 
 
