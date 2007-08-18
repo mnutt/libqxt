@@ -44,7 +44,15 @@ QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 	setvbuf ( stdout , NULL , _IONBF , 0 );
 
 	setOpenMode (QIODevice::ReadWrite);
-	notify = new QSocketNotifier ( _fileno(stdin),QSocketNotifier::Read,this );
+	notify = new QSocketNotifier (
+
+	#ifdef Q_CC_MSVC
+	 _fileno(stdin)
+	#else
+	 fileno(stdin)
+	#endif
+
+	,QSocketNotifier::Read,this );
 	connect(notify, SIGNAL(activated(int)),this,SLOT(activated(int)));
 	}
 

@@ -27,6 +27,8 @@
 #include <QIODevice>
 #include <QObject>
 #include <iostream>
+#include "qxtglobal.h"
+
 class QXT_CORE_EXPORT QxtStdStreambufDevice : public QIODevice
 	{
 	Q_OBJECT
