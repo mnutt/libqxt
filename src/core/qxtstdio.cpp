@@ -44,7 +44,7 @@ QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 	setvbuf ( stdout , NULL , _IONBF , 0 );
 
 	setOpenMode (QIODevice::ReadWrite);
-	notify = new QSocketNotifier ( fileno(stdin),QSocketNotifier::Read,this );
+	notify = new QSocketNotifier ( _fileno(stdin),QSocketNotifier::Read,this );
 	connect(notify, SIGNAL(activated(int)),this,SLOT(activated(int)));
 	}
 
@@ -66,12 +66,6 @@ qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 		{
 		char c=*data++;
 		putchar(c);
-
-///FIXME: why the heck is that not working... the C99 standard says it should...
-// 		if (putchar(c)!=c)		
-// 			break;
-
-
 		}
 // 	emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
 	return i;
