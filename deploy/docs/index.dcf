@@ -133,7 +133,7 @@
 
 <section ref="classQxtHyperMacros.html" title="QxtHyperMacros"> 
 	<keyword ref="classQxtHyperMacros.html">QxtHyperMacros</keyword>
-	<keyword ref="classQxtHyperMacros.html#6d4e1e1dd078a8659466b430c601fb6d">fortimes</keyword>
+	<keyword ref="classQxtHyperMacros.html#7e22522b6f0f436157f1619d97198f31">fortimes</keyword>
 </section>
 
 <section ref="classQxtItemDelegate.html" title="QxtItemDelegate"> 
@@ -170,6 +170,7 @@
 <section ref="structQxtNull.html" title="QxtNull"> 
 	<keyword ref="structQxtNull.html">QxtNull</keyword>
 	<keyword ref="structQxtNull.html#4b0a3ddce688e2e9f4af89dbc92cc11f">operator int</keyword>
+	<keyword ref="structQxtNull.html#b7d5a688765dc665835d7dc7a3ebf54c">qxtNull</keyword>
 	<keyword ref="structQxtNull.html#b68560281f988ea497e63e8d447144a8">SKIP</keyword>
 </section>
 
