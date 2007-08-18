@@ -10,7 +10,7 @@ INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
-CONFIG          += qxt qxtbuild convenience
+CONFIG          += qxtbuild convenience
 win32:LIBS      += -luser32
 
 HEADERS += qxtapplication.h \
@@ -45,8 +45,8 @@ HEADERS += qxtapplication.h \
            qxttreewidget.h \
            qxttreewidget_p.h \
            qxttreewidgetitem.h\
-	   qxtstringvalidator.h\
-	   qxtstringvalidator_p.h
+           qxtstringvalidator.h\
+           qxtstringvalidator_p.h
 
 SOURCES += qxtapplication.cpp \
            qxtcheckcombobox.cpp \
@@ -71,8 +71,8 @@ SOURCES += qxtapplication.cpp \
            qxttabwidget.cpp \
            qxttooltip.cpp \
            qxttreewidget.cpp \
-           qxttreewidgetItem.cpp\
-	   qxtstringvalidator.cpp
+           qxttreewidgetitem.cpp\
+           qxtstringvalidator.cpp
 
 unix:!macx:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
 macx {
