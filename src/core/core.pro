@@ -10,6 +10,9 @@ TEMPLATE = lib
 MOC_DIR = .moc
 OBJECTS_DIR = .obj
 CONFIG += qxtbuild  convenience
+include(../../config.pri)
+
+
 HEADERS += qxtcsvmodel.h \
            qxterror.h \
            qxtglobal.h \
