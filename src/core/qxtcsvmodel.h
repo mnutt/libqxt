@@ -18,10 +18,9 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 ** 
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-
 #ifndef QXTCSVMODEL_H
 #define QXTCSVMODEL_H
 
@@ -35,9 +34,6 @@
 #include <qxtpimpl.h>
 #include <qxtglobal.h>
 
-/**
-@author Adam Higerd
-*/
 class QxtCsvModelPrivate;
 class QXT_CORE_EXPORT QxtCsvModel : public QAbstractTableModel
 {
