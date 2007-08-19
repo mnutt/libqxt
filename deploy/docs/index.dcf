@@ -94,6 +94,12 @@
 	<keyword ref="classQxtConfirmationMessage.html#bd20351810a77e45608f3a2c59867e1b">settingsScope</keyword>
 </section>
 
+<section ref="classQxtCsvModel.html" title="QxtCsvModel"> 
+	<keyword ref="classQxtCsvModel.html">QxtCsvModel</keyword>
+	<keyword ref="classQxtCsvModel.html#161072a199ca5e6388500de99d73c3e8">setSource</keyword>
+	<keyword ref="classQxtCsvModel.html#ca35cec85bc21181d89004990930948e">toCSV</keyword>
+</section>
+
 <section ref="classQxtDesktopWidget.html" title="QxtDesktopWidget"> 
 	<keyword ref="classQxtDesktopWidget.html">QxtDesktopWidget</keyword>
 	<keyword ref="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">activeWindow</keyword>
@@ -123,6 +129,14 @@
 	<keyword ref="classQxtGroupBox.html">QxtGroupBox</keyword>
 	<keyword ref="classQxtGroupBox.html#ba496a650834bd948eab93cb7a2fad1d">setCollapsed</keyword>
 	<keyword ref="classQxtGroupBox.html#722b3ebd3b3bcadc8f5054c47b0d2fe1">setExpanded</keyword>
+</section>
+
+<section ref="classQxtHash.html" title="QxtHash"> 
+	<keyword ref="classQxtHash.html">QxtHash</keyword>
+	<keyword ref="classQxtHash.html#007fe68e0472c7dfee3aa01338414774">append</keyword>
+	<keyword ref="classQxtHash.html#c20d686170e1d6da4ac617e2d7fa56ab">hash</keyword>
+	<keyword ref="classQxtHash.html#8d2aaa6045bf5f0f7c1d9ae92dd38b4d">operator+=</keyword>
+	<keyword ref="classQxtHash.html#584d89c0e3bc69efcc29e94d886989f1">reset</keyword>
 </section>
 
 <section ref="classQxtHtmlTemplate.html" title="QxtHtmlTemplate"> 
@@ -165,6 +179,14 @@
 	<keyword ref="classQxtListWidgetItem.html">QxtListWidgetItem</keyword>
 	<keyword ref="classQxtListWidgetItem.html#9c84f101b3b4f8e36e34204170069ff7">setFlag</keyword>
 	<keyword ref="classQxtListWidgetItem.html#2a360e2260c350e94685b7fa29a9c35a">testFlag</keyword>
+</section>
+
+<section ref="classQxtMetaObject.html" title="QxtMetaObject"> 
+	<keyword ref="classQxtMetaObject.html">QxtMetaObject</keyword>
+	<keyword ref="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</keyword>
+	<keyword ref="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">connect</keyword>
+	<keyword ref="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">methodName</keyword>
+	<keyword ref="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</keyword>
 </section>
 
 <section ref="structQxtNull.html" title="QxtNull"> 
@@ -270,6 +292,10 @@
 	<keyword ref="classQxtStars.html">QxtStars</keyword>
 	<keyword ref="classQxtStars.html#28f69c41ee4741352e3b13c048cea8b7">readOnly</keyword>
 	<keyword ref="classQxtStars.html#0e9f0b8970f9276d4e15485536cae041">starSize</keyword>
+</section>
+
+<section ref="classQxtStdStreambufDevice.html" title="QxtStdStreambufDevice"> 
+	<keyword ref="classQxtStdStreambufDevice.html">QxtStdStreambufDevice</keyword>
 </section>
 
 <section ref="classQxtStringSpinBox.html" title="QxtStringSpinBox"> 

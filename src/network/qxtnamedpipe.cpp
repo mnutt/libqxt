@@ -21,6 +21,19 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+/**
+\class QxtNamedPipe QxtNamedPipe
+
+\ingroup network
+
+\brief Provides a QIODevice over a named pipe
+
+\note not part of 0.2.4
+*/
+
+
+
+
 #include "qxtnamedpipe.h"
 #ifdef Q_OS_UNIX
 #    include <fcntl.h>

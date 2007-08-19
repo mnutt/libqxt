@@ -29,6 +29,18 @@
 
 \brief Simple Loopback QIODevice
 
+read and write to the same object \n
+emits a readyRead Signal. \n
+usefull for loopback tests where QBuffer does not work.
+
+\code
+QxtFifo fifo;
+ QTextStream (&fifo)<<QString("foo");
+ QString a;
+ QTextStream(&fifo)>>a; 
+ qDebug()<<a;
+\endcode
+
 */
 #include "qxtfifo.h" 
 #include <QDebug>
