@@ -55,6 +55,16 @@ virtual qint64 <b>writeData</b> (const char *data, qint64 maxSize)
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 Simple Loopback QIODevice. 
 <p>
+read and write to the same object <br>
+ emits a readyRead Signal. <br>
+ usefull for loopback tests where QBuffer does not work.<p>
+<div class="fragment"><pre class="fragment"><a class="code" href="classQxtFifo.html" title="Simple Loopback QIODevice.">QxtFifo</a> fifo;
+ QTextStream (&amp;fifo)&lt;&lt;QString(<span class="stringliteral">"foo"</span>);
+ QString a;
+ QTextStream(&amp;fifo)&gt;&gt;a; 
+ qDebug()&lt;&lt;a;
+</pre></div> 
+<p>
 <address><hr />
 
 <div align="center">

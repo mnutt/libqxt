@@ -23,7 +23,15 @@
 ****************************************************************************/
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
+/**
+\class QxtFileLock QxtFileLock
 
+\ingroup core
+
+\brief Lock regions of, or a whole file
+
+\warning not part of 0.2.4
+*/
 QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait), isLocked(false)
 {
     

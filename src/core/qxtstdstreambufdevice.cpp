@@ -23,11 +23,33 @@
 ****************************************************************************/
 #include "qxtstdstreambufdevice.h"
 
+/**
+\class QxtStdStreambufDevice QxtStdStreambufDevice
+
+\ingroup core
+
+\brief QIODevice support for std::streambuf
+
+does NOT include the readyRead() signal
+
+*/
+
+/**
+\fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * b,QObject * parent)
+
+creates a QxtStdStreambufDevice using a single stream buffer as in and output
+
+ */
 QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * b,QObject * parent):QIODevice(parent),buff(b)
         {
 	setOpenMode (QIODevice::ReadWrite); ///we don't know the real state
         buff_w=0;
         }
+/**
+\fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent)
+creates a QxtStdStreambufDevice using \p r to read and \p w to write
+ */
+
 QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent):QIODevice(parent),buff(r),buff_w(w)
         {
 	setOpenMode (QIODevice::ReadWrite);

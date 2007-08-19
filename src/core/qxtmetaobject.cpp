@@ -21,6 +21,16 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+/**
+\class QxtMetaObject QxtMetaObject
+
+\ingroup core
+
+\brief provides extensions to QMetaObject
+
+including QxtMetaObject::bind \n
+
+*/
 #include "qxtmetaobject.h"
 #include "qxtboundfunction.h"
 
@@ -134,7 +144,9 @@ namespace QxtMetaObject
 {
 
 /*!
-    \fn QxtMetaObject::methodName()
+\relates QxtMetaObject
+
+    \fn methodName(const char* method)
 
     Returns the name of the given method.
 
@@ -153,6 +165,13 @@ QByteArray methodName(const char* method)
     return name;
 }
 
+/*!
+\relates QxtMetaObject
+
+\fn methodSignature(const char* method)
+
+Returns the signature of the given method.
+ */
 QByteArray methodSignature(const char* method)
 {
     QByteArray name = QMetaObject::normalizedSignature(method);
@@ -161,6 +180,26 @@ QByteArray methodSignature(const char* method)
     return name;
 }
 
+/**
+\relates QxtMetaObject
+\fn bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant))
+
+creates a QxtBoundFunction from a slot + arguments \n
+can be used for QxtMetaObject::connect \
+
+\code
+QxtMetaObject::connect(\n
+	this, SIGNAL(init()), \\n
+	QxtMetaObject::bind(this, SLOT(say(QString)), Q_ARG(QString,"hello"))); 
+\endcode
+\n
+\code
+QxtMetaObject::connect( \n
+	this, SIGNAL(init(int i)), \n
+	QxtMetaObject::bind(this, SLOT(say(QString),int), Q_ARG(QString,"hello"),Q_BIND(1))); 
+\endcode
+
+ */
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant)) {
     if(!recv) {
         qWarning() << "QxtMetaObject::bind: cannot connect to null QObject";
@@ -233,7 +272,12 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QGe
 
     return new QxtBoundSlot(recv, invokable, args, bindTypes);
 }
+/**
+\relates QxtMetaObject
+\fn connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {
 
+connects a signal to a QxtBoundFunction \n
+ */
 bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {
     const QMetaObject* meta = sender->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(signal).mid(1).constData());
