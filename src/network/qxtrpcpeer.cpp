@@ -176,7 +176,12 @@ void QxtRPCPeer::disconnectPeer(quint64 id) {
     }
     QxtRPCConnection* conn;
     if(id==0) {
-        qxt_d().m_peer->close();
+	qxt_d().m_peer->close();
+	///hackaround for qt bug
+	QTcpSocket *s =qobject_cast<QTcpSocket*>( qxt_d().m_peer);
+	if(s)
+		s->disconnectFromHost();
+
     } else if((conn = qxt_d().m_clients.take((QObject*)(id)))!= 0) {
         conn->socket->disconnectFromHost();
         conn->socket->deleteLater();
