@@ -116,7 +116,7 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
     qxt_d().m_server = new QTcpServer(this);
     qxt_d().m_peer = device;
 
-    if (qobject_cast<QTcpSocket *>(device)!=0)
+    if (qobject_cast<QAbstractSocket *>(device)!=0)
 	{
     	QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
     	QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
@@ -144,7 +144,7 @@ void QxtRPCPeer::connect(QHostAddress addr, int port) {
         qWarning() << "QxtRPCPeer: Cannot connect outward in Server mode";
         return;
 
-    QTcpSocket * sock  = qobject_cast<QTcpSocket*>(qxt_d().m_peer);
+    QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
     if(!sock)
         {
         qWarning("QxtRPCPeer: cannot connect a custom QIODevice");
@@ -188,7 +188,7 @@ void QxtRPCPeer::disconnectPeer(quint64 id) {
     if(id==(quint64)-1) {
 	qxt_d().m_peer->close();
 	///hackaround for qt bug
-	QTcpSocket *s =qobject_cast<QTcpSocket*>( qxt_d().m_peer);
+	QAbstractSocket *s =qobject_cast<QAbstractSocket*>( qxt_d().m_peer);
 	if(s)
 		s->disconnectFromHost();
 
@@ -310,11 +310,12 @@ void QxtRPCPeer::call(const char * signal , QVariant p1, QVariant p2, QVariant p
 
     QByteArray sig=QMetaObject::normalizedSignature(signal);
 
-    if(!qxt_d().m_peer->isOpen ())
-                {
-                qWarning("can't call on a closed device");
-                 return;
-                }
+    QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
+    if(!qxt_d().m_peer->isOpen () || ( sock && sock->state()!=QAbstractSocket::ConnectedState ))
+        {
+        qWarning("can't call on a closed device");
+        return;
+        }
     qxt_d().m_peer->write(serialize(sig, p1, p2, p3, p4, p5, p6, p7, p8, p9));
 }
 
