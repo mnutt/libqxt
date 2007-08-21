@@ -167,10 +167,10 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port) {
 }
 
 void QxtRPCPeer::disconnectPeer(quint64 id) {
-    if(qxt_d().m_rpctype == Server && id==-1) {
+    if(qxt_d().m_rpctype == Server && id==(quint64)-1) {
         qWarning() << "QxtRPCPeer: Server mode does not have a peer";
         return;
-    } else if(qxt_d().m_rpctype!= Server && id!=-1) {
+    } else if(qxt_d().m_rpctype!= Server && id!=(quint64)-1) {
         qWarning() << "QxtRPCPeer: Must specify a client ID to disconnect";
         return;
     }
