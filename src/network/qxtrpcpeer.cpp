@@ -182,7 +182,7 @@ void QxtRPCPeer::disconnectPeer(quint64 id) {
 	if(s)
 		s->disconnectFromHost();
 
-    } else if((conn = qxt_d().m_clients.take((QObject*)(id)))!= (quint64)-1) {
+    } else if((conn = qxt_d().m_clients.take((QObject*)(id)))!= 0) {
         conn->socket->disconnectFromHost();
         conn->socket->deleteLater();
         delete conn;
