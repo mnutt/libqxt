@@ -13,6 +13,7 @@ QT -= gui
 QT += core \
 network
 CONFIG += qxt
+CONFIG += console
 QXT += core
 HEADERS += threadtestcontroller.h \
 locktestclient.h \

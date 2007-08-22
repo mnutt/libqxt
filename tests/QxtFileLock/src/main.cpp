@@ -5,6 +5,8 @@
 #include <QxtFileLock>
 #include <QDebug>
 
+#include <windows.h>
+
 
 #include "threadtestcontroller.h"
 #include "HelperClass.h"
@@ -32,7 +34,6 @@ Needed Test:
        - try to lock totally different regions of the file -> should work
 */
 
-
 int main(int argc, char *argv[])
 {
       QCoreApplication app(argc, argv);
@@ -44,6 +45,29 @@ int main(int argc, char *argv[])
         
         if(file1.open(QIODevice::ReadWrite) && file2.open(QIODevice::ReadWrite))
         {
+
+            if(1)
+            {
+                qDebug()<<"----Starting first test----";
+                qDebug()<<"Trying to create some locks without collison";
+
+                QxtFileLock lock1(&file1,0x10,20,QxtFileLock::WriteLock);
+                if(lock1.lock())
+                    qDebug()<<"---- Write Lock Test passed----";
+                else
+                    qDebug()<<"---- Write Lock Test failed----";
+
+                lock1.unlock();
+
+                QxtFileLock lock2(&file2,0x10,20,QxtFileLock::ReadLock);
+                if(lock2.lock())
+                    qDebug()<<"---- Read Lock Test passed----";
+                else
+                    qDebug()<<"---- Read Lock Test failed----";
+
+                lock2.unlock();
+
+            }
             
             if(1)
             {

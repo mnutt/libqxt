@@ -5,6 +5,7 @@
 
 #include <QFile>
 #include <QxtFileLock>
+#include <QCoreApplication>
 
 ThreadTestController::ThreadTestController(QObject *parent)
  : QObject(parent)
@@ -85,6 +86,7 @@ void ThreadTestController::doTests()
         }
         
     }
+    QCoreApplication::instance()->exit();
 }
 
 bool ThreadTestController::startTests()
