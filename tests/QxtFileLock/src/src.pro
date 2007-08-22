@@ -7,7 +7,7 @@ CONFIG += warn_on \
 	  thread \
           qt \
 	  debug
-TARGET = ../bin/qxttestsuite
+TARGET = ../bin/qxtfilelock
 
 QT -= gui
 QT += core \

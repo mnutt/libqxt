@@ -6,7 +6,6 @@
 #include <QDebug>
 
 
-#include <sys/file.h>
 #include "threadtestcontroller.h"
 #include "HelperClass.h"
 
