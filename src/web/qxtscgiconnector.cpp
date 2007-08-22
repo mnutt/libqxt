@@ -24,6 +24,7 @@
 #include "qxtscgiconnector.h"
 #include <QTcpSocket>
 #include <QTcpServer>
+#include <QtDebug>
 #include <ctime>
 #include <QDebug>
 
