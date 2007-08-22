@@ -21,7 +21,10 @@ bool QxtFileLock::unlock()
         ov1.Offset =  qxt_d().offset;
         
         if(UnlockFileEx(w32FileHandle, 0, qxt_d().length, 0, &ov1))
+        {
+            qxt_d().isLocked = false;
             return true;
+        }
     }
     return false;
 }
@@ -64,7 +67,10 @@ bool QxtFileLock::lock()
         ov1.Offset =  qxt_d().offset;
     
         if(LockFileEx(w32FileHandle,dwflags, 0,  qxt_d().length, 0, &ov1))
+        {
+            qxt_d().isLocked = true;
             return true;
+        }
     }
     return false;
 }

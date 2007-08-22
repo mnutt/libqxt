@@ -25,6 +25,7 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <ctime>
+#include <QDebug>
 
 class QxtScgiConnectorPrivate : public QTcpServer,public QxtPrivate<QxtScgiConnector>
 	{
