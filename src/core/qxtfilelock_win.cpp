@@ -1,4 +1,5 @@
 #include "qxtfilelock.h"
+#include "qxtfilelock_p.h"
 #include <windows.h>
 #include <io.h>
 
@@ -19,7 +20,7 @@ bool QxtFileLock::unlock()
         memset(&ov1,0, sizeof(ov1));
         ov1.Offset =  qxt_d().offset;
         
-        if(UnlockFileEx(w32FileHandle, 0, length, 0, &ov1))
+        if(UnlockFileEx(w32FileHandle, 0, qxt_d().length, 0, &ov1))
             return true;
     }
     return false;

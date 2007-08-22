@@ -86,13 +86,14 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
         while(iterator.hasNext())
         {
             QPointer<QxtFileLock> currLock = iterator.next();
-            if(currLock)
+            if(currLock && currLock->file() && currLock->file()->isOpen())
             {
                 struct stat currFileInfo;
                 
                 /*first check if the current lock is on the same file*/
                 if( fstat(currLock->file()->handle(),&currFileInfo) < 0 )
                 {
+                    /*that should never happen because a closing file should remove all locks*/
                     Q_ASSERT(false);
                     continue;
                 }
