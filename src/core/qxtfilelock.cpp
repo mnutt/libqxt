@@ -24,19 +24,78 @@
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
 /**
-\class QxtFileLock QxtFileLock
-
-\ingroup core
-
-\brief Lock regions of, or a whole file
-
-\warning not part of 0.2.4
+ * \class QxtFileLock QxtFileLock
+ * \ingroup core
+ * \brief The QxtFileLock class provides a crossplattform way to lock a QFile.
+ * 
+ * It supports the range locking of a file. The File will take parentship of the lock.<br>
+ * The lock gets cleaned up with the QFile, and it is released when the QFile is closed.<br>
+ * 
+ * Example usage:
+ * \code
+ * off_t lockstart = 0x10;
+ * off_t locklength = 30
+ * 
+ * QFile file("test.lock");
+ * 
+ * //the lock gets deleted when file is cleaned up
+ * QxtFileLock * writeLock = new QxtFileLock(&file,lockstart,locklength,QxtFileLock::WriteLock);
+ * if(file.open(QIODevice::ReadWrite))
+ * {
+ *     if(writeLock->lock())
+ *     {
+ *          // some write operations
+ *         writeLock->unlock();
+ *     }
+ *      else
+ *          //lock failed 
+ * }
+ * \endcode
+ * \note QxtFileLock behaves different than normal unix locks on *nix. A thread can writelock the region of a file only ONCE if it uses two  different handles.
+ *           A different thread can not writelock a region that is owned by a other thread even if it is the SAME process.
+ * \note On *nix this class uses fctnl to lock the file. This may not be compatible to other locking functions like flock and lockf
+ * \note Please do not mix QxtFileLock and native file lock calls on the same QFile. The behaviour is undefined
+ * \warning due to a refactoring issues of QFile this class will not work with Qt from 4.3 on. This will be fixed in 4.3.2
+ * \warning not part of 0.2.4
 */
+
+/**
+ * @enum QxtFileLock::mode 
+ * @brief The Mode of the lock
+ */
+
+/**
+ * @var QxtFileLock::mode QxtFileLock::ReadLock
+ * @brief A non blocking read lock
+ */
+
+/**
+ * @var QxtFileLock::mode QxtFileLock::WriteLock
+ * @brief A non blocking write lock
+ */
+
+/**
+ * @var QxtFileLock::mode QxtFileLock::ReadLockWait
+ * @brief A  blocking read lock. The lock() function will block until the lock is created. 
+ */
+
+/**
+ * @var QxtFileLock::mode QxtFileLock::WriteLockWait
+ * @brief A blocking write lock. The lock() function will block until the lock is created. 
+ */
+
 QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait), isLocked(false)
 {
     
 }
 
+/**
+ * Contructs a new QxtFileLock. The lock is not activated.
+ * @param file the file that should be locked
+ * @param offset the offset where the lock starts
+ * @param length the length of the lock
+ * @param mode the lockmode
+ */
  QxtFileLock::QxtFileLock(QFile *file,const off_t offset,const off_t length,const QxtFileLock::Mode mode) : QObject(file)
 {
     QXT_INIT_PRIVATE(QxtFileLock);
@@ -51,26 +110,41 @@ QxtFileLock::~QxtFileLock()
     unlock();
 }
 
+/**
+ *@return the offset of the lock
+ */
 off_t QxtFileLock::offset() const
 {
     return qxt_d().offset;
 }
 
+/**
+ * @return true if the lock is active otherwise it returns false
+ */
 bool QxtFileLock::isActive() const
 {
     return qxt_d().isLocked;
 }
 
+/**
+ * @return the length of the lock
+ */
 off_t QxtFileLock::length() const
 {
     return qxt_d().length;
 }
 
+/**
+ * the file the lock is created on
+ */
 QFile * QxtFileLock::file() const
 {
     return qobject_cast<QFile *>(parent());
 }
 
+/**
+ * @return the mode of the lock
+ */
 QxtFileLock::Mode QxtFileLock::mode() const
 {
     return qxt_d().mode;
