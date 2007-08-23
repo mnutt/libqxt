@@ -220,7 +220,7 @@ int main(int argc, char ** argv)
         QCoreApplication app(argc,argv);
         QxtFileLockTest test1;
         QxtFileLockThreadTest test2;
-        return QTest::qExec(&test1)+QTest::qExec(&test2);
+        return QTest::qExec(&test1,argc,argv)+QTest::qExec(&test2,argc,argv);
         }
 
 
