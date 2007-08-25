@@ -24,21 +24,20 @@
 #ifndef QXTAPPLICATION_H
 #define QXTAPPLICATION_H
 
-#include <QPair>
-#include <QList>
-#include <QMultiHash>
 #include <QApplication>
 #include "qxtglobal.h"
+#include "qxtpimpl.h"
 
-typedef QPair<uint, uint> Identifier;
-typedef QList<Identifier> Identifiers;
-typedef QPair<QWidget*, const char*> Receiver;
-typedef QList<Receiver> Receivers;
+class QxtApplicationPrivate;
+class QxtNativeEventFilter;
 
 #define qxtApp (QxtApplication::instance())
 
 class QXT_GUI_EXPORT QxtApplication : public QApplication
 {
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtApplication);
+
 public:
     QxtApplication(int& argc, char** argv);
     QxtApplication(int& argc, char** argv, bool GUIenabled);
@@ -49,6 +48,9 @@ public:
 #endif // Q_WS_X11
     virtual ~QxtApplication();
 
+    void installNativeEventFilter(QxtNativeEventFilter* filter);
+    void removeNativeEventFilter(QxtNativeEventFilter* filter);
+
 #ifndef QXT_DOXYGEN_RUN
 #if defined(Q_WS_X11)
     virtual bool x11EventFilter(XEvent* event);
@@ -56,7 +58,7 @@ public:
     virtual bool winEventFilter(MSG* msg, long* result);
 #elif defined(Q_WS_MAC)
     virtual bool macEventFilter(EventHandlerCallRef caller, EventRef event);
-#endif // Q_WS_WIN
+#endif // Q_WS_*
 #endif // QXT_DOXYGEN_RUN
 
     bool addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member);
@@ -66,24 +68,6 @@ public:
     {
         return static_cast<QxtApplication*>(QApplication::instance());
     }
-
-#ifndef QXT_DOXYGEN_RUN
-protected:
-    virtual uint nativeKeycode(Qt::Key key) const;
-    virtual uint nativeModifiers(Qt::KeyboardModifiers modifiers) const;
-
-private:
-    bool registerHotKey(uint modifiers, uint keycode, QWidget* receiver);
-    bool unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver);
-    void activateHotKey(uint modifiers, uint keycode) const;
-
-    QMultiHash<Identifier, Receiver> hotkeys;
-#endif // QXT_DOXYGEN_RUN
 };
-
-inline uint qHash(const QPair<uint, uint>& value)
-{
-    return qHash(value.first) ^ qHash(value.second);
-}
 
 #endif // QXTAPPLICATION_H

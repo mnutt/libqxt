@@ -22,7 +22,8 @@
 **
 ****************************************************************************/
 #include <Carbon/Carbon.h>
-#include "QxtApplication.h"
+#include "qxtapplication.h"
+#include "qxtapplication_p.h"
 #include <QKeySequence>
 #include <QMap>
 #include <QtDebug>
@@ -41,17 +42,23 @@ OSStatus qxt_mac_handle_hot_key(EventHandlerCallRef nextHandler, EventRef event,
 
 bool QxtApplication::macEventFilter(EventHandlerCallRef caller, EventRef event)
 {
+    foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
+    {
+        if (filter && filter->macEventFilter(caller, event))
+            return true;
+    }
+
     if (GetEventClass(event) == kEventClassKeyboard && GetEventKind(event) == kEventHotKeyPressed)
     {
         EventHotKeyID keyID;
         GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(keyID), NULL, &keyID);
         Identifier id = keyIDs.key(keyID.id);
-        activateHotKey(id.first, id.second);
+        qxt_d().activateHotKey(id.first, id.second);
     }
     return QApplication::macEventFilter(caller, event);
 }
 
-uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+uint QxtApplicationPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
 {
     uint native = 0;
     if (modifiers & Qt::ShiftModifier)
@@ -67,7 +74,7 @@ uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
     return native;
 }
 
-uint QxtApplication::nativeKeycode(Qt::Key key) const
+uint QxtApplicationPrivate::nativeKeycode(Qt::Key key) const
 {
     UTF16Char ch;
     // Constants found in NSEvent.h from AppKit.framework
@@ -165,7 +172,7 @@ uint QxtApplication::nativeKeycode(Qt::Key key) const
     return 0;
 }
 
-bool QxtApplication::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_UNUSED(receiver);
 
@@ -192,7 +199,7 @@ bool QxtApplication::registerHotKey(uint modifiers, uint keycode, QWidget* recei
     return rv;
 }
 
-bool QxtApplication::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_UNUSED(receiver);
 

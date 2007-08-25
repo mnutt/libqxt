@@ -22,21 +22,28 @@
 **
 ****************************************************************************/
 #include "qxtapplication.h"
+#include "qxtapplication_p.h"
 #include <qt_windows.h>
 #include <QWidget>
 
 bool QxtApplication::winEventFilter(MSG* msg, long* result)
 {
+	foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
+	{
+		if (filter && filter->winEventFilter(msg, result))
+			return true;
+	}
+
     if (msg->message == WM_HOTKEY)
     {
         uint modifiers = LOWORD(msg->lParam);
         uint keycode = HIWORD(msg->lParam);
-        activateHotKey(modifiers, keycode);
+        qxt_d().activateHotKey(modifiers, keycode);
     }
     return QApplication::winEventFilter(msg, result);
 }
 
-uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+uint QxtApplicationPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
 {
     // MOD_ALT, MOD_CONTROL, (MOD_KEYUP), MOD_SHIFT, MOD_WIN
     uint native = 0;
@@ -54,7 +61,7 @@ uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
     return native;
 }
 
-uint QxtApplication::nativeKeycode(Qt::Key key) const
+uint QxtApplicationPrivate::nativeKeycode(Qt::Key key) const
 {
     switch (key)
     {
@@ -202,13 +209,13 @@ uint QxtApplication::nativeKeycode(Qt::Key key) const
     }
 }
 
-bool QxtApplication::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_ASSERT(receiver);
     return RegisterHotKey(receiver->winId(), modifiers ^ keycode, modifiers, keycode);
 }
 
-bool QxtApplication::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_ASSERT(receiver);
     return UnregisterHotKey(receiver->winId(), modifiers ^ keycode);
