@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -26,21 +26,20 @@
 #include "qxtlistwidget_p.h"
 
 QxtListWidgetPrivate::QxtListWidgetPrivate()
-{
-}
+{}
 
 void QxtListWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
-	QListWidgetItem* item = qxt_p().itemFromIndex(index);
-	Q_ASSERT(item);
-	emit qxt_p().itemEditingStarted(item);
+    QListWidgetItem* item = qxt_p().itemFromIndex(index);
+    Q_ASSERT(item);
+    emit qxt_p().itemEditingStarted(item);
 }
 
 void QxtListWidgetPrivate::informFinishEditing(const QModelIndex& index)
 {
-	QListWidgetItem* item = qxt_p().itemFromIndex(index);
-	Q_ASSERT(item);
-	emit qxt_p().itemEditingFinished(item);
+    QListWidgetItem* item = qxt_p().itemFromIndex(index);
+    Q_ASSERT(item);
+    emit qxt_p().itemEditingFinished(item);
 }
 
 /*!
@@ -84,18 +83,17 @@ void QxtListWidgetPrivate::informFinishEditing(const QModelIndex& index)
  */
 QxtListWidget::QxtListWidget(QWidget* parent) : QListWidget(parent)
 {
-	QXT_INIT_PRIVATE(QxtListWidget);
-	QxtItemDelegate* delegate = new QxtItemDelegate(this);
-	connect(delegate, SIGNAL(editingStarted(const QModelIndex&)),
-		&qxt_d(), SLOT(informStartEditing(const QModelIndex&)));
-	connect(delegate, SIGNAL(editingFinished(const QModelIndex&)),
-		&qxt_d(), SLOT(informFinishEditing(const QModelIndex&)));
-	setItemDelegate(delegate);
+    QXT_INIT_PRIVATE(QxtListWidget);
+    QxtItemDelegate* delegate = new QxtItemDelegate(this);
+    connect(delegate, SIGNAL(editingStarted(const QModelIndex&)),
+            &qxt_d(), SLOT(informStartEditing(const QModelIndex&)));
+    connect(delegate, SIGNAL(editingFinished(const QModelIndex&)),
+            &qxt_d(), SLOT(informFinishEditing(const QModelIndex&)));
+    setItemDelegate(delegate);
 }
 
 /*!
     Destructs the list widget.
  */
 QxtListWidget::~QxtListWidget()
-{
-}
+{}

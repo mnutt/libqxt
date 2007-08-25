@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -36,30 +36,30 @@ static const int Vertical_Mask = 0x02;
 class QxtLabelPrivate : public QxtPrivate<QxtLabel>
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtLabel);
-	
-	void init(const QString& txt = QString());
-	void updateLabel();
-	
-	QTime time;
-	QString text;
-	Qt::Alignment align;
-	Qt::TextElideMode mode;
-	Qxt::Rotation rot;
+    QXT_DECLARE_PUBLIC(QxtLabel);
+
+    void init(const QString& txt = QString());
+    void updateLabel();
+
+    QTime time;
+    QString text;
+    Qt::Alignment align;
+    Qt::TextElideMode mode;
+    Qxt::Rotation rot;
 };
 
 void QxtLabelPrivate::init(const QString& txt)
 {
-	text = txt;
-	align = Qt::AlignCenter;
-	mode = Qt::ElideMiddle;
-	rot = Qxt::NoRotation;
+    text = txt;
+    align = Qt::AlignCenter;
+    mode = Qt::ElideMiddle;
+    rot = Qxt::NoRotation;
 }
 
 void QxtLabelPrivate::updateLabel()
 {
-	qxt_p().updateGeometry();
-	qxt_p().update();
+    qxt_p().updateGeometry();
+    qxt_p().update();
 }
 
 /*!
@@ -90,8 +90,8 @@ void QxtLabelPrivate::updateLabel()
  */
 QxtLabel::QxtLabel(QWidget* parent, Qt::WindowFlags flags) : QFrame(parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtLabel);
-	qxt_d().init();
+    QXT_INIT_PRIVATE(QxtLabel);
+    qxt_d().init();
 }
 
 /*!
@@ -99,16 +99,15 @@ QxtLabel::QxtLabel(QWidget* parent, Qt::WindowFlags flags) : QFrame(parent, flag
  */
 QxtLabel::QxtLabel(const QString& text, QWidget* parent, Qt::WindowFlags flags) : QFrame(parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtLabel);
-	qxt_d().init(text);
+    QXT_INIT_PRIVATE(QxtLabel);
+    qxt_d().init(text);
 }
 
 /*!
     Destructs the label.
  */
 QxtLabel::~QxtLabel()
-{
-}
+{}
 
 /*!
     \property QxtLabel::text
@@ -116,17 +115,17 @@ QxtLabel::~QxtLabel()
  */
 QString QxtLabel::text() const
 {
-	return qxt_d().text;
+    return qxt_d().text;
 }
 
 void QxtLabel::setText(const QString& text)
 {
-	if (qxt_d().text != text)
-	{
-		qxt_d().text = text;
-		qxt_d().updateLabel();
-		emit textChanged(text);
-	}
+    if (qxt_d().text != text)
+    {
+        qxt_d().text = text;
+        qxt_d().updateLabel();
+        emit textChanged(text);
+    }
 }
 
 /*!
@@ -140,16 +139,16 @@ void QxtLabel::setText(const QString& text)
  */
 Qt::Alignment QxtLabel::alignment() const
 {
-	return qxt_d().align;
+    return qxt_d().align;
 }
 
 void QxtLabel::setAlignment(Qt::Alignment alignment)
 {
-	if (qxt_d().align != alignment)
-	{
-		qxt_d().align = alignment;
-		update(); // no geometry change, repaint is sufficient
-	}
+    if (qxt_d().align != alignment)
+    {
+        qxt_d().align = alignment;
+        update(); // no geometry change, repaint is sufficient
+    }
 }
 
 /*!
@@ -163,16 +162,16 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
  */
 Qt::TextElideMode QxtLabel::elideMode() const
 {
-	return qxt_d().mode;
+    return qxt_d().mode;
 }
 
 void QxtLabel::setElideMode(Qt::TextElideMode mode)
 {
-	if (qxt_d().mode != mode)
-	{
-		qxt_d().mode = mode;
-		qxt_d().updateLabel();
-	}
+    if (qxt_d().mode != mode)
+    {
+        qxt_d().mode = mode;
+        qxt_d().updateLabel();
+    }
 }
 
 /*!
@@ -186,132 +185,132 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
  */
 Qxt::Rotation QxtLabel::rotation() const
 {
-	return qxt_d().rot;
+    return qxt_d().rot;
 }
 
 void QxtLabel::setRotation(Qxt::Rotation rotation)
 {
-	if (qxt_d().rot != rotation)
-	{
-		Qxt::Rotation prev = qxt_d().rot;
-		qxt_d().rot = rotation;
-		switch (rotation)
-		{
-			case Qxt::NoRotation:
-			case Qxt::UpsideDown:
-				if (prev & Vertical_Mask)
-				{
-					updateGeometry();
-				}
-				break;
-				
-			case Qxt::Clockwise:
-			case Qxt::CounterClockwise:
-				if ((prev & Vertical_Mask) == 0)
-				{
-					updateGeometry();
-				}
-				break;
-			default:
-				// nothing to do
-				break;
-		}
-	}
-	update();
+    if (qxt_d().rot != rotation)
+    {
+        Qxt::Rotation prev = qxt_d().rot;
+        qxt_d().rot = rotation;
+        switch (rotation)
+        {
+        case Qxt::NoRotation:
+        case Qxt::UpsideDown:
+            if (prev & Vertical_Mask)
+            {
+                updateGeometry();
+            }
+            break;
+
+        case Qxt::Clockwise:
+        case Qxt::CounterClockwise:
+            if ((prev & Vertical_Mask) == 0)
+            {
+                updateGeometry();
+            }
+            break;
+        default:
+            // nothing to do
+            break;
+        }
+    }
+    update();
 }
 
 QSize QxtLabel::sizeHint() const
 {
-	const QFontMetrics& fm = fontMetrics();
-	QSize size(fm.width(qxt_d().text), fm.height());
-	if (qxt_d().rot & Vertical_Mask)
-		size.transpose();
-	return size;
+    const QFontMetrics& fm = fontMetrics();
+    QSize size(fm.width(qxt_d().text), fm.height());
+    if (qxt_d().rot & Vertical_Mask)
+        size.transpose();
+    return size;
 }
 
 QSize QxtLabel::minimumSizeHint() const
 {
-	switch (qxt_d().mode)
-	{
+    switch (qxt_d().mode)
+    {
 #if QT_VERSION >= 0x040200
-		case Qt::ElideNone:
-			return sizeHint();
+    case Qt::ElideNone:
+        return sizeHint();
 #endif // QT_VERSION
-		default:
-		{
-			const QFontMetrics& fm = fontMetrics();
-			QSize size(fm.width("..."), fm.height());
-			if (qxt_d().rot & Vertical_Mask)
-				size.transpose();
-			return size;
-		}
-	}
+    default:
+    {
+        const QFontMetrics& fm = fontMetrics();
+        QSize size(fm.width("..."), fm.height());
+        if (qxt_d().rot & Vertical_Mask)
+            size.transpose();
+        return size;
+    }
+    }
 }
 
 void QxtLabel::paintEvent(QPaintEvent* event)
 {
-	QFrame::paintEvent(event);
-	QPainter p(this);
-	p.rotate(qxt_d().rot);
-	QRect r = contentsRect();
-	switch (qxt_d().rot)
-	{
-		case Qxt::UpsideDown:
-			p.translate(-r.width(), -r.height());
-			break;
+    QFrame::paintEvent(event);
+    QPainter p(this);
+    p.rotate(qxt_d().rot);
+    QRect r = contentsRect();
+    switch (qxt_d().rot)
+    {
+    case Qxt::UpsideDown:
+        p.translate(-r.width(), -r.height());
+        break;
 
-		case Qxt::Clockwise:
-			p.translate(0, -r.width());
-			break;
-			
-		case Qxt::CounterClockwise:
-			p.translate(-r.height(), 0);
-			break;
-			
-		default:
-			// nothing to do
-			break;
-	}
-	
-	if (qxt_d().rot & Vertical_Mask)
-	{
-		QSize s = r.size();
-		s.transpose();
-		r = QRect(r.topLeft(), s);
-	}
-	
+    case Qxt::Clockwise:
+        p.translate(0, -r.width());
+        break;
+
+    case Qxt::CounterClockwise:
+        p.translate(-r.height(), 0);
+        break;
+
+    default:
+        // nothing to do
+        break;
+    }
+
+    if (qxt_d().rot & Vertical_Mask)
+    {
+        QSize s = r.size();
+        s.transpose();
+        r = QRect(r.topLeft(), s);
+    }
+
 #if QT_VERSION < 0x040200
-	const QString elidedText = QAbstractItemDelegate::elidedText(fontMetrics(), r.width(), qxt_d().mode, qxt_d().text);
+    const QString elidedText = QAbstractItemDelegate::elidedText(fontMetrics(), r.width(), qxt_d().mode, qxt_d().text);
 #else // QT_VERSION >= 0x040200
-	const QString elidedText = fontMetrics().elidedText(qxt_d().text, qxt_d().mode, r.width());
+    const QString elidedText = fontMetrics().elidedText(qxt_d().text, qxt_d().mode, r.width());
 #endif // QT_VERSION
-	p.drawText(r, qxt_d().align, elidedText);
+    p.drawText(r, qxt_d().align, elidedText);
 }
 
 void QxtLabel::changeEvent(QEvent* event)
 {
-	QFrame::changeEvent(event);
-	switch (event->type())
-	{
-		case QEvent::FontChange:
-		case QEvent::ApplicationFontChange:
-			qxt_d().updateLabel();
-			break;
-		default:
-			// nothing to do
-			break;
-	}
+    QFrame::changeEvent(event);
+    switch (event->type())
+    {
+    case QEvent::FontChange:
+    case QEvent::ApplicationFontChange:
+        qxt_d().updateLabel();
+        break;
+    default:
+        // nothing to do
+        break;
+    }
 }
 
 void QxtLabel::mousePressEvent(QMouseEvent* event)
 {
-	QFrame::mousePressEvent(event);
-	qxt_d().time.start();
+    QFrame::mousePressEvent(event);
+    qxt_d().time.start();
 }
 
 void QxtLabel::mouseReleaseEvent(QMouseEvent* event)
 {
-	QFrame::mouseReleaseEvent(event);
-	if (qxt_d().time.elapsed() < qApp->doubleClickInterval())
-		emit clicked();
+    QFrame::mouseReleaseEvent(event);
+    if (qxt_d().time.elapsed() < qApp->doubleClickInterval())
+        emit clicked();
 }

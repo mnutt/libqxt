@@ -9,8 +9,9 @@
 
 class QxtNamedPipePrivate;
 
-class QXT_NETWORK_EXPORT QxtNamedPipe : public QIODevice {
-Q_OBJECT
+class QXT_NETWORK_EXPORT QxtNamedPipe : public QIODevice
+{
+    Q_OBJECT
 
 public:
     QxtNamedPipe(const QString& name = QString(), QObject* parent = 0);

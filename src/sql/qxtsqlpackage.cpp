@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -26,7 +26,7 @@
 #include <QBuffer>
 #include <QDataStream>
 
-QxtSqlPackage::QxtSqlPackage(QObject *parent) : QObject(parent) 
+QxtSqlPackage::QxtSqlPackage(QObject *parent) : QObject(parent)
 {
     record = -1;
 }
@@ -74,10 +74,13 @@ bool QxtSqlPackage::last()
 
 bool QxtSqlPackage::first()
 {
-    if (map.count()) {
+    if (map.count())
+    {
         record=0;
         return true;
-    } else {
+    }
+    else
+    {
         record=-1;
         return false;
     }
@@ -98,7 +101,7 @@ void QxtSqlPackage::insert(QSqlQuery query)
     record=-1;
 
     /*query will be invalid if next is not called first*/
-    if(!query.isValid())
+    if (!query.isValid())
         query.next();
 
     QSqlRecord infoRecord = query.record();
@@ -106,7 +109,8 @@ void QxtSqlPackage::insert(QSqlQuery query)
     QVector<QString> tableMap = QVector<QString>(iNumCols);
 
     /*first create a map of index->colname pairs*/
-    for(int iLoop = 0; iLoop < iNumCols; iLoop++) {
+    for (int iLoop = 0; iLoop < iNumCols; iLoop++)
+    {
         tableMap[iLoop] = infoRecord.fieldName(iLoop);
     }
 
@@ -114,14 +118,17 @@ void QxtSqlPackage::insert(QSqlQuery query)
      *this should be faster than querying the QSqlRecord every time
      *but that depends on the databasetype and size of the table (number of rows and cols)
      */
-    do {
+    do
+    {
         QHash<QString,QString> hash;
-        for(int iColLoop = 0; iColLoop < iNumCols; iColLoop++) {
+        for (int iColLoop = 0; iColLoop < iNumCols; iColLoop++)
+        {
             hash[tableMap[iColLoop]] = query.value(iColLoop).toString();
         }
         map.append(hash);
 
-    } while(query.next());
+    }
+    while (query.next());
 }
 
 
@@ -158,7 +165,8 @@ void QxtSqlPackage::setData(const QByteArray& data)
     int c;
     stream >> c;
 
-    for (int i=0; i<c;i++) {
+    for (int i=0; i<c;i++)
+    {
         QHash<QString,QString> hash;
         stream >> hash;
         map.append(hash);
@@ -179,7 +187,7 @@ QHash<QString,QString> QxtSqlPackage::hash()
 }
 
 
-QxtSqlPackage& QxtSqlPackage::operator= ( const QxtSqlPackage & other ) 
+QxtSqlPackage& QxtSqlPackage::operator= ( const QxtSqlPackage & other )
 {
     setData(other.data());
     return *this;

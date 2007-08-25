@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -32,24 +32,24 @@ class QxtStringSpinBoxPrivate;
 
 class QXT_GUI_EXPORT QxtStringSpinBox : public QSpinBox
 {
-	Q_OBJECT
-	QXT_DECLARE_PRIVATE(QxtStringSpinBox);
-	Q_PROPERTY(QStringList strings READ strings WRITE setStrings)
-	
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtStringSpinBox);
+    Q_PROPERTY(QStringList strings READ strings WRITE setStrings)
+
 public:
-	explicit QxtStringSpinBox(QWidget* pParent = 0);
-	virtual ~QxtStringSpinBox();
-	
-	const QStringList& strings() const;
-	void setStrings(const QStringList& strings);
-	
+    explicit QxtStringSpinBox(QWidget* pParent = 0);
+    virtual ~QxtStringSpinBox();
+
+    const QStringList& strings() const;
+    void setStrings(const QStringList& strings);
+
 #ifndef QXT_DOXYGEN_RUN
-	virtual void fixup(QString& input) const;
-	virtual QValidator::State validate(QString& input, int& pos) const;
+    virtual void fixup(QString& input) const;
+    virtual QValidator::State validate(QString& input, int& pos) const;
 
 protected:
-	virtual QString textFromValue(int value) const;
-	virtual int valueFromText(const QString& text) const;
+    virtual QString textFromValue(int value) const;
+    virtual int valueFromText(const QString& text) const;
 #endif // QXT_DOXYGEN_RUN
 };
 

@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -26,25 +26,24 @@
 #include <QtPlugin>
 
 QxtStarsPlugin::QxtStarsPlugin(QObject* parent)
-	: QObject(parent), QxtDesignerPlugin("QxtStars")
-{
-}
+        : QObject(parent), QxtDesignerPlugin("QxtStars")
+{}
 
 QWidget* QxtStarsPlugin::createWidget(QWidget* parent)
 {
-	return new QxtStars(parent);
+    return new QxtStars(parent);
 }
 
 QString QxtStarsPlugin::domXml() const
 {
-	return "<widget class=\"QxtStars\" name=\"qxtStars\">\n"
-		" <property name=\"geometry\">\n"
-		"  <rect>\n"
-		"   <x>0</x>\n"
-		"   <y>0</y>\n"
-		"   <width>57</width>\n"
-		"   <height>17</height>\n"
-		"  </rect>\n"
-		" </property>\n"
-		"</widget>\n";
+    return "<widget class=\"QxtStars\" name=\"qxtStars\">\n"
+           " <property name=\"geometry\">\n"
+           "  <rect>\n"
+           "   <x>0</x>\n"
+           "   <y>0</y>\n"
+           "   <width>57</width>\n"
+           "   <height>17</height>\n"
+           "  </rect>\n"
+           " </property>\n"
+           "</widget>\n";
 }

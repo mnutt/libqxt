@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -27,35 +27,33 @@
 #include <QHeaderView>
 
 QxtTreeWidgetPrivate::QxtTreeWidgetPrivate()
-{
-	
-}
+{}
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
 {
-	QxtItemDelegate* del = dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
-	Q_ASSERT(del);
-	return del;
+    QxtItemDelegate* del = dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
+    Q_ASSERT(del);
+    return del;
 }
 
 void QxtTreeWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
-	QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
-	Q_ASSERT(item);
-	emit qxt_p().itemEditingStarted(item);
+    QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
+    Q_ASSERT(item);
+    emit qxt_p().itemEditingStarted(item);
 }
 
 void QxtTreeWidgetPrivate::informFinishEditing(const QModelIndex& index)
 {
-	QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
-	Q_ASSERT(item);
-	emit qxt_p().itemEditingFinished(item);
+    QTreeWidgetItem* item = qxt_p().itemFromIndex(index);
+    Q_ASSERT(item);
+    emit qxt_p().itemEditingFinished(item);
 }
 
 void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 {
-	if (item && !item->parent() && delegate()->decorationStyle() != Qxt::NoDecoration)
-		qxt_p().setItemExpanded(item, !qxt_p().isItemExpanded(item));
+    if (item && !item->parent() && delegate()->decorationStyle() != Qxt::NoDecoration)
+        qxt_p().setItemExpanded(item, !qxt_p().isItemExpanded(item));
 }
 
 /*!
@@ -100,23 +98,22 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
  */
 QxtTreeWidget::QxtTreeWidget(QWidget* parent) : QTreeWidget(parent)
 {
-	QXT_INIT_PRIVATE(QxtTreeWidget);
-	QxtItemDelegate* delegate = new QxtItemDelegate(this);
-	connect(delegate, SIGNAL(editingStarted(const QModelIndex&)),
-		&qxt_d(), SLOT(informStartEditing(const QModelIndex&)));
-	connect(delegate, SIGNAL(editingFinished(const QModelIndex&)),
-		&qxt_d(), SLOT(informFinishEditing(const QModelIndex&)));
-	connect(this, SIGNAL(itemPressed(QTreeWidgetItem*, int)),
-		&qxt_d(), SLOT(expandCollapse(QTreeWidgetItem*)));
-	setItemDelegate(delegate);
+    QXT_INIT_PRIVATE(QxtTreeWidget);
+    QxtItemDelegate* delegate = new QxtItemDelegate(this);
+    connect(delegate, SIGNAL(editingStarted(const QModelIndex&)),
+            &qxt_d(), SLOT(informStartEditing(const QModelIndex&)));
+    connect(delegate, SIGNAL(editingFinished(const QModelIndex&)),
+            &qxt_d(), SLOT(informFinishEditing(const QModelIndex&)));
+    connect(this, SIGNAL(itemPressed(QTreeWidgetItem*, int)),
+            &qxt_d(), SLOT(expandCollapse(QTreeWidgetItem*)));
+    setItemDelegate(delegate);
 }
 
 /*!
     Destructs the tree widget.
  */
 QxtTreeWidget::~QxtTreeWidget()
-{
-}
+{}
 
 /*!
     \property QxtTreeWidget::decorationStyle
@@ -133,22 +130,22 @@ QxtTreeWidget::~QxtTreeWidget()
  */
 Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
 {
-	return qxt_d().delegate()->decorationStyle();
+    return qxt_d().delegate()->decorationStyle();
 }
 
 void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 {
-	if (qxt_d().delegate()->decorationStyle() != style)
-	{
-		qxt_d().delegate()->setDecorationStyle(style);
-		
-		if (style != Qxt::NoDecoration)
-		{
-			setRootIsDecorated(false);
-			header()->hide();
-		}
-		reset();
-	}
+    if (qxt_d().delegate()->decorationStyle() != style)
+    {
+        qxt_d().delegate()->setDecorationStyle(style);
+
+        if (style != Qxt::NoDecoration)
+        {
+            setRootIsDecorated(false);
+            header()->hide();
+        }
+        reset();
+    }
 }
 
 /*!
@@ -164,14 +161,14 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
  */
 Qt::TextElideMode QxtTreeWidget::elideMode() const
 {
-	return qxt_d().delegate()->elideMode();
+    return qxt_d().delegate()->elideMode();
 }
 
 void QxtTreeWidget::setElideMode(Qt::TextElideMode mode)
 {
-	if (qxt_d().delegate()->elideMode() != mode)
-	{
-		qxt_d().delegate()->setElideMode(mode);
-		reset();
-	}
+    if (qxt_d().delegate()->elideMode() != mode)
+    {
+        qxt_d().delegate()->setElideMode(mode);
+        reset();
+    }
 }

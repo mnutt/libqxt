@@ -11,34 +11,37 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 QList<int> find( qxNull(T,args)[] )
-	{
-	QList<int> found;
+{
+    QList<int> found;
 
-	bool hit;			
-	for(int i=0;i<list.count();i++)
-		{
-		hit=true;
+    bool hit;
+    for (int i=0;i<list.count();i++)
+    {
+        hit=true;
 
-		for (int h=0;h<count(args);h++)
- 			if (!(args[h].isNull() or (list[i].[h]==args[h]))
-				{ hit = false; break;}
+        for (int h=0;h<count(args);h++)
+            if (!(args[h].isNull() or (list[i].[h]==args[h]))
+                {
+                    hit = false;
+                    break;
+                }
 
-		if (hit) found.append(i);
-		}
+            if (hit) found.append(i);
+            }
 
-  	return found;
-  	}
+        return found;
+}
 
 
 

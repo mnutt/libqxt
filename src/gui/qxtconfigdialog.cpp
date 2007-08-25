@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -36,215 +36,214 @@
 
 QxtConfigListWidget::QxtConfigListWidget(QWidget* parent) : QListWidget(parent)
 {
-	setItemDelegate(new QxtConfigDelegate(this));
-	viewport()->setAttribute(Qt::WA_Hover, true);
+    setItemDelegate(new QxtConfigDelegate(this));
+    viewport()->setAttribute(Qt::WA_Hover, true);
 }
 
 void QxtConfigListWidget::invalidate()
 {
-	hint = QSize();
-	updateGeometry();
+    hint = QSize();
+    updateGeometry();
 }
 
 QSize QxtConfigListWidget::minimumSizeHint() const
 {
-	return sizeHint();
+    return sizeHint();
 }
 
 QSize QxtConfigListWidget::sizeHint() const
 {
-	if (!hint.isValid())
-	{
-		const QStyleOptionViewItem options = viewOptions();
-		const bool vertical = (flow() == QListView::TopToBottom);
-		for (int i = 0; i < count(); ++i)
-		{
-			const QSize size = itemDelegate()->sizeHint(options, model()->index(i, 0));
-			if (i != 0)
-				hint = hint.expandedTo(size);
-			if (vertical)
-				hint += QSize(0, size.height());
-			else
-				hint += QSize(size.width(), 0);
-		}
-		hint += QSize(2 * frameWidth(), 2 * frameWidth());
-	}
-	return hint;
+    if (!hint.isValid())
+    {
+        const QStyleOptionViewItem options = viewOptions();
+        const bool vertical = (flow() == QListView::TopToBottom);
+        for (int i = 0; i < count(); ++i)
+        {
+            const QSize size = itemDelegate()->sizeHint(options, model()->index(i, 0));
+            if (i != 0)
+                hint = hint.expandedTo(size);
+            if (vertical)
+                hint += QSize(0, size.height());
+            else
+                hint += QSize(size.width(), 0);
+        }
+        hint += QSize(2 * frameWidth(), 2 * frameWidth());
+    }
+    return hint;
 }
 
 bool QxtConfigListWidget::hasHoverEffect() const
 {
-	return static_cast<QxtConfigDelegate*>(itemDelegate())->hover;
+    return static_cast<QxtConfigDelegate*>(itemDelegate())->hover;
 }
 
 void QxtConfigListWidget::setHoverEffect(bool enabled)
 {
-	static_cast<QxtConfigDelegate*>(itemDelegate())->hover = enabled;
+    static_cast<QxtConfigDelegate*>(itemDelegate())->hover = enabled;
 }
 
 void QxtConfigListWidget::scrollContentsBy(int dx, int dy)
 {
-	// prevent scrolling
-	Q_UNUSED(dx);
-	Q_UNUSED(dy);
+    // prevent scrolling
+    Q_UNUSED(dx);
+    Q_UNUSED(dy);
 }
 
 QxtConfigDelegate::QxtConfigDelegate(QObject* parent)
-	: QItemDelegate(parent), hover(true)
-{
-}
+        : QItemDelegate(parent), hover(true)
+{}
 
 void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-	QStyleOptionViewItem opt = option;
-	if (hover)
-	{
-		QPalette::ColorGroup cg = (option.state & QStyle::State_Enabled) ? QPalette::Normal : QPalette::Disabled;
-		if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
-			cg = QPalette::Inactive;
-	
-		if (option.state & QStyle::State_Selected)
-		{
-			painter->fillRect(option.rect, option.palette.brush(cg, QPalette::Highlight));
-		}
-		else if ((option.state & QStyle::State_MouseOver) && (option.state & QStyle::State_Enabled))
-		{
-			QColor color = option.palette.color(cg, QPalette::Highlight).light();
-			if (color == option.palette.color(cg, QPalette::Base))
-				color = option.palette.color(cg, QPalette::AlternateBase);
-			painter->fillRect(option.rect, color);
-		}
-		
-		opt.showDecorationSelected = false;
-		opt.state &= ~QStyle::State_HasFocus;
-	}
-	QItemDelegate::paint(painter, opt, index);
+    QStyleOptionViewItem opt = option;
+    if (hover)
+    {
+        QPalette::ColorGroup cg = (option.state & QStyle::State_Enabled) ? QPalette::Normal : QPalette::Disabled;
+        if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
+            cg = QPalette::Inactive;
+
+        if (option.state & QStyle::State_Selected)
+        {
+            painter->fillRect(option.rect, option.palette.brush(cg, QPalette::Highlight));
+        }
+        else if ((option.state & QStyle::State_MouseOver) && (option.state & QStyle::State_Enabled))
+        {
+            QColor color = option.palette.color(cg, QPalette::Highlight).light();
+            if (color == option.palette.color(cg, QPalette::Base))
+                color = option.palette.color(cg, QPalette::AlternateBase);
+            painter->fillRect(option.rect, color);
+        }
+
+        opt.showDecorationSelected = false;
+        opt.state &= ~QStyle::State_HasFocus;
+    }
+    QItemDelegate::paint(painter, opt, index);
 }
 
 void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
 {
-	QxtConfigDialog* p = &qxt_p();
-	grid = new QGridLayout(p);
-	list = new QxtConfigListWidget(p);
-	stack = new QStackedWidget(p);
-	pos = position;
-	QObject::connect(list, SIGNAL(currentRowChanged(int)), stack, SLOT(setCurrentIndex(int)));
-	QObject::connect(stack, SIGNAL(currentChanged(int)), p, SIGNAL(currentIndexChanged(int)));
+    QxtConfigDialog* p = &qxt_p();
+    grid = new QGridLayout(p);
+    list = new QxtConfigListWidget(p);
+    stack = new QStackedWidget(p);
+    pos = position;
+    QObject::connect(list, SIGNAL(currentRowChanged(int)), stack, SLOT(setCurrentIndex(int)));
+    QObject::connect(stack, SIGNAL(currentChanged(int)), p, SIGNAL(currentIndexChanged(int)));
 
 #if QT_VERSION >= 0x040200
-	buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, p);
-	QObject::connect(buttons, SIGNAL(accepted()), p, SLOT(accept()));
-	QObject::connect(buttons, SIGNAL(rejected()), p, SLOT(reject()));
+    buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, p);
+    QObject::connect(buttons, SIGNAL(accepted()), p, SLOT(accept()));
+    QObject::connect(buttons, SIGNAL(rejected()), p, SLOT(reject()));
 #else // QT_VERSION >= 0x040200
-	buttons = new QWidget(p);
-	QHBoxLayout* layout = new QHBoxLayout(buttons);
-	QPushButton* okButton = new QPushButton(QxtConfigDialog::tr("&OK"));
-	QPushButton* cancelButton = new QPushButton(QxtConfigDialog::tr("&Cancel"));
-	QObject::connect(okButton, SIGNAL(clicked()), p, SLOT(accept()));
-	QObject::connect(cancelButton, SIGNAL(clicked()), p, SLOT(reject()));
-	layout->addStretch();
-	layout->addWidget(okButton);
-	layout->addWidget(cancelButton);
+    buttons = new QWidget(p);
+    QHBoxLayout* layout = new QHBoxLayout(buttons);
+    QPushButton* okButton = new QPushButton(QxtConfigDialog::tr("&OK"));
+    QPushButton* cancelButton = new QPushButton(QxtConfigDialog::tr("&Cancel"));
+    QObject::connect(okButton, SIGNAL(clicked()), p, SLOT(accept()));
+    QObject::connect(cancelButton, SIGNAL(clicked()), p, SLOT(reject()));
+    layout->addStretch();
+    layout->addWidget(okButton);
+    layout->addWidget(cancelButton);
 #endif
 
-	initList();
-	relayout();
+    initList();
+    relayout();
 }
 
 void QxtConfigDialogPrivate::initList()
 {
-	// no scroll bars
-	list->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	list->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	// prevent editing
-	list->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	// convenient navigation
-	list->setTabKeyNavigation(true);
-	// no dnd
-	list->setAcceptDrops(false);
-	list->setDragEnabled(false);
-	// list fine tuning
-	list->setMovement(QListView::Static);
-	list->setWrapping(false);
-	list->setResizeMode(QListView::Fixed);
-	list->setViewMode(QListView::IconMode);
-	// list->setWordWrap(false); 4.2
-	// list->setSortingEnabled(false); 4.2
+    // no scroll bars
+    list->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    list->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    // prevent editing
+    list->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // convenient navigation
+    list->setTabKeyNavigation(true);
+    // no dnd
+    list->setAcceptDrops(false);
+    list->setDragEnabled(false);
+    // list fine tuning
+    list->setMovement(QListView::Static);
+    list->setWrapping(false);
+    list->setResizeMode(QListView::Fixed);
+    list->setViewMode(QListView::IconMode);
+    // list->setWordWrap(false); 4.2
+    // list->setSortingEnabled(false); 4.2
 }
 
 void QxtConfigDialogPrivate::relayout()
 {
-	// freeze
-	grid->setEnabled(false);
-	
-	// clear
-	while (grid->takeAt(0));
-	
-	// relayout
-	switch (pos)
-	{
-	case QxtConfigDialog::North:
-		// +-----------+
-		// |   Icons   |
-		// +-----------|
-		// |   Stack   |
-		// +-----------|
-		// |  Buttons  |
-		// +-----------+
-		grid->addWidget(list, 0, 0);
-		grid->addWidget(stack, 1, 0);
-		grid->addWidget(buttons, 3, 0);
-		break;
-	
-	case QxtConfigDialog::West:
-		// +---+-------+
-		// | I |       |
-		// | c |       |
-		// | o | Stack |
-		// | n |       |
-		// | s |       |
-		// +---+-------+
-		// |  Buttons  |
-		// +-----------+
-		grid->addWidget(list, 0, 0);
-		grid->addWidget(stack, 0, 1);
-		grid->addWidget(buttons, 2, 0, 1, 2);
-		break;
-	
-	case QxtConfigDialog::East:
-		// +-------+---+
-		// |       | I |
-		// |       | c |
-		// | Stack | o |
-		// |       | n |
-		// |       | s |
-		// +-------+---+
-		// |  Buttons  |
-		// +-----------+
-		grid->addWidget(stack, 0, 0);
-		grid->addWidget(list, 0, 1);
-		grid->addWidget(buttons, 2, 0, 1, 2);
-		break;
-	
-	default:
-		qWarning("QxtConfigDialogPrivate::relayout(): unknown position");
-		break;
-	}
-	
-	if (pos == QxtConfigDialog::North)
-	{
-		list->setFlow(QListView::LeftToRight);
-		list->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-	}
-	else
-	{
-		list->setFlow(QListView::TopToBottom);
-		list->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-	}
-	list->invalidate();
-	
-	// defrost
-	grid->setEnabled(true);
+    // freeze
+    grid->setEnabled(false);
+
+    // clear
+    while (grid->takeAt(0));
+
+    // relayout
+    switch (pos)
+    {
+    case QxtConfigDialog::North:
+        // +-----------+
+        // |   Icons   |
+        // +-----------|
+        // |   Stack   |
+        // +-----------|
+        // |  Buttons  |
+        // +-----------+
+        grid->addWidget(list, 0, 0);
+        grid->addWidget(stack, 1, 0);
+        grid->addWidget(buttons, 3, 0);
+        break;
+
+    case QxtConfigDialog::West:
+        // +---+-------+
+        // | I |       |
+        // | c |       |
+        // | o | Stack |
+        // | n |       |
+        // | s |       |
+        // +---+-------+
+        // |  Buttons  |
+        // +-----------+
+        grid->addWidget(list, 0, 0);
+        grid->addWidget(stack, 0, 1);
+        grid->addWidget(buttons, 2, 0, 1, 2);
+        break;
+
+    case QxtConfigDialog::East:
+        // +-------+---+
+        // |       | I |
+        // |       | c |
+        // | Stack | o |
+        // |       | n |
+        // |       | s |
+        // +-------+---+
+        // |  Buttons  |
+        // +-----------+
+        grid->addWidget(stack, 0, 0);
+        grid->addWidget(list, 0, 1);
+        grid->addWidget(buttons, 2, 0, 1, 2);
+        break;
+
+    default:
+        qWarning("QxtConfigDialogPrivate::relayout(): unknown position");
+        break;
+    }
+
+    if (pos == QxtConfigDialog::North)
+    {
+        list->setFlow(QListView::LeftToRight);
+        list->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    }
+    else
+    {
+        list->setFlow(QListView::TopToBottom);
+        list->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
+    }
+    list->invalidate();
+
+    // defrost
+    grid->setEnabled(true);
 }
 
 /*!
@@ -306,28 +305,27 @@ void QxtConfigDialogPrivate::relayout()
     Constructs a new QxtConfigDialog with \a parent and \a flags.
  */
 QxtConfigDialog::QxtConfigDialog(QWidget* parent, Qt::WindowFlags flags)
-	: QDialog(parent, flags)
+        : QDialog(parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtConfigDialog);
-	qxt_d().init();
+    QXT_INIT_PRIVATE(QxtConfigDialog);
+    qxt_d().init();
 }
 
 /*!
     Constructs a new QxtConfigDialog with icon \a position, \a parent and \a flags.
  */
 QxtConfigDialog::QxtConfigDialog(QxtConfigDialog::IconPosition position, QWidget* parent, Qt::WindowFlags flags)
-	: QDialog(parent, flags)
+        : QDialog(parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtConfigDialog);
-	qxt_d().init(position);
+    QXT_INIT_PRIVATE(QxtConfigDialog);
+    qxt_d().init(position);
 }
 
 /*!
     Destructs the config dialog.
  */
 QxtConfigDialog::~QxtConfigDialog()
-{
-}
+{}
 
 /*!
     \return The dialog button box.
@@ -341,7 +339,7 @@ QxtConfigDialog::~QxtConfigDialog()
 #if QT_VERSION >= 0x040200
 QDialogButtonBox* QxtConfigDialog::dialogButtonBox() const
 {
-	return qxt_d().buttons;
+    return qxt_d().buttons;
 }
 #endif // QT_VERSION
 
@@ -353,15 +351,15 @@ QDialogButtonBox* QxtConfigDialog::dialogButtonBox() const
 #if QT_VERSION >= 0x040200
 void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
 {
-	if (qxt_d().buttons != buttonBox)
-	{
-		if (qxt_d().buttons && qxt_d().buttons->parent() == this)
-		{
-			delete qxt_d().buttons;
-		}
-		qxt_d().buttons = buttonBox;
-		qxt_d().relayout();
-	}
+    if (qxt_d().buttons != buttonBox)
+    {
+        if (qxt_d().buttons && qxt_d().buttons->parent() == this)
+        {
+            delete qxt_d().buttons;
+        }
+        qxt_d().buttons = buttonBox;
+        qxt_d().relayout();
+    }
 }
 #endif // QT_VERSION
 
@@ -379,12 +377,12 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
  */
 bool QxtConfigDialog::hasHoverEffect() const
 {
-	return qxt_d().list->hasHoverEffect();
+    return qxt_d().list->hasHoverEffect();
 }
 
 void QxtConfigDialog::setHoverEffect(bool enabled)
 {
-	qxt_d().list->setHoverEffect(enabled);
+    qxt_d().list->setHoverEffect(enabled);
 }
 
 /*!
@@ -393,16 +391,16 @@ void QxtConfigDialog::setHoverEffect(bool enabled)
  */
 QxtConfigDialog::IconPosition QxtConfigDialog::iconPosition() const
 {
-	return qxt_d().pos;
+    return qxt_d().pos;
 }
 
 void QxtConfigDialog::setIconPosition(QxtConfigDialog::IconPosition position)
 {
-	if (qxt_d().pos != position)
-	{
-		qxt_d().pos = position;
-		qxt_d().relayout();
-	}
+    if (qxt_d().pos != position)
+    {
+        qxt_d().pos = position;
+        qxt_d().relayout();
+    }
 }
 
 /*!
@@ -411,12 +409,12 @@ void QxtConfigDialog::setIconPosition(QxtConfigDialog::IconPosition position)
  */
 QSize QxtConfigDialog::iconSize() const
 {
-	return qxt_d().list->iconSize();
+    return qxt_d().list->iconSize();
 }
 
 void QxtConfigDialog::setIconSize(const QSize& size)
 {
-	qxt_d().list->setIconSize(size);
+    qxt_d().list->setIconSize(size);
 }
 
 /*!
@@ -432,7 +430,7 @@ void QxtConfigDialog::setIconSize(const QSize& size)
 */
 int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& title)
 {
-	return insertPage(-1, page, icon, title);
+    return insertPage(-1, page, icon, title);
 }
 
 /*!
@@ -448,20 +446,20 @@ int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& ti
 */
 int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, const QString& title)
 {
-	if (!page)
-	{
-		qWarning("QxtConfigDialog::insertPage(): Attempt to insert null page");
-		return -1;
-	}
+    if (!page)
+    {
+        qWarning("QxtConfigDialog::insertPage(): Attempt to insert null page");
+        return -1;
+    }
 
-	index = qxt_d().stack->insertWidget(index, page);
-	const QString label = !title.isEmpty() ? title : page->windowTitle();
-	if (label.isEmpty())
-		qWarning("QxtConfigDialog::insertPage(): Inserting a page with an empty title");
-	QListWidgetItem* item = new QListWidgetItem(icon, label);
-	qxt_d().list->insertItem(index, item);
-	qxt_d().list->invalidate();
-	return index;
+    index = qxt_d().stack->insertWidget(index, page);
+    const QString label = !title.isEmpty() ? title : page->windowTitle();
+    if (label.isEmpty())
+        qWarning("QxtConfigDialog::insertPage(): Inserting a page with an empty title");
+    QListWidgetItem* item = new QListWidgetItem(icon, label);
+    qxt_d().list->insertItem(index, item);
+    qxt_d().list->invalidate();
+    return index;
 }
 
 /*!
@@ -471,16 +469,16 @@ int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, con
 */
 void QxtConfigDialog::removePage(int index)
 {
-   if (QWidget* page = qxt_d().stack->widget(index))
-   {
-	   qxt_d().stack->removeWidget(page);
-	   delete qxt_d().list->takeItem(index);
-	   qxt_d().list->invalidate();
-   }
-   else
-   {
-	   qWarning("QxtConfigDialog::removePage(): Unknown index");
-   }
+    if (QWidget* page = qxt_d().stack->widget(index))
+    {
+        qxt_d().stack->removeWidget(page);
+        delete qxt_d().list->takeItem(index);
+        qxt_d().list->invalidate();
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::removePage(): Unknown index");
+    }
 }
 
 /*!
@@ -489,7 +487,7 @@ void QxtConfigDialog::removePage(int index)
 */
 int QxtConfigDialog::count() const
 {
-	return qxt_d().stack->count();
+    return qxt_d().stack->count();
 }
 
 /*!
@@ -498,13 +496,13 @@ int QxtConfigDialog::count() const
 */
 int QxtConfigDialog::currentIndex() const
 {
-	return qxt_d().stack->currentIndex();
+    return qxt_d().stack->currentIndex();
 }
 
 void QxtConfigDialog::setCurrentIndex(int index)
 {
-	qxt_d().list->setCurrentRow(index);
-	qxt_d().stack->setCurrentIndex(index);
+    qxt_d().list->setCurrentRow(index);
+    qxt_d().stack->setCurrentIndex(index);
 }
 
 /*!
@@ -514,7 +512,7 @@ void QxtConfigDialog::setCurrentIndex(int index)
 */
 QWidget* QxtConfigDialog::currentPage() const
 {
-	return qxt_d().stack->currentWidget();
+    return qxt_d().stack->currentWidget();
 }
 
 /*!
@@ -524,7 +522,7 @@ QWidget* QxtConfigDialog::currentPage() const
 */
 void QxtConfigDialog::setCurrentPage(QWidget* page)
 {
-	setCurrentIndex(qxt_d().stack->indexOf(page));
+    setCurrentIndex(qxt_d().stack->indexOf(page));
 }
 
 /*!
@@ -532,7 +530,7 @@ void QxtConfigDialog::setCurrentPage(QWidget* page)
 */
 int QxtConfigDialog::indexOf(QWidget* page) const
 {
-	return qxt_d().stack->indexOf(page);
+    return qxt_d().stack->indexOf(page);
 }
 
 /*!
@@ -540,7 +538,7 @@ int QxtConfigDialog::indexOf(QWidget* page) const
 */
 QWidget* QxtConfigDialog::page(int index) const
 {
-	return qxt_d().stack->widget(index);
+    return qxt_d().stack->widget(index);
 }
 
 /*!
@@ -550,8 +548,8 @@ QWidget* QxtConfigDialog::page(int index) const
 */
 bool QxtConfigDialog::isPageEnabled(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
-	return (item && (item->flags() & Qt::ItemIsEnabled));
+    const QListWidgetItem* item = qxt_d().list->item(index);
+    return (item && (item->flags() & Qt::ItemIsEnabled));
 }
 
 /*!
@@ -562,20 +560,20 @@ bool QxtConfigDialog::isPageEnabled(int index) const
 */
 void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 {
-	QWidget* page = qxt_d().stack->widget(index);
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (page && item)
-	{
-		page->setEnabled(enabled);
-		if (enabled)
-			item->setFlags(item->flags() | Qt::ItemIsEnabled);
-		else
-			item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageEnabled(): Unknown index");
-	}
+    QWidget* page = qxt_d().stack->widget(index);
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (page && item)
+    {
+        page->setEnabled(enabled);
+        if (enabled)
+            item->setFlags(item->flags() | Qt::ItemIsEnabled);
+        else
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageEnabled(): Unknown index");
+    }
 }
 
 /*!
@@ -585,11 +583,11 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 */
 bool QxtConfigDialog::isPageHidden(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
+    const QListWidgetItem* item = qxt_d().list->item(index);
 #if QT_VERSION >= 0x040200
-	return (item && item->isHidden());
+    return (item && item->isHidden());
 #else // QT_VERSION
-	return (item && qxt_d().list->isItemHidden(item));
+    return (item && qxt_d().list->isItemHidden(item));
 #endif // QT_VERSION
 }
 
@@ -601,19 +599,19 @@ bool QxtConfigDialog::isPageHidden(int index) const
 */
 void QxtConfigDialog::setPageHidden(int index, bool hidden)
 {
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (item)
-	{
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (item)
+    {
 #if QT_VERSION >= 0x040200
-		item->setHidden(hidden);
+        item->setHidden(hidden);
 #else
-		qxt_d().list->setItemHidden(item, hidden);
+        qxt_d().list->setItemHidden(item, hidden);
 #endif // QT_VERSION
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageHidden(): Unknown index");
-	}
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageHidden(): Unknown index");
+    }
 }
 
 /*!
@@ -623,8 +621,8 @@ void QxtConfigDialog::setPageHidden(int index, bool hidden)
 */
 QIcon QxtConfigDialog::pageIcon(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
-	return (item ? item->icon() : QIcon());
+    const QListWidgetItem* item = qxt_d().list->item(index);
+    return (item ? item->icon() : QIcon());
 }
 
 /*!
@@ -634,15 +632,15 @@ QIcon QxtConfigDialog::pageIcon(int index) const
 */
 void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 {
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (item)
-	{
-		item->setIcon(icon);
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageIcon(): Unknown index");
-	}
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (item)
+    {
+        item->setIcon(icon);
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageIcon(): Unknown index");
+    }
 }
 
 /*!
@@ -652,8 +650,8 @@ void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 */
 QString QxtConfigDialog::pageTitle(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
-	return (item ? item->text() : QString());
+    const QListWidgetItem* item = qxt_d().list->item(index);
+    return (item ? item->text() : QString());
 }
 
 /*!
@@ -663,15 +661,15 @@ QString QxtConfigDialog::pageTitle(int index) const
 */
 void QxtConfigDialog::setPageTitle(int index, const QString& title)
 {
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (item)
-	{
-		item->setText(title);
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageTitle(): Unknown index");
-	}
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (item)
+    {
+        item->setText(title);
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageTitle(): Unknown index");
+    }
 }
 
 /*!
@@ -681,8 +679,8 @@ void QxtConfigDialog::setPageTitle(int index, const QString& title)
 */
 QString QxtConfigDialog::pageToolTip(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
-	return (item ? item->toolTip() : QString());
+    const QListWidgetItem* item = qxt_d().list->item(index);
+    return (item ? item->toolTip() : QString());
 }
 
 /*!
@@ -692,15 +690,15 @@ QString QxtConfigDialog::pageToolTip(int index) const
 */
 void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 {
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (item)
-	{
-		item->setToolTip(tooltip);
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageToolTip(): Unknown index");
-	}
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (item)
+    {
+        item->setToolTip(tooltip);
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageToolTip(): Unknown index");
+    }
 }
 
 /*!
@@ -710,8 +708,8 @@ void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 */
 QString QxtConfigDialog::pageWhatsThis(int index) const
 {
-	const QListWidgetItem* item = qxt_d().list->item(index);
-	return (item ? item->whatsThis() : QString());
+    const QListWidgetItem* item = qxt_d().list->item(index);
+    return (item ? item->whatsThis() : QString());
 }
 
 /*!
@@ -721,15 +719,15 @@ QString QxtConfigDialog::pageWhatsThis(int index) const
 */
 void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 {
-	QListWidgetItem* item = qxt_d().list->item(index);
-	if (item)
-	{
-		item->setWhatsThis(whatsthis);
-	}
-	else
-	{
-		qWarning("QxtConfigDialog::setPageWhatsThis(): Unknown index");
-	}
+    QListWidgetItem* item = qxt_d().list->item(index);
+    if (item)
+    {
+        item->setWhatsThis(whatsthis);
+    }
+    else
+    {
+        qWarning("QxtConfigDialog::setPageWhatsThis(): Unknown index");
+    }
 }
 
 /*!
@@ -739,7 +737,7 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 */
 QListWidget* QxtConfigDialog::listWidget() const
 {
-	return qxt_d().list;
+    return qxt_d().list;
 }
 
 /*!
@@ -749,5 +747,5 @@ QListWidget* QxtConfigDialog::listWidget() const
 */
 QStackedWidget* QxtConfigDialog::stackedWidget() const
 {
-	return qxt_d().stack;
+    return qxt_d().stack;
 }

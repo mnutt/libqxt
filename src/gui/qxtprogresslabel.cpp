@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -29,23 +29,22 @@
 class QxtProgressLabelPrivate : public QxtPrivate<QxtProgressLabel>
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtProgressLabel);
-	QxtProgressLabelPrivate();
-	
-	QTime start;
-	int interval;
-	int cachedMin;
-	int cachedMax;
-	int cachedVal;
-	QString cformat;
-	QString tformat;
-	QBasicTimer timer;
+    QXT_DECLARE_PUBLIC(QxtProgressLabel);
+    QxtProgressLabelPrivate();
+
+    QTime start;
+    int interval;
+    int cachedMin;
+    int cachedMax;
+    int cachedVal;
+    QString cformat;
+    QString tformat;
+    QBasicTimer timer;
 };
 
 QxtProgressLabelPrivate::QxtProgressLabelPrivate()
-	: interval(-1), cachedMin(0), cachedMax(0), cachedVal(0)
-{
-}
+        : interval(-1), cachedMin(0), cachedMax(0), cachedVal(0)
+{}
 
 /*!
     \class QxtProgressLabel QxtProgressLabel
@@ -53,7 +52,7 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
     \brief A label showing progress related time values.
 
     QxtProgressLabel is a label widget able to show elapsed and remaining
-    time of a progress. Usage is as simple as connecting signal 
+    time of a progress. Usage is as simple as connecting signal
     \b QProgressBar::valueChanged() to slot QxtProgressLabel::setValue().
 
     Example usage:
@@ -70,28 +69,27 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
     Constructs a new QxtProgressLabel with \a parent and \a flags.
  */
 QxtProgressLabel::QxtProgressLabel(QWidget* parent, Qt::WindowFlags flags)
-	: QLabel(parent, flags)
+        : QLabel(parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtProgressLabel);
-	refresh();
+    QXT_INIT_PRIVATE(QxtProgressLabel);
+    refresh();
 }
 
 /*!
     Constructs a new QxtProgressLabel with \a text, \a parent and \a flags.
  */
 QxtProgressLabel::QxtProgressLabel(const QString& text, QWidget* parent, Qt::WindowFlags flags)
-	: QLabel(text, parent, flags)
+        : QLabel(text, parent, flags)
 {
-	QXT_INIT_PRIVATE(QxtProgressLabel);
-	refresh();
+    QXT_INIT_PRIVATE(QxtProgressLabel);
+    refresh();
 }
 
 /*!
     Destructs the progress label.
  */
 QxtProgressLabel::~QxtProgressLabel()
-{
-}
+{}
 
 /*!
     \property QxtProgressLabel::contentFormat
@@ -111,16 +109,16 @@ QxtProgressLabel::~QxtProgressLabel()
  */
 QString QxtProgressLabel::contentFormat() const
 {
-	return qxt_d().cformat;
+    return qxt_d().cformat;
 }
 
 void QxtProgressLabel::setContentFormat(const QString& format)
 {
-	if (qxt_d().cformat != format)
-	{
-		qxt_d().cformat = format;
-		refresh();
-	}
+    if (qxt_d().cformat != format)
+    {
+        qxt_d().cformat = format;
+        refresh();
+    }
 }
 
 /*!
@@ -134,16 +132,16 @@ void QxtProgressLabel::setContentFormat(const QString& format)
  */
 QString QxtProgressLabel::timeFormat() const
 {
-	return qxt_d().tformat;
+    return qxt_d().tformat;
 }
 
 void QxtProgressLabel::setTimeFormat(const QString& format)
 {
-	if (qxt_d().tformat != format)
-	{
-		qxt_d().tformat = format;
-		refresh();
-	}
+    if (qxt_d().tformat != format)
+    {
+        qxt_d().tformat = format;
+        refresh();
+    }
 }
 
 /*!
@@ -156,22 +154,22 @@ void QxtProgressLabel::setTimeFormat(const QString& format)
  */
 int QxtProgressLabel::updateInterval() const
 {
-	return qxt_d().interval;
+    return qxt_d().interval;
 }
 
 void QxtProgressLabel::setUpdateInterval(int msecs)
 {
-	qxt_d().interval = msecs;
-	if (msecs < 0)
-	{
-		if (qxt_d().timer.isActive())
-			qxt_d().timer.stop();
-	}
-	else
-	{
-		if (!qxt_d().timer.isActive())
-			qxt_d().timer.start(msecs, this);
-	}
+    qxt_d().interval = msecs;
+    if (msecs < 0)
+    {
+        if (qxt_d().timer.isActive())
+            qxt_d().timer.stop();
+    }
+    else
+    {
+        if (!qxt_d().timer.isActive())
+            qxt_d().timer.start(msecs, this);
+    }
 }
 
 /*!
@@ -182,18 +180,18 @@ void QxtProgressLabel::setUpdateInterval(int msecs)
  */
 void QxtProgressLabel::setValue(int value)
 {
-	QProgressBar* bar = qobject_cast<QProgressBar*>(sender());
-	if (bar)
-	{
-		if (!qxt_d().start.isValid())
-			restart();
-		
-		qxt_d().cachedMin = bar->minimum();
-		qxt_d().cachedMax = bar->maximum();
-		qxt_d().cachedVal = value;
-		
-		refresh();
-	}
+    QProgressBar* bar = qobject_cast<QProgressBar*>(sender());
+    if (bar)
+    {
+        if (!qxt_d().start.isValid())
+            restart();
+
+        qxt_d().cachedMin = bar->minimum();
+        qxt_d().cachedMax = bar->maximum();
+        qxt_d().cachedVal = value;
+
+        refresh();
+    }
 }
 
 /*!
@@ -201,11 +199,11 @@ void QxtProgressLabel::setValue(int value)
  */
 void QxtProgressLabel::restart()
 {
-	qxt_d().cachedMin = 0;
-	qxt_d().cachedMax = 0;
-	qxt_d().cachedVal = 0;
-	qxt_d().start.restart();
-	refresh();
+    qxt_d().cachedMin = 0;
+    qxt_d().cachedMax = 0;
+    qxt_d().cachedVal = 0;
+    qxt_d().start.restart();
+    refresh();
 }
 
 /*!
@@ -213,40 +211,40 @@ void QxtProgressLabel::restart()
  */
 void QxtProgressLabel::refresh()
 {
-	// elapsed
-	qreal elapsed = 0;
-	if (qxt_d().start.isValid())
-	    elapsed = qxt_d().start.elapsed() / 1000.0;
-	QTime etime(0, 0);
-	etime = etime.addSecs(static_cast<int>(elapsed));
-	
-	// percentage
-	qreal percent = 0;
-	if (qxt_d().cachedMax != 0)
-		percent = (qxt_d().cachedVal - qxt_d().cachedMin) / static_cast<qreal>(qxt_d().cachedMax);
-	qreal total = 0;
-	if (percent != 0)
-	 	total = elapsed / percent;
-	
-	// remaining
-	QTime rtime(0, 0);
-	rtime = rtime.addSecs(static_cast<int>(total - elapsed));
-	
-	// format
-	QString tformat = qxt_d().tformat;
-	if (tformat.isEmpty())
-		tformat = tr("mm:ss");
-	QString cformat = qxt_d().cformat;
-	if (cformat.isEmpty())
-		cformat = tr("ETA: %r");
-	
-	QString result = QString(cformat).replace("%e", etime.toString(tformat));
-	result = result.replace("%r", rtime.toString(tformat));
-	setText(result);
+    // elapsed
+    qreal elapsed = 0;
+    if (qxt_d().start.isValid())
+        elapsed = qxt_d().start.elapsed() / 1000.0;
+    QTime etime(0, 0);
+    etime = etime.addSecs(static_cast<int>(elapsed));
+
+    // percentage
+    qreal percent = 0;
+    if (qxt_d().cachedMax != 0)
+        percent = (qxt_d().cachedVal - qxt_d().cachedMin) / static_cast<qreal>(qxt_d().cachedMax);
+    qreal total = 0;
+    if (percent != 0)
+        total = elapsed / percent;
+
+    // remaining
+    QTime rtime(0, 0);
+    rtime = rtime.addSecs(static_cast<int>(total - elapsed));
+
+    // format
+    QString tformat = qxt_d().tformat;
+    if (tformat.isEmpty())
+        tformat = tr("mm:ss");
+    QString cformat = qxt_d().cformat;
+    if (cformat.isEmpty())
+        cformat = tr("ETA: %r");
+
+    QString result = QString(cformat).replace("%e", etime.toString(tformat));
+    result = result.replace("%r", rtime.toString(tformat));
+    setText(result);
 }
 
 void QxtProgressLabel::timerEvent(QTimerEvent* event)
 {
-	Q_UNUSED(event);
-	refresh();
+    Q_UNUSED(event);
+    refresh();
 }

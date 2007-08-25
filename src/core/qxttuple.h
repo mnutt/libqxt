@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -26,77 +26,147 @@
 #define QXTTUPLE_H
 #include <qxttypelist.h>
 
-namespace QxtType {
+namespace QxtType
+{
 
 template<typename TYPELIST, int INDEX, int STEP=0, bool END=(INDEX==STEP), bool ERROR=(TYPELIST::length==0)>
-struct get {
-    typedef typename get<typename TYPELIST::tail, INDEX, STEP+1>::type type;
-};
+struct get
+    {
+        typedef typename get<typename TYPELIST::tail, INDEX, STEP+1>::type type;
+    };
 
 template<typename TYPELIST, int INDEX, int STEP>
-struct get<TYPELIST, INDEX, STEP, false, true> {}; // does not define type
+struct get<TYPELIST, INDEX, STEP, false, true>
+    {}; // does not define type
 
 template<typename TYPELIST, int INDEX, int STEP, bool ERROR>
-struct get<TYPELIST, INDEX, STEP, true, ERROR> {
-    typedef typename TYPELIST::head type;
-};
+struct get<TYPELIST, INDEX, STEP, true, ERROR>
+    {
+        typedef typename TYPELIST::head type;
+    };
 
 template<typename TYPELIST, bool LONG=false> class QxtTuple;
 template<typename TYPELIST, int INDEX, bool LONG, bool EXT=(INDEX>8)> struct QxtTupleValue;
 
-template<typename TYPELIST, int INDEX> struct QxtTupleValue<TYPELIST, INDEX, true, true> {
-    static typename get<TYPELIST, INDEX>::type value(QxtTuple<TYPELIST,true>* t) {
+template<typename TYPELIST, int INDEX> struct QxtTupleValue<TYPELIST, INDEX, true, true>
+{
+    static typename get<TYPELIST, INDEX>::type value(QxtTuple<TYPELIST,true>* t)
+    {
         return QxtTupleValue<typename TYPELIST::extend, INDEX-9, TYPELIST::extend::extends>::value(&t->extend);
     }
 
-    static void setValue(QxtTuple<TYPELIST,true>* t, typename get<TYPELIST, INDEX>::type val) {
+    static void setValue(QxtTuple<TYPELIST,true>* t, typename get<TYPELIST, INDEX>::type val)
+    {
         QxtTupleValue<typename TYPELIST::extend, INDEX-9, TYPELIST::extend::extends>::setValue(&t->extend, val);
     }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 0, LONG, false> {
-    static typename get<TYPELIST, 0>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t1; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 0>::type val) { t->t1 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 0, LONG, false>
+{
+    static typename get<TYPELIST, 0>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t1;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 0>::type val)
+    {
+        t->t1 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 1, LONG, false> {
-    static typename get<TYPELIST, 1>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t2; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 1>::type val) { t->t2 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 1, LONG, false>
+{
+    static typename get<TYPELIST, 1>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t2;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 1>::type val)
+    {
+        t->t2 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 2, LONG, false> {
-    static typename get<TYPELIST, 2>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t3; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 2>::type val) { t->t3 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 2, LONG, false>
+{
+    static typename get<TYPELIST, 2>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t3;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 2>::type val)
+    {
+        t->t3 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 3, LONG, false> {
-    static typename get<TYPELIST, 3>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t4; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 3>::type val) { t->t4 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 3, LONG, false>
+{
+    static typename get<TYPELIST, 3>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t4;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 3>::type val)
+    {
+        t->t4 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 4, LONG, false> {
-    static typename get<TYPELIST, 4>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t5; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 4>::type val) { t->t5 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 4, LONG, false>
+{
+    static typename get<TYPELIST, 4>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t5;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 4>::type val)
+    {
+        t->t5 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 5, LONG, false> {
-    static typename get<TYPELIST, 5>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t6; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 5>::type val) { t->t6 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 5, LONG, false>
+{
+    static typename get<TYPELIST, 5>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t6;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 5>::type val)
+    {
+        t->t6 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 6, LONG, false> {
-    static typename get<TYPELIST, 6>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t7; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 6>::type val) { t->t7 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 6, LONG, false>
+{
+    static typename get<TYPELIST, 6>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t7;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 6>::type val)
+    {
+        t->t7 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 7, LONG, false> {
-    static typename get<TYPELIST, 7>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t8; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 7>::type val) { t->t8 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 7, LONG, false>
+{
+    static typename get<TYPELIST, 7>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t8;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 7>::type val)
+    {
+        t->t8 = val;
+    }
 };
 
-template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 8, LONG, false> {
-    static typename get<TYPELIST, 8>::type value(QxtTuple<TYPELIST,LONG>* t) { return t->t9; }
-    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 8>::type val) { t->t9 = val; }
+template<typename TYPELIST, bool LONG> struct QxtTupleValue<TYPELIST, 8, LONG, false>
+{
+    static typename get<TYPELIST, 8>::type value(QxtTuple<TYPELIST,LONG>* t)
+    {
+        return t->t9;
+    }
+    static void setValue(QxtTuple<TYPELIST,LONG>* t, typename get<TYPELIST, 8>::type val)
+    {
+        t->t9 = val;
+    }
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -146,57 +216,70 @@ int main(int argc, char** argv) {
 \endcode
 */
 
-class QxtTuple<TYPELIST,false> {
+class QxtTuple<TYPELIST,false>
+{
 public:
-    template<int INDEX> typename get<TYPELIST, INDEX>::type value() { return QxtTupleValue<TYPELIST, INDEX, false>::value(this); }
-    template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val) { QxtTupleValue<TYPELIST, INDEX, false>::setValue(this, val); }
-    bool operator<(const QxtTuple<TYPELIST,false>& other) {
-        if(t1 < other.t1) return true;
-        if(t2 < other.t2) return true;
-        if(t3 < other.t3) return true;
-        if(t4 < other.t4) return true;
-        if(t5 < other.t5) return true;
-        if(t6 < other.t6) return true;
-        if(t7 < other.t7) return true;
-        if(t8 < other.t8) return true;
-        if(t9 < other.t9) return true;
+    template<int INDEX> typename get<TYPELIST, INDEX>::type value()
+    {
+        return QxtTupleValue<TYPELIST, INDEX, false>::value(this);
+    }
+    template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val)
+    {
+        QxtTupleValue<TYPELIST, INDEX, false>::setValue(this, val);
+    }
+    bool operator<(const QxtTuple<TYPELIST,false>& other)
+    {
+        if (t1 < other.t1) return true;
+        if (t2 < other.t2) return true;
+        if (t3 < other.t3) return true;
+        if (t4 < other.t4) return true;
+        if (t5 < other.t5) return true;
+        if (t6 < other.t6) return true;
+        if (t7 < other.t7) return true;
+        if (t8 < other.t8) return true;
+        if (t9 < other.t9) return true;
         return false;
     }
-    bool operator==(const QxtTuple<TYPELIST,false>& other) {
-        if(t1 != other.t1) return false;
-        if(t2 != other.t2) return false;
-        if(t3 != other.t3) return false;
-        if(t4 != other.t4) return false;
-        if(t5 != other.t5) return false;
-        if(t6 != other.t6) return false;
-        if(t7 != other.t7) return false;
-        if(t8 != other.t8) return false;
-        if(t9 != other.t9) return false;
+    bool operator==(const QxtTuple<TYPELIST,false>& other)
+    {
+        if (t1 != other.t1) return false;
+        if (t2 != other.t2) return false;
+        if (t3 != other.t3) return false;
+        if (t4 != other.t4) return false;
+        if (t5 != other.t5) return false;
+        if (t6 != other.t6) return false;
+        if (t7 != other.t7) return false;
+        if (t8 != other.t8) return false;
+        if (t9 != other.t9) return false;
         return true;
     }
-    bool operator>=(const QxtTuple<TYPELIST,false>& other) {
+    bool operator>=(const QxtTuple<TYPELIST,false>& other)
+    {
         return !(*this < other);
     }
-    bool operator<=(const QxtTuple<TYPELIST,false>& other) {
-        if(t1 <= other.t1) return true;
-        if(t2 <= other.t2) return true;
-        if(t3 <= other.t3) return true;
-        if(t4 <= other.t4) return true;
-        if(t5 <= other.t5) return true;
-        if(t6 <= other.t6) return true;
-        if(t7 <= other.t7) return true;
-        if(t8 <= other.t8) return true;
-        if(t9 <= other.t9) return true;
+    bool operator<=(const QxtTuple<TYPELIST,false>& other)
+    {
+        if (t1 <= other.t1) return true;
+        if (t2 <= other.t2) return true;
+        if (t3 <= other.t3) return true;
+        if (t4 <= other.t4) return true;
+        if (t5 <= other.t5) return true;
+        if (t6 <= other.t6) return true;
+        if (t7 <= other.t7) return true;
+        if (t8 <= other.t8) return true;
+        if (t9 <= other.t9) return true;
         return false;
     }
-    bool operator>(const QxtTuple<TYPELIST,false>& other) {
+    bool operator>(const QxtTuple<TYPELIST,false>& other)
+    {
         return !(*this <= other);
     }
-    bool operator!=(const QxtTuple<TYPELIST,false>& other) {
+    bool operator!=(const QxtTuple<TYPELIST,false>& other)
+    {
         return !(*this == other);
     }
 
-        
+
 // if only we could get away with making these protected
     typename get<TYPELIST, 0>::type t1;
     typename get<TYPELIST, 1>::type t2;
@@ -212,56 +295,69 @@ public:
 //-----------------------------------------------------------------------------------------------
 
 template<typename TYPELIST>
-class QxtTuple<TYPELIST,true> {
+class QxtTuple<TYPELIST,true>
+{
 public:
-    template<int INDEX> typename get<TYPELIST, INDEX>::type value() { return QxtTupleValue<TYPELIST, INDEX, true>::value(this); }
-    template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val) { QxtTupleValue<TYPELIST, INDEX, true>::setValue(this, val); }
-    bool operator<(const QxtTuple<TYPELIST,true>& other) {
-        if(t1 < other.t1) return true;
-        if(t2 < other.t2) return true;
-        if(t3 < other.t3) return true;
-        if(t4 < other.t4) return true;
-        if(t5 < other.t5) return true;
-        if(t6 < other.t6) return true;
-        if(t7 < other.t7) return true;
-        if(t8 < other.t8) return true;
-        if(t9 < other.t9) return true;
-        if(extend < other.extend) return true;
+    template<int INDEX> typename get<TYPELIST, INDEX>::type value()
+    {
+        return QxtTupleValue<TYPELIST, INDEX, true>::value(this);
+    }
+    template<int INDEX> void setValue(typename get<TYPELIST, INDEX>::type val)
+    {
+        QxtTupleValue<TYPELIST, INDEX, true>::setValue(this, val);
+    }
+    bool operator<(const QxtTuple<TYPELIST,true>& other)
+    {
+        if (t1 < other.t1) return true;
+        if (t2 < other.t2) return true;
+        if (t3 < other.t3) return true;
+        if (t4 < other.t4) return true;
+        if (t5 < other.t5) return true;
+        if (t6 < other.t6) return true;
+        if (t7 < other.t7) return true;
+        if (t8 < other.t8) return true;
+        if (t9 < other.t9) return true;
+        if (extend < other.extend) return true;
         return false;
     }
-    bool operator==(const QxtTuple<TYPELIST,true>& other) {
-        if(t1 != other.t1) return false;
-        if(t2 != other.t2) return false;
-        if(t3 != other.t3) return false;
-        if(t4 != other.t4) return false;
-        if(t5 != other.t5) return false;
-        if(t6 != other.t6) return false;
-        if(t7 != other.t7) return false;
-        if(t8 != other.t8) return false;
-        if(t9 != other.t9) return false;
-        if(extend != other.extend) return false;
+    bool operator==(const QxtTuple<TYPELIST,true>& other)
+    {
+        if (t1 != other.t1) return false;
+        if (t2 != other.t2) return false;
+        if (t3 != other.t3) return false;
+        if (t4 != other.t4) return false;
+        if (t5 != other.t5) return false;
+        if (t6 != other.t6) return false;
+        if (t7 != other.t7) return false;
+        if (t8 != other.t8) return false;
+        if (t9 != other.t9) return false;
+        if (extend != other.extend) return false;
         return true;
     }
-    bool operator>=(const QxtTuple<TYPELIST,true>& other) {
+    bool operator>=(const QxtTuple<TYPELIST,true>& other)
+    {
         return !(*this < other);
     }
-    bool operator<=(const QxtTuple<TYPELIST,true>& other) {
-        if(t1 <= other.t1) return true;
-        if(t2 <= other.t2) return true;
-        if(t3 <= other.t3) return true;
-        if(t4 <= other.t4) return true;
-        if(t5 <= other.t5) return true;
-        if(t6 <= other.t6) return true;
-        if(t7 <= other.t7) return true;
-        if(t8 <= other.t8) return true;
-        if(t9 <= other.t9) return true;
-        if(extend <= other.extend) return true;
+    bool operator<=(const QxtTuple<TYPELIST,true>& other)
+    {
+        if (t1 <= other.t1) return true;
+        if (t2 <= other.t2) return true;
+        if (t3 <= other.t3) return true;
+        if (t4 <= other.t4) return true;
+        if (t5 <= other.t5) return true;
+        if (t6 <= other.t6) return true;
+        if (t7 <= other.t7) return true;
+        if (t8 <= other.t8) return true;
+        if (t9 <= other.t9) return true;
+        if (extend <= other.extend) return true;
         return false;
     }
-    bool operator>(const QxtTuple<TYPELIST,true>& other) {
+    bool operator>(const QxtTuple<TYPELIST,true>& other)
+    {
         return !(*this <= other);
     }
-    bool operator!=(const QxtTuple<TYPELIST,true>& other) {
+    bool operator!=(const QxtTuple<TYPELIST,true>& other)
+    {
         return !(*this == other);
     }
 
@@ -333,7 +429,7 @@ using QxtType::QxtTuple;
 /*! \relates QxtTuple
  * Declares an extended tuple with ten or more columns. Pay special attention to the syntax of the tenth parameter, which
  * must be a QxtTypeList, not a storage type.
-\code  
+\code
 QxtLongTuple(int, int, int, int, int, int, int, int, int, Qxt1TypeList(int)) tuple; // correct way to implement a 10-tuple
 QxtLongTuple(int, int, int, int, int, int, int, int, int, int) tuple;              // this will produce a (very long) compile-time error
 \endcode
