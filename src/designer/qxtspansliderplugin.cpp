@@ -2,7 +2,7 @@
 **
 ** Copyright (C) Qxt Foundation. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtDesigner module of the Qt eXTension library
 **
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of th Common Public License, version 1.0, as published by
