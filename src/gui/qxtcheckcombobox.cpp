@@ -18,7 +18,7 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
 #include "qxtcheckcombobox.h"
@@ -171,7 +171,7 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
         {
             emit checkStateChanged();
         }
-        else if (role == Qt::EditRole)
+        else if (role == Qt::DisplayRole || role == Qt::EditRole)
         {
             // a workaround to detect QComboBox::insertItems()
             QVariant value = index.data(Qt::CheckStateRole);
