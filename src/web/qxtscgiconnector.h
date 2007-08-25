@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -32,21 +32,21 @@
 
 class QxtScgiConnectorPrivate;
 class QxtScgiConnector : public QxtAbstractWebConnector
-        {
-        Q_OBJECT
-        QXT_DECLARE_PRIVATE(QxtScgiConnector);
+{
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtScgiConnector);
 
-        public:
-                QxtScgiConnector();
-                virtual int  start (quint16 port,const QHostAddress & address);
+public:
+    QxtScgiConnector();
+    virtual int  start (quint16 port,const QHostAddress & address);
 
-                virtual QIODevice * socket();
-                virtual void sendHeader(server_t &);
+    virtual QIODevice * socket();
+    virtual void sendHeader(server_t &);
 
-                virtual void close();
+    virtual void close();
 
-                virtual QByteArray content(quint64 maxsize);
-        };
+    virtual QByteArray content(quint64 maxsize);
+};
 
 
 #endif

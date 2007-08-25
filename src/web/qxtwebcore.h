@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -44,40 +44,40 @@ class QxtAbstractWebConnector;
 class QTextCodec;
 class QxtWebCorePrivate;
 class QXT_WEB_EXPORT QxtWebCore: public QObject
-        {
-        Q_OBJECT
-        QXT_DECLARE_PRIVATE(QxtWebCore);
-        public:
-                QxtWebCore (QxtAbstractWebConnector *);
-                ~QxtWebCore ();
+{
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtWebCore);
+public:
+    QxtWebCore (QxtAbstractWebConnector *);
+    ~QxtWebCore ();
 
-                int start (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
+    int start (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
 
-                static void setCodec ( QTextCodec * codec );
+    static void setCodec ( QTextCodec * codec );
 
-                static void send(QString);
-                static void close();
-                static void header(QString,QString);
-                static void sendHeader();
+    static void send(QString);
+    static void close();
+    static void header(QString,QString);
+    static void sendHeader();
 
-                static server_t & SERVER();
-                static QIODevice * socket();
+    static server_t & SERVER();
+    static QIODevice * socket();
 
-                static void redirect(QString location,int code=303);
-
-
+    static void redirect(QString location,int code=303);
 
 
-                static QxtWebCore * instance();
 
-                /*helper*/
-                static QxtError parseString(QByteArray str, post_t & POST);
-                static QByteArray content(int maxsize=5000);
 
-        signals:
-                void request();
-                void aboutToClose();
-        };
+    static QxtWebCore * instance();
+
+    /*helper*/
+    static QxtError parseString(QByteArray str, post_t & POST);
+    static QByteArray content(int maxsize=5000);
+
+signals:
+    void request();
+    void aboutToClose();
+};
 
 
 
