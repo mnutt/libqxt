@@ -37,13 +37,9 @@ public:
 	virtual ~QxtNativeEventFilter()
 	{ qxtApp->removeNativeEventFilter(this); }
 
-#if defined(Q_WS_X11)
 	virtual bool x11EventFilter(XEvent* event) = 0;
-#elif defined(Q_WS_WIN)
 	virtual bool winEventFilter(MSG* msg, long* result) = 0;
-#elif defined(Q_WS_MAC)
     virtual bool macEventFilter(EventHandlerCallRef caller, EventRef event) = 0;
-#endif // Q_WS_*
 };
 
 #endif // QXTNATIVEEVENTFILTER_H
