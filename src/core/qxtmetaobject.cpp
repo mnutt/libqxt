@@ -180,6 +180,22 @@ QByteArray methodSignature(const char* method)
     return name;
 }
 
+
+/*!
+\relates QxtMetaObject
+
+\fn bool isSignalOrSlot(const char* method)
+
+checks if \p method contains parantesis and begins with 1 or 2 */
+bool isSignalOrSlot (const char* method)
+        {
+        QByteArray m(method);
+        return (m.count() && (m[0] == '1'||m[0] == '2') && m.contains('(') && m.contains(')'));
+        }
+
+
+
+
 /**
 \relates QxtMetaObject
 \fn bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant))
@@ -289,3 +305,10 @@ bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::Co
     return QMetaObject::connect(sender, methodID, slot, QObject::staticMetaObject.methodCount(), (int)(type));
 }
 }
+
+
+
+
+
+
+

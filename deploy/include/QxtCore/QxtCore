@@ -8,4 +8,5 @@
 #include "qxtstdio.h"
 #include "qxttuple.h"
 #include "qxtstdstreambufdevice.h"
+#include "qxtsignalwaiter.h"
 
