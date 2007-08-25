@@ -33,7 +33,7 @@
 #include <QHostAddress>
 #include <qxtpimpl.h>
 #include <qxtglobal.h>
-
+class QTcpSocket;
 class QxtRPCPeerPrivate;
 /*!
  * \class QxtRPCPeer QxtRPCPeer
@@ -221,6 +221,21 @@ public slots:
      */
     void detachSender();
 
+    /*!
+     * gives Access to the socket of the client \n
+     * usefull to get information about the client, like adress, port, etc..\n
+     * returns 0 when not in server mode or if the client \p id does not exist.
+     */
+
+    const QTcpSocket * clientSocket(quint64 id) const;
+
+    /*!
+     * returns alist of all clients currently connected \n
+     * returns an empty List when not in server mode
+     */
+
+    QList<quint64> clients();
+
 signals:
     /*!
      * This signal is emitted after a successful connection to or from a peer or server.
@@ -279,11 +294,19 @@ protected:
      */
     virtual bool canDeserialize(const QByteArray& buffer) const;
 
+
+
+    /*!
+     * is called in Server mode when a new connection is available. the default implementation returns a new QTCPSocket
+     * for the \p socketDescriptor
+     */
+    virtual QTcpSocket * incomingConnection ( int socketDescriptor );
+
+
 private:
     QXT_DECLARE_PRIVATE(QxtRPCPeer);
 
 private slots:
-    void newConnection();
     void dataAvailable();
     void disconnectSender();
 };

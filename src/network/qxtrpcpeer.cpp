@@ -31,6 +31,7 @@
 #include <QMetaMethod>
 #include <cassert>
 #include "qxtmetaobject.h"
+#include <QStack>
 
 class QxtIntrospector: public QObject
 {
@@ -56,10 +57,13 @@ struct QxtRPCConnection
     QString lastMethod;
 };
 
-class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer>
+class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer>, public QTcpServer
 {
 public:
     QXT_DECLARE_PUBLIC(QxtRPCPeer);
+
+    void incomingConnection ( int socketDescriptor );
+
 
     void receivePeerSignal(QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
                            QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant()) const;
@@ -76,25 +80,26 @@ public:
 
     typedef QHash<QObject*, QxtRPCConnection*> ConnHash;
     ConnHash m_clients;
-    QTcpServer* m_server;
     QIODevice* m_peer;
 
     QByteArray m_buffer;
     int m_rpctype;
+
+
+    QStack<QTcpSocket*> pending_connections;
+
 };
 
 QxtRPCPeer::QxtRPCPeer(QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtRPCPeer);
     qxt_d().m_rpctype = Peer;
-    qxt_d().m_server = new QTcpServer(this);
     qxt_d().m_peer = new QTcpSocket(this);
     QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
     QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
     QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
     QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
     QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-    QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
 
@@ -102,14 +107,12 @@ QxtRPCPeer::QxtRPCPeer(RPCTypes type, QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtRPCPeer);
     qxt_d().m_rpctype = type;
-    qxt_d().m_server = new QTcpServer(this);
     qxt_d().m_peer = new QTcpSocket(this);
     QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
     QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
     QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
     QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
     QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-    QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
 
@@ -122,7 +125,6 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
 
     QXT_INIT_PRIVATE(QxtRPCPeer);
     qxt_d().m_rpctype = type;
-    qxt_d().m_server = new QTcpServer(this);
     qxt_d().m_peer = device;
 
     if (qobject_cast<QAbstractSocket *>(device)!=0)
@@ -133,13 +135,12 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
         QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
     }
     QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-    QObject::connect(qxt_d().m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
 
 void QxtRPCPeer::setRPCType(RPCTypes type)
 {
-    if (qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening())
+    if (qxt_d().m_peer->isOpen () || qxt_d().isListening())
     {
         qWarning() << "QxtRPCPeer: Cannot change RPC types while connected or listening";
         return;
@@ -191,12 +192,12 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port)
         qWarning() << "QxtRPCPeer: Cannot listen while connected to a peer";
         return false;
     }
-    else if (qxt_d().m_server->isListening())
+    else if (qxt_d().isListening())
     {
         qWarning() << "QxtRPCPeer: Already listening";
         return false;
     }
-    return qxt_d().m_server->listen(iface, port);
+    return qxt_d().listen(iface, port);
 }
 
 
@@ -253,12 +254,12 @@ void QxtRPCPeer::disconnectAll()
 
 void QxtRPCPeer::stopListening()
 {
-    if (!qxt_d().m_server->isListening())
+    if (!qxt_d().isListening())
     {
         qWarning() << "QxtRPCPeer: Not listening";
         return;
     }
-    qxt_d().m_server->close();
+    qxt_d().close();
 }
 
 
@@ -455,12 +456,12 @@ void QxtRPCPeerPrivate::receiveClientSignal(quint64 id, QString fn, QVariant p0,
 
 #undef QXT_ARG
 
-void QxtRPCPeer::newConnection()
+void QxtRPCPeerPrivate::incomingConnection ( int socketDescriptor )
 {
-    QTcpSocket* next = qxt_d().m_server->nextPendingConnection();
-    if (qxt_d().m_rpctype == QxtRPCPeer::Peer)
+    QTcpSocket* next = qxt_p().incomingConnection(socketDescriptor);
+    if (m_rpctype == QxtRPCPeer::Peer)
     {
-        if (qxt_d().m_peer->isOpen ())
+        if (m_peer->isOpen ())
         {
             qWarning() << "QxtRPCPeer: Rejected connection from " << next->peerAddress().toString() << "; another peer is connected";
             next->disconnectFromHost();
@@ -468,25 +469,25 @@ void QxtRPCPeer::newConnection()
         }
         else
         {
-            qxt_d().m_peer->deleteLater();
-            qxt_d().m_peer = next;
-            QObject::connect(qxt_d().m_peer, SIGNAL(connected()), this, SIGNAL(peerConnected()));
-            QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SIGNAL(peerDisconnected()));
-            QObject::connect(qxt_d().m_peer, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
-            QObject::connect(qxt_d().m_peer, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-            QObject::connect(qxt_d().m_peer, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-            emit peerConnected();
+            m_peer->deleteLater();
+            m_peer = next;
+            QObject::connect(m_peer, SIGNAL(connected()), &qxt_p(), SIGNAL(peerConnected()));
+            QObject::connect(m_peer, SIGNAL(disconnected()), &qxt_p(), SIGNAL(peerDisconnected()));
+            QObject::connect(m_peer, SIGNAL(disconnected()), &qxt_p(), SLOT(disconnectSender()));
+            QObject::connect(m_peer, SIGNAL(readyRead()), &qxt_p(), SLOT(dataAvailable()));
+            QObject::connect(m_peer, SIGNAL(error(QAbstractSocket::SocketError)), &qxt_p(), SIGNAL(peerError(QAbstractSocket::SocketError)));
+            emit qxt_p().peerConnected();
         }
     }
     else
     {
         QxtRPCConnection* conn = new QxtRPCConnection;
         conn->socket = next;
-        qxt_d().m_clients[next] = conn;
-        QObject::connect(next, SIGNAL(disconnected()), this, SLOT(disconnectSender()));
-        QObject::connect(next, SIGNAL(readyRead()), this, SLOT(dataAvailable()));
-        QObject::connect(next, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(peerError(QAbstractSocket::SocketError)));
-        emit clientConnected((quint64)(next));
+        m_clients[next] = conn;
+        QObject::connect(next, SIGNAL(disconnected()), &qxt_p(), SLOT(disconnectSender()));
+        QObject::connect(next, SIGNAL(readyRead()), &qxt_p(), SLOT(dataAvailable()));
+        QObject::connect(next, SIGNAL(error(QAbstractSocket::SocketError)), &qxt_p(), SIGNAL(peerError(QAbstractSocket::SocketError)));
+        emit qxt_p().clientConnected((quint64)(next));
     }
 }
 
@@ -668,5 +669,36 @@ QIODevice * QxtRPCPeer::socket()
     if (qxt_d().m_rpctype == Server)return 0;
     return qxt_d().m_peer;
 }
+
+
+
+
+QTcpSocket * QxtRPCPeer::incomingConnection ( int socketDescriptor )
+{
+    QTcpSocket * t = new QTcpSocket;
+    t->setSocketDescriptor (socketDescriptor);
+    return t;
+}
+
+
+
+
+const QTcpSocket * QxtRPCPeer::clientSocket(quint64 id) const
+    {
+    if (qxt_d().m_rpctype != Server)
+        return 0;
+
+    return  qxt_d().m_clients[(QTcpSocket*)(id)]->socket;
+    }
+QList<quint64> QxtRPCPeer::clients()
+    {
+    QList<quint64> list;
+    foreach(QObject * o,qxt_d().m_clients.keys ())
+        {
+        list.append((quint64)o);
+        }
+    return list;
+    }
+
 
 
