@@ -55,8 +55,8 @@ public:
     ~QxtCheckComboModel();
 
     virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-    virtual bool setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles);
 
 signals:
     void checkStateChanged();
