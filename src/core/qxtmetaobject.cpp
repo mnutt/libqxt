@@ -116,7 +116,7 @@ public:
                 {
                     if (QByteArray(arg[i].name()) == "QxtBoundArgument")
                     {
-                        p[i] = QGenericArgument(bindTypes[i].constData(), _a[(int)(arg[i].data())]);
+                        p[i] = QGenericArgument(bindTypes[i].constData(), _a[(quintptr)(arg[i].data())]);
                     }
                 }
                 invokeImpl(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
@@ -133,7 +133,7 @@ public:
         {
             if (QByteArray(arg[i].name()) == "QxtBoundArgument")
             {
-                p[i] = *args[(int)(arg[i].data())-1];
+                p[i] = *args[(quintptr)(arg[i].data())-1];
             }
         }
         return invokeImpl(type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);

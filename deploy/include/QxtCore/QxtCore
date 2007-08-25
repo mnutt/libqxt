@@ -9,4 +9,5 @@
 #include "qxttuple.h"
 #include "qxtstdstreambufdevice.h"
 #include "qxtsignalwaiter.h"
+#include "qxtmetaobject.h"
 
