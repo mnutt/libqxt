@@ -26,6 +26,7 @@
 #include <QStyleOptionButton>
 #include <QMouseEvent>
 #include <QLineEdit>
+#include <QTimer>
 
 QxtCheckComboBoxPrivate::QxtCheckComboBoxPrivate()
 {
@@ -162,6 +163,14 @@ Qt::ItemFlags QxtCheckComboModel::flags(const QModelIndex& index) const
     return QStandardItemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 
+QVariant QxtCheckComboModel::data(const QModelIndex& index, int role) const
+{
+    QVariant value =  QStandardItemModel::data(index, role);
+    if (role == Qt::CheckStateRole && !value.isValid())
+        value = Qt::Unchecked;
+    return value;
+}
+
 bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     bool ok = QStandardItemModel::setData(index, value, role);
@@ -171,29 +180,6 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
         {
             emit checkStateChanged();
         }
-        else if (role == Qt::DisplayRole || role == Qt::EditRole)
-        {
-            // a workaround to detect QComboBox::insertItems()
-            QVariant value = index.data(Qt::CheckStateRole);
-            if (!value.isValid())
-            {
-                setData(index, Qt::Unchecked, Qt::CheckStateRole);
-                emit checkStateChanged();
-            }
-        }
-    }
-    return ok;
-}
-
-bool QxtCheckComboModel::setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles)
-{
-    // a workaround to detect QComboBox::insertItem()
-    QMap<int, QVariant> copy = roles;
-    copy.insert(Qt::CheckStateRole, Qt::Unchecked);
-    bool ok = QStandardItemModel::setItemData(index, copy);
-    if (ok)
-    {
-        emit checkStateChanged();
     }
     return ok;
 }
@@ -260,6 +246,7 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
 
     connect(view, SIGNAL(hideRequested()), &qxt_d(), SLOT(hidePopup()));
     connect(model, SIGNAL(checkStateChanged()), &qxt_d(), SLOT(updateCheckedItems()));
+    QTimer::singleShot(0, &qxt_d(), SLOT(updateCheckedItems()));
 }
 
 /*!
