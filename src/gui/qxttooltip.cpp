@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -43,171 +43,171 @@ QxtToolTipPrivate* QxtToolTipPrivate::self = 0;
 
 QxtToolTipPrivate* QxtToolTipPrivate::instance()
 {
-	if (!self)
-		self = new QxtToolTipPrivate();
-	return self;
+    if (!self)
+        self = new QxtToolTipPrivate();
+    return self;
 }
 
 QxtToolTipPrivate::QxtToolTipPrivate() : QWidget(qApp->desktop(), FLAGS)
 {
-	setWindowFlags(FLAGS);
-	vbox = new QVBoxLayout(this);
-	setPalette(QToolTip::palette());
-	setWindowOpacity(style()->styleHint(QStyle::SH_ToolTipLabel_Opacity, 0, this) / 255.0);
-	layout()->setMargin(style()->pixelMetric(QStyle::PM_ToolTipLabelFrameWidth, 0, this));
-	qApp->installEventFilter(this);
+    setWindowFlags(FLAGS);
+    vbox = new QVBoxLayout(this);
+    setPalette(QToolTip::palette());
+    setWindowOpacity(style()->styleHint(QStyle::SH_ToolTipLabel_Opacity, 0, this) / 255.0);
+    layout()->setMargin(style()->pixelMetric(QStyle::PM_ToolTipLabelFrameWidth, 0, this));
+    qApp->installEventFilter(this);
 }
 
 QxtToolTipPrivate::~QxtToolTipPrivate()
 {
-	qApp->removeEventFilter(this); // not really necessary but rather for completeness :)
-	self = 0;
+    qApp->removeEventFilter(this); // not really necessary but rather for completeness :)
+    self = 0;
 }
 
 void QxtToolTipPrivate::show(const QPoint& pos, QWidget* tooltip, QWidget* parent, const QRect& rect)
 {
-	Q_ASSERT(tooltip && parent);
-	if (!isVisible())
-	{
-		int scr = 0;
-		if (QApplication::desktop()->isVirtualDesktop())
-			scr = QApplication::desktop()->screenNumber(pos);
-		else
-			scr = QApplication::desktop()->screenNumber(this);
-		setParent(QApplication::desktop()->screen(scr));
-		setWindowFlags(FLAGS);
-		setToolTip(tooltip);
-		currentParent = parent;
-		currentRect = rect;
-		move(calculatePos(scr, pos));
-		QWidget::show();
-	}
+    Q_ASSERT(tooltip && parent);
+    if (!isVisible())
+    {
+        int scr = 0;
+        if (QApplication::desktop()->isVirtualDesktop())
+            scr = QApplication::desktop()->screenNumber(pos);
+        else
+            scr = QApplication::desktop()->screenNumber(this);
+        setParent(QApplication::desktop()->screen(scr));
+        setWindowFlags(FLAGS);
+        setToolTip(tooltip);
+        currentParent = parent;
+        currentRect = rect;
+        move(calculatePos(scr, pos));
+        QWidget::show();
+    }
 }
 
 void QxtToolTipPrivate::setToolTip(QWidget* tooltip)
 {
-	for (int i = 0; i < vbox->count(); ++i)
-	{
-		QLayoutItem* item = layout()->takeAt(i);
-		if (item->widget())
-			item->widget()->hide();
-	}
-	vbox->addWidget(tooltip);
-	tooltip->show();
+    for (int i = 0; i < vbox->count(); ++i)
+    {
+        QLayoutItem* item = layout()->takeAt(i);
+        if (item->widget())
+            item->widget()->hide();
+    }
+    vbox->addWidget(tooltip);
+    tooltip->show();
 }
 
 void QxtToolTipPrivate::enterEvent(QEvent* event)
 {
-	Q_UNUSED(event);
-	hideLater();
+    Q_UNUSED(event);
+    hideLater();
 }
 
 void QxtToolTipPrivate::paintEvent(QPaintEvent* event)
 {
-	Q_UNUSED(event);
-	QStylePainter painter(this);
-	QStyleOptionFrame opt;
-	opt.initFrom(this);
-	painter.drawPrimitive(QStyle::PE_PanelTipLabel, opt);
+    Q_UNUSED(event);
+    QStylePainter painter(this);
+    QStyleOptionFrame opt;
+    opt.initFrom(this);
+    painter.drawPrimitive(QStyle::PE_PanelTipLabel, opt);
 }
 
 bool QxtToolTipPrivate::eventFilter(QObject* object, QEvent* event)
 {
-	switch (event->type())
-	{
-		case QEvent::KeyPress:
-		case QEvent::KeyRelease:
-		{
-			// accept only modifiers
-			const QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-			const int key = keyEvent->key();
-			const Qt::KeyboardModifiers mods = keyEvent->modifiers();
-			if ((mods & Qt::KeyboardModifierMask) ||
-				(key == Qt::Key_Shift || key == Qt::Key_Control ||
-				 key == Qt::Key_Alt || key == Qt::Key_Meta))
-				break;
-		}
-		case QEvent::Leave:
-		case QEvent::WindowActivate:
-		case QEvent::WindowDeactivate:
-		case QEvent::MouseButtonPress:
-		case QEvent::MouseButtonRelease:
-		case QEvent::MouseButtonDblClick:
-		case QEvent::FocusIn:
-		case QEvent::FocusOut:
-		case QEvent::Wheel:
-			hideLater();
-			break;
+    switch (event->type())
+    {
+    case QEvent::KeyPress:
+    case QEvent::KeyRelease:
+    {
+        // accept only modifiers
+        const QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        const int key = keyEvent->key();
+        const Qt::KeyboardModifiers mods = keyEvent->modifiers();
+        if ((mods & Qt::KeyboardModifierMask) ||
+                (key == Qt::Key_Shift || key == Qt::Key_Control ||
+                 key == Qt::Key_Alt || key == Qt::Key_Meta))
+            break;
+    }
+    case QEvent::Leave:
+    case QEvent::WindowActivate:
+    case QEvent::WindowDeactivate:
+    case QEvent::MouseButtonPress:
+    case QEvent::MouseButtonRelease:
+    case QEvent::MouseButtonDblClick:
+    case QEvent::FocusIn:
+    case QEvent::FocusOut:
+    case QEvent::Wheel:
+        hideLater();
+        break;
 
-		case QEvent::MouseMove:
-		{
-			const QPoint pos = static_cast<QMouseEvent*>(event)->pos();
-			if (!currentRect.isNull() && !currentRect.contains(pos))
-			{
-				hideLater();
-			}
-			break;
-		}
+    case QEvent::MouseMove:
+    {
+        const QPoint pos = static_cast<QMouseEvent*>(event)->pos();
+        if (!currentRect.isNull() && !currentRect.contains(pos))
+        {
+            hideLater();
+        }
+        break;
+    }
 
-		case QEvent::ToolTip:
-		{
-			// eat appropriate tooltip events
-			QWidget* widget = static_cast<QWidget*>(object);
-			if (tooltips.contains(widget))
-			{
-				QHelpEvent* helpEvent = static_cast<QHelpEvent*>(event);
-				const QRect area = tooltips.value(widget).second;
-				if (area.isNull() || area.contains(helpEvent->pos()))
-				{
-					show(helpEvent->globalPos(), tooltips.value(widget).first, widget, area);
-					return true;
-				}
-			}
-		}
+    case QEvent::ToolTip:
+    {
+        // eat appropriate tooltip events
+        QWidget* widget = static_cast<QWidget*>(object);
+        if (tooltips.contains(widget))
+        {
+            QHelpEvent* helpEvent = static_cast<QHelpEvent*>(event);
+            const QRect area = tooltips.value(widget).second;
+            if (area.isNull() || area.contains(helpEvent->pos()))
+            {
+                show(helpEvent->globalPos(), tooltips.value(widget).first, widget, area);
+                return true;
+            }
+        }
+    }
 
-		default:
-			break;
-	}
-	return false;
+    default:
+        break;
+    }
+    return false;
 }
 
 void QxtToolTipPrivate::hideLater()
 {
-	currentRect = QRect();
-	if (isVisible())
-		QTimer::singleShot(0, this, SLOT(hide()));
+    currentRect = QRect();
+    if (isVisible())
+        QTimer::singleShot(0, this, SLOT(hide()));
 }
 
 QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
 {
 #ifdef Q_WS_MAC
-	QRect screen = QApplication::desktop()->availableGeometry(scr);
+    QRect screen = QApplication::desktop()->availableGeometry(scr);
 #else
-	QRect screen = QApplication::desktop()->screenGeometry(scr);
+    QRect screen = QApplication::desktop()->screenGeometry(scr);
 #endif
 
-	QPoint p = eventPos;
-	p += QPoint(2,
+    QPoint p = eventPos;
+    p += QPoint(2,
 #ifdef Q_WS_WIN
-		24
+                24
 #else
-		16
+                16
 #endif
-	);
-	QSize s = sizeHint();
-	if (p.x() + s.width() > screen.x() + screen.width())
-		p.rx() -= 4 + s.width();
-	if (p.y() + s.height() > screen.y() + screen.height())
-		p.ry() -= 24 + s.height();
-	if (p.y() < screen.y())
-		p.setY(screen.y());
-	if (p.x() + s.width() > screen.x() + screen.width())
-		p.setX(screen.x() + screen.width() - s.width());
-	if (p.x() < screen.x())
-		p.setX(screen.x());
-	if (p.y() + s.height() > screen.y() + screen.height())
-		p.setY(screen.y() + screen.height() - s.height());
-	return p;
+               );
+    QSize s = sizeHint();
+    if (p.x() + s.width() > screen.x() + screen.width())
+        p.rx() -= 4 + s.width();
+    if (p.y() + s.height() > screen.y() + screen.height())
+        p.ry() -= 24 + s.height();
+    if (p.y() < screen.y())
+        p.setY(screen.y());
+    if (p.x() + s.width() > screen.x() + screen.width())
+        p.setX(screen.x() + screen.width() - s.width());
+    if (p.x() < screen.x())
+        p.setX(screen.x());
+    if (p.y() + s.height() > screen.y() + screen.height())
+        p.setY(screen.y() + screen.height() - s.height());
+    return p;
 }
 
 /*!
@@ -218,9 +218,9 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
     QxtToolTip provides means for showing any arbitrary widget as a tooltip.
 
     \note The rich text support of QToolTip already makes it possible to
-    show heavily customized tooltips with lists, tables, embedded images 
-    and such. However, for example dynamically created images like 
-    thumbnails cause problems. Basically the only way is to dump the 
+    show heavily customized tooltips with lists, tables, embedded images
+    and such. However, for example dynamically created images like
+    thumbnails cause problems. Basically the only way is to dump the
     thumbnail to a temporary file to be able to embed it into HTML. This
     is where QxtToolTip steps in. A generated thumbnail may simply be set
     on a QLabel which is then shown as a tooltip. Yet another use case
@@ -241,7 +241,7 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
 */
 void QxtToolTip::show(const QPoint& pos, QWidget* tooltip, QWidget* parent, const QRect& rect)
 {
-	QxtToolTipPrivate::instance()->show(pos, tooltip, parent, rect);
+    QxtToolTipPrivate::instance()->show(pos, tooltip, parent, rect);
 }
 
 /*!
@@ -251,7 +251,7 @@ void QxtToolTip::show(const QPoint& pos, QWidget* tooltip, QWidget* parent, cons
 */
 void QxtToolTip::hide()
 {
-	QxtToolTipPrivate::instance()->hide();
+    QxtToolTipPrivate::instance()->hide();
 }
 
 /*!
@@ -261,13 +261,13 @@ void QxtToolTip::hide()
 */
 QWidget* QxtToolTip::toolTip(QWidget* parent)
 {
-	Q_ASSERT(parent);
-	QWidget* tooltip = 0;
-	if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
-		qWarning("QxtToolTip::toolTip: Unknown parent");
-	else
-		tooltip = QxtToolTipPrivate::instance()->tooltips.value(parent).first;
-	return tooltip;
+    Q_ASSERT(parent);
+    QWidget* tooltip = 0;
+    if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
+        qWarning("QxtToolTip::toolTip: Unknown parent");
+    else
+        tooltip = QxtToolTipPrivate::instance()->tooltips.value(parent).first;
+    return tooltip;
 }
 
 /*!
@@ -278,21 +278,21 @@ QWidget* QxtToolTip::toolTip(QWidget* parent)
 */
 void QxtToolTip::setToolTip(QWidget* parent, QWidget* tooltip, const QRect& rect)
 {
-	Q_ASSERT(parent);
-	if (tooltip)
-	{
-		// set
-		tooltip->hide();
-		QxtToolTipPrivate::instance()->tooltips[parent] = qMakePair(QPointer<QWidget>(tooltip), rect);
-	}
-	else
-	{
-		// remove
-		if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
-			qWarning("QxtToolTip::setToolTip: Unknown parent");
-		else
-			QxtToolTipPrivate::instance()->tooltips.remove(parent);
-	}
+    Q_ASSERT(parent);
+    if (tooltip)
+    {
+        // set
+        tooltip->hide();
+        QxtToolTipPrivate::instance()->tooltips[parent] = qMakePair(QPointer<QWidget>(tooltip), rect);
+    }
+    else
+    {
+        // remove
+        if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
+            qWarning("QxtToolTip::setToolTip: Unknown parent");
+        else
+            QxtToolTipPrivate::instance()->tooltips.remove(parent);
+    }
 }
 
 /*!
@@ -302,13 +302,13 @@ void QxtToolTip::setToolTip(QWidget* parent, QWidget* tooltip, const QRect& rect
 */
 QRect QxtToolTip::toolTipRect(QWidget* parent)
 {
-	Q_ASSERT(parent);
-	QRect rect;
-	if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
-		qWarning("QxtToolTip::toolTipRect: Unknown parent");
-	else 
-		rect = QxtToolTipPrivate::instance()->tooltips.value(parent).second;
-	return rect;
+    Q_ASSERT(parent);
+    QRect rect;
+    if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
+        qWarning("QxtToolTip::toolTipRect: Unknown parent");
+    else
+        rect = QxtToolTipPrivate::instance()->tooltips.value(parent).second;
+    return rect;
 }
 
 /*!
@@ -318,11 +318,11 @@ QRect QxtToolTip::toolTipRect(QWidget* parent)
 */
 void QxtToolTip::setToolTipRect(QWidget* parent, const QRect& rect)
 {
-	Q_ASSERT(parent);
-	if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
-		qWarning("QxtToolTip::setToolTipRect: Unknown parent");
-	else
-		QxtToolTipPrivate::instance()->tooltips[parent].second = rect;
+    Q_ASSERT(parent);
+    if (!QxtToolTipPrivate::instance()->tooltips.contains(parent))
+        qWarning("QxtToolTip::setToolTipRect: Unknown parent");
+    else
+        QxtToolTipPrivate::instance()->tooltips[parent].second = rect;
 }
 
 /*!
@@ -332,7 +332,7 @@ void QxtToolTip::setToolTipRect(QWidget* parent, const QRect& rect)
 */
 int QxtToolTip::margin()
 {
-	return QxtToolTipPrivate::instance()->layout()->margin();
+    return QxtToolTipPrivate::instance()->layout()->margin();
 }
 
 /*!
@@ -344,7 +344,7 @@ int QxtToolTip::margin()
 */
 void QxtToolTip::setMargin(int margin)
 {
-	QxtToolTipPrivate::instance()->layout()->setMargin(margin);
+    QxtToolTipPrivate::instance()->layout()->setMargin(margin);
 }
 
 /*!
@@ -354,7 +354,7 @@ void QxtToolTip::setMargin(int margin)
 */
 qreal QxtToolTip::opacity()
 {
-	return QxtToolTipPrivate::instance()->windowOpacity();
+    return QxtToolTipPrivate::instance()->windowOpacity();
 }
 
 /*!
@@ -366,5 +366,5 @@ qreal QxtToolTip::opacity()
 */
 void QxtToolTip::setOpacity(qreal level)
 {
-	QxtToolTipPrivate::instance()->setWindowOpacity(level);
+    QxtToolTipPrivate::instance()->setWindowOpacity(level);
 }

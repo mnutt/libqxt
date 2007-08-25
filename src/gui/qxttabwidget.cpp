@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -33,27 +33,26 @@ typedef QList<QAction*> Actions;
 class QxtTabWidgetPrivate : public QxtPrivate<QxtTabWidget>
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtTabWidget);
-	
-	QxtTabWidgetPrivate();
-	int tabIndexAt(const QPoint& pos) const;
-	
-	QList<Actions> actions;
-	Qt::ContextMenuPolicy policy;
+    QXT_DECLARE_PUBLIC(QxtTabWidget);
+
+    QxtTabWidgetPrivate();
+    int tabIndexAt(const QPoint& pos) const;
+
+    QList<Actions> actions;
+    Qt::ContextMenuPolicy policy;
 };
 
 QxtTabWidgetPrivate::QxtTabWidgetPrivate() : policy(Qt::DefaultContextMenu)
-{
-}
+{}
 
 int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 {
-	const int count = qxt_p().count();
-	const QTabBar* tabBar = qxt_p().tabBar();
-	for (int i = 0; i < count; ++i)
-		if (tabBar->tabRect(i).contains(pos))
-			return i;
-	return -1;
+    const int count = qxt_p().count();
+    const QTabBar* tabBar = qxt_p().tabBar();
+    for (int i = 0; i < count; ++i)
+        if (tabBar->tabRect(i).contains(pos))
+            return i;
+    return -1;
 }
 
 /*!
@@ -96,22 +95,21 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
  */
 QxtTabWidget::QxtTabWidget(QWidget* parent) : QTabWidget(parent)
 {
-	QXT_INIT_PRIVATE(QxtTabWidget);
+    QXT_INIT_PRIVATE(QxtTabWidget);
 }
 
 /*!
     Destructs the tab widget.
  */
 QxtTabWidget::~QxtTabWidget()
-{
-}
+{}
 
 /*!
     \property QxtTabWidget::tabContextMenuPolicy
     \brief This property holds how the tab specific context menus are handled.
 
     The default value of this property is \b Qt::DefaultContextMenu,
-    which means that the tabContextMenuEvent() handler is called. 
+    which means that the tabContextMenuEvent() handler is called.
     Other values are \b Qt::NoContextMenu, \b Qt::PreventContextMenu
     (since Qt 4.2), \b Qt::ActionsContextMenu, and \b Qt::CustomContextMenu.
     With \b Qt::CustomContextMenu, the signal tabContextMenuRequested() is
@@ -121,12 +119,12 @@ QxtTabWidget::~QxtTabWidget()
  */
 Qt::ContextMenuPolicy QxtTabWidget::tabContextMenuPolicy() const
 {
-	return qxt_d().policy;
+    return qxt_d().policy;
 }
 
 void QxtTabWidget::setTabContextMenuPolicy(Qt::ContextMenuPolicy policy)
 {
-	qxt_d().policy = policy;
+    qxt_d().policy = policy;
 }
 
 /*!
@@ -137,7 +135,7 @@ void QxtTabWidget::setTabContextMenuPolicy(Qt::ContextMenuPolicy policy)
  */
 void QxtTabWidget::addTabAction(int index, QAction* action)
 {
-	insertTabAction(index, 0, action);
+    insertTabAction(index, 0, action);
 }
 
 /*!
@@ -149,7 +147,7 @@ void QxtTabWidget::addTabAction(int index, QAction* action)
  */
 QAction* QxtTabWidget::addTabAction(int index, const QString& text)
 {
-	return addTabAction(index, QIcon(), text, 0, 0);
+    return addTabAction(index, QIcon(), text, 0, 0);
 }
 
 /*!
@@ -161,14 +159,14 @@ QAction* QxtTabWidget::addTabAction(int index, const QString& text)
  */
 QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString& text)
 {
-	return addTabAction(index, icon, text, 0, 0);
+    return addTabAction(index, icon, text, 0, 0);
 }
 
 /*!
     This convenience function creates a new action with \a text and
-    an optional \a shortcut. The action's triggered() signal is 
+    an optional \a shortcut. The action's triggered() signal is
     connected to the \a receiver's \a member slot. The function adds
-    the newly created action to the list of actions of the tab at 
+    the newly created action to the list of actions of the tab at
     \a index, and returns it.
 
     \note In order to make it possible for the shortcut to work even
@@ -186,7 +184,7 @@ QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString&
  */
 QAction* QxtTabWidget::addTabAction(int index, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut)
 {
-	return addTabAction(index, QIcon(), text, receiver, member, shortcut);
+    return addTabAction(index, QIcon(), text, receiver, member, shortcut);
 }
 
 /*!
@@ -199,12 +197,12 @@ QAction* QxtTabWidget::addTabAction(int index, const QString& text, const QObjec
  */
 QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString& text, const QObject* receiver, const char* member, const QKeySequence& shortcut)
 {
-	QAction* action = new QAction(icon, text, this);
-	addTabAction(index, action);
-	if (receiver && member)
-		connect(action, SIGNAL(triggered()), receiver, member);
-	action->setShortcut(shortcut);
-	return action;
+    QAction* action = new QAction(icon, text, this);
+    addTabAction(index, action);
+    if (receiver && member)
+        connect(action, SIGNAL(triggered()), receiver, member);
+    action->setShortcut(shortcut);
+    return action;
 }
 
 /*!
@@ -215,10 +213,10 @@ QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString&
  */
 void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
 {
-	foreach (QAction* action, actions)
-	{
-		insertTabAction(index, 0, action);
-	}
+    foreach (QAction* action, actions)
+    {
+        insertTabAction(index, 0, action);
+    }
 }
 
 /*!
@@ -230,15 +228,15 @@ void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
  */
 void QxtTabWidget::clearTabActions(int index)
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
-	
-	while (qxt_d().actions[index].count())
-	{
-		QAction* action = qxt_d().actions[index].last();
-		removeTabAction(index, action);
-		if (action->parent() == this)
-			delete action;
-	}
+    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+
+    while (qxt_d().actions[index].count())
+    {
+        QAction* action = qxt_d().actions[index].last();
+        removeTabAction(index, action);
+        if (action->parent() == this)
+            delete action;
+    }
 }
 
 /*!
@@ -250,28 +248,28 @@ void QxtTabWidget::clearTabActions(int index)
  */
 void QxtTabWidget::insertTabAction(int index, QAction* before, QAction* action)
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
-	
-	if (!action)
-	{
-		qWarning("QxtTabWidget::insertTabAction: Attempt to insert a null action");
-		return;
-	}
-	
-	const Actions& actions = qxt_d().actions.at(index);
-	if (actions.contains(action))
-		removeTabAction(index, action);
+    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
 
-	int pos = actions.indexOf(before);
-	if (pos < 0)
-	{
-		before = 0;
-		pos = actions.count();
-	}
-	qxt_d().actions[index].insert(pos, action);
+    if (!action)
+    {
+        qWarning("QxtTabWidget::insertTabAction: Attempt to insert a null action");
+        return;
+    }
 
-	QActionEvent e(QEvent::ActionAdded, action, before);
-	QApplication::sendEvent(this, &e);
+    const Actions& actions = qxt_d().actions.at(index);
+    if (actions.contains(action))
+        removeTabAction(index, action);
+
+    int pos = actions.indexOf(before);
+    if (pos < 0)
+    {
+        before = 0;
+        pos = actions.count();
+    }
+    qxt_d().actions[index].insert(pos, action);
+
+    QActionEvent e(QEvent::ActionAdded, action, before);
+    QApplication::sendEvent(this, &e);
 }
 
 /*!
@@ -283,10 +281,10 @@ void QxtTabWidget::insertTabAction(int index, QAction* before, QAction* action)
  */
 void QxtTabWidget::insertTabActions(int index, QAction* before, QList<QAction*> actions)
 {
-	foreach (QAction* action, actions)
-	{
-		insertTabAction(index, before, action);
-	}
+    foreach (QAction* action, actions)
+    {
+        insertTabAction(index, before, action);
+    }
 }
 
 /*!
@@ -299,19 +297,19 @@ void QxtTabWidget::insertTabActions(int index, QAction* before, QList<QAction*> 
  */
 void QxtTabWidget::removeTabAction(int index, QAction* action)
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
-	
-	if (!action)
-	{
-		qWarning("QxtTabWidget::removeTabAction: Attempt to remove a null action");
-		return;
-	}
+    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
 
-	if (qxt_d().actions[index].removeAll(action))
-	{
-		QActionEvent e(QEvent::ActionRemoved, action);
-		QApplication::sendEvent(this, &e);
-	}
+    if (!action)
+    {
+        qWarning("QxtTabWidget::removeTabAction: Attempt to remove a null action");
+        return;
+    }
+
+    if (qxt_d().actions[index].removeAll(action))
+    {
+        QActionEvent e(QEvent::ActionRemoved, action);
+        QApplication::sendEvent(this, &e);
+    }
 }
 
 /*!
@@ -322,63 +320,63 @@ void QxtTabWidget::removeTabAction(int index, QAction* action)
  */
 QList<QAction*> QxtTabWidget::tabActions(int index) const
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
-	return qxt_d().actions.at(index);
+    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+    return qxt_d().actions.at(index);
 }
 
 void QxtTabWidget::tabInserted(int index)
 {
-	Q_ASSERT(index >= 0 && index <= qxt_d().actions.count());
-	qxt_d().actions.insert(index, Actions());
+    Q_ASSERT(index >= 0 && index <= qxt_d().actions.count());
+    qxt_d().actions.insert(index, Actions());
 }
 
 void QxtTabWidget::tabRemoved(int index)
 {
-	Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
-	qxt_d().actions.removeAt(index);
+    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+    qxt_d().actions.removeAt(index);
 }
 
 void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
 {
-	const QPoint& pos = event->pos();
-	if (!tabBar()->geometry().contains(pos))
-		return QTabWidget::contextMenuEvent(event);
-	
-	const int index = qxt_d().tabIndexAt(event->pos());
-	switch (qxt_d().policy)
-	{
-		case Qt::NoContextMenu:
-			event->ignore();
-			break;
-			
+    const QPoint& pos = event->pos();
+    if (!tabBar()->geometry().contains(pos))
+        return QTabWidget::contextMenuEvent(event);
+
+    const int index = qxt_d().tabIndexAt(event->pos());
+    switch (qxt_d().policy)
+    {
+    case Qt::NoContextMenu:
+        event->ignore();
+        break;
+
 #if QT_VERSION >= 0x040200
-		case Qt::PreventContextMenu:
-			event->accept();
-			break;
+    case Qt::PreventContextMenu:
+        event->accept();
+        break;
 #endif // QT_VERSION
-		
-		case Qt::ActionsContextMenu:
-			if (index != -1 && qxt_d().actions.at(index).count())
-			{
-				QMenu::exec(qxt_d().actions.at(index), event->globalPos());
-			}
-			break;
-			
-		case Qt::CustomContextMenu:
-			if (index != -1)
-			{
-				emit tabContextMenuRequested(index, event->globalPos());
-			}
-			break;
-			
-		case Qt::DefaultContextMenu:
-		default:
-			if (index != -1)
-			{
-				tabContextMenuEvent(index, event);
-			}
-			break;
-	}
+
+    case Qt::ActionsContextMenu:
+        if (index != -1 && qxt_d().actions.at(index).count())
+        {
+            QMenu::exec(qxt_d().actions.at(index), event->globalPos());
+        }
+        break;
+
+    case Qt::CustomContextMenu:
+        if (index != -1)
+        {
+            emit tabContextMenuRequested(index, event->globalPos());
+        }
+        break;
+
+    case Qt::DefaultContextMenu:
+    default:
+        if (index != -1)
+        {
+            tabContextMenuEvent(index, event);
+        }
+        break;
+    }
 }
 
 /*!
@@ -394,6 +392,6 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
  */
 void QxtTabWidget::tabContextMenuEvent(int index, QContextMenuEvent* event)
 {
-	Q_UNUSED(index);
-	event->ignore();
+    Q_UNUSED(index);
+    event->ignore();
 }

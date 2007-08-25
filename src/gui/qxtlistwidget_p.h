@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -31,14 +31,14 @@ class QxtItemDelegate;
 
 class QxtListWidgetPrivate : public QObject, public QxtPrivate<QxtListWidget>
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	QXT_DECLARE_PUBLIC(QxtListWidget);
-	QxtListWidgetPrivate();
-	
+    QXT_DECLARE_PUBLIC(QxtListWidget);
+    QxtListWidgetPrivate();
+
 private slots:
-	void informStartEditing(const QModelIndex& index);
-	void informFinishEditing(const QModelIndex& index);
+    void informStartEditing(const QModelIndex& index);
+    void informFinishEditing(const QModelIndex& index);
 };
 
 #endif // QXTLISTWIDGET_P_H

@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -28,8 +28,8 @@
 
 \ingroup sql
 
-\brief full serialiseable QSqlQuery storage 
- 
+\brief full serialiseable QSqlQuery storage
+
 
 Sometimes you want to set sql results over network or store them into files. QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed
 for confidence the interface is similiar to QSqlQuery.
@@ -45,76 +45,76 @@ for confidence the interface is similiar to QSqlQuery.
 
 class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		QxtSqlPackage(QObject *parent = 0);
-		QxtSqlPackage(const QxtSqlPackage & other,QObject *parent = 0);
+public:
+    QxtSqlPackage(QObject *parent = 0);
+    QxtSqlPackage(const QxtSqlPackage & other,QObject *parent = 0);
 
-		///determinates if the package curently points to a valid row
-		bool isValid();
+    ///determinates if the package curently points to a valid row
+    bool isValid();
 
-		///curent pointer position
-		int at();
+    ///curent pointer position
+    int at();
 
-		/** \brief point to next entry
-		
-		returns false if there is no next entry.\n
-		provided for easy porting from QSqlQuery.
+    /** \brief point to next entry
 
-		\code	
-		while (query.next())
-			{
-			}
-		\endcode 
-		*/
-		bool next();
-		
-		///point to last entry in storage
-		bool last();
+    returns false if there is no next entry.\n
+    provided for easy porting from QSqlQuery.
 
-		///point to first entry in storage
-		bool first();
+    \code	
+    while (query.next())
+    	{
+    	}
+    \endcode 
+    */
+    bool next();
 
-		/** \brief return a cloumn in curent row
-		
-		in contrast to QSqlQuery you have to provide the name of the key.
+    ///point to last entry in storage
+    bool last();
 
-		the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.
-		\code
-		QString name = query.value("name");	
-		\endcode 
-		*/
-		QString value(const QString& key);
+    ///point to first entry in storage
+    bool first();
 
-		/** \brief read from QSqlQuery
-		
-		read out a QSqlQuery and store the result. you may close the query after reading, the data will stay.
+    /** \brief return a cloumn in curent row
 
-		\code
-		QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
-		\endcode 
-		*/		
- 		void insert(QSqlQuery query);
+    in contrast to QSqlQuery you have to provide the name of the key.
 
-		///Returns the number of rows stored
-		int count() const;
+    the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.
+    \code
+    QString name = query.value("name");	
+    \endcode 
+    */
+    QString value(const QString& key);
 
-		///serialise Data
-		QByteArray data() const;
+    /** \brief read from QSqlQuery
 
-		///deserialise data
-		void setData(const QByteArray& data);
+    read out a QSqlQuery and store the result. you may close the query after reading, the data will stay.
 
-		///return a specific row as Hash
-		QHash<QString,QString> hash(int index);
-		///return the curent row as Hash
-		QHash<QString,QString> hash();
-		QxtSqlPackage& operator= (const QxtSqlPackage& other);
+    \code
+    QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
+    \endcode 
+    */
+    void insert(QSqlQuery query);
 
-	private:
-		QList<QHash<QString,QString> > map;
-		int record;
+    ///Returns the number of rows stored
+    int count() const;
+
+    ///serialise Data
+    QByteArray data() const;
+
+    ///deserialise data
+    void setData(const QByteArray& data);
+
+    ///return a specific row as Hash
+    QHash<QString,QString> hash(int index);
+    ///return the curent row as Hash
+    QHash<QString,QString> hash();
+    QxtSqlPackage& operator= (const QxtSqlPackage& other);
+
+private:
+    QList<QHash<QString,QString> > map;
+    int record;
 };
 
 

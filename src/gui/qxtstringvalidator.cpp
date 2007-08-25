@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -31,19 +31,18 @@
 #include <QFlags>
 
 QxtStringValidatorPrivate::QxtStringValidatorPrivate() : isUserModel(false)
-                                                       , model(0)
-                                                       , cs(Qt::CaseSensitive)
-                                                       , lookupColumn(0)
-                                                       , lookupRole(Qt::EditRole)
-                                                       , userFlags(Qt::MatchWrap)
-                                                       , lookupStartModelIndex(QModelIndex())
-{
-}
+        , model(0)
+        , cs(Qt::CaseSensitive)
+        , lookupColumn(0)
+        , lookupRole(Qt::EditRole)
+        , userFlags(Qt::MatchWrap)
+        , lookupStartModelIndex(QModelIndex())
+{}
 
 QModelIndex QxtStringValidatorPrivate::lookupPartialMatch(const QString &value) const
 {
     Qt::MatchFlags matchFlags = Qt::MatchStartsWith| userFlags;
-    if(cs == Qt::CaseSensitive)
+    if (cs == Qt::CaseSensitive)
         matchFlags |= Qt::MatchCaseSensitive;
 
     return lookup(value,matchFlags);
@@ -52,7 +51,7 @@ QModelIndex QxtStringValidatorPrivate::lookupPartialMatch(const QString &value) 
 QModelIndex QxtStringValidatorPrivate::lookupExactMatch(const QString &value) const
 {
     Qt::MatchFlags  matchFlags = Qt::MatchFixedString | userFlags;
-    if(cs == Qt::CaseSensitive)
+    if (cs == Qt::CaseSensitive)
         matchFlags |= Qt::MatchCaseSensitive;
 
     return lookup(value,matchFlags);
@@ -64,7 +63,7 @@ QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::Mat
 
     QModelIndexList list = model->match(startIndex,lookupRole,value,1,matchFlags);
 
-    if(list.size() > 0)
+    if (list.size() > 0)
         return list[0];
     return QModelIndex();
 }
@@ -78,7 +77,7 @@ QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::Mat
     It provides a String based validation in a stringlist or a custom model.
     QxtStringValidator uses QAbstractItemModel::match() to validate the input.
     For a partial match it returns QValidator::Intermediate and for a full match QValidator::Acceptable.
-   
+
     Example usage:
     \code
 
@@ -99,7 +98,7 @@ QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::Mat
  */
 
 /*!
-    Constructs a validator object with a parent object that accepts any string in the stringlist. 
+    Constructs a validator object with a parent object that accepts any string in the stringlist.
 */
 QxtStringValidator::QxtStringValidator(QObject * parent) : QValidator(parent)
 {
@@ -107,8 +106,7 @@ QxtStringValidator::QxtStringValidator(QObject * parent) : QValidator(parent)
 }
 
 QxtStringValidator::~QxtStringValidator(void)
-{
-}
+{}
 
 /*!
     Fixes up the string input if there is no exact match in the stringlist/model.
@@ -118,14 +116,14 @@ void QxtStringValidator::fixup ( QString & input ) const
 {
     qDebug()<<"Fixup called";
 
-    if(!qxt_d().model)
+    if (!qxt_d().model)
         return;
 
-    if(qxt_d().lookupExactMatch(input).isValid())
+    if (qxt_d().lookupExactMatch(input).isValid())
         return;
 
     QModelIndex partialMatch = qxt_d().lookupPartialMatch(input);
-    if(partialMatch.isValid())
+    if (partialMatch.isValid())
         input = partialMatch.data(qxt_d().lookupRole).toString();
 
 }
@@ -137,7 +135,7 @@ void QxtStringValidator::fixup ( QString & input ) const
 void QxtStringValidator::setStringList(const QStringList &stringList)
 {
     //delete model only if it is a model created by us
-    if(qxt_d().model && !qxt_d().isUserModel)
+    if (qxt_d().model && !qxt_d().isUserModel)
     {
         delete qxt_d().model;
         qxt_d().model = 0;
@@ -161,23 +159,23 @@ QValidator::State QxtStringValidator::validate ( QString & input, int & pos ) co
 {
     Q_UNUSED(pos);
 
-     // no model or a empty model has only Acceptable values (like no validator was set)
-    if(!qxt_d().model)
+    // no model or a empty model has only Acceptable values (like no validator was set)
+    if (!qxt_d().model)
         return QValidator::Acceptable;
 
-    if(qxt_d().model->rowCount() == 0)
+    if (qxt_d().model->rowCount() == 0)
         return QValidator::Acceptable;
 
-    if(input.isEmpty())
+    if (input.isEmpty())
         return QValidator::Intermediate;
 
-    if(qxt_d().lookupExactMatch(input).isValid())
+    if (qxt_d().lookupExactMatch(input).isValid())
     {
         qDebug()<<input<<" is QValidator::Acceptable";
         return QValidator::Acceptable;
     }
 
-    if(qxt_d().lookupPartialMatch(input).isValid())
+    if (qxt_d().lookupPartialMatch(input).isValid())
     {
         qDebug()<<input<<" is QValidator::Intermediate";
         return QValidator::Intermediate;
@@ -195,9 +193,9 @@ QValidator::State QxtStringValidator::validate ( QString & input, int & pos ) co
 */
 QModelIndex QxtStringValidator::startModelIndex() const
 {
-    if(qxt_d().isUserModel && qxt_d().model)
+    if (qxt_d().isUserModel && qxt_d().model)
     {
-        if(qxt_d().lookupStartModelIndex.isValid())
+        if (qxt_d().lookupStartModelIndex.isValid())
             return qxt_d().lookupStartModelIndex;
         else
             return qxt_d().model->index(0,0);
@@ -211,7 +209,7 @@ QModelIndex QxtStringValidator::startModelIndex() const
 */
 bool QxtStringValidator::recursiveLookup() const
 {
-    if(qxt_d().userFlags & Qt::MatchRecursive)
+    if (qxt_d().userFlags & Qt::MatchRecursive)
         return true;
     return false;
 }
@@ -222,7 +220,7 @@ bool QxtStringValidator::recursiveLookup() const
 */
 bool QxtStringValidator::wrappingLookup() const
 {
-    if(qxt_d().userFlags & Qt::MatchWrap)
+    if (qxt_d().userFlags & Qt::MatchWrap)
         return true;
     return false;
 }
@@ -233,13 +231,13 @@ bool QxtStringValidator::wrappingLookup() const
 */
 QAbstractItemModel * QxtStringValidator::lookupModel() const
 {
-    if(qxt_d().isUserModel)
+    if (qxt_d().isUserModel)
         return qxt_d().model;
     return 0;
 }
 
 /*!
-    Returns Qt::CaseSensitive if the QxtStringValidator is matched case sensitively; otherwise returns Qt::CaseInsensitive. 
+    Returns Qt::CaseSensitive if the QxtStringValidator is matched case sensitively; otherwise returns Qt::CaseInsensitive.
     \sa setCaseSensitivity().
 */
 Qt::CaseSensitivity QxtStringValidator::caseSensitivity () const
@@ -248,8 +246,8 @@ Qt::CaseSensitivity QxtStringValidator::caseSensitivity () const
 }
 
 /*!
-    Sets case sensitive matching to cs. 
-    If cs is Qt::CaseSensitive, inp matches input but not INPUT. 
+    Sets case sensitive matching to cs.
+    If cs is Qt::CaseSensitive, inp matches input but not INPUT.
     The default is Qt::CaseSensitive.
     \sa caseSensitivity().
 */
@@ -268,7 +266,7 @@ void QxtStringValidator::setCaseSensitivity ( Qt::CaseSensitivity caseSensitivit
 */
 void QxtStringValidator::setStartModelIndex(const QModelIndex &index)
 {
-    if(index.model() == qxt_d().model)
+    if (index.model() == qxt_d().model)
         qxt_d().lookupStartModelIndex = index;
     else
         qWarning()<<"ModelIndex from different model. Ignoring.";
@@ -281,7 +279,7 @@ void QxtStringValidator::setStartModelIndex(const QModelIndex &index)
 */
 void QxtStringValidator::setRecursiveLookup(bool enable)
 {
-    if(enable)
+    if (enable)
         qxt_d().userFlags |= Qt::MatchRecursive;
     else
         qxt_d().userFlags &= ~Qt::MatchRecursive;
@@ -289,14 +287,14 @@ void QxtStringValidator::setRecursiveLookup(bool enable)
 }
 
 /*!
-    If enabled QxtStringValidator performs a search that wraps around, 
+    If enabled QxtStringValidator performs a search that wraps around,
     so that when the search reaches the last item in the model, it begins again at the first item and continues until all items have been examined.
     This is set by default.
     \sa wrappingLookup()
 */
 void QxtStringValidator::setWrappingLookup(bool enable)
 {
-    if(enable)
+    if (enable)
         qxt_d().userFlags |= Qt::MatchWrap;
     else
         qxt_d().userFlags &= ~Qt::MatchWrap;
@@ -309,10 +307,10 @@ void QxtStringValidator::setWrappingLookup(bool enable)
 */
 void QxtStringValidator::setLookupModel(QAbstractItemModel *model)
 {
-    if(!qxt_d().isUserModel && qxt_d().model)
+    if (!qxt_d().isUserModel && qxt_d().model)
     {
         delete qxt_d().model;
-        qxt_d().model = 0; 
+        qxt_d().model = 0;
     }
 
     qxt_d().lookupRole = Qt::EditRole;
@@ -329,7 +327,7 @@ void QxtStringValidator::setLookupModel(QAbstractItemModel *model)
 */
 void QxtStringValidator::setLookupRole(const int role)
 {
-    if(qxt_d().isUserModel)
+    if (qxt_d().isUserModel)
         qxt_d().lookupRole = role;
 }
 

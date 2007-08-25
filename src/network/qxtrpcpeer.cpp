@@ -37,16 +37,16 @@ class QxtIntrospector: public QObject
 // This class MANUALLY implements the necessary parts of QObject.
 // Do NOT add the Q_OBJECT macro. As this class isn't intended
 // for direct use, it doesn't offer any sort of useful meta-object.
-    public:
-        QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char* signal);
+public:
+    QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char* signal);
 
-        int qt_metacall(QMetaObject::Call _c, int _id, void **_a);
+    int qt_metacall(QMetaObject::Call _c, int _id, void **_a);
 
-        QString rpcFunction;
+    QString rpcFunction;
 
-    private:
-        QxtRPCPeer* peer;
-        QList<int> argTypes;
+private:
+    QxtRPCPeer* peer;
+    QList<int> argTypes;
 };
 
 struct QxtRPCConnection
@@ -58,29 +58,29 @@ struct QxtRPCConnection
 
 class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer>
 {
-    public:
-        QXT_DECLARE_PUBLIC(QxtRPCPeer);
+public:
+    QXT_DECLARE_PUBLIC(QxtRPCPeer);
 
-        void receivePeerSignal(QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
-            QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant()) const;
-        void receiveClientSignal(quint64 id, QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
-            QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant()) const;
+    void receivePeerSignal(QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
+                           QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant(), QVariant p8 = QVariant()) const;
+    void receiveClientSignal(quint64 id, QString fn, QVariant p0 = QVariant(), QVariant p1 = QVariant(), QVariant p2 = QVariant(), QVariant p3 = QVariant(),
+                             QVariant p4 = QVariant(), QVariant p5 = QVariant(), QVariant p6 = QVariant(), QVariant p7 = QVariant()) const;
 
-        void processInput(QIODevice* socket, QByteArray& buffer);
+    void processInput(QIODevice* socket, QByteArray& buffer);
 
-        // Object -> introspector for each signal
-        QMultiHash<QObject*, QxtIntrospector*> attachedSignals;
-        // RPC function -> (object, slot ID)
-        typedef QPair<QObject*, int> MethodID;
-        QHash<QString, QList<MethodID> > attachedSlots;
+    // Object -> introspector for each signal
+    QMultiHash<QObject*, QxtIntrospector*> attachedSignals;
+    // RPC function -> (object, slot ID)
+    typedef QPair<QObject*, int> MethodID;
+    QHash<QString, QList<MethodID> > attachedSlots;
 
-        typedef QHash<QObject*, QxtRPCConnection*> ConnHash;
-        ConnHash m_clients;
-        QTcpServer* m_server;
-        QIODevice* m_peer;
+    typedef QHash<QObject*, QxtRPCConnection*> ConnHash;
+    ConnHash m_clients;
+    QTcpServer* m_server;
+    QIODevice* m_peer;
 
-        QByteArray m_buffer;
-        int m_rpctype;
+    QByteArray m_buffer;
+    int m_rpctype;
 };
 
 QxtRPCPeer::QxtRPCPeer(QObject* parent) : QObject(parent)
@@ -139,7 +139,7 @@ QxtRPCPeer::QxtRPCPeer(QIODevice* device, RPCTypes type, QObject* parent) : QObj
 
 void QxtRPCPeer::setRPCType(RPCTypes type)
 {
-    if(qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening())
+    if (qxt_d().m_peer->isOpen () || qxt_d().m_server->isListening())
     {
         qWarning() << "QxtRPCPeer: Cannot change RPC types while connected or listening";
         return;
@@ -156,42 +156,42 @@ QxtRPCPeer::RPCTypes QxtRPCPeer::rpcType() const
 
 void QxtRPCPeer::connect(QHostAddress addr, int port)
 {
-        if(qxt_d().m_rpctype == Server)
-        {
+    if (qxt_d().m_rpctype == Server)
+    {
         qWarning() << "QxtRPCPeer: Cannot connect outward in Server mode";
         return;
-        }
+    }
 
-        QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
-        if(!sock)
-        {
-            qWarning("QxtRPCPeer: cannot connect a custom QIODevice");
-            return;
-        }
+    QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
+    if (!sock)
+    {
+        qWarning("QxtRPCPeer: cannot connect a custom QIODevice");
+        return;
+    }
 
-        if(sock->state()!=QAbstractSocket::UnconnectedState)
-        {
-            qWarning("QxtRPCPeer: Already connected");
-            return;
-        }
+    if (sock->state()!=QAbstractSocket::UnconnectedState)
+    {
+        qWarning("QxtRPCPeer: Already connected");
+        return;
+    }
 
-        sock->connectToHost(addr, port);
+    sock->connectToHost(addr, port);
 }
 
 
 bool QxtRPCPeer::listen(QHostAddress iface, int port)
 {
-    if(qxt_d().m_rpctype == Client)
+    if (qxt_d().m_rpctype == Client)
     {
         qWarning() << "QxtRPCPeer: Cannot listen in Client mode";
         return false;
     }
-    else if(qxt_d().m_rpctype == Peer && qxt_d().m_peer->isOpen ())
+    else if (qxt_d().m_rpctype == Peer && qxt_d().m_peer->isOpen ())
     {
         qWarning() << "QxtRPCPeer: Cannot listen while connected to a peer";
         return false;
     }
-    else if(qxt_d().m_server->isListening())
+    else if (qxt_d().m_server->isListening())
     {
         qWarning() << "QxtRPCPeer: Already listening";
         return false;
@@ -202,27 +202,27 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port)
 
 void QxtRPCPeer::disconnectPeer(quint64 id)
 {
-    if(qxt_d().m_rpctype == Server && id==(quint64)-1)
+    if (qxt_d().m_rpctype == Server && id==(quint64)-1)
     {
         qWarning() << "QxtRPCPeer: Server mode does not have a peer";
         return;
     }
-    else if(qxt_d().m_rpctype!= Server && id!=(quint64)-1)
+    else if (qxt_d().m_rpctype!= Server && id!=(quint64)-1)
     {
         qWarning() << "QxtRPCPeer: Must specify a client ID to disconnect";
         return;
     }
     QxtRPCConnection* conn;
-    if(id==(quint64)-1)
+    if (id==(quint64)-1)
     {
         qxt_d().m_peer->close();
         ///hackaround for qt bug
         QAbstractSocket *s =qobject_cast<QAbstractSocket*>( qxt_d().m_peer);
-        if(s)
+        if (s)
             s->disconnectFromHost();
 
     }
-    else if((conn = qxt_d().m_clients.take((QObject*)(id)))!= 0)
+    else if ((conn = qxt_d().m_clients.take((QObject*)(id)))!= 0)
     {
         conn->socket->disconnectFromHost();
         conn->socket->deleteLater();
@@ -237,11 +237,11 @@ void QxtRPCPeer::disconnectPeer(quint64 id)
 
 void QxtRPCPeer::disconnectAll()
 {
-    if(qxt_d().m_rpctype!= Server)
+    if (qxt_d().m_rpctype!= Server)
         disconnectPeer();
     else
     {
-        for(QxtRPCPeerPrivate::ConnHash::const_iterator i = qxt_d().m_clients.constBegin(); i!= qxt_d().m_clients.constEnd(); i++)
+        for (QxtRPCPeerPrivate::ConnHash::const_iterator i = qxt_d().m_clients.constBegin(); i!= qxt_d().m_clients.constEnd(); i++)
         {
             (*i)->socket->deleteLater();
             delete *i;
@@ -253,7 +253,7 @@ void QxtRPCPeer::disconnectAll()
 
 void QxtRPCPeer::stopListening()
 {
-    if(!qxt_d().m_server->isListening())
+    if (!qxt_d().m_server->isListening())
     {
         qWarning() << "QxtRPCPeer: Not listening";
         return;
@@ -267,7 +267,7 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, const QByteAr
     const QMetaObject* meta = sender->metaObject();
     QByteArray sig(meta->normalizedSignature(signal).mid(1));
     int methodID = meta->indexOfMethod(sig.constData());
-    if(methodID == -1 || meta->method(methodID).methodType() != QMetaMethod::Signal)
+    if (methodID == -1 || meta->method(methodID).methodType() != QMetaMethod::Signal)
     {
         qWarning() << "QxtRPCPeer::attachSignal: No such signal " << signal;
         return false;
@@ -275,16 +275,16 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, const QByteAr
 
 
     QxtIntrospector* spec = new QxtIntrospector(this, sender, signal);
-    if(!rpcFunction.isEmpty())
+    if (!rpcFunction.isEmpty())
     {
         if (QxtMetaObject::isSignalOrSlot(rpcFunction.constData()))
-                {
-                spec->rpcFunction = QMetaObject::normalizedSignature(signal);
-                }
+        {
+            spec->rpcFunction = QMetaObject::normalizedSignature(signal);
+        }
         else
-                {
-                spec->rpcFunction  = rpcFunction.simplified();
-                }
+        {
+            spec->rpcFunction  = rpcFunction.simplified();
+        }
     }
     else
     {
@@ -299,22 +299,22 @@ bool QxtRPCPeer::attachSlot(const QByteArray& rpcFunction, QObject* recv, const 
 {
     const QMetaObject* meta = recv->metaObject();
     int methodID = meta->indexOfMethod(meta->normalizedSignature(slot).mid(1));
-    if(methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method)
+    if (methodID == -1 || meta->method(methodID).methodType() == QMetaMethod::Method)
     {
         qWarning() << "QxtRPCPeer::attachSlot: No such slot " << slot;
         return false;
     }
 
     QString fn;
-  
-        if (QxtMetaObject::isSignalOrSlot(rpcFunction.constData()))
-                {
-                fn = QMetaObject::normalizedSignature(rpcFunction.constData());
-                }
-        else
-                {
-                fn = rpcFunction.simplified();
-                }
+
+    if (QxtMetaObject::isSignalOrSlot(rpcFunction.constData()))
+    {
+        fn = QMetaObject::normalizedSignature(rpcFunction.constData());
+    }
+    else
+    {
+        fn = rpcFunction.simplified();
+    }
 
     qxt_d().attachedSlots[fn].append(QPair<QObject*, int>(recv, recv->metaObject()->indexOfMethod(recv->metaObject()->normalizedSignature(slot).mid(1))));
     return true;
@@ -333,10 +333,10 @@ void QxtRPCPeer::detachObject(QObject* obj)
     qxt_d().attachedSignals.remove(obj);
     foreach(QString slot, qxt_d().attachedSlots.keys())
     {
-        for(QList<QPair<QObject*, int> >::iterator i(qxt_d().attachedSlots[slot].begin());
-            i!= qxt_d().attachedSlots[slot].end(); )
+        for (QList<QPair<QObject*, int> >::iterator i(qxt_d().attachedSlots[slot].begin());
+                i!= qxt_d().attachedSlots[slot].end(); )
         {
-            if((*i).first == obj)
+            if ((*i).first == obj)
                 i = qxt_d().attachedSlots[slot].erase(i);
             else
                 i++;
@@ -351,25 +351,25 @@ QByteArray QxtRPCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant 
     QDataStream str(&rv, QIODevice::WriteOnly);
     str << fn;
     unsigned char ct = 9;
-    if(p1.isNull()) ct = 0;
-    else if(p2.isNull()) ct = 1;
-    else if(p3.isNull()) ct = 2;
-    else if(p4.isNull()) ct = 3;
-    else if(p5.isNull()) ct = 4;
-    else if(p6.isNull()) ct = 5;
-    else if(p7.isNull()) ct = 6;
-    else if(p8.isNull()) ct = 7;
-    else if(p9.isNull()) ct = 8;
+    if (p1.isNull()) ct = 0;
+    else if (p2.isNull()) ct = 1;
+    else if (p3.isNull()) ct = 2;
+    else if (p4.isNull()) ct = 3;
+    else if (p5.isNull()) ct = 4;
+    else if (p6.isNull()) ct = 5;
+    else if (p7.isNull()) ct = 6;
+    else if (p8.isNull()) ct = 7;
+    else if (p9.isNull()) ct = 8;
     str << ct;
-    if(ct--) str << p1;
-    if(ct--) str << p2;
-    if(ct--) str << p3;
-    if(ct--) str << p4;
-    if(ct--) str << p5;
-    if(ct--) str << p6;
-    if(ct--) str << p7;
-    if(ct--) str << p8;
-    if(ct--) str << p9;
+    if (ct--) str << p1;
+    if (ct--) str << p2;
+    if (ct--) str << p3;
+    if (ct--) str << p4;
+    if (ct--) str << p5;
+    if (ct--) str << p6;
+    if (ct--) str << p7;
+    if (ct--) str << p8;
+    if (ct--) str << p9;
     rv.replace(QByteArray("\\"), QByteArray("\\\\"));
     rv.replace(QByteArray("\n"), QByteArray("\\n"));
     rv.append("\n");
@@ -383,7 +383,7 @@ void QxtRPCPeer::call(const char * signal , QVariant p1, QVariant p2, QVariant p
     QByteArray sig=QMetaObject::normalizedSignature(signal);
 
     QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
-    if(!qxt_d().m_peer->isOpen () || ( sock && sock->state()!=QAbstractSocket::ConnectedState ))
+    if (!qxt_d().m_peer->isOpen () || ( sock && sock->state()!=QAbstractSocket::ConnectedState ))
     {
         qWarning("can't call on a closed device");
         return;
@@ -398,7 +398,7 @@ void QxtRPCPeer::callClientList(QList<quint64> ids, QString fn, QVariant p1, QVa
     foreach(quint64 id, ids)
     {
         QxtRPCConnection* conn = qxt_d().m_clients.value((QObject*)(id));
-        if(!conn)
+        if (!conn)
         {
             qWarning() << "QxtRPCPeer: no client with id" << id;
         }
@@ -458,9 +458,9 @@ void QxtRPCPeerPrivate::receiveClientSignal(quint64 id, QString fn, QVariant p0,
 void QxtRPCPeer::newConnection()
 {
     QTcpSocket* next = qxt_d().m_server->nextPendingConnection();
-    if(qxt_d().m_rpctype == QxtRPCPeer::Peer)
+    if (qxt_d().m_rpctype == QxtRPCPeer::Peer)
     {
-        if(qxt_d().m_peer->isOpen ())
+        if (qxt_d().m_peer->isOpen ())
         {
             qWarning() << "QxtRPCPeer: Rejected connection from " << next->peerAddress().toString() << "; another peer is connected";
             next->disconnectFromHost();
@@ -493,7 +493,7 @@ void QxtRPCPeer::newConnection()
 
 void QxtRPCPeer::dataAvailable()
 {
-    if(qxt_d().m_rpctype!=QxtRPCPeer::Server && qxt_d().m_peer==sender())
+    if (qxt_d().m_rpctype!=QxtRPCPeer::Server && qxt_d().m_peer==sender())
     {
         qxt_d().m_buffer.append(qxt_d().m_peer->readAll());
         qxt_d().processInput(qxt_d().m_peer, qxt_d().m_buffer);
@@ -502,7 +502,7 @@ void QxtRPCPeer::dataAvailable()
     else
     {
         QxtRPCConnection* conn = qxt_d().m_clients.value(sender());
-        if(!conn)
+        if (!conn)
         {
             qWarning() << "QxtRPCPeer: Unrecognized client object connected to dataAvailable";
             return;
@@ -518,9 +518,9 @@ void QxtRPCPeer::dataAvailable()
 void QxtRPCPeer::disconnectSender()
 {
     QxtRPCConnection* conn = qxt_d().m_clients.value(sender());
-    if(!conn)
+    if (!conn)
     {
-        if(qxt_d().m_peer!= qobject_cast<QTcpSocket*>(sender()))
+        if (qxt_d().m_peer!= qobject_cast<QTcpSocket*>(sender()))
         {
             qWarning() << "QxtRPCPeer: Unrecognized object connected to disconnectSender";
             return;
@@ -543,15 +543,15 @@ void QxtRPCPeer::disconnectSender()
 
 void QxtRPCPeerPrivate::processInput(QIODevice* socket, QByteArray& buffer)
 {
-    while(qxt_p().canDeserialize(buffer))
+    while (qxt_p().canDeserialize(buffer))
     {
         QPair<QString, QList<QVariant> > sig = qxt_p().deserialize(buffer);
-        if(sig.first.isEmpty())
+        if (sig.first.isEmpty())
         {
-            if(sig.second.count())
+            if (sig.second.count())
             {
                 qWarning() << "QxtRPCPeer: Invalid data received; disconnecting";
-                if(socket == m_peer)
+                if (socket == m_peer)
                     qxt_p().disconnectPeer();
                 else
                     qxt_p().disconnectPeer((quint64)(socket));
@@ -559,8 +559,8 @@ void QxtRPCPeerPrivate::processInput(QIODevice* socket, QByteArray& buffer)
             }
             continue;
         }
-        while(sig.second.count() < 9) sig.second << QVariant();
-        if(socket == m_peer)
+        while (sig.second.count() < 9) sig.second << QVariant();
+        if (socket == m_peer)
         {
             receivePeerSignal(sig.first, sig.second[0], sig.second[1], sig.second[2], sig.second[3], sig.second[4], sig.second[5], sig.second[6], sig.second[7], sig.second[8]);
         }
@@ -587,7 +587,7 @@ QxtIntrospector::QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char
     QByteArray sig_ba = QMetaObject::normalizedSignature(QByteArray(signal).mid(1));
     const char * sig=sig_ba.constData();
     int idx = source->metaObject()->indexOfSignal(sig);
-    if(idx<0)
+    if (idx<0)
         qWarning("no such signal: %s",sig_ba.constData());
 
 // Our "method" will have the first ID not used by the superclass.
@@ -595,7 +595,7 @@ QxtIntrospector::QxtIntrospector(QxtRPCPeer* parent, QObject* source, const char
     QObject::connect(source, SIGNAL(destroyed()), peer, SLOT(detachSender()));
     QList<QByteArray> p = source->metaObject()->method(idx).parameterTypes();
     int ct = p.count();
-    for(int i=0; i<ct; i++) argTypes.append(QMetaType::type(p.value(i).constData()));
+    for (int i=0; i<ct; i++) argTypes.append(QMetaType::type(p.value(i).constData()));
 }
 
 
@@ -606,11 +606,11 @@ int QxtIntrospector::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod)
     {
-        if(_id==0)
+        if (_id==0)
         {
             QVariant v[9];
             int n = argTypes.size();
-            for(int i=0; i<n; i++) v[i] = QVariant(argTypes[i], _a[i+1]);
+            for (int i=0; i<n; i++) v[i] = QVariant(argTypes[i], _a[i+1]);
             peer->call(rpcFunction.toUtf8().constData(), v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8]);
         }
         _id -= 1;
@@ -625,7 +625,7 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data)
     int pos = data.indexOf('\n');
     cmd = data.left(pos-1);
     data = data.mid(pos+1);
-    if(cmd.length()==0) return qMakePair(QString(), QList<QVariant>());
+    if (cmd.length()==0) return qMakePair(QString(), QList<QVariant>());
     cmd.replace(QByteArray("\\n"), QByteArray("\n"));
     cmd.replace(QByteArray("\\\\"), QByteArray("\\"));
     QDataStream str(cmd);
@@ -635,13 +635,13 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data)
     QVariant t;
     str >> signal >> argCount;
 
-    if(str.status() == QDataStream::ReadCorruptData)
+    if (str.status() == QDataStream::ReadCorruptData)
     {
         v << QVariant();
         return qMakePair(QString(), v);
     }
 
-    for(int i=0; i<argCount; i++)
+    for (int i=0; i<argCount; i++)
     {
         str >> t;
         v << t;
@@ -664,9 +664,9 @@ bool QxtRPCPeer::canDeserialize(const QByteArray& buffer) const
 
 
 QIODevice * QxtRPCPeer::socket()
-        {
-        if(qxt_d().m_rpctype == Server)return 0;
-        return qxt_d().m_peer;
-        }
+{
+    if (qxt_d().m_rpctype == Server)return 0;
+    return qxt_d().m_peer;
+}
 
 

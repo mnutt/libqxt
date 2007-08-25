@@ -10,24 +10,25 @@
 class QSocketNotifier;
 class QxtNamedPipe;
 
-class QxtNamedPipePrivate : public QObject, public QxtPrivate<QxtNamedPipe> 
+class QxtNamedPipePrivate : public QObject, public QxtPrivate<QxtNamedPipe>
 {
     Q_OBJECT
-    public:
-        QxtNamedPipePrivate(){}
-        QXT_DECLARE_PUBLIC(QxtNamedPipe);
-        QString pipeName;
-        HANDLE win32Handle;
-        int fd;
-        bool serverMode;
-        QSocketNotifier * notify;
-        QByteArray readBuffer;
+public:
+    QxtNamedPipePrivate()
+    {}
+    QXT_DECLARE_PUBLIC(QxtNamedPipe);
+    QString pipeName;
+    HANDLE win32Handle;
+    int fd;
+    bool serverMode;
+    QSocketNotifier * notify;
+    QByteArray readBuffer;
 
-    signals:
-        void readyRead();
+signals:
+    void readyRead();
 
-    public slots:
-        void bytesAvailable();
+public slots:
+    void bytesAvailable();
 
 };
 

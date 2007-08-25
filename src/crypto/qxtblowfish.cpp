@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -34,7 +34,7 @@
 \ingroup crypto
 
 \brief  Blowfish Encryption Class
- 
+
 
 useage:
 \code
@@ -53,86 +53,86 @@ a= fish.decrypt(a);
 
 
 QxtBlowFish::QxtBlowFish(QObject * parent) :QObject(parent)
-	{
-	key=new BF_KEY;
-	}
+{
+    key=new BF_KEY;
+}
 
 QxtBlowFish::~QxtBlowFish()
-	{
-	delete(key);
-	}
+{
+    delete(key);
+}
 
 
-void QxtBlowFish::setPassword(QByteArray k ) 
-	{
-	BF_set_key(key, k.count() , (unsigned char *)k.constData ());
-	}
+void QxtBlowFish::setPassword(QByteArray k )
+{
+    BF_set_key(key, k.count() , (unsigned char *)k.constData ());
+}
 
 
 
 QByteArray  QxtBlowFish::encrypt(QByteArray in)
-	{
-	QByteArray out(in);
-	int num =0;
-	unsigned char  ivec [9];
-	ivec[0]=(unsigned char )3887;
-	ivec[1]=(unsigned char )3432;
-	ivec[2]=(unsigned char )3887;
-	ivec[3]=(unsigned char )2344;
-	ivec[4]=(unsigned char )678;
-	ivec[5]=(unsigned char )3887;
-	ivec[6]=(unsigned char )575;
-	ivec[7]=(unsigned char )2344;
-	ivec[8]=(unsigned char )2222;
+{
+    QByteArray out(in);
+    int num =0;
+    unsigned char  ivec [9];
+    ivec[0]=(unsigned char )3887;
+    ivec[1]=(unsigned char )3432;
+    ivec[2]=(unsigned char )3887;
+    ivec[3]=(unsigned char )2344;
+    ivec[4]=(unsigned char )678;
+    ivec[5]=(unsigned char )3887;
+    ivec[6]=(unsigned char )575;
+    ivec[7]=(unsigned char )2344;
+    ivec[8]=(unsigned char )2222;
 
 
-	BF_cfb64_encrypt(
-		(unsigned char *)in.constData (),
-		(unsigned char *)out.data(),
-                in.size(),
-		key,
-		ivec,
-		&num,
-                BF_ENCRYPT
-		);
+    BF_cfb64_encrypt(
+        (unsigned char *)in.constData (),
+        (unsigned char *)out.data(),
+        in.size(),
+        key,
+        ivec,
+        &num,
+        BF_ENCRYPT
+    );
 
 
-	out=out.toBase64();
-	return out;
+    out=out.toBase64();
+    return out;
 
-	}
+}
 
 
 QByteArray  QxtBlowFish::decrypt(QByteArray in)
 
-	{
-	in=QByteArray::fromBase64(in);
-	
-	QByteArray out(in);
-	
-	int num =0;
-	unsigned char  ivec [9];
-	ivec[0]=(unsigned char )3887;
-	ivec[1]=(unsigned char )3432;
-	ivec[2]=(unsigned char )3887;
-	ivec[3]=(unsigned char )2344;
-	ivec[4]=(unsigned char )678;
-	ivec[5]=(unsigned char )3887;
-	ivec[6]=(unsigned char )575;
-	ivec[7]=(unsigned char )2344;
-	ivec[8]=(unsigned char )2222;
-	
-	
-	BF_cfb64_encrypt(
-		(unsigned char *)in.constData (),
-		(unsigned char *)out.data(),
-                in.size(),
-		key,
-		ivec,
-		&num,
-		BF_DECRYPT
-		);
+{
+    in=QByteArray::fromBase64(in);
+
+    QByteArray out(in);
+
+    int num =0;
+    unsigned char  ivec [9];
+    ivec[0]=(unsigned char )3887;
+    ivec[1]=(unsigned char )3432;
+    ivec[2]=(unsigned char )3887;
+    ivec[3]=(unsigned char )2344;
+    ivec[4]=(unsigned char )678;
+    ivec[5]=(unsigned char )3887;
+    ivec[6]=(unsigned char )575;
+    ivec[7]=(unsigned char )2344;
+    ivec[8]=(unsigned char )2222;
 
 
-	return out;
-	}
+    BF_cfb64_encrypt(
+        (unsigned char *)in.constData (),
+        (unsigned char *)out.data(),
+        in.size(),
+        key,
+        ivec,
+        &num,
+        BF_DECRYPT
+    );
+
+
+    return out;
+}

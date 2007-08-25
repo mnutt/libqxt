@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -28,22 +28,21 @@
 class QxtGroupBoxPrivate : public QxtPrivate<QxtGroupBox>
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtGroupBox);
-	
-	QxtGroupBoxPrivate();
-	void init();
-	bool collapsive;
+    QXT_DECLARE_PUBLIC(QxtGroupBox);
+
+    QxtGroupBoxPrivate();
+    void init();
+    bool collapsive;
 };
 
 QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true)
-{
-}
+{}
 
 void QxtGroupBoxPrivate::init()
 {
-	qxt_p().setCheckable(true);
-	qxt_p().setChecked(true);
-	QObject::connect(&qxt_p(), SIGNAL(toggled(bool)), &qxt_p(), SLOT(setExpanded(bool)));
+    qxt_p().setCheckable(true);
+    qxt_p().setChecked(true);
+    QObject::connect(&qxt_p(), SIGNAL(toggled(bool)), &qxt_p(), SLOT(setExpanded(bool)));
 }
 
 /*!
@@ -62,28 +61,27 @@ void QxtGroupBoxPrivate::init()
     Constructs a new QxtGroupBox with \a parent.
  */
 QxtGroupBox::QxtGroupBox(QWidget* parent)
-	: QGroupBox(parent)
+        : QGroupBox(parent)
 {
-	QXT_INIT_PRIVATE(QxtGroupBox);
-	qxt_d().init();
+    QXT_INIT_PRIVATE(QxtGroupBox);
+    qxt_d().init();
 }
 
 /*!
     Constructs a new QxtGroupBox with \a title and \a parent.
  */
 QxtGroupBox::QxtGroupBox(const QString& title, QWidget* parent)
-	: QGroupBox(title, parent)
+        : QGroupBox(title, parent)
 {
-	QXT_INIT_PRIVATE(QxtGroupBox);
-	qxt_d().init();
+    QXT_INIT_PRIVATE(QxtGroupBox);
+    qxt_d().init();
 }
 
 /*!
     Destructs the group box.
  */
 QxtGroupBox::~QxtGroupBox()
-{
-}
+{}
 
 /*!
     \property QxtGroupBox::collapsive
@@ -91,19 +89,19 @@ QxtGroupBox::~QxtGroupBox()
  */
 bool QxtGroupBox::isCollapsive() const
 {
-	return qxt_d().collapsive;
+    return qxt_d().collapsive;
 }
 
 void QxtGroupBox::setCollapsive(bool enable)
 {
-	if (qxt_d().collapsive != enable)
-	{
-		qxt_d().collapsive = enable;
-		if (!enable)
-			setExpanded(true);
-		else if (!isChecked())
-			setExpanded(false);
-	}
+    if (qxt_d().collapsive != enable)
+    {
+        qxt_d().collapsive = enable;
+        if (!enable)
+            setExpanded(true);
+        else if (!isChecked())
+            setExpanded(false);
+    }
 }
 
 /*!
@@ -115,7 +113,7 @@ void QxtGroupBox::setCollapsive(bool enable)
  */
 void QxtGroupBox::setCollapsed(bool collapsed)
 {
-	setExpanded(!collapsed);
+    setExpanded(!collapsed);
 }
 
 /*!
@@ -127,25 +125,25 @@ void QxtGroupBox::setCollapsed(bool collapsed)
  */
 void QxtGroupBox::setExpanded(bool expanded)
 {
-	if (qxt_d().collapsive || expanded)
-	{
-		// show/hide direct children
-		foreach (QObject* child, children())
-		{
-			if (child->isWidgetType())
-				static_cast<QWidget*>(child)->setVisible(expanded);
-		}
-		setFlat(!expanded);
-	}
+    if (qxt_d().collapsive || expanded)
+    {
+        // show/hide direct children
+        foreach (QObject* child, children())
+        {
+            if (child->isWidgetType())
+                static_cast<QWidget*>(child)->setVisible(expanded);
+        }
+        setFlat(!expanded);
+    }
 }
 
 void QxtGroupBox::childEvent(QChildEvent* event)
 {
-	QObject* child = event->child();
-	if (event->added() && child->isWidgetType())
-	{
-		QWidget* widget = static_cast<QWidget*>(child);
-		if (qxt_d().collapsive && !isChecked())
-			widget->hide();
-	}
+    QObject* child = event->child();
+    if (event->added() && child->isWidgetType())
+    {
+        QWidget* widget = static_cast<QWidget*>(child);
+        if (qxt_d().collapsive && !isChecked())
+            widget->hide();
+    }
 }

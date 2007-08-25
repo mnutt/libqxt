@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
 **
 ****************************************************************************/
@@ -37,29 +37,25 @@
 
 
 QxtTableWidgetItem::QxtTableWidgetItem(int type)
-	: QTableWidgetItem(type)
-{
-}
+        : QTableWidgetItem(type)
+{}
 
 QxtTableWidgetItem::QxtTableWidgetItem(const QString& text, int type)
-	: QTableWidgetItem(text, type)
-{
-}
+        : QTableWidgetItem(text, type)
+{}
 
 QxtTableWidgetItem::QxtTableWidgetItem(const QIcon& icon, const QString& text, int type)
-	: QTableWidgetItem(text, type)
+        : QTableWidgetItem(text, type)
 {
-	setIcon(icon); // for 4.1 compatibility
+    setIcon(icon); // for 4.1 compatibility
 }
 
 QxtTableWidgetItem::QxtTableWidgetItem(const QTableWidgetItem& other)
-	: QTableWidgetItem(other)
-{
-}
+        : QTableWidgetItem(other)
+{}
 
 QxtTableWidgetItem::~QxtTableWidgetItem()
-{
-}
+{}
 
 /*!
     Returns \b true if the \a flag is set, otherwise \b false.
@@ -68,7 +64,7 @@ QxtTableWidgetItem::~QxtTableWidgetItem()
  */
 bool QxtTableWidgetItem::testFlag(Qt::ItemFlag flag) const
 {
-	return (flags() & flag);
+    return (flags() & flag);
 }
 
 /*!
@@ -78,32 +74,32 @@ bool QxtTableWidgetItem::testFlag(Qt::ItemFlag flag) const
  */
 void QxtTableWidgetItem::setFlag(Qt::ItemFlag flag, bool enabled)
 {
-	if (enabled)
-		setFlags(flags() | flag);
-	else
-		setFlags(flags() & ~flag);
+    if (enabled)
+        setFlags(flags() | flag);
+    else
+        setFlags(flags() & ~flag);
 }
 
 void QxtTableWidgetItem::setData(int role, const QVariant& value)
 {
-	if (role == Qt::CheckStateRole)
-	{
-		const Qt::CheckState newState = static_cast<Qt::CheckState>(value.toInt());
-		const Qt::CheckState oldState = static_cast<Qt::CheckState>(data(role).toInt());
-		
-		QTableWidgetItem::setData(role, value);
-		
-		if (newState != oldState)
-		{
-			QxtTableWidget* table = qobject_cast<QxtTableWidget*>(tableWidget());
-			if (table)
-			{
-				emit table->itemCheckStateChanged(this);
-			}
-		}
-	}
-	else
-	{
-		QTableWidgetItem::setData(role, value);
-	}
+    if (role == Qt::CheckStateRole)
+    {
+        const Qt::CheckState newState = static_cast<Qt::CheckState>(value.toInt());
+        const Qt::CheckState oldState = static_cast<Qt::CheckState>(data(role).toInt());
+
+        QTableWidgetItem::setData(role, value);
+
+        if (newState != oldState)
+        {
+            QxtTableWidget* table = qobject_cast<QxtTableWidget*>(tableWidget());
+            if (table)
+            {
+                emit table->itemCheckStateChanged(this);
+            }
+        }
+    }
+    else
+    {
+        QTableWidgetItem::setData(role, value);
+    }
 }
