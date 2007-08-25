@@ -39,6 +39,10 @@ namespace QxtMetaObject
 {
     QByteArray methodName(const char* method);
     QByteArray methodSignature(const char* method);
+
+    bool isSignalOrSlot (const char* method);
+
+
     QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
     QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
     template <typename FP>

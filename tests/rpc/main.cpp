@@ -7,6 +7,7 @@
 #include <QBuffer>
 #include <QDebug>
 #include <QByteArray>
+#include <QTcpSocket>
 
 class RPCTest: public QObject
 	{
@@ -17,6 +18,8 @@ class RPCTest: public QObject
         signals:
                 void wave(QString);
                 void counterwave(QString);
+                void networkedwave(quint64,QString);
+
 
 	private slots:
  		void initTestCase(){ }
@@ -37,7 +40,6 @@ class RPCTest: public QObject
 
 			QCoreApplication::processEvents ();
 			QCoreApplication::processEvents ();
-
 
 			QVERIFY2 (spyr.count()> 0, "buffer not emitting readyRead" );
 
@@ -74,7 +76,7 @@ class RPCTest: public QObject
                 void TcpServerIo()
                         { 
                         QxtRPCPeer server(QxtRPCPeer::Server);
-                        QVERIFY2(server.attachSlot (SIGNAL(wave(QString)),this,SIGNAL(counterwave(QString))),"cannot attach slot"); 
+                        QVERIFY2(server.attachSlot (SIGNAL(wave(QString)),this,SIGNAL(networkedwave(quint64,QString))),"cannot attach slot"); 
 
 
                         QVERIFY(server.listen (QHostAddress::LocalHost, 23444)); 
@@ -82,23 +84,23 @@ class RPCTest: public QObject
 
                         QxtRPCPeer client(QxtRPCPeer::Client);
                         client.connect (QHostAddress::LocalHost, 23444);
+                        QVERIFY(qobject_cast<QTcpSocket*>(client.socket())->waitForConnected ( 30000 ));
 
-                        QSignalSpy spy(this, SIGNAL(counterwave(QString)));
-                        QSignalSpy cspy(&server, SIGNAL(peerConnected ()));
 
-                        client.call(SIGNAL(wave   ( QString   )  ),QString("world"));
+                        QSignalSpy spy(this, SIGNAL(networkedwave(quint64,QString)));
+                        client.call(SIGNAL(wave(QString)),QString("world"));
+
 
                         QCoreApplication::processEvents ();
                         QCoreApplication::processEvents ();
                         QCoreApplication::processEvents ();
 
 
-                        QVERIFY2 (cspy.count()> 0, "peerConnected() not emited" );
                         QVERIFY2 (spy.count()> 0, "no signal received" );
                         QVERIFY2 (spy.count()< 2, "wtf, two signals received?" );
 
                         QList<QVariant> arguments = spy.takeFirst();
-                        QVERIFY2(arguments.at(0).toString()=="world","argument missmatch");
+                        QVERIFY2(arguments.at(1).toString()=="world","argument missmatch");
                         }
         void cleanupTestCase(){ }
 
