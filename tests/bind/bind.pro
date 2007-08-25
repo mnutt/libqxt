@@ -1,5 +1,7 @@
 TEMPLATE = app
-CONFIG += qxt
-QXT = core
-HEADERS += test.h
-SOURCES += test.cpp
+TARGET = 
+DEPENDPATH += .
+INCLUDEPATH += .
+CONFIG+=QXT qtestlib
+QXT+=core
+SOURCES += main.cpp
