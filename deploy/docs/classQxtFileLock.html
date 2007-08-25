@@ -33,15 +33,15 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtFileLock Class Reference<br>
 <small>
 [<a class="el" href="group__core.html">Core</a>]</small>
-</h1><!-- doxytag: class="QxtFileLock" -->Lock regions of, or a whole file.  
+</h1><!-- doxytag: class="QxtFileLock" -->The <a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> class provides a crossplattform way to lock a QFile.  
 <a href="#_details">More...</a>
 <p>
 <h3>Public Types</h3>
 <ul>
-<li>enum <b>Mode</b> { <b>ReadLockWait</b>, 
-<b>ReadLock</b>, 
-<b>WriteLockWait</b>, 
-<b>WriteLock</b>
+<li>enum <a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">Mode</a> { <a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3">ReadLockWait</a>, 
+<a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00">ReadLock</a>, 
+<a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d">WriteLockWait</a>, 
+<a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22">WriteLock</a>
  }
 </ul>
 <h3>Public Slots</h3>
@@ -53,18 +53,12 @@ bool <b>unlock</b> ()
 </ul>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="anchor" name="bd47ac230f3f7119531d4efcfda30a97"></a><!-- doxytag: member="QxtFileLock::QxtFileLock" ref="bd47ac230f3f7119531d4efcfda30a97" args="(QFile *file, const off_t offset, const off_t length, const QxtFileLock::Mode mode=WriteLockWait)" -->
-<b>QxtFileLock</b> (QFile *file, const off_t offset, const off_t length, const QxtFileLock::Mode mode=WriteLockWait)
-<li><a class="anchor" name="13be30b843f140b4e775e3896ae00dc8"></a><!-- doxytag: member="QxtFileLock::offset" ref="13be30b843f140b4e775e3896ae00dc8" args="() const" -->
-off_t <b>offset</b> () const
-<li><a class="anchor" name="0637bd4f28745f8e9d297eae04637c04"></a><!-- doxytag: member="QxtFileLock::length" ref="0637bd4f28745f8e9d297eae04637c04" args="() const" -->
-off_t <b>length</b> () const
-<li><a class="anchor" name="f59d41e142a8689e9a2ba3da49d357f4"></a><!-- doxytag: member="QxtFileLock::isActive" ref="f59d41e142a8689e9a2ba3da49d357f4" args="() const" -->
-bool <b>isActive</b> () const
-<li><a class="anchor" name="024bff1787eb6f4264a93085b871a1d7"></a><!-- doxytag: member="QxtFileLock::file" ref="024bff1787eb6f4264a93085b871a1d7" args="() const" -->
-QFile * <b>file</b> () const
-<li><a class="anchor" name="e80f6a11c4ff3ad88de41027ebd67426"></a><!-- doxytag: member="QxtFileLock::mode" ref="e80f6a11c4ff3ad88de41027ebd67426" args="() const" -->
-QxtFileLock::Mode <b>mode</b> () const
+<li><a class="el" href="classQxtFileLock.html#bd47ac230f3f7119531d4efcfda30a97">QxtFileLock</a> (QFile *file, const off_t offset, const off_t length, const <a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">QxtFileLock::Mode</a> mode=WriteLockWait)
+<li>off_t <a class="el" href="classQxtFileLock.html#13be30b843f140b4e775e3896ae00dc8">offset</a> () const
+<li>off_t <a class="el" href="classQxtFileLock.html#0637bd4f28745f8e9d297eae04637c04">length</a> () const
+<li>bool <a class="el" href="classQxtFileLock.html#f59d41e142a8689e9a2ba3da49d357f4">isActive</a> () const
+<li>QFile * <a class="el" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a> () const
+<li><a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">QxtFileLock::Mode</a> <a class="el" href="classQxtFileLock.html#e80f6a11c4ff3ad88de41027ebd67426">mode</a> () const
 </ul>
 <h3>Friends</h3>
 <ul>
@@ -72,11 +66,160 @@ QxtFileLock::Mode <b>mode</b> () const
 class <b>QxtFileLockPrivate</b>
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-Lock regions of, or a whole file. 
+The <a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> class provides a crossplattform way to lock a QFile. 
 <p>
-<dl class="warning" compact><dt><b>Warning:</b></dt><dd>not part of 0.2.4 </dd></dl>
+It supports the range locking of a file. The File will take parentship of the lock.<br>
+ The lock gets cleaned up with the QFile, and it is released when the QFile is closed.<br>
+<p>
+Example usage: <div class="fragment"><pre class="fragment"> off_t lockstart = 0x10;
+ off_t locklength = 30
+ 
+ QFile <a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>(<span class="stringliteral">"test.lock"</span>);
+ 
+ <span class="comment">//the lock gets deleted when file is cleaned up</span>
+ <a class="code" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> * writeLock = <span class="keyword">new</span> <a class="code" href="classQxtFileLock.html#bd47ac230f3f7119531d4efcfda30a97">QxtFileLock</a>(&amp;<a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>,lockstart,locklength,<a class="code" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22" title="A non blocking write lock.">QxtFileLock::WriteLock</a>);
+ <span class="keywordflow">if</span>(<a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>.open(QIODevice::ReadWrite))
+ {
+     <span class="keywordflow">if</span>(writeLock-&gt;<a class="code" href="classQxtFileLock.html#84af0691c49c83fb6d3c3352c56ba48f">lock</a>())
+     {
+          <span class="comment">// some write operations</span>
+         writeLock-&gt;<a class="code" href="classQxtFileLock.html#e9e31b41e41520c29cf64634d099cf05">unlock</a>();
+     }
+      <span class="keywordflow">else</span>
+          <span class="comment">//lock failed </span>
+ }
+</pre></div> <dl class="note" compact><dt><b>Note:</b></dt><dd><a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> behaves different than normal unix locks on *nix. A thread can writelock the region of a file only ONCE if it uses two different handles. A different thread can not writelock a region that is owned by a other thread even if it is the SAME process. <p>
+On *nix this class uses fctnl to lock the file. This may not be compatible to other locking functions like flock and lockf <p>
+Please do not mix <a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> and native file lock calls on the same QFile. The behaviour is undefined <p>
+<a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> lives in the same thread as the passed QFile </dd></dl>
+<dl class="warning" compact><dt><b>Warning:</b></dt><dd>due to a refactoring issues of QFile this class will not work with Qt from 4.3 on. This will be fixed in 4.3.2 <p>
+not part of 0.2.4 </dd></dl>
 
 <p>
+<hr><h3>Member Enumeration Documentation</h3>
+<a class="anchor" name="98ad3e1055038fd611ad64755f794835"></a><!-- doxytag: member="QxtFileLock::Mode" ref="98ad3e1055038fd611ad64755f794835" args="" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">enum <a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">QxtFileLock::Mode</a>          </span>
+</div>
+
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3"></a><!-- doxytag: member="ReadLockWait" ref="98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3" args="" -->ReadLockWait</em>&nbsp;</td><td>
+A blocking read lock. The lock() function will block until the lock is created. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00"></a><!-- doxytag: member="ReadLock" ref="98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00" args="" -->ReadLock</em>&nbsp;</td><td>
+A non blocking read lock. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d"></a><!-- doxytag: member="WriteLockWait" ref="98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d" args="" -->WriteLockWait</em>&nbsp;</td><td>
+A blocking write lock. The lock() function will block until the lock is created. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22"></a><!-- doxytag: member="WriteLock" ref="98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22" args="" -->WriteLock</em>&nbsp;</td><td>
+A non blocking write lock. </td></tr>
+</table>
+</dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<hr><h3>Constructor &amp; Destructor Documentation</h3>
+<a class="anchor" name="bd47ac230f3f7119531d4efcfda30a97"></a><!-- doxytag: member="QxtFileLock::QxtFileLock" ref="bd47ac230f3f7119531d4efcfda30a97" args="(QFile *file, const off_t offset, const off_t length, const QxtFileLock::Mode mode=WriteLockWait)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QxtFileLock::QxtFileLock           </span>
+(          <span class="paramtype">QFile *&nbsp;</span>
+          <span class="paramname"> <em>file</em>, </span>
+          <span class="paramtype">const off_t&nbsp;</span>
+          <span class="paramname"> <em>offset</em>, </span>
+          <span class="paramtype">const off_t&nbsp;</span>
+          <span class="paramname"> <em>length</em>, </span>
+          <span class="paramtype">const <a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">QxtFileLock::Mode</a>&nbsp;</span>
+          <span class="paramname"> <em>mode</em> = WriteLockWait</span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Contructs a new <a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a>. The lock is not activated. <dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>file</em>&nbsp;</td><td>the file that should be locked </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>offset</em>&nbsp;</td><td>the offset where the lock starts </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>length</em>&nbsp;</td><td>the length of the lock </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mode</em>&nbsp;</td><td>the lockmode </td></tr>
+  </table>
+</dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<hr><h3>Member Function Documentation</h3>
+<a class="anchor" name="13be30b843f140b4e775e3896ae00dc8"></a><!-- doxytag: member="QxtFileLock::offset" ref="13be30b843f140b4e775e3896ae00dc8" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">off_t QxtFileLock::offset           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>the offset of the lock </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="0637bd4f28745f8e9d297eae04637c04"></a><!-- doxytag: member="QxtFileLock::length" ref="0637bd4f28745f8e9d297eae04637c04" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">off_t QxtFileLock::length           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>the length of the lock </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="f59d41e142a8689e9a2ba3da49d357f4"></a><!-- doxytag: member="QxtFileLock::isActive" ref="f59d41e142a8689e9a2ba3da49d357f4" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">bool QxtFileLock::isActive           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>true if the lock is active otherwise it returns false </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="024bff1787eb6f4264a93085b871a1d7"></a><!-- doxytag: member="QxtFileLock::file" ref="024bff1787eb6f4264a93085b871a1d7" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QFile * QxtFileLock::file           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+the file the lock is created on 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="e80f6a11c4ff3ad88de41027ebd67426"></a><!-- doxytag: member="QxtFileLock::mode" ref="e80f6a11c4ff3ad88de41027ebd67426" args="() const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname"><a class="el" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">QxtFileLock::Mode</a> QxtFileLock::mode           </span>
+(          <span class="paramname"></span>
+) const</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd>the mode of the lock </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
 <address><hr />
 
 <div align="center">

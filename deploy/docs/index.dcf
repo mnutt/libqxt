@@ -125,6 +125,20 @@
 	<keyword ref="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</keyword>
 </section>
 
+<section ref="classQxtFileLock.html" title="QxtFileLock"> 
+	<keyword ref="classQxtFileLock.html">QxtFileLock</keyword>
+	<keyword ref="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</keyword>
+	<keyword ref="classQxtFileLock.html#f59d41e142a8689e9a2ba3da49d357f4">isActive</keyword>
+	<keyword ref="classQxtFileLock.html#0637bd4f28745f8e9d297eae04637c04">length</keyword>
+	<keyword ref="classQxtFileLock.html#e80f6a11c4ff3ad88de41027ebd67426">mode</keyword>
+	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835">Mode</keyword>
+	<keyword ref="classQxtFileLock.html#13be30b843f140b4e775e3896ae00dc8">offset</keyword>
+	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00">ReadLock</keyword>
+	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3">ReadLockWait</keyword>
+	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22">WriteLock</keyword>
+	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d">WriteLockWait</keyword>
+</section>
+
 <section ref="classQxtGroupBox.html" title="QxtGroupBox"> 
 	<keyword ref="classQxtGroupBox.html">QxtGroupBox</keyword>
 	<keyword ref="classQxtGroupBox.html#ba496a650834bd948eab93cb7a2fad1d">setCollapsed</keyword>
@@ -185,6 +199,7 @@
 	<keyword ref="classQxtMetaObject.html">QxtMetaObject</keyword>
 	<keyword ref="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</keyword>
 	<keyword ref="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">connect</keyword>
+	<keyword ref="classQxtMetaObject.html#55fce919fe48e029b3e3669d090fab70">isSignalOrSlot</keyword>
 	<keyword ref="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">methodName</keyword>
 	<keyword ref="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</keyword>
 </section>
@@ -265,6 +280,7 @@
 	<keyword ref="classQxtRPCPeer.html#b005930688c278ae7b4bcf7b986050a9">serialize</keyword>
 	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a9672139e792ffec15279ddca4b18eca267">Server</keyword>
 	<keyword ref="classQxtRPCPeer.html#1894bd5342357f7d323e2bbeda577533">setRPCType</keyword>
+	<keyword ref="classQxtRPCPeer.html#d2832936c5b236c63d6d05a474959d10">socket</keyword>
 	<keyword ref="classQxtRPCPeer.html#2656eda811259c6c75702d3952f49afd">stopListening</keyword>
 </section>
 

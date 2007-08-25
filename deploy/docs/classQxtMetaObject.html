@@ -40,6 +40,7 @@ width="32" height="32" border="0" /></a></td>
 (Note that these are not member functions.) <ul>
 <li><a class="el" href="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">methodName</a> (const char *method)
 <li><a class="el" href="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</a> (const char *method)
+<li>bool <a class="el" href="classQxtMetaObject.html#55fce919fe48e029b3e3669d090fab70">isSignalOrSlot</a> (const char *method)
 <li><a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</a> (QObject *recv, const char *invokable, QXT_IMPL_10ARGS(QVariant))
 <li><a class="el" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">connect</a> (QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)
 </ul>
@@ -79,6 +80,20 @@ Example usage: <div class="fragment"><pre class="fragment">    QByteArray method
 
 <p>
 Returns the signature of the given method. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="55fce919fe48e029b3e3669d090fab70"></a><!-- doxytag: member="QxtMetaObject::isSignalOrSlot" ref="55fce919fe48e029b3e3669d090fab70" args="(const char *method)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">bool QxtMetaObject::isSignalOrSlot           </span>
+(          <span class="paramtype">const char *&nbsp;</span>
+          <span class="paramname"> <em>method</em></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+checks if <code>method</code> contains parantesis and begins with 1 or 2 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="ad97c9c4c709ca8b6acbff5d62effab3"></a><!-- doxytag: member="QxtMetaObject::bind" ref="ad97c9c4c709ca8b6acbff5d62effab3" args="(QObject *recv, const char *invokable, QXT_IMPL_10ARGS(QVariant))" -->

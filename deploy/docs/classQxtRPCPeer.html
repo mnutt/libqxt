@@ -75,6 +75,7 @@ width="32" height="32" border="0" /></a></td>
 <li>bool <a class="el" href="classQxtRPCPeer.html#4eb80c74da193ca1d734abe0f3454f38">attachSignal</a> (QObject *sender, const char *signal, const QByteArray &amp;rpcFunction=QByteArray())
 <li>bool <a class="el" href="classQxtRPCPeer.html#7af929741223c53c2e4dc834238e4ff8">attachSlot</a> (const QByteArray &amp;rpcFunction, QObject *recv, const char *slot)
 <li>void <a class="el" href="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</a> (QObject *obj)
+<li>QIODevice * <a class="el" href="classQxtRPCPeer.html#d2832936c5b236c63d6d05a474959d10">socket</a> ()
 </ul>
 <h3>Protected Member Functions</h3>
 <ul>
@@ -335,6 +336,19 @@ Like QObject::connect(), attachSignal returns false if the connection cannot be 
 
 <p>
 Detaches all signals and slots for the given object. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="d2832936c5b236c63d6d05a474959d10"></a><!-- doxytag: member="QxtRPCPeer::socket" ref="d2832936c5b236c63d6d05a474959d10" args="()" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QIODevice * QxtRPCPeer::socket           </span>
+(          <span class="paramname"></span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Returns the current used iodevice (might be asocket or a custom iodevie) in client and peer mode. returns 0 for server mode 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="f943f1c5e7df1cd6b9c79b4bd52b9620"></a><!-- doxytag: member="QxtRPCPeer::call" ref="f943f1c5e7df1cd6b9c79b4bd52b9620" args="(const char *signal, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant(), QVariant p9=QVariant())" -->
