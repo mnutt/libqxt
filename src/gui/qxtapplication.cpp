@@ -35,7 +35,9 @@
     shortcuts still if some other application is active or if the application is
     for example minimized to the system tray.
 
-    \note Currently supported platforms are \b X11 and \b Windows.
+    QxtApplication also lets you install native event filters. This makes it
+    possible to access platform specific native events without subclassing
+    QApplication.
  */
 
 /*!
@@ -70,8 +72,8 @@ QxtApplication::~QxtApplication()
     native event filter function. The native event filter function must return \b true
     if the event should be filtered, (i.e. stopped); otherwise it must return \b false.
 
-    If multiple native event filters are installed on a single object, 
-    the filter that was installed last is activated first.
+    If multiple native event filters are installed, the filter that was installed last
+    is activated first.
 
     \sa removeNativeEventFilter()
 */
