@@ -15,6 +15,7 @@ win32:LIBS      += -luser32
 include(../../config.pri)
 
 HEADERS += qxtapplication.h \
+           qxtapplication_p.h \
            qxtcheckcombobox.h \
            qxtcheckcombobox_p.h \
            qxtconfigdialog.h \
@@ -31,6 +32,7 @@ HEADERS += qxtapplication.h \
            qxtlistwidget.h \
            qxtlistwidget_p.h \
            qxtlistwidgetitem.h \
+           qxtnativeeventfilter.h \
            qxtprogresslabel.h \
            qxtproxystyle.h \
            qxtpushbutton.h \

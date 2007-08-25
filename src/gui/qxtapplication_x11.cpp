@@ -22,6 +22,7 @@
 **
 ****************************************************************************/
 #include "qxtapplication.h"
+#include "qxtapplication_p.h"
 #include <QKeySequence>
 #include <QX11Info>
 #include <X11/Xlib.h>
@@ -36,15 +37,21 @@ QxtApplication::QxtApplication(Display* display, int& argc, char** argv, Qt::HAN
 
 bool QxtApplication::x11EventFilter(XEvent* event)
 {
+    foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
+    {
+        if (filter && filter->x11EventFilter(event))
+            return true;
+    }
+
     if (event->type == KeyPress)
     {
         XKeyEvent* key = (XKeyEvent*) event;
-        activateHotKey(key->state, key->keycode);
+        qxt_d().activateHotKey(key->state, key->keycode);
     }
     return QApplication::x11EventFilter(event);
 }
 
-uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+uint QxtApplicationPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
 {
     // ShiftMask, LockMask, ControlMask, Mod1Mask, Mod2Mask, Mod3Mask, Mod4Mask, and Mod5Mask
     uint native = 0;
@@ -61,13 +68,13 @@ uint QxtApplication::nativeModifiers(Qt::KeyboardModifiers modifiers) const
     return native;
 }
 
-uint QxtApplication::nativeKeycode(Qt::Key key) const
+uint QxtApplicationPrivate::nativeKeycode(Qt::Key key) const
 {
     Display* display = QX11Info::display();
     return XKeysymToKeycode(display, XStringToKeysym(QKeySequence(key).toString().toLatin1().data()));
 }
 
-bool QxtApplication::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::registerHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_UNUSED(receiver);
     Display* display = QX11Info::display();
@@ -78,7 +85,7 @@ bool QxtApplication::registerHotKey(uint modifiers, uint keycode, QWidget* recei
     return XGrabKey(display, keycode, modifiers, window, owner, pointer, keyboard);
 }
 
-bool QxtApplication::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
+bool QxtApplicationPrivate::unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver)
 {
     Q_UNUSED(receiver);
     Display* display = QX11Info::display();

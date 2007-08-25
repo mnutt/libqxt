@@ -10,6 +10,7 @@
 #include "qxtlabel.h"
 #include "qxtlistwidget.h"
 #include "qxtlistwidgetitem.h"
+#include "qxtnativeeventfilter.h"
 #include "qxtprogresslabel.h"
 #include "qxtproxystyle.h"
 #include "qxtpushbutton.h"

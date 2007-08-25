@@ -22,6 +22,7 @@
 **
 ****************************************************************************/
 #include "qxtapplication.h"
+#include "qxtapplication_p.h"
 #include <QWidget>
 
 /*!
@@ -61,6 +62,40 @@ QxtApplication::~QxtApplication()
 {}
 
 /*!
+    Installs a native event \a filter.
+
+    A native event filter is an object that receives all native events before they reach
+    the application object. The filter can either stop the native event or forward it to
+    the application object. The filter receives native events via its platform specific
+    native event filter function. The native event filter function must return \b true
+    if the event should be filtered, (i.e. stopped); otherwise it must return \b false.
+
+    If multiple native event filters are installed on a single object, 
+    the filter that was installed last is activated first.
+
+    \sa removeNativeEventFilter()
+*/
+void QxtApplication::installNativeEventFilter(QxtNativeEventFilter* filter)
+{
+    if (!filter)
+        return;
+
+    qxt_d().nativeFilters.removeAll(filter);
+    qxt_d().nativeFilters.prepend(filter);
+}
+
+/*!
+    Removes a native event \a filter. The request is ignored if such a native
+    event filter has not been installed.
+
+    \sa installNativeEventFilter()
+*/
+void QxtApplication::removeNativeEventFilter(QxtNativeEventFilter* filter)
+{
+    qxt_d().nativeFilters.removeAll(filter);
+}
+
+/*!
     Adds a hotkey using \a modifiers and \a key. The \a member
     of \a receiver is invoked upon hotkey trigger.
 
@@ -76,12 +111,12 @@ bool QxtApplication::addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWi
 {
     Q_ASSERT(receiver);
     Q_ASSERT(member);
-    uint mods = nativeModifiers(modifiers);
-    uint keycode = nativeKeycode(key);
+    uint mods = qxt_d().nativeModifiers(modifiers);
+    uint keycode = qxt_d().nativeKeycode(key);
     if (keycode)
     {
-        hotkeys.insert(qMakePair(mods, keycode), qMakePair(receiver, member));
-        return registerHotKey(mods, keycode, receiver);
+        qxt_d().hotkeys.insert(qMakePair(mods, keycode), qMakePair(receiver, member));
+        return qxt_d().registerHotKey(mods, keycode, receiver);
     }
     return false;
 }
@@ -96,17 +131,17 @@ bool QxtApplication::removeHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, 
 {
     Q_ASSERT(receiver);
     Q_UNUSED(member);
-    uint mods = nativeModifiers(modifiers);
-    uint keycode = nativeKeycode(key);
+    uint mods = qxt_d().nativeModifiers(modifiers);
+    uint keycode = qxt_d().nativeKeycode(key);
     if (keycode)
     {
-        hotkeys.remove(qMakePair(mods, keycode));
-        return unregisterHotKey(mods, keycode, receiver);
+        qxt_d().hotkeys.remove(qMakePair(mods, keycode));
+        return qxt_d().unregisterHotKey(mods, keycode, receiver);
     }
     return false;
 }
 
-void QxtApplication::activateHotKey(uint modifiers, uint keycode) const
+void QxtApplicationPrivate::activateHotKey(uint modifiers, uint keycode) const
 {
     Receivers receivers = hotkeys.values(qMakePair(modifiers, keycode));
     foreach (Receiver receiver, receivers)
