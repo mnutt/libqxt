@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -78,81 +78,81 @@
         the content is cut at maxsize and not read from the socket.  \n
         FIXME:\warning: this function is BLOCKING.  while content is read from the client, no other requests can be handled.
         FIXME:\warning: due to paranoid timeouts this might not work for slow clients
- */ 
+ */
 
 
 static QxtWebCore * singleton_m=0;
 
 //-----------------------interface----------------------------
 QxtWebCore::QxtWebCore(QxtAbstractWebConnector * pt):QObject()
-        {
-        if(singleton_m)
-                qFatal("you're trying to construct QxtWebCore twice!");
-        qRegisterMetaType<server_t>("server_t");
-        qRegisterMetaTypeStreamOperators<server_t>("server_t");
+{
+    if (singleton_m)
+        qFatal("you're trying to construct QxtWebCore twice!");
+    qRegisterMetaType<server_t>("server_t");
+    qRegisterMetaTypeStreamOperators<server_t>("server_t");
 
-        singleton_m=this;
-        QXT_INIT_PRIVATE(QxtWebCore);
-        qxt_d().connector=pt;
-        connect(pt,SIGNAL(aboutToClose()),this,SIGNAL(aboutToClose()));
-        connect(pt,SIGNAL(incomming(server_t)),&qxt_d(),SLOT(incomming(server_t)));
-        }
+    singleton_m=this;
+    QXT_INIT_PRIVATE(QxtWebCore);
+    qxt_d().connector=pt;
+    connect(pt,SIGNAL(aboutToClose()),this,SIGNAL(aboutToClose()));
+    connect(pt,SIGNAL(incomming(server_t)),&qxt_d(),SLOT(incomming(server_t)));
+}
 
 QxtWebCore::~QxtWebCore()
-        {
-        singleton_m=0;
-        }
+{
+    singleton_m=0;
+}
 
 
 void QxtWebCore::send(QString a)
-        {
-        instance()->qxt_d().send(a);
-        }
+{
+    instance()->qxt_d().send(a);
+}
 void QxtWebCore::header(QString a,QString b)
-        {
-        instance()->qxt_d().header(a,b);
-        }
+{
+    instance()->qxt_d().header(a,b);
+}
 
 server_t &  QxtWebCore::SERVER()
-        {
-        return instance()->qxt_d().currentservert;
-        }
+{
+    return instance()->qxt_d().currentservert;
+}
 
 QIODevice * QxtWebCore::socket()
-        {
-        return instance()->qxt_d().connector->socket();
-        }
+{
+    return instance()->qxt_d().connector->socket();
+}
 
 int QxtWebCore::start (quint16 port ,const QHostAddress & address )
-        {
-        return instance()->qxt_d().connector->start(port,address);
-        }
+{
+    return instance()->qxt_d().connector->start(port,address);
+}
 
 void QxtWebCore::redirect(QString location,int code)
-        {
-        instance()->qxt_d().redirect(location,code);
-        }
+{
+    instance()->qxt_d().redirect(location,code);
+}
 
 QxtWebCore * QxtWebCore::instance()
-        {
-        if(!singleton_m)
-                qFatal("no QxtWebCore constructed");
-        return singleton_m;
-        }
+{
+    if (!singleton_m)
+        qFatal("no QxtWebCore constructed");
+    return singleton_m;
+}
 void QxtWebCore::setCodec ( QTextCodec * codec )
-        {
-        instance()->qxt_d().decoder=codec->makeDecoder();
-        instance()->qxt_d().encoder=codec->makeEncoder();
-        }
+{
+    instance()->qxt_d().decoder=codec->makeDecoder();
+    instance()->qxt_d().encoder=codec->makeEncoder();
+}
 
 void QxtWebCore::close()
-        {
-        instance()->qxt_d().close();
-        }
+{
+    instance()->qxt_d().close();
+}
 void QxtWebCore::sendHeader()
-        {
-        instance()->qxt_d().sendheader();
-        }
+{
+    instance()->qxt_d().sendheader();
+}
 
 //-----------------------implementation----------------------------
 
@@ -160,54 +160,54 @@ void QxtWebCore::sendHeader()
 
 
 QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QObject(parent),QxtPrivate<QxtWebCore>()
-        {
-        connector=0;
-        decoder=0;
-        encoder=0;
-        }
+{
+    connector=0;
+    decoder=0;
+    encoder=0;
+}
 
 void QxtWebCorePrivate::send(QString str)
-        {
-        sendheader();
+{
+    sendheader();
 
-        if (encoder)
-                connector->socket()->write(encoder->fromUnicode (str));
-        else
-                connector->socket()->write(str.toUtf8());
+    if (encoder)
+        connector->socket()->write(encoder->fromUnicode (str));
+    else
+        connector->socket()->write(str.toUtf8());
 
-        }
+}
 void QxtWebCorePrivate::close()
-        {
-        sendheader();
-        connector->close();
-        }
+{
+    sendheader();
+    connector->close();
+}
 
 void QxtWebCorePrivate::sendheader()
-        {
-        if(!header_sent)
-                {
-                header_sent=true;
-                connector->sendHeader(answer);
-                }
-        }
+{
+    if (!header_sent)
+    {
+        header_sent=true;
+        connector->sendHeader(answer);
+    }
+}
 void QxtWebCorePrivate::header(QString k,QString v)
-        {
-        if (encoder)
-                answer[encoder->fromUnicode (k)]=encoder->fromUnicode (v);
-        else
-                answer[k.toUtf8()]=v.toUtf8();
+{
+    if (encoder)
+        answer[encoder->fromUnicode (k)]=encoder->fromUnicode (v);
+    else
+        answer[k.toUtf8()]=v.toUtf8();
 
-        }
+}
 void QxtWebCorePrivate::redirect(QString l,int code)
-        {
-        QByteArray loc =QUrl(l).toEncoded ();
+{
+    QByteArray loc =QUrl(l).toEncoded ();
 
-        if(loc.isEmpty())
-                loc="/";
-        QxtWebCore::header("Status",QString::number(code).toUtf8());
-        QxtWebCore::header("Location",loc);
-        send(QString("<a href=\""+loc+"\">"+loc+"</a>"));
-        }
+    if (loc.isEmpty())
+        loc="/";
+    QxtWebCore::header("Status",QString::number(code).toUtf8());
+    QxtWebCore::header("Location",loc);
+    send(QString("<a href=\""+loc+"\">"+loc+"</a>"));
+}
 
 
 
@@ -215,48 +215,48 @@ void QxtWebCorePrivate::redirect(QString l,int code)
 
 
 void QxtWebCorePrivate::incomming(server_t  SERVER)
-        {
-        header_sent=false;
-        answer.clear();
-        qDebug("%i, %s -> %s",(int)time(NULL),SERVER["HTTP_HOST"].constData(),SERVER["REQUEST_URI"].constData());
+{
+    header_sent=false;
+    answer.clear();
+    qDebug("%i, %s -> %s",(int)time(NULL),SERVER["HTTP_HOST"].constData(),SERVER["REQUEST_URI"].constData());
 
 
-        currentservert=SERVER;
+    currentservert=SERVER;
 
-        emit(qxt_p().request());
+    emit(qxt_p().request());
 
-	///--------------find controller ------------------
-	QByteArray path="404";
-	QList<QByteArray> requestsplit = SERVER["REQUEST_URI"].split('/');
-	if (requestsplit.count()>1)
-		{
-		path=requestsplit.at(1);
-		if (path.trimmed().isEmpty())path="root";
-		}
-	else if (requestsplit.count()>0) 
-		path="root";
+    ///--------------find controller ------------------
+    QByteArray path="404";
+    QList<QByteArray> requestsplit = SERVER["REQUEST_URI"].split('/');
+    if (requestsplit.count()>1)
+    {
+        path=requestsplit.at(1);
+        if (path.trimmed().isEmpty())path="root";
+    }
+    else if (requestsplit.count()>0)
+        path="root";
 
-	///--------------controller------------------
+    ///--------------controller------------------
 
-	QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
-	if (!controller) 
-		{
-                header("Status","500");
-                send("ERROR HANDLING NOT IMPLEMENTED");
-                close();
-		qDebug("controller '%s' not found",path.constData()); 
-                return;
-		}
+    QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
+    if (!controller)
+    {
+        header("Status","500");
+        send("ERROR HANDLING NOT IMPLEMENTED");
+        close();
+        qDebug("controller '%s' not found",path.constData());
+        return;
+    }
 
-	int i=controller->invoke(SERVER);
-	if(i!=0 && i!=2)
-                {
-                header("Status","500");
-                send("ERROR HANDLING NOT IMPLEMENTED");
-                }
-        if(i!=2) ///FIXME temporary solution for keepalive
-                close();
-        }
+    int i=controller->invoke(SERVER);
+    if (i!=0 && i!=2)
+    {
+        header("Status","500");
+        send("ERROR HANDLING NOT IMPLEMENTED");
+    }
+    if (i!=2) ///FIXME temporary solution for keepalive
+        close();
+}
 
 
 
@@ -273,23 +273,23 @@ void QxtWebCorePrivate::incomming(server_t  SERVER)
 //-----------------------helper----------------------------
 
 QByteArray QxtWebCore::content(int maxsize)
-        {
-        return instance()->qxt_d().connector->content(maxsize);
-        }
+{
+    return instance()->qxt_d().connector->content(maxsize);
+}
 
 
 QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
-	{
-	QList<QByteArray> posts = content_in.split('&');
-	QByteArray post;
-	foreach(post,posts)
-		{
-		QList<QByteArray> b =post.split('=');
-		if (b.count()!=2)continue;
-		POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
-		}
-	QXT_DROP_OK
-	}
+{
+    QList<QByteArray> posts = content_in.split('&');
+    QByteArray post;
+    foreach(post,posts)
+    {
+        QList<QByteArray> b =post.split('=');
+        if (b.count()!=2)continue;
+        POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
+    }
+    QXT_DROP_OK
+}
 
 
 
