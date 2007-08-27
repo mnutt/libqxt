@@ -72,7 +72,7 @@ public:
     This function is not reentrant.
     */
 
-    bool wait(int msec = -1);
+    bool wait(int msec = -1,bool reset=false);
     static bool wait(const QObject* sender, const char* signal, int msec = -1);
 protected:
     void timerEvent(QTimerEvent* event);
