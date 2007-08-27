@@ -42,8 +42,10 @@
 <section ref="classQxtApplication.html" title="QxtApplication"> 
 	<keyword ref="classQxtApplication.html">QxtApplication</keyword>
 	<keyword ref="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</keyword>
+	<keyword ref="classQxtApplication.html#7f50170dc00d4246573ca70db9273277">installNativeEventFilter</keyword>
 	<keyword ref="classQxtApplication.html#938c7a60e2cf0642f1d808af3f02e50e">instance</keyword>
 	<keyword ref="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</keyword>
+	<keyword ref="classQxtApplication.html#6bed271219655e5c1bc42b7e2f9d9f2f">removeNativeEventFilter</keyword>
 </section>
 
 <section ref="classQxtCheckComboBox.html" title="QxtCheckComboBox"> 
@@ -204,6 +206,13 @@
 	<keyword ref="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</keyword>
 </section>
 
+<section ref="classQxtNativeEventFilter.html" title="QxtNativeEventFilter"> 
+	<keyword ref="classQxtNativeEventFilter.html">QxtNativeEventFilter</keyword>
+	<keyword ref="classQxtNativeEventFilter.html#d7e2063c09068cde2bce8a705d8c1eb7">macEventFilter</keyword>
+	<keyword ref="classQxtNativeEventFilter.html#d09ed662c4644e56aebdf819a6689482">winEventFilter</keyword>
+	<keyword ref="classQxtNativeEventFilter.html#5ab4daa48cb3520c36a2af20e723e2a5">x11EventFilter</keyword>
+</section>
+
 <section ref="structQxtNull.html" title="QxtNull"> 
 	<keyword ref="structQxtNull.html">QxtNull</keyword>
 	<keyword ref="structQxtNull.html#4b0a3ddce688e2e9f4af89dbc92cc11f">operator int</keyword>
@@ -264,12 +273,14 @@
 	<keyword ref="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219">clientConnected</keyword>
 	<keyword ref="classQxtRPCPeer.html#0b542e1bdac54f88b911fcc19662adff">clientDisconnected</keyword>
 	<keyword ref="classQxtRPCPeer.html#3d47284e3fb7fc652718b1fa90829d5b">clients</keyword>
+	<keyword ref="classQxtRPCPeer.html#51732dee17dee3df29990f02bc3a5ccb">clientSocket</keyword>
 	<keyword ref="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f">connect</keyword>
 	<keyword ref="classQxtRPCPeer.html#4355c694771395cf64a1638954274018">deserialize</keyword>
 	<keyword ref="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e">detachObject</keyword>
 	<keyword ref="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender</keyword>
 	<keyword ref="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d">disconnectAll</keyword>
 	<keyword ref="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81">disconnectPeer</keyword>
+	<keyword ref="classQxtRPCPeer.html#dd706e8afcacf8dab30479f8ca8455b0">incomingConnection</keyword>
 	<keyword ref="classQxtRPCPeer.html#ae7fcd6b1720ea10f08859a8d896a110">listen</keyword>
 	<keyword ref="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96e9df51c9271dbbf16a646608d9acb74e">Peer</keyword>
 	<keyword ref="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a">peerConnected</keyword>

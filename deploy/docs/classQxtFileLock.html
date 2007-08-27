@@ -73,9 +73,9 @@ It supports the range locking of a file. The File will take parentship of the lo
 <p>
 Example usage: <div class="fragment"><pre class="fragment"> off_t lockstart = 0x10;
  off_t locklength = 30
- 
+
  QFile <a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>(<span class="stringliteral">"test.lock"</span>);
- 
+
  <span class="comment">//the lock gets deleted when file is cleaned up</span>
  <a class="code" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> * writeLock = <span class="keyword">new</span> <a class="code" href="classQxtFileLock.html#bd47ac230f3f7119531d4efcfda30a97">QxtFileLock</a>(&amp;<a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>,lockstart,locklength,<a class="code" href="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22" title="A non blocking write lock.">QxtFileLock::WriteLock</a>);
  <span class="keywordflow">if</span>(<a class="code" href="classQxtFileLock.html#024bff1787eb6f4264a93085b871a1d7">file</a>.open(QIODevice::ReadWrite))
@@ -86,7 +86,7 @@ Example usage: <div class="fragment"><pre class="fragment"> off_t lockstart = 0x
          writeLock-&gt;<a class="code" href="classQxtFileLock.html#e9e31b41e41520c29cf64634d099cf05">unlock</a>();
      }
       <span class="keywordflow">else</span>
-          <span class="comment">//lock failed </span>
+          <span class="comment">//lock failed</span>
  }
 </pre></div> <dl class="note" compact><dt><b>Note:</b></dt><dd><a class="el" href="classQxtFileLock.html" title="The QxtFileLock class provides a crossplattform way to lock a QFile.">QxtFileLock</a> behaves different than normal unix locks on *nix. A thread can writelock the region of a file only ONCE if it uses two different handles. A different thread can not writelock a region that is owned by a other thread even if it is the SAME process. <p>
 On *nix this class uses fctnl to lock the file. This may not be compatible to other locking functions like flock and lockf <p>

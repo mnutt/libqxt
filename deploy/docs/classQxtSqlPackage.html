@@ -86,9 +86,9 @@ point to next entry
 <p>
 returns false if there is no next entry.<br>
  provided for easy porting from QSqlQuery.<p>
-<div class="fragment"><pre class="fragment">                <span class="keywordflow">while</span> (query.next())
-                        {
-                        }
+<div class="fragment"><pre class="fragment">    <span class="keywordflow">while</span> (query.next())
+        {
+        }
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>
@@ -106,7 +106,7 @@ returns false if there is no next entry.<br>
 return a cloumn in curent row 
 <p>
 in contrast to QSqlQuery you have to provide the name of the key.<p>
-the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy. <div class="fragment"><pre class="fragment">                QString name = query.value(<span class="stringliteral">"name"</span>);     
+the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy. <div class="fragment"><pre class="fragment">    QString name = query.value(<span class="stringliteral">"name"</span>); 
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>
@@ -124,7 +124,7 @@ the entry is returned as QString becouse in most cases you need QString anyway, 
 read from QSqlQuery 
 <p>
 read out a QSqlQuery and store the result. you may close the query after reading, the data will stay.<p>
-<div class="fragment"><pre class="fragment">                QxSqlPackage::insert(QSqlQuery::exec(<span class="stringliteral">"select name,foo,bar from table;"</span>));
+<div class="fragment"><pre class="fragment">    QxSqlPackage::insert(QSqlQuery::exec(<span class="stringliteral">"select name,foo,bar from table;"</span>));
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>

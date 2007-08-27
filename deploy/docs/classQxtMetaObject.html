@@ -115,11 +115,11 @@ creates a QxtBoundFunction from a slot + arguments <br>
  can be used for <a class="el" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a> \<p>
 <div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a>(\n
         <span class="keyword">this</span>, SIGNAL(init()), \\n
-        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString)), Q_ARG(QString,<span class="stringliteral">"hello"</span>))); 
+        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString)), Q_ARG(QString,<span class="stringliteral">"hello"</span>)));
 </pre></div> <br>
  <div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a>( \n
         <span class="keyword">this</span>, SIGNAL(init(<span class="keywordtype">int</span> i)), \n
-        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString),<span class="keywordtype">int</span>), Q_ARG(QString,<span class="stringliteral">"hello"</span>),Q_BIND(1))); 
+        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString),<span class="keywordtype">int</span>), Q_ARG(QString,<span class="stringliteral">"hello"</span>),Q_BIND(1)));
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>
