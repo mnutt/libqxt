@@ -162,9 +162,9 @@ private slots:
     {
         qDebug("main thread is %p",QThread::currentThread ());
         t1.start();
-        QVERIFY(QxtSignalWaiter::wait(&t1,SIGNAL(started())));
+        QVERIFY(t1.isRunning());
         t2.start();
-        QVERIFY(QxtSignalWaiter::wait(&t2,SIGNAL(started())));
+        QVERIFY(t2.isRunning());
     }
 
 
