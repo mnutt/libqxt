@@ -52,4 +52,9 @@ public:
 	QList<QxtNativeEventFilter*> nativeFilters;
 };
 
+inline uint qHash(const QPair<uint, uint>& value)
+{
+    return qHash(value.first) ^ qHash(value.second);
+}
+
 #endif // QXTAPPLICATION_P_H
