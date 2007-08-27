@@ -2,6 +2,8 @@
 #include <QTest>
 #include <QFile>
 #include <QxtFileLock>
+#include <QMutex>
+#include <QWaitCondition>
 
 class QxtFileLockTest: public QObject
 {
@@ -107,19 +109,27 @@ public:
     {
         moveToThread(onthread);
         connect(this,SIGNAL(inwrap_s()),this,SLOT(inwrap_d()));
-        QxtSignalWaiter  waitress(this,SIGNAL(jobDone()));
         emit(inwrap_s());
-        QVERIFY(waitress.wait());
+
+        mutex.lock();
+        QVERIFY(waiter.wait(&mutex));
+        mutex.unlock();
     }
 public slots:
     void inwrap_d()
     {
         run();
         emit(jobDone());
+        waiter.wakeAll();
     }
+
 signals:
     void inwrap_s();
+
     void jobDone();
+private:
+    QMutex mutex;
+    QWaitCondition waiter;
 };
 
 ///here is the interesting part of the job. this executes one lock on a spefic thread and asserts the result
