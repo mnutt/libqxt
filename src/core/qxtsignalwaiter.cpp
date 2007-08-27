@@ -44,7 +44,7 @@ bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec)
 }
 
 // Returns true if the signal was caught, returns false if the wait timed out
-bool QxtSignalWaiter::wait(int msec)
+bool QxtSignalWaiter::wait(int msec,bool reset)
 {
     // Check input parameters
     if (msec < -1) return false;
@@ -52,6 +52,8 @@ bool QxtSignalWaiter::wait(int msec)
     // activate the timeout
     if (msec != -1) timerID = startTimer(msec);
 
+    if(reset)
+            ready=false;
     // Begin waiting
     timeout = false;
     while (!ready && !timeout)
