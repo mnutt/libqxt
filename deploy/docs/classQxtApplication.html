@@ -44,6 +44,8 @@ width="32" height="32" border="0" /></a></td>
 <b>QxtApplication</b> (int &amp;argc, char **argv, bool GUIenabled)
 <li><a class="anchor" name="f0b6244d50d8920d3ab5ded4d230e8ed"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="f0b6244d50d8920d3ab5ded4d230e8ed" args="(int &amp;argc, char **argv, Type type)" -->
 <b>QxtApplication</b> (int &amp;argc, char **argv, Type type)
+<li>void <a class="el" href="classQxtApplication.html#7f50170dc00d4246573ca70db9273277">installNativeEventFilter</a> (<a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *filter)
+<li>void <a class="el" href="classQxtApplication.html#6bed271219655e5c1bc42b7e2f9d9f2f">removeNativeEventFilter</a> (<a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *filter)
 <li>bool <a class="el" href="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)
 <li>bool <a class="el" href="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)
 </ul>
@@ -55,10 +57,43 @@ width="32" height="32" border="0" /></a></td>
 An extended QApplication with support for hotkeys aka "global shortcuts". 
 <p>
 <a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> introduces hotkeys which trigger even if the application is not active. This makes it easy to implement applications that react to certain shortcuts still if some other application is active or if the application is for example minimized to the system tray.<p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>Currently supported platforms are <b>X11</b> and <b>Windows</b>. </dd></dl>
-
+<a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> also lets you install native event filters. This makes it possible to access platform specific native events without subclassing QApplication. 
 <p>
 <hr><h3>Member Function Documentation</h3>
+<a class="anchor" name="7f50170dc00d4246573ca70db9273277"></a><!-- doxytag: member="QxtApplication::installNativeEventFilter" ref="7f50170dc00d4246573ca70db9273277" args="(QxtNativeEventFilter *filter)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">void QxtApplication::installNativeEventFilter           </span>
+(          <span class="paramtype"><a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *&nbsp;</span>
+          <span class="paramname"> <em>filter</em></span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Installs a native event <em>filter</em>.<p>
+A native event filter is an object that receives all native events before they reach the application object. The filter can either stop the native event or forward it to the application object. The filter receives native events via its platform specific native event filter function. The native event filter function must return <b>true</b> if the event should be filtered, (i.e. stopped); otherwise it must return <b>false</b>.<p>
+If multiple native event filters are installed, the filter that was installed last is activated first.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtApplication.html#6bed271219655e5c1bc42b7e2f9d9f2f">removeNativeEventFilter()</a> </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="6bed271219655e5c1bc42b7e2f9d9f2f"></a><!-- doxytag: member="QxtApplication::removeNativeEventFilter" ref="6bed271219655e5c1bc42b7e2f9d9f2f" args="(QxtNativeEventFilter *filter)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">void QxtApplication::removeNativeEventFilter           </span>
+(          <span class="paramtype"><a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *&nbsp;</span>
+          <span class="paramname"> <em>filter</em></span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+Removes a native event <em>filter</em>. The request is ignored if such a native event filter has not been installed.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtApplication.html#7f50170dc00d4246573ca70db9273277">installNativeEventFilter()</a> </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
 <a class="anchor" name="f703462cf0b966d6666998a1a9a06793"></a><!-- doxytag: member="QxtApplication::addHotKey" ref="f703462cf0b966d6666998a1a9a06793" args="(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget *receiver, const char *member)" -->
 <div class="memitem">
 <div class="fn">

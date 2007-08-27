@@ -50,6 +50,8 @@ width="32" height="32" border="0" /></a></td>
 <li>void <a class="el" href="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2">callClient</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da">callClientsExcept</a> (quint64 id, QString fn, QVariant p1=QVariant(), QVariant p2=QVariant(), QVariant p3=QVariant(), QVariant p4=QVariant(), QVariant p5=QVariant(), QVariant p6=QVariant(), QVariant p7=QVariant(), QVariant p8=QVariant())
 <li>void <a class="el" href="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender</a> ()
+<li>const QTcpSocket * <a class="el" href="classQxtRPCPeer.html#51732dee17dee3df29990f02bc3a5ccb">clientSocket</a> (quint64 id) const
+<li>QList&lt; quint64 &gt; <a class="el" href="classQxtRPCPeer.html#ee86f0701f03518e5b275de3265e5b1b">clients</a> ()
 </ul>
 <h3>Signals</h3>
 <ul>
@@ -83,6 +85,7 @@ width="32" height="32" border="0" /></a></td>
 <li>virtual QPair&lt; QString, QList&lt;<br>
  QVariant &gt; &gt; <a class="el" href="classQxtRPCPeer.html#4355c694771395cf64a1638954274018">deserialize</a> (QByteArray &amp;data)
 <li>virtual bool <a class="el" href="classQxtRPCPeer.html#78048057780f8c2fbf065f8e90cd1288">canDeserialize</a> (const QByteArray &amp;buffer) const
+<li>virtual QTcpSocket * <a class="el" href="classQxtRPCPeer.html#dd706e8afcacf8dab30479f8ca8455b0">incomingConnection</a> (int socketDescriptor)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 Transmits Qt signals over a network connection. 
@@ -500,6 +503,36 @@ The receiver is not obligated to act upon the signal. This function is useful fo
 Detaches all signals and slots for the object that emitted the signal connected to <a class="el" href="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa">detachSender()</a>. 
 </p></div>
 </div><!-- memitem --><br/>
+<a class="anchor" name="51732dee17dee3df29990f02bc3a5ccb"></a><!-- doxytag: member="QxtRPCPeer::clientSocket" ref="51732dee17dee3df29990f02bc3a5ccb" args="(quint64 id) const" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">const QTcpSocket * QxtRPCPeer::clientSocket           </span>
+(          <span class="paramtype">quint64&nbsp;</span>
+          <span class="paramname"> <em>id</em></span>
+) const [slot]</div>
+
+<div class="memdoc">
+
+<p>
+gives Access to the socket of the client <br>
+ usefull to get information about the client, like adress, port, etc..<br>
+ returns 0 when not in server mode or if the client <code>id</code> does not exist. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="ee86f0701f03518e5b275de3265e5b1b"></a><!-- doxytag: member="QxtRPCPeer::clients" ref="ee86f0701f03518e5b275de3265e5b1b" args="()" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QList&lt; quint64 &gt; QxtRPCPeer::clients           </span>
+(          <span class="paramname"></span>
+) [slot]</div>
+
+<div class="memdoc">
+
+<p>
+returns alist of all clients currently connected <br>
+ returns an empty List when not in server mode 
+</p></div>
+</div><!-- memitem --><br/>
 <a class="anchor" name="106d4542ece23881e71a6b63ebd8851a"></a><!-- doxytag: member="QxtRPCPeer::peerConnected" ref="106d4542ece23881e71a6b63ebd8851a" args="()" -->
 <div class="memitem">
 <div class="fn">
@@ -632,6 +665,20 @@ Reimplement this function in a subclass to allow <a class="el" href="classQxtRPC
 Indicates whether the data currently received from the network can be deserialized.<p>
 The default behavior of this function returns true if the buffer contains a newline character.<p>
 Reimplement this function in a subclass to allow <a class="el" href="classQxtRPCPeer.html" title="Transmits Qt signals over a network connection.">QxtRPCPeer</a> to understand a different protocol. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="dd706e8afcacf8dab30479f8ca8455b0"></a><!-- doxytag: member="QxtRPCPeer::incomingConnection" ref="dd706e8afcacf8dab30479f8ca8455b0" args="(int socketDescriptor)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QTcpSocket * QxtRPCPeer::incomingConnection           </span>
+(          <span class="paramtype">int&nbsp;</span>
+          <span class="paramname"> <em>socketDescriptor</em></span>
+) [protected, virtual]</div>
+
+<div class="memdoc">
+
+<p>
+is called in Server mode when a new connection is available. the default implementation returns a new QTCPSocket for the <code>socketDescriptor</code> 
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
