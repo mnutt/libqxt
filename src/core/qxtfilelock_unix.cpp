@@ -180,7 +180,7 @@ bool QxtFileLock::unlock()
 
 bool QxtFileLock::lock ()
 {
-    if (file() && file()->isOpen())
+    if (file() && file()->isOpen() && !isActive())
     {
         /*this has to block if we can get no lock*/
 
@@ -232,7 +232,7 @@ bool QxtFileLock::lock ()
 
         default:
             QxtFileLockRegistry::instance().removeLock(this);
-            return (-1);
+            return (false);
             break;
         }
 

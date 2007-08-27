@@ -31,7 +31,7 @@ bool QxtFileLock::unlock()
 
 bool QxtFileLock::lock ()
 {
-    if (file() && file()->isOpen())
+    if (file() && file()->isOpen() && !isActive())
     {
         HANDLE w32FileHandle;
         OVERLAPPED ov1;
