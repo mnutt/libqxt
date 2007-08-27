@@ -33,7 +33,6 @@
 QxtStringValidatorPrivate::QxtStringValidatorPrivate() : isUserModel(false)
         , model(0)
         , cs(Qt::CaseSensitive)
-        , lookupColumn(0)
         , lookupRole(Qt::EditRole)
         , userFlags(Qt::MatchWrap)
         , lookupStartModelIndex(QModelIndex())
@@ -59,7 +58,7 @@ QModelIndex QxtStringValidatorPrivate::lookupExactMatch(const QString &value) co
 
 QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::MatchFlags  &matchFlags) const
 {
-    QModelIndex startIndex =  lookupStartModelIndex.isValid() ? lookupStartModelIndex : model->index(0,lookupColumn);
+    QModelIndex startIndex =  lookupStartModelIndex.isValid() ? lookupStartModelIndex : model->index(0,0);
 
     QModelIndexList list = model->match(startIndex,lookupRole,value,1,matchFlags);
 
