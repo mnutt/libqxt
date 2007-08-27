@@ -31,7 +31,9 @@
 QxtSignalWaiter::QxtSignalWaiter(const QObject* sender, const char* signal) : QObject(0)
 {
     Q_ASSERT(sender && signal);
+    ready=false;
     connect(sender, signal, this, SLOT(signalCaught()));
+
 }
 
 // Returns true if the signal was caught, returns false if the wait timed out
@@ -51,7 +53,7 @@ bool QxtSignalWaiter::wait(int msec)
     if (msec != -1) timerID = startTimer(msec);
 
     // Begin waiting
-    ready = timeout = false;
+    timeout = false;
     while (!ready && !timeout)
         QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
 
