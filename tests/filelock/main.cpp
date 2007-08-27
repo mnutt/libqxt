@@ -164,11 +164,9 @@ private slots:
 
         QxtSignalWaiter w1(&t1,SIGNAL(started()));
         t1.start();
-        QVERIFY(w1.wait());
-
-        QxtSignalWaiter w2(&t2,SIGNAL(started()));
+        QVERIFY(t1.isRunning());
         t2.start();
-        QVERIFY(w2.wait());
+        QVERIFY(t2.isRunning());
     }
 
 
