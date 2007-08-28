@@ -59,11 +59,6 @@ bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QVariant)
     return invoke(type, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
 }
 
-bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QGenericArgument))
-{
-    return invoke(type, QGenericReturnArgument(), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
-}
-
 bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QVariant))
 {
     return invoke(type, returnValue, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
@@ -206,7 +201,6 @@ QByteArray methodSignature(const char* method)
     return name;
 }
 
-
 /*!
 \relates QxtMetaObject
 
@@ -218,9 +212,6 @@ bool isSignalOrSlot (const char* method)
     QByteArray m(method);
     return (m.count() && (m[0] == '1'||m[0] == '2') && m.contains('(') && m.contains(')'));
 }
-
-
-
 
 /**
 \relates QxtMetaObject
@@ -309,7 +300,7 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QGe
         if (i > 0) connSlot += ",";             // argument separator
         if (QByteArray(args[i]->name()) == "QxtBoundArgument")
         {
-            Q_ASSERT_X((int)(args[i]->data()) > 0 && (int)(args[i]->data()) <= 10, "QXT_BIND", "invalid argument number");
+            Q_ASSERT_X((quintptr)(args[i]->data()) > 0 && (quintptr)(args[i]->data()) <= 10, "QXT_BIND", "invalid argument number");
             connSlot += method.parameterTypes()[i];
             bindTypes[i] = method.parameterTypes()[i];
         }
@@ -328,6 +319,7 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QGe
 
     return new QxtBoundSlot(recv, invokable, args, bindTypes);
 }
+
 /**
 \relates QxtMetaObject
 \fn connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {
@@ -346,11 +338,5 @@ bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::Co
 
     return QMetaObject::connect(sender, methodID, slot, QObject::staticMetaObject.methodCount(), (int)(type));
 }
+
 }
-
-
-
-
-
-
-

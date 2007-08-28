@@ -44,7 +44,8 @@ public:
 #if QT_VERSION >= 0x040300
         return invoke<T>(Qt::BlockingQueuedConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #else
-        return invoke<T>(Qt::AutoConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+        qWarning() << "QxtBoundFunction::invoke: Cannot return a value using a queued connection";
+        return QxtNull;
 #endif
     }
 
@@ -79,7 +80,9 @@ public:
     {
         return invoke(Qt::AutoConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument));
+    inline bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument)) {
+        return invoke(type, QGenericReturnArgument(), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+    }
 
     inline bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QVariant))
     {
@@ -97,6 +100,5 @@ protected:
     QxtBoundFunction(QObject* parent = 0);
     virtual bool invokeImpl(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) = 0;
 };
-
 
 #endif
