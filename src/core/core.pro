@@ -33,6 +33,8 @@ HEADERS += qxtcsvmodel.h \
            qxtfilelock_p.h\
            qxtfilelock.h\
            qxtboundfunction.h \
+           qxtboundfunctionbase.h \
+           qxtboundcfunction.h \
 	       qxtstdstreambufdevice.h
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \

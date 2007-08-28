@@ -33,6 +33,7 @@ including QxtMetaObject::bind \n
 */
 #include "qxtmetaobject.h"
 #include "qxtboundfunction.h"
+#include "qxtboundcfunction.h"
 
 #include <QByteArray>
 #include <QMetaObject>
@@ -64,76 +65,68 @@ bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument re
     return invoke(type, returnValue, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
 }
 
-class QxtBoundFunctionBase : public QxtBoundFunction
+QxtBoundFunctionBase::QxtBoundFunctionBase(QObject* parent, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunction(parent)
 {
-public:
-    QByteArray bindTypes[10];
-    QGenericArgument arg[10], p[10];
-    void* data[10];
-
-    QxtBoundFunctionBase(QObject* parent, QGenericArgument* params[10], QByteArray types[10]) : QxtBoundFunction(parent)
+    for (int i=0; i<10; i++)
     {
-        for (int i=0; i<10; i++)
+        if (!params[i]) break;
+        if (QByteArray(params[i]->name()) == "QxtBoundArgument")
         {
-            if (!params[i]) break;
-            if (QByteArray(params[i]->name()) == "QxtBoundArgument")
-            {
-                arg[i] = QGenericArgument("QxtBoundArgument", params[i]->data());
-            }
-            else
-            {
-                data[i] = QMetaType::construct(QMetaType::type(params[i]->name()), params[i]->data());
-                arg[i] = p[i] = QGenericArgument(params[i]->name(), data[i]);
-            }
-            bindTypes[i] = types[i];
+            arg[i] = QGenericArgument("QxtBoundArgument", params[i]->data());
         }
+        else
+        {
+            data[i] = QMetaType::construct(QMetaType::type(params[i]->name()), params[i]->data());
+            arg[i] = p[i] = QGenericArgument(params[i]->name(), data[i]);
+        }
+        bindTypes[i] = types[i];
     }
+}
 
-    ~QxtBoundFunctionBase()
+QxtBoundFunctionBase::~QxtBoundFunctionBase()
+{
+    for (int i=0; i<10; i++)
     {
-        for (int i=0; i<10; i++)
-        {
-            if (arg[i].name() == 0) return;
-            if (QByteArray(arg[i].name()) != "QxtBoundArgument") QMetaType::destroy(QMetaType::type(arg[i].name()), arg[i].data());
-        }
+        if (arg[i].name() == 0) return;
+        if (QByteArray(arg[i].name()) != "QxtBoundArgument") QMetaType::destroy(QMetaType::type(arg[i].name()), arg[i].data());
     }
+}
 
-    int qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-    {
-        _id = QObject::qt_metacall(_c, _id, _a);
-        if (_id < 0)
-            return _id;
-        if (_c == QMetaObject::InvokeMetaMethod)
-        {
-            if (_id == 0)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    if (QByteArray(arg[i].name()) == "QxtBoundArgument")
-                    {
-                        p[i] = QGenericArgument(bindTypes[i].constData(), _a[(quintptr)(arg[i].data())]);
-                    }
-                }
-                invokeImpl(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
-            }
-            _id = -1;
-        }
+int QxtBoundFunctionBase::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QObject::qt_metacall(_c, _id, _a);
+    if (_id < 0)
         return _id;
-    }
-
-    bool invokeBase(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument))
+    if (_c == QMetaObject::InvokeMetaMethod)
     {
-        QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
-        for (int i = 0; i < 10; i++)
+        if (_id == 0)
         {
-            if (QByteArray(arg[i].name()) == "QxtBoundArgument")
+            for (int i = 0; i < 10; i++)
             {
-                p[i] = *args[(quintptr)(arg[i].data())-1];
+                if (QByteArray(arg[i].name()) == "QxtBoundArgument")
+                {
+                    p[i] = QGenericArgument(bindTypes[i].constData(), _a[(quintptr)(arg[i].data())]);
+                }
             }
+            invokeImpl(Qt::DirectConnection, QGenericReturnArgument(), p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
         }
-        return invokeImpl(type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+        _id = -1;
     }
-};
+    return _id;
+}
+
+bool QxtBoundFunctionBase::invokeBase(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument))
+{
+    QGenericArgument* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
+    for (int i = 0; i < 10; i++)
+    {
+        if (QByteArray(arg[i].name()) == "QxtBoundArgument")
+        {
+            p[i] = *args[(quintptr)(arg[i].data())-1];
+        }
+    }
+    return invokeImpl(type, returnValue, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9]);
+}
 
 bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument))
 {
