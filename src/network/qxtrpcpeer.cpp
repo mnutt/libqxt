@@ -280,7 +280,7 @@ bool QxtRPCPeer::attachSignal(QObject* sender, const char* signal, const QByteAr
     {
         if (QxtMetaObject::isSignalOrSlot(rpcFunction.constData()))
         {
-            spec->rpcFunction = QMetaObject::normalizedSignature(signal);
+            spec->rpcFunction = QMetaObject::normalizedSignature(rpcFunction);
         }
         else
         {
