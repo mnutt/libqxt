@@ -45,10 +45,11 @@ bool isSignalOrSlot (const char* method);
 
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
-template <typename FP>
-QxtBoundFunction* bindFunction(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
-template <class T, typename FP>
-QxtBoundFunction* bindMethod(T recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
+// Disabled for 0.2.4
+//template <typename FP>
+//QxtBoundFunction* bindFunction(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
+//template <class T, typename FP>
+//QxtBoundFunction* bindMethod(T recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
 bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
              Qt::ConnectionType type = Qt::AutoConnection);
 }
