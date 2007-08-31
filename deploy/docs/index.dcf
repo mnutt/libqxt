@@ -200,10 +200,10 @@
 <section ref="classQxtMetaObject.html" title="QxtMetaObject"> 
 	<keyword ref="classQxtMetaObject.html">QxtMetaObject</keyword>
 	<keyword ref="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</keyword>
-	<keyword ref="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">connect</keyword>
-	<keyword ref="classQxtMetaObject.html#55fce919fe48e029b3e3669d090fab70">isSignalOrSlot</keyword>
-	<keyword ref="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">methodName</keyword>
-	<keyword ref="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</keyword>
+	<keyword ref="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">connect</keyword>
+	<keyword ref="classQxtMetaObject.html#17869c73b9170eed104ac03237395aff">isSignalOrSlot</keyword>
+	<keyword ref="classQxtMetaObject.html#d5dc3f9735acfbaa57c87aa5469ddc74">methodName</keyword>
+	<keyword ref="classQxtMetaObject.html#08b2c37846aa9d2b36d93744f8b82889">methodSignature</keyword>
 </section>
 
 <section ref="classQxtNativeEventFilter.html" title="QxtNativeEventFilter"> 
@@ -297,7 +297,7 @@
 
 <section ref="classQxtSignalWaiter.html" title="QxtSignalWaiter"> 
 	<keyword ref="classQxtSignalWaiter.html">QxtSignalWaiter</keyword>
-	<keyword ref="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait</keyword>
+	<keyword ref="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait</keyword>
 </section>
 
 <section ref="classQxtSpanSlider.html" title="QxtSpanSlider"> 

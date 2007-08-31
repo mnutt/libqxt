@@ -39,7 +39,7 @@ width="32" height="32" border="0" /></a></td>
 <h3>Public Member Functions</h3>
 <ul>
 <li><a class="el" href="classQxtSignalWaiter.html#6d99c4de115096bb6b9edf88fa4e249a">QxtSignalWaiter</a> (const QObject *sender, const char *signal)
-<li>bool <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait</a> (int msec=-1)
+<li>bool <a class="el" href="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait</a> (int msec=-1, bool reset=false)
 </ul>
 <h3>Static Public Member Functions</h3>
 <ul>
@@ -85,18 +85,20 @@ default constructor Creates a QSignalWaiter and sets the default signal to sende
 </p></div>
 </div><!-- memitem --><br/>
 <hr><h3>Member Function Documentation</h3>
-<a class="anchor" name="bcf9adb155559121c19503cb89c5779c"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="bcf9adb155559121c19503cb89c5779c" args="(int msec=-1)" -->
+<a class="anchor" name="79b51af709dd02c243ee731a51aedef2"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="79b51af709dd02c243ee731a51aedef2" args="(int msec=-1, bool reset=false)" -->
 <div class="memitem">
 <div class="fn">
           <span class="memname">bool QxtSignalWaiter::wait           </span>
 (          <span class="paramtype">int&nbsp;</span>
-          <span class="paramname"> <em>msec</em> = -1</span>
+          <span class="paramname"> <em>msec</em> = -1, </span>
+          <span class="paramtype">bool&nbsp;</span>
+          <span class="paramname"> <em>reset</em> = false</span>
 )</div>
 
 <div class="memdoc">
 
 <p>
-wait for signal Waits for the signal sender::signal to be emitted. If msec is not -1, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will return after msec milliseconds. If a signal is not specified, the default signal specified in the constructor is used instead. If no default signal was specified in the constructor, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will block until the timeout has elapsed. If no timeout was specified, <a class="el" href="classQxtSignalWaiter.html#bcf9adb155559121c19503cb89c5779c">wait()</a> will return immediately.<br>
+wait for signal Waits for the signal sender::signal to be emitted. If msec is not -1, <a class="el" href="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait()</a> will return after msec milliseconds. If a signal is not specified, the default signal specified in the constructor is used instead. If no default signal was specified in the constructor, <a class="el" href="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait()</a> will block until the timeout has elapsed. If no timeout was specified, <a class="el" href="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait()</a> will return immediately.<br>
  Returns true if the signal was caught, false if it timed out. <br>
  This function is not reentrant. 
 </p></div>

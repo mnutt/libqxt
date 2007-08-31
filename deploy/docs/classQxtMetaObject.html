@@ -38,11 +38,11 @@ width="32" height="32" border="0" /></a></td>
 <p>
 <h3>Related Functions</h3>
 (Note that these are not member functions.) <ul>
-<li><a class="el" href="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">methodName</a> (const char *method)
-<li><a class="el" href="classQxtMetaObject.html#e13b92b909da5b8657c60c23e6ecc090">methodSignature</a> (const char *method)
-<li>bool <a class="el" href="classQxtMetaObject.html#55fce919fe48e029b3e3669d090fab70">isSignalOrSlot</a> (const char *method)
+<li><a class="el" href="classQxtMetaObject.html#d5dc3f9735acfbaa57c87aa5469ddc74">methodName</a> (const char *method)
+<li><a class="el" href="classQxtMetaObject.html#08b2c37846aa9d2b36d93744f8b82889">methodSignature</a> (const char *method)
+<li>bool <a class="el" href="classQxtMetaObject.html#17869c73b9170eed104ac03237395aff">isSignalOrSlot</a> (const char *method)
 <li><a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</a> (QObject *recv, const char *invokable, QXT_IMPL_10ARGS(QVariant))
-<li><a class="el" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">connect</a> (QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)
+<li><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">connect</a> (QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 provides extensions to QMetaObject 
@@ -51,10 +51,10 @@ including <a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62
  
 <p>
 <hr><h3>Friends And Related Function Documentation</h3>
-<a class="anchor" name="0ae31f72f59753250e37126239ddfa36"></a><!-- doxytag: member="QxtMetaObject::methodName" ref="0ae31f72f59753250e37126239ddfa36" args="(const char *method)" -->
+<a class="anchor" name="d5dc3f9735acfbaa57c87aa5469ddc74"></a><!-- doxytag: member="QxtMetaObject::methodName" ref="d5dc3f9735acfbaa57c87aa5469ddc74" args="(const char *method)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QByteArray QxtMetaObject::methodName           </span>
+          <span class="memname">QXT_CORE_EXPORT QByteArray QxtMetaObject::methodName           </span>
 (          <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>method</em></span>
 ) [related]</div>
@@ -63,15 +63,15 @@ including <a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62
 
 <p>
 Returns the name of the given method.<p>
-Example usage: <div class="fragment"><pre class="fragment">    QByteArray method = <a class="code" href="classQxtMetaObject.html#0ae31f72f59753250e37126239ddfa36">QxtMetaObject::methodName</a>(<span class="stringliteral">" int foo ( int bar, double baz )"</span>);
+Example usage: <div class="fragment"><pre class="fragment">    QByteArray method = <a class="code" href="classQxtMetaObject.html#d5dc3f9735acfbaa57c87aa5469ddc74">QxtMetaObject::methodName</a>(<span class="stringliteral">" int foo ( int bar, double baz )"</span>);
     <span class="comment">// method is now "foo"</span>
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="e13b92b909da5b8657c60c23e6ecc090"></a><!-- doxytag: member="QxtMetaObject::methodSignature" ref="e13b92b909da5b8657c60c23e6ecc090" args="(const char *method)" -->
+<a class="anchor" name="08b2c37846aa9d2b36d93744f8b82889"></a><!-- doxytag: member="QxtMetaObject::methodSignature" ref="08b2c37846aa9d2b36d93744f8b82889" args="(const char *method)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">QByteArray QxtMetaObject::methodSignature           </span>
+          <span class="memname">QXT_CORE_EXPORT QByteArray QxtMetaObject::methodSignature           </span>
 (          <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>method</em></span>
 ) [related]</div>
@@ -82,10 +82,10 @@ Example usage: <div class="fragment"><pre class="fragment">    QByteArray method
 Returns the signature of the given method. 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="55fce919fe48e029b3e3669d090fab70"></a><!-- doxytag: member="QxtMetaObject::isSignalOrSlot" ref="55fce919fe48e029b3e3669d090fab70" args="(const char *method)" -->
+<a class="anchor" name="17869c73b9170eed104ac03237395aff"></a><!-- doxytag: member="QxtMetaObject::isSignalOrSlot" ref="17869c73b9170eed104ac03237395aff" args="(const char *method)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">bool QxtMetaObject::isSignalOrSlot           </span>
+          <span class="memname">QXT_CORE_EXPORT bool QxtMetaObject::isSignalOrSlot           </span>
 (          <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>method</em></span>
 ) [related]</div>
@@ -112,21 +112,21 @@ checks if <code>method</code> contains parantesis and begins with 1 or 2
 
 <p>
 creates a QxtBoundFunction from a slot + arguments <br>
- can be used for <a class="el" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a> \<p>
-<div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a>(\n
+ can be used for <a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> \<p>
+<div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a>(\n
         <span class="keyword">this</span>, SIGNAL(init()), \\n
         <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString)), Q_ARG(QString,<span class="stringliteral">"hello"</span>)));
 </pre></div> <br>
- <div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#f191917b20bd284f97038585558fecb4">QxtMetaObject::connect</a>( \n
+ <div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a>( \n
         <span class="keyword">this</span>, SIGNAL(init(<span class="keywordtype">int</span> i)), \n
         <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString),<span class="keywordtype">int</span>), Q_ARG(QString,<span class="stringliteral">"hello"</span>),Q_BIND(1)));
 </pre></div> 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="f191917b20bd284f97038585558fecb4"></a><!-- doxytag: member="QxtMetaObject::connect" ref="f191917b20bd284f97038585558fecb4" args="(QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)" -->
+<a class="anchor" name="0672fb5917d321762dfd192f229469d5"></a><!-- doxytag: member="QxtMetaObject::connect" ref="0672fb5917d321762dfd192f229469d5" args="(QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">bool QxtMetaObject::connect           </span>
+          <span class="memname">QXT_CORE_EXPORT bool QxtMetaObject::connect           </span>
 (          <span class="paramtype">QObject *&nbsp;</span>
           <span class="paramname"> <em>sender</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
