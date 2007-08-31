@@ -37,21 +37,21 @@ class QxtBoundFunction;
 #define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
 namespace QxtMetaObject
 {
-QByteArray QXT_CORE_EXPORT methodName(const char* method);
-QByteArray QXT_CORE_EXPORT methodSignature(const char* method);
+QXT_CORE_EXPORT QByteArray methodName(const char* method);
+QXT_CORE_EXPORT QByteArray methodSignature(const char* method);
 
-bool QXT_CORE_EXPORT isSignalOrSlot (const char* method);
+QXT_CORE_EXPORT bool isSignalOrSlot (const char* method);
 
 
-QxtBoundFunction QXT_CORE_EXPORT * bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
-QxtBoundFunction QXT_CORE_EXPORT * bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
+QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
+QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
 // Disabled for 0.2.4
 //template <typename FP>
 //QxtBoundFunction* bindFunction(FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
 //template <class T, typename FP>
 //QxtBoundFunction* bindMethod(T recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
-bool QXT_CORE_EXPORTconnect(QObject* sender, const char* signal, QxtBoundFunction* slot,
-                            Qt::ConnectionType type = Qt::AutoConnection);
+QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
+                             Qt::ConnectionType type = Qt::AutoConnection);
 }
 
 #define QXT_BIND(i) QGenericArgument("QxtBoundArgument", reinterpret_cast<void*>(i))
