@@ -5,6 +5,7 @@ INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_NETWORK
 win32: CONFIG   += dll
 QT               = core network
+QXT              = core
 INCLUDEPATH     += .
 TEMPLATE         = lib
 MOC_DIR          = .moc

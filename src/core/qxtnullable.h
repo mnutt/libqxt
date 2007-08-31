@@ -73,7 +73,7 @@ somefunction(1);
 #include <qxtnull.h>
 
 template<typename T>
-class QXT_CORE_EXPORT QxtNullable
+class /*QXT_CORE_EXPORT*/ QxtNullable
 {
 public:
     QxtNullable(QxtNull);
