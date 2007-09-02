@@ -39,6 +39,7 @@ class qxt_cfunction_return : public QxtGenericFunctionPointer {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9), QXT_PARAM(10));
         return true;
     }
@@ -49,6 +50,7 @@ class qxt_cfunction_return<RETURN, void, void, void, void, void, void, void, voi
 public:
     typedef RETURN(*FUNCTION)();
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)();
         return true;
     }
@@ -59,6 +61,7 @@ class qxt_cfunction_return<RETURN, T1, void, void, void, void, void, void, void,
 public:
     typedef RETURN(*FUNCTION)(T1);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1));
         return true;
     }
@@ -69,6 +72,7 @@ class qxt_cfunction_return<RETURN, T1, T2, void, void, void, void, void, void, v
 public:
     typedef RETURN(*FUNCTION)(T1, T2);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2));
         return true;
     }
@@ -79,6 +83,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, void, void, void, void, void, voi
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3));
         return true;
     }
@@ -89,6 +94,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, void, void, void, void, void,
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4));
         return true;
     }
@@ -99,6 +105,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, void, void, void, void, v
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5));
         return true;
     }
@@ -109,6 +116,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, void, void, void, voi
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6));
         return true;
     }
@@ -119,6 +127,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, void, void, void>
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7));
         return true;
     }
@@ -129,6 +138,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, void, void> :
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8));
         return true;
     }
@@ -139,6 +149,7 @@ class qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : p
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9);
     bool invoke(QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9));
         return true;
     }
@@ -150,6 +161,7 @@ class qxt_cfunction : public QxtGenericFunctionPointer {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9), QXT_PARAM(10));
         return true;
     }
@@ -160,6 +172,7 @@ class qxt_cfunction<void, void, void, void, void, void, void, void, void, void> 
 public:
     typedef void(*FUNCTION)();
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)();
         return true;
     }
@@ -170,6 +183,7 @@ class qxt_cfunction<T1, void, void, void, void, void, void, void, void, void> : 
 public:
     typedef void(*FUNCTION)(T1);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1));
         return true;
     }
@@ -180,6 +194,7 @@ class qxt_cfunction<T1, T2, void, void, void, void, void, void, void, void> : pu
 public:
     typedef void(*FUNCTION)(T1, T2);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2));
         return true;
     }
@@ -190,6 +205,7 @@ class qxt_cfunction<T1, T2, T3, void, void, void, void, void, void, void> : publ
 public:
     typedef void(*FUNCTION)(T1, T2, T3);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3));
         return true;
     }
@@ -200,6 +216,7 @@ class qxt_cfunction<T1, T2, T3, T4, void, void, void, void, void, void> : public
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4));
         return true;
     }
@@ -210,6 +227,7 @@ class qxt_cfunction<T1, T2, T3, T4, T5, void, void, void, void, void> : public Q
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5));
         return true;
     }
@@ -220,6 +238,7 @@ class qxt_cfunction<T1, T2, T3, T4, T5, T6, void, void, void, void> : public Qxt
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6));
         return true;
     }
@@ -230,6 +249,7 @@ class qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, void, void, void> : public QxtGe
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7));
         return true;
     }
@@ -240,6 +260,7 @@ class qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, void, void> : public QxtGene
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8));
         return true;
     }
@@ -250,6 +271,7 @@ class qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : public QxtGeneri
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9);
     bool invoke(QXT_PROTO_10ARGS(QGenericArgument)) {
+        QXT_10_UNUSED;
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9));
         return true;
     }
@@ -301,7 +323,7 @@ namespace QxtMetaObject {
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
 QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QGenericArgument)) {
     // Make sure the template parameters make a function pointer equivalent to the one passed in
-    if(typeid(funcPointer) != typeid(qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>::FUNCTION)) {
+    if(funcPointer.typeName != typeid(typename qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>::FUNCTION).name()) {
         qWarning() << "QxtMetaObject::bind: parameter list mismatch, check template arguments";
         return 0;
     }
@@ -340,7 +362,7 @@ QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QV
 
 // The following overloads exist because C++ doesn't support default parameters in function templates
 template <typename RETURN>
-inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QGenericArgument p1) {
+inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer) {
     return bind<RETURN, void, void, void, void, void, void, void, void, void, void>(funcPointer,
             QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument(), QGenericArgument());
 }
@@ -397,11 +419,6 @@ template <typename RETURN, typename T1, typename T2, typename T3, typename T4, t
 inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QGenericArgument p1, QGenericArgument p2, QGenericArgument p3, QGenericArgument p4, QGenericArgument p5,
         QGenericArgument p6, QGenericArgument p7, QGenericArgument p8, QGenericArgument p9) {
     return bind<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, void>(funcPointer, p1, p2, p3, p4, p5, p6, p7, p8, p9, QGenericArgument());
-}
-
-template <typename RETURN>
-inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QVariant p1) {
-    return bind<RETURN, void, void, void, void, void, void, void, void, void, void>(funcPointer, QVariant(), QVariant(), QVariant(), QVariant(), QVariant(), QVariant(), QVariant(), QVariant(), QVariant(), QVariant());
 }
 
 template <typename RETURN, typename T1>

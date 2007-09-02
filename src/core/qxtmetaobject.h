@@ -39,19 +39,22 @@ class QxtGenericFunctionPointer {
 public:
     typedef void(voidFunc)();
     voidFunc* funcPtr;
+    QByteArray typeName;
 
-    QxtGenericFunctionPointer(voidFunc* ptr) {
+    QxtGenericFunctionPointer(voidFunc* ptr, const QByteArray& typeIdName) {
         funcPtr = ptr;
+        typeName = typeIdName;
     }
 
     QxtGenericFunctionPointer(const QxtGenericFunctionPointer& other) {
         funcPtr = other.funcPtr;
+        typeName = other.typeName;
     }
 };
 
 template<typename FUNCTION>
 QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr) {
-    return QxtGenericFunctionPointer(reinterpret_cast<QxtGenericFunctionPointer::voidFunc*>(funcPtr));
+    return QxtGenericFunctionPointer(reinterpret_cast<QxtGenericFunctionPointer::voidFunc*>(funcPtr), typeid(funcPtr).name());
 }
 
 namespace QxtMetaObject

@@ -32,6 +32,7 @@
 
 template <typename T>
 class QxtMetaType {
+public:
     static inline T* construct(const T* copy = 0) {
         return QMetaType::construct(qMetaTypeId<T>(), reinterpret_cast<const void*>(copy));
     }
@@ -61,6 +62,7 @@ class QxtMetaType {
 
 template <>
 class QxtMetaType<void> {
+public:
     static inline void* construct(const void* copy = 0) {
         Q_UNUSED(copy);
         return 0;
