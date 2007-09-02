@@ -18,6 +18,7 @@ HEADERS += qxtcsvmodel.h \
            qxtglobal.h \
            qxthypermacros.h \
            qxtmetaobject.h \
+           qxtmetatype.h \
            qxtnamespace.h \
            qxtnull.h \
            qxtnullable.h \
