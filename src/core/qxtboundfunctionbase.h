@@ -36,6 +36,8 @@
 #include <qxtmetaobject.h>
 #include <qxtboundfunction.h>
 
+#define QXT_10_UNUSED Q_UNUSED(p1) Q_UNUSED(p2) Q_UNUSED(p3) Q_UNUSED(p4) Q_UNUSED(p5) Q_UNUSED(p6) Q_UNUSED(p7) Q_UNUSED(p8) Q_UNUSED(p9) Q_UNUSED(p10)
+
 class QxtBoundFunctionBase : public QxtBoundFunction
 {
 public:

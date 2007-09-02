@@ -31,6 +31,7 @@
 #include <qxtmetaobject.h>
 #include <qxtnull.h>
 #include <QThread>
+#include <QtDebug>
 
 class QxtBoundFunction : public QObject
 {
@@ -39,13 +40,13 @@ public:
     template <class T>
     inline QxtNullable<T> invoke(QXT_PROTO_10ARGS(QVariant))
     {
-        if (QThread::currentThread() == parent()->thread())
+        if (!parent() || QThread::currentThread() == parent()->thread())
             return invoke<T>(Qt::DirectConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10); 
 #if QT_VERSION >= 0x040300
         return invoke<T>(Qt::BlockingQueuedConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #else
         qWarning() << "QxtBoundFunction::invoke: Cannot return a value using a queued connection";
-        return QxtNull;
+        return qxtNull;
 #endif
     }
 
