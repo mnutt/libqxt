@@ -27,6 +27,7 @@
 #include <QMetaObject>
 #include <QVariant>
 #include <QGenericArgument>
+#include <typeinfo>
 #include "qxtnullable.h"
 class QByteArray;
 class QxtBoundArgument;
@@ -36,19 +37,22 @@ class QxtBoundFunction;
 #define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
 
 class QxtGenericFunctionPointer {
+template<typename FUNCTION>
+friend QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr);
 public:
+    QxtGenericFunctionPointer(const QxtGenericFunctionPointer& other) {
+        funcPtr = other.funcPtr;
+        typeName = other.typeName;
+    }
+
     typedef void(voidFunc)();
     voidFunc* funcPtr;
     QByteArray typeName;
 
+private:
     QxtGenericFunctionPointer(voidFunc* ptr, const QByteArray& typeIdName) {
         funcPtr = ptr;
         typeName = typeIdName;
-    }
-
-    QxtGenericFunctionPointer(const QxtGenericFunctionPointer& other) {
-        funcPtr = other.funcPtr;
-        typeName = other.typeName;
     }
 };
 
@@ -66,8 +70,6 @@ QXT_CORE_EXPORT bool isSignalOrSlot (const char* method);
 
 QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QVariant));
 QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
-//template <class T, typename FP>
-//QxtBoundFunction* bindMethod(T recv, FP funcPointer, QXT_PROTO_10ARGS(QGenericArgument));
 QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
                              Qt::ConnectionType type = Qt::AutoConnection);
 }
