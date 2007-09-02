@@ -50,4 +50,6 @@ public:
     bool invokeBase(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_PROTO_10ARGS(QGenericArgument));
 };
 
+#define QXT_ARG(i) ((argCount>i)?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument())
+#define QXT_VAR_ARG(i) (p ## i .isValid())?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument()
 #endif

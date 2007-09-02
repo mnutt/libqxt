@@ -34,6 +34,7 @@ including QxtMetaObject::bind \n
 #include "qxtmetaobject.h"
 #include "qxtboundfunction.h"
 #include "qxtboundcfunction.h"
+#include "qxtmetatype.h"
 
 #include <QByteArray>
 #include <QMetaObject>
@@ -53,8 +54,6 @@ QxtBoundFunction::QxtBoundFunction(QObject* parent) : QObject(parent)
     // initializer only
 }
 
-#define QXT_ARG(i) ((argCount>i)?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument())
-#define QXT_VAR_ARG(i) (p ## i .isValid())?QGenericArgument(p ## i .typeName(), p ## i .constData()):QGenericArgument()
 bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QVariant))
 {
     return invoke(type, QXT_VAR_ARG(1), QXT_VAR_ARG(2), QXT_VAR_ARG(3), QXT_VAR_ARG(4), QXT_VAR_ARG(5), QXT_VAR_ARG(6), QXT_VAR_ARG(7), QXT_VAR_ARG(8), QXT_VAR_ARG(9), QXT_VAR_ARG(10));
@@ -76,7 +75,7 @@ QxtBoundFunctionBase::QxtBoundFunctionBase(QObject* parent, QGenericArgument* pa
         }
         else
         {
-            data[i] = QMetaType::construct(QMetaType::type(params[i]->name()), params[i]->data());
+            data[i] = qxtConstructFromGenericArgument(*params[i]);
             arg[i] = p[i] = QGenericArgument(params[i]->name(), data[i]);
         }
         bindTypes[i] = types[i];
@@ -88,7 +87,7 @@ QxtBoundFunctionBase::~QxtBoundFunctionBase()
     for (int i=0; i<10; i++)
     {
         if (arg[i].name() == 0) return;
-        if (QByteArray(arg[i].name()) != "QxtBoundArgument") QMetaType::destroy(QMetaType::type(arg[i].name()), arg[i].data());
+        if (QByteArray(arg[i].name()) != "QxtBoundArgument") qxtDestroyFromGenericArgument(arg[i]);
     }
 }
 
