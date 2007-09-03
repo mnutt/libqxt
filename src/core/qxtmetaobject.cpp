@@ -41,6 +41,7 @@ including QxtMetaObject::bind \n
 #include <QMetaMethod>
 #include <QtDebug>
 
+#ifndef QXT_DOXYGEN_RUN
 class QxtBoundArgument
 {
     // This class intentionally left blank
@@ -53,6 +54,7 @@ QxtBoundFunction::QxtBoundFunction(QObject* parent) : QObject(parent)
 {
     // initializer only
 }
+#endif
 
 bool QxtBoundFunction::invoke(Qt::ConnectionType type, QXT_IMPL_10ARGS(QVariant))
 {
@@ -132,6 +134,7 @@ bool QxtBoundFunction::invoke(Qt::ConnectionType type, QGenericReturnArgument re
     return reinterpret_cast<QxtBoundFunctionBase*>(this)->invokeBase(type, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 }
 
+#ifndef QXT_DOXYGEN_RUN
 class QxtBoundSlot : public QxtBoundFunctionBase
 {
 public:
@@ -152,6 +155,7 @@ public:
         return true;
     }
 };
+#endif
 
 namespace QxtMetaObject
 {
@@ -206,24 +210,21 @@ bool isSignalOrSlot (const char* method)
 }
 
 /**
-\relates QxtMetaObject
-\fn bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant))
-
-creates a QxtBoundFunction from a slot + arguments \n
-can be used for QxtMetaObject::connect \
-
-\code
-QxtMetaObject::connect(\n
-	this, SIGNAL(init()), \\n
-	QxtMetaObject::bind(this, SLOT(say(QString)), Q_ARG(QString,"hello")));
-\endcode
-\n
-\code
-QxtMetaObject::connect( \n
-	this, SIGNAL(init(int i)), \n
-	QxtMetaObject::bind(this, SLOT(say(QString),int), Q_ARG(QString,"hello"),Q_BIND(1)));
-\endcode
-
+ * \relates QxtMetaObject
+ * \sa QxtMetaObject::connect
+ * \sa QxtBoundFunction
+ *
+ * Creates a binding to the provided signal, slot, or Q_INVOKABLE method using the
+ * provided parameter list. The type of each argument is deduced from the type of
+ * the QVariant. This function cannot bind positional arguments; see the
+ * overload using QGenericArgument.
+ *
+ * If the provided QObject does not implement the requested method, or if the
+ * argument list is incompatible with the method's function signature, this
+ * function returns NULL.
+ *
+ * The returned QxtBoundFunction is created as a child of the receiver.
+ * Changing the parent will result in undefined behavior.
  */
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVariant))
 {
@@ -260,6 +261,24 @@ QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QVa
     return QxtMetaObject::bind(recv, invokable, QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9), QXT_ARG(10));
 }
 
+/**
+ * \relates QxtMetaObject
+ * \sa QxtMetaObject::connect
+ * \sa QxtBoundFunction
+ * \sa QXT_BIND
+ *
+ * Creates a binding to the provided signal, slot, or Q_INVOKABLE method using the
+ * provided parameter list. Use the Q_ARG macro to specify constant parameters, or
+ * use the QXT_BIND macro to relay a parameter from a connected signal or passed
+ * via the QxtBoundFunction::invoke() method.
+ * 
+ * If the provided QObject does not implement the requested method, or if the
+ * argument list is incompatible with the method's function signature, this
+ * function returns NULL.
+ *
+ * The returned QxtBoundFunction is created as a child of the receiver.
+ * Changing the parent will result in undefined behavior.
+ */
 QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_IMPL_10ARGS(QGenericArgument))
 {
     if (!recv)
