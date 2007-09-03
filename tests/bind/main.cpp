@@ -6,6 +6,10 @@
 
 void unaryVoidFunction(QObject* obj);
 
+void nullaryVoidFunction() {
+    qDebug() << "If you don't see this, it's broken.";
+}
+
 int nullaryIntFunction()
 {
     return 5;
@@ -42,16 +46,21 @@ private slots:
         QList<QVariant> arguments = spy.takeFirst();
         QVERIFY2(arguments.at(0).toString()=="hello","argument missmatch");
 
+        QxtBoundFunction* nullaryVoid = QxtMetaObject::bind<void>(qxtFuncPtr(nullaryVoidFunction));
         QxtBoundFunction* unaryVoid = QxtMetaObject::bind<void, QObject*>(qxtFuncPtr(unaryVoidFunction), Q_ARG(QObject*, this));
         QxtBoundFunction* nullaryInt = QxtMetaObject::bind<int>(qxtFuncPtr(nullaryIntFunction));
         QxtBoundFunction* unaryIntFixed = QxtMetaObject::bind<int, int>(qxtFuncPtr(unaryIntFunction), Q_ARG(int, 7));
         QxtBoundFunction* unaryIntBound = QxtMetaObject::bind<int, int>(qxtFuncPtr(unaryIntFunction), QXT_BIND(1));
+        QVERIFY2(nullaryVoid != 0, "nullaryVoidFunction bind failed");
         QVERIFY2(unaryVoid != 0, "unaryVoidFunction bind failed");
-        QVERIFY2(nullaryInt != 0, "nullaryIntFunctionbind failed");
+        QVERIFY2(nullaryInt != 0, "nullaryIntFunction bind failed");
         QVERIFY2(unaryIntFixed != 0, "unaryIntFunction bind failed with Q_ARG");
         QVERIFY2(unaryIntBound != 0, "unaryIntFunction bind failed with QXT_BIND");
 
         bool ok;
+        ok = nullaryVoid->invoke();
+        QVERIFY2(ok, "nullaryVoid invoke failed");
+
         QSignalSpy spy2(this, SIGNAL(success()));
         ok = unaryVoid->invoke(this);
         QVERIFY2(ok, "unaryVoid invoke failed");
