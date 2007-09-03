@@ -152,6 +152,7 @@ void QxtWebCore::close()
 void QxtWebCore::sendHeader()
 {
     instance()->qxt_d().sendheader();
+
 }
 
 //-----------------------implementation----------------------------
