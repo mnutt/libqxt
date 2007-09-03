@@ -29,6 +29,8 @@
 #include <qxtmetatype.h>
 #include <QtDebug>
 
+#ifndef QXT_DOXYGEN_RUN
+
 #define QXT_RETURN(fp) *reinterpret_cast<RETURN*>(returnValue.data()) = (*reinterpret_cast<FUNCTION>(fp))
 #define QXT_INVOKE(fp) (*reinterpret_cast<FUNCTION>(fp))
 #define QXT_PARAM(i) *reinterpret_cast<T ## i *>(p ## i .data())
@@ -318,8 +320,30 @@ public:
 #undef QXT_RETURN
 #undef QXT_INVOKE
 #undef QXT_PARAM
+#endif
 
 namespace QxtMetaObject {
+/**
+ * \relates QxtMetaObject
+ * \sa QxtMetaObject::connect
+ * \sa qxtFuncPtr
+ * \sa QxtBoundFunction
+ * \sa QXT_BIND
+ *
+ * Creates a binding to the provided C/C++ function using the provided parameter list.
+ * Use the qxtFuncPtr function to wrap a bare function pointer for use in this function.
+ * Use the Q_ARG macro to specify constant parameters, or use the QXT_BIND macro to
+ * relay a parameter from a connected signal or passed via the QxtBoundFunction::invoke()
+ * method.
+ *
+ * The first template parameter must match the return type of the function, or
+ * void if the function does not return a value. The remaining template parameters must
+ * match the types of the function's parameters. If any type does not match, this
+ * function returns NULL.
+ *
+ * The returned QxtBoundFunction will not have a parent. Assigning a parent using
+ * QObject::setParent() is strongly recommended to avoid memory leaks.
+ */
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
 QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QGenericArgument)) {
     // Make sure the template parameters make a function pointer equivalent to the one passed in
@@ -353,6 +377,25 @@ QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QG
     return new QxtBoundCFunction<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(0, funcPointer, args, types);
 }
 
+/**
+ * \relates QxtMetaObject
+ * \sa QxtMetaObject::connect
+ * \sa qxtFuncPtr
+ * \sa QxtBoundFunction
+ *
+ * Creates a binding to the provided C/C++ function using the provided parameter list.
+ * Use the qxtFuncPtr function to wrap a bare function pointer for use in this function.
+ * The type of each argument is deduced from the type of the QVariant. This function
+ * cannot bind positional arguments; see the overload using QGenericArgument.
+ *
+ * The first template parameter must match the return type of the function, or
+ * void if the function does not return a value. The remaining template parameters must
+ * match the types of the function's parameters. If any type does not match, this
+ * function returns NULL.
+ *
+ * The returned QxtBoundFunction will not have a parent. Assigning a parent using
+ * QObject::setParent() is strongly recommended to avoid memory leaks.
+ */
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
 QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QVariant)) {
     QVariant* args[10] = { &p1, &p2, &p3, &p4, &p5, &p6, &p7, &p8, &p9, &p10 };
@@ -361,6 +404,7 @@ QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QV
 }
 
 // The following overloads exist because C++ doesn't support default parameters in function templates
+#ifndef QXT_DOXYGEN_RUN
 template <typename RETURN>
 inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer) {
     return bind<RETURN, void, void, void, void, void, void, void, void, void, void>(funcPointer,
@@ -465,6 +509,6 @@ template <typename RETURN, typename T1, typename T2, typename T3, typename T4, t
 inline QxtBoundFunction* bind(QxtGenericFunctionPointer funcPointer, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) {
     return bind<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, void>(funcPointer, p1, p2, p3, p4, p5, p6, p7, p8, p9, QVariant());
 }
-
+#endif
 }
 #endif
