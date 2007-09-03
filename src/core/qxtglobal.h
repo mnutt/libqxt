@@ -24,11 +24,7 @@
 
 
 /** \defgroup core Core
-        The Core contains naturaly  the most important parts of Qxt everything is based one. it has no QT depencies and is licenced under pure lgpl
-*/
-
-/** \defgroup kit Kit
-        the kit module contains the base parts of Qxt that depend on QtCore
+        The Core contains naturaly  the most important parts of Qxt everything is based one
 */
 
 /** \defgroup sql Sql
@@ -41,11 +37,6 @@
 
 /** \defgroup gui Gui
         parts that depend on QtGui (and at least QtCore)
-*/
-
-
-/** \defgroup curses  Curses
-        Qt like ncurses Frontend
 */
 
 /** \defgroup web  Web
