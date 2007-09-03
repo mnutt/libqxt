@@ -199,11 +199,12 @@
 
 <section ref="classQxtMetaObject.html" title="QxtMetaObject"> 
 	<keyword ref="classQxtMetaObject.html">QxtMetaObject</keyword>
-	<keyword ref="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</keyword>
+	<keyword ref="classQxtMetaObject.html#6a4e1dc20ba9478fd244031d76518fc3">bind</keyword>
 	<keyword ref="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">connect</keyword>
 	<keyword ref="classQxtMetaObject.html#17869c73b9170eed104ac03237395aff">isSignalOrSlot</keyword>
 	<keyword ref="classQxtMetaObject.html#d5dc3f9735acfbaa57c87aa5469ddc74">methodName</keyword>
 	<keyword ref="classQxtMetaObject.html#08b2c37846aa9d2b36d93744f8b82889">methodSignature</keyword>
+	<keyword ref="classQxtMetaObject.html#83319dee22cac5d7cd6f64783be4b8b5">QXT_BIND</keyword>
 </section>
 
 <section ref="classQxtNativeEventFilter.html" title="QxtNativeEventFilter"> 

@@ -38,19 +38,70 @@ width="32" height="32" border="0" /></a></td>
 <p>
 <h3>Related Functions</h3>
 (Note that these are not member functions.) <ul>
+<li>template&lt;typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10&gt; QxtBoundFunction * <a class="el" href="classQxtMetaObject.html#6a4e1dc20ba9478fd244031d76518fc3">bind</a> (QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QGenericArgument))
+<li>template&lt;typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10&gt; QxtBoundFunction * <a class="el" href="classQxtMetaObject.html#93e1d55f77cac352f53f765b043154c9">bind</a> (QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QVariant))
 <li><a class="el" href="classQxtMetaObject.html#d5dc3f9735acfbaa57c87aa5469ddc74">methodName</a> (const char *method)
 <li><a class="el" href="classQxtMetaObject.html#08b2c37846aa9d2b36d93744f8b82889">methodSignature</a> (const char *method)
 <li>bool <a class="el" href="classQxtMetaObject.html#17869c73b9170eed104ac03237395aff">isSignalOrSlot</a> (const char *method)
-<li><a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">bind</a> (QObject *recv, const char *invokable, QXT_IMPL_10ARGS(QVariant))
+<li>QxtBoundFunction * <a class="el" href="classQxtMetaObject.html#3532e4e412ab3818ce752a23bbf92c26">bind</a> (QObject *recv, const char *invokable, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9, QVariant p10)
+<li>QxtBoundFunction * <a class="el" href="classQxtMetaObject.html#a5c02c1c3b053a7a026db7b9ac93992d">bind</a> (QObject *recv, const char *invokable, QGenericArgument p1, QGenericArgument p2, QGenericArgument p3, QGenericArgument p4, QGenericArgument p5, QGenericArgument p6, QGenericArgument p7, QGenericArgument p8, QGenericArgument p9, QGenericArgument p10)
 <li><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">connect</a> (QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)
+<li><a class="el" href="classQxtMetaObject.html#83319dee22cac5d7cd6f64783be4b8b5">QXT_BIND</a>(n)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 provides extensions to QMetaObject 
 <p>
-including <a class="el" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a> <br>
+including <a class="el" href="classQxtMetaObject.html#6a4e1dc20ba9478fd244031d76518fc3">QxtMetaObject::bind</a> <br>
  
 <p>
 <hr><h3>Friends And Related Function Documentation</h3>
+<a class="anchor" name="6a4e1dc20ba9478fd244031d76518fc3"></a><!-- doxytag: member="QxtMetaObject::bind" ref="6a4e1dc20ba9478fd244031d76518fc3" args="(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QGenericArgument))" -->
+<div class="memitem">
+<div class="fn">
+<div class="memtemplate">
+template&lt;typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10&gt; </div>
+          <span class="memname">QxtBoundFunction * bind           </span>
+(          <span class="paramtype">QxtGenericFunctionPointer&nbsp;</span>
+          <span class="paramname"> <em>funcPointer</em>, </span>
+          <span class="paramtype">QXT_IMPL_10ARGS(QGenericArgument)&nbsp;</span>
+          <span class="paramname"></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> <p>
+qxtFuncPtr <p>
+QxtBoundFunction <p>
+<a class="el" href="classQxtMetaObject.html#83319dee22cac5d7cd6f64783be4b8b5">QXT_BIND</a></dd></dl>
+Creates a binding to the provided C/C++ function using the provided parameter list. Use the qxtFuncPtr function to wrap a bare function pointer for use in this function. Use the Q_ARG macro to specify constant parameters, or use the QXT_BIND macro to relay a parameter from a connected signal or passed via the QxtBoundFunction::invoke() method.<p>
+The first template parameter must match the return type of the function, or void if the function does not return a value. The remaining template parameters must match the types of the function's parameters. If any type does not match, this function returns NULL.<p>
+The returned QxtBoundFunction will not have a parent. Assigning a parent using QObject::setParent() is strongly recommended to avoid memory leaks. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="93e1d55f77cac352f53f765b043154c9"></a><!-- doxytag: member="QxtMetaObject::bind" ref="93e1d55f77cac352f53f765b043154c9" args="(QxtGenericFunctionPointer funcPointer, QXT_IMPL_10ARGS(QVariant))" -->
+<div class="memitem">
+<div class="fn">
+<div class="memtemplate">
+template&lt;typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10&gt; </div>
+          <span class="memname">QxtBoundFunction * bind           </span>
+(          <span class="paramtype">QxtGenericFunctionPointer&nbsp;</span>
+          <span class="paramname"> <em>funcPointer</em>, </span>
+          <span class="paramtype">QXT_IMPL_10ARGS(QVariant)&nbsp;</span>
+          <span class="paramname"></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> <p>
+qxtFuncPtr <p>
+QxtBoundFunction</dd></dl>
+Creates a binding to the provided C/C++ function using the provided parameter list. Use the qxtFuncPtr function to wrap a bare function pointer for use in this function. The type of each argument is deduced from the type of the QVariant. This function cannot bind positional arguments; see the overload using QGenericArgument.<p>
+The first template parameter must match the return type of the function, or void if the function does not return a value. The remaining template parameters must match the types of the function's parameters. If any type does not match, this function returns NULL.<p>
+The returned QxtBoundFunction will not have a parent. Assigning a parent using QObject::setParent() is strongly recommended to avoid memory leaks. 
+</p></div>
+</div><!-- memitem --><br/>
 <a class="anchor" name="d5dc3f9735acfbaa57c87aa5469ddc74"></a><!-- doxytag: member="QxtMetaObject::methodName" ref="d5dc3f9735acfbaa57c87aa5469ddc74" args="(const char *method)" -->
 <div class="memitem">
 <div class="fn">
@@ -96,31 +147,85 @@ Returns the signature of the given method.
 checks if <code>method</code> contains parantesis and begins with 1 or 2 
 </p></div>
 </div><!-- memitem --><br/>
-<a class="anchor" name="ad97c9c4c709ca8b6acbff5d62effab3"></a><!-- doxytag: member="QxtMetaObject::bind" ref="ad97c9c4c709ca8b6acbff5d62effab3" args="(QObject *recv, const char *invokable, QXT_IMPL_10ARGS(QVariant))" -->
+<a class="anchor" name="3532e4e412ab3818ce752a23bbf92c26"></a><!-- doxytag: member="QxtMetaObject::bind" ref="3532e4e412ab3818ce752a23bbf92c26" args="(QObject *recv, const char *invokable, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9, QVariant p10)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname">bind           </span>
+          <span class="memname">QxtBoundFunction * bind           </span>
 (          <span class="paramtype">QObject *&nbsp;</span>
           <span class="paramname"> <em>recv</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>invokable</em>, </span>
-          <span class="paramtype">QXT_IMPL_10ARGS(QVariant)&nbsp;</span>
-          <span class="paramname"></span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p1</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p2</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p3</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p4</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p5</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p6</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p7</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p8</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p9</em>, </span>
+          <span class="paramtype">QVariant&nbsp;</span>
+          <span class="paramname"> <em>p10</em></span>
 ) [related]</div>
 
 <div class="memdoc">
 
 <p>
-creates a QxtBoundFunction from a slot + arguments <br>
- can be used for <a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> \<p>
-<div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a>(\n
-        <span class="keyword">this</span>, SIGNAL(init()), \\n
-        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString)), Q_ARG(QString,<span class="stringliteral">"hello"</span>)));
-</pre></div> <br>
- <div class="fragment"><pre class="fragment"><a class="code" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a>( \n
-        <span class="keyword">this</span>, SIGNAL(init(<span class="keywordtype">int</span> i)), \n
-        <a class="code" href="classQxtMetaObject.html#ad97c9c4c709ca8b6acbff5d62effab3">QxtMetaObject::bind</a>(<span class="keyword">this</span>, SLOT(say(QString),<span class="keywordtype">int</span>), Q_ARG(QString,<span class="stringliteral">"hello"</span>),Q_BIND(1)));
-</pre></div> 
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> <p>
+QxtBoundFunction</dd></dl>
+Creates a binding to the provided signal, slot, or Q_INVOKABLE method using the provided parameter list. The type of each argument is deduced from the type of the QVariant. This function cannot bind positional arguments; see the overload using QGenericArgument.<p>
+If the provided QObject does not implement the requested method, or if the argument list is incompatible with the method's function signature, this function returns NULL.<p>
+The returned QxtBoundFunction is created as a child of the receiver. Changing the parent will result in undefined behavior. 
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="a5c02c1c3b053a7a026db7b9ac93992d"></a><!-- doxytag: member="QxtMetaObject::bind" ref="a5c02c1c3b053a7a026db7b9ac93992d" args="(QObject *recv, const char *invokable, QGenericArgument p1, QGenericArgument p2, QGenericArgument p3, QGenericArgument p4, QGenericArgument p5, QGenericArgument p6, QGenericArgument p7, QGenericArgument p8, QGenericArgument p9, QGenericArgument p10)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QxtBoundFunction * bind           </span>
+(          <span class="paramtype">QObject *&nbsp;</span>
+          <span class="paramname"> <em>recv</em>, </span>
+          <span class="paramtype">const char *&nbsp;</span>
+          <span class="paramname"> <em>invokable</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p1</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p2</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p3</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p4</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p5</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p6</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p7</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p8</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p9</em>, </span>
+          <span class="paramtype">QGenericArgument&nbsp;</span>
+          <span class="paramname"> <em>p10</em></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5">QxtMetaObject::connect</a> <p>
+QxtBoundFunction <p>
+<a class="el" href="classQxtMetaObject.html#83319dee22cac5d7cd6f64783be4b8b5">QXT_BIND</a></dd></dl>
+Creates a binding to the provided signal, slot, or Q_INVOKABLE method using the provided parameter list. Use the Q_ARG macro to specify constant parameters, or use the QXT_BIND macro to relay a parameter from a connected signal or passed via the QxtBoundFunction::invoke() method.<p>
+If the provided QObject does not implement the requested method, or if the argument list is incompatible with the method's function signature, this function returns NULL.<p>
+The returned QxtBoundFunction is created as a child of the receiver. Changing the parent will result in undefined behavior. 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="0672fb5917d321762dfd192f229469d5"></a><!-- doxytag: member="QxtMetaObject::connect" ref="0672fb5917d321762dfd192f229469d5" args="(QObject *sender, const char *signal, QxtBoundFunction *slot, Qt::ConnectionType type)" -->
@@ -142,6 +247,21 @@ creates a QxtBoundFunction from a slot + arguments <br>
 <p>
 connects a signal to a QxtBoundFunction <br>
  
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="83319dee22cac5d7cd6f64783be4b8b5"></a><!-- doxytag: member="QxtMetaObject::QXT_BIND" ref="83319dee22cac5d7cd6f64783be4b8b5" args="(n)" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname">QXT_BIND          </span>
+(          <span class="paramtype">n&nbsp;</span>
+          <span class="paramname"></span>
+) [related]</div>
+
+<div class="memdoc">
+
+<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="el" href="classQxtMetaObject.html#6a4e1dc20ba9478fd244031d76518fc3">QxtMetaObject::bind</a> Refers to the n'th parameter of QxtBoundFunction::invoke() or a signal connected to a QxtBoundFunction. </dd></dl>
+
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
