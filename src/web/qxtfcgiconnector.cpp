@@ -131,7 +131,6 @@ void QxtFcgiConnectorPrivate::run()
                 io->write(content, clen);
         */
 
-
         emit(qxt_p().incomming(SERVER));
         /// heck this is a frikin waste of RAM, cpu and my nerves.
         /// I hope those arrogants retards burn in hell for it.

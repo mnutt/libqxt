@@ -73,7 +73,10 @@ bool QxtHtmlTemplate::open(const QString& filename)
     data = QString::fromLocal8Bit(f.readAll());
     f.close();
     if (data.isEmpty())
+        {
+        qWarning("QxtHtmlTemplate::open(\"%s\") empty or non existant",qPrintable(filename));
         return false;
+        }
     return true;
 }
 
