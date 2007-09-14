@@ -40,10 +40,12 @@ protected:
         QTcpSocket * tcpSocket = new QTcpSocket;
         if (!tcpSocket->setSocketDescriptor(socketDescriptor))
         {
+            delete tcpSocket;
+            socket_m=0;
             return;
         }
         socket_m=tcpSocket;
-        connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater()));
+        connect(tcpSocket,SIGNAL(disconnected()),tcpSocket,SLOT(deleteLater())); ///TODO:right. and what id the client disconnects earlier?
         SERVER.clear();
         int eee1=readHeaderFromSocket(tcpSocket,SERVER);
         if (eee1)
