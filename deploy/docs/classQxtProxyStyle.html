@@ -33,40 +33,45 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtProxyStyle Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtProxyStyle" -->A proxy style.  
+</h1><!-- doxytag: class="QxtProxyStyle" --><!-- doxytag: inherits="QStyle" -->A proxy style.  
 <a href="#_details">More...</a>
 <p>
+<p>Inheritance diagram for QxtProxyStyle:
+<p><center><img src="classQxtProxyStyle.png" usemap="#QxtProxyStyle_map" border="0" alt=""></center>
+<map name="QxtProxyStyle_map">
+<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstyle.html" alt="QStyle" shape="rect" coords="0,0,92,24">
+</map>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="el" href="classQxtProxyStyle.html#baf2879916f0cae9d90aea8caedeb5f7">QxtProxyStyle</a> (const QString &amp;baseStyle)
+<li><a class="el" href="classQxtProxyStyle.html#baf2879916f0cae9d90aea8caedeb5f7">QxtProxyStyle</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;baseStyle)
 <li>virtual <a class="el" href="classQxtProxyStyle.html#a0fa2a8509bd90acf844736d73dff9ec">~QxtProxyStyle</a> ()
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 A proxy style. 
 <p>
-A technique called "proxy style" is a common way for creating cross-platform custom styles. Developers often want to do slight adjustments in some specific values returned by QStyle. A proxy style is the solution to avoid subclassing any platform specific style (eg. QPlastiqueStyle, QWindowsXPStyle, or QMacStyle) and to retain the native look on all supported platforms.<p>
+A technique called "proxy style" is a common way for creating cross-platform custom styles. Developers often want to do slight adjustments in some specific values returned by <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstyle.html">QStyle</a>. A proxy style is the solution to avoid subclassing any platform specific style (eg. <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qplastiquestyle.html">QPlastiqueStyle</a>, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwindowsxpstyle.html">QWindowsXPStyle</a>, or <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qmacstyle.html">QMacStyle</a>) and to retain the native look on all supported platforms.<p>
 The subject has been discussed in Qt Quarterly 9: <a href="http://doc.trolltech.com/qq/qq09-q-and-a.html#style">http://doc.trolltech.com/qq/qq09-q-and-a.html#style</a> (just notice that there are a few noteworthy spelling mistakes in the article).<p>
 Proxy styles are becoming obsolete thanks to style sheets introduced in Qt 4.2. However, style sheets still is a new concept and only a portion of features are supported yet. Both - style sheets and proxy styles - have their pros and cons.<h2><a class="anchor" name="usage">
 Usage</a></h2>
 Implement the custom behaviour in a subclass of <a class="el" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a>: <div class="fragment"><pre class="fragment">    <span class="keyword">class </span>MyCustomStyle : <span class="keyword">public</span> <a class="code" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a>
     {
        <span class="keyword">public</span>:
-          MyCustomStyle(<span class="keyword">const</span> QString&amp; baseStyle) : <a class="code" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a>(baseStyle)
+          MyCustomStyle(<span class="keyword">const</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a>&amp; baseStyle) : <a class="code" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a>(baseStyle)
           {
           }
 
-          <span class="keywordtype">int</span> pixelMetric(PixelMetric metric, <span class="keyword">const</span> QStyleOption* option = 0, <span class="keyword">const</span> QWidget* widget = 0)<span class="keyword"> const</span>
+          <span class="keywordtype">int</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstyle.html#pixelMetric">pixelMetric</a>(PixelMetric metric, <span class="keyword">const</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstyleoption.html">QStyleOption</a>* option = 0, <span class="keyword">const</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a>* widget = 0)<span class="keyword"> const</span>
 <span class="keyword">          </span>{
              <span class="keywordflow">if</span> (metric == QStyle::PM_ButtonMargin)
                 <span class="keywordflow">return</span> 6;
-             <span class="keywordflow">return</span> QxtProxyStyle::pixelMetric(metric, option, widget);
+             <span class="keywordflow">return</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstyle.html#pixelMetric">QxtProxyStyle::pixelMetric</a>(metric, option, widget);
           }
     };
 </pre></div><p>
-Using the custom style for the whole application: <div class="fragment"><pre class="fragment">    QString defaultStyle = QApplication::style()-&gt;objectName();
-    QApplication::setStyle(<span class="keyword">new</span> MyCustomStyle(defaultStyle));
+Using the custom style for the whole application: <div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> defaultStyle = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#style">QApplication::style</a>()-&gt;objectName();
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#setStyle">QApplication::setStyle</a>(<span class="keyword">new</span> MyCustomStyle(defaultStyle));
 </pre></div><p>
-Using the custom style for a single widget: <div class="fragment"><pre class="fragment">    QString defaultStyle = widget-&gt;style()-&gt;objectName();
+Using the custom style for a single widget: <div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> defaultStyle = widget-&gt;style()-&gt;objectName();
     widget-&gt;setStyle(<span class="keyword">new</span> MyCustomStyle(defaultStyle));
 </pre></div> 
 <p>
@@ -75,15 +80,15 @@ Using the custom style for a single widget: <div class="fragment"><pre class="fr
 <div class="memitem">
 <div class="fn">
           <span class="memname">QxtProxyStyle::QxtProxyStyle           </span>
-(          <span class="paramtype">const QString &amp;&nbsp;</span>
+(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;&nbsp;</span>
           <span class="paramname"> <em>baseStyle</em></span>
 ) [explicit]</div>
 
 <div class="memdoc">
 
 <p>
-Constructs a new <a class="el" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a> for <em>style</em>. See QStyleFactory::keys() for supported styles.<p>
-<dl class="see" compact><dt><b>See also:</b></dt><dd>QStyleFactory::keys() </dd></dl>
+Constructs a new <a class="el" href="classQxtProxyStyle.html" title="A proxy style.">QxtProxyStyle</a> for <em>style</em>. See <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstylefactory.html#keys">QStyleFactory::keys()</a> for supported styles.<p>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstylefactory.html#keys">QStyleFactory::keys()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
