@@ -33,23 +33,29 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtNamedPipe Class Reference<br>
 <small>
 [<a class="el" href="group__network.html">Network</a>]</small>
-</h1><!-- doxytag: class="QxtNamedPipe" -->Provides a QIODevice over a named pipe.  
+</h1><!-- doxytag: class="QxtNamedPipe" --><!-- doxytag: inherits="QIODevice,QAbstractSocket" -->Provides a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html">QIODevice</a> over a named pipe.  
 <a href="#_details">More...</a>
 <p>
+<p>Inheritance diagram for QxtNamedPipe:
+<p><center><img src="classQxtNamedPipe.png" usemap="#QxtNamedPipe_map" border="0" alt=""></center>
+<map name="QxtNamedPipe_map">
+<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html" alt="QIODevice" shape="rect" coords="0,0,107,24">
+<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qabstractsocket.html" alt="QAbstractSocket" shape="rect" coords="117,0,224,24">
+</map>
 <h3>Public Member Functions</h3>
 <ul>
 <li><a class="anchor" name="06d05c96255d2c6350d8c6bcedd95206"></a><!-- doxytag: member="QxtNamedPipe::QxtNamedPipe" ref="06d05c96255d2c6350d8c6bcedd95206" args="(const QString &amp;name=QString(), QObject *parent=0)" -->
-<b>QxtNamedPipe</b> (const QString &amp;name=QString(), QObject *parent=0)
+<b>QxtNamedPipe</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;name=<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a>(), <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *parent=0)
 <li><a class="anchor" name="4b94e20a26ca832f68cb4de334bb41ca"></a><!-- doxytag: member="QxtNamedPipe::open" ref="4b94e20a26ca832f68cb4de334bb41ca" args="(QIODevice::OpenMode mode)" -->
-bool <b>open</b> (QIODevice::OpenMode mode)
+bool <b>open</b> (QIODevice::OpenMode <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html#mode">mode</a>)
 <li><a class="anchor" name="25a0d47641cf71d4559e2c05809931a9"></a><!-- doxytag: member="QxtNamedPipe::open" ref="25a0d47641cf71d4559e2c05809931a9" args="(const QString &amp;name, QIODevice::OpenMode mode)" -->
-bool <b>open</b> (const QString &amp;name, QIODevice::OpenMode mode)
+bool <b>open</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;name, QIODevice::OpenMode <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html#mode">mode</a>)
 <li><a class="anchor" name="2f47cf4ea60bb755404522282d01506a"></a><!-- doxytag: member="QxtNamedPipe::close" ref="2f47cf4ea60bb755404522282d01506a" args="()" -->
 void <b>close</b> ()
 <li><a class="anchor" name="1240bcc38d0c8e9175fc937f07f0b214"></a><!-- doxytag: member="QxtNamedPipe::readAvailableBytes" ref="1240bcc38d0c8e9175fc937f07f0b214" args="()" -->
-QByteArray <b>readAvailableBytes</b> ()
+<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a> <b>readAvailableBytes</b> ()
 <li><a class="anchor" name="06d05c96255d2c6350d8c6bcedd95206"></a><!-- doxytag: member="QxtNamedPipe::QxtNamedPipe" ref="06d05c96255d2c6350d8c6bcedd95206" args="(const QString &amp;name=QString(), QObject *parent=0)" -->
-<b>QxtNamedPipe</b> (const QString &amp;name=QString(), QObject *parent=0)
+<b>QxtNamedPipe</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;name=<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a>(), <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *parent=0)
 <li><a class="anchor" name="a542f215f6854cdd8f987a76d8a8fa3f"></a><!-- doxytag: member="QxtNamedPipe::isSequential" ref="a542f215f6854cdd8f987a76d8a8fa3f" args="() const" -->
 virtual bool <b>isSequential</b> () const
 <li><a class="anchor" name="0bca5b4e3d142a9dce7709fca6e656a1"></a><!-- doxytag: member="QxtNamedPipe::bytesAvailable" ref="0bca5b4e3d142a9dce7709fca6e656a1" args="() const" -->
@@ -59,16 +65,16 @@ virtual qint64 <b>readData</b> (char *data, qint64 maxSize)
 <li><a class="anchor" name="5928673acb982452117c9efa1fb346d4"></a><!-- doxytag: member="QxtNamedPipe::writeData" ref="5928673acb982452117c9efa1fb346d4" args="(const char *data, qint64 maxSize)" -->
 virtual qint64 <b>writeData</b> (const char *data, qint64 maxSize)
 <li><a class="anchor" name="4b94e20a26ca832f68cb4de334bb41ca"></a><!-- doxytag: member="QxtNamedPipe::open" ref="4b94e20a26ca832f68cb4de334bb41ca" args="(QIODevice::OpenMode mode)" -->
-bool <b>open</b> (QIODevice::OpenMode mode)
+bool <b>open</b> (QIODevice::OpenMode <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html#mode">mode</a>)
 <li><a class="anchor" name="25a0d47641cf71d4559e2c05809931a9"></a><!-- doxytag: member="QxtNamedPipe::open" ref="25a0d47641cf71d4559e2c05809931a9" args="(const QString &amp;name, QIODevice::OpenMode mode)" -->
-bool <b>open</b> (const QString &amp;name, QIODevice::OpenMode mode)
+bool <b>open</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;name, QIODevice::OpenMode <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html#mode">mode</a>)
 <li><a class="anchor" name="2f47cf4ea60bb755404522282d01506a"></a><!-- doxytag: member="QxtNamedPipe::close" ref="2f47cf4ea60bb755404522282d01506a" args="()" -->
 void <b>close</b> ()
 <li><a class="anchor" name="1240bcc38d0c8e9175fc937f07f0b214"></a><!-- doxytag: member="QxtNamedPipe::readAvailableBytes" ref="1240bcc38d0c8e9175fc937f07f0b214" args="()" -->
-QByteArray <b>readAvailableBytes</b> ()
+<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a> <b>readAvailableBytes</b> ()
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-Provides a QIODevice over a named pipe. 
+Provides a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qiodevice.html">QIODevice</a> over a named pipe. 
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>not part of 0.2.4 </dd></dl>
 

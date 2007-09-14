@@ -33,19 +33,24 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtBlowFish Class Reference<br>
 <small>
 [<a class="el" href="group__crypto.html">Crypto</a>]</small>
-</h1><!-- doxytag: class="QxtBlowFish" -->Blowfish Encryption Class.  
+</h1><!-- doxytag: class="QxtBlowFish" --><!-- doxytag: inherits="QObject" -->Blowfish Encryption Class.  
 <a href="#_details">More...</a>
 <p>
+<p>Inheritance diagram for QxtBlowFish:
+<p><center><img src="classQxtBlowFish.png" usemap="#QxtBlowFish_map" border="0" alt=""></center>
+<map name="QxtBlowFish_map">
+<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html" alt="QObject" shape="rect" coords="0,0,82,24">
+</map>
 <h3>Public Member Functions</h3>
 <ul>
 <li><a class="anchor" name="7fc1d675a5d220081846f0773553c475"></a><!-- doxytag: member="QxtBlowFish::QxtBlowFish" ref="7fc1d675a5d220081846f0773553c475" args="(QObject *parent=0)" -->
-<b>QxtBlowFish</b> (QObject *parent=0)
+<b>QxtBlowFish</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html#parent">parent</a>=0)
 <li><a class="anchor" name="8b4b48852eeff1a28afaa1cddaf029d6"></a><!-- doxytag: member="QxtBlowFish::setPassword" ref="8b4b48852eeff1a28afaa1cddaf029d6" args="(QByteArray)" -->
-void <b>setPassword</b> (QByteArray)
+void <b>setPassword</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a>)
 <li><a class="anchor" name="d8304fbc517efa1edc6585c730031047"></a><!-- doxytag: member="QxtBlowFish::encrypt" ref="d8304fbc517efa1edc6585c730031047" args="(QByteArray)" -->
-QByteArray <b>encrypt</b> (QByteArray)
+<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a> <b>encrypt</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a>)
 <li><a class="anchor" name="e21eb218605e5d1dfb9e8bc067bf4525"></a><!-- doxytag: member="QxtBlowFish::decrypt" ref="e21eb218605e5d1dfb9e8bc067bf4525" args="(QByteArray)" -->
-QByteArray <b>decrypt</b> (QByteArray)
+<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a> <b>decrypt</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a>)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 Blowfish Encryption Class. 
@@ -53,7 +58,7 @@ Blowfish Encryption Class.
 useage: <div class="fragment"><pre class="fragment"><a class="code" href="classQxtBlowFish.html" title="Blowfish Encryption Class.">QxtBlowFish</a>() fish;
 fish.setPassword("foobar").
 
-QByteArray a("barblah");
+<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qbytearray.html">QByteArray</a> a("barblah");
 
 a= fish.encrypt(a);
 a= fish.decrypt(a);
