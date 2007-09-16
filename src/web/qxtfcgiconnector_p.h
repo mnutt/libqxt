@@ -57,6 +57,9 @@ public:
 
     bool open;
 
+
+    FCGX_Request request;
+
 signals:
     void close_ss();
 

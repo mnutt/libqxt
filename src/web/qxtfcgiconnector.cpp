@@ -52,9 +52,44 @@ QIODevice * QxtFcgiConnector::socket()
 
 QByteArray QxtFcgiConnector::content(quint64 maxsize)
 {
-    QByteArray a= qxt_d().io->read(maxsize);
-    qxt_d().io->readAll();  //apache handler bug
-    return a;
+    char * clenstr = FCGX_GetParam("CONTENT_LENGTH", qxt_d().request.envp);
+    quint64 clen = maxsize;
+    QByteArray content;
+    if (clenstr)
+    {
+        clen = strtol(clenstr, &clenstr, 10);
+        if (*clenstr)
+        {
+            qDebug()<< "can't parse \"CONTENT_LENGTH="
+                 << FCGX_GetParam("CONTENT_LENGTH", qxt_d().request.envp)
+                 << "\"\n";
+            clen = maxsize;
+        }
+
+        // *always* put a cap on the amount of data that will be read
+        if (clen > maxsize) clen = maxsize;
+
+
+
+        content.resize(clen+200);
+        std::cin.read(content.data(), clen+200);
+
+        clen = std::cin.gcount();
+    }
+    else
+    {
+        // *never* read stdin when CONTENT_LENGTH is missing or unparsable
+        clen = 0;
+    }
+
+    // Chew up any remaining stdin - this shouldn't be necessary
+    // but is because mod_fastcgi doesn't handle it correctly.
+
+    // ignore() doesn't set the eof bit in some versions of glibc++
+    // so use gcount() instead of eof()...
+    do std::cin.ignore(1024); while (std::cin.gcount() == 1024);
+
+    return content;
 
 }
 
@@ -99,7 +134,7 @@ void QxtFcgiConnectorPrivate::run()
     qRegisterMetaType<server_t>("server_t");
     qRegisterMetaTypeStreamOperators<server_t>("server_t");
 
-    FCGX_Request request;
+    
     FCGX_Init();
     FCGX_InitRequest(&request, 0, 0);
 
@@ -109,6 +144,18 @@ void QxtFcgiConnectorPrivate::run()
         open=true;
         fcgi_streambuf   fio_in(request.in);
         fcgi_streambuf   fio_out(request.out);
+        fcgi_streambuf   fio_err(request.err);
+
+
+#if HAVE_IOSTREAM_WITHASSIGN_STREAMBUF
+        std::cin  = &fio_in;
+        std::cout = &fio_out;
+        std::cerr = &fio_err;
+#else
+        std::cin.rdbuf(&fio_in);
+        std::cout.rdbuf(&fio_out);
+        std::cerr.rdbuf(&fio_err);
+#endif
 
         io= new QxtStdStreambufDevice (&fio_in,&fio_out);
 
@@ -119,18 +166,6 @@ void QxtFcgiConnectorPrivate::run()
             QByteArray ee(*envp);
             SERVER[ee.left(ee.indexOf('='))]=ee.mid(ee.indexOf('=')+1);
         }
-
-
-
-        /*
-        QTextStream(io)  << "Content-type: text/html\r\n\r\n<H4>Request Environment</H4>\n<PRE>\n<H4>Standard Input - "<<clen;
-        if (clen == STDIN_MAX) 
-                QTextStream(io)  << " (STDIN_MAX)";
-        QTextStream(io)  << " bytes</H4>\n";
-        if (clen)
-                io->write(content, clen);
-        */
-
         emit(qxt_p().incomming(SERVER));
         /// heck this is a frikin waste of RAM, cpu and my nerves.
         /// I hope those arrogants retards burn in hell for it.
