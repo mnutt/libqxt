@@ -242,18 +242,22 @@ void QxtWebCorePrivate::incomming(server_t  SERVER)
     QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
     if (!controller)
     {
-        header("Status","500");
-        send("ERROR HANDLING NOT IMPLEMENTED");
+        header("Status","404");
+        send("<h1>404 Controller ");
+        send(path);
+        send(" not found</h1>");
         close();
-        qDebug("controller '%s' not found",path.constData());
+        qDebug("404 controller '%s' not found",path.constData());
         return;
     }
 
     int i=controller->invoke(SERVER);
     if (i!=0 && i!=2)
     {
-        header("Status","500");
-        send("ERROR HANDLING NOT IMPLEMENTED");
+        header("Status",QString::number(i));
+        send("<h1>");
+        send(QString::number(i));
+        send("</h1>Sorry, that didn't work as expected. You might want to contact this systems administrator.");
     }
     if (i!=2) ///FIXME temporary solution for keepalive
         close();
