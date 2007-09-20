@@ -61,10 +61,15 @@
 
 #include "qxthtmltemplate.h"
 #include <QFile>
+#include <QStringList>
 
 QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString,QString>()
 {}
 
+void QxtHtmlTemplate::load(const QString& d)
+{
+    data=d;
+}
 
 bool QxtHtmlTemplate::open(const QString& filename)
 {
@@ -82,11 +87,55 @@ bool QxtHtmlTemplate::open(const QString& filename)
 
 QString QxtHtmlTemplate::render() const
 {
+    ///try to preserve indention by parsing char by char and saving the last non-space character
+
+
     QString output = data;
-    foreach(QString key, keys())
+    int lastnewline=0;
+
+
+    for (int i=0;i<output.count();i++)
     {
-        output = output.replace("<?="+key+"?>", value(key));
+        if (output.at(i)=='\n')
+        {
+            lastnewline=i;
+        }
+
+        if (output.at(i)=='<' && output.at(i+1)=='?'  && output.at(i+2)=='=')
+        {
+            int j=i+3;
+            QString var;
+
+            for (int jj=j;jj<output.count();jj++)
+            {
+                if (output.at(jj)=='?' && output.at(jj+1)=='>')
+                {
+                    j=jj;
+                    break;
+                }
+                var+=output.at(jj);
+            }
+
+
+            if (j==i)
+            {
+                qWarning("QxtHtmlTemplate::render()  unterminated <?= ");
+                continue;
+            }
+
+
+            if(!contains(var))
+            {
+                qWarning("QxtHtmlTemplate::render()  unused variable \"%s\"",qPrintable(var));
+                continue;
+            }
+            output.replace(i,j-i+2,QString(value(var)).replace("\n","\n"+QString(i-lastnewline-1,QChar(' '))));
+
+        }
+
+
     }
+
     return output;
 }
 

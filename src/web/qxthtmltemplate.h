@@ -35,6 +35,8 @@ class QXT_WEB_EXPORT QxtHtmlTemplate : public QMap<QString,QString>
 public:
     QxtHtmlTemplate();
     bool open(const QString& filename);
+    void load(const QString& data);
+
     QString render() const;
 
 private:
