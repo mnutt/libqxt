@@ -435,7 +435,10 @@ void QxtRPCPeerPrivate::receivePeerSignal(QString fn, QVariant p0, QVariant p1, 
         sig = i.first->metaObject()->method(i.second).signature();
         sig = sig.left(sig.indexOf('('));
         numParams = i.first->metaObject()->method(i.second).parameterTypes().count();
-        QMetaObject::invokeMethod(i.first, sig, QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8));
+        if(!QMetaObject::invokeMethod(i.first, sig, QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8)))
+        {
+            qWarning("QxtRPCPeerPrivate::receivePeerSignal: invokeMethod for \"%s\" failed ",sig.constData());
+        }
     }
 }
 
@@ -449,7 +452,10 @@ void QxtRPCPeerPrivate::receiveClientSignal(quint64 id, QString fn, QVariant p0,
         sig = i.first->metaObject()->method(i.second).signature();
         sig = sig.left(sig.indexOf('('));
         numParams = i.first->metaObject()->method(i.second).parameterTypes().count();
-        QMetaObject::invokeMethod(i.first, sig, Q_ARG(quint64, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7));
+        if(!QMetaObject::invokeMethod(i.first, sig, Q_ARG(quint64, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7)))
+        {
+            qWarning("QxtRPCPeerPrivate::receiveClientSignal: invokeMethod for \"%s\" failed ",sig.constData());
+        }
     }
 }
 
@@ -521,7 +527,7 @@ void QxtRPCPeer::disconnectSender()
     QxtRPCConnection* conn = qxt_d().m_clients.value(sender());
     if (!conn)
     {
-        if (qxt_d().m_peer!= qobject_cast<QTcpSocket*>(sender()))
+        if (qxt_d().m_peer!= qobject_cast<QIODevice*>(sender()))
         {
             qWarning() << "QxtRPCPeer: Unrecognized object connected to disconnectSender";
             return;
