@@ -50,30 +50,49 @@ LockJob().exec(&thread);
 QxtJob::QxtJob()
 {
     QXT_INIT_PRIVATE(QxtJob);
+    qxt_d().running=false;
 }
 
 void QxtJob::exec(QThread * onthread)
 {
     qxt_d().exec(onthread);
 }
-
+QxtJob::~QxtJob()
+{
+    join();
+}
+void QxtJob::join()
+{
+    qxt_d().join();
+}
+void QxtJobPrivate::join()
+{
+    mutex.lock();
+    mutex.unlock();
+}
 void QxtJobPrivate::exec(QThread * onthread)
 {
     moveToThread(onthread);
     connect(this,SIGNAL(inwrap_s()),this,SLOT(inwrap_d()));
-    emit(inwrap_s());
-
     mutex.lock();
-    assert(waiter.wait(&mutex));
+    emit(inwrap_s());
+    assert(startupcond.wait(&mutex));
+    running=true;
     mutex.unlock();
 }
 void QxtJobPrivate::inwrap_d()
 {
-    qxt_p().run();
-    emit(qxt_p().done());
-    waiter.wakeAll();
-}
+    connect(this,SIGNAL(done()),&qxt_p(),SIGNAL(done()));
 
+    startupcond.wakeAll();
+
+    mutex.lock();
+    qxt_p().run();
+    running=false;
+
+    emit(done());
+    mutex.unlock();
+}
 
 
 
