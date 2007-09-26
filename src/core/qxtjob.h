@@ -39,7 +39,6 @@ Q_OBJECT
 public:
     QxtJob();
     ~QxtJob();
-
     void exec(QThread * onthread);
     void join();
 protected:
@@ -48,6 +47,8 @@ signals:
     void done();
 private:
     QXT_DECLARE_PRIVATE(QxtJob);
+signals:
+    void subseed();
 };
 
 #endif
