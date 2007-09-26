@@ -176,6 +176,12 @@
 	<keyword ref="classQxtItemDelegate.html#6e9b763493051927cfaab07b3cb5f793">progressTextVisible</keyword>
 </section>
 
+<section ref="classQxtJob.html" title="QxtJob"> 
+	<keyword ref="classQxtJob.html">QxtJob</keyword>
+	<keyword ref="classQxtJob.html#3f40018ec07223afd23681c182f1fc12">exec</keyword>
+	<keyword ref="classQxtJob.html#a66a6b989a32d13393dbd904b885cc3a">join</keyword>
+</section>
+
 <section ref="classQxtLabel.html" title="QxtLabel"> 
 	<keyword ref="classQxtLabel.html">QxtLabel</keyword>
 	<keyword ref="classQxtLabel.html#567b7e5e6a5ef51f72369198fd29b80f">alignment</keyword>

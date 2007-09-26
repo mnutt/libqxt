@@ -33,13 +33,13 @@ width="32" height="32" border="0" /></a></td>
 <h1  align="center">QxtApplication Class Reference<br>
 <small>
 [<a class="el" href="group__gui.html">Gui</a>]</small>
-</h1><!-- doxytag: class="QxtApplication" --><!-- doxytag: inherits="QApplication" -->An extended <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html">QApplication</a> with support for hotkeys aka "global shortcuts".  
+</h1><!-- doxytag: class="QxtApplication" --><!-- doxytag: inherits="QApplication" -->An extended <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html">QApplication</a> with support for hotkeys aka "global shortcuts".  
 <a href="#_details">More...</a>
 <p>
 <p>Inheritance diagram for QxtApplication:
 <p><center><img src="classQxtApplication.png" usemap="#QxtApplication_map" border="0" alt=""></center>
 <map name="QxtApplication_map">
-<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html" alt="QApplication" shape="rect" coords="0,0,94,24">
+<area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html" alt="QApplication" shape="rect" coords="0,0,94,24">
 </map>
 <h3>Public Member Functions</h3>
 <ul>
@@ -48,21 +48,21 @@ width="32" height="32" border="0" /></a></td>
 <li><a class="anchor" name="310d91ee70fdd372ed1c02349090476d"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="310d91ee70fdd372ed1c02349090476d" args="(int &amp;argc, char **argv, bool GUIenabled)" -->
 <b>QxtApplication</b> (int &amp;argc, char **argv, bool GUIenabled)
 <li><a class="anchor" name="f0b6244d50d8920d3ab5ded4d230e8ed"></a><!-- doxytag: member="QxtApplication::QxtApplication" ref="f0b6244d50d8920d3ab5ded4d230e8ed" args="(int &amp;argc, char **argv, Type type)" -->
-<b>QxtApplication</b> (int &amp;argc, char **argv, Type <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#type">type</a>)
+<b>QxtApplication</b> (int &amp;argc, char **argv, Type <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html#type">type</a>)
 <li>void <a class="el" href="classQxtApplication.html#7f50170dc00d4246573ca70db9273277">installNativeEventFilter</a> (<a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *filter)
 <li>void <a class="el" href="classQxtApplication.html#6bed271219655e5c1bc42b7e2f9d9f2f">removeNativeEventFilter</a> (<a class="el" href="classQxtNativeEventFilter.html">QxtNativeEventFilter</a> *filter)
-<li>bool <a class="el" href="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a> *receiver, const char *member)
-<li>bool <a class="el" href="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a> *receiver, const char *member)
+<li>bool <a class="el" href="classQxtApplication.html#f703462cf0b966d6666998a1a9a06793">addHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a> *receiver, const char *member)
+<li>bool <a class="el" href="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1">removeHotKey</a> (Qt::KeyboardModifiers modifiers, Qt::Key key, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a> *receiver, const char *member)
 </ul>
 <h3>Static Public Member Functions</h3>
 <ul>
 <li>static <a class="el" href="classQxtApplication.html">QxtApplication</a> * <a class="el" href="classQxtApplication.html#938c7a60e2cf0642f1d808af3f02e50e">instance</a> ()
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
-An extended <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html">QApplication</a> with support for hotkeys aka "global shortcuts". 
+An extended <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html">QApplication</a> with support for hotkeys aka "global shortcuts". 
 <p>
 <a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> introduces hotkeys which trigger even if the application is not active. This makes it easy to implement applications that react to certain shortcuts still if some other application is active or if the application is for example minimized to the system tray.<p>
-<a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> also lets you install native event filters. This makes it possible to access platform specific native events without subclassing <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html">QApplication</a>. 
+<a class="el" href="classQxtApplication.html" title="An extended QApplication with support for hotkeys aka "global shortcuts".">QxtApplication</a> also lets you install native event filters. This makes it possible to access platform specific native events without subclassing <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html">QApplication</a>. 
 <p>
 <hr><h3>Member Function Documentation</h3>
 <a class="anchor" name="7f50170dc00d4246573ca70db9273277"></a><!-- doxytag: member="QxtApplication::installNativeEventFilter" ref="7f50170dc00d4246573ca70db9273277" args="(QxtNativeEventFilter *filter)" -->
@@ -107,7 +107,7 @@ Removes a native event <em>filter</em>. The request is ignored if such a native 
           <span class="paramname"> <em>modifiers</em>, </span>
           <span class="paramtype">Qt::Key&nbsp;</span>
           <span class="paramname"> <em>key</em>, </span>
-          <span class="paramtype"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a> *&nbsp;</span>
+          <span class="paramtype"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a> *&nbsp;</span>
           <span class="paramname"> <em>receiver</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>member</em></span>
@@ -131,7 +131,7 @@ Example usage: <div class="fragment"><pre class="fragment">    <a class="code" h
           <span class="paramname"> <em>modifiers</em>, </span>
           <span class="paramtype">Qt::Key&nbsp;</span>
           <span class="paramname"> <em>key</em>, </span>
-          <span class="paramtype"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a> *&nbsp;</span>
+          <span class="paramtype"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a> *&nbsp;</span>
           <span class="paramname"> <em>receiver</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>member</em></span>
