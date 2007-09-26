@@ -68,6 +68,13 @@ void QxtJob::join()
 void QxtJobPrivate::join()
 {
     mutex.lock();
+    while (running)
+        {
+        qWarning("QxtJob::join() deadsync detected. doing nothing for 10us.");
+        mutex.unlock();
+        usleep(10);
+        mutex.lock();
+        }
     mutex.unlock();
 }
 void QxtJobPrivate::exec(QThread * onthread)
@@ -85,13 +92,14 @@ void QxtJobPrivate::inwrap_d()
     connect(this,SIGNAL(done()),&qxt_p(),SIGNAL(done()));
 
     startupcond.wakeAll();
-
     mutex.lock();
+
     qxt_p().run();
     running=false;
 
     emit(done());
     mutex.unlock();
+
 }
 
 

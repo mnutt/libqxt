@@ -53,11 +53,10 @@ private slots:
     {
         TestJob l;
         l.exec(&t);
-
         QxtSignalWaiter w(&l,SIGNAL(done()));
         l.join();
-        
         QVERIFY(w.wait(100));
+        QVERIFY(l.b);
     }
 
     void cleanupTestCase()

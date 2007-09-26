@@ -108,16 +108,22 @@ public:
     LockJob(QxtFileLock*f,bool expectedresult):QxtJob()
     {
         lock =f;
-    expected=expectedresult;
-}
-QxtFileLock*lock ;
-bool expected;
-virtual void run()
+        expected=expectedresult;
+    }
+    QxtFileLock*lock ;
+    bool expected;
+    virtual void run()
     {
         qDebug("locking on %p",QThread::currentThread ());
         QVERIFY(lock ->lock ()==expected);
     }
+    void exec(QThread * o)
+    {
+         QxtJob::exec(o);
+         join();
+     }
 };
+
 
 class QxtFileLockThreadTest : public QObject
 {
@@ -149,11 +155,14 @@ private slots:
 
         QxtFileLock lock1(&file1,0x10,20,QxtFileLock::WriteLock);
         file1.moveToThread(&t1);
-        LockJob(&lock1,true).exec(&t1);
+        LockJob l(&lock1,true);
+        l.exec(&t1);
 
         QxtFileLock lock2(&file2,0x10,20,QxtFileLock::WriteLock);
         file2.moveToThread(&t2);
-        LockJob(&lock2,false).exec(&t2);
+        LockJob l2(&lock2,false);
+        l2.exec(&t2);
+        l2.join();
     }
 
 
@@ -167,16 +176,21 @@ private slots:
 
         QxtFileLock lock1(&file1,0x10,20,QxtFileLock::ReadLock);
         file1.moveToThread(&t1);
-        LockJob(&lock1,true).exec(&t1);
+        LockJob l1(&lock1,true);
+        l1.exec(&t1);
+        l1.join();
 
         QxtFileLock lock2(&file2,0x10,20,QxtFileLock::ReadLock);
         file2.moveToThread(&t2);
-        LockJob(&lock2,true).exec(&t2);
+        LockJob l2(&lock2,true);
+        l2.exec(&t2);
+        l2.join();
     }
 
     ///Trying to lock the same region with different locks
     void rw_same()
     {
+
         QFile file1("lock.file");
         QVERIFY(file1.open(QIODevice::ReadWrite));
         QFile file2("lock.file");
