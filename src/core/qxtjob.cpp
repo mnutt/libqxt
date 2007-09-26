@@ -37,25 +37,28 @@ a non virtual QThread with a default event loop, allowing easy deployment of job
 \code
 QThread thread;
 thread.start();
-QxtSignalWaiter w1(&thread,SIGNAL(started()));
 LockJob().exec(&thread);
 \endcode
 */
 
-
-
 #include "qxtjob_p.h"
 #include <cassert>
+
 
 QxtJob::QxtJob()
 {
     QXT_INIT_PRIVATE(QxtJob);
-    qxt_d().running=false;
+    qxt_d().running.set(false);
+    connect(&qxt_d(),SIGNAL(done()),this,SIGNAL(done()));
 }
 
 void QxtJob::exec(QThread * onthread)
 {
-    qxt_d().exec(onthread);
+    qxt_d().moveToThread(onthread);
+    connect(this,SIGNAL(subseed()),&qxt_d(),SLOT(inwrap_d()),Qt::QueuedConnection);
+
+    qxt_d().running.set(true);
+    emit(subseed());
 }
 QxtJob::~QxtJob()
 {
@@ -63,43 +66,25 @@ QxtJob::~QxtJob()
 }
 void QxtJob::join()
 {
-    qxt_d().join();
-}
-void QxtJobPrivate::join()
-{
-    mutex.lock();
-    while (running)
-        {
-        qWarning("QxtJob::join() deadsync detected. doing nothing for 10us.");
-        mutex.unlock();
-        usleep(10);
-        mutex.lock();
-        }
-    mutex.unlock();
-}
-void QxtJobPrivate::exec(QThread * onthread)
-{
-    moveToThread(onthread);
-    connect(this,SIGNAL(inwrap_s()),this,SLOT(inwrap_d()));
-    mutex.lock();
-    emit(inwrap_s());
-    assert(startupcond.wait(&mutex));
-    running=true;
-    mutex.unlock();
+    while(qxt_d().running.get()==true)
+    {
+        /**
+        oh yeah that sucks ass, 
+        but since any kind of waitcondition will just fail due to undeterminnism,
+        we have no chance then polling.
+        And no, a mutex won't work either.
+        using join for anything else then testcases sounds kindof retarded anyway.
+        */
+        usleep(1000);
+    }
+
 }
 void QxtJobPrivate::inwrap_d()
 {
-    connect(this,SIGNAL(done()),&qxt_p(),SIGNAL(done()));
-
-    startupcond.wakeAll();
-    mutex.lock();
-
+    synca.wakeAll();
     qxt_p().run();
-    running=false;
-
+    running.set(false);
     emit(done());
-    mutex.unlock();
-
 }
 
 

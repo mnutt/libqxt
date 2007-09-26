@@ -26,22 +26,42 @@
 #include <QWaitCondition>
 
 
+
+
 class QxtJobPrivate : public QObject, public QxtPrivate<QxtJob>
 {
 Q_OBJECT
 public:
-    void exec(QThread * onthread);
+    class RunningState
+    {
+    public:
+        void set(bool a)
+        {
+            mutex.lock();
+            r=a;
+            mutex.unlock();
+        }
+        bool get()
+        {
+            mutex.lock();
+            bool a=r;
+            mutex.unlock();
+            return a;
+        }
+
+        QMutex mutex;
+        bool r;
+
+    } running;
 
     QXT_DECLARE_PUBLIC(QxtJob);
-    QMutex mutex;
-    QWaitCondition startupcond;
-    QWaitCondition joincond;
-    bool running;
+    QMutex mutexa;
+    QWaitCondition synca;
+
+
 public slots:
     void inwrap_d();
-    void join();
 signals:
-    void inwrap_s();
     void done();
 
 };
