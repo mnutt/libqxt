@@ -38,7 +38,10 @@ class QXT_CORE_EXPORT QxtJob : public QObject
 Q_OBJECT
 public:
     QxtJob();
+    ~QxtJob();
+
     void exec(QThread * onthread);
+    void join();
 protected:
     virtual void run()=0;
 signals:
