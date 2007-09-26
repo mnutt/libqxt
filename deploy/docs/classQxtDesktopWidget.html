@@ -38,39 +38,39 @@ width="32" height="32" border="0" /></a></td>
 <p>
 <h3>Static Public Member Functions</h3>
 <ul>
-<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qlist.html">WindowList</a> <a class="el" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a> ()
+<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">WindowList</a> <a class="el" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a> ()
 <li>static WId <a class="el" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">activeWindow</a> ()
-<li>static WId <a class="el" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">findWindow</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;title)
-<li>static WId <a class="el" href="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">windowAt</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpoint.html">QPoint</a> &amp;pos)
-<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> <a class="el" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle</a> (WId window)
-<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstringlist.html">QStringList</a> <a class="el" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles</a> ()
-<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qrect.html">QRect</a> <a class="el" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">windowGeometry</a> (WId window)
+<li>static WId <a class="el" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">findWindow</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> &amp;title)
+<li>static WId <a class="el" href="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">windowAt</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpoint.html">QPoint</a> &amp;pos)
+<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> <a class="el" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle</a> (WId window)
+<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstringlist.html">QStringList</a> <a class="el" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles</a> ()
+<li>static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qrect.html">QRect</a> <a class="el" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">windowGeometry</a> (WId window)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 <a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for accessing native windows.">QxtDesktopWidget</a> provides means for accessing native windows. 
 <p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd><a class="el" href="classQxtDesktopWidget.html" title="QxtDesktopWidget provides means for accessing native windows.">QxtDesktopWidget</a> is portable in principle, but be careful while using it since you are probably about to do something non-portable.</dd></dl>
 <p>
-Advanced example usage: <div class="fragment"><pre class="fragment">    <span class="keyword">class </span>NativeWindow : <span class="keyword">public</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a> {
+Advanced example usage: <div class="fragment"><pre class="fragment">    <span class="keyword">class </span>NativeWindow : <span class="keyword">public</span> <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a> {
         <span class="keyword">public</span>:
             NativeWindow(WId wid) {
-                <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html#create">QWidget::create</a>(wid, <span class="keyword">false</span>, <span class="keyword">false</span>); <span class="comment">// window, initializeWindow, destroyOldWindow</span>
+                <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html#create">QWidget::create</a>(wid, <span class="keyword">false</span>, <span class="keyword">false</span>); <span class="comment">// window, initializeWindow, destroyOldWindow</span>
             }
             ~NativeWindow() {
-                <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html#destroy">QWidget::destroy</a>(<span class="keyword">false</span>, <span class="keyword">false</span>); <span class="comment">// destroyWindow, destroySubWindows</span>
+                <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html#destroy">QWidget::destroy</a>(<span class="keyword">false</span>, <span class="keyword">false</span>); <span class="comment">// destroyWindow, destroySubWindows</span>
             }
     };
 </pre></div><p>
-<div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qlist.html">WindowList</a> <a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a> = <a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">QxtDesktopWidget::windows</a>();
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstringlist.html">QStringList</a> titles = <a class="code" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">QxtDesktopWidget::windowTitles</a>();
+<div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">WindowList</a> <a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a> = <a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">QxtDesktopWidget::windows</a>();
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstringlist.html">QStringList</a> titles = <a class="code" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">QxtDesktopWidget::windowTitles</a>();
     <span class="keywordtype">bool</span> ok = <span class="keyword">false</span>;
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> title = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qinputdialog.html#getItem">QInputDialog::getItem</a>(0, <span class="stringliteral">"Choose Window"</span>, <span class="stringliteral">"Choose a window to be hid:"</span>, titles, 0, <span class="keyword">false</span>, &amp;ok);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> title = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qinputdialog.html#getItem">QInputDialog::getItem</a>(0, <span class="stringliteral">"Choose Window"</span>, <span class="stringliteral">"Choose a window to be hid:"</span>, titles, 0, <span class="keyword">false</span>, &amp;ok);
     <span class="keywordflow">if</span> (ok)
     {
-        <span class="keywordtype">int</span> index = titles.<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstringlist.html#indexOf">indexOf</a>(title);
+        <span class="keywordtype">int</span> index = titles.<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstringlist.html#indexOf">indexOf</a>(title);
         <span class="keywordflow">if</span> (index != -1)
         {
-            NativeWindow window(<a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a>.<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qlist.html#at">at</a>(index));
+            NativeWindow window(<a class="code" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows</a>.<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html#at">at</a>(index));
             window.hide();
         }
     }
@@ -82,7 +82,7 @@ Advanced example usage: <div class="fragment"><pre class="fragment">    <span cl
 <a class="anchor" name="9077e6106c0568dc31797815d0e0ff5a"></a><!-- doxytag: member="QxtDesktopWidget::windows" ref="9077e6106c0568dc31797815d0e0ff5a" args="()" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qlist.html">WindowList</a> QxtDesktopWidget::windows           </span>
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">WindowList</a> QxtDesktopWidget::windows           </span>
 (          <span class="paramname"></span>
 ) [static]</div>
 
@@ -91,7 +91,7 @@ Advanced example usage: <div class="fragment"><pre class="fragment">    <span cl
 <p>
 Returns the list of native window system identifiers.<p>
 <dl class="note" compact><dt><b>Note:</b></dt><dd>The windows are not necessarily QWidgets.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#topLevelWidgets">QApplication::topLevelWidgets()</a>, <a class="el" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles()</a> </dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html#topLevelWidgets">QApplication::topLevelWidgets()</a>, <a class="el" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -107,11 +107,11 @@ Returns the list of native window system identifiers.<p>
 <p>
 Returns the native window system identifier of the active window if any.<p>
 Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
     qDebug() &lt;&lt; <span class="stringliteral">"Currently active window is:"</span> &lt;&lt; title;
 </pre></div><p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#activeWindow">QApplication::activeWindow()</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html#activeWindow">QApplication::activeWindow()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -119,7 +119,7 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 <div class="memitem">
 <div class="fn">
           <span class="memname">WId QxtDesktopWidget::findWindow           </span>
-(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> &amp;&nbsp;</span>
+(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> &amp;&nbsp;</span>
           <span class="paramname"> <em>title</em></span>
 ) [static]</div>
 
@@ -128,10 +128,10 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 <p>
 Returns the native window system identifier of the window if any with given <em>title</em>.<p>
 Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#7a6d22e1fd22b4e61f06ce0edb018b92">QxtDesktopWidget::findWindow</a>(<span class="stringliteral">"Mail - Kontact"</span>);
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpixmap.html">QPixmap</a> screenshot = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpixmap.html#grabWindow">QPixmap::grabWindow</a>(wid);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpixmap.html">QPixmap</a> screenshot = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpixmap.html#grabWindow">QPixmap::grabWindow</a>(wid);
 </pre></div><p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html#find">QWidget::find()</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html#find">QWidget::find()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
@@ -139,7 +139,7 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 <div class="memitem">
 <div class="fn">
           <span class="memname">WId QxtDesktopWidget::windowAt           </span>
-(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpoint.html">QPoint</a> &amp;&nbsp;</span>
+(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpoint.html">QPoint</a> &amp;&nbsp;</span>
           <span class="paramname"> <em>pos</em></span>
 ) [static]</div>
 
@@ -147,19 +147,19 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 
 <p>
 Returns the native window system identifier of the window if any at <em>pos</em>.<p>
-Example usage: <div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpoint.html">QPoint</a> point = <span class="comment">// a mouse press or something</span>
+Example usage: <div class="fragment"><pre class="fragment">    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpoint.html">QPoint</a> point = <span class="comment">// a mouse press or something</span>
     WId wid = <a class="code" href="classQxtDesktopWidget.html#f424794b34191da68f8f300b07d47bd2">QxtDesktopWidget::windowAt</a>(point);
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpixmap.html">QPixmap</a> screenshot = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qpixmap.html#grabWindow">QPixmap::grabWindow</a>(wid);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpixmap.html">QPixmap</a> screenshot = <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpixmap.html#grabWindow">QPixmap::grabWindow</a>(wid);
 </pre></div><p>
-<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qwidget.html">QWidget</a>.</dd></dl>
-<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qapplication.html#widgetAt">QApplication::widgetAt()</a> </dd></dl>
+<dl class="note" compact><dt><b>Note:</b></dt><dd>The window is not necessarily a <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qwidget.html">QWidget</a>.</dd></dl>
+<dl class="see" compact><dt><b>See also:</b></dt><dd><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qapplication.html#widgetAt">QApplication::widgetAt()</a> </dd></dl>
 
 </p></div>
 </div><!-- memitem --><br/>
 <a class="anchor" name="fcd7cb40e6f4d131c1fabd5eec56d69a"></a><!-- doxytag: member="QxtDesktopWidget::windowTitle" ref="fcd7cb40e6f4d131c1fabd5eec56d69a" args="(WId window)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> QxtDesktopWidget::windowTitle           </span>
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> QxtDesktopWidget::windowTitle           </span>
 (          <span class="paramtype">WId&nbsp;</span>
           <span class="paramname"> <em>window</em></span>
 ) [static]</div>
@@ -169,7 +169,7 @@ Example usage: <div class="fragment"><pre class="fragment">    <a class="codeRef
 <p>
 Returns the title of the native <em>window</em>.<p>
 Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> title = <a class="code" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">QxtDesktopWidget::windowTitle</a>(wid);
     qDebug() &lt;&lt; <span class="stringliteral">"Currently active window is:"</span> &lt;&lt; title;
 </pre></div><p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::windowTitle(), <a class="el" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">windowTitles()</a> </dd></dl>
@@ -179,7 +179,7 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 <a class="anchor" name="bf435032bdad14c6c5af026fa6fb761c"></a><!-- doxytag: member="QxtDesktopWidget::windowTitles" ref="bf435032bdad14c6c5af026fa6fb761c" args="()" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstringlist.html">QStringList</a> QxtDesktopWidget::windowTitles           </span>
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstringlist.html">QStringList</a> QxtDesktopWidget::windowTitles           </span>
 (          <span class="paramname"></span>
 ) [static]</div>
 
@@ -188,7 +188,7 @@ Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a clas
 <p>
 Returns a list of native window titles.<p>
 Example usage: <div class="fragment"><pre class="fragment">    qDebug() &lt;&lt; <span class="stringliteral">"Windows:"</span>;
-    <span class="keywordflow">foreach</span> (<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qstring.html">QString</a> title, <a class="code" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">QxtDesktopWidget::windowTitles</a>())
+    <span class="keywordflow">foreach</span> (<a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> title, <a class="code" href="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c">QxtDesktopWidget::windowTitles</a>())
        qDebug() &lt;&lt; title;
 </pre></div><p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::windowTitle(), <a class="el" href="classQxtDesktopWidget.html#fcd7cb40e6f4d131c1fabd5eec56d69a">windowTitle()</a>, <a class="el" href="classQxtDesktopWidget.html#9077e6106c0568dc31797815d0e0ff5a">windows()</a> </dd></dl>
@@ -198,7 +198,7 @@ Example usage: <div class="fragment"><pre class="fragment">    qDebug() &lt;&lt;
 <a class="anchor" name="fd0a0bd2510b8482ad7b5c585ba020ad"></a><!-- doxytag: member="QxtDesktopWidget::windowGeometry" ref="fd0a0bd2510b8482ad7b5c585ba020ad" args="(WId window)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qrect.html">QRect</a> QxtDesktopWidget::windowGeometry           </span>
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qrect.html">QRect</a> QxtDesktopWidget::windowGeometry           </span>
 (          <span class="paramtype">WId&nbsp;</span>
           <span class="paramname"> <em>window</em></span>
 ) [static]</div>
@@ -208,7 +208,7 @@ Example usage: <div class="fragment"><pre class="fragment">    qDebug() &lt;&lt;
 <p>
 Returns the geometry of the native <em>window</em>.<p>
 Example usage: <div class="fragment"><pre class="fragment">    WId wid = <a class="code" href="classQxtDesktopWidget.html#e1c718e93fbc52197de0d22eb8724b6d">QxtDesktopWidget::activeWindow</a>();
-    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qrect.html">QRect</a> geometry = <a class="code" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">QxtDesktopWidget::windowGeometry</a>(wid);
+    <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qrect.html">QRect</a> geometry = <a class="code" href="classQxtDesktopWidget.html#fd0a0bd2510b8482ad7b5c585ba020ad">QxtDesktopWidget::windowGeometry</a>(wid);
     qDebug() &lt;&lt; <span class="stringliteral">"Geometry of the active window is:"</span> &lt;&lt; geometry;
 </pre></div><p>
 <dl class="see" compact><dt><b>See also:</b></dt><dd>QWidget::frameGeometry() </dd></dl>

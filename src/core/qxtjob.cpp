@@ -51,7 +51,9 @@ QxtJob::QxtJob()
     qxt_d().running.set(false);
     connect(&qxt_d(),SIGNAL(done()),this,SIGNAL(done()));
 }
-
+/*!
+execute the Job on \p onthread \n
+*/
 void QxtJob::exec(QThread * onthread)
 {
     qxt_d().moveToThread(onthread);
@@ -60,10 +62,20 @@ void QxtJob::exec(QThread * onthread)
     qxt_d().running.set(true);
     emit(subseed());
 }
+/*!
+The dtor joins.
+Means it blocks until the job is finished
+*/
 QxtJob::~QxtJob()
 {
     join();
 }
+/*!
+block until the Job finished \n
+Note that the current thread will be blocked. \n
+If you use this, you better be damn sure you actually want a thread.\n
+Maybe you actualy want to use QxtSignalWaiter.
+*/
 void QxtJob::join()
 {
     while(qxt_d().running.get()==true)

@@ -36,22 +36,22 @@ width="32" height="32" border="0" /></a></td>
 <p>Inheritance diagram for QxtSignalWaiter:
 <p><center><img src="classQxtSignalWaiter.png" usemap="#QxtSignalWaiter_map" border="0" alt=""></center>
 <map name="QxtSignalWaiter_map">
-<area doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html" alt="QObject" shape="rect" coords="0,0,102,24">
+<area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html" alt="QObject" shape="rect" coords="0,0,102,24">
 </map>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="el" href="classQxtSignalWaiter.html#6d99c4de115096bb6b9edf88fa4e249a">QxtSignalWaiter</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html#sender">sender</a>, const char *signal)
+<li><a class="el" href="classQxtSignalWaiter.html#6d99c4de115096bb6b9edf88fa4e249a">QxtSignalWaiter</a> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html">QObject</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html#sender">sender</a>, const char *signal)
 <li>bool <a class="el" href="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait</a> (int msec=-1, bool reset=false)
 </ul>
 <h3>Static Public Member Functions</h3>
 <ul>
 <li><a class="anchor" name="48e10e22573d70376fe896d422ec0189"></a><!-- doxytag: member="QxtSignalWaiter::wait" ref="48e10e22573d70376fe896d422ec0189" args="(const QObject *sender, const char *signal, int msec=-1)" -->
-static bool <b>wait</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html#sender">sender</a>, const char *signal, int msec=-1)
+static bool <b>wait</b> (const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html">QObject</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html#sender">sender</a>, const char *signal, int msec=-1)
 </ul>
 <h3>Protected Member Functions</h3>
 <ul>
 <li><a class="anchor" name="57323e3a5184825648a0fe3589ba5570"></a><!-- doxytag: member="QxtSignalWaiter::timerEvent" ref="57323e3a5184825648a0fe3589ba5570" args="(QTimerEvent *event)" -->
-void <b>timerEvent</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qtimerevent.html">QTimerEvent</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html#event">event</a>)
+void <b>timerEvent</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qtimerevent.html">QTimerEvent</a> *<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html#event">event</a>)
 </ul>
 <hr><a name="_details"></a><h3>Detailed Description</h3>
 Wait until a signal ocured. 
@@ -63,7 +63,7 @@ In many cases, writing code that assumes certain actions are synchronous is cons
     <span class="keywordflow">if</span>(waiter.wait(5000))
         doSomething(myOtherObject-&gt;information());
     <span class="keywordflow">else</span>
-        <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qmessagebox.html#information">QMessageBox::information</a>(0, <span class="stringliteral">"MyObject"</span>, <span class="stringliteral">"Timed out while waiting on longProcessFinished()"</span>, QMessageBox::Ok);
+        <a class="codeRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qmessagebox.html#information">QMessageBox::information</a>(0, <span class="stringliteral">"MyObject"</span>, <span class="stringliteral">"Timed out while waiting on longProcessFinished()"</span>, QMessageBox::Ok);
 }
 </pre></div><p>
 <dl compact><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd><a class="el" href="classQxtSignalWaiter.html" title="Wait until a signal ocured.">QxtSignalWaiter</a> is, sadly, not reentrant. In particular, only one QxSignalWaiter object can be safely waiting at a time. If a second QxSignalWaiter is used while the first is waiting, the first will not return until the second has timed out or successfully caught its signal. A later revision of the class may be able to solve this problem. Until then, be careful not to rely on two <a class="el" href="classQxtSignalWaiter.html" title="Wait until a signal ocured.">QxtSignalWaiter</a> objects at the same time.</dd></dl>
@@ -74,7 +74,7 @@ In many cases, writing code that assumes certain actions are synchronous is cons
 <div class="memitem">
 <div class="fn">
           <span class="memname">QxtSignalWaiter::QxtSignalWaiter           </span>
-(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/4.3/" href="http://doc.trolltech.com/4.3/qobject.html">QObject</a> *&nbsp;</span>
+(          <span class="paramtype">const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html">QObject</a> *&nbsp;</span>
           <span class="paramname"> <em>sender</em>, </span>
           <span class="paramtype">const char *&nbsp;</span>
           <span class="paramname"> <em>signal</em></span>
