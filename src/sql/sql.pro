@@ -12,5 +12,5 @@ OBJECTS_DIR      = .obj
 CONFIG += qxtbuild  convenience
 include(../../config.pri)
 
-HEADERS += qxtsqlpackage.h   qxtsqlpackagemodel.h qxtsqlquery.h
+HEADERS += qxtsqlpackage.h   qxtsqlpackagemodel.h
 SOURCES += qxtsqlpackage.cpp qxtsqlpackagemodel.cpp
