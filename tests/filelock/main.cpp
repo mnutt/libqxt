@@ -2,6 +2,7 @@
 #include <QTest>
 #include <QFile>
 #include <QxtFileLock>
+#include <QxtJob>
 #include <QMutex>
 #include <QWaitCondition>
 
@@ -99,44 +100,12 @@ public:
 ; /// qt < 4.3 backwards compatibility
 
 ///this is a job hack, not part of the testcase, ignore it if you don't what it is
-class Job : public QObject
-{
-    Q_OBJECT
-public:
-
-    virtual void run()=0;
-    void exec(QThread * onthread)
-    {
-        moveToThread(onthread);
-        connect(this,SIGNAL(inwrap_s()),this,SLOT(inwrap_d()));
-        emit(inwrap_s());
-
-        mutex.lock();
-        QVERIFY(waiter.wait(&mutex));
-        mutex.unlock();
-    }
-public slots:
-    void inwrap_d()
-    {
-        run();
-        emit(jobDone());
-        waiter.wakeAll();
-    }
-
-signals:
-    void inwrap_s();
-
-    void jobDone();
-private:
-    QMutex mutex;
-    QWaitCondition waiter;
-};
 
 ///here is the interesting part of the job. this executes one lock on a spefic thread and asserts the result
-class LockJob : public Job
+class LockJob : public QxtJob
 {
 public:
-    LockJob(QxtFileLock*f,bool expectedresult)
+    LockJob(QxtFileLock*f,bool expectedresult):QxtJob()
     {
         lock =f;
     expected=expectedresult;
