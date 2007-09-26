@@ -35,6 +35,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtJob);
     QMutex mutex;
     QWaitCondition startupcond;
+    QWaitCondition joincond;
     bool running;
 public slots:
     void inwrap_d();
