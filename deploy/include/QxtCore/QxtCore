@@ -11,4 +11,4 @@
 #include "qxtsignalwaiter.h"
 #include "qxtmetaobject.h"
 #include "qxtjob.h"
-
+#include "qxtslotjob.h"
