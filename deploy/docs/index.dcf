@@ -141,6 +141,12 @@
 	<keyword ref="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d">WriteLockWait</keyword>
 </section>
 
+<section ref="classQxtFuture.html" title="QxtFuture"> 
+	<keyword ref="classQxtFuture.html">QxtFuture</keyword>
+	<keyword ref="classQxtFuture.html#2c3a1d28722a4be94a037b583859f7f5">result</keyword>
+	<keyword ref="classQxtFuture.html#ac016e0aeba7014f5c4777b6c1b31283">wait</keyword>
+</section>
+
 <section ref="classQxtGroupBox.html" title="QxtGroupBox"> 
 	<keyword ref="classQxtGroupBox.html">QxtGroupBox</keyword>
 	<keyword ref="classQxtGroupBox.html#ba496a650834bd948eab93cb7a2fad1d">setCollapsed</keyword>
@@ -305,6 +311,13 @@
 <section ref="classQxtSignalWaiter.html" title="QxtSignalWaiter"> 
 	<keyword ref="classQxtSignalWaiter.html">QxtSignalWaiter</keyword>
 	<keyword ref="classQxtSignalWaiter.html#79b51af709dd02c243ee731a51aedef2">wait</keyword>
+</section>
+
+<section ref="classQxtSlotJob.html" title="QxtSlotJob"> 
+	<keyword ref="classQxtSlotJob.html">QxtSlotJob</keyword>
+	<keyword ref="classQxtSlotJob.html#35612d7b823cfb367d589a0d8853ee5f">detach</keyword>
+	<keyword ref="classQxtSlotJob.html#970621e9cd6abcc570722027320f4695">exec</keyword>
+	<keyword ref="classQxtSlotJob.html#e9c117eeb58b9540de0dd6a558035fbb">result</keyword>
 </section>
 
 <section ref="classQxtSpanSlider.html" title="QxtSpanSlider"> 
