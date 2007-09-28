@@ -11,9 +11,10 @@ class Bla : public QObject
 {
 Q_OBJECT
 public slots:
-    void say(QString a)
+    QString say(QString a)
     {
         qDebug()<<a;
+        return a;
     }
 };
 
@@ -25,7 +26,7 @@ int main(int argc,char **argv)
     thread.start();
     Bla q;
     QxtFuture f= QxtSlotJob::detach(&thread,&q,SLOT(say(QString)),Q_ARG(QString, "hi"));
-    qDebug()<<"waiting"<<f.wait(3000);
+    qDebug()<<"result is: "<<f.delayedResult(3000);
     thread.quit();
     thread.wait();
     return 0;
