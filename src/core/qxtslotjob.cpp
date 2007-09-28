@@ -153,18 +153,29 @@ QxtFuture::~QxtFuture()
 asks for the result of the execution. \n
 This calls QxtJob::join()  means it will _block_  the current thread untill the Slot has finished execution
 */
-QVariant QxtFuture::result()
+QVariant QxtFuture::joinedResult()
 {
     return job->result();
 }
+
+
+
 /*!
-wait until the done() signal occured \n
+asks for the result of the execution. \n
+waits until the done() signal occured  
+or  return a QVariant() if the timout ocures earlier \n
 This uses QxtSignalWaiter so it will _not_ block your current thread.
 \warning this function is not reentrant. You have been warned
+
 */
-bool QxtFuture::wait(int msec)
+
+
+
+QVariant QxtFuture::delayedResult(int msec)
 {
-    return waiter->wait(msec,false);
+    if(!waiter->wait(msec,false))
+        return QVariant();
+    return job->result();
 }
 
 

@@ -39,8 +39,9 @@ class QXT_CORE_EXPORT QxtFuture: public QObject
 {
 Q_OBJECT
 public:
-    QVariant result();
-    bool wait(int msec=-1);
+    QVariant delayedResult(int msec=-1);
+    QVariant joinedResult();
+
     QxtFuture(const QxtFuture& other);
     ~QxtFuture();
 private:
