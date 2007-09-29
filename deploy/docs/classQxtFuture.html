@@ -50,8 +50,8 @@ void <b>done</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/late
 </ul>
 <h3>Public Member Functions</h3>
 <ul>
-<li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> <a class="el" href="classQxtFuture.html#2c3a1d28722a4be94a037b583859f7f5">result</a> ()
-<li>bool <a class="el" href="classQxtFuture.html#ac016e0aeba7014f5c4777b6c1b31283">wait</a> (int msec=-1)
+<li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> <a class="el" href="classQxtFuture.html#58eb4615eb20b0ddf4a9d57a33040cee">delayedResult</a> (int msec=-1)
+<li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> <a class="el" href="classQxtFuture.html#3e160ab1ebbbc957233ffe7c337cc224">joinedResult</a> ()
 <li><a class="anchor" name="01d6c807023b7b38e044d7c1edf2eb29"></a><!-- doxytag: member="QxtFuture::QxtFuture" ref="01d6c807023b7b38e044d7c1edf2eb29" args="(const QxtFuture &amp;other)" -->
 <b>QxtFuture</b> (const <a class="el" href="classQxtFuture.html">QxtFuture</a> &amp;other)
 </ul>
@@ -64,10 +64,27 @@ class <a class="el" href="classQxtFuture.html#036b4c56eb61ff4d187a9aae002074b0">
 Reference to a future result of a <a class="el" href="classQxtSlotJob.html" title="Execute an arbitary Slot on a QThread.">QxtSlotJob</a>. 
 <p>
 <hr><h3>Member Function Documentation</h3>
-<a class="anchor" name="2c3a1d28722a4be94a037b583859f7f5"></a><!-- doxytag: member="QxtFuture::result" ref="2c3a1d28722a4be94a037b583859f7f5" args="()" -->
+<a class="anchor" name="58eb4615eb20b0ddf4a9d57a33040cee"></a><!-- doxytag: member="QxtFuture::delayedResult" ref="58eb4615eb20b0ddf4a9d57a33040cee" args="(int msec=-1)" -->
 <div class="memitem">
 <div class="fn">
-          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> QxtFuture::result           </span>
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> QxtFuture::delayedResult           </span>
+(          <span class="paramtype">int&nbsp;</span>
+          <span class="paramname"> <em>msec</em> = -1</span>
+)</div>
+
+<div class="memdoc">
+
+<p>
+asks for the result of the execution. <br>
+ waits until the done() signal occured or return a QVariant() if the timout ocures earlier <br>
+ This uses <a class="el" href="classQxtSignalWaiter.html" title="Wait until a signal ocured.">QxtSignalWaiter</a> so it will _not_ block your current thread. <dl class="warning" compact><dt><b>Warning:</b></dt><dd>this function is not reentrant. You have been warned </dd></dl>
+
+</p></div>
+</div><!-- memitem --><br/>
+<a class="anchor" name="3e160ab1ebbbc957233ffe7c337cc224"></a><!-- doxytag: member="QxtFuture::joinedResult" ref="3e160ab1ebbbc957233ffe7c337cc224" args="()" -->
+<div class="memitem">
+<div class="fn">
+          <span class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qvariant.html">QVariant</a> QxtFuture::joinedResult           </span>
 (          <span class="paramname"></span>
 )</div>
 
@@ -76,22 +93,6 @@ Reference to a future result of a <a class="el" href="classQxtSlotJob.html" titl
 <p>
 asks for the result of the execution. <br>
  This calls <a class="el" href="classQxtJob.html#a66a6b989a32d13393dbd904b885cc3a">QxtJob::join()</a> means it will _block_ the current thread untill the Slot has finished execution 
-</p></div>
-</div><!-- memitem --><br/>
-<a class="anchor" name="ac016e0aeba7014f5c4777b6c1b31283"></a><!-- doxytag: member="QxtFuture::wait" ref="ac016e0aeba7014f5c4777b6c1b31283" args="(int msec=-1)" -->
-<div class="memitem">
-<div class="fn">
-          <span class="memname">bool QxtFuture::wait           </span>
-(          <span class="paramtype">int&nbsp;</span>
-          <span class="paramname"> <em>msec</em> = -1</span>
-)</div>
-
-<div class="memdoc">
-
-<p>
-wait until the done() signal occured <br>
- This uses <a class="el" href="classQxtSignalWaiter.html" title="Wait until a signal ocured.">QxtSignalWaiter</a> so it will _not_ block your current thread. <dl class="warning" compact><dt><b>Warning:</b></dt><dd>this function is not reentrant. You have been warned </dd></dl>
-
 </p></div>
 </div><!-- memitem --><br/>
 <address><hr />
