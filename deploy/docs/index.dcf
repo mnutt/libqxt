@@ -143,8 +143,8 @@
 
 <section ref="classQxtFuture.html" title="QxtFuture"> 
 	<keyword ref="classQxtFuture.html">QxtFuture</keyword>
-	<keyword ref="classQxtFuture.html#2c3a1d28722a4be94a037b583859f7f5">result</keyword>
-	<keyword ref="classQxtFuture.html#ac016e0aeba7014f5c4777b6c1b31283">wait</keyword>
+	<keyword ref="classQxtFuture.html#58eb4615eb20b0ddf4a9d57a33040cee">delayedResult</keyword>
+	<keyword ref="classQxtFuture.html#3e160ab1ebbbc957233ffe7c337cc224">joinedResult</keyword>
 </section>
 
 <section ref="classQxtGroupBox.html" title="QxtGroupBox"> 
