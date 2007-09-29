@@ -46,6 +46,12 @@
                 <?=content?>
         </html>
         \endcode
+
+        funny storry: whe are using this class to make our documentation (eat your own dogfood, you know ;).  
+        but when we where parsing exactly this file you read right now the first time, QxtHtmlTemplate got stuck in an infinite loop. guess why. becouse of that example above :D
+        So be warned: when you assign content to a variable that contains the variable name itself, render() will never return.
+                  
+
 */
 
 /*!
