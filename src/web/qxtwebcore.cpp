@@ -193,6 +193,8 @@ void QxtWebCorePrivate::sendheader()
 }
 void QxtWebCorePrivate::header(QString k,QString v)
 {
+    if (header_sent)
+        qWarning("headers already sent");
     if (encoder)
         answer[encoder->fromUnicode (k)]=encoder->fromUnicode (v);
     else
@@ -254,10 +256,10 @@ void QxtWebCorePrivate::incomming(server_t  SERVER)
     int i=controller->invoke(SERVER);
     if (i!=0 && i!=2)
     {
-        header("Status",QString::number(i).left(3));
+        header("Status","404");
         send("<h1>");
         send(QString::number(i));
-        send("</h1>Sorry, that didn't work as expected. You might want to contact this systems administrator.");
+        send("</h1>Sorry,, that didn't work as expected. You might want to contact this systems administrator.");
     }
     if (i!=2) ///FIXME temporary solution for keepalive
         close();
