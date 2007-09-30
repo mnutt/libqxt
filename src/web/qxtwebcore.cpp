@@ -254,7 +254,7 @@ void QxtWebCorePrivate::incomming(server_t  SERVER)
     int i=controller->invoke(SERVER);
     if (i!=0 && i!=2)
     {
-        header("Status",QString::number(i));
+        header("Status",QString::number(i).left(3));
         send("<h1>");
         send(QString::number(i));
         send("</h1>Sorry, that didn't work as expected. You might want to contact this systems administrator.");
