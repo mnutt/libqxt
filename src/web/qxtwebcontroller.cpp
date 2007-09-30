@@ -182,7 +182,8 @@ int QxtWebController::invoke(server_t & SERVER_i)
 
     stream_m->flush ();
     stream_m=0;
-    QxtWebCore::send(buffer);
+    if(buffer.size())
+        QxtWebCore::send(buffer);
     return retVal;
 };
 
