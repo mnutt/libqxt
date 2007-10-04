@@ -43,10 +43,16 @@ LockJob().exec(&thread);
 
 #include "qxtjob_p.h"
 #include <cassert>
-#ifdef Q_WS_WIN
-#include <qt_windows.h>
-#endif
+#include <QThread>
 
+class Thread : public QThread
+{
+public:
+    static void usleep(unsigned long usecs)
+    {
+        QThread::usleep(usecs);
+    }
+};
 
 QxtJob::QxtJob()
 {
@@ -90,11 +96,7 @@ void QxtJob::join()
         And no, a mutex won't work either.
         using join for anything else then testcases sounds kindof retarded anyway.
         */
-#ifdef Q_WS_WIN
-        ::Sleep(1);
-#else
-        usleep(1000);
-#endif  
+        Thread::usleep(1000);
     }
 
 }
