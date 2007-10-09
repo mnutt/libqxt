@@ -145,7 +145,7 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
 
 /*!
     \class QxtItemDelegate QxtItemDelegate
-    \ingroup gui
+    \ingroup QxtGui
     \brief An extended QItemDelegate with additional signals and optional decoration.
 
     QxtItemDelegate provides signals for starting and finishing of editing

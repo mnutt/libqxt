@@ -31,7 +31,7 @@
 /**
 \class QxtBlowFish QxtBlowFish
 
-\ingroup crypto
+\ingroup QxtCrypto
 
 \brief  Blowfish Encryption Class
 

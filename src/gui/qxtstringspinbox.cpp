@@ -49,7 +49,7 @@ int QxtStringSpinBoxPrivate::startsWith(const QString& start, QString& string) c
 
 /*!
     \class QxtStringSpinBox QxtStringSpinBox
-    \ingroup gui
+    \ingroup QxtGui
     \brief A spin box with string items.
 
     QxtStringSpinBox is spin box that takes strings. QxtStringSpinBox allows

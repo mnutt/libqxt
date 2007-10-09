@@ -24,7 +24,7 @@
 
 /*!
         \class QxtHtmlTemplate QxtHtmlTemplate
-        \ingroup web
+        \ingroup QxtWeb
         \brief Basic Html Template Engine
 
         open a file containing html code and php style variables.

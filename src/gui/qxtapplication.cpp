@@ -27,7 +27,7 @@
 
 /*!
     \class QxtApplication QxtApplication
-    \ingroup gui
+    \ingroup QxtGui
     \brief An extended QApplication with support for hotkeys aka "global shortcuts".
 
     QxtApplication introduces hotkeys which trigger even if the application is not

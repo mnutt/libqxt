@@ -46,10 +46,22 @@ void <b>append</b> (T v1, K v2)
 void <a class="el" href="classQxtPairList.html#102d0f1eebc1215f89ed5730862ad2ea">remove</a> (int nr)
 <dl class="el"><dd class="mdescRight">remove an entrys position by position <br></dl><li><a class="anchor" name="bed68c5367026b4a60a76548220a8332"></a><!-- doxytag: member="QxtPairList::remove" ref="bed68c5367026b4a60a76548220a8332" args="(QList&lt; int &gt; nrs)" -->
 void <a class="el" href="classQxtPairList.html#bed68c5367026b4a60a76548220a8332">remove</a> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt; int &gt; nrs)
+<dl class="el"><dd class="mdescRight">remove a list of entrys by position <br></dl><li><a class="anchor" name="f41918f30b7fe66d4466cc9aa6df23e4"></a><!-- doxytag: member="QxtPairList::QxtPairList" ref="f41918f30b7fe66d4466cc9aa6df23e4" args="(const QxtPairList&lt; T, K &gt; &amp;other)" -->
+<b>QxtPairList</b> (const <a class="el" href="classQxtPairList.html">QxtPairList</a>&lt; T, K &gt; &amp;other)
+<li><a class="anchor" name="dc9801c77969a968fee59945f55bce2d"></a><!-- doxytag: member="QxtPairList::operator=" ref="dc9801c77969a968fee59945f55bce2d" args="(const QxtPairList&lt; T, K &gt; &amp;other)" -->
+<a class="el" href="classQxtPairList.html">QxtPairList</a> <b>operator=</b> (const <a class="el" href="classQxtPairList.html">QxtPairList</a>&lt; T, K &gt; &amp;other)
+<li><a class="anchor" name="4f7071b42de5412c03858d6b6e8b8ab9"></a><!-- doxytag: member="QxtPairList::append" ref="4f7071b42de5412c03858d6b6e8b8ab9" args="(T v1, K v2)" -->
+void <b>append</b> (T v1, K v2)
+<li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt; int &gt; <a class="el" href="classQxtPairList.html#ab663d83258f45a090ad570bac8198f3">find</a> (qxNull(T, v1), qxNull(K, v2))
+<dl class="el"><dd class="mdescRight">search entrys by match  <a href="#ab663d83258f45a090ad570bac8198f3"></a><br></dl><li><a class="anchor" name="102d0f1eebc1215f89ed5730862ad2ea"></a><!-- doxytag: member="QxtPairList::remove" ref="102d0f1eebc1215f89ed5730862ad2ea" args="(int nr)" -->
+void <a class="el" href="classQxtPairList.html#102d0f1eebc1215f89ed5730862ad2ea">remove</a> (int nr)
+<dl class="el"><dd class="mdescRight">remove an entrys position by position <br></dl><li><a class="anchor" name="bed68c5367026b4a60a76548220a8332"></a><!-- doxytag: member="QxtPairList::remove" ref="bed68c5367026b4a60a76548220a8332" args="(QList&lt; int &gt; nrs)" -->
+void <a class="el" href="classQxtPairList.html#bed68c5367026b4a60a76548220a8332">remove</a> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt; int &gt; nrs)
 <dl class="el"><dd class="mdescRight">remove a list of entrys by position <br></dl></ul>
 <h2>Data Fields</h2>
 <ul>
 <li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt; <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpair.html">QPair</a>&lt; T, K &gt; &gt; <a class="el" href="classQxtPairList.html#d43a8617b30886782cecebd06d6d2ca0">list</a>
+<dl class="el"><dd class="mdescRight">operate on the list directly  <a href="#d43a8617b30886782cecebd06d6d2ca0"></a><br></dl><li><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt; <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpair.html">QPair</a>&lt; T, K &gt; &gt; <a class="el" href="classQxtPairList.html#d43a8617b30886782cecebd06d6d2ca0">list</a>
 <dl class="el"><dd class="mdescRight">operate on the list directly  <a href="#d43a8617b30886782cecebd06d6d2ca0"></a><br></dl></ul>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 <h3>template&lt;typename T, typename K&gt;<br>
@@ -108,7 +120,63 @@ both arguments are optional, due to the use of <a class="el" href="classQxtNulla
 </pre></div> are all valid 
 </div>
 </div><p>
+<a class="anchor" name="ab663d83258f45a090ad570bac8198f3"></a><!-- doxytag: member="QxtPairList::find" ref="ab663d83258f45a090ad570bac8198f3" args="(qxNull(T, v1), qxNull(K, v2))" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename K&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt;int&gt; <a class="el" href="classQxtPairList.html">QxtPairList</a>&lt; T, K &gt;::find           </td>
+          <td>(</td>
+          <td class="paramtype">qxNull(T, v1)&nbsp;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">qxNull(K, v2)&nbsp;</td>
+          <td class="paramname"></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+search entrys by match 
+<p>
+both arguments are optional, due to the use of <a class="el" href="classQxtNullable.html" title="distinct null value compatible with any data type.">QxtNullable</a><p>
+<div class="fragment"><pre class="fragment">    <a class="code" href="classQxtPairList.html#ab663d83258f45a090ad570bac8198f3" title="search entrys by match">find</a>(SKIP,v2);
+    <a class="code" href="classQxtPairList.html#ab663d83258f45a090ad570bac8198f3" title="search entrys by match">find</a>(v1,SKIP);
+    <a class="code" href="classQxtPairList.html#ab663d83258f45a090ad570bac8198f3" title="search entrys by match">find</a>(v1);
+</pre></div> are all valid 
+</div>
+</div><p>
 <hr><h2>Field Documentation</h2>
+<a class="anchor" name="d43a8617b30886782cecebd06d6d2ca0"></a><!-- doxytag: member="QxtPairList::list" ref="d43a8617b30886782cecebd06d6d2ca0" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename K&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qlist.html">QList</a>&lt;<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qpair.html">QPair</a>&lt;T,K&gt; &gt; <a class="el" href="classQxtPairList.html">QxtPairList</a>&lt; T, K &gt;::<a class="el" href="classQxtPairList.html#d43a8617b30886782cecebd06d6d2ca0">list</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+operate on the list directly 
+<p>
+you may use the internal list directly, but be carefull dont expect to work the QxPairList to work normal if you mess around with it. 
+</div>
+</div><p>
 <a class="anchor" name="d43a8617b30886782cecebd06d6d2ca0"></a><!-- doxytag: member="QxtPairList::list" ref="d43a8617b30886782cecebd06d6d2ca0" args="" -->
 <div class="memitem">
 <div class="memproto">

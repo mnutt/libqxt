@@ -26,7 +26,7 @@
 /**
 \class QxtFifo QxtFifo
 
-\ingroup core
+\ingroup QxtCore
 
 \brief Simple Loopback QIODevice
 

@@ -175,7 +175,7 @@ template<typename TYPELIST>
 /**
 \class QxtTuple QxtTuple
 
-\ingroup core
+\ingroup QxtCore
 
 \brief Arbitrary-length templated list
 

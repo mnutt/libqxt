@@ -47,7 +47,7 @@ void QxtGroupBoxPrivate::init()
 
 /*!
     \class QxtGroupBox QxtGroupBox
-    \ingroup gui
+    \ingroup QxtGui
     \brief A collapsive and checkable QGroupBox.
 
     QxtGroupBox is a checkable group box automatically expanding/collapsing

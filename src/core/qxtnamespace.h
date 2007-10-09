@@ -30,7 +30,7 @@
 
 /**
     \namespace Qxt
-    \ingroup core
+    \ingroup QxtCore
     \brief The Qxt Namespace
 
     The Qxt Namespace

@@ -48,7 +48,7 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
 
 /*!
     \class QxtProgressLabel QxtProgressLabel
-    \ingroup gui
+    \ingroup QxtGui
     \brief A label showing progress related time values.
 
     QxtProgressLabel is a label widget able to show elapsed and remaining

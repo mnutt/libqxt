@@ -58,7 +58,7 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 
 /*!
     \class QxtTreeWidget QxtTreeWidget
-    \ingroup gui
+    \ingroup QxtGui
     \brief An extended QTreeWidget with additional signals.
 
     QxtTreeWidget offers an optional top level item decoration

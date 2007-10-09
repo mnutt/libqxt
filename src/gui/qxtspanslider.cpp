@@ -254,7 +254,7 @@ void QxtSpanSliderPrivate::updateRange(int min, int max)
 
 /*!
     \class QxtSpanSlider QxtSpanSlider
-    \ingroup gui
+    \ingroup QxtGui
     \brief A QSlider with two handles.
 
     QxtSpanSlider is a slider with two handles. QxtSpanSlider is

@@ -248,7 +248,7 @@ void QxtConfigDialogPrivate::relayout()
 
 /*!
     \class QxtConfigDialog QxtConfigDialog
-    \ingroup gui
+    \ingroup QxtGui
     \brief A configuration dialog.
 
     QxtConfigDialog provides a convenient interface for building

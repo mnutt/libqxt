@@ -30,7 +30,7 @@
 \class QxtNull QxtNull
 
 
-\ingroup core
+\ingroup QxtCore
 
 \brief An object representing the "null" value for QxtNullable.
 

@@ -24,7 +24,7 @@
 /**
 \class QxtMetaObject QxtMetaObject
 
-\ingroup core
+\ingroup QxtCore
 
 \brief provides extensions to QMetaObject
 

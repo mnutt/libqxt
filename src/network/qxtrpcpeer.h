@@ -37,7 +37,7 @@ class QTcpSocket;
 class QxtRPCPeerPrivate;
 /*!
  * \class QxtRPCPeer QxtRPCPeer
- * \ingroup network
+ * \ingroup QxtNetwork
  * \brief Transmits Qt signals over a network connection
  *
  * QxtRPCPeer is a tool that encapsulates Qt signals and transmits them over a network connection.

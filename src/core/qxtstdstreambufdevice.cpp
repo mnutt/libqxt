@@ -26,7 +26,7 @@
 /**
 \class QxtStdStreambufDevice QxtStdStreambufDevice
 
-\ingroup core
+\ingroup QxtCore
 
 \brief QIODevice support for std::streambuf
 

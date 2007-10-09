@@ -26,7 +26,7 @@
 /**
 \class QxtSqlPackageModel QxtSqlPackageModel
 
-\ingroup sql
+\ingroup QxtSql
 
 \brief  provides a read-only data model for QxtSqlPackage result..
 */

@@ -57,7 +57,7 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 
 /*!
     \class QxtTabWidget QxtTabWidget
-    \ingroup gui
+    \ingroup QxtGui
     \brief An extended QTabWidget.
 
     QxtTabWidget provides some convenience for handling tab specific context menus.

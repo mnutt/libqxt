@@ -25,7 +25,7 @@
 #include "qxtfilelock_p.h"
 /**
  * \class QxtFileLock QxtFileLock
- * \ingroup core
+ * \ingroup QxtCore
  * \brief The QxtFileLock class provides a crossplattform way to lock a QFile.
  *
  * It supports the range locking of a file. The File will take parentship of the lock.<br>

@@ -54,7 +54,7 @@ public:
 
 /*!
     \class QxtHeaderView QxtHeaderView
-    \ingroup gui
+    \ingroup QxtGui
     \brief a headerview that can have QActions
 
     draws actions directly into the header. it's like a toolbar for your ItemView.
