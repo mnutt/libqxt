@@ -28,7 +28,7 @@
 /**
 \class QxtHash QxtHash
 
-\ingroup crypto
+\ingroup QxtCrypto
 
 \brief Hashing funcions
 

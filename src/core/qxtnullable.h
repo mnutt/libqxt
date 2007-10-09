@@ -24,7 +24,7 @@
 
 /**
 \class QxtNullable QxtNullable
-\ingroup core
+\ingroup QxtCore
 \brief distinct null value compatible with any data type.
 
 in general it's a templated abstraction to allow any data type to be

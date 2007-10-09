@@ -33,7 +33,7 @@ typedef struct OpaqueEventHandlerCallRef *EventHandlerCallRef;
 
 /*!
     \class QxtNativeEventFilter QxtNativeEventFilter
-    \ingroup gui
+    \ingroup QxtGui
     \brief A native event filter to access platform specific events.
 
     QxtNativeEventFilter provides access to platform specific native events

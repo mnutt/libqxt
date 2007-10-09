@@ -26,7 +26,7 @@
 /**
 \class QxtSlotJob QxtSlotJob
 
-\ingroup core
+\ingroup QxtCore
 
 \brief Execute an arbitary Slot on a QThread.
 
@@ -123,7 +123,7 @@ void QxtSlotJob::pdone()
 /**
 \class QxtFuture QxtFuture
 
-\ingroup core
+\ingroup QxtCore
 
 \brief Reference to a future result of a QxtSlotJob
 

@@ -35,7 +35,7 @@
 
 /**
  * \class QxtBoundFunction
- * \ingroup core
+ * \ingroup QxtCore
  * \brief Binds parameters to a function call
  *
  * A bound function is very similar to what the C++ FAQ Lite refers to as "functionoids."

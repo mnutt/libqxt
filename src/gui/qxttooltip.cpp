@@ -212,7 +212,7 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
 
 /*!
     \class QxtToolTip QxtToolTip
-    \ingroup gui
+    \ingroup QxtGui
     \brief Show any arbitrary widget as a tooltip.
 
     QxtToolTip provides means for showing any arbitrary widget as a tooltip.

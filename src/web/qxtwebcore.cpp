@@ -37,7 +37,7 @@
 
 /*!
         \class QxtWebCore QxtWebCore
-        \ingroup web
+        \ingroup QxtWeb
         \brief qxtweb application core class. communicates, delegates, does all of the magic ;)
 
 

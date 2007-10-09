@@ -136,7 +136,7 @@ void QxtConfirmationMessagePrivate::reset(const QString& title, const QString& t
 
 /*!
     \class QxtConfirmationMessage QxtConfirmationMessage
-    \ingroup gui
+    \ingroup QxtGui
     \brief A confirmation message.
 
     QxtConfirmationMessage is a confirmation message with checkable

@@ -26,7 +26,7 @@
 /**
 \class QxtSqlPackage QxtSqlPackage
 
-\ingroup sql
+\ingroup QxtSql
 
 \brief full serialiseable QSqlQuery storage
 

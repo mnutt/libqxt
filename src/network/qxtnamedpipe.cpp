@@ -24,7 +24,7 @@
 /**
 \class QxtNamedPipe QxtNamedPipe
 
-\ingroup network
+\ingroup QxtNetwork
 
 \brief Provides a QIODevice over a named pipe
 

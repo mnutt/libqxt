@@ -25,7 +25,7 @@
 /**
 \class QxtHyperMacros QxtHyperMacros
 
-\ingroup core
+\ingroup QxtCore
 
 \brief some helper macros for your daily work
 

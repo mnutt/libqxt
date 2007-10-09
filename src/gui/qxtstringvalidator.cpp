@@ -70,7 +70,7 @@ QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::Mat
 
 /*!
     \class QxtStringValidator QxtStringValidator
-    \ingroup gui
+    \ingroup QxtGui
     \brief The QxtStringValidator class provides validation on a QStringList or a QAbstractItemModel
 
     It provides a String based validation in a stringlist or a custom model.

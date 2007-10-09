@@ -26,7 +26,7 @@
 
 /*!
     \class QxtProxyStyle QxtProxyStyle
-    \ingroup gui
+    \ingroup QxtGui
     \brief A proxy style.
 
     A technique called "proxy style" is a common way for creating

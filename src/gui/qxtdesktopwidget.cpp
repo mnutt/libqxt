@@ -26,7 +26,7 @@
 
 /*!
     \class QxtDesktopWidget QxtDesktopWidget
-    \ingroup gui
+    \ingroup QxtGui
     \brief QxtDesktopWidget provides means for accessing native windows.
 
     \note QxtDesktopWidget is portable in principle, but be careful while
