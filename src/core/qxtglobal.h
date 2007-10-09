@@ -23,27 +23,27 @@
 ****************************************************************************/
 
 
-/** \defgroup core Core
-        The Core contains naturaly  the most important parts of Qxt everything is based one
+/** \defgroup QxtCore QxtCore
+        The Core contains naturaly  the most important parts of Qxt, everything is based on.
 */
 
-/** \defgroup sql Sql
+/** \defgroup QxtSql QxtSql
         parts that depend on QtSql (and at least QtCore)
 */
 
-/** \defgroup network  Network
+/** \defgroup QxtNetwork  QxtNetwork
         parts that depend on QtNetwork (and at least QtCore)
 */
 
-/** \defgroup gui Gui
+/** \defgroup QxtGui QxtGui
         parts that depend on QtGui (and at least QtCore)
 */
 
-/** \defgroup web  Web
+/** \defgroup QxtWeb  QxtWeb
         Qt like Web Developement tools
 */
 
-/** \defgroup crypto  Crypto
+/** \defgroup QxtCrypto  QxtCrypto
         Tools for encryption and hashing
 */
 
