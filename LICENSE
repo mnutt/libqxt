@@ -1,4 +1,4 @@
-Qt Extended Library 
+Qt Extension Library 
 Copyright (C) 2007 Qxt Foundation
 
 ------------------- Disclaimer ------------------------------------------------
@@ -6,7 +6,7 @@ Copyright (C) 2007 Qxt Foundation
 Until the Qxt Foundation is legally established, copyright for the
 source code falls back to the original contributor. For information about the
 status of the Qxt Foundation, or about the copyright status of any part of Qxt,
-contact the Qxt project maintainers at <libqxt@gmail.com>. 
+contact the Qxt project maintainers at <foundation@libqxt.org>
 
 Once the Qxt Foundation has been legally established, all contributors must
 transfer all copyright interest to the Qxt Foundation before their submissions
@@ -14,19 +14,18 @@ will be added to the project.
 
 ------------------- License ---------------------------------------------------
 
-This library is free software; you can redistribute it and/or modify it under
-the terms of the GNU Lesser General Public License as published by the Free
-Software Foundation; version 2.1.
+This library is free software; you can redistribute it and/or modify it
+under the terms of th Common Public License, version 1.0, as published by IBM.
 
-Future versions of the source code of this library may be redistributed and/or
-modified under the terms of the Common Public License; version 1.0.
+This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+FITNESS FOR A PARTICULAR PURPOSE.
 
-This library is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-details about the LGPL (see the included file entitled LGPL) or the Common
-Public License for more information about the CPM (see the included file
-entitled cpl1.0.txt).
+You should have received a copy of the CPL along with this file.
+See the LICENSE file and the cpl1.0.txt file included with the source
+distribution for more information. If you did not receive a copy of the
+license, contact the Qxt Foundation.
 
 Parts of Qxt depend on Qt 4 and/or other libraries that have their own
 licenses. Qxt is independent of these licenses; however, use of these other
