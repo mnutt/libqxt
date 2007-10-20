@@ -1,6 +1,6 @@
 [doqsy]
 output=deploy/docs
-templates=/home/aep/libqxt/sandbox/aep/doqsy/templates/
+templates=doctemplate
 doxygen=doxygen
 
 [doxygen]
