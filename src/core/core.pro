@@ -40,7 +40,8 @@ HEADERS += qxtcsvmodel.h \
            qxtjob.h \
            qxtjob_p.h \
            qxtslotjob.h \
-           qxtslotjob_p.h
+           qxtslotjob_p.h \
+           qxtpipe.h
 
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \
@@ -53,7 +54,8 @@ SOURCES += qxtcsvmodel.cpp \
            qxtnull.cpp \
            qxtstdstreambufdevice.cpp \
            qxtjob.cpp \
-           qxtslotjob.cpp
+           qxtslotjob.cpp \
+           qxtpipe.cpp
 
 unix:  SOURCES += qxtfilelock_unix.cpp
 win32: SOURCES += qxtfilelock_win.cpp

@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1>QxtStdStreambufDevice Class Reference<br>
 <small>
 [<a class="el" href="group__QxtCore.html">QxtCore</a>]</small>
-</h1><!-- doxytag: class="QxtStdStreambufDevice" --><!-- doxytag: inherits="QIODevice,QIODevice" --><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qiodevice.html">QIODevice</a> support for std::streambuf.  
+</h1><!-- doxytag: class="QxtStdStreambufDevice" --><!-- doxytag: inherits="QIODevice" --><a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qiodevice.html">QIODevice</a> support for std::streambuf.  
 <a href="#_details">More...</a>
 <p>
 <div class="dynheader">
@@ -43,7 +43,6 @@ Inheritance diagram for QxtStdStreambufDevice:</div>
 <p><center><img src="classQxtStdStreambufDevice.png" usemap="#QxtStdStreambufDevice_map" border="0" alt=""></center>
 <map name="QxtStdStreambufDevice_map">
 <area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qiodevice.html" alt="QIODevice" shape="rect" coords="0,0,146,24">
-<area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qiodevice.html" alt="QIODevice" shape="rect" coords="156,0,302,24">
 </map>
 </div>
 <h2>Public Member Functions</h2>
@@ -54,24 +53,12 @@ Inheritance diagram for QxtStdStreambufDevice:</div>
 virtual bool <a class="el" href="classQxtStdStreambufDevice.html#27181c0b15046f5fb0b604d297840fc0">isSequential</a> () const 
 <dl class="el"><dd class="mdescRight">one for read and one for write <br></dl><li><a class="anchor" name="1a5dbb127a1387c647b1d92dc05e7e61"></a><!-- doxytag: member="QxtStdStreambufDevice::bytesAvailable" ref="1a5dbb127a1387c647b1d92dc05e7e61" args="() const " -->
 virtual qint64 <b>bytesAvailable</b> () const 
-<li><a class="anchor" name="30be46c81f96731ec1b64ada30ed1192"></a><!-- doxytag: member="QxtStdStreambufDevice::QxtStdStreambufDevice" ref="30be46c81f96731ec1b64ada30ed1192" args="(std::streambuf *, QObject *parent=0)" -->
-<b>QxtStdStreambufDevice</b> (std::streambuf *, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html">QObject</a> *parent=0)
-<li><a class="anchor" name="94b2188eafc91b915c14900c454d2f03"></a><!-- doxytag: member="QxtStdStreambufDevice::QxtStdStreambufDevice" ref="94b2188eafc91b915c14900c454d2f03" args="(std::streambuf *r, std::streambuf *w, QObject *parent=0)" -->
-<a class="el" href="classQxtStdStreambufDevice.html#94b2188eafc91b915c14900c454d2f03">QxtStdStreambufDevice</a> (std::streambuf *r, std::streambuf *w, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html">QObject</a> *parent=0)
-<dl class="el"><dd class="mdescRight">one rw device <br></dl><li><a class="anchor" name="a2eaada64ff7c563a2bf2d29785addb5"></a><!-- doxytag: member="QxtStdStreambufDevice::isSequential" ref="a2eaada64ff7c563a2bf2d29785addb5" args="() const " -->
-virtual bool <a class="el" href="classQxtStdStreambufDevice.html#a2eaada64ff7c563a2bf2d29785addb5">isSequential</a> () const 
-<dl class="el"><dd class="mdescRight">one for read and one for write <br></dl><li><a class="anchor" name="adf767e91494c0f15040f6fa4ca7db23"></a><!-- doxytag: member="QxtStdStreambufDevice::bytesAvailable" ref="adf767e91494c0f15040f6fa4ca7db23" args="() const " -->
-virtual qint64 <b>bytesAvailable</b> () const 
 </ul>
 <h2>Protected Member Functions</h2>
 <ul>
 <li><a class="anchor" name="926615131eea5b923d4400c3ea7b2abf"></a><!-- doxytag: member="QxtStdStreambufDevice::readData" ref="926615131eea5b923d4400c3ea7b2abf" args="(char *data, qint64 maxSize)" -->
 virtual qint64 <b>readData</b> (char *data, qint64 maxSize)
 <li><a class="anchor" name="346fa91b53a593319071ba37c5776747"></a><!-- doxytag: member="QxtStdStreambufDevice::writeData" ref="346fa91b53a593319071ba37c5776747" args="(const char *data, qint64 maxSize)" -->
-virtual qint64 <b>writeData</b> (const char *data, qint64 maxSize)
-<li><a class="anchor" name="cbef191a734b2e5ebcc2f6e790277bd5"></a><!-- doxytag: member="QxtStdStreambufDevice::readData" ref="cbef191a734b2e5ebcc2f6e790277bd5" args="(char *data, qint64 maxSize)" -->
-virtual qint64 <b>readData</b> (char *data, qint64 maxSize)
-<li><a class="anchor" name="64cdf8e9ed71bf5f80aedd460eedcbc4"></a><!-- doxytag: member="QxtStdStreambufDevice::writeData" ref="64cdf8e9ed71bf5f80aedd460eedcbc4" args="(const char *data, qint64 maxSize)" -->
 virtual qint64 <b>writeData</b> (const char *data, qint64 maxSize)
 </ul>
 <hr><a name="_details"></a><h2>Detailed Description</h2>

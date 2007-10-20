@@ -33,7 +33,7 @@ width="32" height="32" border="0" /></a></td>
 <h1>QxtWebCore Class Reference<br>
 <small>
 [<a class="el" href="group__QxtWeb.html">QxtWeb</a>]</small>
-</h1><!-- doxytag: class="QxtWebCore" --><!-- doxytag: inherits="QObject,QObject" -->qxtweb application core class. communicates, delegates, does all of the magic ;)  
+</h1><!-- doxytag: class="QxtWebCore" --><!-- doxytag: inherits="QObject" -->qxtweb application core class. communicates, delegates, does all of the magic ;)  
 <a href="#_details">More...</a>
 <p>
 <div class="dynheader">
@@ -43,7 +43,6 @@ Inheritance diagram for QxtWebCore:</div>
 <p><center><img src="classQxtWebCore.png" usemap="#QxtWebCore_map" border="0" alt=""></center>
 <map name="QxtWebCore_map">
 <area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html" alt="QObject" shape="rect" coords="0,0,84,24">
-<area doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qobject.html" alt="QObject" shape="rect" coords="94,0,178,24">
 </map>
 </div>
 <h2>Signals</h2>
@@ -52,17 +51,9 @@ Inheritance diagram for QxtWebCore:</div>
 void <b>request</b> ()
 <li><a class="anchor" name="ed1a548f9ebc0067bbed53354ddb8243"></a><!-- doxytag: member="QxtWebCore::aboutToClose" ref="ed1a548f9ebc0067bbed53354ddb8243" args="()" -->
 void <b>aboutToClose</b> ()
-<li><a class="anchor" name="1eab176b872721e89fe9484d1da97d83"></a><!-- doxytag: member="QxtWebCore::request" ref="1eab176b872721e89fe9484d1da97d83" args="()" -->
-void <b>request</b> ()
-<li><a class="anchor" name="ed1a548f9ebc0067bbed53354ddb8243"></a><!-- doxytag: member="QxtWebCore::aboutToClose" ref="ed1a548f9ebc0067bbed53354ddb8243" args="()" -->
-void <b>aboutToClose</b> ()
 </ul>
 <h2>Public Member Functions</h2>
 <ul>
-<li><a class="anchor" name="baed3306c99cc1261f89ddd4a85e4561"></a><!-- doxytag: member="QxtWebCore::QxtWebCore" ref="baed3306c99cc1261f89ddd4a85e4561" args="(QxtAbstractWebConnector *)" -->
-<b>QxtWebCore</b> (QxtAbstractWebConnector *)
-<li><a class="anchor" name="1a77f1e75a664fd9ec86f9c26979dc46"></a><!-- doxytag: member="QxtWebCore::start" ref="1a77f1e75a664fd9ec86f9c26979dc46" args="(quint16 port=8000, const QHostAddress &amp;address=QHostAddress::LocalHost)" -->
-int <b>start</b> (quint16 port=8000, const <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qhostaddress.html">QHostAddress</a> &amp;address=QHostAddress::LocalHost)
 <li><a class="anchor" name="baed3306c99cc1261f89ddd4a85e4561"></a><!-- doxytag: member="QxtWebCore::QxtWebCore" ref="baed3306c99cc1261f89ddd4a85e4561" args="(QxtAbstractWebConnector *)" -->
 <b>QxtWebCore</b> (QxtAbstractWebConnector *)
 <li><a class="anchor" name="1a77f1e75a664fd9ec86f9c26979dc46"></a><!-- doxytag: member="QxtWebCore::start" ref="1a77f1e75a664fd9ec86f9c26979dc46" args="(quint16 port=8000, const QHostAddress &amp;address=QHostAddress::LocalHost)" -->
@@ -91,28 +82,6 @@ static <a class="el" href="classQxtWebCore.html">QxtWebCore</a> * <b>instance</b
 <li><a class="anchor" name="bbf125eeeb47138fa9af685a1aa64edf"></a><!-- doxytag: member="QxtWebCore::parseString" ref="bbf125eeeb47138fa9af685a1aa64edf" args="(QByteArray str, post_t &amp;POST)" -->
 static <a class="el" href="classQxtError.html">QxtError</a> <b>parseString</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qbytearray.html">QByteArray</a> str, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qmap.html">post_t</a> &amp;POST)
 <li><a class="anchor" name="fb5d190138d6bca772f435d9bc560906"></a><!-- doxytag: member="QxtWebCore::content" ref="fb5d190138d6bca772f435d9bc560906" args="(int maxsize=5000)" -->
-static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qbytearray.html">QByteArray</a> <b>content</b> (int maxsize=5000)
-<li><a class="anchor" name="832660825f835e8ad194b25ad86a8bf4"></a><!-- doxytag: member="QxtWebCore::setCodec" ref="832660825f835e8ad194b25ad86a8bf4" args="(QTextCodec *codec)" -->
-static void <b>setCodec</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qtextcodec.html">QTextCodec</a> *codec)
-<li><a class="anchor" name="a5064982badfe06dd2473ae5fcba2a78"></a><!-- doxytag: member="QxtWebCore::send" ref="a5064982badfe06dd2473ae5fcba2a78" args="(QString)" -->
-static void <b>send</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a>)
-<li><a class="anchor" name="f5332d6c8c52b1af76d137ae03f4f5a4"></a><!-- doxytag: member="QxtWebCore::close" ref="f5332d6c8c52b1af76d137ae03f4f5a4" args="()" -->
-static void <b>close</b> ()
-<li><a class="anchor" name="8d1a15cff345911ad15bb10f6b55afbf"></a><!-- doxytag: member="QxtWebCore::header" ref="8d1a15cff345911ad15bb10f6b55afbf" args="(QString, QString)" -->
-static void <b>header</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a>, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a>)
-<li><a class="anchor" name="45e4069e8f82cbbcd98bbea948e1c85b"></a><!-- doxytag: member="QxtWebCore::sendHeader" ref="45e4069e8f82cbbcd98bbea948e1c85b" args="()" -->
-static void <b>sendHeader</b> ()
-<li><a class="anchor" name="a327909cdd3e0e1e61f23acca5adc57e"></a><!-- doxytag: member="QxtWebCore::SERVER" ref="a327909cdd3e0e1e61f23acca5adc57e" args="()" -->
-static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qmap.html">server_t</a> &amp; <b>SERVER</b> ()
-<li><a class="anchor" name="599eb325a42b624e8210963cfb1e02d2"></a><!-- doxytag: member="QxtWebCore::socket" ref="599eb325a42b624e8210963cfb1e02d2" args="()" -->
-static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qiodevice.html">QIODevice</a> * <b>socket</b> ()
-<li><a class="anchor" name="3861c0c0767c544ba520deabc15afe19"></a><!-- doxytag: member="QxtWebCore::redirect" ref="3861c0c0767c544ba520deabc15afe19" args="(QString location, int code=303)" -->
-static void <b>redirect</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qstring.html">QString</a> location, int code=303)
-<li><a class="anchor" name="681434dbb55f3e2d16360c61604c062f"></a><!-- doxytag: member="QxtWebCore::instance" ref="681434dbb55f3e2d16360c61604c062f" args="()" -->
-static <a class="el" href="classQxtWebCore.html">QxtWebCore</a> * <b>instance</b> ()
-<li><a class="anchor" name="c01ea181d437738d8e7a250007bd911c"></a><!-- doxytag: member="QxtWebCore::parseString" ref="c01ea181d437738d8e7a250007bd911c" args="(QByteArray str, post_t &amp;POST)" -->
-static <a class="el" href="classQxtError.html">QxtError</a> <b>parseString</b> (<a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qbytearray.html">QByteArray</a> str, <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qmap.html">post_t</a> &amp;POST)
-<li><a class="anchor" name="aa2cfdcd27c3b79873b42de9cda120f8"></a><!-- doxytag: member="QxtWebCore::content" ref="aa2cfdcd27c3b79873b42de9cda120f8" args="(int maxsize=5000)" -->
 static <a class="elRef" doxygen="qt.tag:http://doc.trolltech.com/latest/" href="http://doc.trolltech.com/latest/qbytearray.html">QByteArray</a> <b>content</b> (int maxsize=5000)
 </ul>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
