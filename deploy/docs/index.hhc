@@ -56,6 +56,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtNullable< T >"><param name="Local" value="classQxtNullable.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPairList< T, K >"><param name="Local" value="classQxtPairList.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPimpl"><param name="Local" value="classQxtPimpl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPipe"><param name="Local" value="classQxtPipe.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -78,7 +79,6 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTuple< TYPELIST >"><param name="Local" value="classQxtTuple.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTuple< TYPELIST >"><param name="Local" value="classQxtTuple.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtWebCore"><param name="Local" value="classQxtWebCore.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Hierarchy"><param name="Local" value="hierarchy.html"><param name="ImageNumber" value="1"></OBJECT>
@@ -86,272 +86,124 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QAbstractSlider"><param name="Local" value="qabstractslider.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStars"><param name="Local" value="classQxtStars.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QAbstractSocket"><param name="Local" value="qabstractsocket.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtNamedPipe"><param name="Local" value="classQxtNamedPipe.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtNamedPipe"><param name="Local" value="classQxtNamedPipe.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QAbstractTableModel"><param name="Local" value="qabstracttablemodel.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCsvModel"><param name="Local" value="classQxtCsvModel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCsvModel"><param name="Local" value="classQxtCsvModel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSqlPackageModel"><param name="Local" value="classQxtSqlPackageModel.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSqlPackageModel"><param name="Local" value="classQxtSqlPackageModel.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QApplication"><param name="Local" value="qapplication.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtApplication"><param name="Local" value="classQxtApplication.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QComboBox"><param name="Local" value="qcombobox.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtCheckComboBox"><param name="Local" value="classQxtCheckComboBox.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QDialog"><param name="Local" value="qdialog.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfigDialog"><param name="Local" value="classQxtConfigDialog.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QDockWidget"><param name="Local" value="qdockwidget.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDockWidget"><param name="Local" value="classQxtDockWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QFrame"><param name="Local" value="qframe.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtLabel"><param name="Local" value="classQxtLabel.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QGroupBox"><param name="Local" value="qgroupbox.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtGroupBox"><param name="Local" value="classQxtGroupBox.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QIODevice"><param name="Local" value="qiodevice.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFifo"><param name="Local" value="classQxtFifo.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFifo"><param name="Local" value="classQxtFifo.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtNamedPipe"><param name="Local" value="classQxtNamedPipe.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtNamedPipe"><param name="Local" value="classQxtNamedPipe.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPipe"><param name="Local" value="classQxtPipe.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStdio"><param name="Local" value="classQxtStdio.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStdio"><param name="Local" value="classQxtStdio.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStdStreambufDevice"><param name="Local" value="classQxtStdStreambufDevice.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStdStreambufDevice"><param name="Local" value="classQxtStdStreambufDevice.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QItemDelegate"><param name="Local" value="qitemdelegate.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtItemDelegate"><param name="Local" value="classQxtItemDelegate.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QLabel"><param name="Local" value="qlabel.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProgressLabel"><param name="Local" value="classQxtProgressLabel.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QListWidget"><param name="Local" value="qlistwidget.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidget"><param name="Local" value="classQxtListWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QListWidgetItem"><param name="Local" value="qlistwidgetitem.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtListWidgetItem"><param name="Local" value="classQxtListWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QMap< QString, QString >"><param name="Local" value="qmap.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtHtmlTemplate"><param name="Local" value="classQxtHtmlTemplate.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtHtmlTemplate"><param name="Local" value="classQxtHtmlTemplate.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QMessageBox"><param name="Local" value="qmessagebox.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtConfirmationMessage"><param name="Local" value="classQxtConfirmationMessage.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QObject"><param name="Local" value="qobject.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtBlowFish"><param name="Local" value="classQxtBlowFish.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtBlowFish"><param name="Local" value="classQxtBlowFish.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFileLock"><param name="Local" value="classQxtFileLock.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFileLock"><param name="Local" value="classQxtFileLock.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFuture"><param name="Local" value="classQxtFuture.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtFuture"><param name="Local" value="classQxtFuture.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtJob"><param name="Local" value="classQxtJob.html"><param name="ImageNumber" value="1"></OBJECT>
       <UL>
       <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSlotJob"><param name="Local" value="classQxtSlotJob.html"><param name="ImageNumber" value="11"></OBJECT>
-      <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSlotJob"><param name="Local" value="classQxtSlotJob.html"><param name="ImageNumber" value="11"></OBJECT>
       </UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtJob"><param name="Local" value="classQxtJob.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtRPCPeer"><param name="Local" value="classQxtRPCPeer.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtRPCPeer"><param name="Local" value="classQxtRPCPeer.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSignalWaiter"><param name="Local" value="classQxtSignalWaiter.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSignalWaiter"><param name="Local" value="classQxtSignalWaiter.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSqlPackage"><param name="Local" value="classQxtSqlPackage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSqlPackage"><param name="Local" value="classQxtSqlPackage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtWebCore"><param name="Local" value="classQxtWebCore.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtWebCore"><param name="Local" value="classQxtWebCore.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QPushButton"><param name="Local" value="qpushbutton.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPushButton"><param name="Local" value="classQxtPushButton.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QSlider"><param name="Local" value="qslider.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSpanSlider"><param name="Local" value="classQxtSpanSlider.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QSpinBox"><param name="Local" value="qspinbox.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringSpinBox"><param name="Local" value="classQxtStringSpinBox.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QStyle"><param name="Local" value="qstyle.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtProxyStyle"><param name="Local" value="classQxtProxyStyle.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QTableWidget"><param name="Local" value="qtablewidget.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidget"><param name="Local" value="classQxtTableWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QTableWidgetItem"><param name="Local" value="qtablewidgetitem.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTableWidgetItem"><param name="Local" value="classQxtTableWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QTabWidget"><param name="Local" value="qtabwidget.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTabWidget"><param name="Local" value="classQxtTabWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QTreeWidget"><param name="Local" value="qtreewidget.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidget"><param name="Local" value="classQxtTreeWidget.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QTreeWidgetItem"><param name="Local" value="qtreewidgetitem.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTreeWidgetItem"><param name="Local" value="classQxtTreeWidgetItem.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QValidator"><param name="Local" value="qvalidator.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtStringValidator"><param name="Local" value="classQxtStringValidator.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtDesktopWidget"><param name="Local" value="classQxtDesktopWidget.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -366,7 +218,6 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtPimpl"><param name="Local" value="classQxtPimpl.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtSemaphore"><param name="Local" value="classQxtSemaphore.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtToolTip"><param name="Local" value="classQxtToolTip.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTuple< TYPELIST >"><param name="Local" value="classQxtTuple.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="QxtTuple< TYPELIST >"><param name="Local" value="classQxtTuple.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Data Fields"><param name="Local" value="functions.html"><param name="ImageNumber" value="11"></OBJECT>

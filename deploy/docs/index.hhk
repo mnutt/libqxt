@@ -17,6 +17,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#6a4e1dc20ba9478fd244031d76518fc3"><param name="Name" value="bind"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab410853e8300c2431d07f886306c57d9b"><param name="Name" value="Bug"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#1310f61428884f46b557d5639b5f270915fe932bde10f910c6dacde930e69c23"><param name="Name" value="Buttonlike"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#6a812cb9a8b97136159367b3afa0d698"><param name="Name" value="bytesAvailable"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#f943f1c5e7df1cd6b9c79b4bd52b9620"><param name="Name" value="call"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#06f8b65aecd3aa8dde1440601bf2bad2"><param name="Name" value="callClient"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2"><param name="Name" value="callClientList"></OBJECT>
@@ -27,7 +28,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtCheckComboBox.html#e7c491ba5d2b5cd140d5024da2de079b"><param name="Name" value="checkMode"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTabWidget.html#e71cc919250be0a74be547cc4f726a6f"><param name="Name" value="clearTabActions"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtLabel.html#fd3f9137d5f3287c32786395c485f203"><param name="Name" value="clicked"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96f33fe71313b00444e674d51042f39c6a"><param name="Name" value="Client"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962b23ef21f50f91d35f26b6bd783d7d48"><param name="Name" value="Client"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219"><param name="Name" value="clientConnected"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#0b542e1bdac54f88b911fcc19662adff"><param name="Name" value="clientDisconnected"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#b1710ed4a4d7193cd12a4a5b0bdd4b09"><param name="Name" value="clients"></OBJECT>
@@ -39,6 +40,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5"><param name="Name" value="connect"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5"><param name="Name" value="QxtMetaObject"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#2c0f0770d691ee4951f8b745ec34f278"><param name="Name" value="QxtPipe"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f"><param name="Name" value="QxtRPCPeer"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtProgressLabel.html#a00f4ec65fa776a0d36c5fbea8e0b342"><param name="Name" value="contentFormat"></OBJECT>
@@ -58,6 +60,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e"><param name="Name" value="detachObject"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa"><param name="Name" value="detachSender"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabe78d7b1234f794722175e3b16acbfe48"><param name="Name" value="DeviceError"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#446e5bcc8016429ade8fcb3fc159c46f"><param name="Name" value="disconnect"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d"><param name="Name" value="disconnectAll"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81"><param name="Name" value="disconnectPeer"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#593c068bb974266241f9a48c28200d26"><param name="Name" value="editingFinished"></OBJECT>
@@ -87,7 +90,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtHash.html#c20d686170e1d6da4ac617e2d7fa56ab"><param name="Name" value="hash"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab9cab9cc121e942cd4aac6cbd9e043df7"><param name="Name" value="HeaderTooLong"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtToolTip.html#1a4e47ed91629ee291118e12e81f3824"><param name="Name" value="hide"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d551a061203959bbf3e3f2957f569f6d"><param name="Name" value="hoverEffect"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d3b60daee59cc4f56ad2b4bc1cefa341"><param name="Name" value="hoverEffect"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#dd706e8afcacf8dab30479f8ca8455b0"><param name="Name" value="incomingConnection"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#4a0eae141f67b27c2262a24d17f1f216"><param name="Name" value="indexOf"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtSqlPackage.html#8cb821ede737fb9c783aaf9c4af661a9"><param name="Name" value="insert"></OBJECT>
@@ -100,6 +103,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#0272626fd8af9ac7b5808fcd27f21260"><param name="Name" value="isActive"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d2767127e4402668a7fd159686a6ac0f"><param name="Name" value="isPageEnabled"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#2372a328233fd0f452e410fcaf9dd71c"><param name="Name" value="isPageHidden"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#661dfeba94c4e4a53e5eda3f014de56b"><param name="Name" value="isSequential"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#17869c73b9170eed104ac03237395aff"><param name="Name" value="isSignalOrSlot"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtCheckComboBox.html#e3a6a7dec06db4cdf7793572d3aae4dc"><param name="Name" value="itemCheckState"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtListWidget.html#eb44b3168d349b046b5c4ad351faa442"><param name="Name" value="itemCheckStateChanged"></OBJECT>
@@ -148,6 +152,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtHtmlTemplate.html#2021a270d66b4a390aa15d4bf94955ce"><param name="Name" value="open"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structQxtNull.html#481fef6fbeb12143dff84dcc33f59934"><param name="Name" value="operator int"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtHash.html#8d2aaa6045bf5f0f7c1d9ae92dd38b4d"><param name="Name" value="operator+="></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#1c459857a3f24f5ea404d72342abd87d"><param name="Name" value="operator|"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab2632dd230506f45782f4b5bc3bee1c1b"><param name="Name" value="Overflow"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#302cdbb9571ff98951c4a39b43c7789b"><param name="Name" value="page"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#ea09a1c149fdf05321001a62ca1b8bc9"><param name="Name" value="pageIcon"></OBJECT>
@@ -155,12 +160,12 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#683c9a82384338ae510c8b93631e6212"><param name="Name" value="pageToolTip"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#cecc4d91e5e0109b5b87fe9959f0dda3"><param name="Name" value="pageWhatsThis"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabdbcec2b11c6768395d9a9a65de9c61e9"><param name="Name" value="ParserError"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a963f3eb0445822c1e4cce7aafbcf53d3c8"><param name="Name" value="Peer"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96e9df51c9271dbbf16a646608d9acb74e"><param name="Name" value="Peer"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a"><param name="Name" value="peerConnected"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#e3fd8e63aceea84eef2a70a8fa50418d"><param name="Name" value="peerDisconnected"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#cd89d8b304d38cfff4fef3e0c513e1da"><param name="Name" value="peerError"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#4a72e90eb63966705440e9e853a3f857"><param name="Name" value="progressTextFormat"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#bdfe3d99329732e716ae9f47ceb07f0e"><param name="Name" value="progressTextVisible"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#6e9b763493051927cfaab07b3cb5f793"><param name="Name" value="progressTextVisible"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTuple.html#30b317bc4e6e5470991f4458317504d4"><param name="Name" value="Qxt1Tuple"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTuple.html#698e85ebf27c1804fb111d72267ec01d"><param name="Name" value="Qxt2Tuple"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTuple.html#4483070798a6723ea270b53105573b3c"><param name="Name" value="Qxt3Tuple"></OBJECT>
@@ -240,7 +245,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#757f257f7c29d644d66b842bccc7ef6a"><param name="Name" value="addPage"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#6c970641003999796e3fd0b0d67e4709"><param name="Name" value="currentIndexChanged"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#2611d66558b1e511c3eefc90f022222d"><param name="Name" value="currentPage"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d551a061203959bbf3e3f2957f569f6d"><param name="Name" value="hoverEffect"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d3b60daee59cc4f56ad2b4bc1cefa341"><param name="Name" value="hoverEffect"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#4a0eae141f67b27c2262a24d17f1f216"><param name="Name" value="indexOf"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#3c348da9223fc9f2c767f27376a716ef"><param name="Name" value="insertPage"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#d2767127e4402668a7fd159686a6ac0f"><param name="Name" value="isPageEnabled"></OBJECT>
@@ -314,10 +319,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835"><param name="Name" value="Mode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#7b674bb5093f84389b4ed542d9c359d4"><param name="Name" value="offset"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#bd47ac230f3f7119531d4efcfda30a97"><param name="Name" value="QxtFileLock"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835f7539101835927717fb78e885fa96504"><param name="Name" value="ReadLock"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835e146da2c06eea952f2e85b26f37ba43b"><param name="Name" value="ReadLockWait"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948354231f7d532b4bce1195613e5e7f90e03"><param name="Name" value="WriteLock"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835464e8d5226ad2cb1802a1a4a36ad8130"><param name="Name" value="WriteLockWait"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00"><param name="Name" value="ReadLock"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3"><param name="Name" value="ReadLockWait"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22"><param name="Name" value="WriteLock"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d"><param name="Name" value="WriteLockWait"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFuture.html"><param name="Name" value="QxtFuture"></OBJECT>
   <UL>
@@ -352,7 +357,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#3b3068865e5185d6eb4348c2dcce99d7"><param name="Name" value="editingStarted"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#aad15b615b46a7be400ed22a46c329b9"><param name="Name" value="elideMode"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#4a72e90eb63966705440e9e853a3f857"><param name="Name" value="progressTextFormat"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#bdfe3d99329732e716ae9f47ceb07f0e"><param name="Name" value="progressTextVisible"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#6e9b763493051927cfaab07b3cb5f793"><param name="Name" value="progressTextVisible"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#2caf5f8173ffb4ae092a91547160c9fe"><param name="Name" value="QxtItemDelegate"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#5a7313c4c5b9ef91624b655ba8258794"><param name="Name" value="~QxtItemDelegate"></OBJECT>
   </UL>
@@ -419,6 +424,17 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPimpl.html#cd3d3fee0ca06d8bd81463ecd5b7d50c"><param name="Name" value="QXT_INIT_PRIVATE"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPimpl.html#6b19167222479c38f892a58588b351e7"><param name="Name" value="qxt_p"></OBJECT>
   </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html"><param name="Name" value="QxtPipe"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#6a812cb9a8b97136159367b3afa0d698"><param name="Name" value="bytesAvailable"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#2c0f0770d691ee4951f8b745ec34f278"><param name="Name" value="connect"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#446e5bcc8016429ade8fcb3fc159c46f"><param name="Name" value="disconnect"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#661dfeba94c4e4a53e5eda3f014de56b"><param name="Name" value="isSequential"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#1c459857a3f24f5ea404d72342abd87d"><param name="Name" value="operator|"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#ecb1af8e53eceb7329606520ea012efc"><param name="Name" value="QxtPipe"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#412c30a3d710e204879651a95a15b09d"><param name="Name" value="readData"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#48b0a21c464d5d9d3cacb8b90a7cf244"><param name="Name" value="writeData"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtProgressLabel.html"><param name="Name" value="QxtProgressLabel"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtProgressLabel.html#a00f4ec65fa776a0d36c5fbea8e0b342"><param name="Name" value="contentFormat"></OBJECT>
@@ -451,7 +467,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#397977b521252f70cfc78bfc4a7612e2"><param name="Name" value="callClientList"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#2f9951f98792297abc0d68f68cdf17da"><param name="Name" value="callClientsExcept"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#cd87dd06bea2047de03849d9d1519d3a"><param name="Name" value="canDeserialize"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96f33fe71313b00444e674d51042f39c6a"><param name="Name" value="Client"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962b23ef21f50f91d35f26b6bd783d7d48"><param name="Name" value="Client"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#3ac5875f59d5ee12d79be52284098219"><param name="Name" value="clientConnected"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#0b542e1bdac54f88b911fcc19662adff"><param name="Name" value="clientDisconnected"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#b1710ed4a4d7193cd12a4a5b0bdd4b09"><param name="Name" value="clients"></OBJECT>
@@ -464,7 +480,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81"><param name="Name" value="disconnectPeer"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#dd706e8afcacf8dab30479f8ca8455b0"><param name="Name" value="incomingConnection"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#ae7fcd6b1720ea10f08859a8d896a110"><param name="Name" value="listen"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a963f3eb0445822c1e4cce7aafbcf53d3c8"><param name="Name" value="Peer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96e9df51c9271dbbf16a646608d9acb74e"><param name="Name" value="Peer"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#106d4542ece23881e71a6b63ebd8851a"><param name="Name" value="peerConnected"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#e3fd8e63aceea84eef2a70a8fa50418d"><param name="Name" value="peerDisconnected"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#cd89d8b304d38cfff4fef3e0c513e1da"><param name="Name" value="peerError"></OBJECT>
@@ -472,7 +488,7 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#8e6049ae1d1048c1a98a3301c4c4d0d6"><param name="Name" value="rpcType"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a96"><param name="Name" value="RPCTypes"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#72e097e71b50dc8eeb03af62b841943a"><param name="Name" value="serialize"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962f4155c4cbfff1290145901e69dfc63d"><param name="Name" value="Server"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a9672139e792ffec15279ddca4b18eca267"><param name="Name" value="Server"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#1894bd5342357f7d323e2bbeda577533"><param name="Name" value="setRPCType"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d2832936c5b236c63d6d05a474959d10"><param name="Name" value="socket"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#2656eda811259c6c75702d3952f49afd"><param name="Name" value="stopListening"></OBJECT>
@@ -507,7 +523,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html"><param name="Name" value="QxtStars"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#25c6490ed597f26ab4570249f1e22db6"><param name="Name" value="QxtStars"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#2e5f6f3156486040e2ea97462289c1ec"><param name="Name" value="readOnly"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#28f69c41ee4741352e3b13c048cea8b7"><param name="Name" value="readOnly"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#0e9f0b8970f9276d4e15485536cae041"><param name="Name" value="starSize"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#a56bb26b50c4c70967bc9a588fdefc4e"><param name="Name" value="~QxtStars"></OBJECT>
   </UL>
@@ -605,9 +621,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTuple.html#17446ec67b52e60a1ca648fa863fe240"><param name="Name" value="Qxt9Tuple"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtTuple.html#8e0bb5049828a909bfd4935bdf9221f9"><param name="Name" value="QxtLongTuple"></OBJECT>
   </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835f7539101835927717fb78e885fa96504"><param name="Name" value="ReadLock"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835e146da2c06eea952f2e85b26f37ba43b"><param name="Name" value="ReadLockWait"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#2e5f6f3156486040e2ea97462289c1ec"><param name="Name" value="readOnly"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#412c30a3d710e204879651a95a15b09d"><param name="Name" value="readData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835b31fe60c151550a8f1288933bb7ede00"><param name="Name" value="ReadLock"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948353598521216452c912f516ef14d7d8da3"><param name="Name" value="ReadLockWait"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStars.html#28f69c41ee4741352e3b13c048cea8b7"><param name="Name" value="readOnly"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStringValidator.html#5a51e107f75ea86be9ba7800ad23ce1b"><param name="Name" value="recursiveLookup"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtProgressLabel.html#36a9733ae436adf2deb008e58c222e9a"><param name="Name" value="refresh"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtApplication.html#23ab8f4aa333e8db470b31995b2104e1"><param name="Name" value="removeHotKey"></OBJECT>
@@ -634,7 +651,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabd0d363aff51685c0427598822e60b371"><param name="Name" value="SeeErrorString"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtCheckComboBox.html#656f5a7488c6f8b71d653596799a9281"><param name="Name" value="separator"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#72e097e71b50dc8eeb03af62b841943a"><param name="Name" value="serialize"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a962f4155c4cbfff1290145901e69dfc63d"><param name="Name" value="Server"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#d424ed62e2eb2df6b0ccd075a0656a9672139e792ffec15279ddca4b18eca267"><param name="Name" value="Server"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStringValidator.html#1ec428ef079b1106e63a7ce82bc1d729"><param name="Name" value="setCaseSensitivity"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtGroupBox.html#ba496a650834bd948eab93cb7a2fad1d"><param name="Name" value="setCollapsed"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#16b7588e1b93dfdc6bb991d2667407e6"><param name="Name" value="setCurrentPage"></OBJECT>
@@ -710,8 +727,9 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtDesktopWidget.html#bf435032bdad14c6c5af026fa6fb761c"><param name="Name" value="windowTitles"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtNativeEventFilter.html#d09ed662c4644e56aebdf819a6689482"><param name="Name" value="winEventFilter"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtStringValidator.html#c9c731697512114a368257d9c9ac5a39"><param name="Name" value="wrappingLookup"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948354231f7d532b4bce1195613e5e7f90e03"><param name="Name" value="WriteLock"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835464e8d5226ad2cb1802a1a4a36ad8130"><param name="Name" value="WriteLockWait"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#48b0a21c464d5d9d3cacb8b90a7cf244"><param name="Name" value="writeData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f794835ac348d33d749db34988d1a43e32f6a22"><param name="Name" value="WriteLock"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtFileLock.html#98ad3e1055038fd611ad64755f7948352bf0172f6c9608f9063f939507abf19d"><param name="Name" value="WriteLockWait"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtNativeEventFilter.html#5ab4daa48cb3520c36a2af20e723e2a5"><param name="Name" value="x11EventFilter"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtCheckComboBox.html#dc6c67fe288f48125849e8e2b79cdb3b"><param name="Name" value="~QxtCheckComboBox"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtConfigDialog.html#fbad10d63be1672c5ff7ece1d041753b"><param name="Name" value="~QxtConfigDialog"></OBJECT>

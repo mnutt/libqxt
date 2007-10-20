@@ -49,18 +49,6 @@ const char * <b>file</b> () const
 <li>const char * <a class="el" href="classQxtError.html#dbdaf1c7ca68c79fc7838d39806e6296">errorString</a> () const 
 <li><a class="anchor" name="30748abf8104123fd84aaa92fb1a73ec"></a><!-- doxytag: member="QxtError::operator Qxt::ErrorCode" ref="30748abf8104123fd84aaa92fb1a73ec" args="()" -->
 <b>operator Qxt::ErrorCode</b> ()
-<li><a class="anchor" name="ad640297dbcedc6f8e2e1b3b9b557021"></a><!-- doxytag: member="QxtError::QxtError" ref="ad640297dbcedc6f8e2e1b3b9b557021" args="(const char *file, long line, Qxt::ErrorCode errorcode, const char *errorString=0)" -->
-<b>QxtError</b> (const char *file, long line, <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">Qxt::ErrorCode</a> errorcode, const char *errorString=0)
-<li><a class="anchor" name="97a79dce758176592a7f6bded97fdbb4"></a><!-- doxytag: member="QxtError::errorCode" ref="97a79dce758176592a7f6bded97fdbb4" args="() const " -->
-<a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab">Qxt::ErrorCode</a> <b>errorCode</b> () const 
-<li><a class="anchor" name="30d639a6eb246276ab6dd774a78750fd"></a><!-- doxytag: member="QxtError::line" ref="30d639a6eb246276ab6dd774a78750fd" args="() const " -->
-long <b>line</b> () const 
-<li><a class="anchor" name="8c1ad5c6eacd0b4db532cdb814f23c70"></a><!-- doxytag: member="QxtError::file" ref="8c1ad5c6eacd0b4db532cdb814f23c70" args="() const " -->
-const char * <b>file</b> () const 
-<li><a class="anchor" name="b9e29da87af061e0b1b4600b76a004a1"></a><!-- doxytag: member="QxtError::errorString" ref="b9e29da87af061e0b1b4600b76a004a1" args="() const " -->
-const char * <b>errorString</b> () const 
-<li><a class="anchor" name="30748abf8104123fd84aaa92fb1a73ec"></a><!-- doxytag: member="QxtError::operator Qxt::ErrorCode" ref="30748abf8104123fd84aaa92fb1a73ec" args="()" -->
-<b>operator Qxt::ErrorCode</b> ()
 </ul>
 <h2>Related Functions</h2>
 (Note that these are not member functions.) <ul>
@@ -69,7 +57,6 @@ const char * <b>errorString</b> () const
 <li><a class="el" href="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</a>
 <li><a class="el" href="classQxtError.html#4811fd4f65715c65eb42a9b61852c247">QXT_DROP_F</a>(call)
 <li><a class="el" href="classQxtError.html#7fefce4f1fd4d823799f1afc36f46aab">QXT_DROP_SCOPE</a>(name, call)
-<li><a class="el" href="classQxtError.html#0c7157688eaaf716e11139ebe8399d29">QXT_DROP_OK</a>
 </ul>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Information about Errors ocuring inside <a class="el" href="namespaceQxt.html" title="The Qxt Namespace.">Qxt</a>. <hr><h2>Member Function Documentation</h2>
@@ -209,22 +196,6 @@ example <div class="fragment"><pre class="fragment"><a class="code" href="classQ
 short for <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a> name = call; if (name != <a class="el" href="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eab999f1d620cf9d29d8469ac885c1e2b9d">Qxt::NoError</a> )<p>
 <dl class="warning" compact><dt><b>Warning:</b></dt><dd>: the errors name is valid outside the scope </dd></dl>
 
-</div>
-</div><p>
-<a class="anchor" name="0c7157688eaaf716e11139ebe8399d29"></a><!-- doxytag: member="QxtError::QXT_DROP_OK" ref="0c7157688eaaf716e11139ebe8399d29" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QXT_DROP_OK<code> [related]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-droping no error inside a function that returns <a class="el" href="classQxtError.html" title="Information about Errors ocuring inside Qxt.">QxtError</a><p>
-short for return QxtError(__FILE__,__LINE__,Qxt::NoError); 
 </div>
 </div><p>
 <address><hr />

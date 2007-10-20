@@ -12,3 +12,5 @@
 #include "qxtmetaobject.h"
 #include "qxtjob.h"
 #include "qxtslotjob.h"
+#include "qxtpipe.h"
+
