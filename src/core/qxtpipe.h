@@ -40,8 +40,10 @@ public:
     virtual bool isSequential () const;
     virtual qint64 bytesAvailable () const;
 
-    bool connect    (QxtPipe & other );
-    bool disconnect (QxtPipe & other );
+    bool connect   (QxtPipe * other ,
+                    QIODevice::OpenMode mode=QIODevice::ReadWrite,
+                    Qt::ConnectionType connectionTyp=Qt::AutoConnection);
+    bool disconnect (QxtPipe * other );
 
     QxtPipe & operator | (QxtPipe & target);
 
@@ -52,7 +54,7 @@ private:
     QXT_DECLARE_PRIVATE(QxtPipe);
 
 private slots:
-    virtual qint64 receiveData ( const char * data, qint64 maxSize );
+    virtual qint64 receiveData (QByteArray data, QxtPipe * sender );
 };
 
 #endif

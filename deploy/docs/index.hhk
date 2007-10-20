@@ -40,7 +40,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5"><param name="Name" value="connect"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtMetaObject.html#0672fb5917d321762dfd192f229469d5"><param name="Name" value="QxtMetaObject"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#2c0f0770d691ee4951f8b745ec34f278"><param name="Name" value="QxtPipe"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#0666edfec8e321db742b1db943fae486"><param name="Name" value="QxtPipe"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#e0c492f74829b363831bb4ce75a1d21f"><param name="Name" value="QxtRPCPeer"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtProgressLabel.html#a00f4ec65fa776a0d36c5fbea8e0b342"><param name="Name" value="contentFormat"></OBJECT>
@@ -60,7 +60,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#897167319c7ef4b4effde8494999809e"><param name="Name" value="detachObject"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#68f8e92af869c9090d681927a1aed3aa"><param name="Name" value="detachSender"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceQxt.html#e8f989a7afc9ce63525ed66b94959eabe78d7b1234f794722175e3b16acbfe48"><param name="Name" value="DeviceError"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#446e5bcc8016429ade8fcb3fc159c46f"><param name="Name" value="disconnect"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#46272022ea1afac8c01f0143256069af"><param name="Name" value="disconnect"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#52185ce2fc95baae6af7c0e62702cf1d"><param name="Name" value="disconnectAll"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtRPCPeer.html#85cfd11c6acd55e3a36501170110cd81"><param name="Name" value="disconnectPeer"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtItemDelegate.html#593c068bb974266241f9a48c28200d26"><param name="Name" value="editingFinished"></OBJECT>
@@ -427,8 +427,8 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html"><param name="Name" value="QxtPipe"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#6a812cb9a8b97136159367b3afa0d698"><param name="Name" value="bytesAvailable"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#2c0f0770d691ee4951f8b745ec34f278"><param name="Name" value="connect"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#446e5bcc8016429ade8fcb3fc159c46f"><param name="Name" value="disconnect"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#0666edfec8e321db742b1db943fae486"><param name="Name" value="connect"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#46272022ea1afac8c01f0143256069af"><param name="Name" value="disconnect"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#661dfeba94c4e4a53e5eda3f014de56b"><param name="Name" value="isSequential"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#1c459857a3f24f5ea404d72342abd87d"><param name="Name" value="operator|"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classQxtPipe.html#ecb1af8e53eceb7329606520ea012efc"><param name="Name" value="QxtPipe"></OBJECT>

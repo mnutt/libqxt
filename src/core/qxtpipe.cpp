@@ -25,6 +25,7 @@
 #include "qxtpipe.h"
 #include <QList>
 #include <QQueue>
+#include <QMutableListIterator>
 
 /**
  * \class  QxtPipe QxtPipe
@@ -46,13 +47,18 @@
 */
 
 
-
+struct Connection
+{
+    QxtPipe * pipe;
+    QIODevice::OpenMode mode;
+    Qt::ConnectionType connectionType;
+};
 
 class QxtPipePrivate:public QxtPrivate<QxtPipe>
 {
     public:
         QQueue<char> q;
-        QList<QxtPipe*> pipes;
+        QList<Connection> connections;
 };
 
 /**
@@ -77,30 +83,74 @@ qint64 QxtPipe::bytesAvailable () const
 }
 
 /**
- * pipes the output of this instance to the \p other  QxtPipe
+ * pipes the output of this instance to the \p other  QxtPipe using the given mode and connectiontype \n
+ * connection pipes with this function can be considered thread safe \n
+ *
+ * Example usage:
+ * \code
+    QxtPipe p1;
+    QxtPipe p2;
+    p1.connect(&p2,QIODevice::ReadOnly);
+
+    p1.write("hi");
+    QVERIFY(p1.bytesAvailable()==0);
+    QVERIFY(p2.bytesAvailable()==0);
+
+    p2.write("rehi");
+    QVERIFY(p1.readAll()=="rehi");
+    QVERIFY(p2.bytesAvailable()==0);
+
+ * \endcode
+
  */
-bool QxtPipe::connect (QxtPipe & other )
+bool  QxtPipe::connect   (QxtPipe * other ,QIODevice::OpenMode mode,Qt::ConnectionType connectionType)
 {
-    qxt_d().pipes.append(&other);
+
+    ///tell the other pipe to write into this
+    if(mode & QIODevice::ReadOnly)
+    {
+        other->connect(this,QIODevice::WriteOnly,connectionType);
+    }
+
+
+    Connection c;
+    c.pipe=other;
+    c.mode=mode;
+    c.connectionType=connectionType;
+    qxt_d().connections.append(c);
+
     return true;
 }
 
 /**
  * cuts the pipe to the \p other QxtPipe
  */
-bool QxtPipe::disconnect (QxtPipe & other )
+bool QxtPipe::disconnect (QxtPipe * other )
 {
-    qxt_d().pipes.removeAll(&other);
-    return true;
+    bool e=false;
+
+    QMutableListIterator<Connection> i(qxt_d().connections);
+    while (i.hasNext())
+    {
+        i.next();
+        if(i.value().pipe==other)
+        {
+            i.remove();
+            e=true;
+            other->disconnect(this);
+        }
+    }
+
+    return e;
 }
 
 /**
- * pipes the output of this instance to the \p other  QxtPipe
- * convinence function for QxtPipe::connect
+ * convinence function for QxtPipe::connect.
+ * pipes the output of this instance to the \p other  QxtPipe in readwrite mode with autoconnection
  */
 QxtPipe & QxtPipe::operator | ( QxtPipe & target)
 {
-    connect(target);
+    connect(&target);
     return *this;
 }
 
@@ -122,31 +172,55 @@ qint64 QxtPipe::readData ( char * data, qint64 maxSize )
 /** reimplemented from QIODevice*/
 qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
 {
-    qint64 r=0;
-
-    foreach(QxtPipe* p,qxt_d().pipes)
+    foreach(Connection c,qxt_d().connections)
     {
-        qint64 e= p->receiveData(data,maxSize);
-        if(e>r)
-            r=e;
+
+        if(!(c.mode & QIODevice::WriteOnly))
+            continue;
+
+        //we want thread safety, so we use a QByteArray instead of the raw data. that migth be slow
+        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
+            Q_ARG(QByteArray, data),Q_ARG(QxtPipe *,this));
+            
     }
-    return r;
+    return maxSize;
 }
 
 
 /** 
-receiveData is called from any connected pipe to input data into this instance
+receiveData is called from any connected pipe to input data into this instance.
 */
-qint64 QxtPipe::receiveData ( const char * data, qint64 maxSize )
+qint64 QxtPipe::receiveData (QByteArray datab ,QxtPipe * sender)
 {
     QQueue<char> * q=&qxt_d().q;
+
+    const char * data =datab.constData();
+    qint64 maxSize =datab.size();
 
     qint64 i=0;
     for (;i<maxSize;i++)
         q->enqueue(*data++);
 
+
+    foreach(Connection c,qxt_d().connections)
+    {
+
+        //don't write back to sender
+        if(c.pipe==sender)
+             continue;
+
+        if(!(c.mode & QIODevice::WriteOnly))
+            continue;
+
+
+        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
+            Q_ARG(QByteArray, datab),Q_ARG(QxtPipe *,this));
+    }
+
+
     if (i>0)
         emit(readyRead ());
+
     return maxSize;
 }
 
