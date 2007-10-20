@@ -92,13 +92,13 @@ qint64 QxtPipe::bytesAvailable () const
     QxtPipe p2;
     p1.connect(&p2,QIODevice::ReadOnly);
 
-    p1.write("hi");
-    QVERIFY(p1.bytesAvailable()==0);
-    QVERIFY(p2.bytesAvailable()==0);
+    ///this data will go nowhere. p2 is connected to p1, but not p2 to p1.
+    p1.write("hello");
 
-    p2.write("rehi");
-    QVERIFY(p1.readAll()=="rehi");
-    QVERIFY(p2.bytesAvailable()==0);
+    ///while this data will end up in p1
+    p2.write("world");
+
+    qDebug()<<p1.readAll();
 
  * \endcode
 
