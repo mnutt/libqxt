@@ -40,7 +40,7 @@ return true on sucess
 returns the current processId
 */
 /*!
-\fn  bool changeUser(QString name);
+\fn  bool QxtDaemon::changeUser(QString name);
 changes the current user of this process. \n
 do this after forking to drop root rights.\n
 returns true on sucess
