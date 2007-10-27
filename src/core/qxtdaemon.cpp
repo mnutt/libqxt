@@ -156,8 +156,14 @@ bool QxtDaemon::daemonize(bool pidfile)
     int i;
     if(getppid()==1) return true; /* already a daemon */
     i=fork();
-    if (i<0) return false; /* fork error */
-    if (i>0) exit(0); /* parent exits */
+
+
+    /* double fork.*/
+    if (i<0) return false;  /*fork error    */
+    if (i>0) exit(0);       /*parent exits  */
+    if (i<0) return false;  /*fork error    */
+    if (i>0) exit(0);       /*parent exits  */
+
     /* child (daemon) continues */
     setsid(); /* obtain a new process group */
 
