@@ -13,4 +13,5 @@
 #include "qxtjob.h"
 #include "qxtslotjob.h"
 #include "qxtpipe.h"
+#include "qxtdaemon.h"
 
