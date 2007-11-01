@@ -47,7 +47,13 @@ QxtLineSocket::QxtLineSocket (QIODevice * socket,QObject * parent):QObject(paren
     connect(socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
 }
 
-QIODevice * QxtLineSocket::socket()
+void QxtLineSocket::sendLine(QByteArray a)
+{
+    qxt_d().socket->write(a.replace('\n',"")+'\n');
+}
+
+
+QIODevice * QxtLineSocket::socket() const
 {
     return qxt_d().socket;
 }
@@ -69,6 +75,8 @@ void QxtLineSocketPrivate::readyRead()
         rbuff=rbuff.mid(i+1);
     }
 }
+
+
 
 
 
