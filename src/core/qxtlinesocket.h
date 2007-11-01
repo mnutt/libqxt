@@ -34,7 +34,7 @@ class QXT_CORE_EXPORT QxtLineSocket: public QObject
 {
 Q_OBJECT
 public:
-    QxtLineSocket (QIODevice * socket,QObject * parent);
+    QxtLineSocket (QIODevice * socket,QObject * parent=0);
     QIODevice * socket();
 signals:
     void newLineReceived(QByteArray);
