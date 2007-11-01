@@ -44,18 +44,35 @@ QxtLineSocket::QxtLineSocket (QIODevice * socket,QObject * parent):QObject(paren
 {
     QXT_INIT_PRIVATE(QxtLineSocket);
     qxt_d().socket=socket;
-    connect(socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
+    connect(qxt_d().socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
 }
 
-void QxtLineSocket::sendLine(QByteArray a)
+QxtLineSocket::QxtLineSocket (QObject * parent):QObject(parent)
 {
-    qxt_d().socket->write(a.replace('\n',"")+'\n');
+    QXT_INIT_PRIVATE(QxtLineSocket);
+    qxt_d().socket=0;
 }
+
+void QxtLineSocket::setSocket(QIODevice * a)
+{
+    if (qxt_d().socket)
+        disconnect(qxt_d().socket);
+    qxt_d().socket=a;
+    connect(qxt_d().socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
+}
+
+
 
 
 QIODevice * QxtLineSocket::socket() const
 {
     return qxt_d().socket;
+}
+
+
+void QxtLineSocket::sendLine(QByteArray a)
+{
+    qxt_d().socket->write(a.replace('\n',"")+'\n');
 }
 
 void QxtLineSocket::newLine(QByteArray a)
