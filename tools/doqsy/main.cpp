@@ -160,6 +160,21 @@ QString descRTF(QDomElement element)
             {
                 text += "<br/>\r\n";
             }
+            else if(e.tagName ()=="itemizedlist")
+            {
+                text += "<ul>\r\n"+descRTF(e)+"\r\n</ul>\r\n";
+            }
+            else if(e.tagName ()=="listitem")
+            {
+                text += "<li>"+descRTF(e)+"</li>\r\n";
+            }
+            else if(e.tagName ()=="heading")
+            {
+                text += "<h"+e.attribute("level")+">"+descRTF(e)+"</h"+e.attribute("level")+">";
+            }
+
+
+
             else 
             {
                  text += e.text().replace("<","&lt;").replace(">","&gt;")+" ";
