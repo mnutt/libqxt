@@ -385,7 +385,7 @@ QString printModules()
         t_i["iseven"]=QString::number(i%2);
         t_i["name"]=cl->name;
         t_i["link"]=cl->ref+".html";
-        t_i["desc"]=cl->desc;
+        t_i["desc"]=cl->desc.replace("<p>","").replace("</p>","");
         t["unroll"]+=t_i.render();
     }
     return t.render();;
