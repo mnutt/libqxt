@@ -120,6 +120,7 @@ QString descRTF(QDomElement element)
 
     QString text;
 
+    int codeindent=0;
 
     for(QDomNode n = element.firstChild(); !n.isNull(); n = n.nextSibling())
     {
@@ -136,11 +137,33 @@ QString descRTF(QDomElement element)
             }
             else if(e.tagName ()=="codeline")
             {
-                text += descRTF(e)+"<br/>\r\n";
+
+                QString c= descRTF(e);
+
+                bool close =c.contains("}");
+                bool open  =c.contains("{");
+
+                if(close && !open)
+                {
+                    codeindent--;
+                }
+
+                for(int x=0;x<codeindent;x++)
+                {
+                    text +="&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+
+                if(open && !close)
+                    codeindent++;
+
+
+
+                text +=c+"<br/>\r\n";
             }
             else if(e.tagName ()=="highlight")
             {
-                text += "<span class=\"highlight_"+e.attribute("class")+"\"  >"+descRTF(e)+"</span>";
+                text += "<span class=\"highlight_"+e.attribute("class")+"\"  >";
+                text +=descRTF(e)+"</span>";
             }
             else if(e.tagName ()=="ref")
             {
