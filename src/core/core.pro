@@ -44,7 +44,8 @@ HEADERS += qxtcsvmodel.h \
            qxtpipe.h \
            qxtdaemon.h \
            qxtlinesocket_p.h \
-           qxtlinesocket.h 
+           qxtlinesocket.h \
+           qxtsharedprivate.h 
 
 SOURCES += qxtcsvmodel.cpp \
            qxterror.cpp \

@@ -15,4 +15,5 @@
 #include "qxtpipe.h"
 #include "qxtdaemon.h"
 #include "qxtlinesocket.h"
+#include "qxtsharedprivate.h"
 
