@@ -29,18 +29,20 @@
 
 combines both, the functionality of QxtPimpl and QSharedData \n
 It is assumed you are familiar with QxtPimpl and QSharedData/QSharedDataPointer. If not, please read their documentation before this one. \n
-\n \n
-Major differences to QxtPimpl are:\n
-- no qxt_p()  since there is not only one single public class \n
-- you have to explicitly create the private in the ctor of your public class using new \n
-- The private Data must not be a QxtPrivate subclass \n
-\n \n
-Major differences to QSharedData/QSharedDataPointer are:\n
-- the actual Data can be a private implementation \n
-- instead of QSharedDataPointer<MyData> d; you use QXT_DECLARE_SHARED_PRIVATE(MyData)  and access it via qxt_d().member instead of d->member \n
-- The private Data must not be a QSharedData subclass \n
-\n \n
 
+
+<h4>Major differences to QxtPimpl are:</h4>
+    - no qxt_p()  since there is not only one single public class 
+    - you have to explicitly create the private in the ctor of your public class using new 
+    - The private Data must not be a QxtPrivate subclass 
+
+<h4>Major differences to QSharedData / QSharedDataPointer are:</h4>
+    - the actual Data can be a private implementation 
+    - instead of QSharedDataPointer<MyData> d; you use QXT_DECLARE_SHARED_PRIVATE(MyData)  and access it via qxt_d().member instead of d->member 
+    - The private Data must not be a QSharedData subclass 
+
+
+<h4>example</h4>
 expanding the example from the QSharedDataPointer we get this:
 \code
  #ifndef EMPLOYEE_H
