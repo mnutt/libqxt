@@ -126,8 +126,7 @@ public:
     }
     QxtSharedPrivateData(const QxtSharedPrivateData & other ):QSharedData(other)
     {
-        data=new PVT; 
-        *data=*other.data;
+        data=new PVT(*other.data); 
     }
     PVT * data;
 };
