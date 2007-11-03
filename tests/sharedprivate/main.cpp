@@ -1,7 +1,6 @@
-/** ***** QxtMail test ***** */
 #include <QTest>
 #include <QSignalSpy>
-#include <QxtMail>
+#include <QxtSharedPrivate>
 #include <QDebug>
 #include <QString>
 
