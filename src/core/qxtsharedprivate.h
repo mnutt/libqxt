@@ -32,14 +32,14 @@ It is assumed you are familiar with QxtPimpl and QSharedData/QSharedDataPointer.
 
 
 <h4>Major differences to QxtPimpl are:</h4>
-    - no qxt_p()  since there is not only one single public class 
+    - there is no qxt_p() since there are multiple public classes sharing the same private
     - you have to explicitly create the private in the ctor of your public class using new 
-    - The private Data must not be a QxtPrivate subclass 
+    - The private Data must not be a QxtPrivate  but a QxtSharedPrivate subclass
 
 <h4>Major differences to QSharedData / QSharedDataPointer are:</h4>
     - the actual Data can be a private implementation 
     - instead of QSharedDataPointer<MyData> d; you use QXT_DECLARE_SHARED_PRIVATE(MyData)  and access it via qxt_d().member instead of d->member 
-    - The private Data must not be a QSharedData subclass 
+    - The private Data must not be a QSharedData  but a QxtSharedPrivate subclass
 
 
 <h4>example</h4>
@@ -69,7 +69,7 @@ expanding the example from the QSharedDataPointer we get this:
  };
 
 
- class EmployeePrivate : public QSharedData
+ class EmployeePrivate : public QxtSharedPrivate<Employee>
  {
  public:
      EmployeePrivate();
@@ -117,38 +117,74 @@ Also remember you must not delete the private data yourself at any time.
  *
  * This shuold be put in the private section of the public class. The parameter is the name of the public class.
  */
-#define QXT_DECLARE_SHARED_PRIVATE(PUB) QxtSharedPrivateInterface<PUB##Private> qxt_d;
+#define QXT_DECLARE_SHARED_PRIVATE(PUB) QxtSharedPrivateInterface<PUB , PUB##Private > qxt_d;
 
+
+
+template <typename PUB>
+class QxtSharedPrivateReverseFactory;
+
+
+template <typename PUB>
+class QxtSharedPrivate
+{
+public:
+    QxtSharedPrivate();
+    virtual ~QxtSharedPrivate()
+    {
+    }
+
+/*friend class needs the PVT template. fsck*/
+public: 
+    QxtSharedPrivateReverseFactory<PUB>* mm_factory_keep_your_hands_of_that;
+};
 
 #ifndef QXT_DOXYGEN_RUN
 
-template <typename PVT>
-class QxtSharedPrivateInterfaceData : public QSharedData
+/**
+ok this is absolutly wicked. 
+we have some kind of dtor delegation here. means QxtSharedPrivateReverseFactory is just there for 
+"delegating the destruction" since we want to hide our real dtor from the public interface.
+so basic concept: QxtSharedPrivate constructs, QxtSharedPrivateReverseFactory deletes
+they are both coupled.
+*/
+
+template <typename PUB>
+class QxtSharedPrivateReverseFactory : public QSharedData
 {
 public:
-    QxtSharedPrivateInterfaceData():QSharedData()
+    QxtSharedPrivateReverseFactory(QxtSharedPrivate<PUB>* a):QSharedData()
     {
-        pvt = new PVT;
+        pvt = a;
     }
-    QxtSharedPrivateInterfaceData(const QxtSharedPrivateInterfaceData &other):QSharedData(other)
+    QxtSharedPrivateReverseFactory(const QxtSharedPrivateReverseFactory &other):QSharedData(other)
     {
         pvt=other.pvt;
     }
-    ~QxtSharedPrivateInterfaceData()
+    ~QxtSharedPrivateReverseFactory()
     {
         delete pvt;
     }
 
-    PVT *  pvt;
+     QxtSharedPrivate<PUB> * pvt;
 };
 
 
-template <typename PVT>
+template <typename PUB>
+QxtSharedPrivate<PUB>::QxtSharedPrivate()
+{
+    mm_factory_keep_your_hands_of_that=new QxtSharedPrivateReverseFactory<PUB>(this);
+}
+
+
+
+template <typename PUB, typename PVT>
 class QxtSharedPrivateInterface 
 {
 public:
     QxtSharedPrivateInterface()
     {
+        pvt=0;
     }
     QxtSharedPrivateInterface(const QxtSharedPrivateInterface &other)
     {
@@ -160,19 +196,24 @@ public:
     }
     inline PVT& operator=( PVT * n)
     {
-        pvt->pvt=n;
-        return *pvt->pvt;
+        Q_ASSERT(pvt==0);
+        pvt=n->mm_factory_keep_your_hands_of_that;
+
+        Q_ASSERT(dynamic_cast<PVT*>(pvt->pvt)>0);
+        return * static_cast <PVT*>(pvt->pvt);
     }
     inline PVT& operator()()
     {
-        return *pvt->pvt;
+        Q_ASSERT(dynamic_cast<PVT*>(pvt->pvt)>0);
+        return * static_cast <PVT*>(pvt->pvt);
     }
     inline const PVT& operator()() const
     {
-        return *pvt->pvt;
+        Q_ASSERT(dynamic_cast<const PVT*>(pvt->pvt)>0);
+        return * static_cast <const PVT*>(pvt->pvt);
     }
 private:
-    QSharedDataPointer<QxtSharedPrivateInterfaceData<PVT > > pvt;
+    QSharedDataPointer<QxtSharedPrivateReverseFactory<PUB> > pvt;
 };
 
 #endif
