@@ -28,18 +28,19 @@
 
 
 combines both, the functionality of QxtPimpl and QSharedData \n
-It is assumed you are familiar with QxtPimpl and QSharedData/QSharedDataPointer. If not, please read their documentation before this one. \n
+It is assumed you are familiar with QxtPimpl and QSharedData / QSharedDataPointer. If not, please read their documentation before this one. \n
 
 
 <h4>Major differences to QxtPimpl are:</h4>
     - there is no qxt_p() since there are multiple public classes sharing the same private
-    - you have to explicitly create the private in the ctor of your public class using new 
-    - The private Data must not be a QxtPrivate  but a QxtSharedPrivate subclass
+    - you have to explicitly initialise the private data in the ctor of your public class using new 
+    - instead of using QXT_DECLARE_PRIVATE(MyClass) you use QxtSharedPrivate<myCLassPrivate> d;
+    - The private data does not have to be a QxtPrivate subclass
 
 <h4>Major differences to QSharedData / QSharedDataPointer are:</h4>
     - the actual Data can be a private implementation 
-    - instead of QSharedDataPointer<MyData> d; you use QXT_DECLARE_SHARED_PRIVATE(MyData)  and access it via qxt_d().member instead of d->member 
-    - The private Data must not be a QSharedData  but a QxtSharedPrivate subclass
+    - access via d().member() instead of  d->member(); (QxtPimpl style)
+    - The private data does not have to be a QSharedData subclass
 
 
 <h4>example</h4>
@@ -52,6 +53,7 @@ expanding the example from the QSharedDataPointer we get this:
  #include <QString>
 
  class EmployeePrivate;
+
  class Employee
  {
  public:
@@ -65,19 +67,15 @@ expanding the example from the QSharedDataPointer we get this:
      QString name() const;
 
  private:
-     QXT_DECLARE_SHARED_PRIVATE(Employee);
+     QxtSharedPrivate<EmployeePrivate> qxt_d;
  };
 
 
- class EmployeePrivate : public QxtSharedPrivate<Employee>
+ class EmployeePrivate
  {
  public:
-     EmployeePrivate();
-     EmployeePrivate(const EmployeePrivate &other);
-     ~EmployeePrivate();
-
      int id;
-     QString *name;
+     QString name;
  };
 
  #endif
@@ -85,7 +83,7 @@ expanding the example from the QSharedDataPointer we get this:
 \endcode
 
 
-note that contrary to QxtPimpl you need to initialise your private data
+note that contrary to QxtPimpl you need to initialise your private data once
 
 \code
  Employee::Employee()
@@ -94,7 +92,7 @@ note that contrary to QxtPimpl you need to initialise your private data
  }
 \endcode
 
-if you ever really want to define a copy constructor for your public class, remember you must not reinitialise qxt_d as this would defeat the whole point of shared data.  instead just copy it. The underliing QSharedDataPointer will take care of the rest.
+if you ever really want to define a copy constructor for your public class, remember you must not reinitialise qxt_d as this would defeat the whole point of shared data.  instead just copy it. The underlying QSharedDataPointer will take care of the rest.
 
 \code
  Employee::Employee(const Employee & other)
@@ -112,85 +110,51 @@ Also remember you must not delete the private data yourself at any time.
 #include <QSharedData>
 #include <QSharedDataPointer>
 
-/*! \relates QxtSharedPrivate
- * Declares that a public class has a related private class.
- *
- * This shuold be put in the private section of the public class. The parameter is the name of the public class.
- */
-
-
-
 #ifndef QXT_DOXYGEN_RUN
 
 
-
-
-class QxtAbstractSharedPrivate
-{
-public:
-    virtual void * createFromCopy (void * )=0;
-    virtual void   del            (void * )=0;
-};
-
-
-
-
+template <typename PVT>
 class QxtSharedPrivateData : public QSharedData
 {
 public:
-    QxtSharedPrivateData(QxtAbstractSharedPrivate * p)
+    QxtSharedPrivateData()
     {
-        this->p=p;
     }
     ~QxtSharedPrivateData()
     {
-        p->del(data);
+        delete data;
     }
     QxtSharedPrivateData(const QxtSharedPrivateData & other ):QSharedData(other)
     {
-        data=p->createFromCopy(other.data);
+        data=new PVT; 
+        *data=*other.data;
     }
-    void * data;
-    QxtAbstractSharedPrivate * p;
+    PVT * data;
 };
 
+#endif
 
 
 
 
 template <typename PVT>
-class QxtSharedPrivate : public QxtAbstractSharedPrivate
+class QxtSharedPrivate
 {
 public:
-
-    virtual void * createFromCopy (void * d)
-    {
-        PVT * po=new PVT; 
-        *po=*static_cast<PVT *>(d);
-        return po;
-
-    }
-
-    virtual void   del            (void * d)
-    {
-        delete static_cast<PVT *>(d);
-    }
-
 
     QxtSharedPrivate()
     {
         pvt=0;
     }
-    QxtSharedPrivate(const QxtSharedPrivate &other):QxtAbstractSharedPrivate(other)
+    QxtSharedPrivate(const QxtSharedPrivate &other)
     {
-        qDebug("copy");
         pvt=other.pvt;
     }
     inline PVT& operator=( PVT * n)
     {
         Q_ASSERT(pvt==0);
 
-        QxtSharedPrivateData *t=new QxtSharedPrivateData(this);
+        QxtSharedPrivateData<PVT> *t=new QxtSharedPrivateData<PVT>;
         t->data=n;
         pvt=t;
 
@@ -207,7 +171,7 @@ public:
     }
 
 private:
-    QSharedDataPointer<QxtSharedPrivateData> pvt;
+    QSharedDataPointer<QxtSharedPrivateData<PVT> > pvt;
 };
 
 
@@ -217,11 +181,6 @@ private:
 
 
 
-
-
-
-
-#endif
 
 #endif
 
