@@ -1,9 +1,12 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
-INCLUDEPATH += .
-
 SOURCES += main.cpp
-CONFIG+=qxt qtestlib
+CONFIG += ""qxt qtestlib""
 QXT += core
+CONFIG += debug \
+qt \
+thread \
+warn_on
+INCLUDEPATH += .
 

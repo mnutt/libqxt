@@ -65,7 +65,7 @@ private slots:
         QVERIFY(lock1.lock() && lock2.lock());
     }
 
-    ///different region, different handles, different locks
+    ///different region, different handles, different locks/usr/bin/
     void rw_different_region()
     {
         QxtFileLock lock1(file1,0x10   ,20,QxtFileLock::ReadLock);
@@ -139,9 +139,10 @@ private slots:
 
         QxtSignalWaiter w1(&t1,SIGNAL(started()));
         t1.start();
-        QVERIFY(t1.isRunning());
+        QVERIFY(w1.wait());
+        QxtSignalWaiter w2(&t2,SIGNAL(started()));
         t2.start();
-        QVERIFY(t2.isRunning());
+        QVERIFY(w2.wait());
     }
 
 

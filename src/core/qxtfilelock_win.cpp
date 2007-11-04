@@ -1,9 +1,9 @@
+#ifdef Q_OS_WIN32
+
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
 #include <windows.h>
 #include <io.h>
-
-#if 1
 
 bool QxtFileLock::unlock()
 {
@@ -75,14 +75,5 @@ bool QxtFileLock::lock ()
     return false;
 }
 
-#else
-bool QxtFileLock::unlock()
-{
-    return false;
-}
-
-bool QxtFileLock::lock ()
-{
-    return false;
-}
 #endif
+
