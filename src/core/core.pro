@@ -61,7 +61,7 @@ SOURCES += qxtcsvmodel.cpp \
            qxtslotjob.cpp \
            qxtpipe.cpp \
            qxtdaemon.cpp \
-           qxtlinesocket.cpp
+           qxtlinesocket.cpp \
+           qxtfilelock_unix.cpp \
+           qxtfilelock_win.cpp
 
-unix:  SOURCES += qxtfilelock_unix.cpp
-win32: SOURCES += qxtfilelock_win.cpp
