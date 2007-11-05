@@ -141,28 +141,6 @@ void My2::couseDetach()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class QxtSharedPrivateTest : public QObject
 {
 Q_OBJECT
