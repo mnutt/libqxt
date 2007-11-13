@@ -1,5 +1,13 @@
 #include "qxtmail.h"
 
+
+/*!
+        \class QxtMail QxtMail
+        \ingroup QxtWeb
+        \brief Implicit shared contianer, reflecting a rfc822 mail
+*/
+
+
 struct QxtMailPrivate
 {
     QStringList recipients;

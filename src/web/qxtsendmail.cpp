@@ -2,6 +2,12 @@
 
  #include <QProcess>
 
+/*!
+        \class QxtSendmail QxtSendmail
+        \ingroup QxtWeb
+        \brief can send your QxtMail using the local sendmail program 
+*/
+
 
 bool QxtSendmail::send(QxtMail  mail)
 {
