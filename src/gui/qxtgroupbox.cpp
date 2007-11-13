@@ -31,19 +31,12 @@ public:
     QXT_DECLARE_PUBLIC(QxtGroupBox);
 
     QxtGroupBoxPrivate();
-    void init();
     bool collapsive;
 };
 
 QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true)
 {}
 
-void QxtGroupBoxPrivate::init()
-{
-    qxt_p().setCheckable(true);
-    qxt_p().setChecked(true);
-    QObject::connect(&qxt_p(), SIGNAL(toggled(bool)), &qxt_p(), SLOT(setExpanded(bool)));
-}
 
 /*!
     \class QxtGroupBox QxtGroupBox
@@ -64,7 +57,10 @@ QxtGroupBox::QxtGroupBox(QWidget* parent)
         : QGroupBox(parent)
 {
     QXT_INIT_PRIVATE(QxtGroupBox);
-    qxt_d().init();
+    setCheckable(true);
+    setChecked(true);
+    connect(this, SIGNAL(toggled(bool)),this, SLOT(setExpanded(bool)));
+
 }
 
 /*!
@@ -74,7 +70,9 @@ QxtGroupBox::QxtGroupBox(const QString& title, QWidget* parent)
         : QGroupBox(title, parent)
 {
     QXT_INIT_PRIVATE(QxtGroupBox);
-    qxt_d().init();
+    setCheckable(true);
+    setChecked(true);
+    connect(this, SIGNAL(toggled(bool)),this, SLOT(setExpanded(bool)));
 }
 
 /*!
