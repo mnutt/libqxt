@@ -30,7 +30,7 @@ C_NONE='\e[0m' # No Color
 
 #====parse configure options====
 
-echo "QXT_stability += unknown" > config.in
+echo "CONFIG += silent" > config.in
 
 while (( $# > 0 )); do
     if [ $1 == "-qmake-bin" ]; then
@@ -57,6 +57,8 @@ while (( $# > 0 )); do
         echo "CONFIG += release" >> config.in
     elif [ $1 == "-no-openssl" ]; then
         echo "QXT_LIBS -= openssl" >> config.in
+    elif [ $1 == "-verbose" ]; then
+        echo "CONFIG -= silent" >> config.in
         NO_OPENSSL=1
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
@@ -83,8 +85,7 @@ while (( $# > 0 )); do
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: network gui sql media web designer"
-        echo "-bootstrap .......... That should not be needed for release versions."
-        echo "                      warning: will only work on bash > 3.2"
+        echo "-verbose ............ shows compiler output"
 
         rm config.in
         exit
