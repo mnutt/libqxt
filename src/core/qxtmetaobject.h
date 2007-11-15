@@ -50,7 +50,7 @@ public:
     voidFunc* funcPtr;
     QByteArray typeName;
 
-private:
+protected:
     QxtGenericFunctionPointer(voidFunc* ptr, const QByteArray& typeIdName) {
         funcPtr = ptr;
         typeName = typeIdName;

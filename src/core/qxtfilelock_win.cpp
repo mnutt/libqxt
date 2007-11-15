@@ -1,4 +1,4 @@
-#ifdef Q_OS_WIN32
+#ifdef WIN32
 
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
