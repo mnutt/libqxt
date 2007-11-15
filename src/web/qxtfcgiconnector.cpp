@@ -28,7 +28,7 @@
 #include <QTextStream>
 #include "qxtstdstreambufdevice.h"
 #include "qxtsignalwaiter.h"
-
+#include <QDebug>
 
 QxtFcgiConnector::QxtFcgiConnector():QxtAbstractWebConnector()
 {
