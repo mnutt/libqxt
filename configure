@@ -57,9 +57,9 @@ while (( $# > 0 )); do
         echo "CONFIG += release" >> config.in
     elif [ $1 == "-no-openssl" ]; then
         echo "QXT_LIBS -= openssl" >> config.in
+        NO_OPENSSL=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
-        NO_OPENSSL=1
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
