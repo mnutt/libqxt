@@ -1,5 +1,5 @@
 TARGET          =  QxtSql
-#DESTDIR         = .lib
+DESTDIR = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_SQL
