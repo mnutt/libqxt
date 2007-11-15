@@ -1,4 +1,4 @@
-VERSION      = 0.2.4
+VERSION      = 0.3
 incs.path    = $${include.path}/$$TARGET/
 
 contains(CONFIG,convenience){
