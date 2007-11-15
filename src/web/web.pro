@@ -1,5 +1,5 @@
 TARGET          =  QxtWeb
-#DESTDIR         = ../../deploy/libs
+DESTDIR         = ../../deploy/libs
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../network
 DEFINES         += BUILD_QXT_WEB
