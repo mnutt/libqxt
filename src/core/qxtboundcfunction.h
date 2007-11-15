@@ -45,6 +45,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9), QXT_PARAM(10));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN>
@@ -56,6 +58,8 @@ public:
         QXT_RETURN (funcPtr)();
         return true;
     }
+    private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1>
@@ -67,6 +71,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2>
@@ -78,6 +84,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3>
@@ -89,6 +97,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4>
@@ -100,6 +110,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -111,6 +123,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
@@ -122,6 +136,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
@@ -144,6 +160,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
@@ -155,6 +173,8 @@ public:
         QXT_RETURN (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9));
         return true;
     }
+private:
+    qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void, typename T5 = void,
@@ -167,6 +187,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9), QXT_PARAM(10));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <>
@@ -178,6 +200,8 @@ public:
         QXT_INVOKE (funcPtr)();
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1>
@@ -189,6 +213,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2>
@@ -200,6 +226,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3>
@@ -211,6 +239,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4>
@@ -222,6 +252,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
@@ -233,6 +265,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
@@ -244,6 +278,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
@@ -255,6 +291,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
@@ -266,6 +304,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
@@ -277,6 +317,8 @@ public:
         QXT_INVOKE (funcPtr)(QXT_PARAM(1), QXT_PARAM(2), QXT_PARAM(3), QXT_PARAM(4), QXT_PARAM(5), QXT_PARAM(6), QXT_PARAM(7), QXT_PARAM(8), QXT_PARAM(9));
         return true;
     }
+private:
+    qxt_cfunction(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
 template <typename RETURN = void, typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void, typename T5 = void,
