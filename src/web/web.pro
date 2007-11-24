@@ -14,15 +14,29 @@ CONFIG          += qxtbuild convenience
 include(../../config.pri)
 
 
-HEADERS+= qxthtmltemplate.h  qxtwebcore.h  qxtwebcontroller.h  qxtwebcore_p.h   qxtabstractwebconnector.h qxtscgiconnector.h qxtmail.h qxtsendmail.h
-SOURCES+= qxthtmltemplate.cpp  qxtwebcore.cpp  qxtwebcontroller.cpp  qxtscgiconnector.cpp  qxtmail.cpp qxtsendmail.cpp
-
-
-
-
 contains(DEFINES,HAVE_FCGI){
-HEADERS += qxtfcgiconnector.h qxtfcgiconnector_p.h
-SOURCES += qxtfcgiconnector.cpp
+HEADERS += qxtwebfcgiconnector.h qxtwebfcgiconnector_p.h
+SOURCES += qxtwebfcgiconnector.cpp
 LIBS+=-lfcgi++
 }
 
+HEADERS += qxtabstractwebconnector.h \
+           qxthtmltemplate.h \
+           qxtmail.h \
+           qxtsendmail.h \
+           qxtwebcontroller.h \
+           qxtwebcore.h \
+           qxtwebcore_p.h \
+           qxtwebhttpconnector.h \
+           qxtwebhttpconnector_p.h \
+           qxtwebscgiconnector.h \
+           qxtwebscgiconnector_p.h \
+           qxtwebstatelessconnector.h
+SOURCES +=  \
+           qxthtmltemplate.cpp \
+           qxtmail.cpp \
+           qxtsendmail.cpp \
+           qxtwebcontroller.cpp \
+           qxtwebcore.cpp \
+           qxtwebhttpconnector.cpp \
+           qxtwebscgiconnector.cpp
