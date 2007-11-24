@@ -1,0 +1,8 @@
+TEMPLATE = app
+TARGET = 
+DEPENDPATH += .
+INCLUDEPATH += .
+CONFIG+=QXT
+QXT+=web
+# Input
+SOURCES += main.cpp

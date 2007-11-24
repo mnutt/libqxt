@@ -70,7 +70,7 @@ public:
     }
     virtual bool open ( OpenMode  )
     {
-        qWarning("QxtWebStaloneConnection::open has no effect");
+        qWarning("QxtWebHttpConnection::open has no effect");
         return false;
     }
 
@@ -148,12 +148,12 @@ private slots:
             char a;
             if(m_socket->read ( &a,1)!=1)
             {
-                qCritical("QxtWebStaloneConnection  socket I/O error. killed");
+                qCritical("QxtWebHttpConnection  socket I/O error. killed");
                 close();
             }
             if (headerBytesReceived++ > 5024) //maximal 5kb 
             {
-                qWarning("QxtWebStaloneConnection. client attempted to send header over 5kb. killed");
+                qWarning("QxtWebHttpConnection. client attempted to send header over 5kb. killed");
                 close();
             }
 
@@ -231,7 +231,7 @@ protected:
     {
         if(!headerReceived)
         {
-            qWarning("QxtWebStaloneConnection trying to write before headers could be received might fail.");
+            qWarning("QxtWebHttpConnection:: trying to write before headers could be received might fail.");
         }
 
         if(!headerSent)
