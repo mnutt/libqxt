@@ -12,7 +12,7 @@
 
         see QxtWebStatelessConnector
 
-        \note: this is not a full implementation of the HTTP spec and should only be used for testing. For real world applications, use a real webserver like apache with scgi or fcgi interface
+        \note this is not a full implementation of the HTTP spec and should only be used for testing. For real world applications, use a real webserver like apache with scgi or fcgi interface
 
 */
 
