@@ -21,7 +21,7 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtfcgiconnector.h"
+#include "qxtwebfcgiconnector.h"
 #include <QTcpSocket>
 #include <QTcpServer>
 
