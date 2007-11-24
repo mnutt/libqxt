@@ -3,6 +3,20 @@
 #include "qxtwebhttpconnector.h"
 
 
+
+
+/*!
+        \class QxtWebHttpConnector QxtWebHttpConnector
+        \ingroup QxtWeb
+        \brief standalone QxtWebStatelessConnector for http
+
+        see QxtWebStatelessConnector
+
+        \note: this is not a full implementation of the HTTP spec and should only be used for testing. For real world applications, use a real webserver like apache with scgi or fcgi interface
+
+*/
+
+
 QxtWebHttpConnector::QxtWebHttpConnector(QObject * parent  ):QxtWebStatelessConnector(parent)
 {
         connect(&qxt_d(),SIGNAL(newConnection()),this,SIGNAL(newConnection()));

@@ -32,6 +32,14 @@
 
 
 
+/*!
+        \class QxtWebScgiConnector QxtWebScgiConnector
+        \ingroup QxtWeb
+        \brief QxtWebStatelessConnector for SCGI
+
+        see QxtWebStatelessConnector
+*/
+
 QxtWebScgiConnector::QxtWebScgiConnector(QObject * parent  ):QxtWebStatelessConnector(parent)
 {
         connect(&qxt_d(),SIGNAL(newConnection()),this,SIGNAL(newConnection()));
