@@ -71,7 +71,7 @@ public:
     }
     virtual bool open ( OpenMode  )
     {
-        qWarning("QxtWebStaloneConnection::open has no effect");
+        qWarning("QxtWebScgiConnection::open has no effect");
         return false;
     }
 
@@ -136,55 +136,7 @@ public:
     }
 
 private slots:
-    void readyreadslot()
-    {
-        if(headerReceived)
-        {
-            emit(readyRead());
-            return;
-        }
-
-        while (m_socket->bytesAvailable())
-        {
-            char a;
-            if(m_socket->read ( &a,1)!=1)
-            {
-                qCritical("QxtWebStaloneConnection  socket I/O error. killed");
-                close();
-            }
-            if (headerBytesReceived++ > 5024) //maximal 5kb 
-            {
-                qWarning("QxtWebStaloneConnection. client attempted to send header over 5kb. killed");
-                close();
-            }
-
-
-            bbuf+=a;
-
-            if (a=='\r')
-            {
-                //ignore CR (RFC2616 19.3) (tolerance recommendations suck)
-                continue;
-            }
-            else if(a=='\n')
-            {
-                if(lastwasnewline)
-                {
-                    request_m=QHttpRequestHeader(QString::fromAscii(bbuf));
-                    bbuf.clear();
-                    headerReceived=true;
-                    if(m_socket->bytesAvailable())
-                        readyreadslot();
-                    return;
-                }
-                lastwasnewline=true;
-            }
-            else
-            {
-                lastwasnewline=false;
-            }
-        }
-    }
+    void readyreadslot();
 
 private:
     friend class QxtWebScgiConnector;
@@ -192,6 +144,8 @@ private:
     QxtWebScgiConnection(QTcpSocket * socket, QObject *parent):QxtWebStatelessConnection(parent)
     {
         headerBytesReceived=0;
+        expectedheaderBytes=0;
+
         endAllRecursionsSinceTerminated=false;
         lastwasnewline=false;
         headerReceived=false;
@@ -213,6 +167,7 @@ private:
     QHttpRequestHeader request_m;
 
     bool headerReceived;
+    int expectedheaderBytes;
     bool headerSent;
 
     int headerBytesReceived;
@@ -228,18 +183,11 @@ protected:
             return 0;
         return m_socket->read(data,maxSize);
     }
-    virtual qint64 writeData ( const char * data, qint64 maxSize )
-    {
-        if(!headerReceived)
-        {
-            qWarning("QxtWebStaloneConnection trying to write before headers could be received might fail.");
-        }
 
-        if(!headerSent)
-        {
-            m_socket->write(response_m.toString().toAscii());
-        }
-        return m_socket->write(data,maxSize);
-    }
+
+
+
+
+    virtual qint64 writeData ( const char * data, qint64 maxSize );
 };
 

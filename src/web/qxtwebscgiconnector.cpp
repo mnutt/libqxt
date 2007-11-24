@@ -72,136 +72,107 @@ bool QxtWebScgiConnector::waitForNewConnection ( int msec , bool * timedOut  )
 
 
 
-#if 0
-
-
-
-    int readHeaderFromSocket(QTcpSocket * tcpSocket,server_t & SERVER)
-    {
-        if (!tcpSocket)
-            return 5012;
-
-
-        ///--------------get the header size----------------
-
-        QByteArray size_in;
-        while (!size_in.endsWith(':'))
-        {
-            if (!tcpSocket->bytesAvailable ())
-                if (!tcpSocket->waitForReadyRead (200))
-                    return 50033;
-
-            char a[4]; ///4? yes, i know i'm paranoid about bounds.
-
-
-            if (!tcpSocket->read (a, 1 ))
-                return 50034;
-
-            size_in+=a[0];
-
-            if (size_in.size()>20)/// after the 20ths char is an attack atemp for sure
-                return 50034;
-
-        }
-
-
-        size_in.chop(1);
-        int size=size_in.toInt()+1;
-
-
-        if (size>10240)  ///do not accept headers over 10kb
-            return 50037;
-
-
-        ///--------------read the header------------------
-
-        while (tcpSocket->bytesAvailable ()<size)
-        {
-            if (!tcpSocket->waitForReadyRead (200))
-                return 50033;
-        }
-        QByteArray header_in;
-        header_in.resize(size);
-
-        if (tcpSocket->read (header_in.data(), size )!=size)
-            return 50034;
-
-        if (!header_in.endsWith(','))
-            return 50090;
-        ///--------------parse the header------------------
-
-
-        int i=0;
-        QByteArray name="";
-        QByteArray a =header_in;
-        while ((i=a.indexOf('\0'))>-1)
-        {
-            if (name=="")
-            {
-                name= a.left(i).replace('\0',"");
-            }
-            else
-            {
-                SERVER[name]=a.left(i).replace('\0',"").replace("%20"," ");
-                name="";
-            }
-
-            a=a.mid(i+1);
-        }
-
-
-        return 0;
-    }
-
-QByteArray QxtWebScgiConnector::content(quint64 maxsize)
+qint64 QxtWebScgiConnection::writeData ( const char * data, qint64 maxSize )
 {
-    QIODevice * tcpSocket=  qxt_d().socket_m;
-
-    if (!tcpSocket)
-        return QByteArray();
-
-
-    unsigned int content_size= qxt_d().SERVER["CONTENT_LENGTH"].toUInt();
-
-    qDebug()<<"receiving content"<<content_size;
-
-
-    if (content_size<1)
+    if(!headerReceived)
     {
-        return QByteArray();
+        qWarning("QxtWebScgiConnection trying to write before headers could be received might fail.");
     }
 
-    if (content_size>maxsize)
-        content_size=maxsize;
-
-    ///--------------read the content------------------
-
-
-
-
-
-    while (tcpSocket->bytesAvailable ()<content_size)
+    if(!headerSent)
     {
-        if (!tcpSocket->waitForReadyRead (2000))
-            return QByteArray();
+        m_socket->write(("Status:"+QString::number(response_m.statusCode ())+" "+response_m.reasonPhrase ()+"\r\n").toAscii());
+        foreach(QString key, response_m.keys())
+        {
+            m_socket->write((key+":"+response_m.value(key)+"\r\n").toAscii());
+        }
+        m_socket->write("\r\n");
     }
-
-    QByteArray content_in;
-    content_in.resize(content_size);
-
-
-    if (tcpSocket->read (content_in.data(), content_size )!=content_size)
-        return QByteArray();
-
-
-    tcpSocket->readAll(); //fix apache fcgi bug
-    return content_in;
+    return m_socket->write(data,maxSize);
 }
 
 
+void QxtWebScgiConnection::readyreadslot()
+{
+    if(headerReceived)
+    {
+        emit(readyRead());
+        return;
+    }
 
 
-#endif
+
+    while (m_socket->bytesAvailable())
+    {
+        if (headerBytesReceived++ > 10024) //10kb max
+        {
+            qWarning("QxtWebScgiConnection. header > 10kb. killed");
+            close();
+        }
 
 
+        if(expectedheaderBytes)
+        {
+            char a[expectedheaderBytes];
+            int rec=m_socket->read(a,expectedheaderBytes-headerBytesReceived);
+            bbuf+=QByteArray(a,rec);
+            headerBytesReceived+=rec;
+            if(headerBytesReceived==expectedheaderBytes)
+            {
+                m_socket->read(a,3); ///read the tailing comma 
+
+                int i=0;
+                QByteArray name="";
+                QByteArray a =bbuf;
+                while ((i=a.indexOf('\0'))>-1)
+                {
+                    if (name=="")
+                    {
+                        name= a.left(i);
+                    }
+                    else
+                    {
+                        request_m.setValue (QString::fromAscii(name).toLower(),QString::fromAscii(a.left(i)));
+                        name="";
+                    }
+                    a=a.mid(i+1);
+                }
+
+
+                request_m.setRequest (request_m.value("request_method"),request_m.value("request_uri"));
+                bbuf.clear();
+                headerReceived=true;
+                if(m_socket->bytesAvailable())
+                    readyreadslot();
+                return;
+            }
+        }
+        else
+        {
+            char a;
+            if(m_socket->read ( &a,1)!=1)
+            {
+                qCritical("QxtWebScgiConnection  socket I/O error. killed");
+                close();
+            }
+
+
+            if(a==':')
+            {
+                expectedheaderBytes=bbuf.toInt();
+                headerBytesReceived=0;
+                bbuf.clear();
+            }
+            else if (headerBytesReceived++ > 10)
+            {
+                qWarning("QxtWebScgiConnection. not received size prefix withing 10 chars. killed");
+                close();
+            }
+            else
+            {
+                bbuf+=a;
+            }
+        }
+    }
+}
 
