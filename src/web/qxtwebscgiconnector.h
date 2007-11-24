@@ -39,7 +39,7 @@ class QxtWebScgiConnector : public QxtWebStatelessConnector
     QXT_DECLARE_PRIVATE(QxtWebScgiConnector);
 
 public:
-    QxtWebScgiConnector(QObject * parent);
+    QxtWebScgiConnector(QObject * parent=0);
 
     virtual bool isMultiplexing()
     {
