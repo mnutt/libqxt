@@ -1,9 +1,10 @@
 TEMPLATE = app
-TARGET = 
+TARGET =
 DEPENDPATH += .
-INCLUDEPATH += .
-CONFIG+=qxt debug
+INCLUDEPATH += .    ../../deploy/include/QxtWeb \
+                    ../../src/web \
+                    ../../src/core
+CONFIG+=debug
 QT+=xml
-QXT+=core web
-# Input
-SOURCES += main.cpp
+SOURCES += main.cpp ../../src/web/qxthtmltemplate.cpp
+
