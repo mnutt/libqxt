@@ -30,7 +30,10 @@ features.files = deploy/qt/qxt.prf
 
 INSTALLS = docs includes features 
 
+docs.commands = tools/doqsy/doqsy
 
+SUBDIRS += tools/doqsy
+QMAKE_EXTRA_TARGETS += docs
 
 contains( QXT_BUILD, core ){
     message( building the core )
@@ -70,4 +73,14 @@ contains( QXT_BUILD, crypto ){
     message( building crypto module )
     SUBDIRS += src/crypto
 }
+
+
+
+
+
+
+
+
+
+
 
