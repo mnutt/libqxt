@@ -29,30 +29,12 @@
 #include "qxtcheckcombobox.h"
 #include "qxtpimpl.h"
 
-class QxtCheckComboView : public QListView
-{
-    Q_OBJECT
-
-public:
-    explicit QxtCheckComboView(QWidget* parent = 0);
-    ~QxtCheckComboView();
-
-    virtual bool eventFilter(QObject* object, QEvent* event);
-    QxtCheckComboBox::CheckMode mode;
-    bool handleIndicatorRelease(QMouseEvent* event, const QModelIndex& index);
-    bool handleItemRelease(QMouseEvent* event, const QModelIndex& index);
-
-signals:
-    void hideRequested();
-};
-
 class QxtCheckComboModel : public QStandardItemModel
 {
     Q_OBJECT
 
 public:
     explicit QxtCheckComboModel(QObject* parent = 0);
-    ~QxtCheckComboModel();
 
     virtual Qt::ItemFlags flags(const QModelIndex& index) const;
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
@@ -71,12 +53,10 @@ public:
     QxtCheckComboBoxPrivate();
     QString separator;
     QString defaultText;
-    QStringList checkedItems;
-    QxtCheckComboView* view;
 
 public slots:
-    void hidePopup();
     void updateCheckedItems();
+    void toggleCheckState(int index);
 };
 
 #endif // QXTCHECKCOMBOBOX_P_H
