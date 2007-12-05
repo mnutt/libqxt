@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG += qxt
+CONFIG += qxt console
 QXT += core gui
 
 FORMS += mainwindow.ui tab.ui

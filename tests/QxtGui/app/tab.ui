@@ -163,9 +163,6 @@
         <property name="checkedItems" >
          <stringlist/>
         </property>
-        <property name="checkMode" >
-         <enum>QxtCheckComboBox::CheckWholeItem</enum>
-        </property>
         <item>
          <property name="text" >
           <string>Curabitur</string>

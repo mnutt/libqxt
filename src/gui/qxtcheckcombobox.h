@@ -38,21 +38,10 @@ class QXT_GUI_EXPORT QxtCheckComboBox : public QComboBox
     Q_PROPERTY(QString separator READ separator WRITE setSeparator)
     Q_PROPERTY(QString defaultText READ defaultText WRITE setDefaultText)
     Q_PROPERTY(QStringList checkedItems READ checkedItems WRITE setCheckedItems)
-    Q_PROPERTY(QxtCheckComboBox::CheckMode checkMode READ checkMode WRITE setCheckMode)
-    Q_ENUMS(CheckMode)
 
 public:
-    enum CheckMode
-    {
-        CheckIndicator,
-        CheckWholeItem
-    };
-
     explicit QxtCheckComboBox(QWidget* parent = 0);
     virtual ~QxtCheckComboBox();
-
-    QStringList checkedItems() const;
-    void setCheckedItems(const QStringList& items);
 
     QString defaultText() const;
     void setDefaultText(const QString& text);
@@ -63,13 +52,18 @@ public:
     QString separator() const;
     void setSeparator(const QString& separator);
 
-    CheckMode checkMode() const;
-    void setCheckMode(CheckMode mode);
+    QStringList checkedItems() const;
+
+public slots:
+    void setCheckedItems(const QStringList& items);
 
 signals:
     void checkedItemsChanged(const QStringList& items);
 
 #ifndef QXT_DOXYGEN_RUN
+public:
+    void hidePopup() {}
+
 protected:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
