@@ -49,7 +49,7 @@ class QxtConfigDelegate : public QItemDelegate
 public:
     QxtConfigDelegate(QObject* parent = 0);
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
-    //QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
     bool hover;
 };
 

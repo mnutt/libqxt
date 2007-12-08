@@ -30,6 +30,7 @@
 #include <QPushButton>
 #endif // QT_VERSION
 #include <QStackedWidget>
+#include <QApplication>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QVBoxLayout>
@@ -38,6 +39,8 @@
 
 QxtConfigTableWidget::QxtConfigTableWidget(QWidget* parent) : QTableWidget(parent)
 {
+    int pm = style()->pixelMetric(QStyle::PM_LargeIconSize);
+    setIconSize(QSize(pm, pm));
     setItemDelegate(new QxtConfigDelegate(this));
     viewport()->setAttribute(Qt::WA_Hover, true);
 }
@@ -46,9 +49,9 @@ QStyleOptionViewItem QxtConfigTableWidget::viewOptions() const
 {
     QStyleOptionViewItem option = QTableWidget::viewOptions();
     option.displayAlignment = Qt::AlignHCenter | Qt::AlignTop;
-    option.decorationAlignment = Qt::AlignTop | Qt::AlignHCenter;
+    option.decorationAlignment = Qt::AlignHCenter | Qt::AlignTop;
     option.decorationPosition = QStyleOptionViewItem::Top;
-    option.showDecorationSelected = true;
+    option.showDecorationSelected = false;
     return option;
 }
 
@@ -100,18 +103,14 @@ void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     QItemDelegate::paint(painter, opt, index);
 }
 
-/*
 QSize QxtConfigDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
-    QSize ds = option.decorationSize;
-    int totalwidth = option.fontMetrics.width(index.data(Qt::DisplayRole).toString());
-    QSize ts;
-    //         if(totalwidth>option.rect.width())
-    //             ts = QSize(totalwidth/2, 2*option.fontMetrics.height());
-    //         else
-    ts = QSize(totalwidth, option.fontMetrics.height());
-    return QSize(qBound(ds.width(), ts.width(), option.rect.width()), ds.height()+6+ts.height());
-}*/
+    int margin = qApp->style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
+    int textWidth = option.fontMetrics.width(index.data().toString());
+    int width = qMax(textWidth, option.decorationSize.width()) + 2 * margin;
+    int height = option.fontMetrics.height() + option.decorationSize.height() + margin;
+    return QSize(width, height);
+}
 
 void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
 {
@@ -163,6 +162,7 @@ void QxtConfigDialogPrivate::relayout()
     {
         splitter->setOrientation(Qt::Vertical);
         table->setRowCount(1);
+        table->setColumnCount(0);
         table->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
         table->verticalHeader()->setResizeMode(QHeaderView::Stretch);
         table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -171,6 +171,7 @@ void QxtConfigDialogPrivate::relayout()
     else
     {
         splitter->setOrientation(Qt::Horizontal);
+        table->setRowCount(0);
         table->setColumnCount(1);
         table->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
         table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
@@ -230,6 +231,17 @@ void QxtConfigDialogPrivate::relayout()
     default:
         qWarning("QxtConfigDialogPrivate::relayout(): unknown position");
         break;
+    }
+
+    if (pos == QxtConfigDialog::East)
+    {
+        splitter->setStretchFactor(0, 10);
+        splitter->setStretchFactor(1, 1);
+    }
+    else
+    {
+        splitter->setStretchFactor(0, 1);
+        splitter->setStretchFactor(1, 10);
     }
 }
 
