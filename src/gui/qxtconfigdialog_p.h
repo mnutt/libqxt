@@ -27,28 +27,21 @@
 #include "qxtpimpl.h"
 #include "qxtconfigdialog.h"
 #include <QItemDelegate>
-#include <QListWidget>
+#include <QTableWidget>
 
-class QGridLayout;
+class QSplitter;
 class QStackedWidget;
 class QDialogButtonBox;
 
-class QxtConfigListWidget : public QListWidget
+class QxtConfigTableWidget : public QTableWidget
 {
 public:
-    QxtConfigListWidget(QWidget* parent = 0);
-    QSize minimumSizeHint() const;
+    QxtConfigTableWidget(QWidget* parent = 0);
+    QStyleOptionViewItem viewOptions() const;
     QSize sizeHint() const;
-    void invalidate();
 
     bool hasHoverEffect() const;
     void setHoverEffect(bool enabled);
-
-protected:
-    void scrollContentsBy(int dx, int dy);
-
-private:
-    mutable QSize hint;
 };
 
 class QxtConfigDelegate : public QItemDelegate
@@ -56,6 +49,7 @@ class QxtConfigDelegate : public QItemDelegate
 public:
     QxtConfigDelegate(QObject* parent = 0);
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    //QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
     bool hover;
 };
 
@@ -67,18 +61,22 @@ public:
     QXT_DECLARE_PUBLIC(QxtConfigDialog);
 
     void init(QxtConfigDialog::IconPosition position = QxtConfigDialog::West);
-    void initList();
+    void initTable();
     void relayout();
+    QTableWidgetItem* item(int index) const;
 
-    QGridLayout* grid;
+    QSplitter* splitter;
     QStackedWidget* stack;
-    QxtConfigListWidget* list;
 #if QT_VERSION >= 0x040200
     QDialogButtonBox* buttons;
 #else // QT_VERSION >= 0x040200
     QWidget* buttons;
 #endif // QT_VERSION
+    QxtConfigTableWidget* table;
     QxtConfigDialog::IconPosition pos;
+
+public slots:
+    void setCurrentIndex(int row, int column);
 };
 
 #endif // QXTCONFIGDIALOG_P_H
