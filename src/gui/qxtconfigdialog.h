@@ -28,7 +28,7 @@
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
-class QListWidget;
+class QTableWidget;
 class QStackedWidget;
 class QDialogButtonBox;
 class QxtConfigDialogPrivate;
@@ -70,6 +70,7 @@ public:
     int count() const;
     int currentIndex() const;
     QWidget* currentPage() const;
+
     int indexOf(QWidget* page) const;
     QWidget* page(int index) const;
 
@@ -99,7 +100,7 @@ signals:
     void currentIndexChanged(int index);
 
 protected:
-    QListWidget* listWidget() const;
+    QTableWidget* tableWidget() const;
     QStackedWidget* stackedWidget() const;
 };
 

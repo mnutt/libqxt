@@ -30,68 +30,47 @@
 #include <QPushButton>
 #endif // QT_VERSION
 #include <QStackedWidget>
-#include <QGridLayout>
-#include <QListWidget>
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QVBoxLayout>
+#include <QSplitter>
 #include <QPainter>
 
-QxtConfigListWidget::QxtConfigListWidget(QWidget* parent) : QListWidget(parent)
+QxtConfigTableWidget::QxtConfigTableWidget(QWidget* parent) : QTableWidget(parent)
 {
     setItemDelegate(new QxtConfigDelegate(this));
     viewport()->setAttribute(Qt::WA_Hover, true);
 }
 
-void QxtConfigListWidget::invalidate()
+QStyleOptionViewItem QxtConfigTableWidget::viewOptions() const
 {
-    hint = QSize();
-    updateGeometry();
+    QStyleOptionViewItem option = QTableWidget::viewOptions();
+    option.displayAlignment = Qt::AlignHCenter | Qt::AlignTop;
+    option.decorationAlignment = Qt::AlignTop | Qt::AlignHCenter;
+    option.decorationPosition = QStyleOptionViewItem::Top;
+    option.showDecorationSelected = true;
+    return option;
 }
 
-QSize QxtConfigListWidget::minimumSizeHint() const
+QSize QxtConfigTableWidget::sizeHint() const
 {
-    return sizeHint();
+    return QSize(sizeHintForColumn(0), sizeHintForRow(0));
 }
 
-QSize QxtConfigListWidget::sizeHint() const
-{
-    if (!hint.isValid())
-    {
-        const QStyleOptionViewItem options = viewOptions();
-        const bool vertical = (flow() == QListView::TopToBottom);
-        for (int i = 0; i < count(); ++i)
-        {
-            const QSize size = itemDelegate()->sizeHint(options, model()->index(i, 0));
-            if (i != 0)
-                hint = hint.expandedTo(size);
-            if (vertical)
-                hint += QSize(0, size.height());
-            else
-                hint += QSize(size.width(), 0);
-        }
-        hint += QSize(2 * frameWidth(), 2 * frameWidth());
-    }
-    return hint;
-}
-
-bool QxtConfigListWidget::hasHoverEffect() const
+bool QxtConfigTableWidget::hasHoverEffect() const
 {
     return static_cast<QxtConfigDelegate*>(itemDelegate())->hover;
 }
 
-void QxtConfigListWidget::setHoverEffect(bool enabled)
+void QxtConfigTableWidget::setHoverEffect(bool enabled)
 {
     static_cast<QxtConfigDelegate*>(itemDelegate())->hover = enabled;
 }
 
-void QxtConfigListWidget::scrollContentsBy(int dx, int dy)
-{
-    // prevent scrolling
-    Q_UNUSED(dx);
-    Q_UNUSED(dy);
-}
-
 QxtConfigDelegate::QxtConfigDelegate(QObject* parent)
         : QItemDelegate(parent), hover(true)
-{}
+{
+}
 
 void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
@@ -103,31 +82,45 @@ void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
             cg = QPalette::Inactive;
 
         if (option.state & QStyle::State_Selected)
-        {
-            painter->fillRect(option.rect, option.palette.brush(cg, QPalette::Highlight));
-        }
+            painter->fillRect(opt.rect, option.palette.brush(cg, QPalette::Highlight));
         else if ((option.state & QStyle::State_MouseOver) && (option.state & QStyle::State_Enabled))
         {
             QColor color = option.palette.color(cg, QPalette::Highlight).light();
             if (color == option.palette.color(cg, QPalette::Base))
                 color = option.palette.color(cg, QPalette::AlternateBase);
-            painter->fillRect(option.rect, color);
+            painter->fillRect(opt.rect, color);
         }
+        else
+            painter->fillRect(opt.rect, option.palette.brush(cg, QPalette::Base));
 
         opt.showDecorationSelected = false;
         opt.state &= ~QStyle::State_HasFocus;
+        opt.state &= ~QStyle::State_Selected;
     }
     QItemDelegate::paint(painter, opt, index);
 }
 
+/*
+QSize QxtConfigDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index ) const
+{
+    QSize ds = option.decorationSize;
+    int totalwidth = option.fontMetrics.width(index.data(Qt::DisplayRole).toString());
+    QSize ts;
+    //         if(totalwidth>option.rect.width())
+    //             ts = QSize(totalwidth/2, 2*option.fontMetrics.height());
+    //         else
+    ts = QSize(totalwidth, option.fontMetrics.height());
+    return QSize(qBound(ds.width(), ts.width(), option.rect.width()), ds.height()+6+ts.height());
+}*/
+
 void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
 {
     QxtConfigDialog* p = &qxt_p();
-    grid = new QGridLayout(p);
-    list = new QxtConfigListWidget(p);
+    splitter = new QSplitter(p);
     stack = new QStackedWidget(p);
+    table = new QxtConfigTableWidget(p);
     pos = position;
-    QObject::connect(list, SIGNAL(currentRowChanged(int)), stack, SLOT(setCurrentIndex(int)));
+    QObject::connect(table, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(setCurrentIndex(int, int)));
     QObject::connect(stack, SIGNAL(currentChanged(int)), p, SIGNAL(currentIndexChanged(int)));
 
 #if QT_VERSION >= 0x040200
@@ -145,39 +138,51 @@ void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
     layout->addWidget(okButton);
     layout->addWidget(cancelButton);
 #endif
-
-    initList();
+    QVBoxLayout* layout = new QVBoxLayout(p);
+    layout->addWidget(splitter);
+    layout->addWidget(buttons);
+    initTable();
     relayout();
 }
 
-void QxtConfigDialogPrivate::initList()
+void QxtConfigDialogPrivate::initTable()
 {
-    // no scroll bars
-    list->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    list->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    // prevent editing
-    list->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    // convenient navigation
-    list->setTabKeyNavigation(true);
-    // no dnd
-    list->setAcceptDrops(false);
-    list->setDragEnabled(false);
-    // list fine tuning
-    list->setMovement(QListView::Static);
-    list->setWrapping(false);
-    list->setResizeMode(QListView::Fixed);
-    list->setViewMode(QListView::IconMode);
-    // list->setWordWrap(false); 4.2
-    // list->setSortingEnabled(false); 4.2
+    table->horizontalHeader()->hide();
+    table->verticalHeader()->hide();
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setTabKeyNavigation(true);
+    table->setAcceptDrops(false);
+    table->setDragEnabled(false);
+    table->setShowGrid(false);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 void QxtConfigDialogPrivate::relayout()
 {
-    // freeze
-    grid->setEnabled(false);
+    if (pos == QxtConfigDialog::North)
+    {
+        splitter->setOrientation(Qt::Vertical);
+        table->setRowCount(1);
+        table->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+        table->verticalHeader()->setResizeMode(QHeaderView::Stretch);
+        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    }
+    else
+    {
+        splitter->setOrientation(Qt::Horizontal);
+        table->setColumnCount(1);
+        table->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+        table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        table->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    }
 
     // clear
-    while (grid->takeAt(0));
+    for (int i = splitter->count() - 1; i >= 0; --i)
+    {
+        splitter->widget(i)->setParent(0);
+    }
 
     // relayout
     switch (pos)
@@ -190,9 +195,8 @@ void QxtConfigDialogPrivate::relayout()
         // +-----------|
         // |  Buttons  |
         // +-----------+
-        grid->addWidget(list, 0, 0);
-        grid->addWidget(stack, 1, 0);
-        grid->addWidget(buttons, 3, 0);
+        splitter->addWidget(table);
+        splitter->addWidget(stack);
         break;
 
     case QxtConfigDialog::West:
@@ -205,9 +209,8 @@ void QxtConfigDialogPrivate::relayout()
         // +---+-------+
         // |  Buttons  |
         // +-----------+
-        grid->addWidget(list, 0, 0);
-        grid->addWidget(stack, 0, 1);
-        grid->addWidget(buttons, 2, 0, 1, 2);
+        splitter->addWidget(table);
+        splitter->addWidget(stack);
         break;
 
     case QxtConfigDialog::East:
@@ -220,30 +223,27 @@ void QxtConfigDialogPrivate::relayout()
         // +-------+---+
         // |  Buttons  |
         // +-----------+
-        grid->addWidget(stack, 0, 0);
-        grid->addWidget(list, 0, 1);
-        grid->addWidget(buttons, 2, 0, 1, 2);
+        splitter->addWidget(stack);
+        splitter->addWidget(table);
         break;
 
     default:
         qWarning("QxtConfigDialogPrivate::relayout(): unknown position");
         break;
     }
+}
 
+QTableWidgetItem* QxtConfigDialogPrivate::item(int index) const
+{
+    return pos == QxtConfigDialog::North ? table->item(0, index) : table->item(index, 0);
+}
+
+void QxtConfigDialogPrivate::setCurrentIndex(int row, int column)
+{
     if (pos == QxtConfigDialog::North)
-    {
-        list->setFlow(QListView::LeftToRight);
-        list->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-    }
+        stack->setCurrentIndex(column);
     else
-    {
-        list->setFlow(QListView::TopToBottom);
-        list->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-    }
-    list->invalidate();
-
-    // defrost
-    grid->setEnabled(true);
+        stack->setCurrentIndex(row);
 }
 
 /*!
@@ -377,12 +377,12 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
  */
 bool QxtConfigDialog::hasHoverEffect() const
 {
-    return qxt_d().list->hasHoverEffect();
+    return qxt_d().table->hasHoverEffect();
 }
 
 void QxtConfigDialog::setHoverEffect(bool enabled)
 {
-    qxt_d().list->setHoverEffect(enabled);
+    qxt_d().table->setHoverEffect(enabled);
 }
 
 /*!
@@ -409,12 +409,12 @@ void QxtConfigDialog::setIconPosition(QxtConfigDialog::IconPosition position)
  */
 QSize QxtConfigDialog::iconSize() const
 {
-    return qxt_d().list->iconSize();
+    return qxt_d().table->iconSize();
 }
 
 void QxtConfigDialog::setIconSize(const QSize& size)
 {
-    qxt_d().list->setIconSize(size);
+    qxt_d().table->setIconSize(size);
 }
 
 /*!
@@ -456,9 +456,21 @@ int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, con
     const QString label = !title.isEmpty() ? title : page->windowTitle();
     if (label.isEmpty())
         qWarning("QxtConfigDialog::insertPage(): Inserting a page with an empty title");
-    QListWidgetItem* item = new QListWidgetItem(icon, label);
-    qxt_d().list->insertItem(index, item);
-    qxt_d().list->invalidate();
+    QTableWidgetItem* item = new QTableWidgetItem(icon, label);
+    item->setToolTip(label);
+    if (qxt_d().pos == QxtConfigDialog::North)
+    {
+        qxt_d().table->model()->insertColumn(index);
+        qxt_d().table->setItem(0, index, item);
+        qxt_d().table->resizeRowToContents(0);
+    }
+    else
+    {
+        qxt_d().table->model()->insertRow(index);
+        qxt_d().table->setItem(index, 0, item);
+        qxt_d().table->resizeColumnToContents(0);
+    }
+    qxt_d().table->updateGeometry();
     return index;
 }
 
@@ -472,8 +484,7 @@ void QxtConfigDialog::removePage(int index)
     if (QWidget* page = qxt_d().stack->widget(index))
     {
         qxt_d().stack->removeWidget(page);
-        delete qxt_d().list->takeItem(index);
-        qxt_d().list->invalidate();
+        delete qxt_d().item(index);
     }
     else
     {
@@ -501,8 +512,8 @@ int QxtConfigDialog::currentIndex() const
 
 void QxtConfigDialog::setCurrentIndex(int index)
 {
-    qxt_d().list->setCurrentRow(index);
     qxt_d().stack->setCurrentIndex(index);
+    qxt_d().table->setCurrentItem(qxt_d().item(index));
 }
 
 /*!
@@ -548,8 +559,8 @@ QWidget* QxtConfigDialog::page(int index) const
 */
 bool QxtConfigDialog::isPageEnabled(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
-    return (item && (item->flags() & Qt::ItemIsEnabled));
+    const QWidget* widget = page(index);
+    return widget && widget->isEnabled();
 }
 
 /*!
@@ -561,7 +572,7 @@ bool QxtConfigDialog::isPageEnabled(int index) const
 void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 {
     QWidget* page = qxt_d().stack->widget(index);
-    QListWidgetItem* item = qxt_d().list->item(index);
+    QTableWidgetItem* item = qxt_d().item(index);
     if (page && item)
     {
         page->setEnabled(enabled);
@@ -583,12 +594,9 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 */
 bool QxtConfigDialog::isPageHidden(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
-#if QT_VERSION >= 0x040200
-    return (item && item->isHidden());
-#else // QT_VERSION
-    return (item && qxt_d().list->isItemHidden(item));
-#endif // QT_VERSION
+    if (qxt_d().pos == QxtConfigDialog::North)
+        return qxt_d().table->isColumnHidden(index);
+    return qxt_d().table->isRowHidden(index);
 }
 
 /*!
@@ -599,19 +607,10 @@ bool QxtConfigDialog::isPageHidden(int index) const
 */
 void QxtConfigDialog::setPageHidden(int index, bool hidden)
 {
-    QListWidgetItem* item = qxt_d().list->item(index);
-    if (item)
-    {
-#if QT_VERSION >= 0x040200
-        item->setHidden(hidden);
-#else
-        qxt_d().list->setItemHidden(item, hidden);
-#endif // QT_VERSION
-    }
+    if (qxt_d().pos == QxtConfigDialog::North)
+        qxt_d().table->setColumnHidden(index, hidden);
     else
-    {
-        qWarning("QxtConfigDialog::setPageHidden(): Unknown index");
-    }
+        qxt_d().table->setRowHidden(index, hidden);
 }
 
 /*!
@@ -621,7 +620,7 @@ void QxtConfigDialog::setPageHidden(int index, bool hidden)
 */
 QIcon QxtConfigDialog::pageIcon(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
+    const QTableWidgetItem* item = qxt_d().item(index);
     return (item ? item->icon() : QIcon());
 }
 
@@ -632,7 +631,7 @@ QIcon QxtConfigDialog::pageIcon(int index) const
 */
 void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 {
-    QListWidgetItem* item = qxt_d().list->item(index);
+    QTableWidgetItem* item = qxt_d().item(index);
     if (item)
     {
         item->setIcon(icon);
@@ -650,7 +649,7 @@ void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 */
 QString QxtConfigDialog::pageTitle(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
+    const QTableWidgetItem* item = qxt_d().item(index);
     return (item ? item->text() : QString());
 }
 
@@ -661,7 +660,7 @@ QString QxtConfigDialog::pageTitle(int index) const
 */
 void QxtConfigDialog::setPageTitle(int index, const QString& title)
 {
-    QListWidgetItem* item = qxt_d().list->item(index);
+    QTableWidgetItem* item = qxt_d().item(index);
     if (item)
     {
         item->setText(title);
@@ -679,7 +678,7 @@ void QxtConfigDialog::setPageTitle(int index, const QString& title)
 */
 QString QxtConfigDialog::pageToolTip(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
+    const QTableWidgetItem* item = qxt_d().item(index);
     return (item ? item->toolTip() : QString());
 }
 
@@ -690,7 +689,7 @@ QString QxtConfigDialog::pageToolTip(int index) const
 */
 void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 {
-    QListWidgetItem* item = qxt_d().list->item(index);
+    QTableWidgetItem* item = qxt_d().item(index);
     if (item)
     {
         item->setToolTip(tooltip);
@@ -708,7 +707,7 @@ void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 */
 QString QxtConfigDialog::pageWhatsThis(int index) const
 {
-    const QListWidgetItem* item = qxt_d().list->item(index);
+    const QTableWidgetItem* item = qxt_d().item(index);
     return (item ? item->whatsThis() : QString());
 }
 
@@ -719,7 +718,7 @@ QString QxtConfigDialog::pageWhatsThis(int index) const
 */
 void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 {
-    QListWidgetItem* item = qxt_d().list->item(index);
+    QTableWidgetItem* item = qxt_d().item(index);
     if (item)
     {
         item->setWhatsThis(whatsthis);
@@ -731,19 +730,19 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 }
 
 /*!
-    \return The internal list widget used for showing page icons.
+    \return The internal table widget used for showing page icons.
 
     \sa stackedWidget()
 */
-QListWidget* QxtConfigDialog::listWidget() const
+QTableWidget* QxtConfigDialog::tableWidget() const
 {
-    return qxt_d().list;
+    return qxt_d().table;
 }
 
 /*!
     \return The internal stacked widget used for stacking pages.
 
-    \sa listWidget()
+    \sa tableWidget()
 */
 QStackedWidget* QxtConfigDialog::stackedWidget() const
 {
