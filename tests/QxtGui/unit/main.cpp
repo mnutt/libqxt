@@ -14,7 +14,7 @@ private slots:
 
 	void testQxtConfigDialog();
 	void testQxtConfirmationMessage();
-	void testQxtDesktopWidget();
+	void testQxtWindowSystem();
 	void testQxtDockWidget();
 	void testQxtGroupBox();
 	void testQxtItemDelegate();
@@ -131,16 +131,16 @@ void TestQxtGui::testQxtConfirmationMessage()
 	// See: test/app
 }
 
-void TestQxtGui::testQxtDesktopWidget()
+void TestQxtGui::testQxtWindowSystem()
 {
 	// See: demos/qxtsnapshot
-	WId activeId = QxtDesktopWidget::activeWindow();
-	QString activeTitle = QxtDesktopWidget::windowTitle(activeId);
-	WId foundId = QxtDesktopWidget::findWindow(activeTitle);
-	QString foundTitle = QxtDesktopWidget::windowTitle(foundId);
-	QRect activeRect = QxtDesktopWidget::windowGeometry(activeId);
-	WId atId = QxtDesktopWidget::windowAt(activeRect.center());
-	QString atTitle = QxtDesktopWidget::windowTitle(atId);
+	WId activeId = QxtWindowSystem::activeWindow();
+	QString activeTitle = QxtWindowSystem::windowTitle(activeId);
+	WId foundId = QxtWindowSystem::findWindow(activeTitle);
+	QString foundTitle = QxtWindowSystem::windowTitle(foundId);
+	QRect activeRect = QxtWindowSystem::windowGeometry(activeId);
+	WId atId = QxtWindowSystem::windowAt(activeRect.center());
+	QString atTitle = QxtWindowSystem::windowTitle(atId);
 	QVERIFY(activeId == foundId);
 	QVERIFY(foundId == atId);
 	QVERIFY(activeTitle == foundTitle);
