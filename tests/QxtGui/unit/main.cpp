@@ -62,9 +62,6 @@ void TestQxtGui::testQxtCheckComboBox_data()
 	QTestEventList close1;
 	close1.addKeyClick(Qt::Key_Escape); // close
 	
-	QTestEventList close2;
-	close2.addKeyClick(Qt::Key_Return); // close
-
 	QTestEventList select0;
 	QStringList result0;
 
@@ -82,9 +79,9 @@ void TestQxtGui::testQxtCheckComboBox_data()
 	select2.addKeyClick(Qt::Key_Space); // select second
 	QStringList result2 = QStringList() << "2";
 	
-	QTest::newRow("-")   << popup1 << select0 << close2 << result0;
+	QTest::newRow("-")   << popup1 << select0 << close1 << result0;
 	QTest::newRow("1,3") << popup1 << select1 << close1 << result1;
-	QTest::newRow("2")   << popup2 << select2 << close2 << result2;
+	QTest::newRow("2")   << popup2 << select2 << close1 << result2;
 }
 
 void TestQxtGui::testQxtCheckComboBox()
