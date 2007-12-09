@@ -1,16 +1,1 @@
-#include "qxthtmltemplate.h"
-
-#include "qxtmail.h"
-
-#include "qxtsendmail.h"
-
-#include "qxtwebcontroller.h"
-
-#include "qxtwebcore.h"
-
-#include "qxtwebfcgiconnector.h"
-
-#include "qxtwebhttpconnector.h"
-
-#include "qxtwebscgiconnector.h"
-
+#include "qxtweb.h"
