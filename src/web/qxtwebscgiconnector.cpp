@@ -121,13 +121,16 @@ void QxtWebScgiConnection::readyreadslot()
 
         if(expectedheaderBytes)
         {
-            char a[expectedheaderBytes];
-            int rec=m_socket->read(a,expectedheaderBytes-headerBytesReceived);
-            bbuf+=QByteArray(a,rec);
+            QByteArray a; 
+            a.resize(expectedheaderBytes);
+            int rec=m_socket->read(a.data(),expectedheaderBytes-headerBytesReceived);
+            a.resize(rec);
+            bbuf+=a;
             headerBytesReceived+=rec;
             if(headerBytesReceived==expectedheaderBytes)
             {
-                m_socket->read(a,3); ///read the tailing comma 
+                char nowhere [4];
+                m_socket->read(nowhere,3); ///read the tailing comma 
 
                 int i=0;
                 QByteArray name="";
