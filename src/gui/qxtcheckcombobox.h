@@ -62,11 +62,7 @@ signals:
 
 #ifndef QXT_DOXYGEN_RUN
 public:
-    void hidePopup() {}
-
-protected:
-    void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
+    void hidePopup() { }
 #endif // QXT_DOXYGEN_RUN
 };
 

@@ -31,6 +31,31 @@ QxtCheckComboBoxPrivate::QxtCheckComboBoxPrivate()
     separator = QLatin1String(",");
 }
 
+bool QxtCheckComboBoxPrivate::eventFilter(QObject* receiver, QEvent* event)
+{
+    switch (event->type())
+    {
+        case QEvent::KeyPress:
+        case QEvent::KeyRelease:
+        {
+            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+            if (receiver == &qxt_p() && (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down))
+            {
+                qxt_p().showPopup();
+                return true;
+            }
+            else if (keyEvent->key() == Qt::Key_Escape)
+            {
+                // it is important to call QComboBox implementation
+                qxt_p().QComboBox::hidePopup();
+            }
+            return false;
+        }
+        default:
+            return false;
+    }
+}
+
 void QxtCheckComboBoxPrivate::updateCheckedItems()
 {
     QStringList items = qxt_p().checkedItems();
@@ -134,6 +159,10 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
     QLineEdit* lineEdit = new QLineEdit(this);
     lineEdit->setReadOnly(true);
     setLineEdit(lineEdit);
+
+    view()->installEventFilter(&qxt_d());
+    view()->viewport()->installEventFilter(&qxt_d());
+    this->installEventFilter(&qxt_d());
 }
 
 /*!
@@ -226,29 +255,5 @@ void QxtCheckComboBox::setSeparator(const QString& separator)
     {
         qxt_d().separator = separator;
         qxt_d().updateCheckedItems();
-    }
-}
-
-void QxtCheckComboBox::keyPressEvent(QKeyEvent* event)
-{
-    if (event->key() == Qt::Key_Up || event->key() == Qt::Key_Down)
-    {
-        showPopup();
-    }
-    else
-    {
-        QComboBox::keyPressEvent(event);
-    }
-}
-
-void QxtCheckComboBox::keyReleaseEvent(QKeyEvent* event)
-{
-    if (event->key() == Qt::Key_Up || event->key() == Qt::Key_Down)
-    {
-        showPopup();
-    }
-    else
-    {
-        QComboBox::keyPressEvent(event);
     }
 }
