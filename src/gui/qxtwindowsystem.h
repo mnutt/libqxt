@@ -21,15 +21,15 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTDESKTOPWIDGET_H
-#define QXTDESKTOPWIDGET_H
+#ifndef QXTWINDOWSYSTEM_H
+#define QXTWINDOWSYSTEM_H
 
 #include <QWidget>
 #include "qxtglobal.h"
 
 typedef QList<WId> WindowList;
 
-class QXT_GUI_EXPORT QxtDesktopWidget
+class QXT_GUI_EXPORT QxtWindowSystem
 {
 public:
     static WindowList windows();
@@ -41,4 +41,4 @@ public:
     static QRect windowGeometry(WId window);
 };
 
-#endif // QXTDESKTOPWIDGET_H
+#endif // QXTWINDOWSYSTEM_H

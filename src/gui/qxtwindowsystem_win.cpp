@@ -21,7 +21,7 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtdesktopwidget.h"
+#include "qxtwindowsystem.h"
 #include <qt_windows.h>
 
 static WindowList qxt_Windows;
@@ -34,7 +34,7 @@ BOOL CALLBACK qxt_EnumWindowsProc(HWND hwnd, LPARAM lParam)
     return TRUE;
 }
 
-WindowList QxtDesktopWidget::windows()
+WindowList QxtWindowSystem::windows()
 {
     qxt_Windows.clear();
     HDESK hdesk = ::OpenInputDesktop(0, FALSE, DESKTOP_READOBJECTS);
@@ -43,18 +43,18 @@ WindowList QxtDesktopWidget::windows()
     return qxt_Windows;
 }
 
-WId QxtDesktopWidget::activeWindow()
+WId QxtWindowSystem::activeWindow()
 {
     return ::GetForegroundWindow();
 }
 
-WId QxtDesktopWidget::findWindow(const QString& title)
+WId QxtWindowSystem::findWindow(const QString& title)
 {
     std::wstring str = title.toStdWString();
     return ::FindWindow(NULL, str.c_str());
 }
 
-WId QxtDesktopWidget::windowAt(const QPoint& pos)
+WId QxtWindowSystem::windowAt(const QPoint& pos)
 {
     POINT pt;
     pt.x = pos.x();
@@ -62,7 +62,7 @@ WId QxtDesktopWidget::windowAt(const QPoint& pos)
     return ::WindowFromPoint(pt);
 }
 
-QString QxtDesktopWidget::windowTitle(WId window)
+QString QxtWindowSystem::windowTitle(WId window)
 {
     QString title;
     int len = ::GetWindowTextLength(window);
@@ -76,7 +76,7 @@ QString QxtDesktopWidget::windowTitle(WId window)
     return title;
 }
 
-QRect QxtDesktopWidget::windowGeometry(WId window)
+QRect QxtWindowSystem::windowGeometry(WId window)
 {
     RECT rc;
     QRect rect;

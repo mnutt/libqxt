@@ -21,7 +21,7 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtdesktopwidget.h"
+#include "qxtwindowsystem.h"
 #include <QX11Info>
 #include <X11/Xutil.h>
 
@@ -45,7 +45,7 @@ static QRect qxt_getWindowRect(Window wid)
     return rect;
 }
 
-WindowList QxtDesktopWidget::windows()
+WindowList QxtWindowSystem::windows()
 {
     static Atom net_clients = 0;
     if (!net_clients)
@@ -62,7 +62,7 @@ WindowList QxtDesktopWidget::windows()
     return res;
 }
 
-WId QxtDesktopWidget::activeWindow()
+WId QxtWindowSystem::activeWindow()
 {
     Window focus;
     int revert = 0;
@@ -71,7 +71,7 @@ WId QxtDesktopWidget::activeWindow()
     return focus;
 }
 
-WId QxtDesktopWidget::findWindow(const QString& title)
+WId QxtWindowSystem::findWindow(const QString& title)
 {
     Window result = 0;
     WindowList list = windows();
@@ -86,7 +86,7 @@ WId QxtDesktopWidget::findWindow(const QString& title)
     return result;
 }
 
-WId QxtDesktopWidget::windowAt(const QPoint& pos)
+WId QxtWindowSystem::windowAt(const QPoint& pos)
 {
     Window result = 0;
     WindowList list = windows();
@@ -102,7 +102,7 @@ WId QxtDesktopWidget::windowAt(const QPoint& pos)
     return result;
 }
 
-QString QxtDesktopWidget::windowTitle(WId window)
+QString QxtWindowSystem::windowTitle(WId window)
 {
     QString name;
     char* str = 0;
@@ -114,7 +114,7 @@ QString QxtDesktopWidget::windowTitle(WId window)
     return name;
 }
 
-QRect QxtDesktopWidget::windowGeometry(WId window)
+QRect QxtWindowSystem::windowGeometry(WId window)
 {
     QRect rect = qxt_getWindowRect(window);
 

@@ -21,7 +21,6 @@ HEADERS += qxtapplication.h \
            qxtconfigdialog.h \
            qxtconfigdialog_p.h \
            qxtconfirmationmessage.h \
-           qxtdesktopwidget.h \
            qxtdockwidget.h \
            qxtgui.h \
            qxtgroupbox.h \
@@ -40,6 +39,8 @@ HEADERS += qxtapplication.h \
            qxtspanslider_p.h \
            qxtstars.h \
            qxtstringspinbox.h \
+           qxtstringvalidator.h\
+           qxtstringvalidator_p.h \
            qxttablewidget.h \
            qxttablewidget_p.h \
            qxttablewidgetitem.h \
@@ -48,15 +49,13 @@ HEADERS += qxtapplication.h \
            qxttooltip_p.h \
            qxttreewidget.h \
            qxttreewidget_p.h \
-           qxttreewidgetitem.h\
-           qxtstringvalidator.h\
-           qxtstringvalidator_p.h
+           qxttreewidgetitem.h \
+           qxtwindowsystem.h
 
 SOURCES += qxtapplication.cpp \
            qxtcheckcombobox.cpp \
            qxtconfigdialog.cpp \
            qxtconfirmationmessage.cpp \
-           qxtdesktopwidget.cpp \
            qxtdockwidget.cpp \
            qxtgroupbox.cpp \
            qxtheaderview.cpp \
@@ -70,18 +69,19 @@ SOURCES += qxtapplication.cpp \
            qxtspanslider.cpp \
            qxtstars.cpp \
            qxtstringspinbox.cpp \
+           qxtstringvalidator.cpp \
            qxttablewidget.cpp \
            qxttablewidgetitem.cpp \
            qxttabwidget.cpp \
            qxttooltip.cpp \
            qxttreewidget.cpp \
-           qxttreewidgetitem.cpp\
-           qxtstringvalidator.cpp
+           qxttreewidgetitem.cpp \
+           qxtwindowsystem.cpp
 
-unix:!macx:  SOURCES += qxtdesktopwidget_x11.cpp   qxtapplication_x11.cpp
+unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp
 macx {
        SOURCES += qxtapplication_mac.cpp
-       SOURCES -= qxtdesktopwidget.cpp
-       HEADERS -= qxtdesktopwidget.h
+       SOURCES -= qxtwindowsystem.cpp
+       HEADERS -= qxtwindowsystem.h
 }
-win32: SOURCES += qxtdesktopwidget_win.cpp   qxtapplication_win.cpp
+win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp
