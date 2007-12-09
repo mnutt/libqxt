@@ -51,6 +51,7 @@ class QxtCheckComboBoxPrivate : public QObject, public QxtPrivate<QxtCheckComboB
 public:
     QXT_DECLARE_PUBLIC(QxtCheckComboBox);
     QxtCheckComboBoxPrivate();
+    bool eventFilter(QObject* receiver, QEvent* event);
     QString separator;
     QString defaultText;
 
