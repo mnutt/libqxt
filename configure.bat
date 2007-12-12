@@ -142,7 +142,7 @@ goto top
     echo -release ............ Build Qxt without debugging support
     echo -no-openssl ......... Do not link to OpenSSL
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: network gui sql media web designer
+    echo                       options: core crypto designer gui network sql web
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %PROJECT_ROOT%\config.in

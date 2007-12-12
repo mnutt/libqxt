@@ -1,5 +1,8 @@
-TARGET          =  QxtNetwork
-DESTDIR         =  ../../deploy/libs 
+include(../../features/qxtfunctions.prf)
+TEMPLATE         = lib
+CLEAN_TARGET     = QxtNetwork
+TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
+DESTDIR          = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_NETWORK
@@ -7,17 +10,15 @@ win32: CONFIG   += dll
 QT               = core network
 QXT              = core
 INCLUDEPATH     += .
-TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
-CONFIG += qxtbuild  convenience
+CONVENIENCE     += $$CLEAN_TARGET
+CONFIG          += qxtbuild
 include(../../config.pri)
 
-
-
-HEADERS +=  qxtrpcpeer.h
-SOURCES += qxtrpcpeer.cpp
-
-
+HEADERS  += qxtnetwork.h
 #HEADERS += qxtnamedpipe.h
+HEADERS  += qxtrpcpeer.h
+           
 #SOURCES += qxtnamedpipe.cpp
+SOURCES  += qxtrpcpeer.cpp

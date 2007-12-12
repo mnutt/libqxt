@@ -1,13 +1,13 @@
-VERSION      = 0.3
-incs.path    = $${include.path}/$$TARGET/
+!win32:VERSION = 0.3
+incs.path      = $${include.path}/$${CLEAN_TARGET}/
 
-contains(CONFIG,convenience){
+contains(CONVENIENCE, $${CLEAN_TARGET}){
     for(header,HEADERS){
         incs.files += $$header
     }
+    incs.files += ../../deploy/include/$${CLEAN_TARGET}/*
 }
 
-incs.files += ../../deploy/include/$${TARGET}/*
 LIBS += -L../../deploy/libs/
 
 INSTALLS = target incs

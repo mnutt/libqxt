@@ -9,15 +9,7 @@ win32:include(features/win32/qxtbuild.prf)
 macx:include(features/macx/qxtbuild.prf)
 
 TEMPLATE = subdirs
-DESTDIR      = deploy/libs
-
-
-docs.files = deploy/docs/*
-#docs.commands = assistant -addContentFile $${docs.path}/index.dcf
-
-
-includes.path = $${include.path}/
-includes.files= deploy/include/*
+DESTDIR  = deploy/libs
 
 #write the paths to prf file
 unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
@@ -25,18 +17,21 @@ unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; e
 #windows supports similar syntax
 win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${lib.path} & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
 
+docs.files = deploy/docs/*
+#docs.commands = assistant -addContentFile $${docs.path}/index.dcf
+!win32: docs.commands = tools/doqsy/doqsy
+win32:  docs.commands = tools\doqsy\doqsy
+
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf	
 
-INSTALLS = docs includes features 
-
-docs.commands = tools/doqsy/doqsy
+INSTALLS = docs features
 
 SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs
 
 contains( QXT_BUILD, core ){
-    message( building the core )
+    message( building core module )
     SUBDIRS += src/core	
 }
 

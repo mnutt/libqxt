@@ -1,59 +1,47 @@
-TARGET          =  QxtDesignerPlugins
+include(../../features/qxtfunctions.prf)
+TEMPLATE         = lib
+CLEAN_TARGET     = QxtDesignerPlugins
+TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../gui
 win32: CONFIG   += dll
 QT               = core gui
 QXT              = core gui
 INCLUDEPATH     += .
-TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 CONFIG          += designer plugin qxtbuild
 include(../../config.pri)
 
-
 target.path = $$[QT_INSTALL_PLUGINS]/designer
-INSTALLS+=target
+INSTALLS += target
 
+HEADERS  += qxtcheckcomboboxplugin.h
+HEADERS  += qxtdesignerplugin.h
+HEADERS  += qxtdesignerplugins.h
+HEADERS  += qxtgroupboxplugin.h
+HEADERS  += qxtlabelplugin.h
+HEADERS  += qxtlistwidgetplugin.h
+HEADERS  += qxtprogresslabelplugin.h
+HEADERS  += qxtpushbuttonplugin.h
+HEADERS  += qxtspansliderplugin.h
+HEADERS  += qxtstarsplugin.h
+HEADERS  += qxtstringspinboxplugin.h
+HEADERS  += qxttablewidgetplugin.h
+HEADERS  += qxttreewidgetplugin.h
 
-HEADERS += qxtcheckcomboboxplugin.h \
-           qxtdesignerplugin.h \
-           qxtdesignerplugins.h \
-           qxtgroupboxplugin.h \
-           qxtlabelplugin.h \
-           qxtlistwidgetplugin.h \
-           qxtprogresslabelplugin.h \
-           qxtpushbuttonplugin.h \
-           qxtspansliderplugin.h \
-           qxtstarsplugin.h \
-           qxtstringspinboxplugin.h \
-           qxttablewidgetplugin.h \
-           qxttreewidgetplugin.h
-
-SOURCES += qxtcheckcomboboxplugin.cpp \
-           qxtdesignerplugin.cpp \
-           qxtdesignerplugins.cpp \
-           qxtgroupboxplugin.cpp \
-           qxtlabelplugin.cpp \
-           qxtlistwidgetplugin.cpp \
-           qxtprogresslabelplugin.cpp \
-           qxtpushbuttonplugin.cpp \
-           qxtspansliderplugin.cpp \
-           qxtstarsplugin.cpp \
-           qxtstringspinboxplugin.cpp \
-           qxttablewidgetplugin.cpp \
-           qxttreewidgetplugin.cpp
+SOURCES  += qxtcheckcomboboxplugin.cpp
+SOURCES  += qxtdesignerplugin.cpp
+SOURCES  += qxtdesignerplugins.cpp
+SOURCES  += qxtgroupboxplugin.cpp
+SOURCES  += qxtlabelplugin.cpp
+SOURCES  += qxtlistwidgetplugin.cpp
+SOURCES  += qxtprogresslabelplugin.cpp
+SOURCES  += qxtpushbuttonplugin.cpp
+SOURCES  += qxtspansliderplugin.cpp
+SOURCES  += qxtstarsplugin.cpp
+SOURCES  += qxtstringspinboxplugin.cpp
+SOURCES  += qxttablewidgetplugin.cpp
+SOURCES  += qxttreewidgetplugin.cpp
 
 RESOURCES += resources.qrc
-
-
-CONFIG(debug, debug|release) {
-        unix:  TARGET = $$join(TARGET,,,.debug)
-        mac:   TARGET = $$join(TARGET,,,_debug)
-        win32: TARGET = $$join(TARGET,,d)
-}
-
-
-
-
-
