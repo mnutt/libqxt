@@ -1,67 +1,70 @@
-TARGET = QxtCore
-DESTDIR = ../../deploy/libs/
-DEPENDPATH += .
-INCLUDEPATH += .
-DEFINES += BUILD_QXT_CORE
-win32: CONFIG += dll
-QT = core
-INCLUDEPATH += .
-TEMPLATE = lib
-MOC_DIR = .moc
-OBJECTS_DIR = .obj
-CONFIG += qxtbuild  convenience
+include(../../features/qxtfunctions.prf)
+TEMPLATE         = lib
+CLEAN_TARGET     = QxtCore
+TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
+DESTDIR          = ../../deploy/libs/
+DEPENDPATH      += .
+INCLUDEPATH     += .
+DEFINES         += BUILD_QXT_CORE
+win32: CONFIG   += dll
+QT               = core
+QXT              =
+INCLUDEPATH     += .
+MOC_DIR          = .moc
+OBJECTS_DIR      = .obj
+CONVENIENCE     += $$CLEAN_TARGET
+CONFIG          += qxtbuild
 include(../../config.pri)
 
+HEADERS  += qxtboundcfunction.h
+HEADERS  += qxtboundfunction.h
+HEADERS  += qxtboundfunctionbase.h
+HEADERS  += qxtcore.h
+HEADERS  += qxtcsvmodel.h
+HEADERS  += qxtdaemon.h
+HEADERS  += qxterror.h
+HEADERS  += qxtfifo.h
+HEADERS  += qxtfilelock.h
+HEADERS  += qxtfilelock_p.h
+HEADERS  += qxtglobal.h
+HEADERS  += qxthypermacros.h
+HEADERS  += qxtjob.h
+HEADERS  += qxtjob_p.h
+HEADERS  += qxtlinesocket.h
+HEADERS  += qxtlinesocket_p.h
+HEADERS  += qxtmetaobject.h
+HEADERS  += qxtmetatype.h
+HEADERS  += qxtnamespace.h
+HEADERS  += qxtnull.h
+HEADERS  += qxtnullable.h
+HEADERS  += qxtpairlist.h
+HEADERS  += qxtpimpl.h
+HEADERS  += qxtpipe.h
+HEADERS  += qxtsemaphore.h
+HEADERS  += qxtsharedprivate.h 
+HEADERS  += qxtsignalwaiter.h
+HEADERS  += qxtslotjob.h
+HEADERS  += qxtslotjob_p.h
+HEADERS  += qxtstdio.h
+HEADERS  += qxtstdstreambufdevice.h
+HEADERS  += qxttuple.h
+HEADERS  += qxttuplelist.h
+HEADERS  += qxttypelist.h
 
-HEADERS += qxtcsvmodel.h \
-           qxterror.h \
-           qxtglobal.h \
-           qxthypermacros.h \
-           qxtmetaobject.h \
-           qxtmetatype.h \
-           qxtnamespace.h \
-           qxtnull.h \
-           qxtnullable.h \
-           qxtpairList.h \
-           qxtpimpl.h \
-           qxtsemaphore.h \
-           qxtsignalwaiter.h \
-           qxttuple.h \
-           qxttuplelist.h \
-           qxttypelist.h \
-           qxtfifo.h \
-           qxtstdio.h \
-           qxtfilelock_p.h\
-           qxtfilelock.h\
-           qxtboundfunction.h \
-           qxtboundfunctionbase.h \
-           qxtboundcfunction.h \
-           qxtstdstreambufdevice.h \
-           qxtjob.h \
-           qxtjob_p.h \
-           qxtslotjob.h \
-           qxtslotjob_p.h \
-           qxtpipe.h \
-           qxtdaemon.h \
-           qxtlinesocket_p.h \
-           qxtlinesocket.h \
-           qxtsharedprivate.h 
-
-SOURCES += qxtcsvmodel.cpp \
-           qxterror.cpp \
-           qxtmetaobject.cpp \
-           qxtsemaphore.cpp \
-           qxtsignalwaiter.cpp \
-           qxtfifo.cpp \
-           qxtstdio.cpp\
-           qxtfilelock.cpp \
-           qxtnull.cpp \
-           qxtstdstreambufdevice.cpp \
-           qxtjob.cpp \
-           qxtslotjob.cpp \
-           qxtpipe.cpp \
-           qxtdaemon.cpp \
-           qxtlinesocket.cpp \
-           qxtfilelock_unix.cpp \
-           qxtfilelock_win.cpp
-
+SOURCES  += qxtcsvmodel.cpp
+SOURCES  += qxtdaemon.cpp
+SOURCES  += qxterror.cpp
+SOURCES  += qxtfifo.cpp
+SOURCES  += qxtfilelock.cpp
+SOURCES  += qxtfilelock_unix.cpp
+SOURCES  += qxtfilelock_win.cpp
+SOURCES  += qxtjob.cpp
+SOURCES  += qxtlinesocket.cpp
+SOURCES  += qxtmetaobject.cpp
+SOURCES  += qxtnull.cpp
+SOURCES  += qxtpipe.cpp
+SOURCES  += qxtsemaphore.cpp
+SOURCES  += qxtsignalwaiter.cpp
+SOURCES  += qxtslotjob.cpp
+SOURCES  += qxtstdio.cpp
+SOURCES  += qxtstdstreambufdevice.cpp

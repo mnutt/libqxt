@@ -37,69 +37,39 @@ LIBS            += -L$${QXTlib}
 contains(QXT, crypto) {
     INCLUDEPATH       += $${QXTinclude}/QxtCrypto
     macx: INCLUDEPATH += $${QXTlib}/QxtCrypto.framework/HEADERS/
-    macx:        LIBS += -framework QxtCrypto
-    unix:!macx:  LIBS += -lQxtCrypto
-    win32:       LIBS += -lQxtCrypto0
-    QXT += core
-}
-contains(QXT, curses) {
-    INCLUDEPATH       += $${QXTinclude}/QxtCurses
-    macx: INCLUDEPATH += $${QXTlib}/QxtCurses.framework/HEADERS/
-    macx:        LIBS += -framework QxtCurses
-    unix:!macx:  LIBS += -lQxtCurses
-    win32:       LIBS += -lQxtCurses0
+    qtAddLibrary(QxtCrypto)
     QXT += core
 }
 contains(QXT, web) {
     INCLUDEPATH       += $${QXTinclude}/QxtWeb
     macx: INCLUDEPATH += $${QXTlib}/QxtWeb.framework/HEADERS/
-    macx:        LIBS += -framework QxtWeb
-    unix:!macx:  LIBS += -lQxtWeb
-    win32:       LIBS += -lQxtWeb0
+    qtAddLibrary(QxtWeb)
     QXT += core network
-    QT  += network 
+    QT  += network
 }
 contains(QXT, gui) {
     INCLUDEPATH       += $${QXTinclude}/QxtGui
     macx: INCLUDEPATH += $${QXTlib}/QxtGui.framework/HEADERS/
-    macx:        LIBS += -framework QxtGui
-    unix:!macx:  LIBS += -lQxtGui
-    win32:       LIBS += -lQxtGui0
+    qtAddLibrary(QxtGui)
     QXT += core
     QT  += gui
 }
 contains(QXT, network) {
     INCLUDEPATH       += $${QXTinclude}/QxtNetwork
     macx: INCLUDEPATH += $${QXTlib}/QxtNetwork.framework/HEADERS/
-    macx:        LIBS += -framework QxtNetwork
-    unix:!macx:  LIBS += -lQxtNetwork
-    win32:       LIBS += -lQxtNetwork0
+    qtAddLibrary(QxtNetwork)
     QXT += core
     QT  += network
 }
 contains(QXT, sql) {
     INCLUDEPATH       += $${QXTinclude}/QxtSql
     macx: INCLUDEPATH += $${QXTlib}/QxtSql.framework/HEADERS/
-    macx:        LIBS += -framework QxtSql
-    unix:!macx:  LIBS += -lQxtSql
-    win32:       LIBS += -lQxtSql0
+    qtAddLibrary(QxtSql)
     QXT += core
     QT  += sql
-}
-contains(QXT, media) {
-    INCLUDEPATH       += $${QXTinclude}/QxtMedia
-    macx: INCLUDEPATH += $${QXTlib}/QxtMedia.framework/HEADERS/
-    macx:        LIBS += -framework QxtMedia
-    unix:!macx:  LIBS += -lQxtMedia
-    win32:       LIBS += -lQxtMedia0
-    QXT += core
 }
 contains(QXT, core) {
     INCLUDEPATH       += $${QXTinclude}/QxtCore
     macx: INCLUDEPATH += $${QXTlib}/QxtCore.framework/HEADERS/
-    macx:        LIBS += -framework QxtCore
-    unix:!macx:  LIBS += -lQxtCore
-    win32:       LIBS += -lQxtCore0
+    qtAddLibrary(QxtCore)
 }
-
-

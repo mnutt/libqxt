@@ -1,16 +1,24 @@
-TARGET          =  QxtSql
-DESTDIR = ../../deploy/libs/
+include(../../features/qxtfunctions.prf)
+TEMPLATE         = lib
+CLEAN_TARGET     = QxtSql
+TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
+DESTDIR          = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_SQL
 win32: CONFIG   += dll
 QT               = core sql
+QXT              =
 INCLUDEPATH     += .
-TEMPLATE         = lib
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
-CONFIG += qxtbuild  convenience
+CONVENIENCE     += $$CLEAN_TARGET
+CONFIG          += qxtbuild
 include(../../config.pri)
 
-HEADERS += qxtsqlpackage.h   qxtsqlpackagemodel.h
-SOURCES += qxtsqlpackage.cpp qxtsqlpackagemodel.cpp
+HEADERS  += qxtsql.h
+HEADERS  += qxtsqlpackage.h
+HEADERS  += qxtsqlpackagemodel.h
+
+SOURCES  += qxtsqlpackage.cpp
+SOURCES  += qxtsqlpackagemodel.cpp
