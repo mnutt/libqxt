@@ -361,10 +361,53 @@ QString printAssistantFile()
     }
 
     return t.render();
-
 }
 
+QString printAssistantNGQHPFile()
+{
+    QxtHtmlTemplate t;
+    if(!t.open(templateDir+"/qxt.qhp.xml"))qFatal("cannot open template");
+    QxtHtmlTemplate t_i;
+    if(!t_i.open(templateDir+"/qxt.qhp.xml.unroll.classes"))qFatal("cannot open template");
+    QxtHtmlTemplate t_i_i;
+    if(!t_i_i.open(templateDir+"/qxt.qhp.xml.unroll.keywords"))qFatal("cannot open template");
+    QxtHtmlTemplate t_i_i_i;
+    if(!t_i_i_i.open(templateDir+"/qxt.qhp.xml.unroll.files"))qFatal("cannot open template");
 
+
+    foreach(Class * cl,publiclasses)
+    {
+        t_i.clear();
+        t_i["name"]=cl->name;
+        t_i["ref"]=cl->ref;
+        t_i["link"]=refToLink(cl->ref);
+        t["unroll_classes"]+=t_i.render();
+
+
+        foreach(Member * m,cl->members)
+        {
+            t_i_i.clear();
+            t_i_i["name"]=m->name;
+            t_i_i["link"]=refToLink(m->ref);
+            t_i_i["ref"]=cl->ref;
+            t["unroll_keywords"]+=t_i_i.render();
+        }
+    }
+
+    foreach(QString file,QDir(outputDir).entryList ())
+    {
+        t_i_i_i.clear();
+        t_i_i_i["name"]=file;
+        t["unroll_files"]+=t_i_i_i.render();
+    }
+
+
+
+    t["projectName"]=projectName;
+    t["versionNr"]=versionNr;
+
+    return t.render();
+}
 
 QString printPublicClasses()
 {
@@ -763,6 +806,11 @@ int main(int argc,char ** argv)
     QDir().mkpath(outputDir);
     settings.endGroup();
 
+    qDebug("[cleaning output dir]");
+    foreach(QString asdasdasdasd,QDir(outputDir).entryList ())
+    {
+        QFile(outputDir+QDir::separator()+asdasdasdasd).remove();
+    }
 
 
     if(!QDir::temp().mkpath("doqsytmp"))
@@ -872,13 +920,45 @@ int main(int argc,char ** argv)
     qDebug("[copying referenced files]");
 
 
-    filesIShouldCopy<<"stylesheet.css"<<"logo.png";
+    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp";
 
     foreach(QString f,filesIShouldCopy)
     {
         QFile(templateDir+QDir::separator ()+f).copy (outputDir+QDir::separator ()+f);
         qDebug()<<f;
     }
+
+    #if QT_VERSION >= 0x040400
+    qDebug("[generating qt help]");
+
+    {
+    QFile file(outputDir+QDir::separator ()+"qxt.qhp");
+    if (!file.open(QIODevice::WriteOnly))
+        qFatal("cannot open output file qxt.qhp");
+    file.write(printAssistantNGQHPFile().toUtf8());
+    file.close();
+    }
+ 
+    qDebug("[running qcollectiongenerator]");
+
+
+    QProcess qcollectiongenerator;
+    QDir().cd(outputDir);
+    qcollectiongenerator.setWorkingDirectory (outputDir);
+    qcollectiongenerator.setProcessChannelMode(QProcess::ForwardedChannels);
+    qcollectiongenerator.start ("qcollectiongenerator",QStringList()<<"qxt.qhcp"<<"-o"<<"qxt.qch");
+    if(!qcollectiongenerator.waitForStarted ())
+        qFatal("qcollectiongenerator failed to start");
+    qcollectiongenerator.closeWriteChannel();
+    if(!qcollectiongenerator.waitForFinished (120000))
+        qFatal("qcollectiongenerator failed to finish within 2 minutes");
+    if(qcollectiongenerator.exitCode ())
+    {
+        qDebug()<<qcollectiongenerator.readAllStandardError ();
+        qDebug()<<qcollectiongenerator.readAllStandardOutput ();
+        qFatal("qcollectiongenerator run unsecussfull");
+    }
+    #endif
 
 
     qDebug("[done]");
