@@ -57,8 +57,8 @@ QList<QString>  filesIShouldCopy;
 QString outputDir;
 QString templateDir;
 QString xmlDir;
-
-
+QString versionNr;
+QString projectName;
 
 
 Class * findClassByRef(QString ref)
@@ -653,6 +653,10 @@ void wrapToFile(QString filename,QString content)
     QxtHtmlTemplate site;
     if(!site.open(templateDir+"/site.html"))qFatal("cannot open template");
     site["content"]=content;
+    site["versionNr"]=versionNr;
+    site["projectName"]=projectName;
+
+
 
     QFile file(outputDir+"/"+filename);
     if (!file.open(QIODevice::WriteOnly))
@@ -716,6 +720,10 @@ int main(int argc,char ** argv)
     foreach(QString key,settings.allKeys())
     {
         doxygeninput+=(key+"="+settings.value(key).toString()+"\r\n");
+        if(key=="PROJECT_NUMBER")
+            versionNr=settings.value(key).toString();
+        else if(key=="PROJECT_NAME")
+            projectName=settings.value(key).toString();
     }
     settings.endGroup();
 
