@@ -379,7 +379,6 @@ QString printAssistantNGQHPFile()
     {
         t_i.clear();
         t_i["name"]=cl->name;
-        t_i["ref"]=cl->ref;
         t_i["link"]=refToLink(cl->ref);
         t["unroll_classes"]+=t_i.render();
 
@@ -389,7 +388,7 @@ QString printAssistantNGQHPFile()
             t_i_i.clear();
             t_i_i["name"]=m->name;
             t_i_i["link"]=refToLink(m->ref);
-            t_i_i["ref"]=cl->ref;
+            t_i_i["id"]="class:"+cl->name+"::"+m->name;
             t["unroll_keywords"]+=t_i_i.render();
         }
     }
@@ -749,7 +748,7 @@ QString printListOfMembers(QString location,Class * cl)
 
 
 
-void wrapToFile(QString filename,QString content)
+void wrapToFile(QString filename,QString content,QString title)
 {
 
     QxtHtmlTemplate site;
@@ -757,6 +756,7 @@ void wrapToFile(QString filename,QString content)
     site["content"]=content;
     site["versionNr"]=versionNr;
     site["projectName"]=projectName;
+    site["title"]=title;
 
 
 
@@ -880,10 +880,10 @@ int main(int argc,char ** argv)
         publiclasses+=m->classes;
     }
 
-    wrapToFile("modules.html",printModules());
+    wrapToFile("modules.html",printModules(),"Modules");
 
     qSort(publiclasses.begin(), publiclasses.end(), sortClassBynameLessThen);
-    wrapToFile("classes.html",printPublicClasses());
+    wrapToFile("classes.html",printPublicClasses(),"Classes");
 
 
 
@@ -891,13 +891,13 @@ int main(int argc,char ** argv)
     foreach(Class * c,classes)
     {
         qDebug()<<"parsing class "<<c->name;
-        wrapToFile(c->ref+".html",printClass(xmlDir,c));
-        wrapToFile(c->ref+"-members.html",printListOfMembers(xmlDir,c));
+        wrapToFile(c->ref+".html",printClass(xmlDir,c),c->name);
+        wrapToFile(c->ref+"-members.html",printListOfMembers(xmlDir,c),c->name+" all Members");
     }
 
     foreach(Module *  m,modules)
     {
-        wrapToFile(m->ref+".html",printModule(m));
+        wrapToFile(m->ref+".html",printModule(m),m->name);
     }
 
     {
@@ -915,7 +915,7 @@ int main(int argc,char ** argv)
     if(!t_i.open(templateDir+"/index.html"))
         qFatal("cannot open template");
 
-    wrapToFile("index.html",t_i.render());
+    wrapToFile("index.html",t_i.render(),"Qxt Reference Documentation");
 
     qDebug("[copying referenced files]");
 
@@ -954,8 +954,7 @@ int main(int argc,char ** argv)
         qFatal("qcollectiongenerator failed to finish within 2 minutes");
     if(qcollectiongenerator.exitCode ())
     {
-        qDebug()<<qcollectiongenerator.readAllStandardError ();
-        qDebug()<<qcollectiongenerator.readAllStandardOutput ();
+
         qFatal("qcollectiongenerator run unsecussfull");
     }
     #endif
