@@ -1,20 +1,21 @@
-include(../../features/qxtfunctions.prf)
-TEMPLATE         = lib
 CLEAN_TARGET     = QxtWeb
-TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
-DESTDIR          = ../../deploy/libs/
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../network
 DEFINES         += BUILD_QXT_WEB
-win32: CONFIG   += dll
 QT               = core network
 QXT              = core network
-INCLUDEPATH     += .
-MOC_DIR          = .moc
-OBJECTS_DIR      = .obj
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
+
 include(../../config.pri)
+
+
+
+
+
+
+
+
 
 HEADERS  += qxtabstractwebconnector.h
 HEADERS  += qxthtmltemplate.h
