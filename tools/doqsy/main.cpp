@@ -11,6 +11,18 @@
 #include <QDir>
 #include <QProcess>
 
+struct Class;
+struct Member
+{
+    QString name;
+    QString ref;
+    QString type;
+    QString signature;
+    QString desc;
+
+    Class * classs;
+
+};
 
 struct Module;
 struct Class
@@ -21,6 +33,7 @@ struct Class
     QString desc;
 
     Module * module;
+    QList<Member *> members;
 
 };
 struct Module
@@ -51,6 +64,8 @@ bool sortModuleBynameLessThen(const Module *s1, const Module *s2)
 QList<Class *>  classes;
 QList<Class *>  publiclasses;
 QList<Module *> modules;
+QList<Member *> members;
+
 QList<QString>  filesIShouldCopy;
 
 ///settings
@@ -318,6 +333,38 @@ void parseModule(QString location,Module *m)
 
 }
 
+QString printAssistantFile()
+{
+    QxtHtmlTemplate t;
+    if(!t.open(templateDir+"/index.dcf"))qFatal("cannot open template");
+    QxtHtmlTemplate t_i;
+    if(!t_i.open(templateDir+"/index.dcf.unroll.classes"))qFatal("cannot open template");
+    QxtHtmlTemplate t_i_i;
+    if(!t_i_i.open(templateDir+"/index.dcf.unroll.members"))qFatal("cannot open template");
+
+
+    foreach(Class * cl,publiclasses)
+    {
+        t_i.clear();
+        t_i["name"]=cl->name;
+        t_i["link"]=refToLink(cl->ref);
+
+
+        foreach(Member * m,cl->members)
+        {
+            t_i_i.clear();
+            t_i_i["name"]=m->name;
+            t_i_i["link"]=refToLink(m->ref);
+            t_i["unroll_members"]+=t_i_i.render();
+        }
+        t["unroll_classes"]+=t_i.render();
+    }
+
+    return t.render();
+
+}
+
+
 
 QString printPublicClasses()
 {
@@ -392,7 +439,6 @@ QString printModules()
     }
     return t.render();;
 }
-
 
 
 
@@ -501,13 +547,25 @@ QString printClass(QString location,Class * cl)
         QDomElement member=sectiondef.firstChildElement("memberdef");
         while(!member.isNull()) 
         {
-        qDebug()<<"parsing member "<<member.firstChildElement("name").text();
+            qDebug()<<"parsing member "<<member.firstChildElement("name").text();
+
+
+            Member * mem=new Member;
+            cl->members.append(mem);
+            members.append(mem);
+            mem->classs=cl;
+            mem->ref=member.attribute("id");
+            mem->name=member.firstChildElement("name").text();
+            mem->signature=member.firstChildElement("argsstring").text();
+            mem->type=member.firstChildElement("type").text();
+
+
 
             t_members_unroll.clear();
-            t_members_unroll["name"]=member.firstChildElement("name").text();
-            t_members_unroll["signature"]=member.firstChildElement("argsstring").text();
-            t_members_unroll["type"]=member.firstChildElement("type").text();
-            t_members_unroll["link"]=refToLink(member.attribute("id"));
+            t_members_unroll["name"]        =mem->name;
+            t_members_unroll["signature"]   =mem->signature;
+            t_members_unroll["type"]        =mem->type;
+            t_members_unroll["link"]        =refToLink(mem->ref);
 
             t_section["list"]+=t_members_unroll.render();
 
@@ -522,10 +580,11 @@ QString printClass(QString location,Class * cl)
             else
                 t_impl["ref"]=lii.at(0);
 
-            t_impl["name"]=member.firstChildElement("name").text();
-            t_impl["signature"]=member.firstChildElement("argsstring").text();
-            t_impl["type"]=member.firstChildElement("type").text();
-            t_impl["desc"]=descRTF(member.firstChildElement("detaileddescription"));
+            t_impl["name"]=mem->name;
+            t_impl["signature"]=mem->signature;
+            t_impl["type"]=mem->type;
+            mem->desc=descRTF(member.firstChildElement("detaileddescription"));
+            t_impl["desc"]=mem->desc;
 
 
             t["impl"]+=t_impl.render();
@@ -781,7 +840,6 @@ int main(int argc,char ** argv)
 
 
 
-
     foreach(Class * c,classes)
     {
         qDebug()<<"parsing class "<<c->name;
@@ -793,6 +851,16 @@ int main(int argc,char ** argv)
     {
         wrapToFile(m->ref+".html",printModule(m));
     }
+
+    {
+    QFile file(outputDir+"/index.dcf");
+    if (!file.open(QIODevice::WriteOnly))
+        qFatal("cannot open output file index.dcf");
+    file.write(printAssistantFile().toUtf8());
+    file.close();
+    }
+
+
 
 
     QxtHtmlTemplate t_i;
