@@ -1,6 +1,6 @@
 CLEAN_TARGET     = QxtCrypto
 DEPENDPATH      += .
-INCLUDEPATH     += . ../core
+INCLUDEPATH     += . thirdparty ../core
 DEFINES         += BUILD_QXT_CRYPTO
 QT               = core
 QXT              = core
@@ -22,5 +22,5 @@ SOURCES  += thirdparty/md4.cpp
 contains(DEFINES,HAVE_OPENSSL){
     HEADERS += qxtblowfish.h
     SOURCES += qxtblowfish.cpp
-    LIBS    += -lssl
+    LIBS    += -lcrypto
 }
