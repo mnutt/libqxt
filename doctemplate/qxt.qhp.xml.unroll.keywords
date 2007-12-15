@@ -1,1 +1,1 @@
-<keyword name="<?=name?>" id="<?=ref?>" ref="<?=link?>" />
+<keyword name="<?=name?>" id="<?=id?>" ref="<?=link?>" />
