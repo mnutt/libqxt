@@ -702,7 +702,7 @@ int main(int argc,char ** argv)
 
     if(!QDir::temp().mkpath("doqsytmp"))
         qFatal("cannot make  temp dir");
-    xmlDir=QDir::tempPath()+"doqsytmp";
+    xmlDir=QDir::temp().absoluteFilePath("doqsytmp");
 
 
 
