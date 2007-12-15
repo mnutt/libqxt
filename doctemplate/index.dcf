@@ -1,0 +1,8 @@
+<assistantconfig version="3.2.0">
+    <DCF ref="./index.html" icon="handbook.png" imagedir="." title="Qxt Reference Documentation">
+
+        <section ref="./classes.html" title="Classes">
+            <?=unroll_classes?>
+        </section>
+    </DCF>
+</assistantconfig>
