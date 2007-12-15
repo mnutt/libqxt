@@ -1,20 +1,14 @@
-include(../../features/qxtfunctions.prf)
-TEMPLATE         = lib
 CLEAN_TARGET     = QxtDesignerPlugins
-TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../gui
-win32: CONFIG   += dll
 QT               = core gui
 QXT              = core gui
-INCLUDEPATH     += .
-MOC_DIR          = .moc
-OBJECTS_DIR      = .obj
+CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += designer plugin qxtbuild
-include(../../config.pri)
-
 target.path = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS += target
+include(../../config.pri)
+
 
 HEADERS  += qxtcheckcomboboxplugin.h
 HEADERS  += qxtdesignerplugin.h
