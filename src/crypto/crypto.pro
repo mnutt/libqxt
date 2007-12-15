@@ -1,9 +1,9 @@
 CLEAN_TARGET     = QxtCrypto
 DEPENDPATH      += .
-INCLUDEPATH     += .
+INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_CRYPTO
 QT               = core
-QXT              =
+QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
 
