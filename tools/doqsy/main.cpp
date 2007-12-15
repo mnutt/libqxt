@@ -48,9 +48,10 @@ bool sortModuleBynameLessThen(const Module *s1, const Module *s2)
 
 
 ///information collected from the xml files
-QList<Class *> classes;
-QList<Class *> publiclasses;
+QList<Class *>  classes;
+QList<Class *>  publiclasses;
 QList<Module *> modules;
+QList<QString>  filesIShouldCopy;
 
 ///settings
 QString outputDir;
@@ -178,6 +179,7 @@ QString descRTF(QDomElement element)
                 QString s=descRTF(e);
                 text += "<table class=\"descimg\" ><tr><td><img alt=\""+s+"\" src=\""+e.attribute("name")+"\"></td></tr>";
                 text += "<tr><td><sup>"+s+"</sup></td></tr></table>";
+                filesIShouldCopy.append(e.attribute("name"));
             }
             else if(e.tagName ()=="linebreak")
             {
@@ -785,13 +787,24 @@ int main(int argc,char ** argv)
     }
 
 
-
-
     QxtHtmlTemplate t_i;
     if(!t_i.open(templateDir+"/index.html"))
         qFatal("cannot open template");
-    
+
     wrapToFile("index.html",t_i.render());
+
+    qDebug("[copying referenced files]");
+
+
+    filesIShouldCopy<<"stylesheet.css"<<"logo.png";
+
+    foreach(QString f,filesIShouldCopy)
+    {
+        QFile(templateDir+QDir::separator ()+f).copy (outputDir+QDir::separator ()+f);
+        qDebug()<<f;
+    }
+
+
     qDebug("[done]");
     return 0;
 }
