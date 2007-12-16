@@ -57,7 +57,7 @@ LibQxt Coding Style Guidelines
         - In C++, named constants are implemented as const variables and functional macros are replaced with inline functions.
    3.6. Constants are defined concentratedly in header files or at the beginning of source files.
    3.7. Truth values are expressed as boolean values; true or false.
-        - Truth values of C are zero and non-zero. These work in C++ as well, but are not recommended by ISO C++-standard.
+        - C uses zero and non-zero as truth values. These work in C++ as well, but are not recommended by ISO C++-standard.
 
 4. Layout and style
    4.1. Every programmer has his/her own programming style. The exact style does not matter as long as it is consistent per file.
@@ -76,8 +76,26 @@ LibQxt Coding Style Guidelines
    4.8. Every switch clause contains a default branch.
 
 5. Mixing C and C++
+   5.1. Do not use exit() or abort().
+        - These functions stop execution without desctructing objects properly.
+   5.2. The return value of main() is int.
+        - Defined in ISO C++-standard.
+   5.3. Do not use goto.
+        - There are better control structures. Using goto leads to unreadable spaghetti code.
+   5.4. Use output streams instead of C IO functions.
+        - printf() has to type checks.
+   5.5. Do not use malloc(), realloc() or free(). Use new and delete operators instead.
+        - Old memory allocation routines know nothing about constructors and destructors.
+   5.6. Use extern "C" while including headers of C libraries.
+          extern "C" {
+          #include <curses.h>
+          }
 
 6. Type conversions
+   6.1. Do not use C-style cast. Use static_cast, dynamic_cast, reinterpret_cast and qobject_cast.
+        - New type cast operators make sanity checks.
+   6.2. Avoid const_cast whenever possible.
+        - Constant is an attribute bound at design time. There should be no need to remove constness.
 
 7. Functions and member functions
 
