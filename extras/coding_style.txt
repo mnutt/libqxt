@@ -42,12 +42,38 @@ LibQxt Coding Style Guidelines
         - Exception: constructors and destructors must be named after corresponding class
           Type variable;
           void doSomething();
-   2.5. Constants are written in uppercase letters.
+   2.5. Constants are written in uppercase.
           static const unsigned int BUFFER_LIMIT = 1024;
 
 3. Variables and constants
+   3.1. Variables should be declared within innermost possible scope.
+        - Variables declared close to where they are used improves code clarity.
+   3.2. Declare variables by separate clauses.
+          char* p1, p2; // WRONG (p1 is a pointer, p2 is a char)
+   3.3. Variables must be always initialized.
+   3.4. Member variables are initialized in initialization list in order of declaration.
+        - The initialization list is the only efficient way to initialize member variables.
+   3.5. #define directive must not be used for defining constants or functional macros.
+        - In C++, named constants are implemented as const variables and functional macros are replaced with inline functions.
+   3.6. Constants are defined concentratedly in header files or at the beginning of source files.
+   3.7. Truth values are expressed as boolean values; true or false.
+        - Truth values of C are zero and non-zero. These work in C++ as well, but are not recommended by ISO C++-standard.
 
 4. Layout and style
+   4.1. Every programmer has his/her own programming style. The exact style does not matter as long as it is consistent per file.
+        - This is important while applying changes to files which were originally written by somebody else.
+        - Code looks awful and is unreadable if the programming style varies within a file.
+   4.2. It is troublesome to handle files of more than thousand (1000) lines.
+   4.3. It is not recommended to write functions of more than hundred (100) lines.
+   4.4. Pointer and reference characters are recommended to place to type name.
+        - Pointers and references are considered as types. In addition, this leads to better readability:
+          Result* result = 0;
+          void printResult(const Result& result);
+   4.5. Indentation is done with spaces.
+        - Tabulator characters are not recommended because different editors and viewers show them differently, often even unreadable.
+   4.6. An indented code block follows every if,else,while,for and do primitive.
+   4.7. Initial ({) and terminal (}) characters of code blocks must be clearly placed separately from code. The preferred way is to place them on separate lines.
+   4.8. Every switch clause contains a default branch.
 
 5. Mixing C and C++
 
