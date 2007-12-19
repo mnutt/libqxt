@@ -95,6 +95,7 @@ public:
     QxtLinkedTreeIterator erase  () const;
     QxtLinkedTreeIterator append (const T & value) const;
 
+
 private:
     friend class QxtLinkedTree<T>;
 
@@ -114,8 +115,9 @@ public:
 
 
     QxtLinkedTree(T t);
-
     QxtLinkedTreeIterator<T> begin();
+    static QxtLinkedTreeIterator<T> fromVoid (void *) ;
+    static void * toVoid (QxtLinkedTreeIterator<T>) ;
 
     #if 0
     QxtLinkedTreeIterator insert ( iterator before, const T & value );
@@ -306,8 +308,20 @@ class QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
     QxtLinkedTreeItem <T> next= node->next;
 
 
-    Q_ASSERT_X(parent,Q_FUNC_INFO,"removing root node not supported yet.");
+    Q_ASSERT_X(item,Q_FUNC_INFO,"can't erase invalid node.");
+    Q_ASSERT_X(parent,Q_FUNC_INFO,"erasing root node not supported yet.");
 
+
+
+    ///delete children
+    QxtLinkedTreeIterator<T> ci= child();
+    while(ci.isValid())
+    {
+        ci=ci.erase();
+    }
+
+
+    ///realign chains
     if(parent->child==node)
     {
         parent->child=node->next;
@@ -354,7 +368,17 @@ class QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & valu
 
 
 
+template<class T>
+QxtLinkedTreeIterator<T> fromVoid (void * d) 
+{
+    return QxtLinkedTreeIterator<T>(dynamic_cast<QxtLinkedTreeItem<T> *>(d));
+}
 
+template<class T>
+void * toVoid (QxtLinkedTreeIterator<T> n) 
+{
+    return static_cast<void*>(n.item);
+}
 
 
 

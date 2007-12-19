@@ -35,7 +35,7 @@ this template class can be used to store data easily in a tree structure. \n
 Internally it uses the doublelinked list scheme, but adds client/parent links. \n \n
 
 There are no random access functions, you have to use QxtLinkedTree::iterator to access the data. \n
-This is very fast and efficient.
+This is very fast and efficient. \n \n
 
 
 \code
@@ -47,11 +47,40 @@ qDebug()<<it<<it.child(); //returns "1 34"
 
 \endcode
 
+In order to be able to store an iterator into other data structures (eg. for QAbstractItemModel or QAbstractXmlNodeModel) functions are provided to create and store a linked item from and into a void pointer. \n
+
+\code
+void * root= tree.toVoid(tree.begin());
+QxtLinkedTreeIterator<int> it= tree.fromVoid(root);
+\endcode
+
+
+
 \fn QxtLinkedTree::QxtLinkedTree(T t);
 default constructor \n
 sets the rootnode to \p t
 \fn QxtLinkedTreeIterator QxtLinkedTree::begin  ();
 returns an iterator on the root node
+
+\fn void * QxtLinkedTree::toVoid  (QxtLinkedTreeIterator);
+get an unique void pointer to be able to stuff an iterator into other structures.\n
+You must not do anything else but pass this to fromVoid(). 
+the pointer is invalid when the actual data has been removed and passing it to fromVoid will crash. You have been warned. \n
+
+\fn QxtLinkedTreeIterator QxtLinkedTree::fromVoid  (void *);
+returns an iterator pre positioned on the item specified with toVoid. \n
+passing anything that has not beeing created by toVoid() will crash. \n
+also note that passing invalidated nodes will crash too. \n
+Be extremly carefull. It is easy to currupt your data with this!
+
+
+
+
+
+
+
+
+
 
 \class QxtLinkedTreeIterator QxtLinkedTree
 \ingroup QxtCore
@@ -106,7 +135,8 @@ compares
 compares
 
 \fn QxtLinkedTreeIterator QxtLinkedTreeIterator::erase  () const;
-deletes the current item. returns an iterator to the next sibling. \n this instance is then invalid.
+deletes the current item. returns an iterator to the next sibling. \n this instance is then invalid. \n
+deleting is recursive. all subitems will be deleted too.
 \fn QxtLinkedTreeIterator QxtLinkedTreeIterator::append (const T & value ) const;
 appens an item to the children of this item. returns an iterator to the new item.
 
