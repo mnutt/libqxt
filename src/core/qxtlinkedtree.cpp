@@ -41,7 +41,7 @@ This is very fast and efficient.
 \code
 QxtLinkedTree<int> tree(1);
 
-QxtLinkedTree<int>::iterator it= tree.begin();
+QxtLinkedTreeIterator<int> it= tree.begin();
 it.append(34);
 qDebug()<<it<<it.child(); //returns "1 34"
 
@@ -50,64 +50,64 @@ qDebug()<<it<<it.child(); //returns "1 34"
 \fn QxtLinkedTree::QxtLinkedTree(T t);
 default constructor \n
 sets the rootnode to \p t
-\fn iterator QxtLinkedTree::begin  ();
+\fn QxtLinkedTreeIterator QxtLinkedTree::begin  ();
 returns an iterator on the root node
 
-\class QxtLinkedTree::iterator QxtLinkedTree
+\class QxtLinkedTreeIterator QxtLinkedTree
 \ingroup QxtCore
 \brief fast access to an QxtLinkedTree
 
-\fn QxtLinkedTree::iterator::iterator    QxtLinkedTree::iterator::child   () const;
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::child   () const;
 returns an iterator to the first child item of this or an invalid iterator when there are no children
 
-\fn QxtLinkedTree::iterator::iterator    QxtLinkedTree::iterator::parent   () const;
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::parent   () const;
 returns an iterator to the parent item of this. or an invalid iterator when this is the root node
 
-\fn QxtLinkedTree::iterator::iterator    QxtLinkedTree::iterator::previous   () const;
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::previous   () const;
 returns an iterator to the previous item of this or an invalid iterator when this is the first one in the next/previous chain
 
-\fn QxtLinkedTree::iterator::iterator    QxtLinkedTree::iterator::next   () const;
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::next   () const;
 returns an iterator to the next item of this in the previous/next chain or an invalid iterator when this is the last one
 
-\fn bool    QxtLinkedTree::iterator::isValid   () const;
+\fn bool    QxtLinkedTreeIterator::isValid   () const;
 verfies if this iterator points to a valid location inside the tree \n
 an invalid node is decoupled from the iteration. it can not be used for anything anymore.\n
 \code
 QxtLinkedTree<int> tree(1);
-QxtLinkedTree<int>::iterator it= tree.begin();
+QxtLinkedTreeIterator<int> it= tree.begin();
 
 it++; //invalid. there are no siblings.
 it--; //still invalid!
 \endcode
 
-\fn T &  QxtLinkedTree::iterator::operator* () const;
+\fn T &  QxtLinkedTreeIterator::operator* () const;
 Returns a modifiable reference to the current item.
 You can change the value of an item by using operator*() on the left side of an assignment, for example:
  if (*it == "Hello")
      *it = "Bonjour";
 
-\fn T   QxtLinkedTree::iterator::operator T () const;
+\fn T   QxtLinkedTreeIterator::operator T () const;
 returns a copy of the current item.
 
 
-\fn iterator   QxtLinkedTree::iterator:: operator + ( int j ) const;
-\fn iterator &  QxtLinkedTree::iterator::operator ++ ();
-\fn iterator &  QxtLinkedTree::iterator::operator ++ (int);
-\fn iterator &  QxtLinkedTree::iterator::operator += ( int j );
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator:: operator + ( int j ) const;
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator ++ ();
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator ++ (int);
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator += ( int j );
 
-\fn iterator    QxtLinkedTree::iterator::operator - ( int j ) const;
-\fn iterator &  QxtLinkedTree::iterator::operator -- ();
-\fn iterator &  QxtLinkedTree::iterator::operator -- (int);
-\fn iterator &  QxtLinkedTree::iterator::operator -= ( int j );
+\fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::operator - ( int j ) const;
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator -- ();
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator -- (int);
+\fn QxtLinkedTreeIterator &  QxtLinkedTreeIterator::operator -= ( int j );
 
-\fn bool QxtLinkedTree::iterator::operator== ( const iterator & other ) const;
+\fn bool QxtLinkedTreeIterator::operator== ( const iterator & other ) const;
 compares
-\fn bool QxtLinkedTree::iterator::operator!= ( const iterator & other ) const;
+\fn bool QxtLinkedTreeIterator::operator!= ( const iterator & other ) const;
 compares
 
-\fn iterator QxtLinkedTree::erase  ( iterator pos ) const;
+\fn QxtLinkedTreeIterator QxtLinkedTreeIterator::erase  () const;
 deletes the current item. returns an iterator to the next sibling. \n this instance is then invalid.
-\fn iterator QxtLinkedTree::append ( iterator parentit, const T & value ) const;
+\fn QxtLinkedTreeIterator QxtLinkedTreeIterator::append (const T & value ) const;
 appens an item to the children of this item. returns an iterator to the new item.
 
 
