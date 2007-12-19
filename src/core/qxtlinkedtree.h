@@ -32,6 +32,9 @@ template<class T>
 class QxtLinkedTree;
 
 template<class T>
+class QxtLinkedTreeIterator;
+
+template<class T>
 class QxtLinkedTreeItem
 {
     QxtLinkedTreeItem (T tt)
@@ -44,6 +47,7 @@ class QxtLinkedTreeItem
     }
 
     friend class QxtLinkedTree<T>;
+    friend class QxtLinkedTreeIterator<T>;
     QxtLinkedTreeItem * next;
     QxtLinkedTreeItem * previous;
     QxtLinkedTreeItem * parent;
@@ -53,61 +57,68 @@ class QxtLinkedTreeItem
 };
 
 
+
+
+///FIXME: nested would be cooler but c++ has no typdefs with templates and doxygen doesnt undertsand nested templates
+template<class T>
+class QxtLinkedTreeIterator
+{
+public:
+    QxtLinkedTreeIterator();
+    QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> & other);
+    QxtLinkedTreeIterator & operator= ( const QxtLinkedTreeIterator<T> & other );
+
+    QxtLinkedTreeIterator    parent   () const;
+    QxtLinkedTreeIterator    next     () const;
+    QxtLinkedTreeIterator    previous () const;
+    QxtLinkedTreeIterator    child    () const;
+
+    bool isValid() const;
+
+    T & operator* () const;
+    T * operator-> () const;
+    operator T() const;
+
+    QxtLinkedTreeIterator    operator + ( int j ) const;
+    QxtLinkedTreeIterator &  operator ++ ();
+    QxtLinkedTreeIterator &  operator ++ (int);
+    QxtLinkedTreeIterator &  operator += ( int j );
+
+    QxtLinkedTreeIterator    operator - ( int j ) const;
+    QxtLinkedTreeIterator &  operator -- ();
+    QxtLinkedTreeIterator &  operator -- (int);
+    QxtLinkedTreeIterator &  operator -= ( int j );
+
+    bool operator== ( const QxtLinkedTreeIterator<T> & other ) const;
+    bool operator!= ( const QxtLinkedTreeIterator<T> & other ) const;
+
+    QxtLinkedTreeIterator erase  () const;
+    QxtLinkedTreeIterator append (const T & value) const;
+
+private:
+    friend class QxtLinkedTree<T>;
+
+    QxtLinkedTreeIterator(QxtLinkedTreeItem<T> * t);
+    QxtLinkedTreeItem<T> *item;
+};
+
+
+
+
+
+
 template<class T>
 class QxtLinkedTree
 {
 public:
 
-    class iterator
-    {
-    public:
-        iterator();
-        iterator(const iterator & other);
-        iterator & operator= ( const iterator & other );
-
-        iterator    parent   () const;
-        iterator    next     () const;
-        iterator    previous () const;
-        iterator    child    () const;
-
-        bool isValid() const;
-
-        T & operator* () const;
-        T * operator-> () const;
-        operator T() const;
-
-        iterator    operator + ( int j ) const;
-        iterator &  operator ++ ();
-        iterator &  operator ++ (int);
-        iterator &  operator += ( int j );
-
-        iterator    operator - ( int j ) const;
-        iterator &  operator -- ();
-        iterator &  operator -- (int);
-        iterator &  operator -= ( int j );
-
-        bool operator== ( const iterator & other ) const;
-        bool operator!= ( const iterator & other ) const;
-
-        iterator erase  () const;
-        iterator append (const T & value) const;
-
-    private:
-        friend class QxtLinkedTree<T>;
-
-        iterator(QxtLinkedTreeItem<T> * t);
-        QxtLinkedTreeItem<T> *item;
-    };
-
-
-
 
     QxtLinkedTree(T t);
 
-    iterator begin  ();
+    QxtLinkedTreeIterator<T> begin();
 
     #if 0
-    iterator insert ( iterator before, const T & value );
+    QxtLinkedTreeIterator insert ( iterator before, const T & value );
     #endif
 
 private:
@@ -119,23 +130,20 @@ private:
 
 
 
-
-
-
 template<class T>
-QxtLinkedTree<T>::iterator::iterator()
+QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator()
 {
     item=0;
 }
 
 template<class T>
-QxtLinkedTree<T>::iterator::iterator(const iterator & other)
+QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> & other)
 {
     item=other.item;
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator & QxtLinkedTree<T>::iterator::operator= ( const iterator & other )
+class QxtLinkedTreeIterator<T> & QxtLinkedTreeIterator<T>::operator= ( const QxtLinkedTreeIterator<T> & other )
 {
     item=other.item;
     return *this;
@@ -144,31 +152,31 @@ class QxtLinkedTree<T>::iterator & QxtLinkedTree<T>::iterator::operator= ( const
 
 
 template<class T>
-class QxtLinkedTree<T>::iterator QxtLinkedTree<T>::iterator::parent   () const
+class QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::parent   () const
 {
-    return iterator(item->parent);
+    return QxtLinkedTreeIterator<T>(item->parent);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator QxtLinkedTree<T>::iterator::next     () const
+class QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::next     () const
 {
-    return iterator(item->next);
+    return QxtLinkedTreeIterator<T>(item->next);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator QxtLinkedTree<T>::iterator::previous () const
+class QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::previous () const
 {
-    return iterator(item->previous);
+    return QxtLinkedTreeIterator<T>(item->previous);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator QxtLinkedTree<T>::iterator::child    () const
+class QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::child    () const
 {
-    return iterator(item->child);
+    return QxtLinkedTreeIterator<T>(item->child);
 }
 
 template<class T>
-bool  QxtLinkedTree<T>::iterator::isValid() const
+bool  QxtLinkedTreeIterator<T>::isValid() const
 {
     return (item!=0);
 }
@@ -176,21 +184,21 @@ bool  QxtLinkedTree<T>::iterator::isValid() const
 
 
 template<class T>
-T &  QxtLinkedTree<T>::iterator::operator* () const
+T &  QxtLinkedTreeIterator<T>::operator* () const
 {
     Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return item->t;
 }
 
 template<class T>
-T *  QxtLinkedTree<T>::iterator::operator-> () const
+T *  QxtLinkedTreeIterator<T>::operator-> () const
 {
     Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return &item->t;
 }
 
 template<class T>
-QxtLinkedTree<T>::iterator::operator T () const
+QxtLinkedTreeIterator<T>::operator T () const
 {
     Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return item->t;
@@ -198,7 +206,7 @@ QxtLinkedTree<T>::iterator::operator T () const
 
 
 template<class T>
-QxtLinkedTree<T>::iterator::iterator(QxtLinkedTreeItem<T> * t)
+QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator(QxtLinkedTreeItem<T> * t)
 {
     item=t;
 }
@@ -206,69 +214,69 @@ QxtLinkedTree<T>::iterator::iterator(QxtLinkedTreeItem<T> * t)
 
 
 template<class T>
-class QxtLinkedTree<T>::iterator    QxtLinkedTree<T>::iterator::operator + ( int j ) const
+class QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator + ( int j ) const
 {
     QxtLinkedTreeItem<T>  * m=item;
     for (int i=0;i<j;i++)
     {
         m=m->next;
         if(m==0)
-            return iterator();
+            return QxtLinkedTreeIterator<T>();
     }
-    return iterator(m);
+    return QxtLinkedTreeIterator<T>(m);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator ++ ()
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ ()
 {
-    *this= iterator(item->next);
+    *this= QxtLinkedTreeIterator<T>(item->next);
     return *this;
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator ++ (int)
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ (int)
 {
-    *this= iterator(item->next);
+    *this= QxtLinkedTreeIterator<T>(item->next);
     return *this;
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator += ( int j )
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator += ( int j )
 {
     *this=*this+j;
     return *this;
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator   QxtLinkedTree<T>::iterator::operator - ( int j ) const
+class QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator - ( int j ) const
 {
     QxtLinkedTreeItem<T>  * m=item;
     for (int i=0;i<j;i++)
     {
         m=m->previous;
         if(m==0)
-            return iterator();
+            return QxtLinkedTreeIterator<T>();
     }
-    return iterator(m);
+    return QxtLinkedTreeIterator<T>(m);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator -- ()
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- ()
 {
-    *this= iterator(item->previous);
+    *this= QxtLinkedTreeIterator<T>(item->previous);
     return *this;
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator -- (int)
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- (int)
 {
-    *this= iterator(item->previous);
+    *this= QxtLinkedTreeIterator<T>(item->previous);
     return *this;
 
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator -= ( int j )
+class QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -= ( int j )
 {
     *this=*this-j;
     return *this;
@@ -276,13 +284,13 @@ class QxtLinkedTree<T>::iterator &  QxtLinkedTree<T>::iterator::operator -= ( in
 
 
 template<class T>
-bool QxtLinkedTree<T>::iterator::operator== ( const iterator & other ) const
+bool QxtLinkedTreeIterator<T>::operator== ( const QxtLinkedTreeIterator<T> & other ) const
 {
     return (other.item==item);
 }
 
 template<class T>
-bool QxtLinkedTree<T>::iterator::operator!= ( const iterator & other ) const
+bool QxtLinkedTreeIterator<T>::operator!= ( const QxtLinkedTreeIterator<T> & other ) const
 {
     return (other.item!=item);
 }
@@ -291,7 +299,7 @@ bool QxtLinkedTree<T>::iterator::operator!= ( const iterator & other ) const
 
 
 template<class T>
-class QxtLinkedTree<T>::iterator  QxtLinkedTree<T>::iterator::erase  () const
+class QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
 {
     QxtLinkedTreeItem <T> node= item;
     QxtLinkedTreeItem <T> parent= item->parent;
@@ -316,11 +324,11 @@ class QxtLinkedTree<T>::iterator  QxtLinkedTree<T>::iterator::erase  () const
     }
     delete node;
     item=0;
-    return iterator(next);
+    return QxtLinkedTreeIterator<T>(next);
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator  QxtLinkedTree<T>::iterator::append (const T & value ) const
+class QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) const
 {
     QxtLinkedTreeItem <T> * parent= item;
     Q_ASSERT_X(parent,Q_FUNC_INFO,"invalid iterator");
@@ -332,7 +340,7 @@ class QxtLinkedTree<T>::iterator  QxtLinkedTree<T>::iterator::append (const T & 
         parent->child=node;
         node->parent=parent;
         node->previous=0;
-        return iterator(node);
+        return QxtLinkedTreeIterator<T>(node);
     }
 
     QxtLinkedTreeItem <T> * n=parent->child;
@@ -341,7 +349,7 @@ class QxtLinkedTree<T>::iterator  QxtLinkedTree<T>::iterator::append (const T & 
     n->next=node;
     node->parent=parent;
     node->previous=n;
-    return iterator(node);
+    return QxtLinkedTreeIterator<T>(node);
 }
 
 
@@ -364,9 +372,9 @@ QxtLinkedTree<T>::QxtLinkedTree(T t)
 }
 
 template<class T>
-class QxtLinkedTree<T>::iterator QxtLinkedTree<T>::begin  ()
+class QxtLinkedTreeIterator<T> QxtLinkedTree<T>::begin  ()
 {
-    return iterator(&qxt_d());
+    return QxtLinkedTreeIterator<T>(&qxt_d());
 }
 
 
