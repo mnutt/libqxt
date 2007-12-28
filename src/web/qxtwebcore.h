@@ -21,46 +21,34 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtWebCore_HEADER_GIAURX_H
-#define QxtWebCore_HEADER_GIAURX_H
+#ifndef QxtWebLegacyEngine_HEADER_GIAURX_H
+#define QxtWebLegacyEngine_HEADER_GIAURX_H
 
 #include <QObject>
 #include <QMap>
-#include <QMetaType>
 
-#include <qxterror.h>
-#include <qxtpimpl.h>
 
 #include <qxtglobal.h>
-#include <QHostAddress>
-
-typedef  QMap<QByteArray, QByteArray> server_t;
-typedef  QMap<QString, QVariant> post_t;
+#include <qxtwebstatelessconnector.h>
 
 
-Q_DECLARE_METATYPE(server_t)
-class QIODevice;
-class QxtAbstractWebConnector;
+
+
 class QTextCodec;
-class QxtWebCorePrivate;
-class QXT_WEB_EXPORT QxtWebCore: public QObject
+class QxtWebLegacyEnginePrivate;
+class QXT_WEB_EXPORT QxtWebLegacyEngine: public QObject
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtWebCore);
 public:
-    QxtWebCore (QxtAbstractWebConnector *);
-    ~QxtWebCore ();
+    QxtWebLegacyEngine (QxtWebStatelessConnector *);
+    ~QxtWebLegacyEngine ();
 
-    int start (quint16 port = 8000,const QHostAddress & address = QHostAddress::LocalHost);
-
-    static void setCodec ( QTextCodec * codec );
 
     static void send(QString);
     static void close();
     static void header(QString,QString);
-    static void sendHeader();
 
-    static server_t & SERVER();
+    static QHttpRequestHeader & SERVER();
     static QIODevice * socket();
 
     static void redirect(QString location,int code=303);
@@ -68,15 +56,18 @@ public:
 
 
 
-    static QxtWebCore * instance();
-
-    /*helper*/
-    static QxtError parseString(QByteArray str, post_t & POST);
+    static QxtWebLegacyEngine * instance();
     static QByteArray content(int maxsize=5000);
 
+private slots:
+    void incomming();
 signals:
     void request();
-    void aboutToClose();
+
+private:
+    QxtWebStatelessConnector  * sc;
+    QxtWebStatelessConnection * cc;
+
 };
 
 

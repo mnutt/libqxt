@@ -34,7 +34,7 @@ class QxtWebController : public QObject
     Q_OBJECT
 public:
     QxtWebController(QString name);
-    int invoke(server_t &);
+    int invoke(QxtWebStatelessConnection * );
     static QString WebRoot();
 public slots:
     int index()
@@ -46,7 +46,6 @@ public slots:
 protected:
     QTextStream & echo();
     QString self();
-    server_t SERVER;
 private:
     QTextStream *stream_m;
 };

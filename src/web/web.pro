@@ -17,7 +17,6 @@ include(../../config.pri)
 
 
 
-HEADERS  += qxtabstractwebconnector.h
 HEADERS  += qxthtmltemplate.h
 HEADERS  += qxtmail.h
 HEADERS  += qxtsendmail.h
@@ -39,8 +38,9 @@ SOURCES  += qxtwebcore.cpp
 SOURCES  += qxtwebhttpconnector.cpp
 SOURCES  += qxtwebscgiconnector.cpp
 
+
 contains(DEFINES,HAVE_FCGI){
-    HEADERS += qxtwebfcgiconnector.h qxtwebfcgiconnector_p.h
-    SOURCES += qxtwebfcgiconnector.cpp
-    LIBS+=-lfcgi++ -lfcgi
+#    HEADERS += qxtwebfcgiconnector.h qxtwebfcgiconnector_p.h
+#    SOURCES += qxtwebfcgiconnector.cpp
+#    LIBS+=-lfcgi++ -lfcgi
 }

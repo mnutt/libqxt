@@ -1,5 +1,4 @@
 #include "qxtwebhttpconnector_p.h"
-
 #include "qxtwebhttpconnector.h"
 
 
