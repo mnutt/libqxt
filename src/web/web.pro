@@ -42,5 +42,5 @@ SOURCES  += qxtwebscgiconnector.cpp
 contains(DEFINES,HAVE_FCGI){
     HEADERS += qxtwebfcgiconnector.h qxtwebfcgiconnector_p.h
     SOURCES += qxtwebfcgiconnector.cpp
-    LIBS+=-lfcgi++
+    LIBS+=-lfcgi++ -lfcgi
 }
