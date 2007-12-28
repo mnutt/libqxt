@@ -27,6 +27,7 @@
 #include <QHttpHeader>
 #include <QHttpResponseHeader>
 #include <QHttpRequestHeader>
+#include <QHostAddress>
 #include <QAbstractSocket>
 
 
@@ -48,7 +49,7 @@
         \n \n
 
 
-        direct use of the connectors is possible. see the follwing example:
+        direct use of the connectors is possible. see the following example:
         \code
 
         int main (int argc,char ** argv)
@@ -75,18 +76,6 @@
             }
         }
         \endcode
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         see also  QxtWebStatelessConnection
@@ -171,7 +160,7 @@ class QxtWebStatelessConnector : public QObject
 Q_OBJECT
 public:
     virtual bool isMultiplexing()=0;
-    virtual bool start (quint16 port,const QHostAddress & address)=0;
+    virtual bool start (quint16 port,const QHostAddress & address=QHostAddress::Any)=0;
     virtual QAbstractSocket::SocketError serverError () const=0;
 
 

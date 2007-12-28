@@ -38,7 +38,7 @@ class QxtFcgiConnector : public QxtAbstractWebConnector
 
 public:
     QxtFcgiConnector();
-    virtual int  start (quint16 ,const QHostAddress &);
+    virtual int  start (quint16 ,const QHostAddress & =QHostAddress::Any);
 
     virtual QIODevice * socket();
     virtual void sendHeader(server_t &);
