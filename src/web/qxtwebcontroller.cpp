@@ -60,16 +60,15 @@ QString QxtWebController::self()
 }
 
 
-int QxtWebController::invoke(server_t & SERVER_i)
+int QxtWebController::invoke(QxtWebStatelessConnection* t)
 {
-    SERVER=SERVER_i;
-    QList<QByteArray> args_d = SERVER["REQUEST_URI"].split('/');
+    QList<QString> args_d = t->request().path().split('/');
 
     ///--------------find action ------------------
     QByteArray action="index";
     if (args_d.count()>2)
     {
-        action=args_d.at(2);
+        action=args_d.at(2).toUtf8();
         if (action.trimmed().isEmpty())action="index";
     }
     else if (args_d.count()>1)
@@ -85,9 +84,7 @@ int QxtWebController::invoke(server_t & SERVER_i)
     else
         args_d.clear();
 
-    QStringList args;
-    foreach(QByteArray arg,args_d)
-    args<<QUrl::fromPercentEncoding(arg);
+    QStringList args=args_d;
 
     QByteArray buffer;
     QTextStream strm (&buffer);
@@ -183,7 +180,7 @@ int QxtWebController::invoke(server_t & SERVER_i)
     stream_m->flush ();
     stream_m=0;
     if(buffer.size())
-        QxtWebCore::send(buffer);
+        QxtWebLegacyEngine::send(buffer);
     return retVal;
 };
 

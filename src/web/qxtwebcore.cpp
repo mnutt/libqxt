@@ -22,7 +22,6 @@
 **
 ****************************************************************************/
 #include "qxtwebcore.h"
-#include "qxtabstractwebconnector.h"
 #include "qxtwebcore_p.h"
 
 #include <QTimer>
@@ -81,224 +80,136 @@
  */
 
 
-static QxtWebCore * singleton_m=0;
+static QxtWebLegacyEngine * singleton_m=0;
 
 //-----------------------interface----------------------------
-QxtWebCore::QxtWebCore(QxtAbstractWebConnector * pt):QObject()
+QxtWebLegacyEngine::QxtWebLegacyEngine(QxtWebStatelessConnector * t):QObject()
 {
     if (singleton_m)
         qFatal("you're trying to construct QxtWebCore twice!");
-    qRegisterMetaType<server_t>("server_t");
-    qRegisterMetaTypeStreamOperators<server_t>("server_t");
-
     singleton_m=this;
-    QXT_INIT_PRIVATE(QxtWebCore);
-    qxt_d().connector=pt;
-    connect(pt,SIGNAL(aboutToClose()),this,SIGNAL(aboutToClose()));
-    connect(pt,SIGNAL(incomming(server_t)),&qxt_d(),SLOT(incomming(server_t)));
+    sc=t;
+    cc=0;
+    connect(sc,SIGNAL(newConnection()),this,SLOT(incomming()));
 }
 
-QxtWebCore::~QxtWebCore()
+QxtWebLegacyEngine::~QxtWebLegacyEngine()
 {
     singleton_m=0;
 }
 
 
-void QxtWebCore::send(QString a)
+void QxtWebLegacyEngine::send(QString a)
 {
-    instance()->qxt_d().send(a);
+    Q_ASSERT(instance()->cc);
+    instance()->cc->write(a.toUtf8());
 }
-void QxtWebCore::header(QString a,QString b)
+void QxtWebLegacyEngine::header(QString a,QString b)
 {
-    instance()->qxt_d().header(a,b);
-}
-
-server_t &  QxtWebCore::SERVER()
-{
-    return instance()->qxt_d().currentservert;
+    Q_ASSERT(instance()->cc);
+    instance()->cc->response().setValue(a,b);
 }
 
-QIODevice * QxtWebCore::socket()
+QHttpRequestHeader &  QxtWebLegacyEngine::SERVER()
 {
-    return instance()->qxt_d().connector->socket();
+    Q_ASSERT(instance()->cc);
+    return instance()->cc->request();
 }
 
-int QxtWebCore::start (quint16 port ,const QHostAddress & address )
+QIODevice * QxtWebLegacyEngine::socket()
 {
-    return instance()->qxt_d().connector->start(port,address);
+    Q_ASSERT(instance()->cc);
+    return instance()->cc;
 }
 
-void QxtWebCore::redirect(QString location,int code)
+void QxtWebLegacyEngine::redirect(QString l,int code)
 {
-    instance()->qxt_d().redirect(location,code);
+     if(!instance()->cc)
+        return;
+
+    QByteArray loc =QUrl(l).toEncoded ();
+
+    if (loc.isEmpty())
+        loc="/";
+    instance()->cc->response().setStatusLine(code);
+    instance()->cc->response().setValue("Location",loc);
+    instance()->cc->write(QByteArray("<a href=\""+loc+"\">"+loc+"</a>"));
+
 }
 
-QxtWebCore * QxtWebCore::instance()
+QxtWebLegacyEngine * QxtWebLegacyEngine::instance()
 {
     if (!singleton_m)
         qFatal("no QxtWebCore constructed");
     return singleton_m;
 }
-void QxtWebCore::setCodec ( QTextCodec * codec )
+
+
+void QxtWebLegacyEngine::close()
 {
-    instance()->qxt_d().decoder=codec->makeDecoder();
-    instance()->qxt_d().encoder=codec->makeEncoder();
-}
-
-void QxtWebCore::close()
-{
-    instance()->qxt_d().close();
-}
-void QxtWebCore::sendHeader()
-{
-    instance()->qxt_d().sendheader();
-
-}
-
-//-----------------------implementation----------------------------
-
-
-
-
-QxtWebCorePrivate::QxtWebCorePrivate(QObject *parent):QObject(parent),QxtPrivate<QxtWebCore>()
-{
-    connector=0;
-    decoder=0;
-    encoder=0;
-}
-
-void QxtWebCorePrivate::send(QString str)
-{
-    sendheader();
-
-    if (encoder)
-        connector->socket()->write(encoder->fromUnicode (str));
-    else
-        connector->socket()->write(str.toUtf8());
-
-}
-void QxtWebCorePrivate::close()
-{
-    sendheader();
-    connector->close();
-}
-
-void QxtWebCorePrivate::sendheader()
-{
-    if (!header_sent)
-    {
-        header_sent=true;
-        connector->sendHeader(answer);
-    }
-}
-void QxtWebCorePrivate::header(QString k,QString v)
-{
-    if (header_sent)
-        qWarning("headers already sent");
-    if (encoder)
-        answer[encoder->fromUnicode (k)]=encoder->fromUnicode (v);
-    else
-        answer[k.toUtf8()]=v.toUtf8();
-
-}
-void QxtWebCorePrivate::redirect(QString l,int code)
-{
-    QByteArray loc =QUrl(l).toEncoded ();
-
-    if (loc.isEmpty())
-        loc="/";
-    QxtWebCore::header("Status",QString::number(code).toUtf8());
-    QxtWebCore::header("Location",loc);
-    send(QString("<a href=\""+loc+"\">"+loc+"</a>"));
-}
-
-
-
-
-
-
-void QxtWebCorePrivate::incomming(server_t  SERVER)
-{
-    header_sent=false;
-    answer.clear();
-    qDebug("%i, %s -> %s",(int)time(NULL),SERVER["HTTP_HOST"].constData(),SERVER["REQUEST_URI"].constData());
-
-
-    currentservert=SERVER;
-
-    emit(qxt_p().request());
-
-    ///--------------find controller ------------------
-    QByteArray path="404";
-    QList<QByteArray> requestsplit = SERVER["REQUEST_URI"].split('/');
-    if (requestsplit.count()>1)
-    {
-        path=requestsplit.at(1);
-        if (path.trimmed().isEmpty())path="root";
-    }
-    else if (requestsplit.count()>0)
-        path="root";
-
-    ///--------------controller------------------
-
-    QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
-    if (!controller)
-    {
-        header("Status","404");
-        send("<h1>404 Controller ");
-        send(path);
-        send(" not found</h1>");
-        close();
-        qDebug("404 controller '%s' not found",path.constData());
+     if(!instance()->cc)
         return;
-    }
-
-    int i=controller->invoke(SERVER);
-    if (i!=0 && i!=2)
-    {
-        header("Status","404");
-        send("<h1>");
-        send(QString::number(i));
-        send("</h1>Sorry,, that didn't work as expected. You might want to contact this systems administrator.");
-    }
-    if (i!=2) ///FIXME temporary solution for keepalive
-        close();
+    instance()->cc->close();
+    delete instance()->cc;
+    instance()->cc=0;
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-//-----------------------helper----------------------------
-
-QByteArray QxtWebCore::content(int maxsize)
+void QxtWebLegacyEngine::incomming()
 {
-    return instance()->qxt_d().connector->content(maxsize);
-}
+    qDebug("%i, %s -> %s",(int)time(NULL),qPrintable(SERVER().value("HTTP_HOST")),qPrintable(SERVER().path()));
 
 
-QxtError QxtWebCore::parseString(QByteArray content_in, post_t & POST)
-{
-    QList<QByteArray> posts = content_in.split('&');
-    QByteArray post;
-    foreach(post,posts)
+    Q_ASSERT_X(!cc,Q_FUNC_INFO,"inconsistent state");
+
+    if(!sc->hasPendingConnections())
+        sc->waitForNewConnection(-1);
+
+    while(sc->hasPendingConnections ())
     {
-        QList<QByteArray> b =post.split('=');
-        if (b.count()!=2)continue;
-        POST[QUrl::fromPercentEncoding  ( b[0].replace("+","%20"))]=QUrl::fromPercentEncoding  ( b[1].replace("+","%20") );
+        cc=sc->nextPendingConnection();
+        cc->waitForReadyRead(10000);
+        emit(request());
+
+        ///--------------find controller ------------------
+        QByteArray path="404";
+        QStringList requestsplit = SERVER().path().split('/');
+        if (requestsplit.count()>1)
+        {
+            path=requestsplit.at(1).toUtf8();
+            if (path.trimmed().isEmpty())path="root";
+        }
+        else if (requestsplit.count()>0)
+            path="root";
+
+        ///--------------controller------------------
+
+        QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
+        if (!controller)
+        {
+            header("Status","404");
+            send("<h1>404 Controller ");
+            send(path);
+            send(" not found</h1>");
+            close();
+            qDebug("404 controller '%s' not found",path.constData());
+            return;
+        }
+
+        int i=controller->invoke(cc);
+        if (i!=0 && i!=2)
+        {
+            header("Status","404");
+            send("<h1>");
+            send(QString::number(i));
+            send("</h1>Sorry,, that didn't work as expected. You might want to contact this systems administrator.");
+        }
+        if (i!=2) ///FIXME temporary solution for keepalive
+            close();
     }
-    QXT_DROP_OK
 }
-
-
 
 
 
