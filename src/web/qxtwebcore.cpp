@@ -159,7 +159,6 @@ void QxtWebLegacyEngine::close()
 
 void QxtWebLegacyEngine::incomming()
 {
-    qDebug("%i, %s -> %s",(int)time(NULL),qPrintable(SERVER().value("HTTP_HOST")),qPrintable(SERVER().path()));
 
 
     Q_ASSERT_X(!cc,Q_FUNC_INFO,"inconsistent state");
@@ -171,6 +170,7 @@ void QxtWebLegacyEngine::incomming()
     {
         cc=sc->nextPendingConnection();
         cc->waitForReadyRead(10000);
+        qDebug("%i, %s -> %s",(int)time(NULL),qPrintable(SERVER().value("HTTP_HOST")),qPrintable(SERVER().path()));
         emit(request());
 
         ///--------------find controller ------------------
