@@ -24,37 +24,17 @@
 #ifndef QXTAPPLICATION_P_H
 #define QXTAPPLICATION_P_H
 
-#include <QPair>
 #include <QList>
-#include <QMultiHash>
 #include "qxtpimpl.h"
 #include "qxtapplication.h"
-#include "qxtnativeeventfilter.h"
 
-typedef QPair<uint, uint> Identifier;
-typedef QList<Identifier> Identifiers;
-typedef QPair<QWidget*, const char*> Receiver;
-typedef QList<Receiver> Receivers;
+class QxtNativeEventFilter;
 
 class QxtApplicationPrivate : public QxtPrivate<QxtApplication>
 {
 public:
 	QXT_DECLARE_PUBLIC(QxtApplication);
-	
-	uint nativeKeycode(Qt::Key key) const;
-	uint nativeModifiers(Qt::KeyboardModifiers modifiers) const;
-	
-	bool registerHotKey(uint modifiers, uint keycode, QWidget* receiver);
-	bool unregisterHotKey(uint modifiers, uint keycode, QWidget* receiver);
-	void activateHotKey(uint modifiers, uint keycode) const;
-
-	QMultiHash<Identifier, Receiver> hotkeys;
 	QList<QxtNativeEventFilter*> nativeFilters;
 };
-
-inline uint qHash(const QPair<uint, uint>& value)
-{
-    return qHash(value.first) ^ qHash(value.second);
-}
 
 #endif // QXTAPPLICATION_P_H

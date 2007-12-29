@@ -61,9 +61,6 @@ public:
 #endif // Q_WS_*
 #endif // QXT_DOXYGEN_RUN
 
-    bool addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member);
-    bool removeHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member);
-
     inline static QxtApplication* instance()
     {
         return static_cast<QxtApplication*>(QApplication::instance());
