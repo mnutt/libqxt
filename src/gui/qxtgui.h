@@ -26,6 +26,7 @@
 #include "qxtconfigdialog.h"
 #include "qxtconfirmationmessage.h"
 #include "qxtdockwidget.h"
+#include "qxtglobalshortcut.h"
 #include "qxtgroupbox.h"
 #include "qxtheaderview.h"
 #include "qxtitemdelegate.h"
