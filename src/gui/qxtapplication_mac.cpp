@@ -22,6 +22,8 @@
 **
 ****************************************************************************/
 #include "qxtapplication.h"
+#include "qxtapplication_p.h"
+#include "qxtnativeeventfilter.h"
 
 bool QxtApplication::macEventFilter(EventHandlerCallRef caller, EventRef event)
 {

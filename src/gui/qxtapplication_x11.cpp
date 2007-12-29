@@ -22,6 +22,8 @@
 **
 ****************************************************************************/
 #include "qxtapplication.h"
+#include "qxtapplication_p.h"
+#include "qxtnativeeventfilter.h"
 
 QxtApplication::QxtApplication(Display* display, Qt::HANDLE visual, Qt::HANDLE colormap)
     : QApplication(display, visual, colormap)
