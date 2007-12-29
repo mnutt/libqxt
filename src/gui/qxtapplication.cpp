@@ -23,19 +23,13 @@
 ****************************************************************************/
 #include "qxtapplication.h"
 #include "qxtapplication_p.h"
-#include <QWidget>
 
 /*!
     \class QxtApplication QxtApplication
     \ingroup QxtGui
-    \brief An extended QApplication with support for hotkeys aka "global shortcuts".
+    \brief An extended QApplication with support for native event filters.
 
-    QxtApplication introduces hotkeys which trigger even if the application is not
-    active. This makes it easy to implement applications that react to certain
-    shortcuts still if some other application is active or if the application is
-    for example minimized to the system tray.
-
-    QxtApplication also lets you install native event filters. This makes it
+    QxtApplication lets you install native event filters. This makes it
     possible to access platform specific native events without subclassing
     QApplication.
  */
@@ -50,18 +44,22 @@
 
 QxtApplication::QxtApplication(int& argc, char** argv)
         : QApplication(argc, argv)
-{}
+{
+}
 
 QxtApplication::QxtApplication(int& argc, char** argv, bool GUIenabled)
         : QApplication(argc, argv, GUIenabled)
-{}
+{
+}
 
 QxtApplication::QxtApplication(int& argc, char** argv, Type type)
         : QApplication(argc, argv, type)
-{}
+{
+}
 
 QxtApplication::~QxtApplication()
-{}
+{
+}
 
 /*!
     Installs a native event \a filter.
@@ -95,60 +93,4 @@ void QxtApplication::installNativeEventFilter(QxtNativeEventFilter* filter)
 void QxtApplication::removeNativeEventFilter(QxtNativeEventFilter* filter)
 {
     qxt_d().nativeFilters.removeAll(filter);
-}
-
-/*!
-    Adds a hotkey using \a modifiers and \a key. The \a member
-    of \a receiver is invoked upon hotkey trigger.
-
-    \return \b true if hotkey registration succeed, \b false otherwise.
-
-    Example usage:
-    \code
-    QxtLabel* label = new QxtLabel("Hello world!");
-    qxtApp->addHotKey(Qt::ShiftModifier | Qt::ControlModifier, Qt::Key_S, label, "show");
-    \endcode
-*/
-bool QxtApplication::addHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member)
-{
-    Q_ASSERT(receiver);
-    Q_ASSERT(member);
-    uint mods = qxt_d().nativeModifiers(modifiers);
-    uint keycode = qxt_d().nativeKeycode(key);
-    if (keycode)
-    {
-        qxt_d().hotkeys.insert(qMakePair(mods, keycode), qMakePair(receiver, member));
-        return qxt_d().registerHotKey(mods, keycode, receiver);
-    }
-    return false;
-}
-
-/*!
-    Removes the hotkey using \a modifiers and \a key mapped to
-    \a member of \a receiver.
-
-    \return \b true if hotkey unregistration succeed, \b false otherwise.
-*/
-bool QxtApplication::removeHotKey(Qt::KeyboardModifiers modifiers, Qt::Key key, QWidget* receiver, const char* member)
-{
-    Q_ASSERT(receiver);
-    Q_UNUSED(member);
-    uint mods = qxt_d().nativeModifiers(modifiers);
-    uint keycode = qxt_d().nativeKeycode(key);
-    if (keycode)
-    {
-        qxt_d().hotkeys.remove(qMakePair(mods, keycode));
-        return qxt_d().unregisterHotKey(mods, keycode, receiver);
-    }
-    return false;
-}
-
-void QxtApplicationPrivate::activateHotKey(uint modifiers, uint keycode) const
-{
-    Receivers receivers = hotkeys.values(qMakePair(modifiers, keycode));
-    foreach (Receiver receiver, receivers)
-    {
-        // QMetaObject::invokeMethod() has appropriate null checks
-        QMetaObject::invokeMethod(receiver.first, receiver.second);
-    }
 }
