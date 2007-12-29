@@ -41,7 +41,8 @@ public:
 #ifdef Q_WS_WIN
     QWidget* widget;
 #endif // Q_WS_WIN
-    bool setShortcut(Qt::Key keycode, Qt::KeyboardModifiers modifiers);
+    //bool setShortcut(Qt::Key keycode, Qt::KeyboardModifiers modifiers);
+    bool setShortcut(const QKeySequence& shortcut);
     bool unsetShortcut();
 
 #if defined(Q_WS_X11)

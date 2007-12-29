@@ -23,7 +23,6 @@
 ****************************************************************************/
 #include "qxtglobalshortcut.h"
 #include "qxtglobalshortcut_p.h"
-#include <QKeyEvent>
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
 #ifdef Q_WS_WIN
@@ -32,10 +31,10 @@ QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Ke
 {
 }
 
-bool QxtGlobalShortcutPrivate::setShortcut(Qt::Key keycode, Qt::KeyboardModifiers modifiers)
+bool QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
 {
-    key = keycode;
-    mods = modifiers;
+    key = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key(shortcut[0] & 0x01FFFFFF);
+    mods = shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(shortcut[0] & 0xFE000000);
     return registerShortcut(nativeKeycode(key), nativeModifiers(mods));
 }
 
@@ -72,13 +71,13 @@ QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
     qxtApp->installNativeEventFilter(&qxt_d());
 }
 
-QxtGlobalShortcut::QxtGlobalShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers, QObject* parent)
+QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent)
     : QObject(parent)
 {
     Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
     qxtApp->installNativeEventFilter(&qxt_d());
-    setShortcut(key, modifiers);
+    setShortcut(shortcut);
 }
 
 QxtGlobalShortcut::~QxtGlobalShortcut()
@@ -87,25 +86,24 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
         qxt_d().unsetShortcut();
 }
 
-Qt::Key QxtGlobalShortcut::key() const
+/*!
+    \property QxtGlobalShortcut::shortcut
+    \brief This property holds the shortcut key sequence
+ */
+QKeySequence QxtGlobalShortcut::shortcut() const
 {
-    return qxt_d().key;
+    return QKeySequence(qxt_d().key, qxt_d().mods);
 }
 
-Qt::KeyboardModifiers QxtGlobalShortcut::modifiers() const
-{
-    return qxt_d().mods;
-}
-
-bool QxtGlobalShortcut::setShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers)
+bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 {
     if (qxt_d().key != 0)
         qxt_d().unsetShortcut();
-    return qxt_d().setShortcut(key, modifiers);
+    return qxt_d().setShortcut(shortcut);
 }
 
 /*!
-    \property QxtLabel::enabled
+    \property QxtGlobalShortcut::enabled
     \brief This property holds whether the shortcut is enabled
 
     A disabled shortcut does not get activated.
