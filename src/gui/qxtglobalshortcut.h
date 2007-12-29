@@ -34,6 +34,7 @@ class QXT_GUI_EXPORT QxtGlobalShortcut : public QObject
 {
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtGlobalShortcut);
+    Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
 
 public:
     explicit QxtGlobalShortcut(QObject* parent = 0);
@@ -43,6 +44,12 @@ public:
     Qt::Key key() const;
     Qt::KeyboardModifiers modifiers() const;
     bool setShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers = Qt::NoModifier);
+
+    bool isEnabled() const;
+
+public slots:
+    void setEnabled(bool enabled = true);
+    void setDisabled(bool disabled = true);
 
 signals:
     void activated();

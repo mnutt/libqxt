@@ -32,9 +32,10 @@
 class QxtGlobalShortcutPrivate : public QxtPrivate<QxtGlobalShortcut>, public QxtNativeEventFilter
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtGlobalShortcut);
+    QXT_DECLARE_PUBLIC(QxtGlobalShortcut);
     QxtGlobalShortcutPrivate();
-	
+
+    bool enabled;
     Qt::Key key;
     Qt::KeyboardModifiers mods;
 #ifdef Q_WS_WIN
@@ -53,10 +54,10 @@ public:
 
 private:
     quint32 nativeKeycode(Qt::Key keycode) const;
-	quint32 nativeModifiers(Qt::KeyboardModifiers modifiers) const;
-    
+    quint32 nativeModifiers(Qt::KeyboardModifiers modifiers) const;
+
     bool registerShortcut(quint32 nativeKey, quint32 nativeMods);
-	bool unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
+    bool unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
     void activateShortcut(quint32 nativeKey, quint32 nativeMods);
 };
 
