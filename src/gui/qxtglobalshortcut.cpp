@@ -25,7 +25,7 @@
 #include "qxtglobalshortcut_p.h"
 #include <QKeyEvent>
 
-QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : key(Qt::Key(0)), mods(Qt::NoModifier)
+QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
 #ifdef Q_WS_WIN
     , widget(0)
 #endif // Q_WS_WIN
@@ -49,7 +49,7 @@ bool QxtGlobalShortcutPrivate::unsetShortcut()
 
 void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativeMods)
 {
-    if (nativeKeycode(key) == nativeKey && nativeModifiers(mods) == nativeMods)
+    if (enabled && nativeKeycode(key) == nativeKey && nativeModifiers(mods) == nativeMods)
         emit qxt_p().activated();
 }
 
@@ -102,4 +102,34 @@ bool QxtGlobalShortcut::setShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers
     if (qxt_d().key != 0)
         qxt_d().unsetShortcut();
     return qxt_d().setShortcut(key, modifiers);
+}
+
+/*!
+    \property QxtLabel::enabled
+    \brief This property holds whether the shortcut is enabled
+
+    A disabled shortcut does not get activated.
+
+    The default value is \b true.
+
+    \sa setDisabled()
+ */
+bool QxtGlobalShortcut::isEnabled() const
+{
+    return qxt_d().enabled;
+}
+
+void QxtGlobalShortcut::setEnabled(bool enabled)
+{
+    qxt_d().enabled = enabled;
+}
+
+/*!
+    Sets the shortcut \a disabled.
+
+    \sa enabled
+ */
+void QxtGlobalShortcut::setDisabled(bool disabled)
+{
+    qxt_d().enabled = !disabled;
 }
