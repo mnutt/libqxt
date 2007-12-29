@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "tab.h"
 #include <QxtConfirmationMessage>
+#include <QxtGlobalShortcut>
 #include <QxtProgressLabel>
 #include <QxtConfigDialog>
 #include <QxtApplication>
@@ -29,7 +30,9 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
 	connect(ui.actionSwitchLayoutDirection, SIGNAL(triggered()), this, SLOT(switchLayoutDirection()));
 	connect(ui.actionConfigure, SIGNAL(triggered()), this, SLOT(configure()));
 	
-	if (!qxtApp->addHotKey(Qt::ControlModifier | Qt::ShiftModifier | Qt::AltModifier, Qt::Key_S, this, "toggleVisibility"))
+    QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(toggleVisibility()));
+    if (!shortcut->setShortcut(Qt::Key_S, Qt::ControlModifier | Qt::ShiftModifier | Qt::AltModifier))
 		ui.labelVisibility->hide();
 }
 
