@@ -23,6 +23,8 @@ HEADERS  += qxtconfigdialog_p.h
 HEADERS  += qxtconfirmationmessage.h
 HEADERS  += qxtdockwidget.h
 HEADERS  += qxtgui.h
+HEADERS  += qxtglobalshortcut.h
+HEADERS  += qxtglobalshortcut_p.h
 HEADERS  += qxtgroupbox.h
 HEADERS  += qxtheaderview.h
 HEADERS  += qxtitemdelegate.h
@@ -57,6 +59,7 @@ SOURCES  += qxtcheckcombobox.cpp
 SOURCES  += qxtconfigdialog.cpp
 SOURCES  += qxtconfirmationmessage.cpp
 SOURCES  += qxtdockwidget.cpp
+SOURCES  += qxtglobalshortcut.cpp
 SOURCES  += qxtgroupbox.cpp
 SOURCES  += qxtheaderview.cpp
 SOURCES  += qxtitemdelegate.cpp
@@ -78,10 +81,11 @@ SOURCES  += qxttreewidget.cpp
 SOURCES  += qxttreewidgetitem.cpp
 SOURCES  += qxtwindowsystem.cpp
 
-unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp
+unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
 macx {
        SOURCES += qxtapplication_mac.cpp
+       SOURCES += qxtglobalshortcut_mac.cpp
        SOURCES -= qxtwindowsystem.cpp
        HEADERS -= qxtwindowsystem.h
 }
-win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp
+win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp qxtglobalshortcut_win.cpp
