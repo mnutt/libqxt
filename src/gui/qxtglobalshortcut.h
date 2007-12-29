@@ -24,10 +24,10 @@
 #ifndef QXTGLOBALSHORTCUT_H
 #define QXTGLOBALSHORTCUT_H
 
-#include <QObject>
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
-class QKeySequence;
+#include <QObject>
+#include <QKeySequence>
 class QxtGlobalShortcutPrivate;
 
 class QXT_GUI_EXPORT QxtGlobalShortcut : public QObject
@@ -35,15 +35,15 @@ class QXT_GUI_EXPORT QxtGlobalShortcut : public QObject
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtGlobalShortcut);
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+    Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
 
 public:
     explicit QxtGlobalShortcut(QObject* parent = 0);
-    explicit QxtGlobalShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers = Qt::NoModifier, QObject* parent = 0);
+    explicit QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent = 0);
     virtual ~QxtGlobalShortcut();
 
-    Qt::Key key() const;
-    Qt::KeyboardModifiers modifiers() const;
-    bool setShortcut(Qt::Key key, Qt::KeyboardModifiers modifiers = Qt::NoModifier);
+    QKeySequence shortcut() const;
+    bool setShortcut(const QKeySequence& shortcut);
 
     bool isEnabled() const;
 
