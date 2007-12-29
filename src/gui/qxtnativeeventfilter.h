@@ -111,9 +111,9 @@ public:
     virtual ~QxtNativeEventFilter()
     { qxtApp->removeNativeEventFilter(this); }
 
-    virtual bool x11EventFilter(XEvent* event) = 0;
-    virtual bool winEventFilter(MSG* msg, long* result) = 0;
-    virtual bool macEventFilter(EventHandlerCallRef caller, EventRef event) = 0;
+    virtual bool x11EventFilter(XEvent*) { return false; }
+    virtual bool winEventFilter(MSG*, long*) { return false; }
+    virtual bool macEventFilter(EventHandlerCallRef, EventRef) { return false; }
 };
 
 #endif // QXTNATIVEEVENTFILTER_H
