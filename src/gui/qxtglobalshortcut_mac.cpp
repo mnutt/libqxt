@@ -48,8 +48,7 @@ bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventR
         Identifier id = keyIDs.key(keyID.id);
         activateShortcut(id.second, id.first);
     }
-    return QApplication::macEventFilter(caller, event);
-}
+    return false;
 
 quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
 {

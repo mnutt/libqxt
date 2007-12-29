@@ -32,7 +32,7 @@ bool QxtGlobalShortcutPrivate::x11EventFilter(XEvent* event)
         XKeyEvent* key = (XKeyEvent*) event;
         activateShortcut(key->keycode, key->state);
     }
-    return QApplication::x11EventFilter(event);
+    return false;
 }
 
 quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
