@@ -30,6 +30,14 @@
     \ingroup QxtBerkeley
     \brief template class that provides key/value access to a berkeley db file
 
+    both value and key must be registered with the qt meta system.
+
+    examples usage:
+    \code
+    QxtBdbHash<qreal,QStringList> db("test.db");
+    db.insert(344.4,QStringList<<"HI"<<":)");
+    qDebug()<<db[344.4];
+    \endcode
 
 */
 /*!
