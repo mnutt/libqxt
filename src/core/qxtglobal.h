@@ -47,6 +47,9 @@
         Tools for encryption and hashing
 */
 
+/** \defgroup QxtBerkeley  QxtBerkeley
+        Berkeley DB classes
+*/
 
 
 /**
@@ -140,6 +143,11 @@
 #   		define QXT_CRYPTO_EXPORT __declspec(dllimport)
 #	endif
 
+#   if defined(BUILD_QXT_BERKELEY)
+#           define QXT_BERKELEY_EXPORT __declspec(dllexport)
+#   else
+#           define QXT_BERKELEY_EXPORT __declspec(dllimport)
+#   endif
 
 #else
 
@@ -150,6 +158,7 @@
 #    define QXT_SQL_EXPORT
 #    define QXT_WEB_EXPORT
 #    define QXT_CRYPTO_EXPORT
+#    define QXT_BERKELEY_EXPORT
 
 
 
@@ -165,7 +174,7 @@
 
 
 
-#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO
+#if defined BUILD_QXT_CORE ||  defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA  || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY
 #define BUILD_QXT
 #endif
 

@@ -5,6 +5,7 @@ QMAKE_BIN=qmake
 WHICH=which
 
 NO_OPENSSL=0
+NO_DB=0
 NO_FFMPEG=0
 
 if uname -a | grep -iq Darwin; then
@@ -58,6 +59,9 @@ while (( $# > 0 )); do
     elif [ $1 == "-no-openssl" ]; then
         echo "QXT_LIBS -= openssl" >> config.in
         NO_OPENSSL=1
+    elif [ $1 == "-no-db" ]; then
+        echo "QXT_LIBS -= db" >> config.in
+        NO_DB=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
@@ -83,6 +87,7 @@ while (( $# > 0 )); do
         echo "-debug .............. Build Qxt with debugging symbols"
         echo "-release ............ Build Qxt without debugging support"
         echo "-no-openssl ......... Do not link to OpenSSL"
+        echo "-no-db .............. Do not link to Berkeley DB"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: network gui sql media web designer"
         echo "-verbose ............ shows compiler output"
@@ -147,6 +152,11 @@ configtest qt4     QT
 if [[ "$NO_OPENSSL" == "0" ]]; then
     configtest openssl OPENSSL
 fi
+
+if [[ "$NO_DB" == "0" ]]; then
+    configtest "db  "    DB
+fi
+
 #configtest curses  CURSES
 configtest fcgi  FCGI
 
