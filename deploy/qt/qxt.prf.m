@@ -34,6 +34,12 @@ macx:LIBS       += -F$${QXTlib}
 LIBS            += -L$${QXTlib}
 
 
+contains(QXT, berkeley) {
+    INCLUDEPATH       += $${QXTinclude}/QxtBerkeley
+    macx: INCLUDEPATH += $${QXTlib}//QxtBerkeley.framework/HEADERS/
+    qtAddLibrary(QxtBerkeley)
+    QXT += core
+}
 contains(QXT, crypto) {
     INCLUDEPATH       += $${QXTinclude}/QxtCrypto
     macx: INCLUDEPATH += $${QXTlib}/QxtCrypto.framework/HEADERS/
