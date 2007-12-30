@@ -59,6 +59,13 @@ contains( QXT_BUILD, curses ){
 }
 }
 
+contains(DEFINES,HAVE_DB){
+contains( QXT_BUILD, berkeley ){
+    message( building berkeley module )
+    SUBDIRS += src/berkeley
+}
+}
+
 	
 contains( QXT_BUILD, web ){
     message( building web module )
