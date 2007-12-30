@@ -30,7 +30,8 @@
     \ingroup QxtBerkeley
     \brief template class that provides key/value access to a berkeley db file
 
-    both value and key must be registered with the qt meta system.
+    both value and key must be registered with the qt meta system.\n
+    YOu may not touch the file while a QxtBdbHash instance is running on it.
 
     examples usage:
     \code
@@ -38,6 +39,12 @@
     db.insert(344.4,QStringList<<"HI"<<":)");
     qDebug()<<db[344.4];
     \endcode
+
+    \n \n
+    this class is implicit shared.
+    \n
+    all members of this class, except flush() are thread safe. \n
+
 
 */
 /*!
