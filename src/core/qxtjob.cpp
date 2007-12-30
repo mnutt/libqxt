@@ -31,8 +31,8 @@
 
 QxtJob allows easily starting jobs on different threads.\n
 exec() will ask for the QThread to run the job on.
-The Qthread needs an event loop. 4.3 and later versions of Qt have 
-a non virtual QThread with a default event loop, allowing easy deployment of jobs.
+The Qthread needs an event loop. since version 4.4, QThread has 
+a non pure run function with a default event loop, allowing easy deployment of jobs.
 
 \code
 QThread thread;
