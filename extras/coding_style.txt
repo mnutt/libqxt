@@ -98,6 +98,19 @@ LibQxt Coding Style Guidelines
         - Constant is an attribute bound at design time. There should be no need to remove constness.
 
 7. Functions and member functions
+   7.1. Function parameters must be named. Function parameter names must match in both,
+        function declaration and function definition.
+        - Self-documentary parameter names are as important as verbose docs.
+   7.2. Object parameters must always be (const) references where possible.
+        - Avoid unnecessary copying.
+        - Implicit sharing is no excuse. Avoid unnecessary detaching.
+   7.3. Do not use a variable number of function parameters (ellipsis notation).
+        - Complier does no checks to passed parameters.
+   7.4. Possible default values of parameters must be placed in function declaration only.
+        - Possible default values must be clearly seen from header files.
+   7.5. Do not return a reference or a pointer to local data.
+        - Local data of a function is no more existent after the function returns.
+   7.6. A member function must be a const function whenever possible.
 
 8. Classes and objects
 
