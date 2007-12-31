@@ -37,8 +37,9 @@ template<class KEY, class VAL>
 class QXT_BERKELEY_EXPORT QxtBdbHash
 {
 public:
+    QxtBdbHash();
     QxtBdbHash(QString file);
-
+    bool open(QString file);
     void clear();
     bool contains ( const KEY & key ) const;
     bool remove ( const KEY & key );
@@ -57,10 +58,9 @@ private:
 
 
 template<class KEY, class VAL>
-QxtBdbHash<KEY,VAL>::QxtBdbHash(QString file)
+QxtBdbHash<KEY,VAL>::QxtBdbHash()
 {
     qxt_d=new QxtBdb();
-    qxt_d().open(file,QxtBdb::CreateDatabase);
 
     ///this will fail to compile if KEY or VALUE are not declared metatypes. Good.
     meta_id_key = qMetaTypeId<KEY>(); 
@@ -68,10 +68,31 @@ QxtBdbHash<KEY,VAL>::QxtBdbHash(QString file)
 }
 
 
+template<class KEY, class VAL>
+QxtBdbHash<KEY,VAL>::QxtBdbHash(QString file)
+{
+    qxt_d=new QxtBdb();
+    open(file);
+
+    ///this will fail to compile if KEY or VALUE are not declared metatypes. Good.
+    meta_id_key = qMetaTypeId<KEY>(); 
+    meta_id_val = qMetaTypeId<VAL>(); 
+}
+
+template<class KEY, class VAL>
+bool QxtBdbHash<KEY,VAL>::open(QString file)
+{
+    return qxt_d().open(file,QxtBdb::CreateDatabase);
+}
+
+
 
 template<class KEY, class VAL>
 void QxtBdbHash<KEY,VAL>::clear()
 {
+    if(!qxt_d().isOpen)
+        return;
+
     u_int32_t x;
     qxt_d().db->truncate(qxt_d().db,NULL, &x,0);
 
@@ -81,6 +102,8 @@ void QxtBdbHash<KEY,VAL>::clear()
 template<class KEY, class VAL>
 bool QxtBdbHash<KEY,VAL>::contains ( const KEY & k ) const
 {
+    if(!qxt_d().isOpen)
+        return false;
 
     BerkeleyDB::DBT key;
     /* Zero out the DBTs before using them. */
@@ -104,6 +127,8 @@ bool QxtBdbHash<KEY,VAL>::contains ( const KEY & k ) const
 template<class KEY, class VAL>
 bool QxtBdbHash<KEY,VAL>::remove ( const KEY & k )
 {
+    if(!qxt_d().isOpen)
+        return false;
 
     BerkeleyDB::DBT key;
     /* Zero out the DBTs before using them. */
@@ -130,6 +155,9 @@ bool QxtBdbHash<KEY,VAL>::remove ( const KEY & k )
 template<class KEY, class VAL>
 bool QxtBdbHash<KEY,VAL>::insert(KEY k, VAL v)
 {
+    if(!qxt_d().isOpen)
+        return false;
+
     QByteArray d_key, d_value;
 
     {
@@ -169,6 +197,9 @@ bool QxtBdbHash<KEY,VAL>::insert(KEY k, VAL v)
 template<class KEY, class VAL>
 const VAL QxtBdbHash<KEY,VAL>::value ( const KEY & k  ) const
 {
+    if(!qxt_d().isOpen)
+        return VAL() ;
+
     BerkeleyDB::DBT key, data;
     /* Zero out the DBTs before using them. */
     memset(&key, 0, sizeof(BerkeleyDB::DBT));

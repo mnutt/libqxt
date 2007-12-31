@@ -55,14 +55,13 @@ public:
     ~QxtBdb();
 
     bool open(QString path,OpenFlags f=0);
-
     OpenFlags openFlags();
-
     bool flush();
 
-
-
     BerkeleyDB::DB * db;
+
+
+    bool isOpen;
 
 };
 
