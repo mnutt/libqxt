@@ -229,17 +229,18 @@ QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator + ( int j ) const
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ ()
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ () /*prefix*/
 {
     *this= QxtLinkedTreeIterator<T>(item->next);
     return *this;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ (int)
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ (int) /*postfix*/
 {
+    QxtLinkedTreeIterator<T> d(*this);
     *this= QxtLinkedTreeIterator<T>(item->next);
-    return *this;
+    return d;
 }
 
 template<class T>
@@ -263,17 +264,18 @@ QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator - ( int j ) const
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- ()
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- () /*prefix*/
 {
     *this= QxtLinkedTreeIterator<T>(item->previous);
     return *this;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- (int)
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- (int) /*postfix*/
 {
+    QxtLinkedTreeIterator<T> d(*this);
     *this= QxtLinkedTreeIterator<T>(item->previous);
-    return *this;
+    return d;
 
 }
 
