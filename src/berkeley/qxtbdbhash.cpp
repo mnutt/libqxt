@@ -47,10 +47,24 @@
 
 
 */
+
+/*!
+    \fn void QxtBdbHash::QxtBdbHash()
+
+    Constructs an invalid QxtBdbHash
+*/
+
 /*!
     \fn void QxtBdbHash::QxtBdbHash(QString file)
 
     Constructs a QxtBdbHash, and opens the file specified as its database.
+*/
+
+
+/*!
+    \fn bool QxtBdbHash::open(QString file)
+
+    opens the specified file. returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
 */
 
 /*!
