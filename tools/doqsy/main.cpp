@@ -368,12 +368,13 @@ QString printAssistantFile()
     if(!t_i_i.open(templateDir+"/index.dcf.unroll.members"))qFatal("cannot open template");
 
 
+    t["unroll_classes"]="";
     foreach(Class * cl,publiclasses)
     {
         t_i.clear();
         t_i["name"]=cl->name;
         t_i["link"]=refToLink(cl->ref);
-
+        t_i["unroll_members"]="";
 
         foreach(Member * m,cl->members)
         {
