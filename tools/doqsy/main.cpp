@@ -127,7 +127,7 @@ QString refToLink( QString ref)
 
 
 
-QString descRTF(QDomElement element)
+QString descRTF(QDomElement element,bool noOuterParagraph=false)
 {
     ///TODO parse the rest
 
@@ -149,11 +149,26 @@ QString descRTF(QDomElement element)
             }
             else if(e.tagName ()=="para")
             {
-                text += "<p>"+descRTF(e)+"</p>";
+                if(noOuterParagraph)
+                {
+                    text += descRTF(e);
+                }
+                else
+                {
+                    text += "<p>"+descRTF(e)+"</p>";
+                }
             }
             else if(e.tagName ()=="simplesect")
             {
-                text += "<div class=\"simplesect_"+e.attribute("kind")+"\">"+descRTF(e)+"</div>";
+                QString d="";
+                if(e.attribute("kind")=="see")
+                    d="See also:";
+                else if(e.attribute("kind")=="warning")
+                    d="Warning:";
+                else if(e.attribute("kind")=="note")
+                    d="Note:";
+
+                text += "<div class=\"simplesect_"+e.attribute("kind")+"\"> <strong>"+d+"</strong> "   +descRTF(e,true)+"</div>";
             }
             else if(e.tagName ()=="bold")
             {

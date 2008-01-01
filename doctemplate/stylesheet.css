@@ -138,8 +138,8 @@ a.reflinkblock
 {
     background:url("note.png") no-repeat;
     border:1px solid #eee;
-    padding:3px;
-    padding-left:50px;
+    padding:8px;
+    padding-left:40px;
 }
 
 .simplesect_note p
@@ -150,8 +150,8 @@ a.reflinkblock
 {
     background:url("sa.png") no-repeat;
     border:1px solid #eee;
-    padding:3px;
-    padding-left:50px;
+    padding:8px;
+    padding-left:40px;
 }
 .simplesect_see p
 {
@@ -162,8 +162,8 @@ a.reflinkblock
 {
     background:url("warning.png") no-repeat;
     border:1px solid #eee;
-    padding:3px;
-    padding-left:50px;
+    padding:8px;
+    padding-left:40px;
 }
 .simplesect_warning p
 {
