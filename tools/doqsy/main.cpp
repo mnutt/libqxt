@@ -226,6 +226,20 @@ QString descRTF(QDomElement element)
                 text += "<h"+e.attribute("level")+">"+descRTF(e)+"</h"+e.attribute("level")+">";
             }
 
+            ///tables
+            else if(e.tagName ()=="table")
+            {
+                text += "<table class=\"desctable\">\r\n"+descRTF(e)+"\r\n</table>\r\n";
+            }
+            else if(e.tagName ()=="row")
+            {
+                text += "<tr>\r\n"+descRTF(e)+"\r\n</tr>\r\n";
+            }
+            else if(e.tagName ()=="entry")
+            {
+                text += "<td>"+descRTF(e)+"</td>";
+            }
+
             ///memberdef->param
             else if(e.tagName ()=="type")
             {
@@ -243,7 +257,8 @@ QString descRTF(QDomElement element)
 
             else 
             {
-                 text += e.text().replace("<","&lt;").replace(">","&gt;")+" ";
+                    
+                 text += descRTF(e);
             }
         }
         else if (n.isText ()) 
