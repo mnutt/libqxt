@@ -24,31 +24,31 @@
 
 
 /** \defgroup QxtCore QxtCore
-        The Core contains naturaly  the most important parts of Qxt, everything is based on.
+    \brief   The Core contains naturaly  the most important parts of Qxt, everything is based on.
 */
 
 /** \defgroup QxtSql QxtSql
-        parts that depend on QtSql (and at least QtCore)
+    \brief   parts that depend on QtSql (and at least QtCore)
 */
 
 /** \defgroup QxtNetwork  QxtNetwork
-        parts that depend on QtNetwork (and at least QtCore)
+    \brief    parts that depend on QtNetwork (and at least QtCore)
 */
 
 /** \defgroup QxtGui QxtGui
-        parts that depend on QtGui (and at least QtCore)
+    \brief    parts that depend on QtGui (and at least QtCore)
 */
 
 /** \defgroup QxtWeb  QxtWeb
-        Qt like Web Developement tools
+    \brief    Qt like Web Developement tools
 */
 
 /** \defgroup QxtCrypto  QxtCrypto
-        Tools for encryption and hashing
+    \brief    Tools for encryption and hashing
 */
 
 /** \defgroup QxtBerkeley  QxtBerkeley
-        Berkeley DB classes
+    \brief    Berkeley DB classes
 */
 
 
