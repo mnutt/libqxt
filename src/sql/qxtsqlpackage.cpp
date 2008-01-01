@@ -26,6 +26,97 @@
 #include <QBuffer>
 #include <QDataStream>
 
+
+/**
+\class QxtSqlPackage QxtSqlPackage
+
+\ingroup QxtSql
+
+\brief full serialiseable QSqlQuery storage
+
+
+Sometimes you want to send sql results over network or store them into files. \n
+QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed. \n
+for confidence the interface is similiar to QSqlQuery.
+*/
+
+
+/**
+
+\fn  bool QxtSqlPackage::isValid();
+\brief determinates if the package curently points to a valid row
+
+
+\fn int QxtSqlPackage::at();
+\brief curent pointer position
+
+\fn bool QxtSqlPackage::next();
+\brief point to next entry
+
+returns false if there is no next entry.\n
+provided for easy porting from QSqlQuery.
+
+\code   
+while (query.next())
+    {
+    }
+\endcode 
+
+
+\fn bool QxtSqlPackage::last();
+\brief point to last entry in storage
+
+
+\fn bool QxtSqlPackage::first();
+\brief point to first entry in storage
+
+
+
+
+\fn QString QxtSqlPackage::value(const QString& key);
+\brief return a cloumn in curent row
+in contrast to QSqlQuery you have to provide the name of the key.
+
+the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.
+\code
+QString name = query.value("name"); 
+\endcode 
+
+
+\fn void QxtSqlPackage::insert(QSqlQuery query);
+
+\brief read from QSqlQuery
+
+read out a QSqlQuery and store the result. you may close the query after reading, the data will stay.
+
+\code
+QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
+\endcode 
+
+
+\fn int QxtSqlPackage::count() const;
+\brief Returns the number of rows stored
+
+\fn QByteArray QxtSqlPackage::data() const;
+\brief serialise Data
+
+\fn void QxtSqlPackage::setData(const QByteArray& data);
+\brief deserialise data
+
+\fn QHash<QString,QString> QxtSqlPackage::hash(int index);
+\brief return a specific row as Hash
+
+\fn QHash<QString,QString> QxtSqlPackage::hash();
+\brief return the curent row as Hash
+
+\fn QxtSqlPackage& QxtSqlPackage::operator= (const QxtSqlPackage& other);
+\brief copy
+
+*/
+
+
+
+
 QxtSqlPackage::QxtSqlPackage(QObject *parent) : QObject(parent)
 {
     record = -1;
