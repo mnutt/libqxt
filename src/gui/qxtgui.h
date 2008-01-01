@@ -48,3 +48,7 @@
 #include "qxttreewidget.h"
 #include "qxttreewidgetitem.h"
 #include "qxtwindowsystem.h"
+
+/** \defgroup QxtGui QxtGui
+    \brief    parts that depend on QtGui (and at least QtCore)
+*/
