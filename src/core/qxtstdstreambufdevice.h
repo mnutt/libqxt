@@ -33,8 +33,8 @@ class QXT_CORE_EXPORT QxtStdStreambufDevice : public QIODevice
 {
     Q_OBJECT
 public:
-    QxtStdStreambufDevice(std::streambuf *,QObject * parent=0); /// one rw device
-    QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent=0); ///one for read and one for write
+    QxtStdStreambufDevice(std::streambuf *,QObject * parent=0);
+    QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent=0);
 
     virtual bool isSequential () const;
     virtual qint64 bytesAvailable () const;
