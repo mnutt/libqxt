@@ -72,7 +72,7 @@ public:
     void invalidate()
     {
         if(dbc)
-            dbc->close(dbc);
+            dbc->c_close(dbc);
         dbc=0;
     }
     ~QxtBdbHashIteratorPrivate()
@@ -179,7 +179,7 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::begin()
     memset(&key, 0, sizeof(BerkeleyDB::DBT));
     memset(&value, 0, sizeof(BerkeleyDB::DBT));
     ///FIMXE: leak
-    int ret=cursor->get(cursor,&key,&value,DB_FIRST);
+    int ret=cursor->c_get(cursor,&key,&value,DB_FIRST);
     if(ret==0)
         return QxtBdbHashIterator<KEY,VAL>(cursor);
     else
@@ -196,9 +196,9 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::end()
     BerkeleyDB::DBT key,value;
     memset(&key, 0, sizeof(BerkeleyDB::DBT));
     memset(&value, 0, sizeof(BerkeleyDB::DBT));
-    cursor->get(cursor,key,value,DB_LAST);
+    cursor->c_get(cursor,key,value,DB_LAST);
     ///FIMXE: leak
-    int ret=cursor->get(cursor,&key,&value,DB_LAST);
+    int ret=cursor->c_get(cursor,&key,&value,DB_LAST);
 
     if(ret==0)
         return QxtBdbHashIterator<KEY,VAL>(cursor);
@@ -230,7 +230,7 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::find ( const KEY & k )
     key.size = d_key.size();
 
     ///FIMXE: leak
-    int ret=cursor->get(cursor,&key,&value,DB_SET);
+    int ret=cursor->c_get(cursor,&key,&value,DB_SET);
     if(ret==0)
         return QxtBdbHashIterator<KEY,VAL>(cursor);
     else
