@@ -20,8 +20,8 @@ struct Member
     QString signature;
     QString desc;
     QString brief;
+    QString kind;
     Class * classs;
-
 };
 
 struct Module;
@@ -546,6 +546,120 @@ QString printModules()
 
 
 
+void preParseSection(QDomElement sectiondef,Class * cl)
+{
+    if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
+    {
+        return;
+
+    }
+    if(sectiondef.attribute("kind")=="friend")///skip friend declarations
+    {
+        return;
+    }
+
+
+    QDomElement member=sectiondef.firstChildElement("memberdef");
+    while(!member.isNull()) 
+    {
+        qDebug()<<"preparsing member "<<member.firstChildElement("name").text();
+
+        Member * mem=new Member;
+        cl->members.append(mem);
+        members.append(mem);
+        mem->classs=cl;
+        mem->ref=member.attribute("id");
+        mem->name=member.firstChildElement("name").text();
+        mem->type=member.firstChildElement("type").text();
+        mem->kind=sectiondef.attribute("kind");
+
+
+        if (member.attribute("kind")=="function" || member.attribute("kind")=="slot" || member.attribute("kind")=="signal")
+        {
+
+            mem->signature=" ( ";
+
+            QDomElement parr =member.firstChildElement("param");
+            while(!parr.isNull())
+            {
+                mem->signature+=descRTF(parr);
+                mem->signature+="  , ";
+                parr=parr.nextSiblingElement("param");
+            }
+            if(mem->signature.size()>3)
+                mem->signature.chop(2);
+            mem->signature+=" ) ";
+        }
+        else if (member.attribute("kind")=="enum")
+        {
+            mem->signature=" { ";
+
+            QDomElement parr =member.firstChildElement("enumvalue");
+            while(!parr.isNull())
+            {
+                mem->signature+=descRTF(parr.firstChildElement("name"));
+                mem->signature+="  , ";
+                parr=parr.nextSiblingElement("enumvalue");
+            }
+            if(mem->signature.size()>3)
+                mem->signature.chop(2);
+            mem->signature+=" } ";
+
+        }
+
+        member=member.nextSiblingElement("memberdef");
+    }
+}
+
+
+QString printAndDeletePropertyAccessors(QDomElement parr,Class * cl)
+{
+    QString tt;
+    Member * ac=0;
+    foreach(Member * acs,cl->members)
+    {
+        if(acs->name==parr.text() && acs->kind=="public-func")
+        {
+            ac=acs;
+            break;
+        }
+        else if(acs->name==parr.text() && acs->kind=="public-slot")
+        {
+            ac=acs;
+            break;
+        }
+    }
+    if(!ac)
+        qFatal("cannot find accessor '%s",qPrintable(parr.text()));
+
+
+    qDebug()<<ac->signature;
+    tt+=ac->type+" "+ac->name+" "+ac->signature;
+
+
+    if(ac->kind=="public-slot")
+    {  
+//         ac->desc+="<div class=\"simplesect_see\"> <strong>See Also:</strong> "+parr.text()+" </div>";
+    }
+    else
+    {
+        members.removeAll(ac);
+        cl->members.removeAll(ac);
+        delete ac;
+    }
+    return tt;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -628,7 +742,17 @@ QString printClass(QString location,Class * cl)
     if(!t_members_unroll.open(templateDir+"/class-section-unroll.html"))qFatal("cannot open template");
     if(!t_impl.open(templateDir+"/class-impl.html"))qFatal("cannot open template");
 
+
+    ///preread. for getting property access functions right
     QDomElement sectiondef=def.firstChildElement("sectiondef");
+    while(!sectiondef.isNull()) 
+    {
+        preParseSection(sectiondef,cl);
+        sectiondef = sectiondef.nextSiblingElement("sectiondef");
+    }
+
+
+    sectiondef=def.firstChildElement("sectiondef");
     while(!sectiondef.isNull()) 
     {
         if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
@@ -710,54 +834,25 @@ QString printClass(QString location,Class * cl)
             }
 
 
+            ///find preparsed member    
+            Member * mem=0;
 
-
-            Member * mem=new Member;
-            cl->members.append(mem);
-            members.append(mem);
-            mem->classs=cl;
-            mem->ref=member.attribute("id");
-            mem->name=member.firstChildElement("name").text();
-
-
-            if (member.attribute("kind")=="function")
+            foreach(Member * me,cl->members)
             {
-
-                mem->signature=" ( ";
-
-                QDomElement parr =member.firstChildElement("param");
-                while(!parr.isNull())
+                if(me->name==member.firstChildElement("name").text()  &&   me->kind==sectiondef.attribute("kind"))
                 {
-                    mem->signature+=descRTF(parr);
-                    mem->signature+="  , ";
-                    parr=parr.nextSiblingElement("param");
+                    mem=me;
+                    break;
                 }
-                if(mem->signature.size()>3)
-                    mem->signature.chop(2);
-                mem->signature+=" ) ";
             }
-            else if (member.attribute("kind")=="enum")
+            if(!mem) ///not found. could be consumed by a a property. skipping
             {
-                mem->signature=" { ";
+                member = member.nextSiblingElement("memberdef");
 
-                QDomElement parr =member.firstChildElement("enumvalue");
-                while(!parr.isNull())
-                {
-                    mem->signature+=descRTF(parr.firstChildElement("name"));
-                    mem->signature+="  , ";
-                    parr=parr.nextSiblingElement("enumvalue");
-                }
-                if(mem->signature.size()>3)
-                    mem->signature.chop(2);
-                mem->signature+=" } ";
-
-            }
-            else
-            {
-                mem->signature="";
+                continue;
             }
 
-            mem->type=member.firstChildElement("type").text();
+
 
 
 
@@ -814,16 +909,18 @@ QString printClass(QString location,Class * cl)
 
                 QDomElement parr =member.firstChildElement("read");
                 if(!parr.isNull())
-                    tt+="<li><strong>read: </strong>"+descRTF(parr)+"</li>";
+                    tt+="<li><strong>read: </strong>"+printAndDeletePropertyAccessors(parr,cl)+"</li>";
+
                 parr =member.firstChildElement("write");
                 if(!parr.isNull())
-                    tt+="<li><strong>write: </strong>"+descRTF(parr)+"</li>";
+                    tt+="<li><strong>write: </strong>"+printAndDeletePropertyAccessors(parr,cl)+"</li>";
+
                 parr =member.firstChildElement("reset");
                 if(!parr.isNull())
-                    tt+="<li><strong>reset: </strong>"+descRTF(parr)+"</li>";
+                    tt+="<li><strong>reset: </strong>"+printAndDeletePropertyAccessors(parr,cl)+"</li>";
 
                 tt+="</ul></p>\r\n";
-                mem->desc=tt+mem->desc;
+                mem->desc+=tt;
             }
 
 
