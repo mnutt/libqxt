@@ -19,7 +19,7 @@ struct Member
     QString type;
     QString signature;
     QString desc;
-
+    QString brief;
     Class * classs;
 
 };
@@ -31,6 +31,7 @@ struct Class
     QString ref;
 
     QString desc;
+    QString brief;
 
     Module * module;
     QList<Member *> members;
@@ -42,7 +43,7 @@ struct Module
     QString ref;
 
     QString desc;
-
+    QString brief;
 
     QList<Class *> classes;
 };
@@ -336,6 +337,7 @@ void parseModule(QString location,Module *m)
 
 
 
+    m->brief=descRTF(def.firstChildElement("briefdescription"));
     m->desc=descRTF(def.firstChildElement("detaileddescription"));
 
 
@@ -502,7 +504,7 @@ QString printModules()
         t_i["iseven"]=QString::number(i%2);
         t_i["name"]=cl->name;
         t_i["link"]=cl->ref+".html";
-        t_i["desc"]=cl->desc.replace("<p>","").replace("</p>","");
+        t_i["desc"]=cl->brief.replace("<p>","").replace("</p>","");
         t["unroll"]+=t_i.render();
     }
     return t.render();;
@@ -565,9 +567,10 @@ QString printClass(QString location,Class * cl)
 
 
     ///description
-    cl->desc=def.firstChildElement("briefdescription").text();
-    t["desc_short"]=cl->desc;
-    t["desc_detailed"]=descRTF(def.firstChildElement("detaileddescription"));
+    cl->desc=descRTF(def.firstChildElement("detaileddescription"));
+    cl->brief=def.firstChildElement("briefdescription").text().replace("<","&lt;").replace(">","&gt;");
+    t["desc_short"]=cl->brief;
+    t["desc_detailed"]=cl->desc;
 
 
 
@@ -715,7 +718,10 @@ QString printClass(QString location,Class * cl)
             t_impl["signature"]=mem->signature;
             t_impl["type"]=mem->type;
             mem->desc=descRTF(member.firstChildElement("detaileddescription"));
+            mem->brief=descRTF(member.firstChildElement("briefdescription"));
+
             t_impl["desc"]=mem->desc;
+            t_impl["brief"]=mem->brief;
 
 
             t["impl"]+=t_impl.render();
@@ -747,6 +753,7 @@ QString printModule(Module * m)
     if(!t_i.open(templateDir+"/modules-unroll.html"))qFatal("cannot open template");
 
     t["name"]+=m->name;
+    t["brief"]+=m->brief;
     t["desc"]+=m->desc;
 
     int i=0;
@@ -758,7 +765,8 @@ QString printModule(Module * m)
         t_i["iseven"]=QString::number(i%2);
         t_i["name"]=cl->name;
         t_i["link"]=cl->ref+".html";
-        t_i["desc"]=cl->desc;
+        t_i["desc"]=cl->brief;
+
         t["unroll"]+=t_i.render();
     }
     return t.render();;
