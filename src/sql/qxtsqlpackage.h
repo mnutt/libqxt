@@ -23,18 +23,6 @@
 ****************************************************************************/
 
 
-/**
-\class QxtSqlPackage QxtSqlPackage
-
-\ingroup QxtSql
-
-\brief full serialiseable QSqlQuery storage
-
-
-Sometimes you want to set sql results over network or store them into files. QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed
-for confidence the interface is similiar to QSqlQuery.
-*/
-
 #ifndef QXTSQLPACKAGE_H
 #define QXTSQLPACKAGE_H
 #include <QObject>
