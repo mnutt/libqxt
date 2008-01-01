@@ -127,7 +127,6 @@ QString refToLink( QString ref)
 
 
 
-
 QString descRTF(QDomElement element)
 {
     ///TODO parse the rest
@@ -229,7 +228,7 @@ QString descRTF(QDomElement element)
             ///tables
             else if(e.tagName ()=="table")
             {
-                text += "<table class=\"desctable\">\r\n"+descRTF(e)+"\r\n</table>\r\n";
+                text += "<table  border=\"1px\" class=\"desctable\">\r\n"+descRTF(e)+"\r\n</table>\r\n";
             }
             else if(e.tagName ()=="row")
             {
@@ -700,10 +699,25 @@ QString printClass(QString location,Class * cl)
                     mem->signature.chop(2);
                 mem->signature+=" ) ";
             }
+            else if (member.attribute("kind")=="enum")
+            {
+                mem->signature=" { ";
+
+                QDomElement parr =member.firstChildElement("enumvalue");
+                while(!parr.isNull())
+                {
+                    mem->signature+=descRTF(parr.firstChildElement("name"));
+                    mem->signature+="  , ";
+                    parr=parr.nextSiblingElement("enumvalue");
+                }
+                if(mem->signature.size()>3)
+                    mem->signature.chop(2);
+                mem->signature+=" } ";
+
+            }
             else
             {
                 mem->signature="";
-
             }
 
             mem->type=member.firstChildElement("type").text();
@@ -733,7 +747,32 @@ QString printClass(QString location,Class * cl)
             t_impl["signature"]=mem->signature;
             t_impl["type"]=mem->type;
             mem->desc=descRTF(member.firstChildElement("detaileddescription"));
+
             mem->brief=descRTF(member.firstChildElement("briefdescription"));
+
+
+            
+            if (member.attribute("kind")=="enum")
+            {
+                QString tt="<table border=\"1px\" class=\"desctable\">\r\n<tr><th>Constant</th><th>Description</th></tr>\r\n";
+
+                QDomElement parr =member.firstChildElement("enumvalue");
+                while(!parr.isNull())
+                {
+                    tt+="<tr><td>";
+                    tt+=descRTF(parr.firstChildElement("name"));
+                    tt+="</td><td>";
+                    tt+=descRTF(parr.firstChildElement("detaileddescription"));
+                    tt+="</td></tr>\r\n";
+                    parr=parr.nextSiblingElement("enumvalue");
+
+                }
+
+                tt+="</table>\r\n";
+                mem->desc=tt+mem->desc;
+            }
+
+
 
             t_impl["desc"]=mem->desc;
             t_impl["brief"]=mem->brief;
