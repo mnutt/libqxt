@@ -30,39 +30,64 @@
 
 \brief QIODevice support for std::streambuf
 
-does NOT include the readyRead() signal
+\warning does NOT emit the readyRead() signal
+
+\sa QIODevice
 
 */
 
 /**
 \fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * b,QObject * parent)
+\brief creates a QxtStdStreambufDevice using a single stream buffer as in and output
 
-creates a QxtStdStreambufDevice using a single stream buffer as in and output
 
- */
+\fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent)
+\brief creates a QxtStdStreambufDevice using \p r to read and \p w to write
+
+
+\fn bool QxtStdStreambufDevice::isSequential() const
+\reimp
+
+
+\fn qint64 QxtStdStreambufDevice::bytesAvailable() const
+\reimp
+
+
+\fn qint64 QxtStdStreambufDevice::readData ( char * data, qint64 maxSize )
+\reimp
+
+
+\fn qint64 QxtStdStreambufDevice::writeData ( const char * data, qint64 maxSize )
+\reimp
+
+*/
+
+
+
 QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * b,QObject * parent):QIODevice(parent),buff(b)
 {
-    setOpenMode (QIODevice::ReadWrite); ///we don't know the real state
+    setOpenMode (QIODevice::ReadWrite); //we don't know the real state
     buff_w=0;
 }
-/**
-\fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent)
-creates a QxtStdStreambufDevice using \p r to read and \p w to write
- */
 
 QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent):QIODevice(parent),buff(r),buff_w(w)
 {
     setOpenMode (QIODevice::ReadWrite);
 }
+
+
 bool QxtStdStreambufDevice::isSequential() const
 {
-    return true;///for now
+    return true;//for now
 }
+
 
 qint64 QxtStdStreambufDevice::bytesAvailable () const
 {
     return buff->in_avail();
 }
+
+
 qint64 QxtStdStreambufDevice::readData ( char * data, qint64 maxSize )
 {
     return buff->sgetn(data,maxSize);
