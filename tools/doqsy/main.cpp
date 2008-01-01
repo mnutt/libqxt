@@ -21,6 +21,7 @@ struct Member
     QString desc;
     QString brief;
     QString kind;
+    QDomElement dom;
     Class * classs;
 };
 
@@ -548,6 +549,8 @@ QString printModules()
 
 void preParseSection(QDomElement sectiondef,Class * cl)
 {
+    qDebug()<<"preparsing section "<<sectiondef.attribute("kind");
+
     if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
     {
         return;
@@ -572,7 +575,9 @@ void preParseSection(QDomElement sectiondef,Class * cl)
         mem->name=member.firstChildElement("name").text();
         mem->type=member.firstChildElement("type").text();
         mem->kind=sectiondef.attribute("kind");
-
+        mem->dom=member;
+        mem->desc=descRTF(member.firstChildElement("detaileddescription"));
+        mem->brief=descRTF(member.firstChildElement("briefdescription"));
 
 
 
@@ -633,17 +638,20 @@ void preParseSection(QDomElement sectiondef,Class * cl)
 
 QString printAndDeletePropertyAccessors(QDomElement parr,Class * cl)
 {
+    qDebug()<<"printAndDeletePropertyAccessors"<<parr.text()<<cl->name;
     QString tt;
     Member * ac=0;
     foreach(Member * acs,cl->members)
     {
         if(acs->name==parr.text() && acs->kind=="public-func")
         {
+            qDebug()<<acs->name<<"matched";
             ac=acs;
             break;
         }
         else if(acs->name==parr.text() && acs->kind=="public-slot")
         {
+            qDebug()<<acs->name<<"matched";
             ac=acs;
             break;
         }
@@ -652,19 +660,26 @@ QString printAndDeletePropertyAccessors(QDomElement parr,Class * cl)
         qFatal("cannot find accessor '%s",qPrintable(parr.text()));
 
 
-    qDebug()<<ac->signature;
     tt+=ac->type+" "+ac->name+" "+ac->signature;
 
 
     if(ac->kind=="public-slot")
     {  
 //         ac->desc+="<div class=\"simplesect_see\"> <strong>See Also:</strong> "+parr.text()+" </div>";
+
     }
     else
     {
+        qDebug()<<"deleting "<<ac->name;
+
         members.removeAll(ac);
         cl->members.removeAll(ac);
-        delete ac;
+//         delete ac; 
+        /**
+        * Whatever the fuck happened, calling delete on ac will delete a _RANDOM_ member.
+        * everything else works fine thought.
+        * scary
+        */
     }
     return tt;
 }
@@ -813,7 +828,7 @@ QString printClass(QString location,Class * cl)
         }
         else if (t_section["kind"]=="property")
         {
-             t_section["desc"]="Propertys";
+             t_section["desc"]="Properties";
         }
         else if (t_section["kind"]=="public-slot")
         {
@@ -833,46 +848,17 @@ QString printClass(QString location,Class * cl)
 
         qDebug()<<"parsing section "<<t_section["kind"];
 
+
         QString memberstring;
-        QDomElement member=sectiondef.firstChildElement("memberdef");
-        while(!member.isNull()) 
+        foreach(Member * mem,cl->members)
         {
-            qDebug()<<"parsing member "<<member.firstChildElement("name").text();
 
-
-            ///skip reimplemted functions
-            if(member.firstChildElement("detaileddescription").text().contains("{DOQSY:PRIV}"))
-            {
-                member = member.nextSiblingElement("memberdef");
+            if(mem->kind!=sectiondef.attribute("kind"))
                 continue;
-            }
-            if(member.firstChildElement("briefdescription").text().contains("{DOQSY:PRIV}"))
-            {
-                member = member.nextSiblingElement("memberdef");
-                continue;
-            }
+            qDebug()<<"parsing member "<<mem->name;
 
 
-            ///find preparsed member    
-            Member * mem=0;
-
-            foreach(Member * me,cl->members)
-            {
-                if(me->name==member.firstChildElement("name").text()  &&   me->kind==sectiondef.attribute("kind"))
-                {
-                    mem=me;
-                    break;
-                }
-            }
-            if(!mem) ///not found. could be consumed by a a property. skipping
-            {
-                member = member.nextSiblingElement("memberdef");
-
-                continue;
-            }
-
-
-
+            QDomElement member = mem->dom;
 
 
             t_members_unroll.clear();
@@ -897,10 +883,6 @@ QString printClass(QString location,Class * cl)
             t_impl["name"]=mem->name;
             t_impl["signature"]=mem->signature;
             t_impl["type"]=mem->type;
-            mem->desc=descRTF(member.firstChildElement("detaileddescription"));
-
-            mem->brief=descRTF(member.firstChildElement("briefdescription"));
-
 
             
             if (member.attribute("kind")=="enum")
@@ -948,7 +930,6 @@ QString printClass(QString location,Class * cl)
             t_impl["brief"]=mem->brief;
 
             memberstring+=t_impl.render();
-            member = member.nextSiblingElement("memberdef");
         }
         t["impl"]+=memberstring;
 
