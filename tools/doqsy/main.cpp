@@ -624,6 +624,8 @@ QString printClass(QString location,Class * cl)
         }
 
 
+
+
         t_section.clear();
 
         t_section["kind"]=sectiondef.attribute("kind");
@@ -669,10 +671,21 @@ QString printClass(QString location,Class * cl)
 
         qDebug()<<"parsing section "<<t_section["kind"];
 
+        QString memberstring;
         QDomElement member=sectiondef.firstChildElement("memberdef");
         while(!member.isNull()) 
         {
             qDebug()<<"parsing member "<<member.firstChildElement("name").text();
+
+
+            ///skip reimplemted functions
+            if(member.firstChildElement("detaileddescription").text().contains("{DOQSY:REIMP}"))     
+            {
+                member = member.nextSiblingElement("memberdef");
+                continue;
+            }
+
+
 
 
             Member * mem=new Member;
@@ -777,14 +790,16 @@ QString printClass(QString location,Class * cl)
             t_impl["desc"]=mem->desc;
             t_impl["brief"]=mem->brief;
 
-
-            t["impl"]+=t_impl.render();
-
+            memberstring+=t_impl.render();
             member = member.nextSiblingElement("memberdef");
         }
+        t["impl"]+=memberstring;
 
 
-        t["sections"]+=t_section.render();
+        if(!memberstring.isEmpty())///skip empty sections
+        {
+            t["sections"]+=t_section.render();
+        }
 
         sectiondef = sectiondef.nextSiblingElement("sectiondef");
     }

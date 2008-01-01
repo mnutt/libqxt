@@ -29,3 +29,4 @@ TAGFILES               = doctemplate/qt.tag=http://doc.trolltech.com/latest
 
 GENERATE_HTML          = NO
 GENERATE_LATEX         = NO
+ALIASES               += reimp="{DOQSY:REIMP}"

@@ -33,7 +33,6 @@ class QXT_CORE_EXPORT QxtFifo : public QIODevice
     Q_OBJECT
 public:
     QxtFifo(QObject * parent=0);
-
     virtual bool isSequential () const;
     virtual qint64 bytesAvailable () const;
 protected:
