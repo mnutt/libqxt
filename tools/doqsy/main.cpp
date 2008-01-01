@@ -574,6 +574,8 @@ void preParseSection(QDomElement sectiondef,Class * cl)
         mem->kind=sectiondef.attribute("kind");
 
 
+
+
         if (member.attribute("kind")=="function" || member.attribute("kind")=="slot" || member.attribute("kind")=="signal")
         {
 
@@ -589,6 +591,7 @@ void preParseSection(QDomElement sectiondef,Class * cl)
             if(mem->signature.size()>3)
                 mem->signature.chop(2);
             mem->signature+=" ) ";
+
         }
         else if (member.attribute("kind")=="enum")
         {
@@ -607,6 +610,22 @@ void preParseSection(QDomElement sectiondef,Class * cl)
 
         }
 
+
+
+        if ( member.attribute("const")=="yes")
+            mem->signature+=" const ";
+        if ( member.attribute("virt")=="virtual")
+            mem->type=" virtual "+mem->type;
+        if ( member.attribute("virt")=="pure-virtual")
+        {
+            mem->type=" virtual "+mem->type;
+            mem->signature+=" =0 ";
+        }
+
+        if ( member.attribute("explicit")=="yes")
+            mem->type=" explicit "+mem->type;
+        if ( member.attribute("static")=="yes")
+            mem->signature+=" static ";
         member=member.nextSiblingElement("memberdef");
     }
 }
