@@ -808,6 +808,23 @@ QString printClass(QString location,Class * cl)
                 tt+="</table>\r\n";
                 mem->desc=tt+mem->desc;
             }
+            if (member.attribute("kind")=="property")
+            {
+                QString tt="<p>Access Functions:<ul>\r\n";
+
+                QDomElement parr =member.firstChildElement("read");
+                if(!parr.isNull())
+                    tt+="<li><strong>read: </strong>"+descRTF(parr)+"</li>";
+                parr =member.firstChildElement("write");
+                if(!parr.isNull())
+                    tt+="<li><strong>write: </strong>"+descRTF(parr)+"</li>";
+                parr =member.firstChildElement("reset");
+                if(!parr.isNull())
+                    tt+="<li><strong>reset: </strong>"+descRTF(parr)+"</li>";
+
+                tt+="</ul></p>\r\n";
+                mem->desc=tt+mem->desc;
+            }
 
 
 
