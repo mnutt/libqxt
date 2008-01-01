@@ -42,12 +42,13 @@ public:
     void exec(QThread * onthread);
     void join();
 protected:
-    virtual void run()=0;
+    virtual void run()=0; 
 signals:
     void done();
 private:
     QXT_DECLARE_PRIVATE(QxtJob);
 signals:
+    ///\priv
     void subseed();
 };
 

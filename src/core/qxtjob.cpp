@@ -41,6 +41,19 @@ LockJob().exec(&thread);
 \endcode
 */
 
+
+/**
+\fn  virtual void QxtJob::run()=0; 
+This function is called by QxtJob. \n
+reimplemented this function to do useful work. \n
+Returning from this method will end the execution of the job. \n
+*/
+
+/**
+\fn  virtual void QxtJob::done(); 
+This signal is emitted, when the run() function returns.
+*/
+
 #include "qxtjob_p.h"
 #include <cassert>
 #include <QThread>
@@ -53,7 +66,9 @@ public:
         QThread::usleep(usecs);
     }
 };
-
+/*!
+default constructor
+*/
 QxtJob::QxtJob()
 {
     QXT_INIT_PRIVATE(QxtJob);
@@ -72,8 +87,7 @@ void QxtJob::exec(QThread * onthread)
     emit(subseed());
 }
 /*!
-The dtor joins.
-Means it blocks until the job is finished
+\warning The destructor joins.\n Means it blocks until the job is finished
 */
 QxtJob::~QxtJob()
 {
