@@ -225,6 +225,19 @@ QString descRTF(QDomElement element)
                 text += "<h"+e.attribute("level")+">"+descRTF(e)+"</h"+e.attribute("level")+">";
             }
 
+            ///memberdef->param
+            else if(e.tagName ()=="type")
+            {
+                text += "  <span class=\"memberdef_type\">"+descRTF(e)+"</span>  ";
+            }
+            else if(e.tagName ()=="declname")
+            {
+                text += "  <span class=\"memberdef_declname\">"+descRTF(e)+"</span>  ";
+            }
+            else if(e.tagName ()=="defval")
+            {
+                text += "<span class=\"memberdef_defval\">= "+descRTF(e)+"</span>";
+            }
 
 
             else 
@@ -610,7 +623,30 @@ QString printClass(QString location,Class * cl)
             mem->classs=cl;
             mem->ref=member.attribute("id");
             mem->name=member.firstChildElement("name").text();
-            mem->signature=member.firstChildElement("argsstring").text();
+
+
+            if (member.attribute("kind")=="function")
+            {
+
+                mem->signature=" ( ";
+
+                QDomElement parr =member.firstChildElement("param");
+                while(!parr.isNull())
+                {
+                    mem->signature+=descRTF(parr);
+                    mem->signature+="  , ";
+                    parr=parr.nextSiblingElement("param");
+                }
+                if(mem->signature.size()>3)
+                    mem->signature.chop(2);
+                mem->signature+=" ) ";
+            }
+            else
+            {
+                mem->signature="";
+
+            }
+
             mem->type=member.firstChildElement("type").text();
 
 
