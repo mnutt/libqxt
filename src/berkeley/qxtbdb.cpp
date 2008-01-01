@@ -95,7 +95,7 @@ bool QxtBdb::open(QString path,OpenFlags f)
         BerkeleyDB::DB * tdb;
         Q_ASSERT_X(db_create(&tdb, NULL, 0)==0,Q_FUNC_INFO,"db_create failed");
 
-        if(tdb->verify(tdb, qPrintable(path), NULL, NULL,NULL)==DB_VERIFY_BAD)
+        if(tdb->verify(tdb, qPrintable(path), NULL, NULL,0)==DB_VERIFY_BAD)
             qCritical("QxtBdb::open Database '%s' is corrupted.",qPrintable(path));
     }
 
