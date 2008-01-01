@@ -134,5 +134,39 @@ a.reflinkblock
 
 
 
+.simplesect_note
+{
+    background:url("note.png") no-repeat;
+    border:1px solid #eee;
+    padding:3px;
+    padding-left:50px;
+}
+
+.simplesect_note p
+{
+}
+
+.simplesect_see
+{
+    background:url("sa.png") no-repeat;
+    border:1px solid #eee;
+    padding:3px;
+    padding-left:50px;
+}
+.simplesect_see p
+{
+}
+
+
+.simplesect_warning
+{
+    background:url("warning.png") no-repeat;
+    border:1px solid #eee;
+    padding:3px;
+    padding-left:50px;
+}
+.simplesect_warning p
+{
+}
 
 

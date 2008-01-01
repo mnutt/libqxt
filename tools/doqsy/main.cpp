@@ -147,6 +147,18 @@ QString descRTF(QDomElement element)
             {
                 text += "<p>"+descRTF(e)+"</p>";
             }
+            else if(e.tagName ()=="simplesect")
+            {
+                text += "<div class=\"simplesect_"+e.attribute("kind")+"\">"+descRTF(e)+"</div>";
+            }
+            else if(e.tagName ()=="bold")
+            {
+                text += "<strong>"+descRTF(e)+"</strong>";
+            }
+            else if(e.tagName ()=="emphasis")
+            {
+                text += "<em>"+descRTF(e)+"</em>";
+            }
             else if(e.tagName ()=="programlisting")
             {
                 text += "<div class=\"code\">"+descRTF(e)+"</div>";
@@ -920,7 +932,7 @@ int main(int argc,char ** argv)
     qDebug("[copying referenced files]");
 
 
-    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp";
+    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"sa.png"<<"note.png"<<"warning.png";
 
     foreach(QString f,filesIShouldCopy)
     {
