@@ -20,7 +20,6 @@ HEADERS  += qxtfifo.h
 HEADERS  += qxtfilelock.h
 HEADERS  += qxtfilelock_p.h
 HEADERS  += qxtglobal.h
-HEADERS  += qxthypermacros.h
 HEADERS  += qxtjob.h
 HEADERS  += qxtjob_p.h
 HEADERS  += qxtlinesocket.h
