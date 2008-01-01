@@ -22,36 +22,6 @@
 **
 ****************************************************************************/
 
-
-/** \defgroup QxtCore QxtCore
-    \brief   The Core contains naturaly  the most important parts of Qxt, everything is based on.
-*/
-
-/** \defgroup QxtSql QxtSql
-    \brief   parts that depend on QtSql (and at least QtCore)
-*/
-
-/** \defgroup QxtNetwork  QxtNetwork
-    \brief    parts that depend on QtNetwork (and at least QtCore)
-*/
-
-/** \defgroup QxtGui QxtGui
-    \brief    parts that depend on QtGui (and at least QtCore)
-*/
-
-/** \defgroup QxtWeb  QxtWeb
-    \brief    Qt like Web Developement tools
-*/
-
-/** \defgroup QxtCrypto  QxtCrypto
-    \brief    Tools for encryption and hashing
-*/
-
-/** \defgroup QxtBerkeley  QxtBerkeley
-    \brief    Berkeley DB classes
-*/
-
-
 /**
 
 */
