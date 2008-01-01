@@ -32,7 +32,7 @@
 /**
 \class QxtSignalWaiter QxtSignalWaiter
 
-\ingroup kit
+\ingroup core
 
 \brief Wait until a signal ocured
 
