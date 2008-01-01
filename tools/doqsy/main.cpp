@@ -599,13 +599,53 @@ QString printClass(QString location,Class * cl)
             sectiondef = sectiondef.nextSiblingElement("sectiondef");
             continue;
         }
+        if(sectiondef.attribute("kind")=="friend")///skip friend declarations
+        {
+            sectiondef = sectiondef.nextSiblingElement("sectiondef");
+            continue;
+        }
 
 
         t_section.clear();
 
         t_section["kind"]=sectiondef.attribute("kind");
-        t_section["desc"]=sectiondef.attribute("kind"); ///TODO: map kind to desc
+        if (t_section["kind"]=="public-type")
+        {
+             t_section["desc"]="Public Types";
+        }
+        else if (t_section["kind"]=="public-attrib")
+        {
+             t_section["desc"]="Public Attributes";
+        }
+        else if (t_section["kind"]=="public-func")
+        {
+             t_section["desc"]="Public Functions";
+        }
+        else if (t_section["kind"]=="public-static-func")
+        {
+             t_section["desc"]="Public Static Functions";
+        }
+        else if (t_section["kind"]=="protected-func")
+        {
+             t_section["desc"]="Protected Functions";
+        }
+        else if (t_section["kind"]=="property")
+        {
+             t_section["desc"]="Propertys";
+        }
+        else if (t_section["kind"]=="public-slot")
+        {
+             t_section["desc"]="Public Slots";
+        }
+        else if (t_section["kind"]=="signal")
+        {
+             t_section["desc"]="Signals";
+        }
 
+        else 
+        {
+             t_section["desc"]=t_section["kind"];
+        }
 
 
 
