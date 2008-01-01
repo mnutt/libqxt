@@ -683,12 +683,12 @@ QString printClass(QString location,Class * cl)
 
 
             ///skip reimplemted functions
-            if(member.firstChildElement("detaileddescription").text().contains("{DOQSY:REIMP}"))
+            if(member.firstChildElement("detaileddescription").text().contains("{DOQSY:PRIV}"))
             {
                 member = member.nextSiblingElement("memberdef");
                 continue;
             }
-            if(member.firstChildElement("briefdescription").text().contains("{DOQSY:REIMP}"))
+            if(member.firstChildElement("briefdescription").text().contains("{DOQSY:PRIV}"))
             {
                 member = member.nextSiblingElement("memberdef");
                 continue;
