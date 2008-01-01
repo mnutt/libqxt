@@ -243,7 +243,7 @@ void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
 
 	\note \b \%1 is replaced by the progress percent.
 
-    \sa progressTextVisible, ProgressRole
+    \sa progressTextVisible, Role
  */
 QString QxtItemDelegate::progressTextFormat() const
 {
@@ -264,7 +264,7 @@ void QxtItemDelegate::setProgressTextFormat(const QString& format)
     \note Progress bar is rendered for indices providing valid
     numerical data for \b ProgressRole.
 
-    \sa progressTextFormat, ProgressRole
+    \sa progressTextFormat, QxtItemDelegate::Role
  */
 bool QxtItemDelegate::isProgressTextVisible() const
 {

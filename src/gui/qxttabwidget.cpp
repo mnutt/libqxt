@@ -80,7 +80,7 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 
     \image html qxttabwidget.png "QxtTabWidget in WindowsXP style."
 
-    \note http://www.trolltech.com/developer/task-tracker/index_html?method=entry&id=137891
+    \note http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891
  */
 
 /*!

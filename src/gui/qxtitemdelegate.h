@@ -44,7 +44,7 @@ public:
     explicit QxtItemDelegate(QObject* parent = 0);
     virtual ~QxtItemDelegate();
 
-    enum { ProgressRole = Qt::UserRole + 328 };
+    enum Role { ProgressRole = Qt::UserRole + 328 };
 
     Qxt::DecorationStyle decorationStyle() const;
     void setDecorationStyle(Qxt::DecorationStyle style);

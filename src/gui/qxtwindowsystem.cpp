@@ -29,7 +29,10 @@
     \ingroup QxtGui
     \brief QxtWindowSystem provides means for accessing native windows.
 
-    \note QxtWindowSystem is portable in principle, but be careful while
+    \note The underlying window system might or might not allow one to alter
+    states of windows belonging to other processes.
+
+    \warning QxtWindowSystem is portable in principle, but be careful while
     using it since you are probably about to do something non-portable.
 
     <P>Advanced example usage:
@@ -69,25 +72,13 @@
 
     Returns the list of native window system identifiers.
 
-    \note The windows are not necessarily QWidgets.
-
     \sa QApplication::topLevelWidgets(), windowTitles()
  */
-
 
 /*!
     \fn QxtWindowSystem::activeWindow()
 
     Returns the native window system identifier of the active window if any.
-
-    Example usage:
-    \code
-    WId wid = QxtWindowSystem::activeWindow();
-    QString title = QxtWindowSystem::windowTitle(wid);
-    qDebug() << "Currently active window is:" << title;
-    \endcode
-
-    \note The window is not necessarily a QWidget.
 
     \sa QApplication::activeWindow()
  */
@@ -103,8 +94,6 @@
     QPixmap screenshot = QPixmap::grabWindow(wid);
     \endcode
 
-    \note The window is not necessarily a QWidget.
-
     \sa QWidget::find()
  */
 
@@ -112,15 +101,6 @@
     \fn QxtWindowSystem::windowAt(const QPoint& pos)
 
     Returns the native window system identifier of the window if any at \a pos.
-
-    Example usage:
-    \code
-    QPoint point = // a mouse press or something
-    WId wid = QxtWindowSystem::windowAt(point);
-    QPixmap screenshot = QPixmap::grabWindow(wid);
-    \endcode
-
-    \note The window is not necessarily a QWidget.
 
     \sa QApplication::widgetAt()
  */
@@ -130,13 +110,6 @@
 
     Returns the title of the native \a window.
 
-    Example usage:
-    \code
-    WId wid = QxtWindowSystem::activeWindow();
-    QString title = QxtWindowSystem::windowTitle(wid);
-    qDebug() << "Currently active window is:" << title;
-    \endcode
-
     \sa QWidget::windowTitle(), windowTitles()
  */
 
@@ -145,13 +118,6 @@
 
     Returns a list of native window titles.
 
-    Example usage:
-    \code
-    qDebug() << "Windows:";
-    foreach (QString title, QxtWindowSystem::windowTitles())
-       qDebug() << title;
-    \endcode
-
     \sa QWidget::windowTitle(), windowTitle(), windows()
  */
 
@@ -159,13 +125,6 @@
     \fn QxtWindowSystem::windowGeometry(WId window)
 
     Returns the geometry of the native \a window.
-
-    Example usage:
-    \code
-    WId wid = QxtWindowSystem::activeWindow();
-    QRect geometry = QxtWindowSystem::windowGeometry(wid);
-    qDebug() << "Geometry of the active window is:" << geometry;
-    \endcode
 
     \sa QWidget::frameGeometry()
  */
