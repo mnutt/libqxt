@@ -264,17 +264,17 @@ void QxtConfigDialogPrivate::setCurrentIndex(int row, int column)
     \brief A configuration dialog.
 
     QxtConfigDialog provides a convenient interface for building
-	common configuration dialogs. QxtConfigDialog consists of a
-	list of icons and a stack of pages.
+    common configuration dialogs. QxtConfigDialog consists of a
+    list of icons and a stack of pages.
 
-	Example usage:
-	\code
-	QxtConfigDialog dialog;
+    Example usage:
+    \code
+    QxtConfigDialog dialog;
     dialog.addPage(new ConfigurationPage(&dialog), QIcon(":/images/config.png"), tr("Configuration"));
-	dialog.addPage(new UpdatePage(&dialog), QIcon(":/images/update.png"), tr("Update"));
-	dialog.addPage(new QueryPage(&dialog), QIcon(":/images/query.png"), tr("Query"));
-	dialog.exec();
-	\endcode
+    dialog.addPage(new UpdatePage(&dialog), QIcon(":/images/update.png"), tr("Update"));
+    dialog.addPage(new QueryPage(&dialog), QIcon(":/images/query.png"), tr("Query"));
+    dialog.exec();
+    \endcode
 
     \image html qxtconfigdialog.png "QxtConfigDialog with page icons on the left (QxtConfigDialog::West)."
  */
@@ -340,7 +340,7 @@ QxtConfigDialog::~QxtConfigDialog()
 {}
 
 /*!
-    \return The dialog button box.
+    Returns the dialog button box.
 
     The default buttons are \b QDialogButtonBox::Ok and \b QDialogButtonBox::Cancel.
 
@@ -432,9 +432,9 @@ void QxtConfigDialog::setIconSize(const QSize& size)
 /*!
     Adds a \a page with \a icon and \a title.
 
-	In case \a title is an empty string, \b QWidget::windowTitle is used.
+    In case \a title is an empty string, \b QWidget::windowTitle is used.
 
-	\return The index of added page.
+    Returns the index of added page.
 
     \warning Adding and removing pages dynamically at run time might cause flicker.
 
@@ -448,9 +448,9 @@ int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& ti
 /*!
     Inserts a \a page with \a icon and \a title.
 
-	In case \a title is an empty string, \b QWidget::windowTitle is used.
+    In case \a title is an empty string, \b QWidget::windowTitle is used.
 
-	\return The index of inserted page.
+    Returns the index of inserted page.
 
     \warning Inserting and removing pages dynamically at run time might cause flicker.
 
@@ -529,7 +529,7 @@ void QxtConfigDialog::setCurrentIndex(int index)
 }
 
 /*!
-    \return The current page.
+    Returns the current page.
 
     \sa currentIndex(), setCurrentPage()
 */
@@ -549,7 +549,7 @@ void QxtConfigDialog::setCurrentPage(QWidget* page)
 }
 
 /*!
-    \return The index of \a page or \b -1 if the page is unknown.
+    Returns the index of \a page or \b -1 if the page is unknown.
 */
 int QxtConfigDialog::indexOf(QWidget* page) const
 {
@@ -557,7 +557,7 @@ int QxtConfigDialog::indexOf(QWidget* page) const
 }
 
 /*!
-    \return The page at \a index or \b 0 if the \a index is out of range.
+    Returns the page at \a index or \b 0 if the \a index is out of range.
 */
 QWidget* QxtConfigDialog::page(int index) const
 {
@@ -565,7 +565,7 @@ QWidget* QxtConfigDialog::page(int index) const
 }
 
 /*!
-    \return \b true if the page at \a index is enabled; otherwise \b false.
+    Returns \b true if the page at \a index is enabled; otherwise \b false.
 
     \sa setPageEnabled(), QWidget::isEnabled()
 */
@@ -577,7 +577,7 @@ bool QxtConfigDialog::isPageEnabled(int index) const
 
 /*!
     Sets the page at \a index \a enabled. The corresponding
-	page icon is also \a enabled.
+    page icon is also \a enabled.
 
     \sa isPageEnabled(), QWidget::setEnabled()
 */
@@ -600,7 +600,7 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 }
 
 /*!
-    \return \b true if the page at \a index is hidden; otherwise \b false.
+    Returns \b true if the page at \a index is hidden; otherwise \b false.
 
     \sa setPageHidden(), QWidget::isVisible()
 */
@@ -613,7 +613,7 @@ bool QxtConfigDialog::isPageHidden(int index) const
 
 /*!
     Sets the page at \a index \a hidden. The corresponding
-	page icon is also \a hidden.
+    page icon is also \a hidden.
 
     \sa isPageHidden(), QWidget::setVisible()
 */
@@ -626,7 +626,7 @@ void QxtConfigDialog::setPageHidden(int index, bool hidden)
 }
 
 /*!
-    \return The icon of page at \a index.
+    Returns the icon of page at \a index.
 
     \sa setPageIcon()
 */
@@ -655,7 +655,7 @@ void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 }
 
 /*!
-    \return The title of page at \a index.
+    Returns the title of page at \a index.
 
     \sa setPageTitle()
 */
@@ -684,7 +684,7 @@ void QxtConfigDialog::setPageTitle(int index, const QString& title)
 }
 
 /*!
-    \return The tooltip of page at \a index.
+    Returns the tooltip of page at \a index.
 
     \sa setPageToolTip()
 */
@@ -713,7 +713,7 @@ void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 }
 
 /*!
-    \return The what's this of page at \a index.
+    Returns the what's this of page at \a index.
 
     \sa setPageWhatsThis()
 */
@@ -742,7 +742,7 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 }
 
 /*!
-    \return The internal table widget used for showing page icons.
+    Returns the internal table widget used for showing page icons.
 
     \sa stackedWidget()
 */
@@ -752,7 +752,7 @@ QTableWidget* QxtConfigDialog::tableWidget() const
 }
 
 /*!
-    \return The internal stacked widget used for stacking pages.
+    Returns the internal stacked widget used for stacking pages.
 
     \sa tableWidget()
 */

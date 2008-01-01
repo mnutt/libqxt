@@ -61,8 +61,21 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     makes it easy to implement applications that react to certain shortcuts
     still if some other application is active or if the application is for
     example minimized to the system tray.
+
+    \note QxtGlobalShortcut requires QxtApplication.
  */
 
+/*!
+    \fn QxtGlobalShortcut::activated()
+
+    This signal is emitted when the user types the shortcut's key sequence.
+
+    \sa shortcut
+ */
+
+/*!
+    Constructs a new QxtGlobalShortcut with \a parent.
+ */
 QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
     : QObject(parent)
 {
@@ -71,6 +84,9 @@ QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
     qxtApp->installNativeEventFilter(&qxt_d());
 }
 
+/*!
+    Constructs a new QxtGlobalShortcut with \a shortcut and \a parent.
+ */
 QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent)
     : QObject(parent)
 {
@@ -80,6 +96,9 @@ QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* pare
     setShortcut(shortcut);
 }
 
+/*!
+    Destructs the QxtGlobalShortcut.
+ */
 QxtGlobalShortcut::~QxtGlobalShortcut()
 {
     if (qxt_d().key != 0)
@@ -89,6 +108,16 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
 /*!
     \property QxtGlobalShortcut::shortcut
     \brief This property holds the shortcut key sequence
+
+    \note Notice that corresponding key press and release events are not
+    delivered for registered global shortcuts even if they are disabled.
+    Also, comma separated key sequences are not supported.
+    Only the first part is used:
+
+    \code
+    qxtShortcut->setShortcut(QKeySequence("Ctrl+Alt+A,Ctrl+Alt+B"));
+    Q_ASSERT(qxtShortcut->shortcut() == QKeySequence("Ctrl+Alt+A"));
+    \endcode
  */
 QKeySequence QxtGlobalShortcut::shortcut() const
 {

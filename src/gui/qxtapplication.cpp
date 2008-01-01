@@ -29,9 +29,8 @@
     \ingroup QxtGui
     \brief An extended QApplication with support for native event filters.
 
-    QxtApplication lets you install native event filters. This makes it
-    possible to access platform specific native events without subclassing
-    QApplication.
+    QxtApplication lets you install native event filters. This gives an
+    easy and straightforward access to platform specific native events.
  */
 
 /*!
@@ -42,21 +41,52 @@
     A convenience macro \b qxtApp is also available.
  */
 
+/*!
+    \def qxtApp
+    \relates QxtApplication
+    \ingroup QxtGui
+
+    A global pointer referring to the unique application object. It is
+    equivalent to the pointer returned by QxtApplication::instance().
+
+    \sa QxtApplication::instance()
+*/
+
+/*!
+    Constructs a new QxtApplication.
+
+    \sa QApplication::QApplication()
+ */
 QxtApplication::QxtApplication(int& argc, char** argv)
         : QApplication(argc, argv)
 {
 }
 
+/*!
+    Constructs a new QxtApplication.
+
+    \sa QApplication::QApplication()
+ */
 QxtApplication::QxtApplication(int& argc, char** argv, bool GUIenabled)
         : QApplication(argc, argv, GUIenabled)
 {
 }
 
+/*!
+    Constructs a new QxtApplication.
+
+    \sa QApplication::QApplication()
+ */
 QxtApplication::QxtApplication(int& argc, char** argv, Type type)
         : QApplication(argc, argv, type)
 {
 }
 
+/*!
+    Destructs the QxtApplication.
+
+    \sa QApplication::~QApplication()
+ */
 QxtApplication::~QxtApplication()
 {
 }

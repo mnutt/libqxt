@@ -43,9 +43,9 @@ typedef struct OpaqueEventHandlerCallRef *EventHandlerCallRef;
 
     Example usage:
     \code
-    qxtApp->installNativeEventFilter(myWindow);
+    qxtApp->installNativeEventFilter(myObject);
 
-    class MyWindow : public QWidget, public QxtNativeEventFilter {
+    class MyObject : public QxtNativeEventFilter {
         public:
             ...
 
