@@ -42,7 +42,30 @@ QxtFifo fifo;
  qDebug()<<a;
 \endcode
 
+
+
 */
+
+/**
+
+\fn  QxtFifo::QxtFifo(QObject * parent=0);
+constructs a new QxtFifo
+
+\fn  virtual bool QxtFifo::isSequential () const;
+\reimp
+
+\fn virtual qint64 QxtFifo::bytesAvailable () const;
+\reimp
+
+\fn     virtual qint64 QxtFifo::readData ( char * data, qint64 maxSize );
+\reimp
+
+\fn     virtual qint64 QxtFifo::writeData ( const char * data, qint64 maxSize );
+\reimp
+
+*/
+
+
 #include "qxtfifo.h"
 #include <QDebug>
 
