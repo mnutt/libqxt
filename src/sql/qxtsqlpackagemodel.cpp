@@ -26,6 +26,44 @@
 
 
 
+
+/**
+\class QxtSqlPackageModel QxtSqlPackageModel
+
+\ingroup QxtSql
+
+\brief  provides a read-only data model for QxtSqlPackage result..
+
+example usage:
+\code
+    QSqlQuery q;
+    q.exec("SELECT *");
+
+    QxtSqlPackage p;
+    p.insert(q);
+
+    QxtSqlPackageModel m;
+    m.setQuery(p);
+
+    QTableView v;
+    v.setModel(&m);
+    v.show();
+\endcode
+
+*/
+
+/**
+\fn void QxtSqlPackageModel::setQuery(QxtSqlPackage a);
+\brief set the data for the model.
+
+\warning do this before any access.
+
+*/
+
+
+
+
+
 QxtSqlPackageModel::QxtSqlPackageModel  (QObject * parent ) : QAbstractTableModel(parent)
 {}
 

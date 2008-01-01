@@ -143,7 +143,11 @@ QString descRTF(QDomElement element)
         if (n.isElement ())
         {
             QDomElement e= n.toElement();
-            if(e.tagName ()=="para")
+            if(e.tagName ()=="sp")
+            {
+                text += " ";
+            }
+            else if(e.tagName ()=="para")
             {
                 text += "<p>"+descRTF(e)+"</p>";
             }

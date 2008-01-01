@@ -23,15 +23,6 @@
 ****************************************************************************/
 
 
-/**
-\class QxtSqlPackageModel QxtSqlPackageModel
-
-\ingroup QxtSql
-
-\brief  provides a read-only data model for QxtSqlPackage result..
-*/
-
-
 
 #ifndef QXTSQLTABLEMODEL_H
 #define QXTSQLTABLEMODEL_H
@@ -49,7 +40,6 @@ public:
 
 
 
-/// set the data for the model. do this before any access
     void setQuery(QxtSqlPackage a) ;
 
 
