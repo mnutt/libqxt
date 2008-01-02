@@ -487,20 +487,22 @@ int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, con
 }
 
 /*!
-   Removes the page at \a index.
+   Removes the page at \a index and returns it.
 
    \note Does not delete the page widget.
 */
-void QxtConfigDialog::removePage(int index)
+QWidget* QxtConfigDialog::takePage(int index)
 {
     if (QWidget* page = qxt_d().stack->widget(index))
     {
         qxt_d().stack->removeWidget(page);
         delete qxt_d().item(index);
+        return page;
     }
     else
     {
         qWarning("QxtConfigDialog::removePage(): Unknown index");
+        return 0;
     }
 }
 
