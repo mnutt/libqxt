@@ -134,35 +134,14 @@ a.reflinkblock
 
 
 
-.simplesect_note
-{
-    padding:8px;
-    padding-left:40px;
-}
-
-.simplesect_note p
-{
-}
-
-.simplesect_see
+.simplesect
 {
     border:1px solid #eee;
     padding:8px;
-    padding-left:40px;
 }
-.simplesect_see p
+.simplesect img
 {
-}
-
-
-.simplesect_warning
-{
-    border:1px solid #eee;
-    padding:8px;
-    padding-left:40px;
-}
-.simplesect_warning p
-{
+    vertical-align:middle;
 }
 
 
@@ -174,7 +153,7 @@ a.reflinkblock
 
 .member
 {
-    margin-bottom:20px;
+
     padding:3px;
 }
 

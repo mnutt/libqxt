@@ -169,7 +169,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
                 else if(e.attribute("kind")=="note")
                     d="Note:";
 
-                text += "<div class=\"simplesect_"+e.attribute("kind")+"\">"
+                text += "<div class=\"simplesect\" >"
                         "<img src=\""+e.attribute("kind")+".png\" alt=\""+e.attribute("kind")+"\" />"
                         " <strong>"+d+"</strong> "   +descRTF(e,true)+"</div>";
             }
