@@ -150,7 +150,8 @@ LibQxt Coding Style Guidelines
                - This prevents compiler from using the constructor for implicit type conversion:
                  QWidget widget = new QWidget(); // produces an error only because QWidget constructor is explicit
         9.2.5. The destructor of a hand-made class should always be public when virtual and protected when non-virtual.
-               - Declaring non-virtual destructors as protected makes deleting base class pointer impossible.
+               - Declaring non-virtual destructors as protected prevents deleting an object by its base class pointer.
+               - You usually want the destructor to be virtual and public.
         9.2.6. The destructor is responsible for freeing all resources allocated by the class.
    9.3. Copying objects
         9.3.1. It is preferred to provide a copy constructor for every class.
