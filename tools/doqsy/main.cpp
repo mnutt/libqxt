@@ -556,17 +556,28 @@ void preParseSection(QDomElement sectiondef,Class * cl)
     if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
     {
         return;
-
     }
     if(sectiondef.attribute("kind")=="friend")///skip friend declarations
     {
         return;
     }
 
-
     QDomElement member=sectiondef.firstChildElement("memberdef");
     while(!member.isNull()) 
     {
+
+        QString detaileddescription=descRTF(member.firstChildElement("detaileddescription"));
+        QString briefdescription=descRTF(member.firstChildElement("briefdescription"));
+
+        if(briefdescription.contains("{DOQSY:PRIV}") || detaileddescription.contains("{DOQSY:PRIV}")) ///skip reimp and priv
+        {
+            member=member.nextSiblingElement("memberdef");
+            continue;
+        }
+
+
+
+
         qDebug()<<"preparsing member "<<member.firstChildElement("name").text();
 
         Member * mem=new Member;
@@ -578,8 +589,8 @@ void preParseSection(QDomElement sectiondef,Class * cl)
         mem->type=member.firstChildElement("type").text();
         mem->kind=sectiondef.attribute("kind");
         mem->dom=member;
-        mem->desc=descRTF(member.firstChildElement("detaileddescription"));
-        mem->brief=descRTF(member.firstChildElement("briefdescription"));
+        mem->desc=detaileddescription;
+        mem->brief=briefdescription;
 
 
 
