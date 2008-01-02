@@ -21,15 +21,6 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-/**
-\class QxtNamedPipe QxtNamedPipe
-
-\ingroup QxtNetwork
-
-\brief Provides a QIODevice over a named pipe
-
-\note not part of 0.2.4
-*/
 
 
 
