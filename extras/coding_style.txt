@@ -36,11 +36,11 @@ LibQxt Coding Style Guidelines
    2.1. Comments and symbolic names are in English.
    2.2. Symbolic names must not start with an underscore or contain two consecutive underscores.
         - ISO C++-standard reserves such names for compilers.
-   2.3. Names of classes, structs, namespaces and typedefs start with an uppercase letter.
-          class Name;
+   2.3. Names of classes, structs, namespaces and typedefs start with "Qxt".
+          class QxtClass;
    2.4. Names of variables, functions and member functions start with a lowercase letter.
         - Exception: constructors and destructors must be named after corresponding class
-          Type variable;
+          QxtClass variable;
           void doSomething();
    2.5. Constants are written in uppercase.
           static const unsigned int BUFFER_LIMIT = 1024;
@@ -189,8 +189,7 @@ LibQxt Coding Style Guidelines
           - The purpose of an interface is to declare operations. Pure virtuality enforces declared operations to be implemented in subclasses.
     10.5. An inherited class must always call base class constructor in the initializer list.
           - Ensures that the base class gets constructed properly (what the default constructor might not always do).
-    10.6. Inherited non-virtual member function must not be re-declared eg. shadowed in subclasses.
-          - Allowed by C++ but no reasonable use when it comes to object-oriented design.
+    10.6. Inherited non-virtual member function is not recommended to be re-declared eg. shadowed in subclasses.
     10.7. Default parameter values of inherited virtual member functions must not be redefined.
 
 11. Templates and containers
@@ -227,4 +226,3 @@ Suggestions:
 [19:54:43] <ahigerd> 17:59:42> Use an enum in a namespace for related integer constants instead of const int or #define
 [19:54:43] <ahigerd> 17:59:46> This is the Qt style.
 [19:54:43] <ahigerd> 17:59:55> Er, in a namespace or class.
-
