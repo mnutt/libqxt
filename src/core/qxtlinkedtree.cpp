@@ -55,6 +55,9 @@ QxtLinkedTreeIterator<int> it= tree.fromVoid(root);
 \endcode
 
 
+\doqsy {implicitshared}
+
+
 
 \fn QxtLinkedTree::QxtLinkedTree(T t);
 default constructor \n
