@@ -207,14 +207,9 @@ LibQxt Coding Style Guidelines
     11.7. Make sure not to use invalid iterators.
           - Non-mutable iterators get invalidated when a container is altered.
 
-12. Exceptions (Is this necessary? Do we use exceptions at all?)
-    12.1. Exceptions may be used for error handling only.
-          - Exception handling is heavy. Do not abuse exceptions for controlling program flow.
-    12.2. In case an exception handler is unable to recover from an exception, the exception must be re-thrown.
-    12.3. Do not leak exceptions out of main().
-          - Environments tend to give confusing error messages in such situation.
-    12.4. A destructor of a class may not throw exceptions.
-          - Exception handlers usually destruct objects. An exception thrown in such destructor would cause two parallel exceptions and the program to be terminated without further handling.
+12. Exceptions
+    12.1. Never use exceptions in Qt code.
+          - Qt isn't required to be compiled with exception support, and just by enabling exception support you invoke a performance hit -- even if you never use it -- so you can't rely on it being there.
 
 References:
 - http://www.cs.tut.fi/~oliot/kirja/tyyliopas/
