@@ -40,12 +40,7 @@
     qDebug()<<db[344.4];
     \endcode
 
-    \n \n
-    this class is implicit shared.
-    \n
-    all members of this class, except flush() are thread safe. \n
-
-
+    \doqsy {implicitshared}
 */
 
 /*!
