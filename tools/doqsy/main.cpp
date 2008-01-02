@@ -763,8 +763,19 @@ QString printClass(QString location,Class * cl)
     ///description
     cl->desc=descRTF(def.firstChildElement("detaileddescription"));
     cl->brief=def.firstChildElement("briefdescription").text().replace("<","&lt;").replace(">","&gt;");
+
+
+    ///templates
+    cl->desc.replace("{implicitshared}",
+                    "<div class=\"simplesect\" >"
+                    "<img src=\"implicitshared.png\" alt=\"implicit shared\" />"
+                    " <strong>This class is implicit shared.</strong></div>"
+                    );
+
     t["desc_short"]=cl->brief;
     t["desc_detailed"]=cl->desc;
+
+
 
 
 
@@ -1237,7 +1248,7 @@ int main(int argc,char ** argv)
     qDebug("[copying referenced files]");
 
 
-    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"see.png"<<"note.png"<<"warning.png";
+    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"see.png"<<"note.png"<<"warning.png"<<"implicitshared.png";
 
     foreach(QString f,filesIShouldCopy)
     {
