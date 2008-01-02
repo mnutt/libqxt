@@ -113,6 +113,21 @@ LibQxt Coding Style Guidelines
    7.6. A member function must be a const function whenever possible.
 
 8. Classes and objects
+   8.1. Objects are implemented as classes and records are implemented as structs.
+        - A clear separation between structural data and objects.
+   8.2. A struct may have a constructor and (virtual) destructor but no member functions.
+        - Records collect related data together. The only acceptable functionality is initialization and uninitialization.
+   8.3. Access levels are declared in order public, protected and private.
+        - End-users are interested of public interface, which makes it natural to declare as first.
+   8.4. The visibility of class member variables is always private.
+        - Exception: It is acceptable to use public variables in private implementation classes.
+   8.5. Class declaration does not contain implementation. Inline and template functions are implemented separately in the header file after the declaration.
+        - End-users consider it easier to read clear declarations not cluttered with implementation details.
+   8.6. Avoid friend functions and classes.
+        - Friendship breaks encapsulation.
+        - Exception: A tight group of classes belonging together.
+   8.7. Retain semantics of overloaded operators.
+        - For example, operator + does always an operation correspondent to addition.
 
 9. Scope
    9.1. Memory management
