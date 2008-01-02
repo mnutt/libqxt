@@ -5,6 +5,11 @@
         \class QxtMail QxtMail
         \ingroup QxtWeb
         \brief Implicit shared contianer, reflecting a rfc822 mail
+
+
+
+        \doqsy {implicitshared}
+
 */
 
 
