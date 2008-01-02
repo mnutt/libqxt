@@ -65,7 +65,7 @@ public:
 
     int addPage(QWidget* page, const QIcon& icon, const QString& title = QString());
     int insertPage(int index, QWidget* page, const QIcon& icon, const QString& title = QString());
-    void removePage(int index);
+    QWidget* takePage(int index);
 
     int count() const;
     int currentIndex() const;
