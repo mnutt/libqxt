@@ -148,9 +148,28 @@ LibQxt Coding Style Guidelines
           - Allowed by C++ but no reasonable use when it comes to object-oriented design.
     10.7. Default parameter values of inherited virtual member functions must not be redefined.
 
-11. Templates
+11. Templates and containers
+    11.1. Parameter type requirements of template functions must be clearly documented.
+          - Error messages of template functions tend to be confusing.
+    11.2. Use type definitions to give sensible names to (at least complex) template containers.
+            typedef QMap<QString, int> PhoneBook;
+    11.3. Make sure objets stored in template containers have suitable copy and assign operators.
+          - Template containers handle stored objects by copying and assigning them. Resulting objects of copy and assign must be identical to original objects.
+    11.4. Use QtAlgorithms and/or STL algorithms instead of hand-made algorithms where possible.
+    11.5. The preferred way to iterate through a container is to use iterators.
+    11.6. Incrementing and decrementing an iterator is done with prefix operator (preincrement and predecrement).
+          - Postincrement is less efficient, because it will have to return a copy of the old value.
+    11.7. Make sure not to use invalid iterators.
+          - Non-mutable iterators get invalidated when a container is altered.
 
-12. Exceptions
+12. Exceptions (Is this necessary? Do we use exceptions at all?)
+    12.1. Exceptions may be used for error handling only.
+          - Exception handling is heavy. Do not abuse exceptions for controlling program flow.
+    12.2. In case an exception handler is unable to recover from an exception, the exception must be re-thrown.
+    12.3. Do not leak exceptions out of main().
+          - Environments tend to give confusing error messages in such situation.
+    12.4. A destructor of a class may not throw exceptions.
+          - Exception handlers usually destruct objects. An exception thrown in such destructor would cause two parallel exceptions and the program to be terminated without further handling.
 
 References:
 - http://www.cs.tut.fi/~oliot/kirja/tyyliopas/
