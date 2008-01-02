@@ -169,7 +169,9 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
                 else if(e.attribute("kind")=="note")
                     d="Note:";
 
-                text += "<div class=\"simplesect_"+e.attribute("kind")+"\"> <strong>"+d+"</strong> "   +descRTF(e,true)+"</div>";
+                text += "<div class=\"simplesect_"+e.attribute("kind")+"\">"
+                        "<img src=\""+e.attribute("kind")+".png\" alt=\""+e.attribute("kind")+"\" />"
+                        " <strong>"+d+"</strong> "   +descRTF(e,true)+"</div>";
             }
             else if(e.tagName ()=="bold")
             {
@@ -1224,7 +1226,7 @@ int main(int argc,char ** argv)
     qDebug("[copying referenced files]");
 
 
-    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"sa.png"<<"note.png"<<"warning.png";
+    filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"see.png"<<"note.png"<<"warning.png";
 
     foreach(QString f,filesIShouldCopy)
     {
