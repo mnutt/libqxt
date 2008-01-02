@@ -136,6 +136,17 @@ LibQxt Coding Style Guidelines
    9.4. Assigning objects
 
 10. Inheritance
+    10.1. Use only public inheritance.
+          - Exception: Inheritance from Ui class in the multiple inheritance approach.
+    10.2. Inheritance is a static "is-a" relationship. Implement "has-a" relationship with member variables and type independent code with templates.
+    10.3. TODO: Do not misuse multiple inheritance. :)
+    10.4. Member functions of an interface class are pure virtual.
+          - The purpose of an interface is to declare operations. Pure virtuality enforces declared operations to be implemented in subclasses.
+    10.5. An inherited class must always call base class constructor in the initializer list.
+          - Ensures that the base class gets constructed properly (what the default constructor might not always do).
+    10.6. Inherited non-virtual member function must not be re-declared eg. shadowed in subclasses.
+          - Allowed by C++ but no reasonable use when it comes to object-oriented design.
+    10.7. Default parameter values of inherited virtual member functions must not be redefined.
 
 11. Templates
 
