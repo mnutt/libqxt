@@ -131,9 +131,54 @@ LibQxt Coding Style Guidelines
 
 9. Scope
    9.1. Memory management
+        9.1.1. Ownership of dynamically allocated memory belongs to its allocator. Otherwise it must be clearly documented.
+        9.1.2. It is acceptable to use operator delete only to deallocate memory that was allocated by operator new.
+               - Same thing with delete[] and new[]
+               - Defined in ISO C++-standard.
+        9.1.3. It is acceptable to use operator delete[] only to deallocate memory that was allocated by operator new[].
+        9.1.4. Nullify pointers after deletion.
+               - Dereferencing floating pointers to already deleted memory tend to produce confusing error messages.
    9.2. Constructing and destructing objects
+        9.2.1. It is preferred to provide at least one constructor for every class.
+               - Default constructors provided by compilers are rarely usable.
+        9.2.2. You must not call virtual functions in class constructors or destructors.
+               - Dynamic binding does not work in expected way when the object is in a half-baked state.
+        9.2.3. Do not use static (or global) variables in class constructors or destructors.
+               - Initialization order of static variables is undefined. The object could itself be static (or global) whereas the static variable it depends on might not be initialized yet. Correspondingly, in destructor the referenced static variable might already have been destructed.
+        9.2.4. Constructor with one parameter must be marked as explicit.
+               - Exception: Do not mark copy constructors as explicit.
+               - This prevents compiler from using the constructor for implicit type conversion:
+                 QWidget widget = new QWidget(); // produces an error only because QWidget constructor is explicit
+        9.2.5. The destructor of a hand-made class should always be public when virtual and protected when non-virtual.
+               - Declaring non-virtual destructors as protected makes deleting base class pointer impossible.
+        9.2.6. The destructor is responsible for freeing all resources allocated by the class.
    9.3. Copying objects
+        9.3.1. It is preferred to provide a copy constructor for every class.
+               - Default copy constructors provided by compilers might be non-suitable.
+        9.3.2. Inappropriate copying is prevented by declaring a private copy constructor.
+                 private:
+                    Q_DISABLE_COPY(ClassName)
+        9.3.3. An inherited class must always call base class copy constructor in the initializer list.
+          - Ensures that the base class gets copied properly (what the default constructor might not always do).
    9.4. Assigning objects
+        9.4.1. It is preferred to provide an assigment operator for every class.
+               - Default assignment operator provided by compilers might be non-suitable.
+        9.4.2. Inappropriate assignment is prevented by declaring a private assignment operator.
+        9.4.3. An inherited class must always call base class assignment operator.
+               - Note: Compilers do not do this automatically.
+        9.4.4. Assignment operators should skip assignment to self.
+               - An unnecessary operation.
+                 Object& object::operator=(const Object& other)
+                 {
+                    if (this != &other)
+                    {
+                       ...
+                    }
+                    return *this;
+                 }
+        9.4.5. The return value of an assignment operator is *this.
+               - Makes for example chained assignment possible.
+                 a=b=c;
 
 10. Inheritance
     10.1. Use only public inheritance.
