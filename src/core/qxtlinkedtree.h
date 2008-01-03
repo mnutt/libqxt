@@ -371,13 +371,13 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) co
 
 
 template<class T>
-QxtLinkedTreeIterator<T> fromVoid (void * d) 
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::fromVoid (void * d) 
 {
     return QxtLinkedTreeIterator<T>(dynamic_cast<QxtLinkedTreeItem<T> *>(d));
 }
 
 template<class T>
-void * toVoid (QxtLinkedTreeIterator<T> n) 
+void *  QxtLinkedTreeIterator<T>::toVoid (QxtLinkedTreeIterator<T> n) 
 {
     return static_cast<void*>(n.item);
 }
