@@ -24,6 +24,6 @@
 #include "qxtnamedpipe.h"
 #include "qxtrpcpeer.h"
 
-/** \defgroup QxtNetwork  QxtNetwork
-    \brief    parts that depend on QtNetwork (and at least QtCore)
+/** \defgroup QxtNetwork QxtNetwork
+    \brief    The QxtNetwork module extends QtNetwork with RPC functionality.
 */

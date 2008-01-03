@@ -32,6 +32,6 @@
 #include "qxtwebscgiconnector.h"
 #include "qxtwebstatelessconnector.h"
 
-/** \defgroup QxtWeb  QxtWeb
-    \brief    Qt like Web Developement tools
+/** \defgroup QxtWeb QxtWeb
+    \brief    The QxtWeb module provides Qt like Web Developement tools.
 */
