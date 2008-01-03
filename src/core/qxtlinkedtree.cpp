@@ -41,7 +41,7 @@ This is very fast and efficient. \n \n
 \code
 QxtLinkedTree<int> tree(1);
 
-QxtLinkedTreeIterator<int> it= tree.begin();
+QxtLinkedTreeIterator<int> it= tree.root();
 it.append(34);
 qDebug()<<it<<it.child(); //returns "1 34"
 
@@ -50,19 +50,20 @@ qDebug()<<it<<it.child(); //returns "1 34"
 In order to be able to store an iterator into other data structures (eg. for QAbstractItemModel or QAbstractXmlNodeModel) functions are provided to create and store a linked item from and into a void pointer. \n
 
 \code
-void * root= tree.toVoid(tree.begin());
+void * root= tree.toVoid(tree.root());
 QxtLinkedTreeIterator<int> it= tree.fromVoid(root);
 \endcode
 
 
 \doqsy {implicitshared}
 
-
+\fn QxtLinkedTree::QxtLinkedTree();
+constructs a QxtLinkedTree with a default constructed root node.
 
 \fn QxtLinkedTree::QxtLinkedTree(T t);
-default constructor \n
+constructs a QxtLinkedTree.
 sets the rootnode to \p t
-\fn QxtLinkedTreeIterator QxtLinkedTree::begin  ();
+\fn QxtLinkedTreeIterator QxtLinkedTree::root();
 returns an iterator on the root node
 
 \fn void * QxtLinkedTree::toVoid  (QxtLinkedTreeIterator);
