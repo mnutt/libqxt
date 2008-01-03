@@ -17,6 +17,7 @@ set QMAKEBIN=qmake
 set MSVCMODE=
 set OPENSSL=1
 set FCGI=1
+set DB=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
 echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
 
@@ -36,6 +37,7 @@ if "%0" == "-static"     goto static
 if "%0" == "-debug"      goto debug
 if "%0" == "-release"    goto release
 if "%0" == "-no-openssl" goto noopenssl
+if "%0" == "-no-db"      goto nodb
 if "%0" == "-msvc"       goto msvc
 if "%0" == "/help"       goto help
 if "%0" == "-help"       goto help
@@ -104,6 +106,11 @@ set OPENSSL=0
 echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
 goto bottom
 
+:nodb
+set DB=0
+echo QXT_LIBS -= db >> %PROJECT_ROOT%\config.in
+goto bottom
+
 :msvc
 set MSVCMODE=-tp vc
 goto bottom
@@ -141,8 +148,9 @@ goto top
     echo -debug .............. Build Qxt with debugging symbols
     echo -release ............ Build Qxt without debugging support
     echo -no-openssl ......... Do not link to OpenSSL
+    echo -no-db .............. Do not link to Berkeley DB
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: core crypto designer gui network sql web
+    echo                       options: berkeley crypto designer gui network sql web
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %PROJECT_ROOT%\config.in
@@ -194,7 +202,7 @@ echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
-if "%OPENSSL%"=="0" goto detectfcgi
+if "%OPENSSL%"=="0" goto detectdb
 echo    Testing for OpenSSL... 
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\openssl
@@ -204,11 +212,28 @@ call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto opensslfailed
 set OPENSSL=1
-goto detectfcgi
+goto detectdb
 
 :opensslfailed
 set OPENSSL=0
 echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
+
+:detectdb
+if "%DB%"=="0" goto detectfcgi
+echo    Testing for Berkeley DB...
+echo BDB... >> %PROJECT_ROOT%\%CONFIG_LOG%
+cd %TESTDIR%\db
+%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto dbfailed
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto dbfailed
+set DB=1
+goto detectfcgi
+
+:dbfailed
+set DB=0
+echo QXT_LIBS -= db >> %PROJECT_ROOT%\config.in
 
 :detectfcgi
 if "%FCGI%"=="0" goto skipfcgitest
@@ -234,6 +259,8 @@ cd %PROJECT_ROOT%
 echo    Configuration successful.
 if "%OPENSSL%"=="1" echo        OpenSSL enabled.
 if "%OPENSSL%"=="0" echo        OpenSSL disabled.
+if "%DB%"=="1"      echo        Berkeley DB enabled.
+if "%DB%"=="0"      echo        Berkeley DB disabled.
 if "%FCGI%"=="1"    echo        FastCGI enabled.
 if "%FCGI%"=="0"    echo        FastCGI disabled.
 echo    Generating makefiles...
