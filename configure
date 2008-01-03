@@ -89,7 +89,7 @@ while (( $# > 0 )); do
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-nomake <module> .... Do not compile the specified module"
-        echo "                      options: network gui sql media web designer"
+        echo "                      options: berkeley crypto designer gui network sql web"
         echo "-verbose ............ shows compiler output"
 
         rm config.in
