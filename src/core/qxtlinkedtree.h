@@ -370,18 +370,6 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) co
 
 
 
-template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::fromVoid (void * d) 
-{
-    return QxtLinkedTreeIterator<T>(dynamic_cast<QxtLinkedTreeItem<T> *>(d));
-}
-
-template<class T>
-void *  QxtLinkedTreeIterator<T>::toVoid (QxtLinkedTreeIterator<T> n) 
-{
-    return static_cast<void*>(n.item);
-}
-
 
 
 
@@ -403,6 +391,21 @@ QxtLinkedTree<T>::QxtLinkedTree()
 {
     qxt_d=new QxtLinkedTreeItem<T>(T());
 }
+
+
+template<class T>
+QxtLinkedTreeIterator<T>  QxtLinkedTree<T>::fromVoid (void * d) 
+{
+    return QxtLinkedTreeIterator<T>(dynamic_cast<QxtLinkedTreeItem<T> *>(d));
+}
+
+template<class T>
+void *  QxtLinkedTree<T>::toVoid (QxtLinkedTreeIterator<T> n) 
+{
+    return static_cast<void*>(n.item);
+}
+
+
 
 template<class T>
 QxtLinkedTreeIterator<T> QxtLinkedTree<T>::root ()
