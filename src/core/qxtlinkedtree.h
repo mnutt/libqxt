@@ -81,12 +81,12 @@ public:
 
     QxtLinkedTreeIterator    operator + ( int j ) const;
     QxtLinkedTreeIterator &  operator ++ ();
-    QxtLinkedTreeIterator &  operator ++ (int);
+    QxtLinkedTreeIterator    operator ++ (int);
     QxtLinkedTreeIterator &  operator += ( int j );
 
     QxtLinkedTreeIterator    operator - ( int j ) const;
     QxtLinkedTreeIterator &  operator -- ();
-    QxtLinkedTreeIterator &  operator -- (int);
+    QxtLinkedTreeIterator    operator -- (int);
     QxtLinkedTreeIterator &  operator -= ( int j );
 
     bool operator== ( const QxtLinkedTreeIterator<T> & other ) const;
@@ -113,9 +113,9 @@ class QxtLinkedTree
 {
 public:
 
-
+    QxtLinkedTree();
     QxtLinkedTree(T t);
-    QxtLinkedTreeIterator<T> begin();
+    QxtLinkedTreeIterator<T> root();
     static QxtLinkedTreeIterator<T> fromVoid (void *) ;
     static void * toVoid (QxtLinkedTreeIterator<T>) ;
 
@@ -236,7 +236,7 @@ QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ () /*prefix*/
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ (int) /*postfix*/
+QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator ++ (int) /*postfix*/
 {
     QxtLinkedTreeIterator<T> d(*this);
     *this= QxtLinkedTreeIterator<T>(item->next);
@@ -271,7 +271,7 @@ QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- () /*prefix*/
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- (int) /*postfix*/
+QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator -- (int) /*postfix*/
 {
     QxtLinkedTreeIterator<T> d(*this);
     *this= QxtLinkedTreeIterator<T>(item->previous);
@@ -397,8 +397,15 @@ QxtLinkedTree<T>::QxtLinkedTree(T t)
     qxt_d=new QxtLinkedTreeItem<T>(t);
 }
 
+
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTree<T>::begin  ()
+QxtLinkedTree<T>::QxtLinkedTree()
+{
+    qxt_d=new QxtLinkedTreeItem<T>(T());
+}
+
+template<class T>
+QxtLinkedTreeIterator<T> QxtLinkedTree<T>::root ()
 {
     return QxtLinkedTreeIterator<T>(&qxt_d());
 }
