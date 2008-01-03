@@ -25,5 +25,5 @@
 #include "qxtsqlpackagemodel.h"
 
 /** \defgroup QxtSql QxtSql
-    \brief    parts that depend on QtSql (and at least QtCore)
+    \brief    The QxtSql module extends QtSql with serializable queries.
 */

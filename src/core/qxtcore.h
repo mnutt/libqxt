@@ -49,5 +49,5 @@
 #include "qxttypelist.h"
 
 /** \defgroup QxtCore QxtCore
-    \brief   The Core contains naturaly  the most important parts of Qxt, everything is based on.
+    \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
 */
