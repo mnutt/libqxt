@@ -396,13 +396,13 @@ QxtLinkedTree<T>::QxtLinkedTree()
 template<class T>
 QxtLinkedTreeIterator<T>  QxtLinkedTree<T>::fromVoid (void * d) 
 {
-    return QxtLinkedTreeIterator<T>(dynamic_cast<QxtLinkedTreeItem<T> *>(d));
+    return QxtLinkedTreeIterator<T>(reinterpret_cast<QxtLinkedTreeItem<T> *>(d));
 }
 
 template<class T>
 void *  QxtLinkedTree<T>::toVoid (QxtLinkedTreeIterator<T> n) 
 {
-    return static_cast<void*>(n.item);
+    return reinterpret_cast<void*>(n.item);
 }
 
 
