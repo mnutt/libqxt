@@ -6,17 +6,22 @@
 ;Includes
 
   !include "MUI.nsh"
+  !include "Sections.nsh"
   !include "InstallOptions.nsh"
 
 ;--------------------------------
 ;General
-
+  
+  !define PRODUCT_NAME    "LibQxt"
+  !define PRODUCT_VERSION "0.3.0"
+  !define PROJECT_NAME    "libqxt"
+  
   ;Name and file
-  Name "LibQxt 0.3.0"
-  OutFile "libqxt-0.3.0.exe"
-
+  Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+  OutFile "${PROJECT_NAME}-${PRODUCT_VERSION}.exe"
+  
   ;Default installation folder
-  InstallDir "C:\libqxt-0.3.0"
+  InstallDir "C:\${PROJECT_NAME}-${PRODUCT_VERSION}"
   
   ;Get installation folder from registry if available
   InstallDirRegKey HKCU "Software\$(^Name)" ""
@@ -36,10 +41,28 @@
   Var STARTMENU_FOLDER
 
 ;--------------------------------
+;Functions
+
+Function OptionsPage
+  # If you need to skip the page depending on a condition, call Abort.
+  ReserveFile "libqxt.ini"
+  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "libqxt.ini"
+  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "libqxt.ini"
+FunctionEnd
+ 
+Function OptionsPageLeave
+  # Form validation here. Call Abort to go back to the page.
+  # Use !insertmacro MUI_INSTALLOPTIONS_READ $Var "InstallOptionsFile.ini" ...
+  # to get values.
+FunctionEnd
+
+;--------------------------------
 ;Pages
 
+  !insertmacro MUI_PAGE_WELCOME
   !insertmacro MUI_PAGE_LICENSE "..\..\cpl1.0.txt"
   !insertmacro MUI_PAGE_COMPONENTS
+  Page Custom OptionsPage OptionsPageLeave
   !insertmacro MUI_PAGE_DIRECTORY
   
   ;Start Menu Folder Page Configuration
