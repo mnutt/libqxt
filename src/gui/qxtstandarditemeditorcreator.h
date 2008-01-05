@@ -21,27 +21,27 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTITEMEDITORCREATOR_H
-#define QXTITEMEDITORCREATOR_H
+#ifndef QXTSTANDARDITEMEDITORCREATOR_H
+#define QXTSTANDARDITEMEDITORCREATOR_H
 
-#include <QItemEditorCreator>
+#include <QStandardItemEditorCreator>
 #include "qxtitemeditorcreatorbase.h"
 #include "qxtglobal.h"
 
 /*!
-    \class QxtItemEditorCreator QxtItemEditorCreator
+    \class QxtStandardItemEditorCreator QxtStandardItemEditorCreator
     \ingroup QxtGui
-    \brief An extended QItemEditorCreator with default values for user-chosen properties.
+    \brief An extended QStandardItemEditorCreator with default values for user-chosen properties.
 
-    The QxtItemEditorCreator class provides the possibility to set default values for
+    The QxtStandardItemEditorCreator class provides the possibility to set default values for
     user-chosen properties.
 
     Usage:
     \code
     QItemEditorFactory *factory = new QItemEditorFactory;
 
-    QxtItemEditorCreator<QSpinBox>* spinBoxCreator = new QxtItemEditorCreator<QSpinBox>("value");
-    QxtItemEditorCreator<QLineEdit>* lineEditCreator = new QxtItemEditorCreator<QLineEdit>("text");
+    QxtStandardItemEditorCreator<QSpinBox>* spinBoxCreator = new QxtStandardItemEditorCreator<QSpinBox>();
+    QxtStandardItemEditorCreator<QLineEdit>* lineEditCreator = new QxtStandardItemEditorCreator<QLineEdit>();
 
     // spin boxes for degrees between -180 and 180
     spinBoxCreator->setDefaultPropertyValue("minimum", -180);
@@ -59,18 +59,17 @@
     Setting default properties above makes sure that spin boxes have ranges from -180 to 180
     and line editors' echo mode is set to QLineEdit::Password.
 
-    \sa QItemEditorCreator
+    \sa QStandardItemEditorCreator
  */
 
 template <class T>
-class QXT_GUI_EXPORT QxtItemEditorCreator : public QxtItemEditorCreatorBase<T>, public QItemEditorCreator<T>
+class QXT_GUI_EXPORT QxtStandardItemEditorCreator : public QxtItemEditorCreatorBase<T>, public QStandardItemEditorCreator<T>
 {
 public:
     /*!
-        Constructs a new QxtItemEditorCreator with \a valuePropertyName.
+        Constructs a new QxtStandardItemEditorCreator.
      */
-    inline QxtItemEditorCreator(const QByteArray& valuePropertyName)
-        : QItemEditorCreator<T>(valuePropertyName)
+    inline QxtStandardItemEditorCreator() : QStandardItemEditorCreator<T>()
     {
     }
 
@@ -79,8 +78,8 @@ public:
      */
     inline QWidget* createWidget(QWidget* parent) const
     {
-        return initializeEditor(QItemEditorCreator<T>::createWidget(parent));
+        return initializeEditor(QStandardItemEditorCreator<T>::createWidget(parent));
     }
 };
 
-#endif // QXTITEMEDITORCREATOR_H
+#endif // QXTSTANDARDITEMEDITORCREATOR_H
