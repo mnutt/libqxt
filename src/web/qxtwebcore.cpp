@@ -132,7 +132,7 @@ void QxtWebLegacyEngine::redirect(QString l,int code)
     if (loc.isEmpty())
         loc="/";
     instance()->cc->response().setStatusLine(code);
-    instance()->cc->response().setValue("Location",loc);
+    instance()->cc->response().setValue("location",loc);
     instance()->cc->write(QByteArray("<a href=\""+loc+"\">"+loc+"</a>"));
 
 }
