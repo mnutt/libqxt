@@ -782,13 +782,14 @@ QString printClass(QString location,Class * cl)
     ///inherits
     t["inherits"]="";
     QDomElement basecompoundref =def.firstChildElement("basecompoundref");
-    if(!basecompoundref.isNull())
+    while(!basecompoundref.isNull())
     {
         QxtHtmlTemplate t_i;
         if(!t_i.open(templateDir+"/class-unroll-inherits.html"))qFatal("cannot open template");
         t_i["name"]=basecompoundref.text();
         t_i["link"]=refToLink(basecompoundref.attribute("refid"));
-        t["inherits"]=t_i.render();
+        t["inherits"]+=t_i.render();
+        basecompoundref=basecompoundref.nextSiblingElement("basecompoundref");
     }
 
 
