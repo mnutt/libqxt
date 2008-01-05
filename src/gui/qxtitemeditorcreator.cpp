@@ -21,35 +21,25 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtapplication.h"
-#include "qxtcheckcombobox.h"
-#include "qxtconfigdialog.h"
-#include "qxtconfirmationmessage.h"
-#include "qxtdockwidget.h"
-#include "qxtglobalshortcut.h"
-#include "qxtgroupbox.h"
-#include "qxtheaderview.h"
-#include "qxtitemdelegate.h"
 #include "qxtitemeditorcreator.h"
-#include "qxtlabel.h"
-#include "qxtlistwidget.h"
-#include "qxtlistwidgetitem.h"
-#include "qxtnativeeventfilter.h"
-#include "qxtprogresslabel.h"
-#include "qxtproxystyle.h"
-#include "qxtpushbutton.h"
-#include "qxtspanslider.h"
-#include "qxtstars.h"
-#include "qxtstringspinbox.h"
-#include "qxtstringvalidator.h"
-#include "qxttabwidget.h"
-#include "qxttablewidget.h"
-#include "qxttablewidgetitem.h"
-#include "qxttooltip.h"
-#include "qxttreewidget.h"
-#include "qxttreewidgetitem.h"
-#include "qxtwindowsystem.h"
+#include <QWidget>
 
-/** \defgroup QxtGui QxtGui
-    \brief    The QxtGui module extends QtGui.
-*/
+/*!
+    \class QxtItemEditorCreator QxtItemEditorCreator
+    \ingroup QxtGui
+    \brief An extended QItemEditorCreator with default values for user-chosen properties.
+
+    TODO: verbose description
+ */
+
+/*!
+    \reimp
+ */
+
+/*!
+    Returns the default property value for \a property.
+ */
+
+/*!
+    Sets the default property \a value for \a property.
+ */
