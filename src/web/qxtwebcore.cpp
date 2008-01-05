@@ -170,7 +170,6 @@ void QxtWebLegacyEngine::incomming()
     {
         cc=sc->nextPendingConnection();
         cc->waitForReadyRead(10000);
-        qDebug("%i, %s -> %s",(int)time(NULL),qPrintable(SERVER().value("HTTP_HOST")),qPrintable(SERVER().path()));
         emit(request());
 
         ///--------------find controller ------------------
