@@ -21,38 +21,22 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtdesignerplugins.h"
-
+#include "qxtbasespinbox.h"
 #include "qxtbasespinboxplugin.h"
-#include "qxtcheckcomboboxplugin.h"
-#include "qxtgroupboxplugin.h"
-#include "qxtlabelplugin.h"
-#include "qxtlistwidgetplugin.h"
-#include "qxtprogresslabelplugin.h"
-#include "qxtpushbuttonplugin.h"
-#include "qxtspansliderplugin.h"
-#include "qxtstarsplugin.h"
-#include "qxtstringspinboxplugin.h"
-#include "qxttablewidgetplugin.h"
-#include "qxttreewidgetplugin.h"
+#include <QtDesigner>
 #include <QtPlugin>
 
-QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
+QxtBaseSpinBoxPlugin::QxtBaseSpinBoxPlugin(QObject* parent)
+        : QObject(parent), QxtDesignerPlugin("QxtBaseSpinBox")
 {
-    QList<QDesignerCustomWidgetInterface*> plugins;
-    plugins << new QxtLabelPlugin()
-    << new QxtPushButtonPlugin()
-    << new QxtCheckComboBoxPlugin()
-    << new QxtSpanSliderPlugin()
-    << new QxtBaseSpinBoxPlugin()
-    << new QxtStringSpinBoxPlugin()
-    << new QxtGroupBoxPlugin()
-    << new QxtListWidgetPlugin()
-    << new QxtTreeWidgetPlugin()
-    << new QxtTableWidgetPlugin()
-    << new QxtStarsPlugin()
-    << new QxtProgressLabelPlugin();
-    return plugins;
 }
 
-Q_EXPORT_PLUGIN(QxtDesignerPlugins)
+QWidget* QxtBaseSpinBoxPlugin::createWidget(QWidget* parent)
+{
+    return new QxtBaseSpinBox(parent);
+}
+
+QString QxtBaseSpinBoxPlugin::domXml() const
+{
+    return "<widget class=\"QxtBaseSpinBox\" name=\"qxtBaseSpinBox\" />";
+}

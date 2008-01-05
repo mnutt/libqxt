@@ -16,6 +16,7 @@ include(../../config.pri)
 
 HEADERS  += qxtapplication.h
 HEADERS  += qxtapplication_p.h
+HEADERS  += qxtbasespinbox.h
 HEADERS  += qxtcheckcombobox.h
 HEADERS  += qxtcheckcombobox_p.h
 HEADERS  += qxtconfigdialog.h
@@ -58,6 +59,7 @@ HEADERS  += qxttreewidgetitem.h
 HEADERS  += qxtwindowsystem.h
 
 SOURCES  += qxtapplication.cpp
+SOURCES  += qxtbasespinbox.cpp
 SOURCES  += qxtcheckcombobox.cpp
 SOURCES  += qxtconfigdialog.cpp
 SOURCES  += qxtconfirmationmessage.cpp

@@ -21,38 +21,44 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtapplication.h"
-#include "qxtbasespinbox.h"
-#include "qxtcheckcombobox.h"
-#include "qxtconfigdialog.h"
-#include "qxtconfirmationmessage.h"
-#include "qxtdockwidget.h"
-#include "qxtglobalshortcut.h"
-#include "qxtgroupbox.h"
-#include "qxtheaderview.h"
-#include "qxtitemdelegate.h"
-#include "qxtitemeditorcreator.h"
-#include "qxtitemeditorcreatorbase.h"
-#include "qxtlabel.h"
-#include "qxtlistwidget.h"
-#include "qxtlistwidgetitem.h"
-#include "qxtnativeeventfilter.h"
-#include "qxtprogresslabel.h"
-#include "qxtproxystyle.h"
-#include "qxtpushbutton.h"
-#include "qxtspanslider.h"
-#include "qxtstandarditemeditorcreator.h"
-#include "qxtstars.h"
-#include "qxtstringspinbox.h"
-#include "qxtstringvalidator.h"
-#include "qxttabwidget.h"
-#include "qxttablewidget.h"
-#include "qxttablewidgetitem.h"
-#include "qxttooltip.h"
-#include "qxttreewidget.h"
-#include "qxttreewidgetitem.h"
-#include "qxtwindowsystem.h"
+#ifndef QXTBASESPINBOX_H
+#define QXTBASESPINBOX_H
 
-/** \defgroup QxtGui QxtGui
-    \brief    The QxtGui module extends QtGui.
-*/
+#include <QSpinBox>
+#include "qxtglobal.h"
+#include "qxtpimpl.h"
+
+class QxtBaseSpinBoxPrivate;
+
+class QXT_GUI_EXPORT QxtBaseSpinBox : public QSpinBox
+{
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtBaseSpinBox);
+    Q_PROPERTY(int base READ base WRITE setBase)
+    Q_PROPERTY(bool upperCase READ isUpperCase WRITE setUpperCase)
+
+public:
+    explicit QxtBaseSpinBox(QWidget* parent = 0);
+    explicit QxtBaseSpinBox(int base, QWidget* parent = 0);
+    virtual ~QxtBaseSpinBox();
+
+    virtual void fixup(QString& input) const;
+    virtual QValidator::State validate(QString& input, int& pos) const;
+
+    bool isUpperCase() const;
+    void setUpperCase(bool upperCase);
+
+    int base() const;
+
+public slots:
+    void setBase(int base);
+
+signals:
+    void baseChanged(int base);
+
+protected:
+    virtual QString textFromValue(int value) const;
+    virtual int valueFromText(const QString& text) const;
+};
+
+#endif // QXTBASESPINBOX_H

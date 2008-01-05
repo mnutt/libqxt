@@ -9,7 +9,7 @@ target.path = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS += target
 include(../../config.pri)
 
-
+HEADERS  += qxtbasespinboxplugin.h
 HEADERS  += qxtcheckcomboboxplugin.h
 HEADERS  += qxtdesignerplugin.h
 HEADERS  += qxtdesignerplugins.h
@@ -24,6 +24,7 @@ HEADERS  += qxtstringspinboxplugin.h
 HEADERS  += qxttablewidgetplugin.h
 HEADERS  += qxttreewidgetplugin.h
 
+SOURCES  += qxtbasespinboxplugin.cpp
 SOURCES  += qxtcheckcomboboxplugin.cpp
 SOURCES  += qxtdesignerplugin.cpp
 SOURCES  += qxtdesignerplugins.cpp
