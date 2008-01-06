@@ -31,18 +31,10 @@ public:
 
     int base;
     bool upper;
-    void setBase(int value);
 };
 
 QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
 {
-}
-
-void QxtBaseSpinBoxPrivate::setBase(int value)
-{
-    base = value;
-    qxt_p().clear();
-    qxt_p().setValue(qxt_p().value());
 }
 
 /*!
@@ -54,11 +46,13 @@ void QxtBaseSpinBoxPrivate::setBase(int value)
     \code
     QxtBaseSpinBox* spinBox = new QxtBaseSpinBox(16, this);
     spinBox->setPrefix("0x");
+    spinBox->setValue(0xbabe);
+    spinBox->setUpperCase(true);
     \endcode
 
     \image html qxtbasespinbox.png "QxtBaseSpinBox in action."
 
-    \note Notice that QxtBaseSpinBox is not locale-area.
+    \note Notice that QxtBaseSpinBox is not locale-aware.
  */
 
 /*!
@@ -81,7 +75,7 @@ QxtBaseSpinBox::QxtBaseSpinBox(QWidget* parent) : QSpinBox(parent)
 QxtBaseSpinBox::QxtBaseSpinBox(int base, QWidget* parent) : QSpinBox(parent)
 {
     QXT_INIT_PRIVATE(QxtBaseSpinBox);
-    qxt_d().setBase(base);
+    qxt_d().base = base;
 }
 
 /*!
@@ -107,8 +101,9 @@ void QxtBaseSpinBox::fixup(QString& input) const
 QValidator::State QxtBaseSpinBox::validate(QString& input, int& pos) const
 {
     // quick rejects
-    QString inputWithoutPrefix = input.mid(prefix().length());
-    if (pos < prefix().length())
+    const QString prefix = QSpinBox::prefix();
+    const QString inputWithoutPrefix = input.mid(prefix.length());
+    if (pos < prefix.length())
     {
         // do not let modify prefix
         return QValidator::Invalid;
@@ -139,9 +134,9 @@ QValidator::State QxtBaseSpinBox::validate(QString& input, int& pos) const
     {
         // converts ok, between boundaries => acceptable if case matches
         if (qxt_d().upper)
-            return (input == input.toUpper() ? QValidator::Acceptable : QValidator::Intermediate);
+            return (input == prefix + inputWithoutPrefix.toUpper() ? QValidator::Acceptable : QValidator::Intermediate);
         else
-            return (input == input.toUpper() ? QValidator::Acceptable : QValidator::Intermediate);
+            return (input == prefix + inputWithoutPrefix.toLower() ? QValidator::Acceptable : QValidator::Intermediate);
     }
     else
     {
@@ -172,8 +167,9 @@ void QxtBaseSpinBox::setBase(int base)
     base = qBound(2, base, 36);
     if (qxt_d().base != base)
     {
-        qxt_d().setBase(base);
+        qxt_d().base = base;
         emit baseChanged(base);
+        setValue(value());
     }
 }
 
@@ -192,7 +188,11 @@ bool QxtBaseSpinBox::isUpperCase() const
 
 void QxtBaseSpinBox::setUpperCase(bool upperCase)
 {
-    qxt_d().upper = upperCase;
+    if (qxt_d().upper != upperCase)
+    {
+        qxt_d().upper = upperCase;
+        setValue(value());
+    }
 }
 
 /*!
