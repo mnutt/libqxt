@@ -5,20 +5,51 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>331</height>
+    <width>436</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
+   <item rowspan="2" row="0" column="0" >
+    <widget class="QxtLabel" name="qxtLabel" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip" >
+      <string>Click me!</string>
+     </property>
+     <property name="statusTip" >
+      <string>QxtLabel</string>
+     </property>
+     <property name="whatsThis" >
+      <string>QxtLabel</string>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="lineWidth" >
+      <number>2</number>
+     </property>
+     <property name="midLineWidth" >
+      <number>0</number>
+     </property>
+     <property name="text" >
+      <string>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</string>
+     </property>
+     <property name="rotation" >
+      <enum>Qxt::CounterClockwise</enum>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="1" >
     <widget class="QxtGroupBox" name="qxtGroupBox" >
      <property name="toolTip" >
@@ -37,93 +68,6 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="1" column="1" >
-       <widget class="QxtSpanSlider" name="qxtSpanSliderHor" >
-        <property name="toolTip" >
-         <string/>
-        </property>
-        <property name="statusTip" >
-         <string>QxtSpanSlider</string>
-        </property>
-        <property name="whatsThis" >
-         <string>QxtSpanSlider</string>
-        </property>
-        <property name="singleStep" >
-         <number>5</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition" >
-         <enum>QSlider::TicksAbove</enum>
-        </property>
-        <property name="tickInterval" >
-         <number>15</number>
-        </property>
-        <property name="lowerValue" >
-         <number>0</number>
-        </property>
-        <property name="upperValue" >
-         <number>0</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" colspan="2" >
-       <widget class="QxtStars" name="qxtStarsHor" >
-        <property name="statusTip" >
-         <string>QxtStars</string>
-        </property>
-        <property name="whatsThis" >
-         <string>QxtStars</string>
-        </property>
-        <property name="maximum" >
-         <number>10</number>
-        </property>
-        <property name="pageStep" >
-         <number>3</number>
-        </property>
-        <property name="value" >
-         <number>7</number>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item rowspan="2" row="0" column="4" >
-       <widget class="QxtSpanSlider" name="qxtSpanSliderVer" >
-        <property name="toolTip" >
-         <string/>
-        </property>
-        <property name="statusTip" >
-         <string>QxtSpanSlider</string>
-        </property>
-        <property name="whatsThis" >
-         <string>QxtSpanSlider</string>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="invertedAppearance" >
-         <bool>true</bool>
-        </property>
-        <property name="invertedControls" >
-         <bool>true</bool>
-        </property>
-        <property name="lowerValue" >
-         <number>0</number>
-        </property>
-        <property name="upperValue" >
-         <number>99</number>
-        </property>
-       </widget>
-      </item>
       <item rowspan="2" row="0" column="0" >
        <widget class="QxtStars" name="qxtStarsVer" >
         <property name="statusTip" >
@@ -190,7 +134,7 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="2" colspan="2" >
+      <item row="0" column="2" >
        <widget class="QxtStringSpinBox" name="qxtStringSpinBox" >
         <property name="toolTip" >
          <string/>
@@ -212,15 +156,138 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="3" >
+       <widget class="QxtBaseSpinBox" name="qxtBaseSpinBox" >
+        <property name="prefix" >
+         <string>0x</string>
+        </property>
+        <property name="minimum" >
+         <number>0</number>
+        </property>
+        <property name="maximum" >
+         <number>2147483647</number>
+        </property>
+        <property name="value" >
+         <number>47806</number>
+        </property>
+        <property name="base" >
+         <number>16</number>
+        </property>
+        <property name="upperCase" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item rowspan="2" row="0" column="4" >
+       <widget class="QxtSpanSlider" name="qxtSpanSliderVer" >
+        <property name="toolTip" >
+         <string/>
+        </property>
+        <property name="statusTip" >
+         <string>QxtSpanSlider</string>
+        </property>
+        <property name="whatsThis" >
+         <string>QxtSpanSlider</string>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="invertedAppearance" >
+         <bool>true</bool>
+        </property>
+        <property name="invertedControls" >
+         <bool>true</bool>
+        </property>
+        <property name="lowerValue" >
+         <number>0</number>
+        </property>
+        <property name="upperValue" >
+         <number>99</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2" >
+       <widget class="QxtSpanSlider" name="qxtSpanSliderHor" >
+        <property name="toolTip" >
+         <string/>
+        </property>
+        <property name="statusTip" >
+         <string>QxtSpanSlider</string>
+        </property>
+        <property name="whatsThis" >
+         <string>QxtSpanSlider</string>
+        </property>
+        <property name="singleStep" >
+         <number>5</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition" >
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+        <property name="tickInterval" >
+         <number>15</number>
+        </property>
+        <property name="lowerValue" >
+         <number>0</number>
+        </property>
+        <property name="upperValue" >
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
+       <widget class="QxtStars" name="qxtStarsHor" >
+        <property name="statusTip" >
+         <string>QxtStars</string>
+        </property>
+        <property name="whatsThis" >
+         <string>QxtStars</string>
+        </property>
+        <property name="maximum" >
+         <number>5</number>
+        </property>
+        <property name="pageStep" >
+         <number>3</number>
+        </property>
+        <property name="value" >
+         <number>4</number>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
      </layout>
+    </widget>
+   </item>
+   <item rowspan="2" row="0" column="2" >
+    <widget class="QxtPushButton" name="qxtPushButton" >
+     <property name="toolTip" >
+      <string/>
+     </property>
+     <property name="statusTip" >
+      <string>QxtPushButton</string>
+     </property>
+     <property name="whatsThis" >
+      <string>QxtPushButton</string>
+     </property>
+     <property name="text" >
+      <string>&lt;h1>Nam &lt;font color="red">dapibus&lt;/font> semper.&lt;/h1></string>
+     </property>
+     <property name="rotation" >
+      <enum>Qxt::Clockwise</enum>
+     </property>
+     <property name="textFormat" >
+      <enum>Qt::AutoText</enum>
+     </property>
     </widget>
    </item>
    <item row="1" column="1" >
     <widget class="QToolBox" name="toolBox" >
      <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>3</hsizetype>
-       <vsizetype>5</vsizetype>
+      <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -233,19 +300,28 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>112</width>
-        <height>112</height>
+        <width>98</width>
+        <height>80</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>List</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>9</number>
+       </property>
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QxtListWidget" name="qxtListWidget" >
@@ -264,19 +340,28 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>397</width>
-        <height>169</height>
+        <width>360</width>
+        <height>167</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>Tree</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>9</number>
+       </property>
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QxtTreeWidget" name="qxtTreeWidget" >
@@ -314,19 +399,28 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>112</width>
-        <height>112</height>
+        <width>98</width>
+        <height>80</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>Table</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>9</number>
+       </property>
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QxtTableWidget" name="qxtTableWidget" />
@@ -335,99 +429,38 @@
      </widget>
     </widget>
    </item>
-   <item rowspan="2" row="0" column="0" >
-    <widget class="QxtLabel" name="qxtLabel" >
-     <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>4</hsizetype>
-       <vsizetype>5</vsizetype>
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip" >
-      <string>Click me!</string>
-     </property>
-     <property name="statusTip" >
-      <string>QxtLabel</string>
-     </property>
-     <property name="whatsThis" >
-      <string>QxtLabel</string>
-     </property>
-     <property name="frameShape" >
-      <enum>QFrame::Panel</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="lineWidth" >
-      <number>2</number>
-     </property>
-     <property name="midLineWidth" >
-      <number>0</number>
-     </property>
-     <property name="text" >
-      <string>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</string>
-     </property>
-     <property name="rotation" >
-      <enum>Qxt::CounterClockwise</enum>
-     </property>
-    </widget>
-   </item>
-   <item rowspan="2" row="0" column="2" >
-    <widget class="QxtPushButton" name="qxtPushButton" >
-     <property name="toolTip" >
-      <string/>
-     </property>
-     <property name="statusTip" >
-      <string>QxtPushButton</string>
-     </property>
-     <property name="whatsThis" >
-      <string>QxtPushButton</string>
-     </property>
-     <property name="text" >
-      <string>&lt;h1>Nam &lt;font color="red">dapibus&lt;/font> semper.&lt;/h1></string>
-     </property>
-     <property name="rotation" >
-      <enum>Qxt::Clockwise</enum>
-     </property>
-     <property name="textFormat" >
-      <enum>Qt::AutoText</enum>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QxtStars</class>
-   <extends>QWidget</extends>
-   <header>QxtStars</header>
-  </customwidget>
-  <customwidget>
-   <class>QxtTableWidget</class>
-   <extends>QTableWidget</extends>
-   <header>QxtTableWidget</header>
-  </customwidget>
-  <customwidget>
-   <class>QxtTreeWidget</class>
-   <extends>QTreeWidget</extends>
-   <header>QxtTreeWidget</header>
-  </customwidget>
   <customwidget>
    <class>QxtLabel</class>
    <extends>QFrame</extends>
    <header>QxtLabel</header>
   </customwidget>
   <customwidget>
+   <class>QxtPushButton</class>
+   <extends>QPushButton</extends>
+   <header>QxtPushButton</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtCheckComboBox</class>
+   <extends>QComboBox</extends>
+   <header>QxtCheckComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtSpanSlider</class>
+   <extends>QSlider</extends>
+   <header>QxtSpanSlider</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtBaseSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>QxtBaseSpinBox</header>
+  </customwidget>
+  <customwidget>
    <class>QxtStringSpinBox</class>
    <extends>QSpinBox</extends>
    <header>QxtStringSpinBox</header>
-  </customwidget>
-  <customwidget>
-   <class>QxtListWidget</class>
-   <extends>QListWidget</extends>
-   <header>QxtListWidget</header>
   </customwidget>
   <customwidget>
    <class>QxtGroupBox</class>
@@ -436,19 +469,24 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>QxtCheckComboBox</class>
-   <extends>QComboBox</extends>
-   <header>QxtCheckComboBox</header>
+   <class>QxtListWidget</class>
+   <extends>QListWidget</extends>
+   <header>QxtListWidget</header>
   </customwidget>
   <customwidget>
-   <class>QxtPushButton</class>
-   <extends>QPushButton</extends>
-   <header>QxtPushButton</header>
+   <class>QxtTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>QxtTreeWidget</header>
   </customwidget>
   <customwidget>
-   <class>QxtSpanSlider</class>
-   <extends>QSlider</extends>
-   <header>QxtSpanSlider</header>
+   <class>QxtTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>QxtTableWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>QxtStars</class>
+   <extends>QWidget</extends>
+   <header>QxtStars</header>
   </customwidget>
  </customwidgets>
  <resources/>
