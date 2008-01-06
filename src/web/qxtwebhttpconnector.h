@@ -41,7 +41,7 @@ public:
     {
         return true;
     }
-    virtual bool start (quint16 port,const QHostAddress & address=QHostAddress::Any);
+    virtual bool start (quint16 port,const QHostAddress & address=QHostAddress::LocalHost);
     virtual QAbstractSocket::SocketError serverError () const;
     virtual QxtWebStatelessConnection * nextPendingConnection ();
     virtual bool hasPendingConnections () const;
