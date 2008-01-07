@@ -166,7 +166,7 @@ QxtBdbHash<KEY,VAL>::QxtBdbHash(QString file)
 template<class KEY, class VAL>
 bool QxtBdbHash<KEY,VAL>::open(QString file)
 {
-    return qxt_d().open(file,QxtBdb::CreateDatabase);
+    return qxt_d().open(file,QxtBdb::CreateDatabase|QxtBdb::LockFree);
 }
 
 

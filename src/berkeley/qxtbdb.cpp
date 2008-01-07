@@ -74,6 +74,12 @@ bool QxtBdb::open(QString path,OpenFlags f)
     if (f&ReadOnly)
         flags|=DB_RDONLY;
 
+    if (f&LockFree)
+        flags|=DB_THREAD;
+
+
+
+
     isOpen=(db->open(db,        /* DB structure pointer */
                 NULL,       /* Transaction pointer */
                 qPrintable(path), /* On-disk file that holds the database. */
@@ -104,6 +110,9 @@ QxtBdb::OpenFlags QxtBdb::openFlags()
         f|=CreateDatabase;
     if(open_flags&DB_RDONLY)
         f|=ReadOnly;
+    if(open_flags&DB_THREAD)
+        f|=LockFree;
+
 
     return f;
 }
