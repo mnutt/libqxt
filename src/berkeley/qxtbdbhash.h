@@ -438,9 +438,9 @@ QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator ++ () /*pre
     if(!isValid())
         return *this;
 
+
     if(!qxt_d().db->get((void*)0,0,0,0,DB_NEXT,qxt_d().dbc))
     {
-        qDebug("++ broke");
         qxt_d().invalidate();
     }
     return *this;
