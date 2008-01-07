@@ -630,6 +630,7 @@ bool QxtBdbHashIterator<KEY,VAL>::operator!= ( const QxtBdbHashIterator<KEY,VAL>
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY,VAL> QxtBdbHashIterator<KEY,VAL>::erase ()
 {
+    ///TODO
 }
 
 template<class KEY, class VAL>
