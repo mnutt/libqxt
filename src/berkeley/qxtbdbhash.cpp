@@ -108,6 +108,7 @@
     \fn     bool QxtBdbHash::insert(KEY k, VAL v);
 
     inserts a record with the specified key/value combination. replaces any record with the same key.
+    \note when working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
 */
 
 /*!
@@ -218,15 +219,6 @@
     \fn QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator -= ( int j )
 
     Makes the iterator go back by j items.
-
-    \fn bool QxtBdbHashIterator<KEY,VAL>::operator== ( const QxtBdbHashIterator<KEY,VAL> & other ) const
-
-    compare operator.
-    \warning contrary to any other iterators, this only returns true if \a other is a copy of this item. \n It will <b>not</b> work to compare positions in the hash. Do not use this function to do something like while (i!=hash.end()){}
-
-    \fn bool QxtBdbHashIterator<KEY,VAL>::operator!= ( const QxtBdbHashIterator<KEY,VAL> & other ) const
-
-    \sa operator==
 
     \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHashIterator<KEY,VAL>::erase ()
 
