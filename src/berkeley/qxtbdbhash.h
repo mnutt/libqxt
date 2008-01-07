@@ -107,8 +107,7 @@ public:
     QxtBdbHashIterator<KEY,VAL>    operator -- (int);
     QxtBdbHashIterator<KEY,VAL> &  operator -= ( int j );
 
-    bool operator== ( const QxtBdbHashIterator<KEY,VAL> & other ) const;
-    bool operator!= ( const QxtBdbHashIterator<KEY,VAL> & other ) const;
+
 
     QxtBdbHashIterator<KEY,VAL> erase ();
 
@@ -121,6 +120,9 @@ private:
     int meta_id_key;
     int meta_id_val;
 
+    /*won't work. no support in bdb*/
+    bool operator== ( const QxtBdbHashIterator<KEY,VAL> & other ) const {return false;}
+    bool operator!= ( const QxtBdbHashIterator<KEY,VAL> & other ) const {return false;}
 };
 
 
@@ -508,22 +510,19 @@ QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator -= ( int j 
 }
 
 
-template<class KEY, class VAL>
-bool QxtBdbHashIterator<KEY,VAL>::operator== ( const QxtBdbHashIterator<KEY,VAL> & other ) const
-{
-    return (qxt_d().dbc==other.qxt_d().dbc);
-}
 
-template<class KEY, class VAL>
-bool QxtBdbHashIterator<KEY,VAL>::operator!= ( const QxtBdbHashIterator<KEY,VAL> & other ) const
-{
-    return (qxt_d().dbc!=other.qxt_d().dbc);
-}
 
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY,VAL> QxtBdbHashIterator<KEY,VAL>::erase ()
 {
-    ///TODO
+    BerkeleyDB::DBC * newdbc;
+    qxt_d().dbc->c_dup(qxt_d().dbc, &newdbc, DB_POSITION);
+    QxtBdbHashIterator<KEY,VAL> d(newdbc,qxt_d().db);
+    qxt_d().dbc->del(qxt_d().dbc,NULL);
+    ++d;
+
+    qxt_d().invalidate();
+    return d;
 }
 
 template<class KEY, class VAL>
@@ -535,18 +534,6 @@ QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(BerkeleyDB::DBC* dbc,QxtBdb * p)
     meta_id_key = qMetaTypeId<KEY>();
     meta_id_val = qMetaTypeId<VAL>();
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

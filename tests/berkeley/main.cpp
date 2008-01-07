@@ -80,13 +80,24 @@ private slots:
 
         it+=4;
     }
-
+    void erase()
+    {
+        QxtBdbHashIterator<qreal,QStringList> it=db.find(235);
+        QVERIFY(it.isValid());
+        QxtBdbHashIterator<qreal,QStringList> it2;
+        QVERIFY(!it2.isValid());
+        it2=it.erase();
+        QVERIFY(!it.isValid());
+        QVERIFY(it2.isValid());
+        QVERIFY(it2.key()==454.332);
+    }
     void remove()
     {
         QVERIFY(db.contains(235));
         db.remove(235);
         QVERIFY(!db.contains(235));
     }
+
     void clear()
     {
         QVERIFY(db.contains(234));
