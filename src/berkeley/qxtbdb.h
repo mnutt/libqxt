@@ -52,7 +52,9 @@ public:
     enum OpenFlag
     {
         CreateDatabase  =0x1,
-        ReadOnly        =0x2
+        ReadOnly        =0x2,
+        LockFree        =0x4
+
     };
     Q_DECLARE_FLAGS(OpenFlags, OpenFlag);
 

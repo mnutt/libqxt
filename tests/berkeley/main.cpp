@@ -93,16 +93,16 @@ private slots:
     }
     void remove()
     {
-        QVERIFY(db.contains(235));
-        db.remove(235);
-        QVERIFY(!db.contains(235));
+        QVERIFY(db.contains(234));
+        db.remove(234);
+        QVERIFY(!db.contains(234));
     }
 
     void clear()
     {
-        QVERIFY(db.contains(234));
+        QVERIFY(db.contains(454.332));
         db.clear();
-        QVERIFY(!db.contains(234));
+        QVERIFY(!db.contains(454.332));
     }
     void end()
     {
