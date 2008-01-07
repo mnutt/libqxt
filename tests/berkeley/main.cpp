@@ -41,10 +41,20 @@ private slots:
     {
         QVERIFY(db.begin().value().at(1)=="sup?");
     }
+    void readEndIterator()
+    {
+        QVERIFY(db.end().value().at(1)=="how are you?");
+    }
+    void find()
+    {
+        QxtBdbHashIterator<qreal,QStringList> it=db.find(234);
+        QVERIFY(it.isValid());
+        QVERIFY(it.value().at(1)=="sup?");
+    }
     void readNextAndPrevIterator()
     {
         QxtBdbHashIterator<qreal,QStringList> it=db.begin();
-	Q_ASSERT(it.isValid());
+        QVERIFY(it.isValid());
         ++it;
         QVERIFY(it.isValid());
         QVERIFY(it.value().at(1)=="how's it going?");
@@ -53,7 +63,6 @@ private slots:
 
         --it;
         QVERIFY(it.isValid());
-                
         QVERIFY(it.value().at(1)=="sup?");
     }
 
@@ -67,18 +76,22 @@ private slots:
 
         QVERIFY(!it.isValid());
         QVERIFY(it.value().count()==0);
-        qDebug()<<it.key();
         QVERIFY(it.key()==0);
 
         it+=4;
     }
 
-
-    void clear()
+    void remove()
     {
         QVERIFY(db.contains(235));
-        db.clear();
+        db.remove(235);
         QVERIFY(!db.contains(235));
+    }
+    void clear()
+    {
+        QVERIFY(db.contains(234));
+        db.clear();
+        QVERIFY(!db.contains(234));
     }
     void end()
     {

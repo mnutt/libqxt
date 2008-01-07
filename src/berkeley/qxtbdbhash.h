@@ -197,7 +197,7 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::find ( const KEY & k )
 {
     BerkeleyDB::DBC *cursor;
     qxt_d().db->cursor(qxt_d().db, NULL,&cursor, 0);
-    if(qxt_d().get(k,meta_id_key,0,0,DB_SET,cursor))
+    if(qxt_d().get(&k,meta_id_key,0,0,DB_SET,cursor))
         return QxtBdbHashIterator<KEY,VAL>(cursor,&qxt_d());
     else
         return QxtBdbHashIterator<KEY,VAL>();

@@ -81,7 +81,6 @@ QxtBdb::QxtBdb()
 }
 QxtBdb::~QxtBdb()
 {
-    qDebug("del");
     db->close(db, 0);
 }
 
