@@ -27,41 +27,6 @@
 #include <QDataStream>
 #include <QVariant>
 
-/*!
-    \class QxtBdb QxtBdb
-    \ingroup QxtBerkeley
-    \brief base class for low level Berkeley DB access
-
-*/
-
-
-/*!
-    \fn bool QxtBdb::open(QString path,OpenFlags f=0)
-
-    opens the specified file. returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
-*/
-
-
-/*!
-    \fn bool OpenFlags QxtBdb::openFlags();
-
-    returns the open flags
-*/
-
-/*!
-    \fn bool QxtBdb::flush();
-
-    flushes the DB file. all changes are synced to disk.
-*/
-
-/*!
-    \fn     BerkeleyDB::DB * QxtBdb::db;
-
-    public access to the BD C Api structure
-*/
-
-
-
 
 
 
@@ -154,7 +119,10 @@ bool QxtBdb::flush()
 }
 
 /**
-\warning always reads <b>and</b> writes both key and value, if given
+low level get function. \n
+serialised key and value with the given meta ids. \n
+always reads <b>and</b> writes both key and value, if given.\n
+use this when doing operations that require the key to be read out of the db. \n
 */
 bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
 {
@@ -262,7 +230,11 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
 
 
 
+
 /**
+low level get function. \n
+serialised key and value with the given meta ids. \n
+doesn't write to the key. use this when doing operations that require the key to be passed. \n
 */
 bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
 {

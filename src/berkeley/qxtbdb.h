@@ -21,6 +21,12 @@
  ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+
+/**************************************************************************
+This is private API. it might change at any time without warning.
+****************************************************************************/
+
+
 #ifndef QxtBdb_H_kpasd
 #define QxtBdb_H_kpasd
 
@@ -40,7 +46,7 @@ namespace BerkeleyDB
 
 }
 
-class QXT_BERKELEY_EXPORT QxtBdb 
+class  QxtBdb 
 {
 public:
     enum OpenFlag
