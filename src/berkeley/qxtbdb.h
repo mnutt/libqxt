@@ -30,7 +30,6 @@
 
 
 
-
 ///its impossible to forward anyway,
 namespace BerkeleyDB
 {
@@ -41,7 +40,7 @@ namespace BerkeleyDB
 
 }
 
-class QXT_BERKELEY_EXPORT QxtBdb
+class QXT_BERKELEY_EXPORT QxtBdb 
 {
 public:
     enum OpenFlag
@@ -54,14 +53,17 @@ public:
     QxtBdb();
     ~QxtBdb();
 
+
+    bool get(void* key,int keytype,void* value,int valuetype,u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
+    bool get(const void* key,int keytype,void* value,int valuetype,u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
+
+
     bool open(QString path,OpenFlags f=0);
     OpenFlags openFlags();
     bool flush();
-
     BerkeleyDB::DB * db;
-
-
     bool isOpen;
+
 
 };
 

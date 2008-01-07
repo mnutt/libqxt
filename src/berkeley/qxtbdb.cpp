@@ -21,10 +21,11 @@
  ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-
 #include "qxtbdb.h"
 #include <QFileInfo>
-
+#include <QBuffer>
+#include <QDataStream>
+#include <QVariant>
 
 /*!
     \class QxtBdb QxtBdb
@@ -80,6 +81,8 @@ QxtBdb::QxtBdb()
 }
 QxtBdb::~QxtBdb()
 {
+    isOpen=false;
+    qDebug("del");
     db->close(db, 0);
 }
 
@@ -151,6 +154,216 @@ bool QxtBdb::flush()
         return false;
     return (db->sync(db,0)==0);
 }
+
+/**
+\warning always reads <b>and</b> writes both key and value, if given
+*/
+bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
+{
+
+    BerkeleyDB::DBT dbkey,dbvalue;
+    memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
+    memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
+
+
+
+    if(key)
+    {
+        QByteArray d_key;
+        QBuffer buffer(&d_key);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,keytype, key));
+        buffer.close();
+        dbkey.size = d_key.size();
+        dbkey.data = ::malloc (d_key.size());
+        ::memcpy ( dbkey.data, d_key.data(),d_key.size());
+    }
+
+    if(value)
+    {
+        QByteArray d_value;
+        QBuffer buffer(&d_value);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,valuetype, value));
+        buffer.close();
+        dbvalue.size = d_value.size();
+        dbvalue.data = ::malloc (d_value.size());
+        ::memcpy ( dbvalue.data, d_value.data(),d_value.size());
+    }
+
+
+
+
+    dbvalue.ulen=0;
+    dbvalue.flags=DB_DBT_USERMEM;
+
+    dbkey.ulen=0;
+    dbkey.flags=DB_DBT_USERMEM;
+
+    int ret;
+
+    if(cursor)
+        ret=cursor->c_get(cursor,&dbkey,&dbvalue,flags);
+    else
+        ret=db->get(db,NULL,&dbkey,&dbvalue,flags);
+
+    if(ret!=DB_BUFFER_SMALL)
+    {
+        ::free(dbvalue.data);
+        ::free(dbkey.data);
+        return (ret==0);
+    }
+    dbvalue.ulen=dbvalue.size;
+    dbvalue.data=::malloc(dbvalue.size);
+
+    dbkey.ulen=dbkey.size;
+    dbkey.data=::malloc(dbkey.size);
+
+    if(cursor)
+        ret=cursor->c_get(cursor,&dbkey,&dbvalue,flags);
+    else
+        ret=db->get(db,NULL,&dbkey,&dbvalue,flags);
+
+    QByteArray  d_value ((const char*) dbvalue.data, dbvalue.size );
+    QByteArray  d_key   ((const char*) dbkey.data,  dbkey.size  );
+
+    ::free(dbvalue.data);
+    ::free(dbkey.data);
+
+    if(ret!=0)
+    {
+        return false;
+    }
+
+
+
+    if (key)
+    {
+        QBuffer buffer(&d_key);
+        buffer.open(QIODevice::ReadOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::load (s,keytype, key));
+        buffer.close();
+    }
+    if (value)
+    {
+        QBuffer buffer(&d_value);
+        buffer.open(QIODevice::ReadOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::load (s,valuetype, value));
+        buffer.close();
+    }
+
+
+    return true;
+}
+
+
+
+
+
+/**
+*/
+bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
+{
+
+    BerkeleyDB::DBT dbkey,dbvalue;
+    memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
+    memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
+
+    if(key)
+    {
+        QByteArray d_key;
+        QBuffer buffer(&d_key);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,keytype, key));
+        buffer.close();
+        dbkey.size = d_key.size();
+        dbkey.data = ::malloc (d_key.size());
+        ::memcpy ( dbkey.data, d_key.data(),d_key.size());
+    }
+
+
+
+
+    if(value)
+    {
+        QByteArray d_value;
+        QBuffer buffer(&d_value);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,valuetype, value));
+        buffer.close();
+        dbvalue.size = d_value.size();
+        dbvalue.data = ::malloc (d_value.size());
+        ::memcpy ( dbvalue.data, d_value.data(),d_value.size());
+    }
+
+
+
+
+    dbvalue.ulen=0;
+    dbvalue.flags=DB_DBT_USERMEM;
+
+    dbkey.ulen=0;
+    dbkey.flags=0; 
+    dbkey.flags=DB_DBT_USERMEM;  //it's my memory, ffs. stop deleting it! >_<
+
+    int ret;
+
+    if(cursor)
+        ret=cursor->c_get(cursor,&dbkey,&dbvalue,flags);
+    else
+        ret=db->get(db,NULL,&dbkey,&dbvalue,flags);
+
+    if(ret!=DB_BUFFER_SMALL)
+    {
+        ::free(dbvalue.data);
+        ::free(dbkey.data);
+        return (ret==0);
+    }
+    dbvalue.ulen=dbvalue.size;
+    dbvalue.data=::malloc(dbvalue.size);
+
+
+    if(cursor)
+        ret=cursor->c_get(cursor,&dbkey,&dbvalue,flags);
+    else
+        ret=db->get(db,NULL,&dbkey,&dbvalue,flags);
+
+    QByteArray  d_value ((const char*) dbvalue.data, dbvalue.size );
+    QByteArray  d_key   ((const char*) dbkey.data,  dbkey.size  );
+
+    ::free(dbvalue.data);
+    ::free(dbkey.data);
+
+    Q_ASSERT_X(ret!=DB_BUFFER_SMALL,Q_FUNC_INFO,"QxtBdb::get bdb inists on retriving the key for this operation. You need to specifiy a non const key. (or just specify a non const void* with the value of 0, i'll delete the key for you after bdb fetched it, so you dont need to bother)");
+
+    if(ret!=0)
+    {
+        return false;
+    }
+
+
+
+
+    if (value)
+    {
+        QBuffer buffer(&d_value);
+        buffer.open(QIODevice::ReadOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::load (s,valuetype, value));
+        buffer.close();
+
+    }
+
+
+    return true;
+}
+
 
 
 
