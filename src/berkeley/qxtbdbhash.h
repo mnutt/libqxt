@@ -68,6 +68,7 @@ private:
 class QxtBdbHashIteratorPrivate
 {
 public:
+    QxtBdb * db;
     BerkeleyDB::DBC *dbc;
     void invalidate()
     {
@@ -114,7 +115,7 @@ public:
 
 private:
     friend class QxtBdbHash<KEY,VAL>;
-    QxtBdbHashIterator(BerkeleyDB::DBC*);
+    QxtBdbHashIterator(BerkeleyDB::DBC*,QxtBdb * p);
     QxtSharedPrivate<QxtBdbHashIteratorPrivate> qxt_d;
 
     int meta_id_key;
@@ -174,14 +175,8 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::begin()
 {
     BerkeleyDB::DBC *cursor;
     qxt_d().db->cursor(qxt_d().db, NULL,&cursor, 0);
-
-    BerkeleyDB::DBT key,value;
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-    ///FIMXE: leak
-    int ret=cursor->c_get(cursor,&key,&value,DB_FIRST);
-    if(ret==0)
-        return QxtBdbHashIterator<KEY,VAL>(cursor);
+    if(qxt_d().get(( void*)0,0,0,0,DB_FIRST,cursor))
+        return QxtBdbHashIterator<KEY,VAL>(cursor,&qxt_d());
     else
         return QxtBdbHashIterator<KEY,VAL>();
 }
@@ -191,17 +186,8 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::end()
 {
     BerkeleyDB::DBC *cursor;
     qxt_d().db->cursor(qxt_d().db, NULL,&cursor, 0);
-
-
-    BerkeleyDB::DBT key,value;
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-    cursor->c_get(cursor,key,value,DB_LAST);
-    ///FIMXE: leak
-    int ret=cursor->c_get(cursor,&key,&value,DB_LAST);
-
-    if(ret==0)
-        return QxtBdbHashIterator<KEY,VAL>(cursor);
+    if(qxt_d().get(( void*)0,0,0,0,DB_LAST,cursor))
+        return QxtBdbHashIterator<KEY,VAL>(cursor,&qxt_d());
     else
         return QxtBdbHashIterator<KEY,VAL>();
 }
@@ -211,28 +197,8 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHash<KEY,VAL>::find ( const KEY & k )
 {
     BerkeleyDB::DBC *cursor;
     qxt_d().db->cursor(qxt_d().db, NULL,&cursor, 0);
-
-    BerkeleyDB::DBT key,value;
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-
-
-    QByteArray d_key;
-    {
-        QBuffer buffer(&d_key);
-        buffer.open(QIODevice::WriteOnly);
-        QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_key, &k));
-        buffer.close();
-    }
-
-    key.data = d_key.data();
-    key.size = d_key.size();
-
-    ///FIMXE: leak
-    int ret=cursor->c_get(cursor,&key,&value,DB_SET);
-    if(ret==0)
-        return QxtBdbHashIterator<KEY,VAL>(cursor);
+    if(qxt_d().get(k,meta_id_key,0,0,DB_SET,cursor))
+        return QxtBdbHashIterator<KEY,VAL>(cursor,&qxt_d());
     else
         return QxtBdbHashIterator<KEY,VAL>();
 }
@@ -352,51 +318,12 @@ bool QxtBdbHash<KEY,VAL>::insert(KEY k, VAL v)
 template<class KEY, class VAL>
 const VAL QxtBdbHash<KEY,VAL>::value ( const KEY & k  ) const
 {
-
     if(!qxt_d().isOpen)
         return VAL() ;
 
-    BerkeleyDB::DBT key, data;
-    /* Zero out the DBTs before using them. */
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&data, 0, sizeof(BerkeleyDB::DBT));
-
-
-    QByteArray d_key;
-    {
-        QBuffer buffer(&d_key);
-        buffer.open(QIODevice::WriteOnly);
-        QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_key, &k));
-        buffer.close();
-    }
-
-    key.data = d_key.data();
-    key.size = d_key.size();
-
-    data.data = 0;
-    data.ulen = 0;
-    data.flags =0;
-    qxt_d().db->get(qxt_d().db, NULL, &key, &data, 0);
-
-
-    QByteArray  d_value((const char*) data.data, data.size );
-
-
-    /**
-    FIXME: Db deletes the record when i close the database. So i cant even delete it now.
-           in other words, it leaks...
-    */
-//     delete data.data;
-
     VAL v;
-    {
-        QBuffer buffer(&d_value);
-        buffer.open(QIODevice::ReadOnly);
-        QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,meta_id_val, &v));
-        buffer.close();
-    }
+    if(!qxt_d().get(&k,meta_id_key,&v,meta_id_val))
+        return VAL();
     return v;
 }
 
@@ -433,7 +360,7 @@ QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator()
 {
     qxt_d=new QxtBdbHashIteratorPrivate;
     qxt_d().dbc=0;
-
+    qxt_d().db=0;
     meta_id_key = qMetaTypeId<KEY>(); 
     meta_id_val = qMetaTypeId<VAL>(); 
 }
@@ -442,7 +369,6 @@ template<class KEY, class VAL>
 QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(const QxtBdbHashIterator<KEY,VAL> & other)
 {
     qxt_d=other.qxt_d;
-
     meta_id_key = qMetaTypeId<KEY>();
     meta_id_val = qMetaTypeId<VAL>();
 
@@ -472,31 +398,16 @@ QxtBdbHashIterator<KEY,VAL>::operator KEY() const
 template<class KEY, class VAL>
 KEY     QxtBdbHashIterator<KEY,VAL>::key() const
 {
+
     if(!isValid())
         return KEY();
-
-    BerkeleyDB::DBT value,key;
-    /* Zero out the DBTs before using them. */
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-
-    qxt_d().dbc->get(qxt_d().dbc,&key,&value,DB_CURRENT);
-
-    QByteArray  d_key((const char*) key.data, key.size );
-
-    ///FIMXE: leak
-//     value data.data;
-
     KEY k;
-    {
-        QBuffer buffer(&d_key);
-        buffer.open(QIODevice::ReadOnly);
-        QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,meta_id_key, &k));
-        buffer.close();
-    }
-    return k;
+    if(qxt_d().db->get(&k,meta_id_key,0,0,DB_CURRENT,qxt_d().dbc))
+        return k;
+    else
+        return KEY();
 }
+
 
 template<class KEY, class VAL>
 VAL   QxtBdbHashIterator<KEY,VAL>::value() const
@@ -504,27 +415,11 @@ VAL   QxtBdbHashIterator<KEY,VAL>::value() const
     if(!isValid())
         return VAL();
 
-    BerkeleyDB::DBT value,key;
-    /* Zero out the DBTs before using them. */
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-
-    qxt_d().dbc->get(qxt_d().dbc,&key,&value,DB_CURRENT);
-
-    QByteArray  d_value((const char*) value.data, value.size );
-
-    ///FIMXE: leak
-//     value data.data;
-
     VAL v;
-    {
-        QBuffer buffer(&d_value);
-        buffer.open(QIODevice::ReadOnly);
-        QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,meta_id_val, &v));
-        buffer.close();
-    }
-    return v;
+    if(qxt_d().db->get((void*)0,0,&v,meta_id_val,DB_CURRENT,qxt_d().dbc))
+        return v;
+    else
+        return VAL();
 }
 
 
@@ -543,12 +438,11 @@ QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator ++ () /*pre
     if(!isValid())
         return *this;
 
-    BerkeleyDB::DBT key,value;
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-    ///FIMXE: leak
-    if(qxt_d().dbc->get(qxt_d().dbc,&key,&value,DB_NEXT)!=0)
+    if(!qxt_d().db->get((void*)0,0,0,0,DB_NEXT,qxt_d().dbc))
+    {
+        qDebug("++ broke");
         qxt_d().invalidate();
+    }
     return *this;
 }
 
@@ -586,13 +480,12 @@ QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator -- ()  /*pr
 {
     if(!isValid())
         return *this;
-    BerkeleyDB::DBT key,value;
-    memset(&key, 0, sizeof(BerkeleyDB::DBT));
-    memset(&value, 0, sizeof(BerkeleyDB::DBT));
-    ///FIMXE: leak
-    if(qxt_d().dbc->get(qxt_d().dbc,&key,&value,DB_PREV)!=0)
+
+    if(!qxt_d().db->get((void*)0,0,0,0,DB_PREV,qxt_d().dbc))
         qxt_d().invalidate();
+
     return *this;
+
 }
 
 template<class KEY, class VAL>
@@ -634,11 +527,11 @@ QxtBdbHashIterator<KEY,VAL> QxtBdbHashIterator<KEY,VAL>::erase ()
 }
 
 template<class KEY, class VAL>
-QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(BerkeleyDB::DBC* dbc)
+QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(BerkeleyDB::DBC* dbc,QxtBdb * p)
 {
     qxt_d=new QxtBdbHashIteratorPrivate;
     qxt_d().dbc=dbc;
-
+    qxt_d().db=p;
     meta_id_key = qMetaTypeId<KEY>();
     meta_id_val = qMetaTypeId<VAL>();
 }
