@@ -23,9 +23,12 @@ docs.files = deploy/docs/*
 win32:  docs.commands = tools\doqsy\doqsy
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
-features.files = deploy/qt/qxt.prf	
+features.files = deploy/qt/qxt.prf
 
-INSTALLS = features 
+docs.path = $${QXTINSTALLDIR}/docs
+docs.CONFIG = no_default_install
+
+INSTALLS = features docs
 
 SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs
