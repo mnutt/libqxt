@@ -33,7 +33,6 @@
 #include <qxtglobal.h>
 
 
-
 template<class KEY, class VAL>
 class QxtBdbHashIterator;
 
@@ -370,6 +369,7 @@ QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator()
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(const QxtBdbHashIterator<KEY,VAL> & other)
 {
+    ///FIXME: possible leaking, since the other isnt properly destructed?
     qxt_d=other.qxt_d;
     meta_id_key = qMetaTypeId<KEY>();
     meta_id_val = qMetaTypeId<VAL>();
@@ -379,6 +379,7 @@ QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(const QxtBdbHashIterator<KEY,VAL
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY,VAL> & QxtBdbHashIterator<KEY,VAL>::operator= ( const QxtBdbHashIterator<KEY,VAL> & other )
 {
+    ///FIXME: possible leaking, since the other isnt properly destructed?
     qxt_d=other.qxt_d;
     return *this;
 }
@@ -439,7 +440,6 @@ QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator ++ () /*pre
 {
     if(!isValid())
         return *this;
-
 
     if(!qxt_d().db->get((void*)0,0,0,0,DB_NEXT,qxt_d().dbc))
     {
