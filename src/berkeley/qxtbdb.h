@@ -31,6 +31,10 @@ This is private API. it might change at any time without warning.
 #define QxtBdb_H_kpasd
 
 #include <QFlags>
+#include <QBuffer>
+#include <QDataStream>
+#include <QMetaType>
+
 #include <QString>
 #include <qxtglobal.h>
 
@@ -45,6 +49,8 @@ namespace BerkeleyDB
     }
 
 }
+
+
 
 class  QxtBdb 
 {
@@ -71,6 +77,77 @@ public:
     bool flush();
     BerkeleyDB::DB * db;
     bool isOpen;
+
+
+
+
+
+    template<class T>
+    static T qxtMetaLoad(const void * data, size_t size)
+    {
+        T t;
+        QByteArray b=QByteArray::fromRawData((const char*)data,size);
+        QBuffer buffer(&b);
+        buffer.open(QIODevice::ReadOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::load (s,qMetaTypeId<T>(), &t));
+
+        buffer.close();
+        return t;
+    }
+
+    static void * qxtMetaLoad(const void * data, size_t size,int type)
+    {
+        void *p=QMetaType::construct (type);
+        QByteArray b=QByteArray::fromRawData(static_cast<const char*>(data),size);
+        QBuffer buffer(&b);
+        buffer.open(QIODevice::ReadOnly);
+
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::load (s,type, p));
+        buffer.close();
+        return p;
+    }
+
+
+    template<class T>
+    static QByteArray qxtMetaSave(const T & t)
+    {
+        QByteArray d;
+        QBuffer buffer(&d);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,qMetaTypeId<T>(), &t));
+        buffer.close();
+        return d;
+    }
+
+    static void * qxtMetaSave(size_t * size, void * t,int type)
+    {
+        QByteArray d;
+        QBuffer buffer(&d);
+        buffer.open(QIODevice::WriteOnly);
+        QDataStream s(&buffer);
+        Q_ASSERT(QMetaType::save (s,type, t));
+        buffer.close();
+        *size = d.size();
+        void *p = ::malloc (d.size());
+        ::memcpy ( p, d.data(),d.size());
+        return p;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 };

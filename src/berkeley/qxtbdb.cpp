@@ -201,14 +201,14 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
     else
         ret=db->get(db,NULL,&dbkey,&dbvalue,flags);
 
-    QByteArray  d_value ((const char*) dbvalue.data, dbvalue.size );
-    QByteArray  d_key   ((const char*) dbkey.data,  dbkey.size  );
+    QByteArray  d_value=QByteArray::fromRawData ((const char*) dbvalue.data, dbvalue.size );
+    QByteArray  d_key=QByteArray::fromRawData   ((const char*) dbkey.data,  dbkey.size  );
 
-    ::free(dbvalue.data);
-    ::free(dbkey.data);
 
     if(ret!=0)
     {
+        ::free(dbvalue.data);
+        ::free(dbkey.data);
         return false;
     }
 
@@ -231,6 +231,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
         buffer.close();
     }
 
+    ::free(dbvalue.data);
+    ::free(dbkey.data);
 
     return true;
 }
