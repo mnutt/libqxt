@@ -6,11 +6,11 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>756</height>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>QxtBerkeley Adress Book example</string>
+   <string>QxtBerkeley XML Storage example</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
@@ -18,17 +18,37 @@
      <x>0</x>
      <y>25</y>
      <width>715</width>
-     <height>710</height>
+     <height>575</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2" >
-    <item rowspan="2" row="0" column="0" >
+   <layout class="QGridLayout" name="gridLayout" >
+    <item row="0" column="0" colspan="2" >
      <widget class="QTreeWidget" name="treeWidget" >
       <column>
        <property name="text" >
-        <string> </string>
+        <string>name</string>
        </property>
       </column>
+      <column>
+       <property name="text" >
+        <string>type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text" >
+        <string>value</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="1" column="0" >
+     <widget class="QLineEdit" name="lineEdit" />
+    </item>
+    <item row="1" column="1" >
+     <widget class="QPushButton" name="pushButton" >
+      <property name="text" >
+       <string>execute</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -42,17 +62,35 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad" />
+    <addaction name="actionQuit" />
+   </widget>
+   <addaction name="menuMenu" />
   </widget>
   <widget class="QStatusBar" name="statusbar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>735</y>
+     <y>600</y>
      <width>715</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
+  <action name="actionLoad" >
+   <property name="text" >
+    <string>Load </string>
+   </property>
+  </action>
+  <action name="actionQuit" >
+   <property name="text" >
+    <string>Quit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

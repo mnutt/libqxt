@@ -7,7 +7,7 @@ CONFIG+=qxt
 QXT+=berkeley
 
 
-HEADERS += node.h mainwindow.h
+HEADERS += node.h mainwindow.h xml2bdb.h
 FORMS += mainwindow.ui
-SOURCES += node.cpp main.cpp mainwindow.cpp
+SOURCES += node.cpp main.cpp mainwindow.cpp xml2bdb.cpp
 

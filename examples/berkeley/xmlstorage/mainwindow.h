@@ -13,5 +13,9 @@ private:
     void initTree();
     void readTree (QxtBdbTreeIterator<XmlNode> it,QTreeWidgetItem * item);
 
+private slots:
+    void on_actionQuit_triggered();
+    void on_actionLoad_triggered();
+
 };
 
