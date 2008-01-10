@@ -152,8 +152,10 @@ void QxtBdbTree<T>::dumpTree() const
 {
     BerkeleyDB::DBC *cursor;
     qxt_d().db->cursor(qxt_d().db, NULL,&cursor, 0);
-    Q_ASSERT(qxt_d().get((void*)0,0,0,0,DB_FIRST,cursor));
-
+    if(!qxt_d().get((void*)0,0,0,0,DB_FIRST,cursor))
+    {
+        return;
+    }
 
     QxtBdbTreeIterator<T> k(cursor,const_cast<QxtBdb*>(&qxt_d()));
     qDebug()<<"\r\nQxtBdbTree<"<<QMetaType::typeName (qMetaTypeId<T>())<<">::dumpTree()\r\n";
@@ -547,17 +549,13 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -= ( int j )
 template<class T>
 QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
 {
-    QxtBdbTreeIterator<T> e=*this;
-    if(root)
-    {
-        e=child();
-    }
-    else
-    {
-        if(!e.isValid())
-            return QxtBdbTreeIterator<T>();
-    }
-
+    QxtBdbTreeIterator<T> e=child();
+    if(e.isValid())
+        while(e.db->get((void*)0,0,0,0,DB_NEXT_DUP,e.dbc))
+        {
+            if (e.level()<level())
+                break;
+        }
 
 
     BerkeleyDB::DBT dbkey,dbvalue;
@@ -584,9 +582,9 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
     ::memcpy((quint64*)dbvalue.data+1,d.data(),d.size());
     dbvalue.flags=DB_DBT_USERMEM;
 
-    int ret;
+    int ret=234525;
 
-    if(e.isValid())
+    if(e.isValid() && root )
     {
         ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
     }
@@ -595,7 +593,7 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
         ret = db->db->put(db->db,NULL,&dbkey, &dbvalue, NULL);
         BerkeleyDB::DBC *cursor;
         db->db->cursor(db->db, NULL,&cursor, 0);
-        if(db->get((void*)0,0,0,0,DB_FIRST,cursor))
+        if(db->get((void*)0,0,0,0,DB_LAST,cursor))
             e=QxtBdbTreeIterator<T>(cursor,db);
     }
     ::free(dbvalue.data);
