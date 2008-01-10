@@ -21,8 +21,8 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtLinkedTree_H_Guard_pklandlkasmndlkasd
-#define QxtLinkedTree_H_Guard_pklandlkasmndlkasd
+#ifndef QxtBdbTree_H_Guard_pyxvby
+#define QxtBdbTree_H_Guard_pyxvby
 
 #include <qxtsharedprivate.h>
 #include <QVariant>
