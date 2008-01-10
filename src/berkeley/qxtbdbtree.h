@@ -469,6 +469,11 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator ++ ()
         }
         if(before == level() )
             break;
+        if(before > level() )
+        {
+            invalidate();
+            break;
+        }
     }
 
     return *this;
