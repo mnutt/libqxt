@@ -120,6 +120,12 @@ it++; //invalid. there are no siblings.
 it--; //still invalid!
 \endcode
 
+
+\fn int  QxtLinkedTreeIterator::children() const
+returns the amount of childnodes.
+
+
+
 \fn T &  QxtLinkedTreeIterator::operator* () const;
 Returns a modifiable reference to the current item.
 You can change the value of an item by using operator*() on the left side of an assignment, for example:

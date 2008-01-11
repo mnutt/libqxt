@@ -50,6 +50,7 @@ private:
         previous=0;
         parent=0;
         child=0;
+        childcount=0;
     }
 
 
@@ -74,6 +75,8 @@ private:
     QxtLinkedTreeItem * previous;
     QxtLinkedTreeItem * parent;
     QxtLinkedTreeItem * child;
+    int childcount;
+
     T t;
     ///TODO: somehow notify all iterators when one deletes this. so they can be made invalid instead of undefined.
 };
@@ -90,12 +93,16 @@ public:
     QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> & other);
     QxtLinkedTreeIterator & operator= ( const QxtLinkedTreeIterator<T> & other );
 
+
     QxtLinkedTreeIterator    parent   () const;
     QxtLinkedTreeIterator    next     () const;
     QxtLinkedTreeIterator    previous () const;
     QxtLinkedTreeIterator    child    () const;
 
     bool isValid() const;
+    int children() const;
+
+
 
     T & operator* () const;
     T * operator-> () const;
@@ -211,6 +218,14 @@ bool  QxtLinkedTreeIterator<T>::isValid() const
 {
     return (item!=0);
 }
+
+template<class T>
+int  QxtLinkedTreeIterator<T>::children() const
+{
+    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    return item->childcount;
+}
+
 
 
 
@@ -351,7 +366,6 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
         ci=ci.erase();
     }
 
-
     ///realign chains
     if(parent->child==node)
     {
@@ -367,6 +381,7 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
         }
         n->next=node->next;
     }
+    parent->childcount--;
     delete node;
     item=0;
     return QxtLinkedTreeIterator<T>(next);
@@ -385,6 +400,7 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) co
         parent->child=node;
         node->parent=parent;
         node->previous=0;
+        parent->childcount=1;
         return QxtLinkedTreeIterator<T>(node);
     }
 
@@ -394,6 +410,7 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) co
     n->next=node;
     node->parent=parent;
     node->previous=n;
+    parent->childcount++;
     return QxtLinkedTreeIterator<T>(node);
 }
 
