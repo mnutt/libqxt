@@ -63,7 +63,9 @@
 /*!
     \fn bool QxtBdbHash::open(QString file)
 
-    opens the specified file. returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
+    opens the specified file.
+
+    returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
 */
 
 /*!
@@ -139,7 +141,7 @@
 
 
 /*!
-    \class QxtBdbHashIterator QxtBdbHashIterator
+    \class QxtBdbHashIterator QxtBdbHash
     \ingroup QxtBerkeley
     \brief provides a fast iterator over a QxtBdbHash
 
