@@ -20,9 +20,12 @@ public:
     void loadXml (QStringList  files);
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    virtual QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
     virtual QModelIndex parent ( const QModelIndex & index ) const;
     virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
+
+
 
     virtual bool canFetchMore ( const QModelIndex & parent ) const;
     virtual void fetchMore ( const QModelIndex & parent );
