@@ -63,6 +63,13 @@ constructs a QxtLinkedTree with a default constructed root node.
 \fn QxtLinkedTree::QxtLinkedTree(T t);
 constructs a QxtLinkedTree.
 sets the rootnode to \p t
+
+\fn QxtLinkedTree::~QxtLinkedTree()
+the destructor deletes all items, when they are no longer referenced by any other instance. \n
+
+\fn void QxtLinkedTree::clear();
+deletes all nodes recursively. this might take forever depending on the size of your tree.
+
 \fn QxtLinkedTreeIterator QxtLinkedTree::root();
 returns an iterator on the root node
 

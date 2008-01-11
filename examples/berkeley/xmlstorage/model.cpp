@@ -1,7 +1,9 @@
 #include "model.h"
 #include "xml2bdb.h"
 #include <QDebug>
-
+#include <QProgressDialog>
+#include <QApplication>
+#include <QFile>
 
 XmlDbModel::XmlDbModel(QString db):QAbstractItemModel(),QxtBdbTree<XmlNode>()
 {
@@ -10,16 +12,16 @@ XmlDbModel::XmlDbModel(QString db):QAbstractItemModel(),QxtBdbTree<XmlNode>()
 
 XmlDbModel::XmlDbModel():QAbstractItemModel(),QxtBdbTree<XmlNode>()
 {
+    cache.root()->children=-1;
+    cache.root()->node=root();
 }
 bool XmlDbModel::open  (QString file)
 {
     bool p= QxtBdbTree<XmlNode>::open(file);
 
-    XmlDbModelCacheItem ci;
-    ci.node=root();
-    ci.children=-1;
+    cache.root()->children=-1;
+    cache.root()->node=root();
 
-    *cache.root()=ci;
     if(canFetchMore(QModelIndex()))
         fetchMore(QModelIndex());
     reset();
@@ -27,12 +29,36 @@ bool XmlDbModel::open  (QString file)
     return p;
 }
 
-void XmlDbModel::loadXml(QIODevice * d)
+void XmlDbModel::loadXml(QStringList files)
 {
-    Xml2Bdb x;
-    x.setDevice(d);
-    x.read(root());
+    reset();
 
+    QProgressDialog d;
+    d.setLabelText("Loading xml files into database.");
+    d.show();
+    d.setMaximum(files.count());
+    for (int i=0;i<files.count();i++)
+    {
+        QApplication::processEvents ();
+        if(d.wasCanceled())
+            break;
+        QFile file(files.at(i));
+        file.open(QIODevice::ReadOnly);
+        d.setValue(i);
+
+        Xml2Bdb x;
+        x.setDevice(&file);
+        x.read(root());
+    }
+
+    cache.clear();
+    cache.root()->children=-1;
+    cache.root()->node=root();
+
+    if(canFetchMore(QModelIndex()))
+        fetchMore(QModelIndex());
+
+    reset();
 }
 
 int XmlDbModel::columnCount ( const QModelIndex & ) const
@@ -42,6 +68,8 @@ int XmlDbModel::columnCount ( const QModelIndex & ) const
 
 QVariant XmlDbModel::data ( const QModelIndex & index, int role  ) const
 {
+    Q_ASSERT_X(index.isValid(),Q_FUNC_INFO,"invalid index");
+
     if(role!=Qt::DisplayRole)
         return QVariant();
 
@@ -58,8 +86,12 @@ QVariant XmlDbModel::data ( const QModelIndex & index, int role  ) const
 
 QModelIndex XmlDbModel::parent ( const QModelIndex & index ) const
 {
+    Q_ASSERT_X(index.isValid(),Q_FUNC_INFO,"invalid index");
+
     QxtLinkedTreeIterator <XmlDbModelCacheItem> it;
     it=cache.fromVoid(index.internalPointer()).parent();
+    Q_ASSERT_X(it.isValid(),Q_FUNC_INFO,"invalid iterator inside valid index (wtf?)");
+
     if(!it.isValid())
         return QModelIndex();
     if(it==cache.root())
@@ -87,7 +119,8 @@ QModelIndex XmlDbModel::index ( int row, int column, const QModelIndex & parent 
     else
         it=cache.root().child();
     it+=row;
-//     Q_ASSERT(it.isValid());
+    if(!it.isValid())
+        return QModelIndex();
     return createIndex(row,column,cache.toVoid (it));
 }
 
@@ -101,6 +134,8 @@ int XmlDbModel::rowCount ( const QModelIndex & parent ) const
         it=cache.fromVoid(parent.internalPointer());
     else
         it=cache.root();
+    if (it->children<0)
+        return 0;
     return it->children;
 }
 
@@ -117,7 +152,6 @@ void XmlDbModel::fetchMore ( const QModelIndex & parent )
     int cc=0;
     while(it.isValid())
     {
-        qDebug()<<"+"<<it.value().name;
 
         XmlDbModelCacheItem ci;
         ci.node=it;

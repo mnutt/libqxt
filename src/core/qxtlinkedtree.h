@@ -37,6 +37,12 @@ class QxtLinkedTreeIterator;
 template<class T>
 class QxtLinkedTreeItem
 {
+public:
+    ~QxtLinkedTreeItem()
+    {
+        clear();
+    }
+private:
     QxtLinkedTreeItem (T tt)
     {
         t=tt;
@@ -44,6 +50,22 @@ class QxtLinkedTreeItem
         previous=0;
         parent=0;
         child=0;
+    }
+
+
+    void clear()
+    {
+        if(child)
+        {
+            QxtLinkedTreeItem * c= child;
+            while(c)
+            {
+                QxtLinkedTreeItem * e=c;
+                c=c->next;
+                delete e;
+            }
+            child=0;
+        }
     }
 
     friend class QxtLinkedTree<T>;
@@ -115,6 +137,8 @@ public:
 
     QxtLinkedTree();
     QxtLinkedTree(T t);
+    ~QxtLinkedTree();
+    void clear();
     QxtLinkedTreeIterator<T> root();
     static QxtLinkedTreeIterator<T> fromVoid (void *) ;
     static void * toVoid (QxtLinkedTreeIterator<T>) ;
@@ -144,6 +168,7 @@ QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> &
     item=other.item;
 }
 
+
 template<class T>
 QxtLinkedTreeIterator<T> & QxtLinkedTreeIterator<T>::operator= ( const QxtLinkedTreeIterator<T> & other )
 {
@@ -156,24 +181,28 @@ QxtLinkedTreeIterator<T> & QxtLinkedTreeIterator<T>::operator= ( const QxtLinked
 template<class T>
 QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::parent   () const
 {
+    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return QxtLinkedTreeIterator<T>(item->parent);
 }
 
 template<class T>
 QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::next     () const
 {
+    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return QxtLinkedTreeIterator<T>(item->next);
 }
 
 template<class T>
 QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::previous () const
 {
+    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return QxtLinkedTreeIterator<T>(item->previous);
 }
 
 template<class T>
 QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::child    () const
 {
+    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
     return QxtLinkedTreeIterator<T>(item->child);
 }
 
@@ -390,6 +419,17 @@ template<class T>
 QxtLinkedTree<T>::QxtLinkedTree()
 {
     qxt_d=new QxtLinkedTreeItem<T>(T());
+}
+
+template<class T>
+QxtLinkedTree<T>::~QxtLinkedTree()
+{
+}
+
+template<class T>
+void QxtLinkedTree<T>::clear()
+{
+    qxt_d().clear();
 }
 
 
