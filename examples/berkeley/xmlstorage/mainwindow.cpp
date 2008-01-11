@@ -12,10 +12,7 @@ MainWindow::MainWindow()
 
 void MainWindow::on_actionLoad_triggered()
 {
-    QString f=QFileDialog::getOpenFileName (this, "Load Xml file",QString(), "Xml File (*.xml)");
-    QFile file(f);
-    file.open(QIODevice::ReadOnly);
-    model.loadXml(&file);
+    model.loadXml(QFileDialog::getOpenFileNames (this, "Load Xml file",QString(), "Xml File (*.xml)"));
 }
 
 void MainWindow::on_actionQuit_triggered()

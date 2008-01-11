@@ -1,5 +1,5 @@
 #include "xml2bdb.h"
-
+#include <QApplication>
 
 Xml2Bdb::Xml2Bdb() : QXmlStreamReader()
 {
@@ -19,7 +19,6 @@ void Xml2Bdb::read(QxtBdbTreeIterator<XmlNode> root)
 
 void Xml2Bdb::readElement(QxtBdbTreeIterator<XmlNode> i)
 {
-//     Q_ASSERT(isStartElement());
 
     XmlNode x;
     x.name=name().toString();
@@ -29,6 +28,7 @@ void Xml2Bdb::readElement(QxtBdbTreeIterator<XmlNode> i)
 
     while (!atEnd()) 
     {
+        QApplication::processEvents ();
         readNext();
         if (isEndElement())
             break;
@@ -38,7 +38,7 @@ void Xml2Bdb::readElement(QxtBdbTreeIterator<XmlNode> i)
         }
         else
         {
-            if(text().toString().replace("\n","").replace("\r","").replace(" ","").isEmpty())
+            if(text().toString().simplified().isEmpty())
                 continue;
             XmlNode x;
             x.name=name().toString();

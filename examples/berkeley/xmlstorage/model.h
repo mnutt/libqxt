@@ -2,7 +2,7 @@
 #include <QxtBdbTree>
 #include <QxtLinkedTree>
 #include "node.h"
-
+#include <QStringList>
 
 struct XmlDbModelCacheItem
 {
@@ -17,7 +17,7 @@ public:
     XmlDbModel(QString db);
     XmlDbModel();
     bool open  (QString file);
-    void loadXml(QIODevice  *);
+    void loadXml (QStringList  files);
     virtual int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
     virtual QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
     virtual QModelIndex parent ( const QModelIndex & index ) const;
