@@ -446,9 +446,16 @@ QString printAssistantNGQHPFile()
         t_i["link"]=refToLink(cl->ref);
         t["unroll_classes"]+=t_i.render();
 
+        t_i_i.clear();
+        t_i_i["name"]=cl->name;
+        t_i_i["link"]=refToLink(cl->ref);
+        t_i_i["id"]="class:"+cl->name;
+        t["unroll_keywords"]+=t_i_i.render();
 
         foreach(Member * m,cl->members)
         {
+            if (cl->name==m->name) ///skip ctor
+                continue;
             t_i_i.clear();
             t_i_i["name"]=m->name;
             t_i_i["link"]=refToLink(m->ref);
