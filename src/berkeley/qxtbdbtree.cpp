@@ -5,7 +5,7 @@
 
 
 /*!
-    \class QxtBdbTree QxtBdbtree
+    \class QxtBdbTree QxtBdbTree
     \ingroup QxtBerkeley
     \brief template berkeley container for tree structured data
 
@@ -19,6 +19,8 @@
     db.dumpTree(); //try this if you are unsure, how the data will look like
     \endcode
 
+
+
     There is an extensive example in /examples/berkeley/xmlstorage
 
 
@@ -29,6 +31,7 @@
 
 
     \doqsy {implicitshared}
+    \sa QxtBdbTreeIterator
 */
 /**
 
@@ -72,9 +75,10 @@ This function assumes, the class used for Template initialisation implements the
     \ingroup QxtBerkeley
     \brief tree iterator on QxtBdbtree
 
-    \sa QxtBdbtree
 
     \doqsy {implicitshared}
+    \sa QxtBdbTree
+
 */
 
 /**
