@@ -76,12 +76,54 @@ QVariant XmlDbModel::data ( const QModelIndex & index, int role  ) const
     if(index.column()==0)
         return cache.fromVoid(index.internalPointer())->node.value().name;
     if(index.column()==1)
-        return cache.fromVoid(index.internalPointer())->node.value().type;
+    {
+        switch(cache.fromVoid(index.internalPointer())->node.value().type)
+        {
+            case 0:
+                return "NoToken";
+            case 2:
+                return "StartDocument";
+            case 3:
+                return "EndDocument";
+            case 4:
+                return "StartElement";
+            case 5:
+                return "EndElement";
+            case 6:
+                return "Characters";
+            case 7:
+                return "Comment";
+            case 8:
+                return "DTD";
+            case 9:
+                return "EntityReference";
+            case 10:
+                return "ProcessingInstruction";
+            case 1:
+            default:
+                return "Invalid";
+        }
+    }
     if(index.column()==2)
         return cache.fromVoid(index.internalPointer())->node.value().value;
 
     return QVariant();
 
+}
+
+QVariant XmlDbModel::headerData ( int section, Qt::Orientation orientation, int role) const
+{
+    if(orientation!=Qt::Horizontal)
+        return QVariant();
+    if(role!=Qt::DisplayRole)
+        return QVariant();
+    if (section==0)
+        return "name";
+    if (section==1)
+        return "type";
+    if (section==2)
+        return "value";
+    return QVariant();
 }
 
 QModelIndex XmlDbModel::parent ( const QModelIndex & index ) const

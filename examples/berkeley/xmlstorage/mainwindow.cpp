@@ -2,12 +2,13 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 #include <QFileDialog>
-
+#include <QHeaderView>
 MainWindow::MainWindow()
 {
     ui.setupUi(this);
     model.open("xml.db");
     ui.treeView->setModel(&model);
+    ui.treeView->header()->resizeSection ( 0,300);
 }
 
 void MainWindow::on_actionLoad_triggered()
