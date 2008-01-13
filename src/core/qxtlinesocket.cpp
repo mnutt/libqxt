@@ -85,8 +85,8 @@ void QxtLineSocketPrivate::readyRead()
 {
     rbuff+=socket->readAll();
 
-    int i=rbuff.indexOf('\n');
-    if (i>-1)
+    int i=0;
+    while((i=rbuff.indexOf('\n'))>-1)
     {
         (&qxt_p())->newLine(rbuff.left(i));
         rbuff=rbuff.mid(i+1);
