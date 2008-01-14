@@ -21,9 +21,8 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtstdio.h"
+#include "qxtstdio_p.h"
 #include <cstdio>
-#include <QSocketNotifier>
 
 /**
 \class QxtStdio QxtStdio
@@ -32,19 +31,29 @@
 
 \brief QIODevice support for stdin and stdout
 
-including readyRead() signal
-note that when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
+including readyRead() signal.\n
+perfect as a counter part for QProcess.
 
-perfect as a counter part for QProcess
+
+\sa QIODevice
+
+\note when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
+
 */
+
+
+
+
 
 QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 {
+    QXT_INIT_PRIVATE(QxtStdio);
+
     setvbuf ( stdin , NULL , _IONBF , 0 );
     setvbuf ( stdout , NULL , _IONBF , 0 );
 
     setOpenMode (QIODevice::ReadWrite);
-    notify = new QSocketNotifier (
+    qxt_d().notify = new QSocketNotifier (
 
 #ifdef Q_CC_MSVC
                  _fileno(stdin)
@@ -53,7 +62,7 @@ QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 #endif
 
                  ,QSocketNotifier::Read,this );
-    connect(notify, SIGNAL(activated(int)),this,SLOT(activated(int)));
+    connect(qxt_d().notify, SIGNAL(activated(int)),&qxt_d(),SLOT(activated(int)));
 }
 
 qint64 QxtStdio::readData ( char * data, qint64 maxSize )
@@ -61,9 +70,9 @@ qint64 QxtStdio::readData ( char * data, qint64 maxSize )
     qint64 i=0;
     for (;i<maxSize;i++)
     {
-        if (inbuffer.isEmpty())
+        if (qxt_d().inbuffer.isEmpty())
             break;
-        (*data++)=inbuffer.dequeue();
+        (*data++)=qxt_d().inbuffer.dequeue();
     }
     return i;
 }
@@ -88,13 +97,13 @@ bool QxtStdio::isSequential () const
 
 qint64 QxtStdio::bytesAvailable () const
 {
-    return inbuffer.count();
+    return qxt_d().inbuffer.count();
 }
 
-void QxtStdio::activated(int )
+void QxtStdioPrivate::activated(int )
 {
     inbuffer.enqueue(getchar());
-    emit(readyRead ());
+    emit(qxt_p().readyRead ());
 }
 
 
