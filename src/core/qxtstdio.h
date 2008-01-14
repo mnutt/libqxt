@@ -24,25 +24,28 @@
 #ifndef QxtStdin_H_GUARD
 #define QxtStdin_H_GUARD
 #include <qxtglobal.h>
+#include <qxtpimpl.h>
 #include <QIODevice>
-#include <QQueue>
 
-class QSocketNotifier;
+
+class QxtStdioPrivate;
 class QXT_CORE_EXPORT QxtStdio : public QIODevice
 {
     Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtStdio);
 public:
+    /**constructs a QxtStdio with the given parent*/
     QxtStdio(QObject * parent=0);
-    virtual bool isSequential () const;
+    /**\reimp*/
+    virtual bool isSequential () const; 
+    /**\reimp*/
     virtual qint64 bytesAvailable () const;
 protected:
+    /**\reimp*/
     virtual qint64 readData ( char * data, qint64 maxSize );
+    /**\reimp*/
     virtual qint64 writeData ( const char * data, qint64 maxSize );
-private:
-    QSocketNotifier * notify;
-    QQueue<char> inbuffer;
-private slots:
-    void activated(int );
+
 
 };
 #endif

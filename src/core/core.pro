@@ -39,6 +39,7 @@ HEADERS  += qxtsignalwaiter.h
 HEADERS  += qxtslotjob.h
 HEADERS  += qxtslotjob_p.h
 HEADERS  += qxtstdio.h
+HEADERS  += qxtstdio_p.h
 HEADERS  += qxtstdstreambufdevice.h
 HEADERS  += qxttuple.h
 HEADERS  += qxttuplelist.h
