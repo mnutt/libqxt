@@ -26,6 +26,7 @@
 #include <QApplication>
 #include <QTabBar>
 #include <QAction>
+#include <QMovie>
 #include <QMenu>
 
 typedef QList<QAction*> Actions;
@@ -40,10 +41,13 @@ public:
 
     QList<Actions> actions;
     Qt::ContextMenuPolicy policy;
+
+    QList<QMovie*> animations;
 };
 
 QxtTabWidgetPrivate::QxtTabWidgetPrivate() : policy(Qt::DefaultContextMenu)
-{}
+{
+}
 
 int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
 {
@@ -102,7 +106,8 @@ QxtTabWidget::QxtTabWidget(QWidget* parent) : QTabWidget(parent)
     Destructs the tab widget.
  */
 QxtTabWidget::~QxtTabWidget()
-{}
+{
+}
 
 /*!
     \property QxtTabWidget::tabContextMenuPolicy
@@ -324,18 +329,84 @@ QList<QAction*> QxtTabWidget::tabActions(int index) const
     return qxt_d().actions.at(index);
 }
 
+/*!
+    Returns the animation of the tab at \a index or \b 0
+    if no animation has been set.
+
+    \sa setTabAnimation()
+ */
+QMovie* QxtTabWidget::tabAnimation(int index) const
+{
+    Q_ASSERT(index >= 0 && index < qxt_d().animations.count());
+    return qxt_d().animations.at(index);
+}
+
+/*!
+    Sets the \a animation of the tab at \a index and
+    optionally \a start the animation.
+
+    \sa tabAnimation()
+ */
+void QxtTabWidget::setTabAnimation(int index, QMovie* animation, bool start)
+{
+    Q_ASSERT(index >= 0 && index < qxt_d().animations.count());
+    qxt_d().animations[index] = animation;
+    if (start)
+        animation->start();
+}
+
+/*!
+    This is an overloaded member function, provided for convenience.
+
+    The QMovie animation is constructed as \b this as parent.
+
+    \sa setTabAnimation()
+ */
+void QxtTabWidget::setTabAnimation(int index, const QString& fileName, bool start)
+{
+    setTabAnimation(index, new QMovie(fileName, QByteArray(), this), start);
+}
+
+/*!
+    Removes the animation of the tab at \a index and returns it.
+
+    \sa tabAnimation()
+ */
+QMovie* QxtTabWidget::takeTabAnimation(int index)
+{
+    Q_ASSERT(index >= 0 && index < qxt_d().animations.count());
+    QMovie* animation = qxt_d().animations.at(index);
+    qxt_d().animations[index] = 0;
+    return animation;
+}
+
+/*!
+    \reimp
+ */
 void QxtTabWidget::tabInserted(int index)
 {
-    Q_ASSERT(index >= 0 && index <= qxt_d().actions.count());
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index <= qxt_d().actions.count());
+    Q_ASSERT(index <= qxt_d().animations.count());
     qxt_d().actions.insert(index, Actions());
+    qxt_d().animations.insert(index, 0);
 }
 
+/*!
+    \reimp
+ */
 void QxtTabWidget::tabRemoved(int index)
 {
-    Q_ASSERT(index >= 0 && index < qxt_d().actions.count());
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < qxt_d().actions.count());
+    Q_ASSERT(index < qxt_d().animations.count());
     qxt_d().actions.removeAt(index);
+    qxt_d().animations.removeAt(index);
 }
 
+/*!
+    \reimp
+ */
 void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
 {
     const QPoint& pos = event->pos();

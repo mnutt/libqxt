@@ -56,16 +56,19 @@ public:
     void removeTabAction(int index, QAction* action);
     QList<QAction*> tabActions(int index) const;
 
+    QMovie* tabAnimation(int index) const;
+    void setTabAnimation(int index, QMovie* animation, bool start = true);
+    void setTabAnimation(int index, const QString& fileName, bool start = true);
+    QMovie* takeTabAnimation(int index);
+
 signals:
     void tabContextMenuRequested(int index, const QPoint& globalPos);
 
 protected:
-#ifndef QXT_DOXYGEN_RUN
     virtual void tabInserted(int index);
     virtual void tabRemoved(int index);
 
     virtual void contextMenuEvent(QContextMenuEvent* event);
-#endif // QXT_DOXYGEN_RUN
     virtual void tabContextMenuEvent(int index, QContextMenuEvent* event);
 };
 
