@@ -1,3 +1,4 @@
+TEMPLATE         = lib
 CLEAN_TARGET     = QxtWeb
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../network

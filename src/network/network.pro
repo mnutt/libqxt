@@ -1,3 +1,4 @@
+TEMPLATE         = lib
 CLEAN_TARGET     = QxtNetwork
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core

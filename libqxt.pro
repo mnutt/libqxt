@@ -28,7 +28,7 @@ features.files = deploy/qt/qxt.prf
 docs.path = $${QXTINSTALLDIR}/docs
 docs.CONFIG = no_default_install
 
-INSTALLS = features docs
+INSTALLS += features docs
 
 SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs

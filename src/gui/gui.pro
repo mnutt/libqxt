@@ -1,3 +1,4 @@
+TEMPLATE         = lib
 CLEAN_TARGET     = QxtGui
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
