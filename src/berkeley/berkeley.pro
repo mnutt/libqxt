@@ -7,7 +7,7 @@ QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
 LIBS            += -ldb
-
+TEMPLATE         = lib
 
 include(../../config.pri)
 

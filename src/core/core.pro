@@ -6,6 +6,7 @@ QT               = core
 QXT              =
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
+TEMPLATE         = lib
 
 include(../../config.pri)
 

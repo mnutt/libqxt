@@ -1,3 +1,4 @@
+TEMPLATE         = lib
 CLEAN_TARGET     = QxtDesignerPlugins
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core ../gui

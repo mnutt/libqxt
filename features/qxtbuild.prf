@@ -3,7 +3,7 @@ win32: CONFIG   += dll
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj
 DESTDIR          = ../../deploy/libs/
-TEMPLATE         = lib
+#TEMPLATE         = lib
 
 incs.path      = $${include.path}/$${CLEAN_TARGET}/
 
