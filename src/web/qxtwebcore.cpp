@@ -80,6 +80,19 @@
  */
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 static QxtWebLegacyEngine * singleton_m=0;
 
 //-----------------------interface----------------------------
@@ -188,10 +201,17 @@ void QxtWebLegacyEngine::incomming()
         QxtWebController * controller =qFindChild<QxtWebController *> (QCoreApplication::instance(), path );
         if (!controller)
         {
-            header("Status","404");
-            send("<h1>404 Controller ");
-            send(path);
-            send(" not found</h1>");
+            QString e404=
+            "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">"
+            "<html><head>"
+            "<title>404 Not Found</title>"
+            "</head><body>"
+            "<h1>Not Found</h1>"
+            "<p>The requested Controller \""+path+"\" was not found on this server.</p>"
+            "</body></html>";
+
+            instance()->cc->response().setStatusLine ( 404, "Not Found");
+            send(e404);
             close();
             qDebug("404 controller '%s' not found",path.constData());
             return;
@@ -200,10 +220,20 @@ void QxtWebLegacyEngine::incomming()
         int i=controller->invoke(cc);
         if (i!=0 && i!=2)
         {
-            header("Status","404");
-            send("<h1>");
-            send(QString::number(i));
-            send("</h1>Sorry,, that didn't work as expected. You might want to contact this systems administrator.");
+            QString e404=
+            "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">"
+            "<html><head>"
+            "<title>404 Not Found</title>"
+            "</head><body>"
+            "<h1>Not Found</h1>"
+            "<p>The requested Path \""+path+"\" was not accepted by the Engine.</p>"
+            "</body></html>";
+
+            instance()->cc->response().setStatusLine ( 404, "Not Found");
+            send(e404);
+            close();
+            qDebug("404 path '%s' not working",path.constData());
+            return;
         }
         if (i!=2) ///FIXME temporary solution for keepalive
             close();
