@@ -22,28 +22,13 @@
 **
 ****************************************************************************/
 #include "qxttabwidget.h"
+#include "qxttabwidget_p.h"
 #include <QContextMenuEvent>
 #include <QApplication>
 #include <QTabBar>
 #include <QAction>
 #include <QMovie>
 #include <QMenu>
-
-typedef QList<QAction*> Actions;
-
-class QxtTabWidgetPrivate : public QxtPrivate<QxtTabWidget>
-{
-public:
-    QXT_DECLARE_PUBLIC(QxtTabWidget);
-
-    QxtTabWidgetPrivate();
-    int tabIndexAt(const QPoint& pos) const;
-
-    QList<Actions> actions;
-    Qt::ContextMenuPolicy policy;
-
-    QList<QMovie*> animations;
-};
 
 QxtTabWidgetPrivate::QxtTabWidgetPrivate() : policy(Qt::DefaultContextMenu)
 {
@@ -59,12 +44,25 @@ int QxtTabWidgetPrivate::tabIndexAt(const QPoint& pos) const
     return -1;
 }
 
+void QxtTabWidgetPrivate::setMovieFrame(int frame)
+{
+    Q_UNUSED(frame);
+    QMovie* movie = static_cast<QMovie*>(sender());
+    if (movie)
+    {
+        int index = animations.indexOf(movie);
+        if (index != -1)
+            qxt_p().setTabIcon(index, movie->currentPixmap());
+    }
+}
+
 /*!
     \class QxtTabWidget QxtTabWidget
     \ingroup QxtGui
     \brief An extended QTabWidget.
 
-    QxtTabWidget provides some convenience for handling tab specific context menus.
+    QxtTabWidget provides some convenience for handling tab specific context menus
+    and animations.
 
     Example usage:
     \code
@@ -350,9 +348,14 @@ QMovie* QxtTabWidget::tabAnimation(int index) const
 void QxtTabWidget::setTabAnimation(int index, QMovie* animation, bool start)
 {
     Q_ASSERT(index >= 0 && index < qxt_d().animations.count());
+    delete takeTabAnimation(index);
     qxt_d().animations[index] = animation;
-    if (start)
-        animation->start();
+    if (animation)
+    {
+        connect(animation, SIGNAL(frameChanged(int)), &qxt_d(), SLOT(setMovieFrame(int)));
+        if (start)
+            animation->start();
+    }
 }
 
 /*!
