@@ -52,6 +52,7 @@ HEADERS  += qxttablewidget.h
 HEADERS  += qxttablewidget_p.h
 HEADERS  += qxttablewidgetitem.h
 HEADERS  += qxttabwidget.h
+HEADERS  += qxttabwidget_p.h
 HEADERS  += qxttooltip.h
 HEADERS  += qxttooltip_p.h
 HEADERS  += qxttreewidget.h
