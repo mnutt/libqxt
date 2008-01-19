@@ -1,0 +1,9 @@
+TEMPLATE = app
+TARGET = 
+DEPENDPATH += .
+INCLUDEPATH += .
+CONFIG+=qxt
+QXT+=network
+HEADERS += mainwindow.h ircpeer.h dialog.h
+SOURCES += main.cpp mainwindow.cpp ircpeer.cpp  dialog.cpp
+FORMS+=dialog.ui
