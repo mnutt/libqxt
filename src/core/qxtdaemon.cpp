@@ -168,8 +168,11 @@ bool QxtDaemon::daemonize(bool pidfile)
     setsid(); /* obtain a new process group */
 
     for (i=getdtablesize();i>=0;--i) close(i); /* close all descriptors */
-    umask(027); /* some programmers don't understand security, so we set a sane default here */
 
+
+    #ifdef Q_OS_LINUX
+    ::umask(027); /* some programmers don't understand security, so we set a sane default here */
+    #endif
     ::signal(SIGCHLD,SIG_IGN); /* ignore child */
     ::signal(SIGTSTP,SIG_IGN); /* ignore tty signals */
     ::signal(SIGTTOU,SIG_IGN);
