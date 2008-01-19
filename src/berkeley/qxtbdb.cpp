@@ -40,7 +40,8 @@ static void qxtBDBDatabaseErrorHandler(const  BerkeleyDB::DB_ENV*, const char* a
 QxtBdb::QxtBdb()
 {
     isOpen=false;
-    Q_ASSERT_X(db_create(&db, NULL, 0)==0,Q_FUNC_INFO,"db_create failed");
+    if(db_create(&db, NULL, 0)!=0)
+        qFatal("db_create failed");
     db->set_errcall(db, qxtBDBDatabaseErrorHandler);
 
 }
@@ -59,7 +60,8 @@ bool QxtBdb::open(QString path,OpenFlags f)
     {
 
         BerkeleyDB::DB * tdb;
-        Q_ASSERT_X(db_create(&tdb, NULL, 0)==0,Q_FUNC_INFO,"db_create failed");
+        if(db_create(&tdb, NULL, 0)!=0)
+            qFatal("db_create failed");
 
         if(tdb->verify(tdb, qPrintable(path), NULL, NULL,0)==DB_VERIFY_BAD)
             qCritical("QxtBdb::open Database '%s' is corrupted.",qPrintable(path));
@@ -148,7 +150,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,keytype, key));
+        if(!QMetaType::save (s,keytype, key))
+            qCritical("QMetaType::save failed. is your key registered with the QMetaType?");
         buffer.close();
         dbkey.size = d_key.size();
         dbkey.data = ::malloc (d_key.size());
@@ -161,7 +164,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,valuetype, value));
+        if(!QMetaType::save (s,valuetype, value))
+            qCritical("QMetaType::save failed. is your value registered with the QMetaType?");
         buffer.close();
         dbvalue.size = d_value.size();
         dbvalue.data = ::malloc (d_value.size());
@@ -219,7 +223,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::ReadOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,keytype, key));
+        if(!QMetaType::load (s,keytype, key))
+            qCritical("QMetaType::load failed. is your key registered with the QMetaType?");
         buffer.close();
     }
     if (value)
@@ -227,7 +232,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::ReadOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,valuetype, value));
+        if(!QMetaType::load (s,valuetype, value))
+            qCritical("QMetaType::load failed. is your value registered with the QMetaType?");
         buffer.close();
     }
 
@@ -260,7 +266,8 @@ bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,keytype, key));
+        if(!QMetaType::save (s,keytype, key))
+            qCritical("QMetaType::save failed. is your key registered with the QMetaType?");
         buffer.close();
         dbkey.size = d_key.size();
         dbkey.data = ::malloc (d_key.size());
@@ -276,7 +283,8 @@ bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,valuetype, value));
+        if(!QMetaType::save (s,valuetype, value))
+            qCritical("QMetaType::save failed. is your value registered with the QMetaType?");
         buffer.close();
         dbvalue.size = d_value.size();
         dbvalue.data = ::malloc (d_value.size());
@@ -336,7 +344,9 @@ bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::ReadOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,valuetype, value));
+        if(!QMetaType::load (s,valuetype, value))
+            qCritical("QMetaType::load failed. is your value registered with the QMetaType?");
+
         buffer.close();
 
     }
