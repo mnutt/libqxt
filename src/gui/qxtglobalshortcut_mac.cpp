@@ -27,6 +27,7 @@
 #include <QHash>
 #include <QtDebug>
 
+typedef QPair<uint, uint> Identifier;
 static QMap<quint32, EventHotKeyRef> keyRefs;
 static QHash<Identifier, quint32> keyIDs;
 static quint32 hotKeySerial = 0;
@@ -35,6 +36,7 @@ static bool qxt_mac_handler_installed = false;
 OSStatus qxt_mac_handle_hot_key(EventHandlerCallRef nextHandler, EventRef event, void* data)
 {
     // pass event to the app event filter
+    Q_UNUSED(data);
     qApp->macEventFilter(nextHandler, event);
     return noErr;
 }
@@ -49,6 +51,7 @@ bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventR
         activateShortcut(id.second, id.first);
     }
     return false;
+}
 
 quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
 {
