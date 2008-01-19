@@ -179,6 +179,29 @@ void QxtRPCPeer::connect(QHostAddress addr, int port)
     sock->connectToHost(addr, port);
 }
 
+void QxtRPCPeer::connect(QString addr, int port)
+{
+    if (qxt_d().m_rpctype == Server)
+    {
+        qWarning() << "QxtRPCPeer: Cannot connect outward in Server mode";
+        return;
+    }
+
+    QAbstractSocket * sock  = qobject_cast<QAbstractSocket*>(qxt_d().m_peer);
+    if (!sock)
+    {
+        qWarning("QxtRPCPeer: cannot connect a custom QIODevice");
+        return;
+    }
+
+    if (sock->state()!=QAbstractSocket::UnconnectedState)
+    {
+        qWarning("QxtRPCPeer: Already connected");
+        return;
+    }
+
+    sock->connectToHost(addr, port);
+}
 
 bool QxtRPCPeer::listen(QHostAddress iface, int port)
 {

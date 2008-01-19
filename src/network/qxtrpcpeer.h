@@ -105,6 +105,14 @@ public:
     void connect(QHostAddress addr, int port = 80);
 
     /*!
+     * Connects to the specified peer or server on the selected port.
+     *
+     * When the connection is complete, the \a peerConnected() signal will be emitted.  If an error occurs, the \a peerError() signal will be emitted.
+     */
+    void connect(QString addr, int port = 80);
+
+
+    /*!
      * Listens on the specified interface on the specified port for connections.
      *
      * Attempting to listen while in Client mode or while connected in Peer mode will be ignored with a warning.  In Peer mode, only one connection
