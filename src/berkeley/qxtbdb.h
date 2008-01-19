@@ -90,8 +90,8 @@ public:
         QBuffer buffer(&b);
         buffer.open(QIODevice::ReadOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,qMetaTypeId<T>(), &t));
-
+        if(!QMetaType::load (s,qMetaTypeId<T>(), &t))
+            qCritical("QMetaType::load failed. is your type registered with the QMetaType?");
         buffer.close();
         return t;
     }
@@ -104,7 +104,9 @@ public:
         buffer.open(QIODevice::ReadOnly);
 
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::load (s,type, p));
+        if(!QMetaType::load (s,type, p))
+            qCritical("QMetaType::load failed. is your type registered with the QMetaType?");
+
         buffer.close();
         return p;
     }
@@ -117,7 +119,9 @@ public:
         QBuffer buffer(&d);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,qMetaTypeId<T>(), &t));
+        if(!QMetaType::save (s,qMetaTypeId<T>(), &t))
+            qCritical("QMetaType::save failed. is your type registered with the QMetaType?");
+
         buffer.close();
         return d;
     }
@@ -128,7 +132,8 @@ public:
         QBuffer buffer(&d);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,type, t));
+        if(!QMetaType::save (s,type, t))
+            qCritical("QMetaType::save failed. is your type registered with the QMetaType?");
         buffer.close();
         *size = d.size();
         void *p = ::malloc (d.size());

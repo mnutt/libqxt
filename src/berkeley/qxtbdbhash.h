@@ -236,7 +236,9 @@ bool QxtBdbHash<KEY,VAL>::contains ( const KEY & k ) const
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_key, &k));
+        if(!QMetaType::save (s,meta_id_key, &k))
+            qCritical("QMetaType::save failed. is your type registered with the QMetaType?");
+
         buffer.close();
     }
 
@@ -261,7 +263,9 @@ bool QxtBdbHash<KEY,VAL>::remove ( const KEY & k )
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_key, &k));
+        if(!QMetaType::save (s,meta_id_key, &k))
+            qCritical("QMetaType::save failed. is your type registered with the QMetaType?");
+
         buffer.close();
     }
 
@@ -286,14 +290,18 @@ bool QxtBdbHash<KEY,VAL>::insert(KEY k, VAL v)
         QBuffer buffer(&d_key);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_key, &k));
+        if(!QMetaType::save (s,meta_id_key, &k))
+            qCritical("QMetaType::save failed. is your type registered with the QMetaType?");
+
         buffer.close();
     }
     {
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        Q_ASSERT(QMetaType::save (s,meta_id_val, &v));
+        if(!QMetaType::save (s,meta_id_val, &v));
+            qCritical("QMetaType::save failed. is your value registered with the QMetaType?");
+
         buffer.close();
     }
 
