@@ -26,10 +26,13 @@
 
 #include "qxtapplication.h"
 
-typedef struct tagMSG MSG;
-typedef union  _XEvent XEvent;
-typedef struct OpaqueEventRef *EventRef;
-typedef struct OpaqueEventHandlerCallRef *EventHandlerCallRef;
+#if defined(Q_WS_X11)
+#include <X11/Xlib.h>
+#elif defined(Q_WS_WIN)
+#include <qt_windows.h>
+#elif defined(Q_WS_MAC)
+#include <Carbon/Carbon.h>
+#endif // Q_WS_*
 
 /*!
     \class QxtNativeEventFilter QxtNativeEventFilter
@@ -111,9 +114,13 @@ public:
     virtual ~QxtNativeEventFilter()
     { qxtApp->removeNativeEventFilter(this); }
 
+#if defined(Q_WS_X11)
     virtual bool x11EventFilter(XEvent*) { return false; }
+#elif defined(Q_WS_WIN)
     virtual bool winEventFilter(MSG*, long*) { return false; }
+#elif defined(Q_WS_MAC)
     virtual bool macEventFilter(EventHandlerCallRef, EventRef) { return false; }
+#endif // Q_WS_*
 };
 
 #endif // QXTNATIVEEVENTFILTER_H
