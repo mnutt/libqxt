@@ -518,15 +518,28 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -- ()
 
     int lvl=level();
 
-    do
-    {
-        if(!db->get((void*)0,0,0,0,DB_PREV_DUP,dbc))
+
+    #if DB_VERSION_MINOR > 4
+        do
         {
-            invalidate();
-            break;
+            if(!db->get((void*)0,0,0,0,DB_PREV_DUP,dbc))
+            {
+                invalidate();
+                break;
+            }
         }
-    }
-    while(lvl!=level());
+        while(lvl!=level());
+    #else
+        do
+        {
+            if(!db->get((void*)0,0,0,0,DB_PREV,dbc))
+            {
+                invalidate();
+                break;
+            }
+        }
+        while(lvl!=level());
+    #endif
 
     return *this;
 }
