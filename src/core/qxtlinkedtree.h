@@ -123,6 +123,7 @@ public:
 
     QxtLinkedTreeIterator erase  () ;
     QxtLinkedTreeIterator append (const T & value);
+    QxtLinkedTreeIterator insert (int i,const T & value);
 
 
 private:
@@ -415,6 +416,47 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value )
 }
 
 
+template<class T>
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::insert (int i,const T & value )
+{
+    QxtLinkedTreeItem <T> * parent= item;
+    Q_ASSERT_X(parent,Q_FUNC_INFO,"invalid iterator");
+
+
+    Q_ASSERT_X(i<=children(),Q_FUNC_INFO,"cannot insert out of range");
+
+
+    if(parent->child==0 ||  i==children())
+    {
+        return append(value);
+    }
+
+    QxtLinkedTreeItem<T> *node = new QxtLinkedTreeItem<T>(value);
+
+    QxtLinkedTreeItem <T> * n=parent->child;
+
+    while(i-->0)
+    {
+        n=n->next;
+        Q_ASSERT_X(n,Q_FUNC_INFO,"out of range");
+    }
+    if(n->previous)
+    {
+        n->previous->next=node;
+        node->previous=n->previous;
+    }
+    else
+    {
+        Q_ASSERT_X(parent->child==n,Q_FUNC_INFO,"corupted linked tree");
+        parent->child=node;
+        node->previous=0;
+    }
+    node->next=n;
+    n->previous=node;
+    node->parent=parent;
+    parent->childcount++;
+    return QxtLinkedTreeIterator<T>(node);
+}
 
 
 
