@@ -121,8 +121,8 @@ public:
     bool operator== ( const QxtLinkedTreeIterator<T> & other ) const;
     bool operator!= ( const QxtLinkedTreeIterator<T> & other ) const;
 
-    QxtLinkedTreeIterator erase  () const;
-    QxtLinkedTreeIterator append (const T & value) const;
+    QxtLinkedTreeIterator erase  () ;
+    QxtLinkedTreeIterator append (const T & value);
 
 
 private:
@@ -347,15 +347,15 @@ bool QxtLinkedTreeIterator<T>::operator!= ( const QxtLinkedTreeIterator<T> & oth
 
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () 
 {
-    QxtLinkedTreeItem <T> node= item;
-    QxtLinkedTreeItem <T> parent= item->parent;
-    QxtLinkedTreeItem <T> next= node->next;
-
-
+    QxtLinkedTreeItem <T> *node= item;
     Q_ASSERT_X(item,Q_FUNC_INFO,"can't erase invalid node.");
-    Q_ASSERT_X(parent,Q_FUNC_INFO,"erasing root node not supported yet.");
+    QxtLinkedTreeItem <T> *parent= item->parent;
+    Q_ASSERT_X(parent,Q_FUNC_INFO,"erasing root node not supported.");
+    QxtLinkedTreeItem <T> *next= node->next;
+
+
 
 
 
@@ -388,7 +388,7 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () const
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value ) const
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value )
 {
     QxtLinkedTreeItem <T> * parent= item;
     Q_ASSERT_X(parent,Q_FUNC_INFO,"invalid iterator");
