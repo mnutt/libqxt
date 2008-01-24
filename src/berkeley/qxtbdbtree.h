@@ -232,7 +232,8 @@ public:
     QxtBdbTreeIterator<T> &  operator -= ( int j );
 
 
-    QxtBdbTreeIterator<T>   append (const T & t );
+    QxtBdbTreeIterator<T>   append  (const T & t );
+    QxtBdbTreeIterator<T>   prepend (const T & t );
 
 
 protected:
@@ -298,7 +299,7 @@ QxtBdbTreeIterator<T>::QxtBdbTreeIterator(const QxtBdbTreeIterator<T> & other)
     root=other.root;
 
 
-    if(other.isValid())
+    if(other.dbc)
     {
         other.dbc->c_dup(other.dbc, &dbc, DB_POSITION);
     }
@@ -335,6 +336,9 @@ QxtBdbTreeIterator<T> & QxtBdbTreeIterator<T>::operator= ( const QxtBdbTreeItera
 template<class T>
 bool QxtBdbTreeIterator<T>::isValid() const
 {
+    if(root)
+        return true;
+
     return (dbc!=0);
 }
 
@@ -347,7 +351,7 @@ QxtBdbTreeIterator<T>::operator T() const
 template<class T>
 T QxtBdbTreeIterator<T>::value()
 {
-    if(!isValid())
+    if(!dbc)
         return T();
 
     BerkeleyDB::DBT dbkey,dbvalue;
@@ -428,7 +432,7 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::child    () const
     }
     else
     {
-        if(!d.isValid())
+        if(!dbc)
             return QxtBdbTreeIterator<T>();
 
 
@@ -463,7 +467,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator ++ ()
         return *this;
     }
 
-    if(!isValid())
+    if(!dbc)
         return *this;
 
     quint64 before=level();
@@ -508,7 +512,10 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator += ( int j )
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator - ( int j ) const
 {
-    return QxtBdbTreeIterator<T>();
+    QxtBdbTreeIterator<T> d(*this);
+    for (int i=0;i<j;i++)
+        --d;
+    return d;
 }
 
 
@@ -518,7 +525,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -- ()
     if(root)
         return *this;
 
-    if(!isValid())
+    if(!dbc)
         return *this;
 
 
@@ -623,11 +630,63 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
 }
 
 
+template<class T>
+QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::prepend (const T & t )
+{
+    if(!dbc)
+        return QxtBdbTreeIterator<T>();
+    QxtBdbTreeIterator<T> e(*this);
+
+    BerkeleyDB::DBT dbkey,dbvalue;
+    ::memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
+    ::memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
+
+    char uselesszero=0;
+    dbkey.data=&uselesszero;
+    dbkey.size=sizeof(char);
+    dbkey.ulen=0;
+    dbkey.flags=DB_DBT_USERMEM;
+
+
+    quint64 newlevel=level()+1;
+
+
+    QByteArray d=QxtBdb::qxtMetaSave<T>(t);
+
+
+    dbvalue.size=sizeof(quint64)+d.size();
+    dbvalue.ulen=dbvalue.size;
+    dbvalue.data=::malloc(dbvalue.size);
+    ::memcpy(dbvalue.data,&newlevel,sizeof(quint64));
+    ::memcpy((quint64*)dbvalue.data+1,d.data(),d.size());
+    dbvalue.flags=DB_DBT_USERMEM;
+
+    int ret=234525;
+
+    if(e.isValid() && root )
+    {
+        ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
+    }
+    else
+    {
+        ret = db->db->put(db->db,NULL,&dbkey, &dbvalue, NULL);
+        BerkeleyDB::DBC *cursor;
+        db->db->cursor(db->db, NULL,&cursor, 0);
+        if(db->get((void*)0,0,0,0,DB_LAST,cursor))
+            e=QxtBdbTreeIterator<T>(cursor,db);
+    }
+    ::free(dbvalue.data);
+
+    if (ret!=0)
+        return QxtBdbTreeIterator<T>();
+    return e-1;
+}
+
 
 template<class T>
 quint64 QxtBdbTreeIterator<T>::level() const
 {
-    if(!isValid())
+    if(!dbc)
         return 0;
 
     BerkeleyDB::DBT dbkey,dbvalue;
