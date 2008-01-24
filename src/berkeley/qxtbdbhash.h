@@ -299,7 +299,7 @@ bool QxtBdbHash<KEY,VAL>::insert(KEY k, VAL v)
         QBuffer buffer(&d_value);
         buffer.open(QIODevice::WriteOnly);
         QDataStream s(&buffer);
-        if(!QMetaType::save (s,meta_id_val, &v));
+        if(!QMetaType::save (s,meta_id_val, &v))
             qCritical("QMetaType::save failed. is your value registered with the QMetaType?");
 
         buffer.close();
