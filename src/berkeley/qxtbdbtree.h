@@ -325,7 +325,7 @@ QxtBdbTreeIterator<T> & QxtBdbTreeIterator<T>::operator= ( const QxtBdbTreeItera
     root=other.root;
 
 
-    if(other.isValid())
+    if(other.dbc)
     {
         other.dbc->c_dup(other.dbc, &dbc, DB_POSITION);
     }
@@ -562,13 +562,17 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -- ()
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator -- (int)
 {
-    return QxtBdbTreeIterator<T>();
+    QxtBdbTreeIterator<T> d(*this);
+    operator--();
+    return d;
 }
 
 
 template<class T>
 QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -= ( int j )
 {
+   for (int i=0;i<j;i++)
+        operator--();
     return *this;
 }
 
