@@ -388,12 +388,17 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
 {
     if(root)
         return QxtBdbTreeIterator<T>();
+
+    qDebug("FIMXE");
+    return QxtBdbTreeIterator<T>();
 }
 
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::next     () const
 {
-    return QxtBdbTreeIterator<T>();
+    if(root)
+        return QxtBdbTreeIterator<T>();
+    return QxtBdbTreeIterator<T>(*this)+1;
 }
 
 template<class T>
@@ -401,6 +406,7 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::previous () const
 {
     if(root)
         return QxtBdbTreeIterator<T>();
+    return QxtBdbTreeIterator<T>(*this)-1;
 }
 
 template<class T>
