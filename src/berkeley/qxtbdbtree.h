@@ -611,6 +611,9 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
 
     int ret=234525;
 
+
+    ///what the fuck, how does that work?!  vvvv
+
     if(e.isValid() && root )
     {
         ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
@@ -663,24 +666,12 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::prepend (const T & t )
     dbvalue.flags=DB_DBT_USERMEM;
 
     int ret=234525;
-
-    if(e.isValid() && root )
-    {
-        ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
-    }
-    else
-    {
-        ret = db->db->put(db->db,NULL,&dbkey, &dbvalue, NULL);
-        BerkeleyDB::DBC *cursor;
-        db->db->cursor(db->db, NULL,&cursor, 0);
-        if(db->get((void*)0,0,0,0,DB_LAST,cursor))
-            e=QxtBdbTreeIterator<T>(cursor,db);
-    }
+    ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_BEFORE);
     ::free(dbvalue.data);
 
     if (ret!=0)
         return QxtBdbTreeIterator<T>();
-    return e-1;
+    return e;
 }
 
 
