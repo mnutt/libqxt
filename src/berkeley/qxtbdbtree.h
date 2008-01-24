@@ -506,6 +506,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator += ( int j )
 {
     for (int i=0;i<j;i++)
         operator++();
+    return *this;
 }
 
 
@@ -648,7 +649,7 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::prepend (const T & t )
     dbkey.flags=DB_DBT_USERMEM;
 
 
-    quint64 newlevel=level()+1;
+    quint64 newlevel=level();
 
 
     QByteArray d=QxtBdb::qxtMetaSave<T>(t);
