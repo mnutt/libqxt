@@ -65,7 +65,9 @@ echo LIBS += -l"%1" >> %PROJECT_ROOT%\depends.pri
 goto bottom2
 
 :nomake
+if "%1"=="openssl" set OPENSSL=0
 if "%1"=="fcgi" set FCGI=0
+if "%1"=="db" set DB=0
 echo QXT_BUILD -= %1 >> %PROJECT_ROOT%\config.in
 goto bottom2
 
@@ -103,12 +105,12 @@ goto bottom
 
 :noopenssl
 set OPENSSL=0
-echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
 goto bottom
 
 :nodb
 set DB=0
-echo QXT_LIBS -= db >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
 goto bottom
 
 :msvc
@@ -212,11 +214,12 @@ call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto opensslfailed
 set OPENSSL=1
+echo DEFINES += HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
 goto detectdb
 
 :opensslfailed
 set OPENSSL=0
-echo QXT_LIBS -= openssl >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
 
 :detectdb
 if "%DB%"=="0" goto detectfcgi
@@ -229,11 +232,12 @@ call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto dbfailed
 set DB=1
+echo DEFINES += HAVE_DB >> %PROJECT_ROOT%\config.in
 goto detectfcgi
 
 :dbfailed
 set DB=0
-echo QXT_LIBS -= db >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
 
 :detectfcgi
 if "%FCGI%"=="0" goto skipfcgitest
@@ -246,11 +250,12 @@ call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
 call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto fcgifailed
 set FCGI=1
+echo DEFINES += HAVE_FCGI >> %PROJECT_ROOT%\config.in
 goto alltestsok
 
 :fcgifailed
 set FCGI=0
-echo QXT_BUILD -= fcgi >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_FCGI >> %PROJECT_ROOT%\config.in
 
 :skipfcgitest
 :alltestsok
