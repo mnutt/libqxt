@@ -103,7 +103,7 @@ QxtBdb::OpenFlags QxtBdb::openFlags()
         return 0;
     OpenFlags f;
 
-    u_int32_t open_flags;
+    BerkeleyDB::u_int32_t open_flags;
     db->get_open_flags(db, &open_flags); 
 
 
@@ -135,7 +135,7 @@ serialised key and value with the given meta ids. \n
 always reads <b>and</b> writes both key and value, if given.\n
 use this when doing operations that require the key to be read out of the db. \n
 */
-bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
+bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,BerkeleyDB::u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
 {
 
     BerkeleyDB::DBT dbkey,dbvalue;
@@ -253,7 +253,7 @@ low level get function. \n
 serialised key and value with the given meta ids. \n
 doesn't write to the key. use this when doing operations that require the key to be passed. \n
 */
-bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
+bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,BerkeleyDB::u_int32_t flags,BerkeleyDB::DBC * cursor ) const 
 {
 
     BerkeleyDB::DBT dbkey,dbvalue;
