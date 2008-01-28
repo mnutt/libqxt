@@ -68,8 +68,8 @@ public:
     ~QxtBdb();
 
 
-    bool get(void* key,int keytype,void* value,int valuetype,u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
-    bool get(const void* key,int keytype,void* value,int valuetype,u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
+    bool get(void* key,int keytype,void* value,int valuetype,BerkeleyDB::u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
+    bool get(const void* key,int keytype,void* value,int valuetype,BerkeleyDB::u_int32_t flags=NULL,BerkeleyDB::DBC * cursor =0) const ;
 
 
     bool open(QString path,OpenFlags f=0);
