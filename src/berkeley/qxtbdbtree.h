@@ -234,7 +234,7 @@ public:
 
     QxtBdbTreeIterator<T>   append  (const T & t );
     QxtBdbTreeIterator<T>   prepend (const T & t );
-
+    QxtBdbTreeIterator<T>   erase   ();
 
 protected:
     quint64 level() const;
@@ -718,6 +718,23 @@ quint64 QxtBdbTreeIterator<T>::level() const
         return 0;
 
     return lvl;
+}
+
+template<class T>
+QxtBdbTreeIterator<T> QxtBdbTreeIterator<T>::erase()
+{
+    if(!dbc)
+        return QxtBdbTreeIterator<T>();
+
+    QxtBdbTreeIterator<T> e=next();
+
+    int ret=dbc->c_del  (dbc,0);
+    invalidate();
+
+    if(ret!=0)
+        return QxtBdbTreeIterator<T>();
+
+    return e;
 }
 
 
