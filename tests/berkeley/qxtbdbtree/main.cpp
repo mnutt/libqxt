@@ -38,6 +38,20 @@ private slots:
         QVERIFY( (db.root().child()+1).child().value().at(0)=="vvvv");
         QVERIFY( (db.root().child()+2).value().at(1)=="rock");
     }
+    void erasePersistance()
+    {
+        QxtBdbTreeIterator<QStringList> sib=db.root().child()+1;
+        QVERIFY(sib.value().at(0)=="sh00");
+//         QVERIFY(db.root().child().erase() == sib ); ///doesnt work yet
+        QVERIFY(db.root().child().erase().value() == sib.value() );
+        QVERIFY(sib.value().at(0)=="sh00");
+
+        sib=db.root().child()+2;
+        QVERIFY(sib.value().at(0)=="xylophon");
+//         QVERIFY(db.root().child().erase() == sib ); ///doesnt work yet
+        QVERIFY((db.root().child()+1).erase().value() == sib.value() );
+        QVERIFY(sib.value().at(0)=="xylophon");
+    }
     void end()
     {
     }
