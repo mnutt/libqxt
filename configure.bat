@@ -20,6 +20,7 @@ set FCGI=1
 set DB=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
 echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
+echo CONFIG += release >> %PROJECT_ROOT%\config.in
 
 :top
 if "%0" == ""            goto finish
