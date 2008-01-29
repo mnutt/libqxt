@@ -29,7 +29,7 @@
 #include <QObject>
 #include <qxtglobal.h>
 struct bf_key_st;
-class QXT_NETWORK_EXPORT QxtBlowFish : public QObject
+class QXT_CRYPTO_EXPORT QxtBlowFish : public QObject
 {
     Q_OBJECT
 
