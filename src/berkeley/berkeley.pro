@@ -6,7 +6,7 @@ QT               = core
 QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
-LIBS            += -ldb
+!win32:LIBS     += -ldb
 TEMPLATE         = lib
 
 include(../../config.pri)
