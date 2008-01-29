@@ -48,6 +48,11 @@ namespace BerkeleyDB
         #include <db.h>
     }
 
+    /// aparantly MSVC and GCC have different understanding of what goes into a namespace and what not.
+    #ifndef Q_CC_MSVC
+    typedef quint32 u_int32_t;
+    #endif
+
 }
 
 
