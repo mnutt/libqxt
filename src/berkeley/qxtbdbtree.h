@@ -533,7 +533,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -- ()
     int lvl=level();
 
 
-    #if DB_VERSION_MINOR > 4
+    #if DB_VERSION_MINOR > 5
         do
         {
             if(!db->get((void*)0,0,0,0,DB_PREV_DUP,dbc))
