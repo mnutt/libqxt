@@ -184,7 +184,7 @@ GOTO detectTools_end_test_make
 :testnmake
 if "%QMAKESPEC%" == "win32-g++"     goto testgmake
 echo    Testing for nmake...
-call nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
+nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto testgmake
 echo        Using nmake.
 SET MAKE=nmake

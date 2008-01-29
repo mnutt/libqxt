@@ -22,5 +22,5 @@ SOURCES  += thirdparty/md4.cpp
 contains(DEFINES,HAVE_OPENSSL){
     HEADERS += qxtblowfish.h
     SOURCES += qxtblowfish.cpp
-    LIBS    += -lcrypto
+    !win32:LIBS    += -lcrypto
 }

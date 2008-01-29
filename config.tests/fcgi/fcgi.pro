@@ -4,5 +4,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-LIBS+=-lfcgi++
+!win32:LIBS+=-lfcgi++
 QT=core

@@ -4,5 +4,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-LIBS+=-ldb
+!win32:LIBS+=-ldb
 QT=core
