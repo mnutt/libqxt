@@ -45,7 +45,7 @@ HEADERS  += qxtstdstreambufdevice.h
 HEADERS  += qxttuple.h
 HEADERS  += qxttuplelist.h
 HEADERS  += qxttypelist.h
-SOURCES  += qxtlinkedtree.h
+HEADERS  += qxtydevice.h
 
 SOURCES  += qxtcsvmodel.cpp
 SOURCES  += qxtdaemon.cpp
@@ -65,3 +65,4 @@ SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
 SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
+SOURCES  += qxtydevice.cpp
