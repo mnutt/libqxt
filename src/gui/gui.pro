@@ -9,7 +9,6 @@ CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
 
 win32:LIBS      += -luser32
-unix:LIBS 	+= -lX11
 
 include(../../config.pri)
 
