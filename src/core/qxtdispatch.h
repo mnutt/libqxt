@@ -21,8 +21,8 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtDispatchDEVICE_HEADER_GUARD
-#define QxtDispatchDEVICE_HEADER_GUARD
+#ifndef QxtDispatch_HEADER_GUARD
+#define QxtDispatch_HEADER_GUARD
 
 #include <QIODevice>
 #include <QQueue>

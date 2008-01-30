@@ -114,8 +114,8 @@ void QxtDispatch::extReadyRead()
 }
 void QxtDispatch::extDestroyed(QObject *o)
 {
-    removeOutput(static_cast<QxtYDevice*>(o));
-    removeInput(static_cast<QxtYDevice*>(o));
+    removeOutput(static_cast<QxtDispatch*>(o));
+    removeInput(static_cast<QxtDispatch*>(o));
 }
 
 
