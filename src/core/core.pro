@@ -16,7 +16,7 @@ HEADERS  += qxtboundfunctionbase.h
 HEADERS  += qxtcore.h
 HEADERS  += qxtcsvmodel.h
 HEADERS  += qxtdaemon.h
-SOURCES  += qxtdispatch.h
+HEADERS  += qxtdispatch.h
 HEADERS  += qxterror.h
 HEADERS  += qxtfifo.h
 HEADERS  += qxtfilelock.h
@@ -49,7 +49,7 @@ HEADERS  += qxttypelist.h
 
 SOURCES  += qxtcsvmodel.cpp
 SOURCES  += qxtdaemon.cpp
-SOURCES  += qxtydispatch.cpp
+SOURCES  += qxtdispatch.cpp
 SOURCES  += qxterror.cpp
 SOURCES  += qxtfifo.cpp
 SOURCES  += qxtfilelock.cpp
