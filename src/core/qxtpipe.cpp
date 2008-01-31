@@ -22,7 +22,7 @@
 **
 ****************************************************************************/
 
-#include "qxtpipe.h"
+#include "qxtpipe_p.h"
 #include <QList>
 #include <QQueue>
 #include <QMutableListIterator>
@@ -58,28 +58,9 @@
     then reimplement the functions readData() and writeData() and return 0.
 
 
- \sa QxtDeplexPipe
+ \sa QxtDeplex
 */
 
-
-struct Connection
-{
-    QxtPipe * pipe;
-    QIODevice::OpenMode mode;
-    Qt::ConnectionType connectionType;
-};
-
-class QxtPipePrivate:public QxtPrivate<QxtPipe>
-{
-    public:
-        QxtPipePrivate()
-        {
-            lastsender=0;
-        }
-        QQueue<char> q;
-        QList<Connection> connections;
-        const QxtPipe * lastsender;
-};
 
 /**
  * Contructs a new QxtPipe.
@@ -201,7 +182,7 @@ qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
             continue;
 
         //we want thread safety, so we use a QByteArray instead of the raw data. that migth be slow
-        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
+        QMetaObject::invokeMethod(&c.pipe->qxt_p(), "push",c.connectionType,
             Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
             
     }
@@ -227,9 +208,11 @@ void   QxtPipe::sendData    (QByteArray data) const
             continue;
 
 
-        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
+        QMetaObject::invokeMethod(&c.pipe->qxt_p(), "push",c.connectionType,
             Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
     }
+    qxt_d().lastsender=0;
+
 }
 /** 
 call this from your subclass to make data available to the QIODevice::read facility
@@ -261,3 +244,7 @@ void QxtPipe::receiveData (QByteArray datab ,const QxtPipe * sender)
     sendData(datab);
 }
 
+void QxtPipePrivate::push (QByteArray data, const QxtPipe * sender )
+{
+    &qxt_p()->receiveData(data,sender);
+}
