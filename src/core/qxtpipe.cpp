@@ -40,10 +40,25 @@
  * \code
  * QxtPipe p1;
  * QxtPipe p2;
- * p1|p2;
- * p1.write("hello world");
- * qDebug()<<p2.readAll();
+ * QxtPipe p3;
+ * p1|p2|p3;
+ * p1.write("hi. how are you?");
+ * qDebug()<<p3.readAll();
+ * p3.write("I'm fine, thanks.");
+ * qDebug()<<p1.readAll();
  * \endcode
+
+
+    <h4>Subclassing</h4>
+    When implementing your own pipe element, like a de/encoder or something, you have to reimplement receiveData() and call sendData() whenever you have something to send to the pipe network.
+
+    If you want to the user to be able to read from the device directly via the QIODevice facility you have to call enqueuData() too
+
+    If you don't want to the user to be able to write to the device directly via the QIODevice facility (that would be fatal for a decoder, for example),
+    then reimplement the functions readData() and writeData() and return 0.
+
+
+ \sa QxtDeplexPipe
 */
 
 
@@ -57,8 +72,13 @@ struct Connection
 class QxtPipePrivate:public QxtPrivate<QxtPipe>
 {
     public:
+        QxtPipePrivate()
+        {
+            lastsender=0;
+        }
         QQueue<char> q;
         QList<Connection> connections;
+        const QxtPipe * lastsender;
 };
 
 /**
@@ -66,17 +86,19 @@ class QxtPipePrivate:public QxtPrivate<QxtPipe>
  */
 QxtPipe::QxtPipe(QObject * parent):QIODevice(parent)
 {
+    QXT_INIT_PRIVATE(QxtPipe);
     setOpenMode (QIODevice::ReadWrite);
+
 }
 
 
-/** reimplemented from QIODevice*/
+/**\reimp*/
 bool QxtPipe::isSequential () const
 {
     return true;
 }
 
-/** reimplemented from QIODevice*/
+/**\reimp*/
 qint64 QxtPipe::bytesAvailable () const
 {
     return qxt_d().q.count();
@@ -92,10 +114,10 @@ qint64 QxtPipe::bytesAvailable () const
     QxtPipe p2;
     p1.connect(&p2,QIODevice::ReadOnly);
 
-    ///this data will go nowhere. p2 is connected to p1, but not p2 to p1.
+    //this data will go nowhere. p2 is connected to p1, but not p2 to p1.
     p1.write("hello");
 
-    ///while this data will end up in p1
+    //while this data will end up in p1
     p2.write("world");
 
     qDebug()<<p1.readAll();
@@ -123,7 +145,7 @@ bool  QxtPipe::connect   (QxtPipe * other ,QIODevice::OpenMode mode,Qt::Connecti
 }
 
 /**
- * cuts the pipe to the \p other QxtPipe
+ * cuts the connection to the \p other QxtPipe
  */
 bool QxtPipe::disconnect (QxtPipe * other )
 {
@@ -154,7 +176,7 @@ QxtPipe & QxtPipe::operator | ( QxtPipe & target)
     return *this;
 }
 
-/** reimplemented from QIODevice*/
+/**\reimp*/
 qint64 QxtPipe::readData ( char * data, qint64 maxSize )
 {
     QQueue<char> * q=&qxt_d().q;
@@ -169,7 +191,7 @@ qint64 QxtPipe::readData ( char * data, qint64 maxSize )
     return i;
 }
 
-/** reimplemented from QIODevice*/
+/**\reimp*/
 qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
 {
     foreach(Connection c,qxt_d().connections)
@@ -180,17 +202,39 @@ qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
 
         //we want thread safety, so we use a QByteArray instead of the raw data. that migth be slow
         QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
-            Q_ARG(QByteArray, data),Q_ARG(QxtPipe *,this));
+            Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
             
     }
     return maxSize;
 }
 
-
 /** 
-receiveData is called from any connected pipe to input data into this instance.
+call this from your subclass to write data to the pipe network.
+All write connected pipes will be invoked with receiveData
+In this case this is called from receiveData, the sender will be excluded from the receiver list.
 */
-qint64 QxtPipe::receiveData (QByteArray datab ,QxtPipe * sender)
+
+void   QxtPipe::sendData    (QByteArray data) const
+{
+    foreach(Connection c,qxt_d().connections)
+    {
+
+        //don't write back to sender
+        if(c.pipe==qxt_d().lastsender)
+             continue;
+
+        if(!(c.mode & QIODevice::WriteOnly))
+            continue;
+
+
+        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
+            Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
+    }
+}
+/** 
+call this from your subclass to make data available to the QIODevice::read facility
+*/
+void   QxtPipe::enqueData    (QByteArray datab)
 {
     QQueue<char> * q=&qxt_d().q;
 
@@ -200,27 +244,20 @@ qint64 QxtPipe::receiveData (QByteArray datab ,QxtPipe * sender)
     qint64 i=0;
     for (;i<maxSize;i++)
         q->enqueue(*data++);
-
-
-    foreach(Connection c,qxt_d().connections)
-    {
-
-        //don't write back to sender
-        if(c.pipe==sender)
-             continue;
-
-        if(!(c.mode & QIODevice::WriteOnly))
-            continue;
-
-
-        QMetaObject::invokeMethod(c.pipe, "receiveData",c.connectionType,
-            Q_ARG(QByteArray, datab),Q_ARG(QxtPipe *,this));
-    }
-
-
     if (i>0)
         emit(readyRead ());
+}
 
-    return maxSize;
+/** 
+receiveData is called from any connected pipe to input data into this instance.
+reimplement this function to handle data from the pipe network.
+
+The default implementation calls enqueData and sendData
+*/
+void QxtPipe::receiveData (QByteArray datab ,const QxtPipe * sender)
+{
+    enqueData(datab);
+    qxt_d().lastsender=sender;
+    sendData(datab);
 }
 
