@@ -48,13 +48,14 @@ public:
     QxtPipe & operator | (QxtPipe & target);
 
 protected:
-    virtual qint64 readData ( char * data, qint64 maxSize );
-    virtual qint64 writeData ( const char * data, qint64 maxSize );
+    virtual qint64 readData    ( char * data, qint64 maxSize       );
+    virtual qint64 writeData   ( const char * data, qint64 maxSize );
+    void   sendData     (QByteArray data) const;
+    void   enqueData    (QByteArray data);
+protected slots:
+    virtual void   receiveData (QByteArray data, const QxtPipe * sender );
 private:
     QXT_DECLARE_PRIVATE(QxtPipe);
-
-private slots:
-    virtual qint64 receiveData (QByteArray data, QxtPipe * sender );
 };
 
 #endif
