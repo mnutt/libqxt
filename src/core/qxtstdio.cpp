@@ -29,13 +29,15 @@
 
 \ingroup QxtCore
 
-\brief QIODevice support for stdin and stdout
+\brief QIODevice and QxtPipe support for stdin and stdout
 
 including readyRead() signal.\n
-perfect as a counter part for QProcess.
+perfect as a counter part for QProcess or debug output into a QxtPipe chain
 
 
 \sa QIODevice
+\sa QxtPipe
+
 
 \note when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
 
@@ -45,7 +47,7 @@ perfect as a counter part for QProcess.
 
 
 
-QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
+QxtStdio::QxtStdio(QObject * parent):QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtStdio);
 
@@ -62,20 +64,9 @@ QxtStdio::QxtStdio(QObject * parent):QIODevice(parent)
 #endif
 
                  ,QSocketNotifier::Read,this );
-    connect(qxt_d().notify, SIGNAL(activated(int)),&qxt_d(),SLOT(activated(int)));
+    QObject::connect(qxt_d().notify, SIGNAL(activated(int)),&qxt_d(),SLOT(activated(int)));
 }
 
-qint64 QxtStdio::readData ( char * data, qint64 maxSize )
-{
-    qint64 i=0;
-    for (;i<maxSize;i++)
-    {
-        if (qxt_d().inbuffer.isEmpty())
-            break;
-        (*data++)=qxt_d().inbuffer.dequeue();
-    }
-    return i;
-}
 qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 {
     qint64 i=0;
@@ -89,21 +80,17 @@ qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 }
 
 
-bool QxtStdio::isSequential () const
-{
-    return true;
-}
-
-
-qint64 QxtStdio::bytesAvailable () const
-{
-    return qxt_d().inbuffer.count();
-}
 
 void QxtStdioPrivate::activated(int )
 {
-    inbuffer.enqueue(getchar());
-    emit(qxt_p().readyRead ());
+    char c=getchar();
+    QByteArray b(1,c);
+    qxt_p().enqueData(b);
+    qxt_p().sendData(b);
 }
 
 
+void   QxtStdio::receiveData (QByteArray data, const QxtPipe *  )
+{
+    writeData (data.data(),data.size());
+}
