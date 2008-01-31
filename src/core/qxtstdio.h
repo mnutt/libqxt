@@ -25,26 +25,22 @@
 #define QxtStdin_H_GUARD
 #include <qxtglobal.h>
 #include <qxtpimpl.h>
-#include <QIODevice>
+#include <qxtpipe.h>
 
 
 class QxtStdioPrivate;
-class QXT_CORE_EXPORT QxtStdio : public QIODevice
+class QXT_CORE_EXPORT QxtStdio : public QxtPipe
 {
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtStdio);
 public:
     /**constructs a QxtStdio with the given parent*/
     QxtStdio(QObject * parent=0);
-    /**\reimp*/
-    virtual bool isSequential () const; 
-    /**\reimp*/
-    virtual qint64 bytesAvailable () const;
 protected:
     /**\reimp*/
-    virtual qint64 readData ( char * data, qint64 maxSize );
-    /**\reimp*/
     virtual qint64 writeData ( const char * data, qint64 maxSize );
+    /**\reimp*/
+    virtual void   receiveData (QByteArray data, const QxtPipe * sender );
 
 
 };

@@ -1,6 +1,5 @@
 #include "qxtstdio.h"
 #include <QSocketNotifier>
-#include <QQueue>
 
 class QxtStdioPrivate : public QObject,public QxtPrivate<QxtStdio>
 {
@@ -10,7 +9,6 @@ public:
     QXT_DECLARE_PUBLIC(QxtStdio);
 private:
     QSocketNotifier * notify;
-    QQueue<char> inbuffer;
 private slots:
     void activated(int );
 };
