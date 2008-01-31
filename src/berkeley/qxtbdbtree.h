@@ -392,9 +392,21 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
 {
     if(root)
         return QxtBdbTreeIterator<T>();
+    if(!dbc)
+        return QxtBdbTreeIterator<T>();
 
-    qDebug("FIMXE");
-    return QxtBdbTreeIterator<T>();
+    QxtBdbTreeIterator<T> d(*this);
+    quint64 lvl=level();
+
+    forever
+    {
+        if(!d.db->get((void*)0,0,0,0,DB_PREV_DUP,d.dbc))
+            return QxtBdbTreeIterator<T>();
+        if(d.level()==lvl-1)
+            break;
+    }
+
+    return d;
 }
 
 template<class T>
