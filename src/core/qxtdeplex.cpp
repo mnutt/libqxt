@@ -66,10 +66,13 @@ implements a normal QxtPipe with the exception that r/w operations are delegated
 QxtDeplex::QxtDeplex(QObject * parent):QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtDeplex);
+    qxt_d().delegate=0;
+    setDevice(0);
 }
 QxtDeplex::QxtDeplex(QIODevice * device,QObject * parent):QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtDeplex);
+    qxt_d().delegate=0;
     setDevice(device);
 }
 

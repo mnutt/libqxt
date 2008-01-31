@@ -175,17 +175,7 @@ qint64 QxtPipe::readData ( char * data, qint64 maxSize )
 /**\reimp*/
 qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
 {
-    foreach(Connection c,qxt_d().connections)
-    {
-
-        if(!(c.mode & QIODevice::WriteOnly))
-            continue;
-
-        //we want thread safety, so we use a QByteArray instead of the raw data. that migth be slow
-        QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
-            Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
-            
-    }
+    sendData(QByteArray(data,maxSize));
     return maxSize;
 }
 
@@ -200,16 +190,31 @@ void   QxtPipe::sendData    (QByteArray data) const
     foreach(Connection c,qxt_d().connections)
     {
 
+
         //don't write back to sender
         if(c.pipe==qxt_d().lastsender)
              continue;
+
+
 
         if(!(c.mode & QIODevice::WriteOnly))
             continue;
 
 
-        QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
+        bool r=QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
             Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
+
+        #ifdef QT_NO_DEBUG
+            Q_UNUSED(r);
+        #else
+            if(!r)
+            {
+                qDebug("metacall failed. see debug output of QObject::connect");
+                QObject::connect(this,SIGNAL(readyRead()),&c.pipe->qxt_d(),SLOT(push(QByteArray,const QxtPipe *)),c.connectionType);
+                abort();
+            }
+        #endif
+
     }
     qxt_d().lastsender=0;
 

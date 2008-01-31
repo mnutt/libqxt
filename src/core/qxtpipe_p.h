@@ -9,6 +9,7 @@ struct Connection
 
 class QxtPipePrivate:public QObject,public QxtPrivate<QxtPipe>
 {
+Q_OBJECT
 QXT_DECLARE_PUBLIC(QxtPipe)
 public:
         QxtPipePrivate()
