@@ -17,7 +17,7 @@ public:
         }
         QQueue<char> q;
         QList<Connection> connections;
-        const QxtPipe * lastsender;
+        mutable const QxtPipe * lastsender;
 public slots:
         void push (QByteArray data, const QxtPipe * sender );
 };

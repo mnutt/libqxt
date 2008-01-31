@@ -28,7 +28,7 @@
 
 #include "qxtdeplex.h"
 
-class QxtDeplexPrivate:public QObject,public QxtPrivate<QxtDeplexPrivate>
+class QxtDeplexPrivate:public QObject,public QxtPrivate<QxtDeplex>
 {
 Q_OBJECT
 public:

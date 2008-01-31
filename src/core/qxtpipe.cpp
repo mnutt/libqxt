@@ -182,7 +182,7 @@ qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
             continue;
 
         //we want thread safety, so we use a QByteArray instead of the raw data. that migth be slow
-        QMetaObject::invokeMethod(&c.pipe->qxt_p(), "push",c.connectionType,
+        QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
             Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
             
     }
@@ -208,7 +208,7 @@ void   QxtPipe::sendData    (QByteArray data) const
             continue;
 
 
-        QMetaObject::invokeMethod(&c.pipe->qxt_p(), "push",c.connectionType,
+        QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
             Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
     }
     qxt_d().lastsender=0;
@@ -246,5 +246,5 @@ void QxtPipe::receiveData (QByteArray datab ,const QxtPipe * sender)
 
 void QxtPipePrivate::push (QByteArray data, const QxtPipe * sender )
 {
-    &qxt_p()->receiveData(data,sender);
+    (&qxt_p())->receiveData(data,sender);
 }
