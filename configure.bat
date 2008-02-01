@@ -205,6 +205,8 @@ echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
+echo    Testing for optional external librarys.
+echo    If a test fails, some features will not be available.
 if "%OPENSSL%"=="0" goto detectdb
 echo    Testing for OpenSSL... 
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
