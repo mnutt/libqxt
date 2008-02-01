@@ -400,7 +400,12 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
 
     forever
     {
+    #if DB_VERSION_MINOR > 5
+
         if(!d.db->get((void*)0,0,0,0,DB_PREV_DUP,d.dbc))
+    #else
+        if(!d.db->get((void*)0,0,0,0,DB_PREV,d.dbc))
+    #endif
             return QxtBdbTreeIterator<T>();
         if(d.level()==lvl-1)
             break;
