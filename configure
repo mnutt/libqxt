@@ -133,14 +133,14 @@ configtest()
 	echo -en "checking for $1\t" 
 	echo -e  " \n\n $1\n" >>$CONFIG_LOG
 	cd $TESTDIR/$1
-	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG 2>&1
+	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG 
 	echo -n "."
-	$MAKE clean >>$CONFIG_LOG 2>&1
+	$MAKE clean >>$CONFIG_LOG 
 	[ -f ./$1 ] && rm ./$1
 	echo -n "."
-	$MAKE >>$CONFIG_LOG 2>&1
+	$MAKE >>$CONFIG_LOG 
 	echo -n "."
-	if ./$1 >>$CONFIG_LOG 2>&1; then
+	if ./$1 >>$CONFIG_LOG ; then
 		echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
 		echo "DEFINES+=HAVE_$2">>$PROJECT_ROOT/config.in
 	else
