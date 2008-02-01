@@ -8,6 +8,9 @@
 #error db>=4.4 required
 #endif
 
+#if DB_VERSION_MINOR < 6
+#warning db < 4.6, some features will be disabled
+#endif
 
 int main (int,char**)
 {
