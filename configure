@@ -148,6 +148,10 @@ configtest()
 	fi
 }
 
+echo >&2 "Testing for optional external librarys."
+echo >&2 "If a test fails, some features will not be available."
+
+
 configtest qt4     QT
 if [[ "$NO_OPENSSL" == "0" ]]; then
     configtest openssl OPENSSL
