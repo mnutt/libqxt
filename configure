@@ -116,7 +116,7 @@ fi
 if [ -z "$MAKE" ]; then
     MAKE=
     for mk in gmake make; do
-        if "$WHICH" $mk | grep -qv "no "; then
+        if "$WHICH" $mk 2>&1| grep -qv "no "; then
             MAKE=`$WHICH $mk`
             break
         fi
