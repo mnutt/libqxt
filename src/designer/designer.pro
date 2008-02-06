@@ -12,10 +12,12 @@ include(../../config.pri)
 
 HEADERS  += qxtbasespinboxplugin.h
 HEADERS  += qxtcheckcomboboxplugin.h
+HEADERS  += qxtcountrycomboboxplugin.h
 HEADERS  += qxtdesignerplugin.h
 HEADERS  += qxtdesignerplugins.h
 HEADERS  += qxtgroupboxplugin.h
 HEADERS  += qxtlabelplugin.h
+HEADERS  += qxtlanguagecomboboxplugin.h
 HEADERS  += qxtlistwidgetplugin.h
 HEADERS  += qxtprogresslabelplugin.h
 HEADERS  += qxtpushbuttonplugin.h
@@ -27,10 +29,12 @@ HEADERS  += qxttreewidgetplugin.h
 
 SOURCES  += qxtbasespinboxplugin.cpp
 SOURCES  += qxtcheckcomboboxplugin.cpp
+SOURCES  += qxtcountrycomboboxplugin.cpp
 SOURCES  += qxtdesignerplugin.cpp
 SOURCES  += qxtdesignerplugins.cpp
 SOURCES  += qxtgroupboxplugin.cpp
 SOURCES  += qxtlabelplugin.cpp
+SOURCES  += qxtlanguagecomboboxplugin.cpp
 SOURCES  += qxtlistwidgetplugin.cpp
 SOURCES  += qxtprogresslabelplugin.cpp
 SOURCES  += qxtpushbuttonplugin.cpp

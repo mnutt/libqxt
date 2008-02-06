@@ -25,8 +25,10 @@
 
 #include "qxtbasespinboxplugin.h"
 #include "qxtcheckcomboboxplugin.h"
+#include "qxtcountrycomboboxplugin.h"
 #include "qxtgroupboxplugin.h"
 #include "qxtlabelplugin.h"
+#include "qxtlanguagecomboboxplugin.h"
 #include "qxtlistwidgetplugin.h"
 #include "qxtprogresslabelplugin.h"
 #include "qxtpushbuttonplugin.h"
@@ -51,7 +53,9 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
     << new QxtTreeWidgetPlugin()
     << new QxtTableWidgetPlugin()
     << new QxtStarsPlugin()
-    << new QxtProgressLabelPlugin();
+    << new QxtProgressLabelPlugin()
+    << new QxtCountryComboBoxPlugin()
+    << new QxtLanguageComboBoxPlugin();
     return plugins;
 }
 
