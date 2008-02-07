@@ -33,6 +33,16 @@ INSTALLS += features docs
 SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs
 
+
+# make target to generate *.qm
+tr.files = deploy/translations/*
+!win32: tr.commands = cd translations; ./lrelease-qxt.sh
+win32:  tr.commands = echo "ERROR: not implemented yet!"
+tr.path = $${QXTINSTALLDIR}/translations
+tr.CONFIG = no_default_install
+
+QMAKE_EXTRA_TARGETS += tr
+
 contains( QXT_BUILD, core ){
     message( building core module )
     SUBDIRS += src/core	
