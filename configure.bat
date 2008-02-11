@@ -97,10 +97,12 @@ echo CONFIG += static staticlib >> %PROJECT_ROOT%\config.in
 goto bottom    
 
 :debug
+echo CONFIG -= release >> %PROJECT_ROOT%\config.in
 echo CONFIG += debug >> %PROJECT_ROOT%\config.in
 goto bottom
 
 :release
+echo CONFIG -= debug >> %PROJECT_ROOT%\config.in
 echo CONFIG += release >> %PROJECT_ROOT%\config.in
 goto bottom
 
