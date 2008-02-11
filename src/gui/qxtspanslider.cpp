@@ -398,6 +398,9 @@ void QxtSpanSlider::setSpan(int lower, int upper)
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtSpanSlider::keyPressEvent(QKeyEvent* event)
 {
     QSlider::keyPressEvent(event);
@@ -439,6 +442,9 @@ void QxtSpanSlider::keyPressEvent(QKeyEvent* event)
         qxt_d().triggerAction(action, main);
 }
 
+/*!
+    \reimp
+ */
 void QxtSpanSlider::mousePressEvent(QMouseEvent* event)
 {
     if (minimum() == maximum() || (event->buttons() ^ event->button()))
@@ -454,6 +460,9 @@ void QxtSpanSlider::mousePressEvent(QMouseEvent* event)
     event->accept();
 }
 
+/*!
+    \reimp
+ */
 void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
 {
     if (qxt_d().lowerPressed != QStyle::SC_SliderHandle && qxt_d().upperPressed != QStyle::SC_SliderHandle)
@@ -502,6 +511,9 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
     event->accept();
 }
 
+/*!
+    \reimp
+ */
 void QxtSpanSlider::mouseReleaseEvent(QMouseEvent* event)
 {
     QSlider::mouseReleaseEvent(event);
@@ -510,6 +522,9 @@ void QxtSpanSlider::mouseReleaseEvent(QMouseEvent* event)
     update();
 }
 
+/*!
+    \reimp
+ */
 void QxtSpanSlider::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);

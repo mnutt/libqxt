@@ -224,6 +224,9 @@ void QxtPushButton::setTextFormat(Qt::TextFormat format)
     }
 }
 
+/*!
+    \reimp
+ */
 QSize QxtPushButton::sizeHint() const
 {
     QSize size;
@@ -237,6 +240,9 @@ QSize QxtPushButton::sizeHint() const
     return size;
 }
 
+/*!
+    \reimp
+ */
 QSize QxtPushButton::minimumSizeHint() const
 {
     QSize size;
@@ -250,6 +256,9 @@ QSize QxtPushButton::minimumSizeHint() const
     return size;
 }
 
+/*!
+    \reimp
+ */
 void QxtPushButton::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);

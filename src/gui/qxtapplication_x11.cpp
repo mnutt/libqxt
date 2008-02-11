@@ -35,6 +35,9 @@ QxtApplication::QxtApplication(Display* display, int& argc, char** argv, Qt::HAN
 {
 }
 
+/*!
+    \reimp
+ */
 bool QxtApplication::x11EventFilter(XEvent* event)
 {
     foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)

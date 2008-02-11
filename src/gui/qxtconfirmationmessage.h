@@ -67,9 +67,7 @@ public:
 public slots:
     int exec();
     void reset();
-#ifndef QXT_DOXYGEN_RUN
     virtual void done(int result);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTCONFIRMATIONMESSAGE_H

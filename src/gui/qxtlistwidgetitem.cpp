@@ -78,6 +78,9 @@ void QxtListWidgetItem::setFlag(Qt::ItemFlag flag, bool enabled)
         setFlags(flags() & ~flag);
 }
 
+/*!
+    \reimp
+ */
 void QxtListWidgetItem::setData(int role, const QVariant& value)
 {
     if (role == Qt::CheckStateRole)

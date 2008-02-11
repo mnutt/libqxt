@@ -47,19 +47,15 @@ public:
     QSize starSize() const;
     void setStarSize(const QSize& size);
 
-#ifndef QXT_DOXYGEN_RUN
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
-#endif // QXT_DOXYGEN_RUN
 
-#ifndef QXT_DOXYGEN_RUN
 protected:
     virtual void keyPressEvent(QKeyEvent* event);
     virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseMoveEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void paintEvent(QPaintEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTSTARS_H

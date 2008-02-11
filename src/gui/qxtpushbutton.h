@@ -51,13 +51,11 @@ public:
     Qt::TextFormat textFormat() const;
     void setTextFormat(Qt::TextFormat format);
 
-#ifndef QXT_DOXYGEN_RUN
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
 
 protected:
     virtual void paintEvent(QPaintEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTPUSHBUTTON_H

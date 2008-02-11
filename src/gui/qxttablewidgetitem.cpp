@@ -80,6 +80,9 @@ void QxtTableWidgetItem::setFlag(Qt::ItemFlag flag, bool enabled)
         setFlags(flags() & ~flag);
 }
 
+/*!
+    \reimp
+ */
 void QxtTableWidgetItem::setData(int role, const QVariant& value)
 {
     if (role == Qt::CheckStateRole)

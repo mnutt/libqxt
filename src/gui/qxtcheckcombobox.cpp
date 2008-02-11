@@ -173,6 +173,13 @@ QxtCheckComboBox::~QxtCheckComboBox()
 }
 
 /*!
+    \reimp
+ */
+void QxtCheckComboBox::hidePopup()
+{
+}
+
+/*!
     Returns the check state of the item at \a index.
  */
 Qt::CheckState QxtCheckComboBox::itemCheckState(int index) const

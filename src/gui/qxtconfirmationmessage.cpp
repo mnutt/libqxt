@@ -297,6 +297,9 @@ int QxtConfirmationMessage::exec()
     return res;
 }
 
+/*!
+    \reimp
+ */
 void QxtConfirmationMessage::done(int result)
 {
 #if QT_VERSION >= 0x040200

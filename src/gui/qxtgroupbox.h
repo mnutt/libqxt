@@ -48,10 +48,8 @@ public slots:
     void setCollapsed(bool collapsed = true);
     void setExpanded(bool expanded = true);
 
-#ifndef QXT_DOXYGEN_RUN
 protected:
     virtual void childEvent(QChildEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTGROUPBOX_H

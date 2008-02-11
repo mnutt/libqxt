@@ -98,6 +98,9 @@ void QxtTreeWidgetItem::setFlag(Qt::ItemFlag flag, bool enabled)
         setFlags(flags() & ~flag);
 }
 
+/*!
+    \reimp
+ */
 void QxtTreeWidgetItem::setData(int column, int role, const QVariant& value)
 {
     if (role == Qt::CheckStateRole)

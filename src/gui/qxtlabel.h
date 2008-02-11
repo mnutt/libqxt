@@ -56,10 +56,8 @@ public:
     Qxt::Rotation rotation() const;
     void setRotation(Qxt::Rotation rotation);
 
-#ifndef QXT_DOXYGEN_RUN
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
-#endif // QXT_DOXYGEN_RUN
 
 public slots:
     void setText(const QString& text);
@@ -68,13 +66,11 @@ signals:
     void clicked();
     void textChanged(const QString& text);
 
-#ifndef QXT_DOXYGEN_RUN
 protected:
     virtual void changeEvent(QEvent* event);
     virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void paintEvent(QPaintEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTLABEL_H

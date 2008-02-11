@@ -219,6 +219,9 @@ void QxtLabel::setRotation(Qxt::Rotation rotation)
     update();
 }
 
+/*!
+    \reimp
+ */
 QSize QxtLabel::sizeHint() const
 {
     const QFontMetrics& fm = fontMetrics();
@@ -228,6 +231,9 @@ QSize QxtLabel::sizeHint() const
     return size;
 }
 
+/*!
+    \reimp
+ */
 QSize QxtLabel::minimumSizeHint() const
 {
     switch (qxt_d().mode)
@@ -247,6 +253,9 @@ QSize QxtLabel::minimumSizeHint() const
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtLabel::paintEvent(QPaintEvent* event)
 {
     QFrame::paintEvent(event);
@@ -287,6 +296,9 @@ void QxtLabel::paintEvent(QPaintEvent* event)
     p.drawText(r, qxt_d().align, elidedText);
 }
 
+/*!
+    \reimp
+ */
 void QxtLabel::changeEvent(QEvent* event)
 {
     QFrame::changeEvent(event);
@@ -302,12 +314,18 @@ void QxtLabel::changeEvent(QEvent* event)
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtLabel::mousePressEvent(QMouseEvent* event)
 {
     QFrame::mousePressEvent(event);
     qxt_d().time.start();
 }
 
+/*!
+    \reimp
+ */
 void QxtLabel::mouseReleaseEvent(QMouseEvent* event)
 {
     QFrame::mouseReleaseEvent(event);

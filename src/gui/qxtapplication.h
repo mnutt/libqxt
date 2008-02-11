@@ -51,7 +51,6 @@ public:
     void installNativeEventFilter(QxtNativeEventFilter* filter);
     void removeNativeEventFilter(QxtNativeEventFilter* filter);
 
-#ifndef QXT_DOXYGEN_RUN
 #if defined(Q_WS_X11)
     virtual bool x11EventFilter(XEvent* event);
 #elif defined(Q_WS_WIN)
@@ -59,7 +58,6 @@ public:
 #elif defined(Q_WS_MAC)
     virtual bool macEventFilter(EventHandlerCallRef caller, EventRef event);
 #endif // Q_WS_*
-#endif // QXT_DOXYGEN_RUN
 
     inline static QxtApplication* instance()
     {
