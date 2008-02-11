@@ -13,4 +13,3 @@ include(designer.pri)
 
 target.path      = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS        += target
-RESOURCES       += resources.qrc
