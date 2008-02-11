@@ -57,9 +57,7 @@ public slots:
     void refresh();
     void restart();
 
-#ifndef QXT_DOXYGEN_RUN
     virtual void timerEvent(QTimerEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTPROGRESSLABEL_H

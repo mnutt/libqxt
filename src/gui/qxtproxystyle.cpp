@@ -98,111 +98,177 @@ QxtProxyStyle::~QxtProxyStyle()
     delete style;
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::drawComplexControl(ComplexControl control, const QStyleOptionComplex* option, QPainter* painter, const QWidget* widget) const
 {
     style->drawComplexControl(control, option, painter, widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::drawControl(ControlElement element, const QStyleOption* option, QPainter* painter, const QWidget* widget)  const
 {
     style->drawControl(element, option, painter, widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::drawItemPixmap(QPainter* painter, const QRect& rect, int alignment, const QPixmap& pixmap) const
 {
     style->drawItemPixmap(painter, rect, alignment, pixmap);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::drawItemText(QPainter* painter, const QRect& rect, int alignment, const QPalette& pal, bool enabled, const QString& text, QPalette::ColorRole textRole) const
 {
     style->drawItemText(painter, rect, alignment, pal, enabled, text, textRole);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QPainter* painter, const QWidget* widget) const
 {
     style->drawPrimitive(elem, option, painter, widget);
 }
 
+/*!
+    \reimp
+ */
 QPixmap QxtProxyStyle::generatedIconPixmap(QIcon::Mode iconMode, const QPixmap& pixmap, const QStyleOption* option) const
 {
     return style->generatedIconPixmap(iconMode, pixmap, option);
 }
 
+/*!
+    \reimp
+ */
 QStyle::SubControl QxtProxyStyle::hitTestComplexControl(ComplexControl control, const QStyleOptionComplex* option, const QPoint& pos, const QWidget* widget) const
 {
     return style->hitTestComplexControl(control, option, pos, widget);
 }
 
+/*!
+    \reimp
+ */
 QRect QxtProxyStyle::itemPixmapRect(const QRect& rect, int alignment, const QPixmap& pixmap) const
 {
     return style->itemPixmapRect(rect, alignment, pixmap);
 }
 
+/*!
+    \reimp
+ */
 QRect QxtProxyStyle::itemTextRect(const QFontMetrics& metrics, const QRect& rect, int alignment, bool enabled, const QString& text) const
 {
     return style->itemTextRect(metrics, rect, alignment, enabled, text);
 }
 
+/*!
+    \reimp
+ */
 int QxtProxyStyle::pixelMetric(PixelMetric metric, const QStyleOption* option, const QWidget* widget) const
 {
     return style->pixelMetric(metric, option, widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::polish(QWidget* widget)
 {
     style->polish(widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::polish(QApplication* app)
 {
     style->polish(app);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::polish(QPalette& pal)
 {
     style->polish(pal);
 }
 
+/*!
+    \reimp
+ */
 QSize QxtProxyStyle::sizeFromContents(ContentsType type, const QStyleOption* option, const QSize& contentsSize, const QWidget* widget) const
 {
     return style->sizeFromContents(type, option, contentsSize, widget);
 }
 
+/*!
+    \reimp
+ */
 QIcon QxtProxyStyle::standardIcon(StandardPixmap standardIcon, const QStyleOption* option, const QWidget* widget) const
 {
     return style->standardIcon(standardIcon, option, widget);
 }
 
+/*!
+    \reimp
+ */
 QPalette QxtProxyStyle::standardPalette() const
 {
     return style->standardPalette();
 }
 
+/*!
+    \reimp
+ */
 QPixmap QxtProxyStyle::standardPixmap(StandardPixmap standardPixmap, const QStyleOption* option, const QWidget* widget) const
 {
     return style->standardPixmap(standardPixmap, option, widget);
 }
 
+/*!
+    \reimp
+ */
 int QxtProxyStyle::styleHint(StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const
 {
     return style->styleHint(hint, option, widget, returnData);
 }
 
+/*!
+    \reimp
+ */
 QRect QxtProxyStyle::subControlRect(ComplexControl control, const QStyleOptionComplex* option, SubControl subControl, const QWidget* widget) const
 {
     return style->subControlRect(control, option, subControl, widget);
 }
 
+/*!
+    \reimp
+ */
 QRect QxtProxyStyle::subElementRect(SubElement element, const QStyleOption* option, const QWidget* widget) const
 {
     return style->subElementRect(element, option, widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::unpolish(QWidget* widget)
 {
     style->unpolish(widget);
 }
 
+/*!
+    \reimp
+ */
 void QxtProxyStyle::unpolish(QApplication* app)
 {
     style->unpolish(app);

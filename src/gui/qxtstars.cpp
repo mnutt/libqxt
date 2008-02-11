@@ -212,11 +212,17 @@ void QxtStars::setStarSize(const QSize& size)
     }
 }
 
+/*!
+    \reimp
+ */
 QSize QxtStars::sizeHint() const
 {
     return minimumSizeHint();
 }
 
+/*!
+    \reimp
+ */
 QSize QxtStars::minimumSizeHint() const
 {
     QSize size = qxt_d().getStarSize();
@@ -226,6 +232,9 @@ QSize QxtStars::minimumSizeHint() const
     return size;
 }
 
+/*!
+    \reimp
+ */
 void QxtStars::paintEvent(QPaintEvent* event)
 {
     QAbstractSlider::paintEvent(event);
@@ -276,6 +285,9 @@ void QxtStars::paintEvent(QPaintEvent* event)
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtStars::keyPressEvent(QKeyEvent* event)
 {
     if (qxt_d().readOnly)
@@ -286,6 +298,9 @@ void QxtStars::keyPressEvent(QKeyEvent* event)
     QAbstractSlider::keyPressEvent(event);
 }
 
+/*!
+    \reimp
+ */
 void QxtStars::mousePressEvent(QMouseEvent* event)
 {
     if (qxt_d().readOnly)
@@ -313,6 +328,9 @@ void QxtStars::mousePressEvent(QMouseEvent* event)
     update();
 }
 
+/*!
+    \reimp
+ */
 void QxtStars::mouseMoveEvent(QMouseEvent* event)
 {
     if (qxt_d().readOnly)
@@ -336,6 +354,9 @@ void QxtStars::mouseMoveEvent(QMouseEvent* event)
     setSliderPosition(newPosition);
 }
 
+/*!
+    \reimp
+ */
 void QxtStars::mouseReleaseEvent(QMouseEvent* event)
 {
     if (qxt_d().readOnly)

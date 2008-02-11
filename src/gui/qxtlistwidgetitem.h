@@ -40,9 +40,7 @@ public:
     bool testFlag(Qt::ItemFlag flag) const;
     void setFlag(Qt::ItemFlag flag, bool enabled = true);
 
-#ifndef QXT_DOXYGEN_RUN
     virtual void setData(int role, const QVariant& value);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTLISTWIDGETITEM_H

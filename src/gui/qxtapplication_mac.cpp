@@ -25,6 +25,9 @@
 #include "qxtapplication_p.h"
 #include "qxtnativeeventfilter.h"
 
+/*!
+    \reimp
+ */
 bool QxtApplication::macEventFilter(EventHandlerCallRef caller, EventRef event)
 {
     foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)

@@ -56,14 +56,12 @@ signals:
     void lowerValueChanged(int lower);
     void upperValueChanged(int upper);
 
-#ifndef QXT_DOXYGEN_RUN
 protected:
     virtual void keyPressEvent(QKeyEvent* event);
     virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseMoveEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void paintEvent(QPaintEvent* event);
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTSPANSLIDER_H

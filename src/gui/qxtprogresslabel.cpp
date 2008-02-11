@@ -243,6 +243,9 @@ void QxtProgressLabel::refresh()
     setText(result);
 }
 
+/*!
+    \reimp
+ */
 void QxtProgressLabel::timerEvent(QTimerEvent* event)
 {
     Q_UNUSED(event);

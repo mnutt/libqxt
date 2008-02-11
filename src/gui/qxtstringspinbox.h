@@ -43,14 +43,12 @@ public:
     const QStringList& strings() const;
     void setStrings(const QStringList& strings);
 
-#ifndef QXT_DOXYGEN_RUN
     virtual void fixup(QString& input) const;
     virtual QValidator::State validate(QString& input, int& pos) const;
 
 protected:
     virtual QString textFromValue(int value) const;
     virtual int valueFromText(const QString& text) const;
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTSTRINGSPINBOX_H

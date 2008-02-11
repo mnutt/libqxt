@@ -276,6 +276,9 @@ void QxtItemDelegate::setProgressTextVisible(bool visible)
     qxt_d().textVisible = visible;
 }
 
+/*!
+    \reimp
+ */
 QWidget* QxtItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QWidget* editor = QItemDelegate::createEditor(parent, option, index);
@@ -284,6 +287,9 @@ QWidget* QxtItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewIt
     return editor;
 }
 
+/*!
+    \reimp
+ */
 void QxtItemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QItemDelegate::setModelData(editor, model, index);
@@ -291,6 +297,9 @@ void QxtItemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, c
     emit const_cast<QxtItemDelegate*>(this)->editingFinished(index);
 }
 
+/*!
+    \reimp
+ */
 void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     const QAbstractItemModel* model = index.model();
@@ -337,6 +346,9 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
     }
 }
 
+/*!
+    \reimp
+ */
 QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     // something slightly bigger for top level indices

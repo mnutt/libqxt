@@ -135,6 +135,9 @@ void QxtGroupBox::setExpanded(bool expanded)
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtGroupBox::childEvent(QChildEvent* event)
 {
     QObject* child = event->child();

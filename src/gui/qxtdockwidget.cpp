@@ -81,6 +81,9 @@ QxtDockWidget::QxtDockWidget(QWidget* parent, Qt::WindowFlags flags)
 QxtDockWidget::~QxtDockWidget()
 {}
 
+/*!
+    \reimp
+ */
 QSize QxtDockWidget::sizeHint() const
 {
     QSize size;
@@ -91,6 +94,9 @@ QSize QxtDockWidget::sizeHint() const
     return size;
 }
 
+/*!
+    \reimp
+ */
 void QxtDockWidget::setVisible(bool visible)
 {
     if (!visible && !isFloating())

@@ -91,6 +91,9 @@ void QxtStringSpinBox::setStrings(const QStringList& strings)
         setValue(0);
 }
 
+/*!
+    \reimp
+ */
 void QxtStringSpinBox::fixup(QString& input) const
 {
     // just attempt to change the input string to be valid according to the string list
@@ -105,6 +108,9 @@ void QxtStringSpinBox::fixup(QString& input) const
     }
 }
 
+/*!
+    \reimp
+ */
 QValidator::State QxtStringSpinBox::validate(QString& input, int& pos) const
 {
     // Invalid:		input is invalid according to the string list
@@ -128,12 +134,18 @@ QValidator::State QxtStringSpinBox::validate(QString& input, int& pos) const
     return state;
 }
 
+/*!
+    \reimp
+ */
 QString QxtStringSpinBox::textFromValue(int value) const
 {
     Q_ASSERT(qxt_d().strings.isEmpty() || (value >= 0 && value < qxt_d().strings.size()));
     return qxt_d().strings.isEmpty() ? QLatin1String("") : qxt_d().strings.at(value);
 }
 
+/*!
+    \reimp
+ */
 int QxtStringSpinBox::valueFromText(const QString& text) const
 {
     return qxt_d().strings.indexOf(text);

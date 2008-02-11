@@ -32,10 +32,7 @@ class QWidget;
 
 class QXT_GUI_EXPORT QxtToolTip
 {
-#ifndef QXT_DOXYGEN_RUN
-    explicit QxtToolTip()
-    {}
-#endif // QXT_DOXYGEN_RUN
+    QxtToolTip();
 
 public:
     static void show(const QPoint& pos, QWidget* tooltip, QWidget* parent = 0, const QRect& rect = QRect());

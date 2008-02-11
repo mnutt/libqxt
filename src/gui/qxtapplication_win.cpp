@@ -25,12 +25,15 @@
 #include "qxtapplication_p.h"
 #include "qxtnativeeventfilter.h"
 
+/*!
+    \reimp
+ */
 bool QxtApplication::winEventFilter(MSG* msg, long* result)
 {
-	foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
-	{
-		if (filter && filter->winEventFilter(msg, result))
-			return true;
-	}
+    foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
+    {
+        if (filter && filter->winEventFilter(msg, result))
+            return true;
+    }
     return QApplication::winEventFilter(msg, result);
 }

@@ -33,7 +33,6 @@ public:
     explicit QxtProxyStyle(const QString& baseStyle);
     virtual ~QxtProxyStyle();
 
-#ifndef QXT_DOXYGEN_RUN
     virtual void drawComplexControl(ComplexControl control, const QStyleOptionComplex* option, QPainter* painter, const QWidget* widget = 0) const;
     virtual void drawControl(ControlElement element, const QStyleOption* option, QPainter* painter, const QWidget* widget = 0)  const;
     virtual void drawItemPixmap(QPainter* painter, const QRect& rect, int alignment, const QPixmap& pixmap) const;
@@ -56,7 +55,6 @@ public:
     virtual QRect subElementRect(SubElement element, const QStyleOption* option, const QWidget* widget = 0) const;
     virtual void unpolish(QWidget* widget);
     virtual void unpolish(QApplication* app);
-#endif // QXT_DOXYGEN_RUN
 
 private:
     QStyle* style;

@@ -43,6 +43,8 @@ public:
     explicit QxtCheckComboBox(QWidget* parent = 0);
     virtual ~QxtCheckComboBox();
 
+    virtual void hidePopup();
+
     QString defaultText() const;
     void setDefaultText(const QString& text);
 
@@ -59,11 +61,6 @@ public slots:
 
 signals:
     void checkedItemsChanged(const QStringList& items);
-
-#ifndef QXT_DOXYGEN_RUN
-public:
-    void hidePopup() { }
-#endif // QXT_DOXYGEN_RUN
 };
 
 #endif // QXTCHECKCOMBOBOX_H

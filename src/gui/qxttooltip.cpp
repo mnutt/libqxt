@@ -235,6 +235,13 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
  */
 
 /*!
+    \reimp
+ */
+QxtToolTip::QxtToolTip()
+{
+}
+
+/*!
     Shows the \a tooltip at \a pos for \a parent at \a rect.
 
     \sa hide()

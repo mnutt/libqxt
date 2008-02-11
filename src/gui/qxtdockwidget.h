@@ -40,10 +40,8 @@ public:
     explicit QxtDockWidget(QWidget* parent = 0, Qt::WindowFlags flags = 0);
     virtual ~QxtDockWidget();
 
-#ifndef QXT_DOXYGEN_RUN
-    QSize sizeHint() const;
-    void setVisible(bool visible);
-#endif // QXT_DOXYGEN_RUN
+    virtual QSize sizeHint() const;
+    virtual void setVisible(bool visible);
 };
 
 #endif // QXTDOCKWIDGET_H
