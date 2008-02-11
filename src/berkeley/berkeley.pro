@@ -1,3 +1,4 @@
+TEMPLATE         = lib
 CLEAN_TARGET     = QxtBerkeley
 DEPENDPATH      += .
 INCLUDEPATH     += . ../core
@@ -6,17 +7,8 @@ QT               = core
 QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
-!win32:LIBS     += -ldb
-TEMPLATE         = lib
 
 include(../../config.pri)
+include(berkeley.pri)
 
-
-
-HEADERS += qxtbdb.h 
-HEADERS += qxtbdbhash.h
-HEADERS += qxtbdbtree.h
-
-SOURCES += qxtbdb.cpp 
-SOURCES += qxtbdbhash.cpp
-SOURCES += qxtbdbtree.cpp 
+!win32:LIBS     += -ldb
