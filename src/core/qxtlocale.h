@@ -26,8 +26,9 @@
 #define QXTLOCALE_H
 #include <QLocale>
 #include <QObject>
+#include <qxtglobal.h>
 
-class QxtLocale
+class QXT_CORE_EXPORT QxtLocale
 {
   Q_GADGET
 public:
