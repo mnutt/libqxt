@@ -110,7 +110,7 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role ) const
 
   const QxtCountry& c = QxtCountry::loadCountries().operator[](index.row());
   if (role == Qt::DecorationRole && index.column() == 0)
-    return QIcon(":/flags/flags/" + QxtLocale::countryToISO2Letter(c.country()) + ".png");
+    return QIcon(":/flags/" + QxtLocale::countryToISO2Letter(c.country()) + ".png");
 
   if (role == Qt::DisplayRole)
   {
