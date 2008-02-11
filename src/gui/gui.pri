@@ -88,3 +88,6 @@ macx {
        HEADERS -= qxtwindowsystem.h
 }
 win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp qxtglobalshortcut_win.cpp
+
+RESOURCES += resources.qrc
+
