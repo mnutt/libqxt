@@ -159,7 +159,7 @@ class LanguageModel : public QAbstractTableModel
         const Language& l = _mLanguages[idx];
         if (role == Qt::DecorationRole)
         {
-          return QIcon(":/flags/flags/"+l.countryName()+".png");
+          return QIcon(":/flags/"+l.countryName()+".png");
         }
 
         if (role == Qt::DisplayRole)
