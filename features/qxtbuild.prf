@@ -19,7 +19,14 @@ LIBS += -L../../deploy/libs/
 INSTALLS = target incs
 include(../../deploy/qt/qxt.prf)
 
-
+defineReplace(qxtNativeSeparators) {
+   local_path_variable = $$1
+   win32 {
+      RET = $$replace(local_path_variable,/,\)
+   }
+   isEmpty(RET):RET = local_path_variable
+   return($$RET)
+}
 
 defineReplace(qxtLibraryTarget) {
    unset(LIBRARY_NAME)

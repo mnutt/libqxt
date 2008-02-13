@@ -19,8 +19,7 @@ win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} &
 
 docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
-!win32: docs.commands = tools/doqsy/doqsy
-win32:  docs.commands = tools\doqsy\doqsy
+docs.commands = $$qxtNativeSeparators(tools/doqsy/doqsy)
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf
