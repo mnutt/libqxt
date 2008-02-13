@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/" >
+        <file alias="qxt_de.qm">../../translations/qxt_de.qm</file>
+        <file alias="qxt_en.qm">../../translations/qxt_en.qm</file>
+        <file alias="qxt_es.qm">../../translations/qxt_es.qm</file>
+        <file alias="qxt_fr.qm">../../translations/qxt_fr.qm</file>
+    </qresource>
+</RCC>
