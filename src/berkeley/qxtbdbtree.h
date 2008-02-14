@@ -735,7 +735,7 @@ quint64 QxtBdbTreeIterator<T>::level() const
 
     int ret=dbc->c_get(dbc,&dbkey,&dbvalue,DB_CURRENT);
     if(ret!=DB_BUFFER_SMALL)
-        qFatal("not expected return. %i",ret);
+        qFatal("QxtBdbTreeIterator::level() %s",qPrintable(QxtBdb::dbErrorCodeToString(ret)));
     dbvalue.ulen=dbvalue.size;
     dbvalue.data=::malloc(dbvalue.size);
 
