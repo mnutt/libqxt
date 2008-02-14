@@ -763,17 +763,19 @@ QxtBdbTreeIterator<T> QxtBdbTreeIterator<T>::erase()
     forever
     {
 
-        if(!db->get((void*)0,0,0,0,DB_NEXT_DUP,dbc))
-            return *this;
-        if(level() <= before )
-            return *this;
-
         int ret=dbc->c_del  (dbc,0);
         if(ret!=0)
         {
             qWarning("QxtBdbTreeIterator<T>::erase() failed %s",qPrintable(QxtBdb::dbErrorCodeToString(ret)));
             return QxtBdbTreeIterator<T>();
         }
+
+
+        if(!db->get((void*)0,0,0,0,DB_NEXT_DUP,dbc))
+            return *this;
+        if(level() <= before )
+            return *this;
+
     }
     Q_ASSERT(false);
     return *this;
