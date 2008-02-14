@@ -27,6 +27,7 @@ HEADERS  += qxtpairlist.h
 HEADERS  += qxtpimpl.h
 HEADERS  += qxtpipe.h
 HEADERS  += qxtpipe_p.h
+HEADERS  += qxtpointerlist.h
 HEADERS  += qxtsemaphore.h
 HEADERS  += qxtsharedprivate.h 
 HEADERS  += qxtsignalwaiter.h
