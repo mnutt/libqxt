@@ -37,6 +37,8 @@ when you add a QObject* to this list, it will be removed from the list when the 
 */
 
 
+#ifndef QxtPointerList_Header_Guard
+#define QxtPointerList_Header_Guard
 
 #include <QList>
 #include <QObject>
@@ -148,4 +150,4 @@ protected:
 };
 
 
-
+#endif
