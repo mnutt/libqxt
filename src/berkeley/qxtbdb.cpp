@@ -357,5 +357,19 @@ bool QxtBdb::get(const void* key,int keytype,void* value,int valuetype,BerkeleyD
 
 
 
+QString QxtBdb::dbErrorCodeToString(int e)
+{
+    switch (e)
+    {
+        case DB_LOCK_DEADLOCK:
+            return QString("Dead locked (%1)").arg(e);
+        case DB_SECONDARY_BAD:
+            return QString("Bad Secondary index (%1)").arg(e);
+        case DB_RUNRECOVERY:
+            return QString("Database corrupted. Run Recovery. (%1)").arg(e);
 
+        default: 
+            return QString("Unknown error %1").arg(e);
+    };
+}
 

@@ -84,7 +84,7 @@ public:
     bool isOpen;
 
 
-
+     static QString dbErrorCodeToString(int e);
 
 
     template<class T>
