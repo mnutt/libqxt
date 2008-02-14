@@ -38,6 +38,7 @@
 #include "qxtpairlist.h"
 #include "qxtpimpl.h"
 #include "qxtpipe.h"
+#include "qxtpointerlist.h"
 #include "qxtsemaphore.h"
 #include "qxtsharedprivate.h"
 #include "qxtsignalwaiter.h"
