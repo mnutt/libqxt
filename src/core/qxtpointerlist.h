@@ -90,7 +90,7 @@ public:
         QList<T*>::insert(i,value);
     }
     ///\reimp
-    typename QList<T*>::iterator insert ( typename QList<T*>::iterator before, const T & value )
+    typename QList<T*>::iterator insert ( typename QList<T*>::iterator before,  T*  value )
     {
         QObject::connect(value,SIGNAL(destroyed( QObject * obj )),this,SLOT(removeSender()));
         return QList<T*>::insert(before,value);
@@ -112,7 +112,7 @@ public:
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator+= ( const T* & value )
+    QxtPointerList<T> & operator+= ( T*  value )
     {
         QObject::connect(value,SIGNAL(destroyed( QObject * obj )),this,SLOT(removeSender()));
         QList<T*>::operator+=(value);
@@ -125,7 +125,7 @@ public:
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator<< ( const T* & value )
+    QxtPointerList<T> & operator<< ( T* value )
     {
         *this+=value;
         return *this;
