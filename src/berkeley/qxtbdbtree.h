@@ -212,7 +212,7 @@ public:
     bool isValid() const;
 
     operator T() const;
-    T value();
+    T value() const;
 
 
     QxtBdbTreeIterator<T>    parent   () const;
@@ -247,6 +247,7 @@ protected:
 private:
     friend class QxtBdbTree<T>;
     QxtBdbTreeIterator(BerkeleyDB::DBC*,QxtBdb * p);
+     QxtBdbTreeIterator<T> croot() const;
 
 
     int meta_id;
@@ -313,8 +314,14 @@ QxtBdbTreeIterator<T>::QxtBdbTreeIterator(BerkeleyDB::DBC* dbc,QxtBdb * p)
     root=false;
     meta_id = qMetaTypeId<T>();
 }
-
-
+template<class T>
+QxtBdbTreeIterator<T> QxtBdbTreeIterator<T>::croot() const
+{
+    QxtBdbTreeIterator<T> k=*this;
+    k.invalidate();
+    k.root=true;
+    return k;
+}
 
 template<class T>
 QxtBdbTreeIterator<T> & QxtBdbTreeIterator<T>::operator= ( const QxtBdbTreeIterator<T> & other )
@@ -339,7 +346,7 @@ bool QxtBdbTreeIterator<T>::isValid() const
     if(root)
         return true;
 
-    return (dbc!=0);
+    return (dbc!=0 && db!=0 );
 }
 
 template<class T>
@@ -349,10 +356,14 @@ QxtBdbTreeIterator<T>::operator T() const
 }
 
 template<class T>
-T QxtBdbTreeIterator<T>::value()
+T QxtBdbTreeIterator<T>::value() const
 {
+    
     if(!dbc)
+    {
+        qWarning("QxtBdbTreeIterator<T>::value() on invalid iterator ");
         return T();
+    }
 
     BerkeleyDB::DBT dbkey,dbvalue;
     memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
@@ -391,7 +402,7 @@ template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
 {
     if(root)
-        return QxtBdbTreeIterator<T>();
+        return croot();
     if(!dbc)
         return QxtBdbTreeIterator<T>();
 
@@ -406,7 +417,7 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
     #else
         if(!d.db->get((void*)0,0,0,0,DB_PREV,d.dbc))
     #endif
-            return QxtBdbTreeIterator<T>();
+            return croot();
         if(d.level()==lvl-1)
             break;
     }
@@ -597,15 +608,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -= ( int j )
 template<class T>
 QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
 {
-    QxtBdbTreeIterator<T> e=child();
-    if(e.isValid())
-        while(e.db->get((void*)0,0,0,0,DB_NEXT_DUP,e.dbc))
-        {
-            if (e.level()<level())
-                break;
-        }
-
-
+    Q_ASSERT(isValid());
     BerkeleyDB::DBT dbkey,dbvalue;
     ::memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
     ::memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
@@ -633,24 +636,39 @@ QxtBdbTreeIterator<T>   QxtBdbTreeIterator<T>::append (const T & t )
     int ret=234525;
 
 
-    ///what the fuck, how does that work?!  vvvv
-
-    if(e.isValid() && root )
+    QxtBdbTreeIterator<T> e=*this;
+    if(dbc)
     {
-        ret = e.dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
+        while(e.db->get((void*)0,0,0,0,DB_NEXT_DUP,e.dbc))
+        {
+            if (e.level()<=level())
+            {
+                #if DB_VERSION_MINOR > 5
+                e.db->get((void*)0,0,0,0,DB_PREV_DUP,e.dbc);
+                #else
+                e.db->get((void*)0,0,0,0,DB_PREV,e.dbc);
+                #endif
+                break;
+            }
+        }
+        ret = dbc->c_put(e.dbc, &dbkey, &dbvalue, DB_AFTER);
     }
-    else
+    else if (root)
     {
         ret = db->db->put(db->db,NULL,&dbkey, &dbvalue, NULL);
         BerkeleyDB::DBC *cursor;
         db->db->cursor(db->db, NULL,&cursor, 0);
         if(db->get((void*)0,0,0,0,DB_LAST,cursor))
             e=QxtBdbTreeIterator<T>(cursor,db);
+
     }
     ::free(dbvalue.data);
 
     if (ret!=0)
+    {
+        qWarning("QxtBdbTreeIterator::append failed %i",ret);
         return QxtBdbTreeIterator<T>();
+    }
     return e;
 }
 
