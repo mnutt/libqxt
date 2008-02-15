@@ -24,7 +24,7 @@ defineReplace(qxtNativeSeparators) {
    win32 {
       RET = $$replace(local_path_variable,/,\)
    }
-   isEmpty(RET):RET = local_path_variable
+   isEmpty(RET):RET = $$local_path_variable
    return($$RET)
 }
 
