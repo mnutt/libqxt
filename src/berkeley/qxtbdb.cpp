@@ -55,6 +55,7 @@ QxtBdb::~QxtBdb()
 
 bool QxtBdb::open(QString path,OpenFlags f)
 {
+    Q_ASSERT(!isOpen);
 
     if(QFileInfo(path).exists ())
     {
