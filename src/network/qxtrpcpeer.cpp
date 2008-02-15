@@ -679,7 +679,6 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data)
     return qMakePair(signal, v);
 }
 
-
 bool QxtRPCPeer::canDeserialize(const QByteArray& buffer) const
 {
     if (buffer.indexOf('\n') == -1)
@@ -691,16 +690,11 @@ bool QxtRPCPeer::canDeserialize(const QByteArray& buffer) const
 }
 
 
-
-
 QIODevice * QxtRPCPeer::socket()
 {
     if (qxt_d().m_rpctype == Server)return 0;
     return qxt_d().m_peer;
 }
-
-
-
 
 QTcpSocket * QxtRPCPeer::incomingConnection ( int socketDescriptor )
 {
@@ -710,24 +704,23 @@ QTcpSocket * QxtRPCPeer::incomingConnection ( int socketDescriptor )
 }
 
 
-
-
 const QTcpSocket * QxtRPCPeer::clientSocket(quint64 id) const
-    {
+{
     if (qxt_d().m_rpctype != Server)
         return 0;
 
     return  qxt_d().m_clients[reinterpret_cast<QTcpSocket*>(id)]->socket;
-    }
+}
+
 QList<quint64> QxtRPCPeer::clients()
-    {
+{
     QList<quint64> list;
     foreach(QObject * o,qxt_d().m_clients.keys ())
-        {
+    {
         list.append(reinterpret_cast<quint64>(o));
-        }
-    return list;
     }
+    return list;
+}
 
 
 
