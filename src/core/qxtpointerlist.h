@@ -78,13 +78,13 @@ public:
         }
     }
     ///\reimp
-    void append ( const T* & value )
+    void append (  T*  value )
     {
         QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
         QList<T*>::append(value);
     }
     ///\reimp
-    void insert ( int i, const T & value )
+    void insert ( int i, T * value )
     {
         QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
         QList<T*>::insert(i,value);
