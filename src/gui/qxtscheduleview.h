@@ -51,9 +51,7 @@ enum
 };
 #endif
 
-/**
-@author Benjamin Zeller <zbenjamin@users.sourceforge.net>
-*/
+
 class QXT_GUI_EXPORT QxtScheduleView : public QAbstractScrollArea
 {
     Q_OBJECT
