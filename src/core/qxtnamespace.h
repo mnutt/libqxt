@@ -115,6 +115,31 @@ namespace Qxt
 
     };
 
+    /*!
+    \enum Qxt::QxtItemDataRole
+    Data roles for qxt models/views
+    */
+    enum QxtItemDataRole
+    {
+        ItemStartTimeRole  = Qt::UserRole+1,          /*!< The starttime of a item in timebased views */
+        ItemDurationRole   = ItemStartTimeRole+1,     /*!< The duration of a item in timebased views  */
+        UserRole           = ItemDurationRole+23      /*!< The first role that can be used for application-specific purposes.  */
+    };
+
+    /*!
+    \enum Qxt::Timeunit
+    */
+    enum Timeunit
+    {
+        Second,
+        Minute,
+        Hour,
+        Day,
+        Week,
+        Month,
+        Year
+    };
+
 };
 
 #endif

@@ -49,6 +49,12 @@ HEADERS  += qxttreewidget_p.h
 HEADERS  += qxttreewidgetitem.h
 HEADERS  += qxtwindowsystem.h
 
+HEADERS  += qxtscheduleheaderwidget.h
+HEADERS  += qxtscheduleitemdelegate.h
+HEADERS  += qxtscheduleview.h
+HEADERS  += qxtscheduleviewheadermodel_p.h
+HEADERS  += qxtscheduleview_p.h
+
 SOURCES  += qxtapplication.cpp
 SOURCES  += qxtbasespinbox.cpp
 SOURCES  += qxtcheckcombobox.cpp
@@ -80,6 +86,13 @@ SOURCES  += qxttreewidget.cpp
 SOURCES  += qxttreewidgetitem.cpp
 SOURCES  += qxtwindowsystem.cpp
 
+SOURCES  += qxtscheduleitemdelegate.cpp
+SOURCES  += qxtscheduleview.cpp
+SOURCES  += qxtscheduleview_p.cpp
+SOURCES  += qxtscheduleviewheadermodel_p.cpp
+SOURCES  += qxtstyleoptionscheduleviewitem.cpp
+SOURCES  += qxtscheduleheaderwidget.cpp
+    
 unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
 macx {
        SOURCES += qxtapplication_mac.cpp

@@ -52,6 +52,10 @@
 #include "qxttreewidget.h"
 #include "qxttreewidgetitem.h"
 #include "qxtwindowsystem.h"
+#include "qxtscheduleview.h"
+#include "qxtscheduleitemdelegate.h"
+#include "qxtscheduleheaderwidget.h"
+#include "qxtstyleoptionscheduleviewitem.h"
 
 /** \defgroup QxtGui QxtGui
     \brief    The QxtGui module extends QtGui.
