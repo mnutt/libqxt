@@ -46,7 +46,7 @@
  * @ingroup gui
  * @brief The QxtScheduleView provides a KOrganizer like view to plan events
  *
- * QxtScheduleView is a item based View that makes it possible to visualize event planning, its time based
+ * QxtScheduleView is a item based View,inspired by ICal, that makes it possible to visualize event planning, its time based
  * and can show the events in different modes:<br>
  * DayMode    : Every column in the view shows one day<br>
  * HourMode   : Every column in the view shows one hour<br>
