@@ -641,6 +641,32 @@ int QxtScheduleView::timePerColumn ( ) const
     return timePerColumn;
 }
 
+/**
+ * @desc reimplement this to support custom view modes 
+ * This function has to adjust the given start and end time to the current view mode:
+ * For example, the DayMode always adjust to time 0:00:00am for startTime and 11:59:59pm for endTime 
+ */
+void QxtScheduleView::adjustRangeToViewMode ( QDateTime *startTime, QDateTime *endTime ) const
+{
+    switch (qxt_d().m_currentViewMode)
+     {
+         case DayView:
+             startTime->setTime(QTime(0,0));
+             endTime  ->setTime(QTime(23,59,59));
+             break;
+         case HourView:
+             startTime->setTime(QTime(startTime->time().hour(),0));
+             endTime  ->setTime(QTime(endTime->time().hour(),59,59));
+             break;
+         case MinuteView:
+             startTime->setTime(QTime(startTime->time().hour(),startTime->time().minute(),0));
+             endTime  ->setTime(QTime(endTime->time().hour(),endTime->time().minute(),59));
+             break;
+         default:
+             Q_ASSERT(false);
+     }
+}
+
 QPoint QxtScheduleView::mapFromViewport(const QPoint & point) const
 {
     return point + QPoint(qxt_d().m_hHeader->offset(),qxt_d().m_vHeader->offset());
@@ -807,18 +833,36 @@ QModelIndex QxtScheduleView::currentIndex()
         
 }
 
+/**
+ * @desc sets the timerange
+ * This function will set a Timerange from fromDate 00:00am to toDate 23:59pm
+ */
 void QxtScheduleView::setDateRange(const QDate & fromDate, const QDate & toDate)
 {
     Q_UNUSED(fromDate);
     Q_UNUSED(toDate);
-//    qxt_d().m_startUnixTime = fromDate.toTime_t();
-//    qxt_d().m_endUnixTime = toDate.toTime_t();
+    
+    QDateTime startTime = QDateTime(fromDate,QTime(0,0,0));
+    QDateTime endTime =  QDateTime(toDate,QTime(23,59,59));
+    setTimeRange(startTime,endTime);
 }
 
+/**
+ * @desc sets the timerange
+ * This function will set the passed timerange, but may adjust it to the current viewmode.
+ * e.g You cannot start at 1:30am in a DayMode, this gets adjusted to 00:00am
+ */
 void QxtScheduleView::setTimeRange(const QDateTime & fromDateTime, const QDateTime & toDateTime)
 {
-    qxt_d().m_startUnixTime = fromDateTime.toTime_t();
-    qxt_d().m_endUnixTime = toDateTime.toTime_t();
+    QDateTime startTime = fromDateTime;
+    QDateTime endTime = toDateTime;
+    
+    //adjust the timeranges to fit in the view 
+    adjustRangeToViewMode(&startTime,&endTime);
+    qxt_d().m_startUnixTime = startTime.toTime_t();
+    qxt_d().m_endUnixTime = endTime.toTime_t();
 }
+
+
 
 
