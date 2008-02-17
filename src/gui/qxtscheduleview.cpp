@@ -44,13 +44,15 @@
 /**
  * @class QxtScheduleView QxtScheduleView
  * @ingroup QxtGui
- * @brief The QxtScheduleView provides a KOrganizer like view to plan events
+ * @brief The QxtScheduleView provides an iCal like view to plan events
  *
- * QxtScheduleView is a item based View,inspired by ICal, that makes it possible to visualize event planning, its time based
- * and can show the events in different modes:<br>
- * DayMode    : Every column in the view shows one day<br>
- * HourMode   : Every column in the view shows one hour<br>
- * MinuteMode : Every column in the view shows one minute<br>
+ * QxtScheduleView is a item based View,inspired by iCal, that makes it possible to visualize event planning.<br/>
+   It's  time based and can show the events in different modes:<br/>
+    <ul>
+ * <li><strong>DayMode</strong>    : Every column in the view shows one day</li>
+ * <li><strong>HourMode</strong>   : Every column in the view shows one hour</li>
+ * <li><strong>MinuteMode</strong> : Every column in the view shows one minute</li>>
+   </ul>
  * In addition you can adjust how much time every cell represents in the view. The default value is 900 seconds
  * or 15 minutes and DayMode.
  *
