@@ -108,6 +108,7 @@ class QXT_GUI_EXPORT QxtScheduleView : public QAbstractScrollArea
 
     protected:
         virtual int                 timePerColumn                   ( ) const;
+        virtual void                adjustRangeToViewMode           ( QDateTime *startTime, QDateTime *endTime ) const;        
         
         virtual void                scrollContentsBy                ( int dx, int dy );
         virtual void                paintEvent                      ( QPaintEvent  *e );
