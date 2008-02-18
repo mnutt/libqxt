@@ -2056,7 +2056,7 @@
     <message>
         <location filename="../src/gui/qxtconfirmationmessage.cpp" line="63"/>
         <source>Do not show again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht noch einmal anzeigen.</translation>
     </message>
 </context>
 <context>
@@ -2110,7 +2110,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="766"/>
         <source>*No Currency*</source>
-        <translation>*Keine Wärhung*</translation>
+        <translation>*Keine Währung*</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="767"/>
@@ -2265,7 +2265,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="797"/>
         <source>Convertible Marks</source>
-        <translation>Konvertible mark</translation>
+        <translation>Konvertible Mark</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="798"/>
@@ -2430,7 +2430,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="830"/>
         <source>Indian Rupee</source>
-        <translation>Indische rupie</translation>
+        <translation>Indische Rupie</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="831"/>
@@ -2685,7 +2685,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="881"/>
         <source>Pakistan Rupee</source>
-        <translation>Pakistanische rupie</translation>
+        <translation>Pakistanische Rupie</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="882"/>
@@ -2780,7 +2780,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="900"/>
         <source>Singapore Dollar</source>
-        <translation>singapur-Dollaar</translation>
+        <translation>Singapur-Dollar</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="901"/>
