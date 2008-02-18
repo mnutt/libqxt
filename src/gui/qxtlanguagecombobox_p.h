@@ -43,8 +43,11 @@ public:
     QString currentLanguageName() const;
 
     void setDisplayMode(QxtLanguageComboBox::DisplayMode mode);
+    void setTranslationPath(const QString& path);
     QxtLanguageComboBox::DisplayMode displayMode() const
     { return _mDisplayMode; }
+    QString translationPath() const
+    { return _mTranslationPath; }
 
 public slots:
     void setCurrentLanguage(QLocale::Language language);
@@ -52,8 +55,11 @@ public slots:
 
 private:
     void handleLanguageChange();
+    void reset();
+
 private:
     QxtLanguageComboBox::DisplayMode _mDisplayMode;
+    QString _mTranslationPath;
     QAbstractTableModel* _mModel;
 };
 

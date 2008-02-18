@@ -41,6 +41,7 @@ class QXT_GUI_EXPORT QxtLanguageComboBox : public QComboBox
     Q_PROPERTY(QLocale::Language currentLanguage READ currentLanguage WRITE setCurrentLanguage)
 #endif
     Q_PROPERTY(DisplayMode displayMode READ displayMode WRITE setDisplayMode)
+    Q_PROPERTY(QString translationPath READ translationPath WRITE setTranslationPath)
 
 public:
     explicit QxtLanguageComboBox(QWidget* parent = 0);
@@ -51,6 +52,7 @@ public:
     Q_ENUMS(DisplayMode);
 
     DisplayMode displayMode() const;
+    QString translationPath() const;
 
     QLocale::Language currentLanguage() const;
     QString currentLanguageName() const;
@@ -58,6 +60,7 @@ public:
 public slots:
     void setCurrentLanguage(QLocale::Language lang);
     void setDisplayMode(DisplayMode mode);
+    void setTranslationPath(const QString& path);
 
 signals:
     void currentLanguageChanged(QLocale::Language country);
