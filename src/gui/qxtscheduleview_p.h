@@ -39,12 +39,12 @@
 #include <QList>
 #include <QLinkedList>
 #include <QVector>
-#include <QxtPimpl>
 #include <QAbstractItemModel>
 #include <QHeaderView>
 #include <QPainterPath>
 #include <QTimer>
 #include "qxtnamespace.h"
+#include "qxtpimpl.h"
 #include "qxtscheduleitemdelegate.h"
 
 class QxtScheduleView;
