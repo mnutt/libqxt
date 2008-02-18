@@ -13,8 +13,20 @@
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
      <item>
       <widget class="QLabel" name="label" >
        <property name="font" >
@@ -31,6 +43,12 @@
      </item>
      <item>
       <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
        <item>
         <widget class="QxtCountryComboBox" name="countryComboBox" >
          <item>
@@ -1140,11 +1158,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>USVirginIslands</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Uganda</string>
           </property>
          </item>
@@ -1176,6 +1189,11 @@
          <item>
           <property name="text" >
            <string>Uruguay</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>USVirginIslands</string>
           </property>
          </item>
          <item>
@@ -1273,11 +1291,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Akan</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Albanian</string>
           </property>
          </item>
@@ -1299,11 +1312,6 @@
          <item>
           <property name="text" >
            <string>Assamese</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Atsam</string>
           </property>
          </item>
          <item>
@@ -1348,11 +1356,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Blin</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Bosnian</string>
           </property>
          </item>
@@ -1378,11 +1381,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>C</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Cambodian</string>
           </property>
          </item>
@@ -1394,11 +1392,6 @@
          <item>
           <property name="text" >
            <string>Chinese</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Cornish</string>
           </property>
          </item>
          <item>
@@ -1453,11 +1446,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Ewe</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Faroese</string>
           </property>
          </item>
@@ -1483,27 +1471,12 @@
          </item>
          <item>
           <property name="text" >
-           <string>Friulian</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Ga</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Gaelic</string>
           </property>
          </item>
          <item>
           <property name="text" >
            <string>Galician</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Geez</string>
           </property>
          </item>
          <item>
@@ -1543,11 +1516,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Hawaiian</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Hebrew</string>
           </property>
          </item>
@@ -1564,11 +1532,6 @@
          <item>
           <property name="text" >
            <string>Icelandic</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Igbo</string>
           </property>
          </item>
          <item>
@@ -1618,16 +1581,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Jju</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Kamba</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Kannada</string>
           </property>
          </item>
@@ -1653,17 +1606,7 @@
          </item>
          <item>
           <property name="text" >
-           <string>Konkani</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Korean</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Koro</string>
           </property>
          </item>
          <item>
@@ -1863,11 +1806,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Sidamo</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Sindhi</string>
           </property>
          </item>
@@ -1918,11 +1856,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Syriac</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Tagalog</string>
           </property>
          </item>
@@ -1958,11 +1891,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Tigre</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Tigrinya</string>
           </property>
          </item>
@@ -1993,11 +1921,6 @@
          </item>
          <item>
           <property name="text" >
-           <string>Tyap</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Uigur</string>
           </property>
          </item>
@@ -2018,22 +1941,12 @@
          </item>
          <item>
           <property name="text" >
-           <string>Venda</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
            <string>Vietnamese</string>
           </property>
          </item>
          <item>
           <property name="text" >
            <string>Volapuk</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Walamo</string>
           </property>
          </item>
          <item>
@@ -2084,6 +1997,9 @@
         <widget class="QxtLanguageComboBox" name="qxtLanguageComboBox_2" >
          <property name="displayMode" >
           <enum>QxtLanguageComboBox::AvailableTranslations</enum>
+         </property>
+         <property name="translationPath" >
+          <string>:/</string>
          </property>
         </widget>
        </item>
