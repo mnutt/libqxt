@@ -53,9 +53,9 @@ class QxtCountry
     QxtLocale::Currency currency() const
     { return _mCurrency; }
 
-    bool operator<(const QxtCountry& lang) const
+    bool operator<(const QxtCountry& country) const
     {
-      return _mName < lang._mName;
+      return _mName.localeAwareCompare(country._mName) < 0;
     }
 
     static const QxtCountryList& loadCountries()

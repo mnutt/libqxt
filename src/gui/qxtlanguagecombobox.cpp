@@ -30,7 +30,7 @@ class Language;
 typedef QList<Language> LanguageList;
 
 
-static QStringList findQmFiles(const QString& pathToTranslations = ":/translations")
+static QStringList findQmFiles(const QString& pathToTranslations)
 {
   QDir dir(pathToTranslations);
   QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files, QDir::Name);
@@ -64,12 +64,11 @@ public:
       _mCountryCode = "";
 
     _mDisplayName = qApp->translate("QLocale", qPrintable(QLocale::languageToString(_mLanguage)));
-//    qDebug() << _mDisplayName << _mCountryCode << loc.name();
   };
 
   bool operator<(const Language& lang) const
   {
-    return _mDisplayName < lang._mDisplayName;
+    return _mDisplayName.localeAwareCompare(lang._mDisplayName) < 0;
   }
 
   static const LanguageList& getAllLanguages()
@@ -85,6 +84,8 @@ public:
         // obsolete - NorwegianNynorsk is used instead
         if (l == QLocale::Nynorsk)
           continue;
+        if (l == QLocale::C)
+          continue;
 
         _smAllLanguages.push_back(Language(l));
       }
@@ -94,21 +95,20 @@ public:
     return _smAllLanguages;
   };
 
-  static const LanguageList& getTrLanguages()
+  static LanguageList getTrLanguages(const QString& translationPath)
   {
-    if (_smTrLanguages.empty())
+    LanguageList trLanguages;
+
+    QStringList qms = findQmFiles(translationPath);
+    for (int i = 0; i < qms.size(); ++i)
     {
-      QStringList qms = findQmFiles();
-      for (int i = 0; i < qms.size(); ++i)
-      {
-        QLocale locale(qms[i]);
-        if (locale.language() == QLocale::C)
-          continue;
-        _smTrLanguages.push_back(Language(locale.language()));
-      }
-      qSort(_smTrLanguages);
+      QLocale locale(qms[i]);
+      if (locale.language() == QLocale::C)
+        continue;
+      trLanguages.push_back(Language(locale.language()));
     }
-    return _smTrLanguages;
+    qSort(trLanguages);
+    return trLanguages;
   };
 
   const QString& name() const
@@ -124,11 +124,9 @@ private:
   QString _mCountryCode;
 
   static LanguageList _smAllLanguages;
-  static LanguageList _smTrLanguages;
 };
 
 LanguageList Language::_smAllLanguages;
-LanguageList Language::_smTrLanguages;
 
 class LanguageModel : public QAbstractTableModel
 {
@@ -177,18 +175,26 @@ class LanguageModel : public QAbstractTableModel
         return QVariant();
     }
   private:
-    const LanguageList& _mLanguages;
+    LanguageList _mLanguages;
 };
 
 QxtLanguageComboBoxPrivate::QxtLanguageComboBoxPrivate()
-: _mModel(0)
+: _mDisplayMode(QxtLanguageComboBox::AllLanguages), _mTranslationPath("."), _mModel(0)
 {
 }
 
 void QxtLanguageComboBoxPrivate::init()
 {
-  // multiple connects here - we need a init() method
   connect(&qxt_p(),SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxCurrentIndexChanged(int)));
+}
+
+void QxtLanguageComboBoxPrivate::setTranslationPath(const QString& path)
+{
+  if (_mTranslationPath == path)
+    return;
+
+  _mTranslationPath = path;
+  reset();
 }
 
 void QxtLanguageComboBoxPrivate::setDisplayMode(QxtLanguageComboBox::DisplayMode mode)
@@ -196,13 +202,23 @@ void QxtLanguageComboBoxPrivate::setDisplayMode(QxtLanguageComboBox::DisplayMode
   if (_mDisplayMode == mode && _mModel != 0)
     return;
 
-  // TODO: delete _mModel ???
-  QLocale::Language currentLang = currentLanguage();
   _mDisplayMode = mode;
+  reset();
+}
+
+void QxtLanguageComboBoxPrivate::reset()
+{
+  if (_mModel != 0)
+  {
+    delete _mModel;
+    _mModel = 0;
+  }
+
+  QLocale::Language currentLang = currentLanguage();
   if (_mDisplayMode == QxtLanguageComboBox::AllLanguages)
     _mModel = new LanguageModel(Language::getAllLanguages(), &qxt_p());
   else
-    _mModel = new LanguageModel(Language::getTrLanguages(), &qxt_p());
+    _mModel = new LanguageModel(Language::getTrLanguages(_mTranslationPath), &qxt_p());
 
   qxt_p().setModel(_mModel);
   qxt_p().setModelColumn(0);
@@ -243,8 +259,8 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
   QModelIndexList result = _mModel->match(start, Qt::DisplayRole, language, 1, Qt::MatchExactly);
   if (!result.isEmpty())
     qxt_p().setCurrentIndex(result.first().row());
-  else
-    qDebug() << "Cannot setCurrentLanguage: " << language << _mModel;
+//   else
+//     qDebug() << "Cannot setCurrentLanguage: " << language << _mModel;
 
   handleLanguageChange();
 }
@@ -335,4 +351,18 @@ void QxtLanguageComboBox::setDisplayMode(DisplayMode mode)
 QxtLanguageComboBox::DisplayMode QxtLanguageComboBox::displayMode() const
 {
   return qxt_d().displayMode();
+}
+
+/*!
+    \property QxtLanguageComboBox::translationPath
+    \brief This property holds the path to the translation files.
+ */
+void QxtLanguageComboBox::setTranslationPath(const QString& path)
+{
+  qxt_d().setTranslationPath(path);
+}
+
+QString QxtLanguageComboBox::translationPath() const
+{
+  return qxt_d().translationPath();
 }
