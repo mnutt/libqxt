@@ -100,7 +100,7 @@ int QxtCountryModelPrivate::rowCount(const QModelIndex&) const
 
 int QxtCountryModelPrivate::columnCount(const QModelIndex&) const
 {
-  return 7;
+  return 8;
 }
 
 QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role ) const
@@ -130,6 +130,8 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role ) const
         return QxtLocale::currencyToCode(c.currency());
       case 6:
         return QxtLocale::currencyToSymbol(c.currency());
+      case 7:
+        return QxtLocale::continentToName(QxtLocale::continentForCountry(c.country()));
       default:
 	return QVariant();
     }
@@ -213,6 +215,8 @@ QVariant QxtCountryModel::headerData ( int section, Qt::Orientation orientation,
         return tr("Currency Code");
       case 6:
         return tr("Currency Symbol");
+      case 7:
+        return tr("Continent");
     }
   }
 
