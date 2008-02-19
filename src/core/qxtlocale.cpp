@@ -141,3 +141,8 @@ QString QxtLocale::continentToName(Continent continent)
 {
   return QCoreApplication::instance()->translate("QxtLocale", continent_names[continent]);
 }
+
+QxtLocale::Continent QxtLocale::continentForCountry(QLocale::Country country)
+{
+  return continent_for_country_list[country];
+}
