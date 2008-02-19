@@ -206,6 +206,7 @@ public:
   Q_ENUMS(Currency);
 
   enum Continent{
+    None = 0,
     NorthAmerica = 1,
     SouthAmerica = 2,
     Europe = 3,
@@ -227,6 +228,7 @@ public:
   static QString currencyToSymbol(Currency currency);
 
   static QString continentToName(Continent continent);
+  static Continent continentForCountry(QLocale::Country country);
 };
 
 #endif // QXTLOCALE_H
