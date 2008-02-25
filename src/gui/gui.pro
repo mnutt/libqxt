@@ -12,4 +12,6 @@ include(../../config.pri)
 include(gui.pri)
 
 win32:LIBS      += -luser32
-x11:LIBS        += -lX11
+unix{
+!mac:LIBS        += -lX11
+}
