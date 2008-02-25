@@ -12,6 +12,8 @@ include(../../config.pri)
 include(gui.pri)
 
 win32:LIBS      += -luser32
-unix{
-!mac:LIBS        += -lX11
+
+system(cat /etc/issue | grep Debian){
+warning(detected Debian. will assume broken makespec.)
+LIBS        +=  -lX11
 }
