@@ -7,6 +7,7 @@ QT               = core gui
 QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
+CONFIG          += link_prl
 
 include(../../config.pri)
 include(gui.pri)
@@ -14,10 +15,3 @@ include(gui.pri)
 win32:LIBS      += -luser32
 
 
-#fix fucking debian
-unix{
-system(cat /etc/issue | grep Debian){
-warning(detected Debian. will assume broken makespec.)
-LIBS        +=  -lX11
-}
-}
