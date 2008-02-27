@@ -213,6 +213,7 @@ public:
 
     operator T() const;
     T value() const;
+    bool setValue(T);
 
 
     QxtBdbTreeIterator<T>    parent   () const;
@@ -397,6 +398,49 @@ T QxtBdbTreeIterator<T>::value() const
     return t;
 
 }
+
+
+
+
+template<class T>
+bool QxtBdbTreeIterator<T>::setValue(T t)
+{
+    if(!dbc)
+    {
+        qWarning("QxtBdbTreeIterator<T>::setValue() on invalid iterator ");
+        return false;
+    }
+    BerkeleyDB::DBT dbkey,dbvalue;
+    ::memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
+    ::memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
+
+    char uselesszero=0;
+    dbkey.data=&uselesszero;
+    dbkey.size=sizeof(char);
+    dbkey.ulen=0;
+    dbkey.flags=DB_DBT_USERMEM;
+
+    quint64 mylevel=level();
+    QByteArray d=QxtBdb::qxtMetaSave<T>(t);
+
+
+    dbvalue.size=sizeof(quint64)+d.size();
+    dbvalue.ulen=dbvalue.size;
+    dbvalue.data=::malloc(dbvalue.size);
+    ::memcpy(dbvalue.data,&mylevel,sizeof(quint64));
+    ::memcpy((quint64*)dbvalue.data+1,d.data(),d.size());
+    dbvalue.flags=DB_DBT_USERMEM;
+
+    int ret=234525;
+    ret = dbc->c_put(dbc, &dbkey, &dbvalue, DB_CURRENT);
+    ::free(dbvalue.data);
+
+    if (ret!=0)
+        return false;
+    return true;
+}
+
+
 
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent   () const
