@@ -26,9 +26,8 @@
 
 #include <QRect>
 #include <QPointer>
+#include <QWidget>
 #include "qxtglobal.h"
-
-class QWidget;
 
 class QXT_GUI_EXPORT QxtToolTip
 {
