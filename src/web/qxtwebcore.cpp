@@ -232,7 +232,7 @@ void QxtWebLegacyEngine::incomming()
             instance()->cc->response().setStatusLine ( 404, "Not Found");
             send(e404);
             close();
-            qDebug("404 path '%s' not working",path.constData());
+            qDebug("DEFECT: path: '%s' return code: %i ",path.constData(),i);
             return;
         }
         if (i!=2) ///FIXME temporary solution for keepalive
