@@ -74,25 +74,25 @@ public:
     {
         for(int i=0;i<other.size();i++)
         {
-            QObject::connect(other.at(i),SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        addThisObject(other.at(i));
         }
     }
     ///\reimp
     void append (  T*  value )
     {
-        QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        addThisObject(value);
         QList<T*>::append(value);
     }
     ///\reimp
     void insert ( int i, T * value )
     {
-        QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        addThisObject(value);
         QList<T*>::insert(i,value);
     }
     ///\reimp
     typename QList<T*>::iterator insert ( typename QList<T*>::iterator before,  T*  value )
     {
-        QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        addThisObject(value);
         return QList<T*>::insert(before,value);
     }
     ///\reimp
@@ -114,7 +114,7 @@ public:
     ///\reimp
     QxtPointerList<T> & operator+= ( T*  value )
     {
-        QObject::connect(value,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        addThisObject(value);
         QList<T*>::operator+=(value);
         return *this;
     }
@@ -142,10 +142,15 @@ public:
     }
 
 protected:
-    ///\priv
+    ///reimplement to access objects before they are removed
     virtual void removeThisObject(QObject * obj)
     {
         removeAll(reinterpret_cast<T*>(obj));
+    }
+    ///reimplement to access objects before they are added
+    virtual void addThisObject(QObject * obj)
+    {
+        QObject::connect(obj,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
     }
 };
 
