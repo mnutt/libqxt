@@ -51,6 +51,9 @@ QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(par
     /* initializers only */
 }
 
+/**
+ * \reimp
+ */
 QxtMultiSignalWaiter::~QxtMultiSignalWaiter() {
     /* no-op */
 }
