@@ -102,8 +102,9 @@ bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec, 
 }
 
 /**
- * Blocks the current function until sender::signal() is emitted. If msec is not -1, wait() will not return for at
- * least the specified number of milliseconds. Returns true if the signal was caught, or false if the timeout elapsed.
+ * Blocks the current function until sender::signal() is emitted. If msec is not -1, wait() will return before the
+ * signal is emitted if the specified number of milliseconds have elapsed.
+ * Returns true if the signal was caught, or false if the timeout elapsed.
  * Note that wait() may continue to block after the signal is emitted or the timeout elapses; the function only
  * guarantees that it will not return BEFORE one of these conditions has occurred. This function is not reentrant.
  */

@@ -39,9 +39,11 @@ public:
 
     void addSignal(QObject* sender, const char* sig);
     void removeSignal(QObject* sender, const char* sig = 0);
-    void reset();
     void clear();
 
+public slots:
+    void reset();
+    
 signals:
     void firstSignalReceived();
     void allSignalsReceived();
