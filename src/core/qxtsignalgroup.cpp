@@ -22,6 +22,44 @@
 **
 ****************************************************************************/
 
+/**
+\class QxtSignalGroup QxtSignalGroup
+
+\ingroup QxtCore
+
+\brief Groups signals together in a Boolean fashion
+
+When carrying out multiple tasks in parallel, it can be useful to know when any or all of the tasks
+have emitted a signal. This class allows a group of signals to be defined and re-signalled in a
+simple AND or OR fashion. More complex Boolean relationships can be written by connecting
+together multiple QxtSignalGroup objects.
+
+For a simple example, suppose you have four QHttp requests pending and you want to know when the
+last request has completed. A QxtSignalGroup defined like this will emit its allSignalsReceived()
+signal after each request has emitted its done() signal.
+\code
+    QxtSignalGroup* group = new QxtSignalGroup;
+    for(int i = 0; i < 4; i++) {
+        group->addSignal(http[i], SIGNAL(done()));
+    }
+\endcode
+
+For a more complex example, suppose you have two such batches of requests, and you want a signal
+to be emitted when the first batch is completed. Create two QxtSignalGroup objects (perhaps
+group1 and group2) and add their signals to a third group. This third group will emit its
+firstSignalReceived() signal when the first batch is completed and its allSignalsReceived()
+signal when all batches are finished.
+\code
+    QxtSignalGroup* batches = new QxtSignalGroup;
+    batches->addSignal(group1, SIGNAL(allSignalsReceived()));
+    batches->addSignal(group2, SIGNAL(allSignalsReceived()));
+\endcode
+
+\bug
+QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWaiter.
+
+\seealso QxtSignalWaiter
+*/
 #include "qxtsignalgroup.h"
 #include <QVector>
 #include <QMetaObject>
@@ -62,10 +100,16 @@ protected:
     }
 };
 
+/**
+ * Constructs a QxtSignalWaiter with the specified parent.
+ */
 QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent) {
     QXT_INIT_PRIVATE(QxtSignalGroup);
 }
 
+/**
+ * Add a signal to the group.
+ */
 void QxtSignalGroup::addSignal(QObject* sender, const char* sig) {
     int signalID = sender->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(sig+1));
     if(signalID < 0) {
@@ -76,18 +120,39 @@ void QxtSignalGroup::addSignal(QObject* sender, const char* sig) {
     }
 }
 
+/**
+ * Remove a signal from the group.
+ */
 void QxtSignalGroup::removeSignal(QObject* sender, const char* sig) {
     if(QObject::disconnect(sender, sig, &(qxt_d()), 0))
         qxt_d().disconnectCount++;
 }
 
+/**
+ * Reset the signal tracking, that is, after calling reset() no signals are considered to have been caught.
+ */
 void QxtSignalGroup::reset() {
     qxt_d().emittedSignals.fill(false);
     qxt_d().emitCount = 0;
 }
 
+/**
+ * Removes all signals from the group and resets the signal tracking.
+ */
 void QxtSignalGroup::clear() {
     qxt_d().emittedSignals.clear();
     qxt_d().emitCount = 0;
     qxt_d().disconnectCount = 0;
 }
+
+/**
+ * \fn void QxtSignalGroup::firstSignalReceived();
+ * This signal is emitted the first time a signal in the group is emitted.
+ * After this signal is emitted once, you must call reset() before it can be emitted again.
+ */
+
+/**
+ * \fn void QxtSignalGroup::allSignalsReceived();
+ * This signal is emitted after every signal in the group has been emitted at least once.
+ * After this signal is emitted once, you must call reset() before it can be emitted again.
+ */

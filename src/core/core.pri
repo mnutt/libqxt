@@ -39,6 +39,9 @@ HEADERS  += qxtstdstreambufdevice.h
 HEADERS  += qxttuple.h
 HEADERS  += qxttuplelist.h
 HEADERS  += qxttypelist.h
+HEADERS  += qxtcommandoptions.h
+HEADERS  += qxtsignalgroup.h
+HEADERS  += qxtmultisignalwaiter.h
 
 SOURCES  += qxtcsvmodel.cpp
 SOURCES  += qxtdaemon.cpp
@@ -60,3 +63,6 @@ SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
 SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
+SOURCES  += qxtcommandoptions.cpp
+SOURCES  += qxtsignalgroup.cpp
+SOURCES  += qxtmultisignalwaiter.cpp
