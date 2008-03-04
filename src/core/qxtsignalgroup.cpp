@@ -54,11 +54,6 @@ signal when all batches are finished.
     batches->addSignal(group1, SIGNAL(allSignalsReceived()));
     batches->addSignal(group2, SIGNAL(allSignalsReceived()));
 \endcode
-
-\bug
-QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWaiter.
-
-\seealso QxtSignalWaiter
 */
 #include "qxtsignalgroup.h"
 #include <QVector>
