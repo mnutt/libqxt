@@ -38,7 +38,7 @@ their signals.
 \bug
 QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWaiter.
 
-\seealso QxtSignalWaiter
+\sa QxtSignalWaiter
 */
 
 #include "qxtsignalwaiter.h"
@@ -64,8 +64,8 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter() {
  * timeout elapses; the function only guarantees that it will not return BEFORE
  * one of these conditions has occurred. This function is not reentrant.
  *
- * \seealso QxtSignalGroup::addSignal
- * \seealso QxtSignalGroup::firstSignalEmitted
+ * \sa QxtSignalGroup::addSignal
+ * \sa QxtSignalGroup::firstSignalEmitted
  */
 bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags flags) {
     reset();
@@ -81,8 +81,8 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
  * or the timeout elapses; the function only guarantees that it will not return
  * BEFORE one of these conditions has occurred. This function is not reentrant.
  *
- * \seealso QxtSignalGroup::addSignal
- * \seealso QxtSignalGroup::allSignalsEmitted
+ * \sa QxtSignalGroup::addSignal
+ * \sa QxtSignalGroup::allSignalsEmitted
  */
 bool QxtMultiSignalWaiter::waitForAll(int msec, QEventLoop::ProcessEventsFlags flags) {
     reset();
