@@ -44,15 +44,19 @@ public slots:
     }
 
 protected:
+
     QTextStream & echo();
+    QByteArray & buffer();
+
     QString self();
 
     virtual int preInvoke();
     virtual int postInvoke();
 
-
 private:
     QTextStream *stream_m;
+    QByteArray *buff_m;
+
 };
 
 #endif

@@ -27,7 +27,6 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QUrl>
-static QTextStream  nullstream;
 
 QString QxtWebController::WebRoot()
 {
@@ -45,12 +44,26 @@ QxtWebController::QxtWebController(QString name):QObject(QCoreApplication::insta
 
 QTextStream & QxtWebController::echo()
 {
+    static QTextStream  nullstream;
+
+
     if (!stream_m)
     {
-        qDebug("QxtWebController::echo() no stream open");
+        qWarning("QxtWebController::echo() no stream open");
         return nullstream;
     }
     return *stream_m;
+}
+QByteArray & QxtWebController::buffer()
+{
+    static QByteArray  nullbuffer;
+
+    if (!buff_m)
+    {
+        qWarning("QxtWebController::buffer() no buffer open");
+        return nullbuffer;
+    }
+    return *buff_m;
 }
 
 
@@ -89,6 +102,7 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
     QByteArray buffer;
     QTextStream strm (&buffer);
     stream_m=  &strm;
+    buff_m=  &buffer;
 
 
     int retVal=preInvoke();
@@ -183,12 +197,17 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
     }
 
 
+
     if(retVal!=0)
         return retVal;
     retVal=postInvoke();
 
+
+
     stream_m->flush ();
+
     stream_m=0;
+    buff_m=0;
 
     if(buffer.size())
         QxtWebLegacyEngine::send(buffer);
@@ -200,15 +219,14 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
 
 
 
-
-int QxtWebController::preInvoke()
-{
-    return 0;
-}
 int QxtWebController::postInvoke()
 {
     return 0;
 }
 
+int QxtWebController::preInvoke()
+{
+    return 0;
+}
 
 
