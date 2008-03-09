@@ -226,7 +226,8 @@ void QxtWebLegacyEngine::incomming()
             "<title>404 Not Found</title>"
             "</head><body>"
             "<h1>Not Found</h1>"
-            "<p>The requested Path \""+SERVER().path()+"\" was not accepted by the Engine.</p>"
+            "<p>The requested Path \""+SERVER().path()+"\" was not accepted by the Controller.</p>"
+            "<p>If this was unexpected, check the error log or contact the website administrator.</p>"
             "</body></html>";
 
             instance()->cc->response().setStatusLine ( 404, "Not Found");
