@@ -209,9 +209,12 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
     stream_m=0;
     buff_m=0;
 
+
+    if(retVal!=0)
+        return retVal;
+
     if(buffer.size())
         QxtWebLegacyEngine::send(buffer);
-
 
     return retVal;
 };
