@@ -90,7 +90,12 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
     QTextStream strm (&buffer);
     stream_m=  &strm;
 
-    int retVal=666;
+
+    int retVal=preInvoke();
+    if(retVal!=0)
+        return retVal;
+
+    retVal=666;
     if (args.count()>8)
     {
         if (!QMetaObject::invokeMethod(this, action,Q_RETURN_ARG(int, retVal) ,
@@ -177,14 +182,33 @@ int QxtWebController::invoke(QxtWebStatelessConnection* t)
         }
     }
 
+
+    if(retVal!=0)
+        return retVal;
+    retVal=postInvoke();
+
     stream_m->flush ();
     stream_m=0;
+
     if(buffer.size())
         QxtWebLegacyEngine::send(buffer);
+
+
     return retVal;
 };
 
 
+
+
+
+int QxtWebController::preInvoke()
+{
+    return 0;
+}
+int QxtWebController::postInvoke()
+{
+    return 0;
+}
 
 
 

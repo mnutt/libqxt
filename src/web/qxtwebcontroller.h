@@ -46,6 +46,11 @@ public slots:
 protected:
     QTextStream & echo();
     QString self();
+
+    virtual int preInvoke();
+    virtual int postInvoke();
+
+
 private:
     QTextStream *stream_m;
 };
