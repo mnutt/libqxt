@@ -61,7 +61,7 @@ public:
 
     inline static QxtApplication* instance()
     {
-        return static_cast<QxtApplication*>(QApplication::instance());
+        return qobject_cast<QxtApplication*>(QApplication::instance());
     }
 };
 

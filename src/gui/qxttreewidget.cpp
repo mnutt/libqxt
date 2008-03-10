@@ -31,7 +31,7 @@ QxtTreeWidgetPrivate::QxtTreeWidgetPrivate()
 
 QxtItemDelegate* QxtTreeWidgetPrivate::delegate() const
 {
-    QxtItemDelegate* del = dynamic_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
+    QxtItemDelegate* del = qobject_cast<QxtItemDelegate*>(qxt_p().itemDelegate());
     Q_ASSERT(del);
     return del;
 }
