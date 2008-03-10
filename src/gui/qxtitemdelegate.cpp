@@ -303,7 +303,7 @@ void QxtItemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, c
 void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     const QAbstractItemModel* model = index.model();
-    const QTreeView* tree = dynamic_cast<QTreeView*>(parent());
+    const QTreeView* tree = qobject_cast<QTreeView*>(parent());
     const bool topLevel = !index.parent().isValid();
 
     if (tree && model && topLevel && qxt_d().style != Qxt::NoDecoration)
