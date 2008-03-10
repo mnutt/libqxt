@@ -54,6 +54,7 @@ HEADERS  += qxtscheduleitemdelegate.h
 HEADERS  += qxtscheduleview.h
 HEADERS  += qxtscheduleviewheadermodel_p.h
 HEADERS  += qxtscheduleview_p.h
+HEADERS  += qxtstyleoptionscheduleviewitem.h
 
 SOURCES  += qxtapplication.cpp
 SOURCES  += qxtbasespinbox.cpp
