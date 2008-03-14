@@ -779,20 +779,28 @@ QStackedWidget* QxtConfigDialog::stackedWidget() const
     This virtual function is called to clean up previous
     page at \a index before switching to a new page.
 
+    \note The default implementation calls SLOT(cleanup()) of
+    the corresponding page provided that such slot exists.
+
     \sa initializePage()
 */
 void QxtConfigDialog::cleanupPage(int index)
 {
-    Q_UNUSED(index);
+    Q_ASSERT(qxt_d().stack);
+    QMetaObject::invokeMethod(qxt_d().stack->widget(index), "cleanup");
 }
 
 /*!
     This virtual function is called to initialize page at
     \a index before switching to it.
 
+    \note The default implementation calls SLOT(initialize()) of
+    the corresponding page provided that such slot exists.
+
     \sa cleanupPage()
 */
 void QxtConfigDialog::initializePage(int index)
 {
-    Q_UNUSED(index);
+    Q_ASSERT(qxt_d().stack);
+    QMetaObject::invokeMethod(qxt_d().stack->widget(index), "initialize");
 }
