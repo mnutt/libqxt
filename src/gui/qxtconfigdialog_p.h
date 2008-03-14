@@ -77,6 +77,7 @@ public:
 
 public slots:
     void setCurrentIndex(int row, int column);
+    void setCurrentIndex(int index);
 };
 
 #endif // QXTCONFIGDIALOG_P_H
