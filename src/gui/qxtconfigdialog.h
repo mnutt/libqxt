@@ -102,6 +102,9 @@ signals:
 protected:
     QTableWidget* tableWidget() const;
     QStackedWidget* stackedWidget() const;
+
+    virtual void cleanupPage(int index);
+    virtual void initializePage(int index);
 };
 
 #endif // QXTCONFIGDIALOG_H

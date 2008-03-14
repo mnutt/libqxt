@@ -253,9 +253,22 @@ QTableWidgetItem* QxtConfigDialogPrivate::item(int index) const
 void QxtConfigDialogPrivate::setCurrentIndex(int row, int column)
 {
     if (pos == QxtConfigDialog::North)
-        stack->setCurrentIndex(column);
+        setCurrentIndex(column);
     else
-        stack->setCurrentIndex(row);
+        setCurrentIndex(row);
+}
+
+void QxtConfigDialogPrivate::setCurrentIndex(int index)
+{
+    int previousIndex = stack->currentIndex();
+    if (previousIndex != -1 && previousIndex != index)
+        qxt_p().cleanupPage(previousIndex);
+    
+    stack->setCurrentIndex(index);
+    table->setCurrentItem(item(index));
+
+    if (index != -1)
+        qxt_p().initializePage(index);
 }
 
 /*!
@@ -526,8 +539,7 @@ int QxtConfigDialog::currentIndex() const
 
 void QxtConfigDialog::setCurrentIndex(int index)
 {
-    qxt_d().stack->setCurrentIndex(index);
-    qxt_d().table->setCurrentItem(qxt_d().item(index));
+    qxt_d().setCurrentIndex(index);
 }
 
 /*!
@@ -547,7 +559,7 @@ QWidget* QxtConfigDialog::currentPage() const
 */
 void QxtConfigDialog::setCurrentPage(QWidget* page)
 {
-    setCurrentIndex(qxt_d().stack->indexOf(page));
+    qxt_d().setCurrentIndex(qxt_d().stack->indexOf(page));
 }
 
 /*!
@@ -761,4 +773,26 @@ QTableWidget* QxtConfigDialog::tableWidget() const
 QStackedWidget* QxtConfigDialog::stackedWidget() const
 {
     return qxt_d().stack;
+}
+
+/*!
+    This virtual function is called to clean up previous
+    page at \a index before switching to a new page.
+
+    \sa initializePage()
+*/
+void QxtConfigDialog::cleanupPage(int index)
+{
+    Q_UNUSED(index);
+}
+
+/*!
+    This virtual function is called to initialize page at
+    \a index before switching to it.
+
+    \sa cleanupPage()
+*/
+void QxtConfigDialog::initializePage(int index)
+{
+    Q_UNUSED(index);
 }
