@@ -56,6 +56,9 @@ public:
     QString confirmationText() const;
     void setConfirmationText(const QString& confirmation);
 
+    static QSettings::Format settingsFormat();
+    static void setSettingsFormat(QSettings::Format format);
+
     static QSettings::Scope settingsScope();
     static void setSettingsScope(QSettings::Scope scope);
 

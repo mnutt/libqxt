@@ -48,10 +48,12 @@ public:
     QCheckBox* confirm;
     static QString path;
     static QSettings::Scope scope;
+    static QSettings::Format format;
 };
 
 QString QxtConfirmationMessagePrivate::path;
 QSettings::Scope QxtConfirmationMessagePrivate::scope = QSettings::UserScope;
+QSettings::Format QxtConfirmationMessagePrivate::format = QSettings::NativeFormat;
 
 void QxtConfirmationMessagePrivate::init(const QString& message)
 {
@@ -100,7 +102,7 @@ int QxtConfirmationMessagePrivate::showAgain()
         organization = DEFAULT_ORGANIZATION;
     if (application.isEmpty())
         application = DEFAULT_APPLICATION;
-    QSettings settings(scope, organization, application);
+    QSettings settings(format, scope, organization, application);
     if (!path.isEmpty())
         settings.beginGroup(path);
     return settings.value(key(), -1).toInt();
@@ -114,7 +116,7 @@ void QxtConfirmationMessagePrivate::doNotShowAgain(int result)
         organization = DEFAULT_ORGANIZATION;
     if (application.isEmpty())
         application = DEFAULT_APPLICATION;
-    QSettings settings(scope, organization, application);
+    QSettings settings(format, scope, organization, application);
     if (!path.isEmpty())
         settings.beginGroup(path);
     settings.setValue(key(), result);
@@ -128,7 +130,7 @@ void QxtConfirmationMessagePrivate::reset(const QString& title, const QString& t
         organization = DEFAULT_ORGANIZATION;
     if (application.isEmpty())
         application = DEFAULT_APPLICATION;
-    QSettings settings(scope, organization, application);
+    QSettings settings(format, scope, organization, application);
     if (!path.isEmpty())
         settings.beginGroup(path);
     settings.remove(key(title, text, informativeText));
@@ -236,6 +238,24 @@ QString QxtConfirmationMessage::confirmationText() const
 void QxtConfirmationMessage::setConfirmationText(const QString& confirmation)
 {
     qxt_d().confirm->setText(confirmation);
+}
+
+/*!
+    \return The format used for storing settings.
+
+    The default value is \b QSettings::NativeFormat.
+ */
+QSettings::Format QxtConfirmationMessage::settingsFormat()
+{
+    return QxtConfirmationMessagePrivate::format;
+}
+
+/*!
+    Sets the format used for storing settings.
+ */
+void QxtConfirmationMessage::setSettingsFormat(QSettings::Format format)
+{
+    QxtConfirmationMessagePrivate::format = format;
 }
 
 /*!
