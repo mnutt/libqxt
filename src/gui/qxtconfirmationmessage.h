@@ -36,6 +36,9 @@ class QXT_GUI_EXPORT QxtConfirmationMessage : public QMessageBox
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtConfirmationMessage);
     Q_PROPERTY(QString confirmationText READ confirmationText WRITE setConfirmationText);
+    Q_PROPERTY(QString overrideSettingsApplication READ overrideSettingsApplication WRITE setOverrideSettingsApplication);
+    Q_PROPERTY(QString overrideSettingsKey READ overrideSettingsKey WRITE setOverrideSettingsKey);
+    Q_PROPERTY(QString overrideSettingsOrganization READ overrideSettingsOrganization WRITE setOverrideSettingsOrganization);
     Q_PROPERTY(bool rememberOnReject READ rememberOnReject WRITE setRememberOnReject);
 
 public:
@@ -57,6 +60,15 @@ public:
     QString confirmationText() const;
     void setConfirmationText(const QString& confirmation);
 
+    QString overrideSettingsApplication() const;
+    void setOverrideSettingsApplication(const QString& application);
+
+    QString overrideSettingsKey() const;
+    void setOverrideSettingsKey(const QString& key);
+
+    QString overrideSettingsOrganization() const;
+    void setOverrideSettingsOrganization(const QString& organization);
+
     bool rememberOnReject() const;
     void setRememberOnReject(bool remember);
 
@@ -68,8 +80,6 @@ public:
 
     static QString settingsPath();
     static void setSettingsPath(const QString& path);
-
-    static void reset(const QString& title, const QString& text, const QString& informativeText = QString());
 
 public slots:
     int exec();
