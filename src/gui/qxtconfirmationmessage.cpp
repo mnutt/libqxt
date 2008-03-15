@@ -34,35 +34,26 @@
 static const QLatin1String DEFAULT_ORGANIZATION("QxtGui");
 static const QLatin1String DEFAULT_APPLICATION("QxtConfirmationMessage");
 
-static QString organizationName()
-{
-    QString name = QCoreApplication::organizationName();
-    if (name.isEmpty())
-        name = DEFAULT_ORGANIZATION;
-    return name;
-}
-
-static QString applicationName()
-{
-    QString name = QCoreApplication::applicationName();
-    if (name.isEmpty())
-        name = DEFAULT_APPLICATION;
-    return name;
-}
-
 class QxtConfirmationMessagePrivate : public QxtPrivate<QxtConfirmationMessage>
 {
 public:
     QXT_DECLARE_PUBLIC(QxtConfirmationMessage);
     void init(const QString& message = QString());
+    
     QString key() const;
-    static QString key(const QString& title, const QString& text, const QString& informativeText = QString());
+    QString applicationName() const;
+    QString organizationName() const;
+
     int showAgain();
     void doNotShowAgain(int result);
-    static void reset(const QString& title, const QString& text, const QString& informativeText);
+    void reset();
 
     bool remember;
     QCheckBox* confirm;
+    QString overrideApp;
+    QString overrideKey;
+    QString overrideOrg;
+
     static QString path;
     static QSettings::Scope scope;
     static QSettings::Format format;
@@ -98,18 +89,38 @@ void QxtConfirmationMessagePrivate::init(const QString& message)
 
 QString QxtConfirmationMessagePrivate::key() const
 {
+    QString value = overrideKey;
+    if (value.isEmpty())
+    {
+        const QString all = qxt_p().windowTitle() + qxt_p().text()
 #if QT_VERSION >= 0x040200
-    return key(qxt_p().windowTitle(), qxt_p().text(), qxt_p().informativeText());
-#else
-    return key(qxt_p().windowTitle(), qxt_p().text());
+                + qxt_p().informativeText()
 #endif // QT_VERSION
+            ;
+        const QByteArray data = all.toLocal8Bit();
+        value = QString::number(qChecksum(data.constData(), data.length()));
+    }
+    return value;
 }
 
-QString QxtConfirmationMessagePrivate::key(const QString& title, const QString& text, const QString& informativeText)
+QString QxtConfirmationMessagePrivate::applicationName() const
 {
-    const QString all = title + text + informativeText;
-    const QByteArray data = all.toLocal8Bit();
-    return QString::number(qChecksum(data.constData(), data.length()));
+    QString name = overrideApp;
+    if (name.isEmpty())
+        name = QCoreApplication::applicationName();
+    if (name.isEmpty())
+        name = DEFAULT_APPLICATION;
+    return name;
+}
+
+QString QxtConfirmationMessagePrivate::organizationName() const
+{
+    QString name = overrideOrg;
+    if (name.isEmpty())
+        name = QCoreApplication::organizationName();
+    if (name.isEmpty())
+        name = DEFAULT_ORGANIZATION;
+    return name;
 }
 
 int QxtConfirmationMessagePrivate::showAgain()
@@ -128,12 +139,12 @@ void QxtConfirmationMessagePrivate::doNotShowAgain(int result)
     settings.setValue(key(), result);
 }
 
-void QxtConfirmationMessagePrivate::reset(const QString& title, const QString& text, const QString& informativeText)
+void QxtConfirmationMessagePrivate::reset()
 {
     QSettings settings(format, scope, organizationName(), applicationName());
     if (!path.isEmpty())
         settings.beginGroup(path);
-    settings.remove(key(title, text, informativeText));
+    settings.remove(key());
 }
 
 /*!
@@ -238,6 +249,65 @@ QString QxtConfirmationMessage::confirmationText() const
 void QxtConfirmationMessage::setConfirmationText(const QString& confirmation)
 {
     qxt_d().confirm->setText(confirmation);
+}
+
+/*!
+    \property QxtConfirmationMessage::overrideSettingsApplication
+    \brief This property holds the override application name used for settings
+
+    QCoreApplication::applicationName is used when no overrideSettingsApplication
+    has been set. The application name falls back to "QxtConfirmationMessage"
+    when no QCoreApplication::applicationName has been set.
+
+    The default value is an empty string.
+ */
+QString QxtConfirmationMessage::overrideSettingsApplication() const
+{
+    return qxt_d().overrideApp;
+}
+
+void QxtConfirmationMessage::setOverrideSettingsApplication(const QString& application)
+{
+    qxt_d().overrideApp = application;
+}
+
+/*!
+    \property QxtConfirmationMessage::overrideSettingsKey
+    \brief This property holds the override key used for settings
+
+    When no overrideSettingsKey has been set, the key is calculated with
+    qChecksum() based on title, text and confirmation message.
+
+    The default value is an empty string.
+ */
+QString QxtConfirmationMessage::overrideSettingsKey() const
+{
+    return qxt_d().overrideKey;
+}
+
+void QxtConfirmationMessage::setOverrideSettingsKey(const QString& key)
+{
+    qxt_d().overrideKey = key;
+}
+
+/*!
+    \property QxtConfirmationMessage::overrideSettingsOrganization
+    \brief This property holds the override organization name used for settings
+
+    QCoreApplication::organizationName is used when no overrideSettingsOrganization
+    has been set. The organization name falls back to "QxtGui" when no
+    QCoreApplication::organizationName has been set.
+
+    The default value is an empty string.
+ */
+QString QxtConfirmationMessage::overrideSettingsOrganization() const
+{
+    return qxt_d().overrideOrg;
+}
+
+void QxtConfirmationMessage::setOverrideSettingsOrganization(const QString& organization)
+{
+    qxt_d().overrideOrg = organization;
 }
 
 /*!
@@ -355,16 +425,6 @@ void QxtConfirmationMessage::done(int result)
 }
 
 /*!
-    Resets confirmation message with given \a title, \a text and optional
-    \a informativeText. A reseted confirmation message is shown again until
-    user checks <b>"Do not show again."</b> and accepts the confirmation message.
- */
-void QxtConfirmationMessage::reset(const QString& title, const QString& text, const QString& informativeText)
-{
-    QxtConfirmationMessagePrivate::reset(title, text, informativeText);
-}
-
-/*!
     Resets this instance of QxtConfirmationMessage. A reseted confirmation
     message is shown again until user checks <b>"Do not show again."</b> and
     accepts the confirmation message.
@@ -372,6 +432,6 @@ void QxtConfirmationMessage::reset(const QString& title, const QString& text, co
 void QxtConfirmationMessage::reset()
 {
 #if QT_VERSION >= 0x040200
-    QxtConfirmationMessagePrivate::reset(windowTitle(), text(), informativeText());
+    qxt_d().reset();
 #endif // QT_VERSION
 }
