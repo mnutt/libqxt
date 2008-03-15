@@ -34,6 +34,22 @@
 static const QLatin1String DEFAULT_ORGANIZATION("QxtGui");
 static const QLatin1String DEFAULT_APPLICATION("QxtConfirmationMessage");
 
+static QString organizationName()
+{
+    QString name = QCoreApplication::organizationName();
+    if (name.isEmpty())
+        name = DEFAULT_ORGANIZATION;
+    return name;
+}
+
+static QString applicationName()
+{
+    QString name = QCoreApplication::applicationName();
+    if (name.isEmpty())
+        name = DEFAULT_APPLICATION;
+    return name;
+}
+
 class QxtConfirmationMessagePrivate : public QxtPrivate<QxtConfirmationMessage>
 {
 public:
@@ -45,6 +61,7 @@ public:
     void doNotShowAgain(int result);
     static void reset(const QString& title, const QString& text, const QString& informativeText);
 
+    bool remember;
     QCheckBox* confirm;
     static QString path;
     static QSettings::Scope scope;
@@ -57,6 +74,7 @@ QSettings::Format QxtConfirmationMessagePrivate::format = QSettings::NativeForma
 
 void QxtConfirmationMessagePrivate::init(const QString& message)
 {
+    remember = false;
 #if QT_VERSION >= 0x040200
     confirm = new QCheckBox(&qxt_p());
     if (!message.isNull())
@@ -96,13 +114,7 @@ QString QxtConfirmationMessagePrivate::key(const QString& title, const QString& 
 
 int QxtConfirmationMessagePrivate::showAgain()
 {
-    QString organization = QCoreApplication::organizationName();
-    QString application  = QCoreApplication::applicationName();
-    if (organization.isEmpty())
-        organization = DEFAULT_ORGANIZATION;
-    if (application.isEmpty())
-        application = DEFAULT_APPLICATION;
-    QSettings settings(format, scope, organization, application);
+    QSettings settings(format, scope, organizationName(), applicationName());
     if (!path.isEmpty())
         settings.beginGroup(path);
     return settings.value(key(), -1).toInt();
@@ -110,13 +122,7 @@ int QxtConfirmationMessagePrivate::showAgain()
 
 void QxtConfirmationMessagePrivate::doNotShowAgain(int result)
 {
-    QString organization = QCoreApplication::organizationName();
-    QString application  = QCoreApplication::applicationName();
-    if (organization.isEmpty())
-        organization = DEFAULT_ORGANIZATION;
-    if (application.isEmpty())
-        application = DEFAULT_APPLICATION;
-    QSettings settings(format, scope, organization, application);
+    QSettings settings(format, scope, organizationName(), applicationName());
     if (!path.isEmpty())
         settings.beginGroup(path);
     settings.setValue(key(), result);
@@ -124,13 +130,7 @@ void QxtConfirmationMessagePrivate::doNotShowAgain(int result)
 
 void QxtConfirmationMessagePrivate::reset(const QString& title, const QString& text, const QString& informativeText)
 {
-    QString organization = QCoreApplication::organizationName();
-    QString application  = QCoreApplication::applicationName();
-    if (organization.isEmpty())
-        organization = DEFAULT_ORGANIZATION;
-    if (application.isEmpty())
-        application = DEFAULT_APPLICATION;
-    QSettings settings(format, scope, organization, application);
+    QSettings settings(format, scope, organizationName(), applicationName());
     if (!path.isEmpty())
         settings.beginGroup(path);
     settings.remove(key(title, text, informativeText));
@@ -241,6 +241,24 @@ void QxtConfirmationMessage::setConfirmationText(const QString& confirmation)
 }
 
 /*!
+    \property QxtConfirmationMessage::rememberOnReject
+    \brief This property holds whether <b>"Do not show again"</b>
+    option is stored even if the message box is rejected
+    (eg. user presses Cancel).
+
+    The default value is \b false.
+ */
+bool QxtConfirmationMessage::rememberOnReject() const
+{
+    return qxt_d().remember;
+}
+
+void QxtConfirmationMessage::setRememberOnReject(bool remember)
+{
+    qxt_d().remember = remember;
+}
+
+/*!
     \return The format used for storing settings.
 
     The default value is \b QSettings::NativeFormat.
@@ -327,8 +345,8 @@ void QxtConfirmationMessage::done(int result)
     Q_ASSERT(buttons != 0);
 
     int role = buttons->buttonRole(clickedButton());
-    if (qxt_d().confirm->isChecked() &&
-            (role == QDialogButtonBox::AcceptRole || role == QDialogButtonBox::YesRole))
+    if (qxt_d().confirm->isChecked() && 
+        (qxt_d().remember || role != QDialogButtonBox::RejectRole))
     {
         qxt_d().doNotShowAgain(result);
     }

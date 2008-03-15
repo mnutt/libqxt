@@ -36,6 +36,7 @@ class QXT_GUI_EXPORT QxtConfirmationMessage : public QMessageBox
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtConfirmationMessage);
     Q_PROPERTY(QString confirmationText READ confirmationText WRITE setConfirmationText);
+    Q_PROPERTY(bool rememberOnReject READ rememberOnReject WRITE setRememberOnReject);
 
 public:
     explicit QxtConfirmationMessage(QWidget* parent = 0);
@@ -55,6 +56,9 @@ public:
 
     QString confirmationText() const;
     void setConfirmationText(const QString& confirmation);
+
+    bool rememberOnReject() const;
+    void setRememberOnReject(bool remember);
 
     static QSettings::Format settingsFormat();
     static void setSettingsFormat(QSettings::Format format);
