@@ -48,6 +48,7 @@
 #include "qxttuple.h"
 #include "qxttuplelist.h"
 #include "qxttypelist.h"
+#include "qxtcommandoptions.h"
 
 /** \defgroup QxtCore QxtCore
     \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
