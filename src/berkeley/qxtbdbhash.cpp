@@ -31,7 +31,7 @@
     \brief template class that provides key/value access to a berkeley db file
 
     both value and key must be registered with the qt meta system.\n
-    YOu may not touch the file while a QxtBdbHash instance is running on it.
+    You may not touch the file while a QxtBdbHash instance is running on it.
 
     examples usage:
     \code
@@ -40,11 +40,16 @@
     qDebug()<<db[344.4];
     \endcode
 
+
+    There is an extensive example in /examples/berkeley/adressbook
+
+
     All functions of this class are thread safe. 
     Calling open() multiple times is undefined.
     An Iterator may only be used from one thread at once, but you can have multiple iterators.
 
     \doqsy {implicitshared}
+    \sa QxtBdbHashIterator
 */
 
 /*!
