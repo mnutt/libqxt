@@ -26,6 +26,7 @@
 #include <QTextStream>
 #include <QIODevice>
 #include <QtDebug>
+#include <QDir>
 
 static const char* qxt_qt_options[] = {
     "=style",       QT_TRANSLATE_NOOP("QxtCommandOptions", "sets the application GUI style"),
@@ -427,7 +428,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
 
     while(pos < ct) {
         // Ignore Qt built-in options
-        while(skip = isQtOption(params[pos]))
+        while((skip = isQtOption(params[pos])))
             pos += skip;
 
         param = params[pos];
@@ -522,7 +523,11 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
  *
  * This function returns true if any warnings were output, or false otherwise.
  *
- * \sa QCoreApplication::applicationName()
+ * If a QCoreApplication or a subclass of QCoreApplication has been instantiated,
+ * this function uses QCoreApplication::applicationFilePath() to get the name
+ * of the executable to include in the message.
+ *
+ * \sa QCoreApplication::applicationFilePath()
  */
 bool QxtCommandOptions::showUnrecognizedWarning(QIODevice* device) const {
     if(!device) {
@@ -537,7 +542,11 @@ bool QxtCommandOptions::showUnrecognizedWarning(QIODevice* device) const {
 /**
  * Returns the automatically-generated warning text about any unrecognized options.
  *
- * \sa QCoreApplication::applicationName()
+ * If a QCoreApplication or a subclass of QCoreApplication has been instantiated,
+ * this function uses QCoreApplication::applicationFilePath() to get the name
+ * of the executable to include in the message.
+ *
+ * \sa QCoreApplication::applicationFilePath()
  */
 QString QxtCommandOptions::getUnrecognizedWarning() const {
     QString usage;
@@ -553,14 +562,18 @@ QString QxtCommandOptions::getUnrecognizedWarning() const {
  *
  * This function returns true if any warnings were output, or false otherwise.
  *
- * \sa QCoreApplication::applicationName()
+ * If a QCoreApplication or a subclass of QCoreApplication has been instantiated,
+ * this function uses QCoreApplication::applicationFilePath() to get the name
+ * of the executable to include in the message.
+ *
+ * \sa QCoreApplication::applicationFilePath()
  */
 bool QxtCommandOptions::showUnrecognizedWarning(QTextStream& stream) const {
     if(!qxt_d().unrecognized.count() && !qxt_d().missingParams.count()) return false;
         
     QString name;
     if(QCoreApplication::instance())
-        name = QCoreApplication::applicationName();
+        name = QDir(QCoreApplication::applicationFilePath()).dirName();
     if(name.isEmpty())
         name = "QxtCommandOptions";
     
