@@ -25,5 +25,26 @@
 #include "qxtbdbhash.h"
 
 /** \defgroup QxtBerkeley  QxtBerkeley
-    \brief    Berkeley DB classes
+    \brief    A Qt Interface to the Berkeley DB
+
+berkeley db is in wide use where relational databases, especially SQL, are not desired due to heavy overhead or its programming complexity. QxtBerkeley provides you an extremly easy to use interface to the fast and stable file based berkeley database. The API is designed after Qts tulip container classes. 
+
+
+<h2>Platform specific notes</h2>
+<h3>Windows</h3>
+On Windows the buildsystem is unfortunatly unable to detect the berkeley db library on your system automaticly, becouse of the wide differences in naming scheme.
+<br>
+You will have to add the library yourself:
+<br>
+MSVC:
+\code
+configure.bat -I C:\BDB-MSVC\include -L C:\BDB-MSVC\lib -l libdb46 (or libdb45)
+\endcode
+
+MinGW (http://mathieu.carbou.free.fr/wiki/index.php?title=Berkeley_DB_for_MinGW)
+\code
+configure.bat -I C:\BDB-MINGW\include -L C:\BDB-MINGW\lib -l db
+\endcode
+<h3>Linux</h3>
+If you have issues compiling QxtBerkeley with your distributions bdb package, it is suggested that you try the upstream version from http://www.oracle.com/technology/software/products/berkeley-db/index.html
 */
