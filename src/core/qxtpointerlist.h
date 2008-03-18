@@ -42,8 +42,9 @@ when you add a QObject* to this list, it will be removed from the list when the 
 
 #include <QList>
 #include <QObject>
+#include "qxtglobal.h"
 
-class QxtPointerListDeleter : public QObject
+class QXT_CORE_EXPORT QxtPointerListDeleter : public QObject
 {
 Q_OBJECT
 protected:
