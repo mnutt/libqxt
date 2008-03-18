@@ -45,14 +45,11 @@ when you add a QObject* to this list, it will be removed from the list when the 
 
 class QxtPointerListDeleter : public QObject
 {
-    Q_OBJECT
-    protected:
-        virtual void removeThisObject(QObject * obj)=0;
+Q_OBJECT
+protected:
+    virtual void removeThisObject(QObject * obj)=0;
 private slots:
-    void removeSender()
-    {
-        removeThisObject(QObject::sender());
-    }
+    void removeSender();
 };
 
 
