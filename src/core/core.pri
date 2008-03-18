@@ -58,6 +58,7 @@ SOURCES  += qxtlinkedtree.cpp
 SOURCES  += qxtmetaobject.cpp
 SOURCES  += qxtnull.cpp
 SOURCES  += qxtpipe.cpp
+SOURCES  += qxtpointerlist.cpp
 SOURCES  += qxtsemaphore.cpp
 SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
