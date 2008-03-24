@@ -44,10 +44,14 @@ bool QxtCheckComboBoxPrivate::eventFilter(QObject* receiver, QEvent* event)
                 qxt_p().showPopup();
                 return true;
             }
-            else if (keyEvent->key() == Qt::Key_Escape)
+            else if (keyEvent->key() == Qt::Key_Enter || 
+                     keyEvent->key() == Qt::Key_Return ||
+                     keyEvent->key() == Qt::Key_Escape)
             {
                 // it is important to call QComboBox implementation
                 qxt_p().QComboBox::hidePopup();
+                if (keyEvent->key() != Qt::Key_Escape)
+                    return true;
             }
             return false;
         }
