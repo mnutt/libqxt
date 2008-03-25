@@ -21,6 +21,7 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+
 /**
 \class QxtMetaObject QxtMetaObject
 

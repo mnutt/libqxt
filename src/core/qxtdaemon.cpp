@@ -56,6 +56,7 @@ returns true on sucess
     #include <signal.h>
     #include <fcntl.h>
     #include <pwd.h>
+    #include <stdlib.h>
 #endif
 
 

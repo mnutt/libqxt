@@ -73,14 +73,8 @@ QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT
 QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QVariant p1, QXT_PROTO_9ARGS(QVariant));
 QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
                              Qt::ConnectionType type = Qt::AutoConnection);
-}
+};
 
-/**
- * \relates QxtMetaObject
- * \sa QxtMetaObject::bind
- * Refers to the n'th parameter of QxtBoundFunction::invoke() or a signal connected to
- * a QxtBoundFunction.
- */
 #define QXT_BIND(n) QGenericArgument("QxtBoundArgument", reinterpret_cast<void*>(n))
 
 #endif // QXTMETAOBJECT_H
