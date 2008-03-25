@@ -34,10 +34,12 @@
 #include <QtDebug>
 
 /**
- * \class QxtBoundFunction
- * \ingroup QxtCore
- * \brief Binds parameters to a function call
- *
+\class QxtBoundFunction
+
+\ingroup QxtCore
+
+\brief Binds parameters to a function call
+
  * A bound function is very similar to what the C++ FAQ Lite refers to as "functionoids."
  * (http://www.parashift.com/c++-faq-lite/pointers-to-members.html#faq-33.10)
  * It is similar in use to a function pointer, but allows any or all parameters to be
@@ -71,6 +73,8 @@
  * Future development may add the ability to bind to C++ member functions,
  * and developers can make custom QxtBoundFunction subclasses for even more
  * flexibility if necessary.
+ *
+ *
  */
 class QxtBoundFunction : public QObject
 {
