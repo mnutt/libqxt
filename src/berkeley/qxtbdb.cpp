@@ -140,8 +140,8 @@ bool QxtBdb::get(void* key,int keytype,void* value,int valuetype,BerkeleyDB::u_i
 {
 
     BerkeleyDB::DBT dbkey,dbvalue;
-    memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
-    memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
+    ::memset(&dbkey, 0, sizeof(BerkeleyDB::DBT));
+    ::memset(&dbvalue, 0, sizeof(BerkeleyDB::DBT));
 
 
 
