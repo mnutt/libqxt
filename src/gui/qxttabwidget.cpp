@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxttabwidget.h"
 #include "qxttabwidget_p.h"
+#include "qxttabbar.h"
 #include <QContextMenuEvent>
 #include <QApplication>
 #include <QTabBar>
@@ -98,6 +99,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 QxtTabWidget::QxtTabWidget(QWidget* parent) : QTabWidget(parent)
 {
     QXT_INIT_PRIVATE(QxtTabWidget);
+    QTabWidget::setTabBar(new QxtTabBar);
 }
 
 /*!
@@ -128,6 +130,22 @@ Qt::ContextMenuPolicy QxtTabWidget::tabContextMenuPolicy() const
 void QxtTabWidget::setTabContextMenuPolicy(Qt::ContextMenuPolicy policy)
 {
     qxt_d().policy = policy;
+}
+
+/*!
+    \property QxtTabWidget::reorderable
+    \brief This property holds whether the tabs on this QxtTabWidget are reorderable or not.
+
+    The default value of this property is false. 
+ */
+bool QxtTabWidget::reorderable() const
+{
+    return tabBar()->reorderable();
+}
+
+void QxtTabWidget::setReorderable(bool reorderable)
+{
+    tabBar()->setReorderable(reorderable);
 }
 
 /*!
@@ -382,6 +400,17 @@ QMovie* QxtTabWidget::takeTabAnimation(int index)
     qxt_d().animations[index] = 0;
     return animation;
 }
+
+QxtTabBar* QxtTabWidget::tabBar () const
+{
+    return qobject_cast<QxtTabBar*>(QTabWidget::tabBar());
+}
+
+void QxtTabWidget::setTabBar(QxtTabBar* tb)
+{
+    QTabWidget::setTabBar(tb);
+}
+
 
 /*!
     \reimp

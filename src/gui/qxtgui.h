@@ -48,6 +48,7 @@
 #include "qxtstars.h"
 #include "qxtstringspinbox.h"
 #include "qxtstringvalidator.h"
+#include "qxttabbar.h"
 #include "qxttabwidget.h"
 #include "qxttablewidget.h"
 #include "qxttablewidgetitem.h"

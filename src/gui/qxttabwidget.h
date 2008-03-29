@@ -29,6 +29,7 @@
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
+class QxtTabBar;
 class QxtTabWidgetPrivate;
 
 class QXT_GUI_EXPORT QxtTabWidget : public QTabWidget
@@ -36,6 +37,7 @@ class QXT_GUI_EXPORT QxtTabWidget : public QTabWidget
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtTabWidget);
     Q_PROPERTY(Qt::ContextMenuPolicy tabContextMenuPolicy READ tabContextMenuPolicy WRITE setTabContextMenuPolicy)
+    Q_PROPERTY(bool reorderable READ reorderable WRITE setReorderable)
 
 public:
     explicit QxtTabWidget(QWidget* parent = 0);
@@ -43,7 +45,9 @@ public:
 
     Qt::ContextMenuPolicy tabContextMenuPolicy() const;
     void setTabContextMenuPolicy(Qt::ContextMenuPolicy policy);
-
+    
+    void setReorderable(bool reorderable);
+    bool reorderable() const;
     void addTabAction(int index, QAction* action);
     QAction* addTabAction(int index, const QString& text);
     QAction* addTabAction(int index, const QIcon& icon, const QString& text);
@@ -65,6 +69,9 @@ signals:
     void tabContextMenuRequested(int index, const QPoint& globalPos);
 
 protected:
+    QxtTabBar* tabBar () const;
+    void setTabBar(QxtTabBar* tb);
+
     virtual void tabInserted(int index);
     virtual void tabRemoved(int index);
 
