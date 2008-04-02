@@ -653,7 +653,9 @@ QPair<QString, QList<QVariant> > QxtRPCPeer::deserialize(QByteArray& data)
 {
     QByteArray cmd;
     int pos = data.indexOf('\n');
-    cmd = data.left(pos-1);
+    
+    //cmd = data.left(pos-1);  this is a bug, pos is 0 based and QByteArray.left() is 1 based 
+    cmd = data.left(pos);
     data = data.mid(pos+1);
     if (cmd.length()==0) return qMakePair(QString(), QList<QVariant>());
     cmd.replace(QByteArray("\\n"), QByteArray("\n"));
