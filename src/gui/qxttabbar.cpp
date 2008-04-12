@@ -28,9 +28,6 @@
 // Qt
 #include <QtGui> // TODO remove and insert only the needed headers
 
-// Qxt
-#include <QxtPimpl>
-
 class Tab
 {
 
