@@ -75,6 +75,12 @@ QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFuncti
                              Qt::ConnectionType type = Qt::AutoConnection);
 };
 
+/**
+ * \relates QxtMetaObject
+ * Refers to the n'th parameter of QxtBoundFunction::invoke() or of a signal connected to
+ * a QxtBoundFunction.
+ * \sa QxtMetaObject::bind
+ */
 #define QXT_BIND(n) QGenericArgument("QxtBoundArgument", reinterpret_cast<void*>(n))
 
 #endif // QXTMETAOBJECT_H

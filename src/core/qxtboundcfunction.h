@@ -58,7 +58,7 @@ public:
         QXT_RETURN (funcPtr)();
         return true;
     }
-    private:
+private:
     qxt_cfunction_return(voidFunc* ptr, const QByteArray& typeIdName) : QxtGenericFunctionPointer(ptr,typeIdName) {}
 };
 
@@ -333,7 +333,7 @@ public:
 
     virtual bool invokeImpl(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
         if(type != Qt::AutoConnection && type != Qt::DirectConnection) {
-            qWarning() << "WxtBoundCFunction::invoke: Cannot invoke non-Qt functions using a queued connection";
+            qWarning() << "QxtBoundCFunction::invoke: Cannot invoke non-Qt functions using a queued connection";
             return false;
         }
         return reinterpret_cast<qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>*>(&funcPtr)->invoke(returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
@@ -352,7 +352,7 @@ public:
     virtual bool invokeImpl(Qt::ConnectionType type, QGenericReturnArgument returnValue, QXT_IMPL_10ARGS(QGenericArgument)) {
         Q_UNUSED(returnValue);
         if(type != Qt::AutoConnection && type != Qt::DirectConnection) {
-            qWarning() << "WxtBoundCFunction::invoke: Cannot invoke non-Qt functions using a queued connection";
+            qWarning() << "QxtBoundCFunction::invoke: Cannot invoke non-Qt functions using a queued connection";
             return false;
         }
         return reinterpret_cast<qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>*>(&funcPtr)->invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);

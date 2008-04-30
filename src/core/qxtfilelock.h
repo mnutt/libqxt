@@ -31,6 +31,13 @@
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
+#ifdef Q_OS_WIN
+    #include <windows.h>
+    typedef DWORD off_t;
+#else
+    #include <sys/types.h>
+#endif
+
 class QxtFileLockPrivate;
 
 class QXT_CORE_EXPORT QxtFileLock : public QObject
