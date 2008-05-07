@@ -33,7 +33,7 @@
 
 #ifdef Q_OS_WIN
     #include <windows.h>
-    typedef DWORD off_t;
+    typedef long off_t;
 #else
     #include <sys/types.h>
 #endif
