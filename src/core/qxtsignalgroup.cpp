@@ -103,6 +103,20 @@ QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent) {
 }
 
 /**
+ * Returns true if at least one attached signal has been emitted since the last reset().
+ */
+bool QxtSignalGroup::hasReceivedFirstSignal() const {
+    return qxt_d().emitCount > 0;
+}
+
+/**
+ * Returns true if every attached signal has been emitted at least once since the last reset().
+ */
+bool QxtSignalGroup::hasReceivedAllSignals() const {
+    return (qxt_d().emitCount + qxt_d().disconnectCount) >= qxt_d().emittedSignals.count();
+}
+
+/**
  * Add a signal to the group.
  */
 void QxtSignalGroup::addSignal(QObject* sender, const char* sig) {

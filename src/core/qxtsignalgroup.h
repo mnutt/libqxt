@@ -41,6 +41,9 @@ public:
     void removeSignal(QObject* sender, const char* sig = 0);
     void clear();
 
+    bool hasReceivedFirstSignal() const;
+    bool hasReceivedAllSignals() const;
+
 public slots:
     void reset();
     

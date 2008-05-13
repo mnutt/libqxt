@@ -71,7 +71,7 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter() {
  * \sa QxtSignalGroup::firstSignalEmitted
  */
 bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags flags) {
-    reset();
+    if(hasReceivedFirstSignal()) return true;
     return QxtSignalWaiter::wait(this, SIGNAL(firstSignalReceived()), msec, flags);
 }
 
@@ -88,7 +88,7 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
  * \sa QxtSignalGroup::allSignalsEmitted
  */
 bool QxtMultiSignalWaiter::waitForAll(int msec, QEventLoop::ProcessEventsFlags flags) {
-    reset();
+    if(hasReceivedAllSignals()) return true;
     return QxtSignalWaiter::wait(this, SIGNAL(allSignalsReceived()), msec, flags);
 }
 
