@@ -6,7 +6,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="49"/>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Saksa</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="8"/>
@@ -16,7 +16,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="9"/>
         <source>Abkhazian</source>
-        <translation type="unfinished"></translation>
+        <translation>Abhaasi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="10"/>
@@ -26,92 +26,92 @@
     <message>
         <location filename="gen_qlocale.cpp" line="11"/>
         <source>Afar</source>
-        <translation type="unfinished"></translation>
+        <translation>Afar</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="12"/>
         <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaans</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="13"/>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Albania</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="14"/>
         <source>Amharic</source>
-        <translation type="unfinished"></translation>
+        <translation>Amhara</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="15"/>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="16"/>
         <source>Armenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Armenia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="17"/>
         <source>Assamese</source>
-        <translation type="unfinished"></translation>
+        <translation>Assami</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="18"/>
         <source>Aymara</source>
-        <translation type="unfinished"></translation>
+        <translation>Aimara</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="19"/>
         <source>Azerbaijani</source>
-        <translation type="unfinished"></translation>
+        <translation>Azeri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="20"/>
         <source>Bashkir</source>
-        <translation type="unfinished"></translation>
+        <translation>Baškiiri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="21"/>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Baski</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="22"/>
         <source>Bengali</source>
-        <translation type="unfinished"></translation>
+        <translation>Bengali</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="23"/>
         <source>Bhutani</source>
-        <translation type="unfinished"></translation>
+        <translation>Bhutani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="24"/>
         <source>Bihari</source>
-        <translation type="unfinished"></translation>
+        <translation>Bihari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="25"/>
         <source>Bislama</source>
-        <translation type="unfinished"></translation>
+        <translation>Bislama</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="26"/>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation>Bretoni</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="27"/>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulgaria</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="28"/>
         <source>Burmese</source>
-        <translation type="unfinished"></translation>
+        <translation>Burma</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="29"/>
@@ -126,217 +126,217 @@
     <message>
         <location filename="gen_qlocale.cpp" line="31"/>
         <source>Catalan</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalaani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="32"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiina</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="33"/>
         <source>Corsican</source>
-        <translation type="unfinished"></translation>
+        <translation>Korsika</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="34"/>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Kroatia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="35"/>
         <source>Czech</source>
-        <translation type="unfinished"></translation>
+        <translation>Tšekki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="36"/>
         <source>Danish</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanska</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="37"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollanti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="38"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Englanti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="39"/>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="40"/>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Eesti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="41"/>
         <source>Faroese</source>
-        <translation type="unfinished"></translation>
+        <translation>Fääri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="42"/>
         <source>FijiLanguage</source>
-        <translation type="unfinished"></translation>
+        <translation>Fidži</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="43"/>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Suomi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="44"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Ranska</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="45"/>
         <source>Frisian</source>
-        <translation type="unfinished"></translation>
+        <translation>Friisi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="46"/>
         <source>Gaelic</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaeli</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="47"/>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Galego</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="48"/>
         <source>Georgian</source>
-        <translation type="unfinished"></translation>
+        <translation>Georgia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="50"/>
         <source>Greek</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreikka</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="51"/>
         <source>Greenlandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Grönlanti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="52"/>
         <source>Guarani</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="53"/>
         <source>Gujarati</source>
-        <translation type="unfinished"></translation>
+        <translation>Gudžarati</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="54"/>
         <source>Hausa</source>
-        <translation type="unfinished"></translation>
+        <translation>Hausa</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="55"/>
         <source>Hebrew</source>
-        <translation type="unfinished"></translation>
+        <translation>Heprea</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="56"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="57"/>
         <source>Hungarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Unkari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="58"/>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islanti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="59"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonesia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="60"/>
         <source>Interlingua</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlingua</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="61"/>
         <source>Interlingue</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlingue</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="62"/>
         <source>Inuktitut</source>
-        <translation type="unfinished"></translation>
+        <translation>Eskimo</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="63"/>
         <source>Inupiak</source>
-        <translation type="unfinished"></translation>
+        <translation>Inupiak</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="64"/>
         <source>Irish</source>
-        <translation type="unfinished"></translation>
+        <translation>Iiri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="65"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="66"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="67"/>
         <source>Javanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Jaava</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="68"/>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannada</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="69"/>
         <source>Kashmiri</source>
-        <translation type="unfinished"></translation>
+        <translation>Kašmiri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="70"/>
         <source>Kazakh</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazak</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="71"/>
         <source>Kinyarwanda</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruanda</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="72"/>
         <source>Kirghiz</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirgiisi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="73"/>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Korea</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="74"/>
         <source>Kurdish</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurdi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="75"/>
@@ -346,132 +346,132 @@
     <message>
         <location filename="gen_qlocale.cpp" line="76"/>
         <source>Laothian</source>
-        <translation type="unfinished"></translation>
+        <translation>Lao</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="77"/>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Latina</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="78"/>
         <source>Latvian</source>
-        <translation type="unfinished"></translation>
+        <translation>Latvia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="79"/>
         <source>Lingala</source>
-        <translation type="unfinished"></translation>
+        <translation>Lingala</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="80"/>
         <source>Lithuanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Liettua</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="81"/>
         <source>Macedonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Makedonia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="82"/>
         <source>Malagasy</source>
-        <translation type="unfinished"></translation>
+        <translation>Malagassi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="83"/>
         <source>Malay</source>
-        <translation type="unfinished"></translation>
+        <translation>Malaiji</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="84"/>
         <source>Malayalam</source>
-        <translation type="unfinished"></translation>
+        <translation>Malajalam</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="85"/>
         <source>Maltese</source>
-        <translation type="unfinished"></translation>
+        <translation>Malta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="86"/>
         <source>Maori</source>
-        <translation type="unfinished"></translation>
+        <translation>Maori</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="87"/>
         <source>Marathi</source>
-        <translation type="unfinished"></translation>
+        <translation>Marathi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="88"/>
         <source>Moldavian</source>
-        <translation type="unfinished"></translation>
+        <translation>Moldavia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="89"/>
         <source>Mongolian</source>
-        <translation type="unfinished"></translation>
+        <translation>Mongoli</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="90"/>
         <source>NauruLanguage</source>
-        <translation type="unfinished"></translation>
+        <translation>Nauru</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="91"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepali</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="92"/>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="93"/>
         <source>NorwegianBokmal</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjanorja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="94"/>
         <source>Occitan</source>
-        <translation type="unfinished"></translation>
+        <translation>Oksitaani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="95"/>
         <source>Oriya</source>
-        <translation type="unfinished"></translation>
+        <translation>Orija</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="96"/>
         <source>Pashto</source>
-        <translation type="unfinished"></translation>
+        <translation>Paštu</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="97"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Persia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="98"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Puola</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="99"/>
         <source>Portuguese</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugali</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="100"/>
         <source>Punjabi</source>
-        <translation type="unfinished"></translation>
+        <translation>Pandžabi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="101"/>
         <source>Quechua</source>
-        <translation type="unfinished"></translation>
+        <translation>Ketšua</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="102"/>
@@ -481,17 +481,17 @@
     <message>
         <location filename="gen_qlocale.cpp" line="103"/>
         <source>Romanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Romania</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="104"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Venäjä</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="105"/>
         <source>Samoan</source>
-        <translation type="unfinished"></translation>
+        <translation>Samoa</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="106"/>
@@ -501,12 +501,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="107"/>
         <source>Sanskrit</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanskriitti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="108"/>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="109"/>
@@ -516,267 +516,267 @@
     <message>
         <location filename="gen_qlocale.cpp" line="110"/>
         <source>Sesotho</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesotho</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="111"/>
         <source>Setswana</source>
-        <translation type="unfinished"></translation>
+        <translation>Setšwana</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="112"/>
         <source>Shona</source>
-        <translation type="unfinished"></translation>
+        <translation>Shona</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="113"/>
         <source>Sindhi</source>
-        <translation type="unfinished"></translation>
+        <translation>Sindhi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="114"/>
         <source>Singhalese</source>
-        <translation type="unfinished"></translation>
+        <translation>Singhali</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="115"/>
         <source>Siswati</source>
-        <translation type="unfinished"></translation>
+        <translation>Siswati</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="116"/>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovakki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="117"/>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloveeni</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="118"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somali</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="119"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Espanja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="120"/>
         <source>Sundanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Sundaneesi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="121"/>
         <source>Swahili</source>
-        <translation type="unfinished"></translation>
+        <translation>Swahili</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="122"/>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruotsi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="123"/>
         <source>Tagalog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tagalog</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="124"/>
         <source>Tajik</source>
-        <translation type="unfinished"></translation>
+        <translation>Tadžikki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="125"/>
         <source>Tamil</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamili</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="126"/>
         <source>Tatar</source>
-        <translation type="unfinished"></translation>
+        <translation>Tataari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="127"/>
         <source>Telugu</source>
-        <translation type="unfinished"></translation>
+        <translation>Telugu</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="128"/>
         <source>Thai</source>
-        <translation type="unfinished"></translation>
+        <translation>Thai</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="129"/>
         <source>Tibetan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiibetti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="130"/>
         <source>Tigrinya</source>
-        <translation type="unfinished"></translation>
+        <translation>Tigrinja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="131"/>
         <source>TongaLanguage</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonga</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="132"/>
         <source>Tsonga</source>
-        <translation type="unfinished"></translation>
+        <translation>Tsonga</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="133"/>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turkki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="134"/>
         <source>Turkmen</source>
-        <translation type="unfinished"></translation>
+        <translation>Turkmeeni</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="135"/>
         <source>Twi</source>
-        <translation type="unfinished"></translation>
+        <translation>Twi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="136"/>
         <source>Uigur</source>
-        <translation type="unfinished"></translation>
+        <translation>Uiguuri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="137"/>
         <source>Ukrainian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukraina</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="138"/>
         <source>Urdu</source>
-        <translation type="unfinished"></translation>
+        <translation>Urdu</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="139"/>
         <source>Uzbek</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzbekki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="140"/>
         <source>Vietnamese</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietnami</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="141"/>
         <source>Volapuk</source>
-        <translation type="unfinished"></translation>
+        <translation>Volapük</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="142"/>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Kymri</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="143"/>
         <source>Wolof</source>
-        <translation type="unfinished"></translation>
+        <translation>Wolof</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="144"/>
         <source>Xhosa</source>
-        <translation type="unfinished"></translation>
+        <translation>Xhosa</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="145"/>
         <source>Yiddish</source>
-        <translation type="unfinished"></translation>
+        <translation>Jiddiš</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="146"/>
         <source>Yoruba</source>
-        <translation type="unfinished"></translation>
+        <translation>Joruba</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="147"/>
         <source>Zhuang</source>
-        <translation type="unfinished"></translation>
+        <translation>Tšuang</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="148"/>
         <source>Zulu</source>
-        <translation type="unfinished"></translation>
+        <translation>Zulu</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="149"/>
         <source>NorwegianNynorsk</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusnorja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="150"/>
         <source>Nynorsk</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusnorja</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="151"/>
         <source>Bosnian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bosnia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="152"/>
         <source>Divehi</source>
-        <translation type="unfinished"></translation>
+        <translation>Divehi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="153"/>
         <source>Manx</source>
-        <translation type="unfinished"></translation>
+        <translation>Manksi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="154"/>
         <source>Cornish</source>
-        <translation type="unfinished"></translation>
+        <translation>Korni</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="155"/>
         <source>Akan</source>
-        <translation type="unfinished"></translation>
+        <translation>Akan</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="156"/>
         <source>Konkani</source>
-        <translation type="unfinished"></translation>
+        <translation>Konkani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="157"/>
         <source>Ga</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="158"/>
         <source>Igbo</source>
-        <translation type="unfinished"></translation>
+        <translation>Igbo</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="159"/>
         <source>Kamba</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamba</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="160"/>
         <source>Syriac</source>
-        <translation type="unfinished"></translation>
+        <translation>Syyria</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="161"/>
         <source>Blin</source>
-        <translation type="unfinished"></translation>
+        <translation>Blin</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="162"/>
         <source>Geez</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiopia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="163"/>
@@ -786,7 +786,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="164"/>
         <source>Sidamo</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidamo</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="165"/>
@@ -796,7 +796,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="166"/>
         <source>Tigre</source>
-        <translation type="unfinished"></translation>
+        <translation>Tigre</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="167"/>
@@ -806,27 +806,27 @@
     <message>
         <location filename="gen_qlocale.cpp" line="168"/>
         <source>Friulian</source>
-        <translation type="unfinished"></translation>
+        <translation>Friuliaani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="169"/>
         <source>Venda</source>
-        <translation type="unfinished"></translation>
+        <translation>Venda</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="170"/>
         <source>Ewe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ewe</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="171"/>
         <source>Walamo</source>
-        <translation type="unfinished"></translation>
+        <translation>Walamo</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="172"/>
         <source>Hawaiian</source>
-        <translation type="unfinished"></translation>
+        <translation>Havaiji</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="173"/>
