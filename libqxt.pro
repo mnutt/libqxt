@@ -11,6 +11,16 @@ macx:include(features/macx/qxtbuild.prf)
 TEMPLATE = subdirs
 DESTDIR  = deploy/libs
 
+#check Qt version
+QT_VERSION = $$[QT_VERSION]
+QT_VERSION = $$split(QT_VERSION, ".")
+QT_VER_MAJ = $$member(QT_VERSION, 0)
+QT_VER_MIN = $$member(QT_VERSION, 1)
+
+lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
+   error(LibQxt requires Qt 4.2 or newer but Qt $$[QT_VERSION] was detected.)
+}
+
 #write the paths to prf file
 unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 
