@@ -10,7 +10,7 @@ int main( int argc, char ** argv )
     QApplication app ( argc, argv );
 
     if(app.arguments().count()<2)
-     qFataL("./qxtflowview /path/to/images");
+       qFatal("./qxtflowview /path/to/images");
 
     FsImageModel model(app.arguments().at(1));
 
