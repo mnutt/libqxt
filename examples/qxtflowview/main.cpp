@@ -20,7 +20,7 @@ int main( int argc, char ** argv )
 
 
     QxtFlowView w;
-    w.setSlideSize(QSize( 4*40,3*40));
+    w.setSlideSize(QSize( 4*60,3*60));
     w.resize(800, 600);
     w.setModel(&model);
     w.show();
