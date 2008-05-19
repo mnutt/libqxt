@@ -21,7 +21,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="10"/>
         <source>Afan</source>
-        <translation type="unfinished"></translation>
+        <translation>Afan</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="11"/>
@@ -116,12 +116,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="29"/>
         <source>Byelorussian</source>
-        <translation type="unfinished"></translation>
+        <translation>Valkovenäjä</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="30"/>
         <source>Cambodian</source>
-        <translation type="unfinished"></translation>
+        <translation>Kambodža</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="31"/>
@@ -341,7 +341,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="75"/>
         <source>Kurundi</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurundi</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="76"/>
@@ -476,7 +476,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="102"/>
         <source>RhaetoRomance</source>
-        <translation type="unfinished"></translation>
+        <translation>Retoromaani</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="103"/>
@@ -496,7 +496,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="106"/>
         <source>Sangho</source>
-        <translation type="unfinished"></translation>
+        <translation>Sangho</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="107"/>
@@ -511,7 +511,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="109"/>
         <source>SerboCroatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbian Kroatia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="110"/>
@@ -781,7 +781,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="163"/>
         <source>Koro</source>
-        <translation type="unfinished"></translation>
+        <translation>Koro</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="164"/>
@@ -791,7 +791,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="165"/>
         <source>Atsam</source>
-        <translation type="unfinished"></translation>
+        <translation>Atsam</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="166"/>
@@ -801,7 +801,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="167"/>
         <source>Jju</source>
-        <translation type="unfinished"></translation>
+        <translation>Jju</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="168"/>
@@ -831,12 +831,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="173"/>
         <source>Tyap</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyap</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="176"/>
         <source>AnyCountry</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuntematon Valtio</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="177"/>
@@ -856,7 +856,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="180"/>
         <source>AmericanSamoa</source>
-        <translation type="unfinished"></translation>
+        <translation>Amerikan Samoa</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="181"/>
@@ -881,7 +881,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="185"/>
         <source>AntiguaAndBarbuda</source>
-        <translation type="unfinished"></translation>
+        <translation>Antigua ja Barbuda</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="186"/>
@@ -971,7 +971,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="203"/>
         <source>BosniaAndHerzegowina</source>
-        <translation type="unfinished"></translation>
+        <translation>Bosnia ja Hertsegovina</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="204"/>
@@ -981,7 +981,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="205"/>
         <source>BouvetIsland</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouvet&apos;nsaari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="206"/>
@@ -991,12 +991,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="207"/>
         <source>BritishIndianOceanTerritory</source>
-        <translation type="unfinished"></translation>
+        <translation>Brittiläinen Intian Valtameren Alue</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="208"/>
         <source>BruneiDarussalam</source>
-        <translation type="unfinished"></translation>
+        <translation>Brunei</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="209"/>
@@ -1006,7 +1006,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="210"/>
         <source>BurkinaFaso</source>
-        <translation type="unfinished"></translation>
+        <translation>Burkina Faso</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="211"/>
@@ -1031,17 +1031,17 @@
     <message>
         <location filename="gen_qlocale.cpp" line="215"/>
         <source>CapeVerde</source>
-        <translation type="unfinished"></translation>
+        <translation>Kap Verde</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="216"/>
         <source>CaymanIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Caymansaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="217"/>
         <source>CentralAfricanRepublic</source>
-        <translation type="unfinished"></translation>
+        <translation>Keski-Afrikan Tasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="218"/>
@@ -1061,12 +1061,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="221"/>
         <source>ChristmasIsland</source>
-        <translation type="unfinished"></translation>
+        <translation>Joulusaari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="222"/>
         <source>CocosIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Kookossaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="223"/>
@@ -1081,27 +1081,27 @@
     <message>
         <location filename="gen_qlocale.cpp" line="225"/>
         <source>DemocraticRepublicOfCongo</source>
-        <translation type="unfinished"></translation>
+        <translation>Kongon Demokraattinen Tasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="226"/>
         <source>PeoplesRepublicOfCongo</source>
-        <translation type="unfinished"></translation>
+        <translation>Kongon Tasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="227"/>
         <source>CookIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Cookinsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="228"/>
         <source>CostaRica</source>
-        <translation type="unfinished"></translation>
+        <translation>Costa Rica</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="229"/>
         <source>IvoryCoast</source>
-        <translation type="unfinished"></translation>
+        <translation>Norsunluurannikko</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="230"/>
@@ -1121,7 +1121,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="233"/>
         <source>CzechRepublic</source>
-        <translation type="unfinished"></translation>
+        <translation>Tšekki</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="234"/>
@@ -1141,12 +1141,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="237"/>
         <source>DominicanRepublic</source>
-        <translation type="unfinished"></translation>
+        <translation>Dominikaaninen Tasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="238"/>
         <source>EastTimor</source>
-        <translation type="unfinished"></translation>
+        <translation>Itä-Timor</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="239"/>
@@ -1161,12 +1161,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="241"/>
         <source>ElSalvador</source>
-        <translation type="unfinished"></translation>
+        <translation>El Salvador</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="242"/>
         <source>EquatorialGuinea</source>
-        <translation type="unfinished"></translation>
+        <translation>Päiväntasaajan Guinea</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="243"/>
@@ -1186,12 +1186,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="246"/>
         <source>FalklandIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Falklandinsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="247"/>
         <source>FaroeIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Färsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="248"/>
@@ -1211,22 +1211,22 @@
     <message>
         <location filename="gen_qlocale.cpp" line="251"/>
         <source>MetropolitanFrance</source>
-        <translation type="unfinished"></translation>
+        <translation>Ranska (Eurooppaan kuuluvat osat)</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="252"/>
         <source>FrenchGuiana</source>
-        <translation type="unfinished"></translation>
+        <translation>Ranskan Guayana</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="253"/>
         <source>FrenchPolynesia</source>
-        <translation type="unfinished"></translation>
+        <translation>Ranskan Polynesia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="254"/>
         <source>FrenchSouthernTerritories</source>
-        <translation type="unfinished"></translation>
+        <translation>Ranskan Eteläiset Alueet</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="255"/>
@@ -1296,7 +1296,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="268"/>
         <source>GuineaBissau</source>
-        <translation type="unfinished"></translation>
+        <translation>Guinea-Bissau</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="269"/>
@@ -1311,7 +1311,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="271"/>
         <source>HeardAndMcDonaldIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Heard ja McDonaldinsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="272"/>
@@ -1401,12 +1401,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="289"/>
         <source>DemocraticRepublicOfKorea</source>
-        <translation type="unfinished"></translation>
+        <translation>Korean Demokraattinen Kansantasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="290"/>
         <source>RepublicOfKorea</source>
-        <translation type="unfinished"></translation>
+        <translation>Korean Tasavalta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="291"/>
@@ -1446,7 +1446,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="298"/>
         <source>LibyanArabJamahiriya</source>
-        <translation type="unfinished"></translation>
+        <translation>Libya</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="299"/>
@@ -1506,7 +1506,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="310"/>
         <source>MarshallIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Marshallinsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="311"/>
@@ -1536,7 +1536,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="316"/>
         <source>Micronesia</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikronesian Liittovaltio</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="317"/>
@@ -1581,7 +1581,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="325"/>
         <source>NauruCountry</source>
-        <translation type="unfinished"></translation>
+        <translation>Nauru</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="326"/>
@@ -1601,12 +1601,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="329"/>
         <source>NewCaledonia</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi-Kaledonia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="330"/>
         <source>NewZealand</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi-Seelanti</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="331"/>
@@ -1631,12 +1631,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="335"/>
         <source>NorfolkIsland</source>
-        <translation type="unfinished"></translation>
+        <translation>Norfolkinsaari</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="336"/>
         <source>NorthernMarianaIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Pohjois-Mariaanit</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="337"/>
@@ -1661,7 +1661,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="341"/>
         <source>PalestinianTerritory</source>
-        <translation type="unfinished"></translation>
+        <translation>Palestiina</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="342"/>
@@ -1671,7 +1671,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="343"/>
         <source>PapuaNewGuinea</source>
-        <translation type="unfinished"></translation>
+        <translation>Papua-Uusi-Guinea</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="344"/>
@@ -1706,7 +1706,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="350"/>
         <source>PuertoRico</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto Rico</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="351"/>
@@ -1726,7 +1726,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="354"/>
         <source>RussianFederation</source>
-        <translation type="unfinished"></translation>
+        <translation>Venäjä</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="355"/>
@@ -1736,17 +1736,17 @@
     <message>
         <location filename="gen_qlocale.cpp" line="356"/>
         <source>SaintKittsAndNevis</source>
-        <translation type="unfinished"></translation>
+        <translation>Saint Kitts ja Nevis</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="357"/>
         <source>StLucia</source>
-        <translation type="unfinished"></translation>
+        <translation>Saint Lucia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="358"/>
         <source>StVincentAndTheGrenadines</source>
-        <translation type="unfinished"></translation>
+        <translation>Saint Vincent ja Grenadiinit</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="359"/>
@@ -1756,17 +1756,17 @@
     <message>
         <location filename="gen_qlocale.cpp" line="360"/>
         <source>SanMarino</source>
-        <translation type="unfinished"></translation>
+        <translation>San Marino</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="361"/>
         <source>SaoTomeAndPrincipe</source>
-        <translation type="unfinished"></translation>
+        <translation>São Tomé ja Príncipe</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="362"/>
         <source>SaudiArabia</source>
-        <translation type="unfinished"></translation>
+        <translation>Saudi-Arabia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="363"/>
@@ -1781,7 +1781,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="365"/>
         <source>SierraLeone</source>
-        <translation type="unfinished"></translation>
+        <translation>Sierra Leone</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="366"/>
@@ -1801,7 +1801,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="369"/>
         <source>SolomonIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Salomonsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="370"/>
@@ -1811,12 +1811,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="371"/>
         <source>SouthAfrica</source>
-        <translation type="unfinished"></translation>
+        <translation>Etelä-Afrikka</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="372"/>
         <source>SouthGeorgiaAndTheSouthSandwichIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Etelä-Georgia ja Eteläiset Sandwichsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="373"/>
@@ -1826,17 +1826,17 @@
     <message>
         <location filename="gen_qlocale.cpp" line="374"/>
         <source>SriLanka</source>
-        <translation type="unfinished"></translation>
+        <translation>Sri Lanka</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="375"/>
         <source>StHelena</source>
-        <translation type="unfinished"></translation>
+        <translation>Saint Helena</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="376"/>
         <source>StPierreAndMiquelon</source>
-        <translation type="unfinished"></translation>
+        <translation>Saint-Pierre ja Miquelon</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="377"/>
@@ -1851,7 +1851,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="379"/>
         <source>SvalbardAndJanMayenIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Svalbard ja Jan Mayen</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="380"/>
@@ -1871,7 +1871,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="383"/>
         <source>SyrianArabRepublic</source>
-        <translation type="unfinished"></translation>
+        <translation>Syyria</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="384"/>
@@ -1911,7 +1911,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="391"/>
         <source>TrinidadAndTobago</source>
-        <translation type="unfinished"></translation>
+        <translation>Trinidad ja Tobago</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="392"/>
@@ -1931,7 +1931,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="395"/>
         <source>TurksAndCaicosIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Turks- ja Caicossaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="396"/>
@@ -1951,12 +1951,12 @@
     <message>
         <location filename="gen_qlocale.cpp" line="399"/>
         <source>UnitedArabEmirates</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabiemiirikunnat</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="400"/>
         <source>UnitedKingdom</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdistynyt Kuningaskunta</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="401"/>
@@ -1966,7 +1966,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="402"/>
         <source>UnitedStatesMinorOutlyingIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdysvaltain Tyynenmeren Erillissaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="403"/>
@@ -1986,7 +1986,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="406"/>
         <source>VaticanCityState</source>
-        <translation type="unfinished"></translation>
+        <translation>Vatikaanivaltio</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="407"/>
@@ -2001,22 +2001,22 @@
     <message>
         <location filename="gen_qlocale.cpp" line="409"/>
         <source>BritishVirginIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Brittiläiset Neitsytsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="410"/>
         <source>USVirginIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdysvaltain Neitsytsaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="411"/>
         <source>WallisAndFutunaIslands</source>
-        <translation type="unfinished"></translation>
+        <translation>Wallis ja Futunasaaret</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="412"/>
         <source>WesternSahara</source>
-        <translation type="unfinished"></translation>
+        <translation>Länsi-Sahara</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="413"/>
@@ -2026,7 +2026,7 @@
     <message>
         <location filename="gen_qlocale.cpp" line="414"/>
         <source>Yugoslavia</source>
-        <translation type="unfinished"></translation>
+        <translation>Jugoslavia</translation>
     </message>
     <message>
         <location filename="gen_qlocale.cpp" line="415"/>
@@ -2191,7 +2191,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="782"/>
         <source>Bolivar Fuerte</source>
-        <translation type="unfinished"></translation>
+        <translation>Venezuelan bolivar</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="783"/>
@@ -2221,17 +2221,17 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="788"/>
         <source>CFA Franc BCEAO</source>
-        <translation type="unfinished"></translation>
+        <translation>CFA-frangi BCEAO</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="789"/>
         <source>CFA Franc BEAC</source>
-        <translation type="unfinished"></translation>
+        <translation>CFA-frangi BEAC</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="790"/>
         <source>CFP Franc</source>
-        <translation type="unfinished"></translation>
+        <translation>CFP-frangi</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="791"/>
@@ -2266,7 +2266,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="797"/>
         <source>Convertible Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Bosnia ja Hertsegovinan Vaihdettava Markka</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="798"/>
@@ -2311,12 +2311,12 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="806"/>
         <source>Denar</source>
-        <translation type="unfinished"></translation>
+        <translation>Makedonian dinaari</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="807"/>
         <source>Djibouti Franc</source>
-        <translation type="unfinished"></translation>
+        <translation>Djiboutin Frangi</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="808"/>
@@ -2331,7 +2331,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="810"/>
         <source>Dong</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietnamin đồng</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="811"/>
@@ -2471,7 +2471,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="838"/>
         <source>Kroon</source>
-        <translation type="unfinished"></translation>
+        <translation>Viron Kruunu</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="839"/>
@@ -2681,7 +2681,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="880"/>
         <source>Pa&apos;anga</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa&apos;anga</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="881"/>
@@ -2706,7 +2706,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="885"/>
         <source>Pound Sterling</source>
-        <translation type="unfinished"></translation>
+        <translation>Englannin Punta</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="886"/>
@@ -2746,7 +2746,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="893"/>
         <source>Rupiah</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonesian Rupia</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="894"/>
@@ -2876,7 +2876,7 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="919"/>
         <source>UAE Dirham</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabiemiirikuntien Dirhami</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="920"/>
@@ -2891,17 +2891,17 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="922"/>
         <source>Unidad de Valor Real</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolumbian Unidad de Valor Real</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="923"/>
         <source>Unidades de fomento</source>
-        <translation type="unfinished"></translation>
+        <translation>Chilen Unidades de fomento</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="924"/>
         <source>Uruguay Peso en Unidades Indexadas</source>
-        <translation type="unfinished"></translation>
+        <translation>Uruguayn Peso en Unidades Indexadas</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="925"/>
