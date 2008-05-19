@@ -606,3 +606,4 @@ void QxtFlowViewPrivate::reset()
     }
     triggerRender();
 }
+

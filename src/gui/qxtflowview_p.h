@@ -280,3 +280,5 @@ public slots:
     void rowsInserted ( const QModelIndex & parent, int start, int end );
     void rowsRemoved ( const QModelIndex & parent, int start, int end );
 };
+
+
