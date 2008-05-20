@@ -97,6 +97,7 @@ void MainWindow::receiveMessage(IRCName nick, QByteArray channel, QByteArray mes
 void MainWindow::send()
 {
     QByteArray msg=lineEdit->text().toUtf8();
+    if(msg.trimmed().isEmpty()) return;
 
     if(msg.startsWith('/'))
     {
