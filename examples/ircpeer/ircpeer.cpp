@@ -92,7 +92,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     if(command == "numeric") {
         params.removeAt(1);
         while(params[1].toByteArray() == "=" || params[1].toByteArray() == "@") params.removeAt(1);
-        if(params[1].toByteArray()[0] != '#') {
+        if(params[1].toByteArray()[0] != '#' && params[1].toByteArray()[0] != '&') {
             command = "system";
             params.push_front(QByteArray());
             params.swap(0, 1);
