@@ -162,6 +162,14 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
     if(obj != lineEdit) return false;
     if(event->type() != QEvent::KeyPress) return false;
     QKeyEvent* ke = static_cast<QKeyEvent*>(event);
+    if(ke->key() == Qt::Key_PageUp || ke->key() == Qt::Key_PageDown) {
+        QScrollBar* scroll = qobject_cast<QTextBrowser*>(tabWidget->currentWidget())->verticalScrollBar();
+        if(ke->key() == Qt::Key_PageUp)
+            scroll->triggerAction(QScrollBar::SliderPageStepSub);
+        else
+            scroll->triggerAction(QScrollBar::SliderPageStepAdd);
+        return true;
+    }
     if(ke->modifiers().testFlag(Qt::ControlModifier) && (ke->key() == Qt::Key_F4 || ke->key() == Qt::Key_W)) {
         partCurrentChannel();
         return true;
