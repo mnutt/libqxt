@@ -26,6 +26,8 @@ MainWindow::MainWindow()
     lineEdit->installEventFilter(this);
 
     irc.attachSlot("PRIVMSG",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
+    irc.attachSlot("NOTICE",this, SLOT(receiveNotice(IRCName, QByteArray, QByteArray)));
+    irc.attachSlot("CTCP-ACTION",this, SLOT(receiveAction(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("system",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("numeric",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSignal(this, SIGNAL(sendMessage(IRCName, QByteArray, QByteArray)), "PRIVMSG");
@@ -45,14 +47,11 @@ MainWindow::MainWindow()
 
 void MainWindow::lateInit()
 {
-    if(condiag.exec())
-    {
+    if(condiag.exec()) {
         irc.connect(condiag.hostname(), condiag.port());
         receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),
             "connecting to "+condiag.hostname()+":"+QByteArray::number(condiag.port()));
-    }
-    else
-    {
+    } else {
         qApp->quit();
     }
 }
@@ -61,34 +60,49 @@ void MainWindow::lateInit()
 void MainWindow::peerConnected()
 {
     irc.call("USER", QVariant(), condiag.nickname(), condiag.hostname(), condiag.hostname(), QByteArray("QxtRPCPeer"));
-
     irc.call("NICK", QVariant(), condiag.nickname());
 
     receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"connected. type /join #channel, to join a channel");
 
-    lineEdit->setFocus ( Qt::OtherFocusReason);
+    lineEdit->setFocus(Qt::OtherFocusReason);
 
 }
-void MainWindow::peerError ( QAbstractSocket::SocketError e)
+void MainWindow::peerError(QAbstractSocket::SocketError e)
 {
     receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"QAbstractSocket::SocketError "+QByteArray::number(e));
 }
 
-
-
 void MainWindow::receiveMessage(IRCName nick, QByteArray channel, QByteArray message)
 {
-    if(channel == "")
+    logMessage(nick, channel, message, "<%1> %2");
+}
+
+void MainWindow::receiveNotice(IRCName nick, QByteArray channel, QByteArray message)
+{
+    logMessage(nick, channel, message, "[%1] %2");
+}
+
+void MainWindow::receiveAction(IRCName nick, QByteArray channel, QByteArray message)
+{
+    logMessage(nick, channel, message, "* %1 %2");
+}
+
+void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message, QString format)
+{
+    if(channel == condiag.nickname()) {
+        if(channel == nick.nick)
+            channel = condiag.hostname();
+        else
+            channel = nick.nick;
+    }
+    if(channel == "" || channel == "AUTH") {
         channel = condiag.hostname();
-    else if(channel == condiag.nickname())
-        channel = nick.nick;
-    if(!channels.contains(channel))
-    {
+    } else if(!channels.contains(channel)) {
         channels[channel] = new QTextBrowser();
         channels[channel]->setFrameShape(QFrame::NoFrame);
         tabWidget->addTab(channels[channel], channel);
     }
-    channels[channel]->append(QString::fromUtf8(QByteArray("<") + nick.nick + "> " + message));
+    channels[channel]->append(format.arg(QString(nick.nick)).arg(QString(message)));
     channels[channel]->moveCursor(QTextCursor::End);
     channels[channel]->ensureCursorVisible();
     int index = tabWidget->indexOf(channels[channel]);
@@ -102,42 +116,32 @@ void MainWindow::send()
     QByteArray msg=lineEdit->text().toUtf8();
     if(msg.trimmed().isEmpty()) return;
 
-    if(msg.startsWith('/'))
-    {
-        if(msg.startsWith("/join "))
-        {
+    if(msg.startsWith('/')) {
+        if(msg.startsWith("/join ")) {
             if(msg.mid(6,1) == "#" || msg.mid(6,1) == "&")
                 irc.call("JOIN", QVariant(),msg.mid(6));
 
             receiveMessage(IRCName(condiag.hostname()),msg.mid(6),"you have joined "+msg.mid(6));        
             tabWidget->setCurrentWidget(channels[msg.mid(6)]);
-        }
-        else if(msg.startsWith("/names"))
-        {
+        } else if(msg.startsWith("/me ")) {
+            emit sendMessage(IRCName(condiag.nickname().toUtf8()),
+                    tabWidget->tabText(tabWidget->currentIndex()).toUtf8(),
+                    QByteArray("\001ACTION " + msg.mid(4) + "\001"));
+        } else if(msg.startsWith("/names")) {
             if(msg == "/names")
                 irc.call("NAMES", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
             else
                 irc.call("NAMES", QVariant(), msg.mid(7));
-        }
-        else if(msg == "/part")
-        {
+        } else if(msg == "/part") {
             partCurrentChannel();
-        }
-        else if(msg.startsWith("/raw "))
-        {
+        } else if(msg.startsWith("/raw ")) {
             irc.call("raw", msg.mid(5));
-        }
-        else if(msg == "/quit")
-        {
+        } else if(msg == "/quit") {
             qApp->quit();
-        }
-        else
-        {
+        } else {
             receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"unknown command "+msg);
         }
-    }
-    else
-    {
+    } else {
         emit sendMessage  (IRCName(condiag.nickname().toUtf8()),
                 tabWidget->tabText(tabWidget->currentIndex()).toUtf8(), msg);
     }
