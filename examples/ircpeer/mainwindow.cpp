@@ -103,7 +103,8 @@ void MainWindow::send()
     {
         if(msg.startsWith("/join "))
         {
-            irc.call("JOIN", QVariant(),msg.mid(6));
+            if(msg.mid(6,1) == "#")
+                irc.call("JOIN", QVariant(),msg.mid(6));
 
             receiveMessage(IRCName(condiag.hostname()),msg.mid(6),"you have joined "+msg.mid(6));        
             tabWidget->setCurrentWidget(channels[msg.mid(6)]);
@@ -117,7 +118,8 @@ void MainWindow::send()
         }
         else if(msg == "/part")
         {
-            irc.call("PART", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
+            if(tabWidget->tabText(tabWidget->currentIndex())[0] == '#')
+                irc.call("PART", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
             tabWidget->currentWidget()->deleteLater();
             tabWidget->removeTab(tabWidget->currentIndex());
         }

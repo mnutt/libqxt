@@ -57,7 +57,6 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     QByteArray message = data.left(endPos).trimmed(), prefix;
     data = data.mid(endPos+1);
     if(message.isEmpty()) return qMakePair(QString(), QList<QVariant>());
-        qDebug() << message;
 
     QList<QByteArray> words = message.split(' ');
     if(words[0][0] == ':') {
