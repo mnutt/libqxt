@@ -57,6 +57,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     QByteArray message = data.left(endPos).trimmed(), prefix;
     data = data.mid(endPos+1);
     if(message.isEmpty()) return qMakePair(QString(), QList<QVariant>());
+        qDebug() << message;
 
     QList<QByteArray> words = message.split(' ');
     if(words[0][0] == ':') {
@@ -67,10 +68,15 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
 
     QString command(words[wordPos]);
     QList<QVariant> params;
+    if(command.toInt() != 0) {
+        params << QVariant::fromValue(IRCName((prefix + ":" + command).toUtf8(), "", prefix));
+        command = "numeric";
+    } else {
+        if(prefix.isEmpty())          params << QVariant();
+        else if(prefix.contains('@')) params << QVariant::fromValue(IRCName::fromName(prefix));
+        else                          params << prefix;
+    }
 
-    if(prefix.isEmpty())          params << QVariant();
-    else if(prefix.contains('@')) params << QVariant::fromValue(IRCName::fromName(prefix));
-    else                          params << prefix;
     while(wordPos++ < words.count()-1) {
         if(words[wordPos].isEmpty()) continue;
         if(words[wordPos][0] == ':') {
@@ -81,6 +87,16 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
             break;
         }
         params << words[wordPos];
+    }
+
+    if(command == "numeric") {
+        params.removeAt(1);
+        while(params[1].toByteArray() == "=" || params[1].toByteArray() == "@") params.removeAt(1);
+        if(params[1].toByteArray()[0] != '#') {
+            command = "system";
+            params.push_front(QByteArray());
+            params.swap(0, 1);
+        }
     }
     
     return qMakePair(command, params);

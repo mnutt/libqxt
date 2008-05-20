@@ -16,12 +16,15 @@ class MainWindow : public QMainWindow
 Q_OBJECT
 public:
     MainWindow();
+protected:
+    bool eventFilter(QObject* obj, QEvent* event);
 private slots:
     void lateInit();
     void peerConnected();
     void peerError ( QAbstractSocket::SocketError );
     void receiveMessage(IRCName, QByteArray, QByteArray);
     void send();
+    void tabActivated(int index);
 signals:
     void sendMessage(IRCName, QByteArray, QByteArray);
 private:
