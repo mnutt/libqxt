@@ -19,7 +19,7 @@ static bool serializeParam(QTextStream& str, QVariant p)
         return true;
     }
     QByteArray ba = p.toByteArray();
-    if(ba.contains(' ')) 
+    if(ba.contains(' ') || ba[0] == ':') 
     {
         str << " :" << ba << "\r\n" << flush;
         return true;
@@ -75,7 +75,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     } else {
         if(prefix.isEmpty())          params << QVariant();
         else if(prefix.contains('@')) params << QVariant::fromValue(IRCName::fromName(prefix));
-        else                          params << prefix;
+        else                          params << QVariant::fromValue(IRCName(prefix, prefix, prefix));
     }
 
     while(wordPos++ < words.count()-1) {
