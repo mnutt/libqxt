@@ -68,7 +68,8 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
 
     QString command(words[wordPos]);
     QList<QVariant> params;
-    if(command.toInt() != 0) {
+    int cmdNum = command.toInt();
+    if(cmdNum != 0) {
         params << QVariant::fromValue(IRCName((prefix + ":" + command).toUtf8(), "", prefix));
         command = "numeric";
     } else {
@@ -90,12 +91,27 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     }
 
     if(command == "numeric") {
-        params.removeAt(1);
-        while(params[1].toByteArray() == "=" || params[1].toByteArray() == "@") params.removeAt(1);
-        if(params[1].toByteArray()[0] != '#' && params[1].toByteArray()[0] != '&') {
-            command = "system";
-            params.push_front(QByteArray());
+        params.removeAt(1);                     // always your own nick
+        while(params[1].toByteArray() == "=" || params[1].toByteArray() == "@")
+            params.removeAt(1);                 // nothing important
+        if(params.size() == 2) {
+            params.push_front(QByteArray());    // make it show up in the system window
             params.swap(0, 1);
+        } else if(cmdNum < 100 || params.size() > 3) {  // some numeric responses aren't a single string
+            QList<QVariant> newparams;
+            newparams << params[0];
+            int i;
+            if(cmdNum < 100) {
+                newparams << QByteArray();
+                i = 1;
+            } else {
+                newparams << params[1];
+                i = 2;
+            }
+            QByteArray ba;
+            for(; i < params.count(); i++) ba += params[i].toByteArray() + " ";
+            newparams << ba;
+            params = newparams;
         }
     }
     
