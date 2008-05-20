@@ -56,8 +56,7 @@ void MainWindow::lateInit()
 
 void MainWindow::peerConnected()
 {
-    irc.call("USER", QVariant(), condiag.nickname(), condiag.hostname(), 
-        condiag.hostname(), QByteArray("QxtRPCPeer"));
+    irc.call("USER", QVariant(), condiag.nickname(), condiag.hostname(), condiag.hostname(), QByteArray("QxtRPCPeer"));
 
     irc.call("NICK", QVariant(), condiag.nickname());
 
@@ -122,6 +121,10 @@ void MainWindow::send()
                 irc.call("PART", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
             tabWidget->currentWidget()->deleteLater();
             tabWidget->removeTab(tabWidget->currentIndex());
+        }
+        else if(msg.startsWith("/raw "))
+        {
+            irc.call("raw", msg.mid(5));
         }
         else
         {

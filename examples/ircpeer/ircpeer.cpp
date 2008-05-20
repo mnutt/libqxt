@@ -15,13 +15,13 @@ static bool serializeParam(QTextStream& str, QVariant p)
 {
     if(!p.isValid() || !p.canConvert(QVariant::ByteArray)) 
     {
-        str << "\n\r" << flush;
+        str << "\r\n" << flush;
         return true;
     }
     QByteArray ba = p.toByteArray();
     if(ba.contains(' ')) 
     {
-        str << " :" << ba << "\n\r" << flush;
+        str << " :" << ba << "\r\n" << flush;
         return true;
     }
     str << " " << ba << flush;
@@ -30,6 +30,7 @@ static bool serializeParam(QTextStream& str, QVariant p)
 
 QByteArray IRCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const 
     {
+    if(fn == "raw") return p1.toString().toUtf8() + "\r\n";
     QByteArray rv;
     QTextStream str(&rv);
     if(p1.isValid()) {
@@ -48,7 +49,7 @@ QByteArray IRCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3,
     if(serializeParam(str, p7)) return rv;
     if(serializeParam(str, p8)) return rv;
     if(serializeParam(str, p9)) return rv;
-    return rv + "\n\r";
+    return rv + "\r\n";
 }
 
 QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data) 
