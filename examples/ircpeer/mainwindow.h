@@ -23,6 +23,9 @@ private slots:
     void peerConnected();
     void peerError ( QAbstractSocket::SocketError );
     void receiveMessage(IRCName, QByteArray, QByteArray);
+    void receiveNotice(IRCName, QByteArray, QByteArray);
+    void receiveAction(IRCName, QByteArray, QByteArray);
+    void logMessage(IRCName, QByteArray, QByteArray, QString);
     void send();
     void tabActivated(int index);
     void partCurrentChannel();

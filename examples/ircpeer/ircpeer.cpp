@@ -53,7 +53,7 @@ QByteArray IRCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3,
 }
 
 QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data) 
-    {
+{
     int lfPos = data.indexOf('\n'), crPos = data.indexOf('\r'), wordPos = 0, endPos = (crPos == -1 || lfPos < crPos) ? lfPos : crPos;
     QByteArray message = data.left(endPos).trimmed(), prefix;
     data = data.mid(endPos+1);
@@ -97,11 +97,11 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
         if(params.size() == 2) {
             params.push_front(QByteArray());    // make it show up in the system window
             params.swap(0, 1);
-        } else if(cmdNum < 100 || params.size() > 3) {  // some numeric responses aren't a single string
+        } else if(cmdNum < 300 || params.size() > 3) {  // some numeric responses aren't a single string
             QList<QVariant> newparams;
             newparams << params[0];
             int i;
-            if(cmdNum < 100) {
+            if(cmdNum < 300) {
                 newparams << QByteArray();
                 i = 1;
             } else {
@@ -113,8 +113,19 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
             newparams << ba;
             params = newparams;
         }
+    } else if(command == "PRIVMSG") {
+        QByteArray p2 = params[2].toByteArray();
+        if(p2.size() > 0 && p2[0] == '\001') {
+            message = p2.replace("\001", "");
+            int spacePos = message.indexOf(' ');
+            if(spacePos == -1) spacePos = message.size();
+            command = "CTCP-"+message.left(spacePos);
+            params[2] = message.mid(spacePos);
+        }
+    } else if(command == "NOTICE" && params[0].isNull()) {
+        params[0] = QVariant::fromValue(IRCName(params[1].toByteArray(), "", params[1].toByteArray()));
     }
-    
+
     return qMakePair(command, params);
 }
 
