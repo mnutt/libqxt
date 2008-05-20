@@ -121,14 +121,15 @@ void MainWindow::send()
         }
         else if(msg == "/part")
         {
-            if(tabWidget->tabText(tabWidget->currentIndex())[0] == '#' || tabWidget->tabText(tabWidget->currentIndex())[0] == '&')
-                irc.call("PART", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
-            tabWidget->currentWidget()->deleteLater();
-            tabWidget->removeTab(tabWidget->currentIndex());
+            partCurrentChannel();
         }
         else if(msg.startsWith("/raw "))
         {
             irc.call("raw", msg.mid(5));
+        }
+        else if(msg == "/quit")
+        {
+            qApp->quit();
         }
         else
         {
@@ -144,10 +145,23 @@ void MainWindow::send()
     lineEdit->clear();
 }
 
+void MainWindow::partCurrentChannel() {
+    if(tabWidget->currentIndex() == 0) return;
+    if(tabWidget->tabText(tabWidget->currentIndex())[0] == '#' || tabWidget->tabText(tabWidget->currentIndex())[0] == '&')
+        irc.call("PART", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
+    channels.remove(tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
+    tabWidget->currentWidget()->deleteLater();
+    tabWidget->removeTab(tabWidget->currentIndex());
+}
+
 bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
     if(obj != lineEdit) return false;
     if(event->type() != QEvent::KeyPress) return false;
     QKeyEvent* ke = static_cast<QKeyEvent*>(event);
+    if(ke->modifiers().testFlag(Qt::ControlModifier) && (ke->key() == Qt::Key_F4 || ke->key() == Qt::Key_W)) {
+        partCurrentChannel();
+        return true;
+    }
     if(ke->key() != Qt::Key_Tab && ke->key() != Qt::Key_Backtab) return false;
     if(!ke->modifiers().testFlag(Qt::ControlModifier)) return false;
     int nextTab = tabWidget->currentIndex();
