@@ -25,6 +25,7 @@ private slots:
     void receiveMessage(IRCName, QByteArray, QByteArray);
     void send();
     void tabActivated(int index);
+    void partCurrentChannel();
 signals:
     void sendMessage(IRCName, QByteArray, QByteArray);
 private:
