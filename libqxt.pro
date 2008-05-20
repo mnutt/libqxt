@@ -22,10 +22,10 @@ lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
 }
 
 #write the paths to prf file
-unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${lib.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
+unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 
 #windows supports similar syntax
-win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${lib.path} & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
+win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${target.path} & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
 
 docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
