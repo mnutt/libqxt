@@ -102,7 +102,7 @@ void MainWindow::send()
     {
         if(msg.startsWith("/join "))
         {
-            if(msg.mid(6,1) == "#" || msg.mid(6,1) == '&')
+            if(msg.mid(6,1) == "#" || msg.mid(6,1) == "&")
                 irc.call("JOIN", QVariant(),msg.mid(6));
 
             receiveMessage(IRCName(condiag.hostname()),msg.mid(6),"you have joined "+msg.mid(6));        
