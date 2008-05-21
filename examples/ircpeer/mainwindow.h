@@ -21,14 +21,18 @@ protected:
 private slots:
     void lateInit();
     void peerConnected();
-    void peerError ( QAbstractSocket::SocketError );
+    void peerError(QAbstractSocket::SocketError);
     void receiveMessage(IRCName, QByteArray, QByteArray);
     void receiveNotice(IRCName, QByteArray, QByteArray);
     void receiveAction(IRCName, QByteArray, QByteArray);
+    void userJoin(IRCName, QByteArray);
+    void userPart(IRCName, QByteArray);
+    void userQuit(IRCName, QByteArray);
     void logMessage(IRCName, QByteArray, QByteArray, QString);
     void send();
     void tabActivated(int index);
     void partCurrentChannel();
+    void pong(IRCName, QByteArray);
 signals:
     void sendMessage(IRCName, QByteArray, QByteArray);
 private:

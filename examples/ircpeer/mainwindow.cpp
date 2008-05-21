@@ -1,24 +1,18 @@
 #include "mainwindow.h"
-#include <QApplication>
-#include <QStyle>
-
 #include <QtGui>
-MainWindow::MainWindow()
-{
+
+MainWindow::MainWindow() : QMainWindow(0) {
     centralwidget = new QWidget(this);
     gridLayout = new QGridLayout(centralwidget);
     tabWidget = new QTabWidget(centralwidget);
     tabWidget->setTabPosition(QTabWidget::South);
     gridLayout->addWidget(tabWidget, 0, 0, 1, 2);
-    pushButton = new QPushButton(centralwidget);
+    pushButton = new QPushButton("&Send", centralwidget);
     gridLayout->addWidget(pushButton, 1, 1, 1, 1);
 
     lineEdit = new QLineEdit(centralwidget);
     gridLayout->addWidget(lineEdit, 1, 0, 1, 1);
-
     setCentralWidget(centralwidget);
-    menubar = new QMenuBar(this);
-    setMenuBar(menubar);
 
     QObject::connect(lineEdit, SIGNAL(returnPressed()), this, SLOT(send()));
     QObject::connect(pushButton, SIGNAL(clicked()), this, SLOT(send()));
@@ -27,26 +21,24 @@ MainWindow::MainWindow()
 
     irc.attachSlot("PRIVMSG",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("NOTICE",this, SLOT(receiveNotice(IRCName, QByteArray, QByteArray)));
+    irc.attachSlot("JOIN",this, SLOT(userJoin(IRCName, QByteArray)));
+    irc.attachSlot("PART",this, SLOT(userPart(IRCName, QByteArray)));
+    irc.attachSlot("QUIT",this, SLOT(userQuit(IRCName, QByteArray)));
+    irc.attachSlot("PING",this, SLOT(pong(IRCName, QByteArray)));
     irc.attachSlot("CTCP-ACTION",this, SLOT(receiveAction(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("system",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("numeric",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSignal(this, SIGNAL(sendMessage(IRCName, QByteArray, QByteArray)), "PRIVMSG");
     QObject::connect(&irc, SIGNAL(peerConnected()), this, SLOT(peerConnected()));
-    QObject::connect(&irc, SIGNAL(peerError( QAbstractSocket::SocketError)), this, SLOT(peerError( QAbstractSocket::SocketError)));
-
+    QObject::connect(&irc, SIGNAL(peerError(QAbstractSocket::SocketError)), this, SLOT(peerError(QAbstractSocket::SocketError)));
     connect(this, SIGNAL(sendMessage(IRCName, QByteArray, QByteArray)), this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
 
     setWindowTitle("Qxt RPC IRC example");
-
-    pushButton->setText("send");
-
     resize(800,600);
-
     QTimer::singleShot(0,this,SLOT(lateInit()));
 }
 
-void MainWindow::lateInit()
-{
+void MainWindow::lateInit() {
     if(condiag.exec()) {
         irc.connect(condiag.hostname(), condiag.port());
         receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),
@@ -56,39 +48,54 @@ void MainWindow::lateInit()
     }
 }
 
+void MainWindow::pong(IRCName, QByteArray key) {
+    irc.call("PONG", QVariant(), key);
+}
 
-void MainWindow::peerConnected()
-{
+void MainWindow::peerConnected() {
     irc.call("USER", QVariant(), condiag.nickname(), condiag.hostname(), condiag.hostname(), QByteArray("QxtRPCPeer"));
     irc.call("NICK", QVariant(), condiag.nickname());
 
     receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"connected. type /join #channel, to join a channel");
-
     lineEdit->setFocus(Qt::OtherFocusReason);
-
 }
-void MainWindow::peerError(QAbstractSocket::SocketError e)
-{
+void MainWindow::peerError(QAbstractSocket::SocketError e) {
     receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"QAbstractSocket::SocketError "+QByteArray::number(e));
 }
 
-void MainWindow::receiveMessage(IRCName nick, QByteArray channel, QByteArray message)
-{
-    logMessage(nick, channel, message, "<%1> %2");
+void MainWindow::receiveMessage(IRCName nick, QByteArray channel, QByteArray message) {
+    if(message.startsWith("\001ACTION "))
+        receiveAction(nick, channel, message.mid(8, message.size()-9));
+    else
+        logMessage(nick, channel, message, "<%1> %2");
 }
 
-void MainWindow::receiveNotice(IRCName nick, QByteArray channel, QByteArray message)
-{
+void MainWindow::receiveNotice(IRCName nick, QByteArray channel, QByteArray message) {
     logMessage(nick, channel, message, "[%1] %2");
 }
 
-void MainWindow::receiveAction(IRCName nick, QByteArray channel, QByteArray message)
-{
+void MainWindow::receiveAction(IRCName nick, QByteArray channel, QByteArray message) {
     logMessage(nick, channel, message, "* %1 %2");
 }
 
-void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message, QString format)
-{
+void MainWindow::userJoin(IRCName nick, QByteArray channel) {
+    if(channels.contains(nick.nick))
+        logMessage(nick, nick.nick, channel, "! %1 joined %2");
+    logMessage(nick, channel, "joined the channel", "! %1 %2");
+}
+
+void MainWindow::userPart(IRCName nick, QByteArray channel) {
+    if(nick.nick == condiag.nickname()) return;
+    logMessage(nick, channel, "left the channel", "! %1 %2");
+}
+
+void MainWindow::userQuit(IRCName nick, QByteArray message) {
+    if(channels.contains(nick.nick))
+        logMessage(nick, nick.nick, message, "! %1 Quit: %2");
+    logMessage(nick, "", message, "! %1 Quit: %2");
+}
+
+void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message, QString format) {
     if(channel == condiag.nickname()) {
         if(channel == nick.nick)
             channel = condiag.hostname();
@@ -110,9 +117,7 @@ void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message
         tabWidget->setTabIcon(index, qApp->style()->standardIcon(QStyle::SP_ArrowRight));
 }
 
-
-void MainWindow::send()
-{
+void MainWindow::send() {
     QByteArray msg=lineEdit->text().toUtf8();
     if(msg.trimmed().isEmpty()) return;
 

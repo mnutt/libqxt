@@ -58,6 +58,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     QByteArray message = data.left(endPos).trimmed(), prefix;
     data = data.mid(endPos+1);
     if(message.isEmpty()) return qMakePair(QString(), QList<QVariant>());
+    qDebug() << message;
 
     QList<QByteArray> words = message.split(' ');
     if(words[0][0] == ':') {
@@ -73,7 +74,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
         params << QVariant::fromValue(IRCName((prefix + ":" + command).toUtf8(), "", prefix));
         command = "numeric";
     } else {
-        if(prefix.isEmpty())          params << QVariant();
+        if(prefix.isEmpty())          params << QVariant::fromValue(IRCName("","",""));
         else if(prefix.contains('@')) params << QVariant::fromValue(IRCName::fromName(prefix));
         else                          params << QVariant::fromValue(IRCName(prefix, prefix, prefix));
     }
