@@ -37,6 +37,8 @@
 #include "qxtstringspinboxplugin.h"
 #include "qxttablewidgetplugin.h"
 #include "qxttreewidgetplugin.h"
+#include "qxtflowviewplugin.h"
+
 #include <QtPlugin>
 
 QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
@@ -55,7 +57,9 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
     << new QxtStarsPlugin()
     << new QxtProgressLabelPlugin()
     << new QxtCountryComboBoxPlugin()
-    << new QxtLanguageComboBoxPlugin();
+    << new QxtLanguageComboBoxPlugin()
+    << new QxtFlowViewPlugin();
+
     return plugins;
 }
 
