@@ -218,6 +218,8 @@ void QxtFlowView::setTextColumn(int a)
 
 QModelIndex QxtFlowView::currentIndex() const
 {
+    if(!d->model)
+        return QModelIndex();
     return d->model->index(d->state->centerIndex,0,QModelIndex());
 }
 
