@@ -412,6 +412,13 @@ void QxtFlowViewPrivate::dataChanged ( const QModelIndex & topLeft, const QModel
 {
     Q_UNUSED(topLeft);
     Q_UNUSED(bottomRight);
+
+
+    int start=topLeft.row();
+    int end=bottomRight.row();
+
+    for(int i=start;i<=end;i++)
+        replaceSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn),picrole)));
 }
 
 void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int first, int last )
@@ -419,6 +426,10 @@ void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int fi
     Q_UNUSED(orientation);
     Q_UNUSED(first);
     Q_UNUSED(last);
+
+
+
+
 
 }
 
