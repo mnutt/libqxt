@@ -126,6 +126,18 @@ void MyTestPrivate::doQuux() {
  * before qxt_d() is used for the first time. The parameter is the name of the public class.
  */
 #define QXT_INIT_PRIVATE(PUB) qxt_d.setPublic(this);
+/*! \relates QxtPimpl
+ * Returns a reference in the current scope named "d" to the private class.
+ *
+ * This function is only available in a class using \a QXT_DECLARE_PRIVATE.
+ */
+#define QXT_D(PUB) PUB##Private& d = qxt_d()
+/*! \relates QxtPimpl
+ * Creates a reference in the current scope named "q" to the public class.
+ *
+ * This macro only works in a class using \a QXT_DECLARE_PUBLIC.
+ */
+#define QXT_P(PUB) PUB& p = qxt_p()
 
 #ifdef QXT_DOXYGEN_RUN
 /*! \relates QxtPimpl
