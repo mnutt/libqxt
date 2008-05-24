@@ -1,27 +1,26 @@
-HEADERS  += qxthtmltemplate.h
-HEADERS  += qxtmail.h
-HEADERS  += qxtsendmail.h
-HEADERS  += qxtweb.h
-HEADERS  += qxtwebcontroller.h
-HEADERS  += qxtwebcore.h
-HEADERS  += qxtwebcore_p.h
-HEADERS  += qxtwebhttpconnector.h
-HEADERS  += qxtwebhttpconnector_p.h
-HEADERS  += qxtwebscgiconnector.h
-HEADERS  += qxtwebscgiconnector_p.h
-HEADERS  += qxtwebstatelessconnector.h
+SOURCES += qxtabstracthttpconnector.cpp
+SOURCES += qxtabstractwebservice.cpp
+SOURCES += qxtabstractwebsessionmanager.cpp
+SOURCES += qxthtmltemplate.cpp
+SOURCES += qxthttpserverconnector.cpp
+SOURCES += qxthttpsessionmanager.cpp
+SOURCES += qxtmail.cpp
+SOURCES += qxtsendmail.cpp
+SOURCES += qxtwebcontent.cpp
+SOURCES += qxtwebevent.cpp
+SOURCES += qxtwebservicedirectory.cpp
 
-SOURCES  += qxthtmltemplate.cpp
-SOURCES  += qxtmail.cpp
-SOURCES  += qxtsendmail.cpp
-SOURCES  += qxtwebcontroller.cpp
-SOURCES  += qxtwebcore.cpp
-SOURCES  += qxtwebhttpconnector.cpp
-SOURCES  += qxtwebscgiconnector.cpp
+HEADERS += qxtabstracthttpconnector.h
+HEADERS += qxtabstractwebservice.h
+HEADERS += qxtabstractwebsessionmanager.h
+HEADERS += qxtabstractwebsessionmanager_p.h
+HEADERS += qxthtmltemplate.h
+HEADERS += qxthttpsessionmanager.h
+HEADERS += qxtmail.h
+HEADERS += qxtsendmail.h
+HEADERS += qxtweb.h
+HEADERS += qxtwebcontent.h
+HEADERS += qxtwebevent.h
+HEADERS += qxtwebservicedirectory.h
+HEADERS += qxtwebservicedirectory_p.h
 
-
-contains(DEFINES,HAVE_FCGI){
-#    HEADERS += qxtwebfcgiconnector.h qxtwebfcgiconnector_p.h
-#    SOURCES += qxtwebfcgiconnector.cpp
-#    LIBS+=-lfcgi++ -lfcgi
-}

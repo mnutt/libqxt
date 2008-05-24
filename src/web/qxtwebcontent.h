@@ -18,35 +18,44 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.org>  <foundation@libqxt.org>
+** <http://www.libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtFcgiConnector_header_guards_oaksndoapsid
-#define QxtFcgiConnector_header_guards_oaksndoapsid
 
+#ifndef QXTWEBCONTENT_H
+#define QXTWEBCONTENT_H
 
+#include <QAbstractSocket>
 #include <QByteArray>
-#include <QHostAddress>
+#include <QHash>
 #include <qxtpimpl.h>
-#include "qxtabstractwebconnector.h"
 
-class QxtFcgiConnectorPrivate;
-class QxtFcgiConnector : public QxtAbstractWebConnector
-{
-    Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtFcgiConnector);
-
+class QxtWebContentPrivate;
+class QxtWebContent : public QIODevice {
+Q_OBJECT
 public:
-    QxtFcgiConnector();
-    virtual int  start (quint16 ,const QHostAddress & =QHostAddress::Any);
+    QxtWebContent(int contentLength, const QByteArray& start, QIODevice* device);
+    QxtWebContent(int contentLength, QIODevice* device);
+    QxtWebContent(const QByteArray& content, QObject* parent = 0);
+    static QHash<QString, QString> parseUrlEncodedQuery(const QString& data);
 
-    virtual QIODevice * socket();
-    virtual void sendHeader(server_t &);
+    virtual qint64 bytesAvailable() const;
+    qint64 unreadBytes() const;
 
-    virtual void close();
+    void waitForAllContent();
 
-    virtual QByteArray content(quint64 maxsize);
+public slots:
+    void ignoreRemainingContent();
+
+protected:
+    virtual qint64 readData(char* data, qint64 maxSize);
+    virtual qint64 writeData(const char* data, qint64 maxSize);
+
+private slots:
+    void errorReceived(QAbstractSocket::SocketError);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtWebContent);
 };
-
 
 #endif

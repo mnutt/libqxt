@@ -22,35 +22,37 @@
 **
 ****************************************************************************/
 
+#ifndef QXTABSTRACTWEBSESSIONMANAGER_H
+#define QXTABSTRACTWEBSESSIONMANAGER_H
 
-#ifndef QxtWebScgiConnector_header_guards_oaksndoapsid
-#define QxtWebScgiConnector_header_guards_oaksndoapsid
-
-
-#include <QByteArray>
-#include <QHostAddress>
+#include <QObject>
 #include <qxtpimpl.h>
-#include "qxtwebstatelessconnector.h"
+class QxtAbstractWebService;
+class QxtWebEvent;
 
-class QxtWebScgiConnectorPrivate;
-class QxtWebScgiConnector : public QxtWebStatelessConnector
-{
-    Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtWebScgiConnector);
-
+class QxtAbstractWebSessionManagerPrivate;
+class QxtAbstractWebSessionManager : public QObject {
+Q_OBJECT
 public:
-    QxtWebScgiConnector(QObject * parent=0);
+    typedef QxtAbstractWebService* ServiceFactory(QxtAbstractWebSessionManager*, int);
 
-    virtual bool isMultiplexing()
-    {
-        return true;
-    }
-    virtual bool start (quint16 port,const QHostAddress & address =QHostAddress::LocalHost);
-    virtual QAbstractSocket::SocketError serverError () const;
-    virtual QxtWebStatelessConnection * nextPendingConnection ();
-    virtual bool hasPendingConnections () const;
-    virtual bool waitForNewConnection ( int msec = 0, bool * timedOut = 0 );
+    QxtAbstractWebSessionManager(QObject* parent = 0);
+
+    virtual bool start() = 0;
+    virtual void postEvent(QxtWebEvent* event) = 0;
+    void setServiceFactory(ServiceFactory* factory);
+    ServiceFactory* serviceFactory() const;
+
+    QxtAbstractWebService* session(int sessionID) const;
+
+protected:
+    int createService();
+
+protected slots:
+    virtual void processEvents() = 0;
+
+private:
+    QXT_DECLARE_PRIVATE(QxtAbstractWebSessionManager);
 };
-
 
 #endif
