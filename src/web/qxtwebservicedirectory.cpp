@@ -174,7 +174,7 @@ void QxtWebServiceDirectory::functionInvokedEvent(QxtWebRequestEvent* event) {
  * Subclasses may reimplement this event handler to customize this behavior.
  */
 void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, const QString& name) {
-    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + name + "&quot; not known").toUtf8()));
+    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + QString(name).replace("<","&lt") + "&quot; not known").toUtf8()));
 }
 
 /**

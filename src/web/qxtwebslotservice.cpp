@@ -204,7 +204,7 @@ void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 
     if(!ok)
     {
-        QByteArray err="<h1>Can not find slot</h1> <pre>Class "+QByteArray(metaObject()->className ())+"\r{\npublic slots:\r    void "+action+" ( QxtWebRequestEvent* event, ";
+        QByteArray err="<h1>Can not find slot</h1> <pre>Class "+QByteArray(metaObject()->className ())+"\r{\npublic slots:\r    void "+action.replace("<","&lt")+" ( QxtWebRequestEvent* event, ";
         for(int i=0;i<args.count();i++)
             err+="QString arg"+QByteArray::number(i)+", ";
         err.chop(2);
