@@ -29,11 +29,11 @@
 #include <QUrl>
 
 
-class QxtSlotService : public QxtAbstractWebService 
+class QxtWebSlotService : public QxtAbstractWebService 
 {
 Q_OBJECT
 public:
-    QxtSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
+    QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 protected:
 
     QUrl self(QxtWebRequestEvent* event);
