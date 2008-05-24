@@ -22,31 +22,37 @@
 **
 ****************************************************************************/
 
-#ifndef QxtWebHttpConnector_header_aolshdaslkd
-#define QxtWebHttpConnector_header_aolshdaslkd
+#ifndef QXTWEBSERVICEDIRECTORY_H
+#define QXTWEBSERVICEDIRECTORY_H
 
-#include "qxtwebstatelessconnector.h"
+#include <qxtabstractwebservice.h>
 #include <qxtpimpl.h>
+#include <QString>
+class QxtAbstractWebSessionManager;
+class QxtWebEvent;
 
-class QxtWebHttpConnectorPrivate;
-class QxtWebHttpConnector : public QxtWebStatelessConnector
-{
+class QxtWebServiceDirectoryPrivate;
+class QxtWebServiceDirectory : public QxtAbstractWebService {
 Q_OBJECT
-QXT_DECLARE_PRIVATE(QxtWebHttpConnector);
-
 public:
-    QxtWebHttpConnector(QObject * parent = 0 );
+    QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 
-    virtual bool isMultiplexing()
-    {
-        return true;
-    }
-    virtual bool start (quint16 port,const QHostAddress & address=QHostAddress::LocalHost);
-    virtual QAbstractSocket::SocketError serverError () const;
-    virtual QxtWebStatelessConnection * nextPendingConnection ();
-    virtual bool hasPendingConnections () const;
-    virtual bool waitForNewConnection ( int msec = 0, bool * timedOut = 0 );
+    void addService(const QString& path, QxtAbstractWebService* service);
+    void removeService(const QString& path);
+    QxtAbstractWebService* service(const QString& path) const;
+
+    virtual void pageRequestedEvent(QxtWebRequestEvent* event);
+    virtual void functionInvokedEvent(QxtWebRequestEvent* event);
+
+    QString defaultRedirect() const;
+    void setDefaultRedirect(const QString& path);
+
+protected:
+    virtual void unknownServiceRequested(QxtWebRequestEvent* event, const QString& name);
+    virtual void indexRequested(QxtWebRequestEvent* event);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtWebServiceDirectory);
 };
-
 
 #endif

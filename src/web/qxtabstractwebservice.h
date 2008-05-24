@@ -18,53 +18,32 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.org>  <foundation@libqxt.org>
+** <http://www.libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtwebfcgiconnector.h"
-#include <QTcpSocket>
-#include <QTcpServer>
 
+#ifndef QXTABSTRACTWEBSERVICE_H
+#define QXTABSTRACTWEBSERVICE_H
 
-#include <stdlib.h>
-#ifdef _WIN32
-#include <process.h>
-#else
-#include <unistd.h>
-extern char ** environ;
-#endif
-#include "fcgio.h"
-#include "fcgi_config.h"
-#include <QMetaType>
-#include <QThread>
-#include "qxtstdstreambufdevice.h"
+#include <QObject>
+#include <qxtpimpl.h>
+#include "qxtabstractwebsessionmanager.h"
+class QxtWebEvent;
+class QxtWebRequestEvent;
 
-Q_DECLARE_METATYPE(FCGX_Request)
-
-// Maximum number of bytes allowed to be read from stdin
-static const unsigned long STDIN_MAX = 1000000;
-
-
-class QxtFcgiConnectorPrivate : public QThread,public QxtPrivate<QxtFcgiConnector>
-{
-    QXT_DECLARE_PUBLIC(QxtFcgiConnector);
-    Q_OBJECT
+class QxtAbstractWebServicePrivate;
+class QxtAbstractWebService : public QObject {
+Q_OBJECT
 public:
-    QxtFcgiConnectorPrivate();
-    void run();
+    QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent = 0);
 
-    QxtStdStreambufDevice * io;
+    QxtAbstractWebSessionManager* sessionManager() const;
+    inline void postEvent(QxtWebEvent* event) { sessionManager()->postEvent(event); }
+    virtual void pageRequestedEvent(QxtWebRequestEvent* event) = 0;
+    // virtual void functionInvokedEvent(QxtWebRequestEvent* event) = 0; // todo: implement
 
-    bool open;
-
-
-    FCGX_Request request;
-
-signals:
-    void close_ss();
-
-
-
+private:
+    QXT_DECLARE_PRIVATE(QxtAbstractWebService);
 };
 
-
+#endif

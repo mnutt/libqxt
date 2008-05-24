@@ -18,46 +18,37 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.org>  <foundation@libqxt.org>
+** <http://www.libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtWebController_H_sapoidnasoas
-#define QxtWebController_H_sapoidnasoas
+
+#ifndef QXTABSTRACTWEBSESSIONMANAGER_P_H
+#define QXTABSTRACTWEBSESSIONMANAGER_P_H
 
 #include <QObject>
-#include <QTextStream>
-#include <QVariant>
-#include "qxtwebcore.h"
+#include <QPointer>
+#include <QHash>
+#include <QQueue>
+#include <qxtpimpl.h>
+#include "qxtabstractwebsessionmanager.h"
 
-class QxtWebController : public QObject
-{
-    Q_OBJECT
+#ifndef QXT_DOXYGEN_RUN
+class QxtAbstractWebSessionManagerPrivate : public QObject, public QxtPrivate<QxtAbstractWebSessionManager> {
+Q_OBJECT
 public:
-    QxtWebController(QString name);
-    int invoke(QxtWebStatelessConnection * );
-    static QString WebRoot();
+    QxtAbstractWebSessionManagerPrivate();
+    QXT_DECLARE_PUBLIC(QxtAbstractWebSessionManager);
+
+    QxtAbstractWebSessionManager::ServiceFactory* factory;
+    QHash<int, QxtAbstractWebService*> sessions;
+    QQueue<int> freeList;
+    int maxID;
+
+    int getNextID();
+
 public slots:
-    int index()
-    {
-        echo()<<"overwrite the index function of this controller("+objectName()+")";
-        return 404;
-    }
-
-protected:
-
-    QTextStream & echo();
-    QByteArray & buffer();
-
-    QString self();
-
-    virtual int preInvoke();
-    virtual int postInvoke();
-
-private:
-    QTextStream *stream_m;
-    QByteArray *buff_m;
-
+    void sessionDestroyed(int sessionID);
 };
-
 #endif
 
+#endif

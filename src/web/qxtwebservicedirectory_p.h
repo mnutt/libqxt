@@ -18,60 +18,30 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.org>  <foundation@libqxt.org>
+** <http://www.libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtWebLegacyEngine_HEADER_GIAURX_H
-#define QxtWebLegacyEngine_HEADER_GIAURX_H
 
-#include <QObject>
-#include <QMap>
+#ifndef QXTWEBSERVICEDIRECTORY_P_H
+#define QXTWEBSERVICEDIRECTORY_P_H
 
+#include "qxtwebservicedirectory.h"
+#include <QString>
+#include <QHash>
 
-#include <qxtglobal.h>
-#include <qxtwebstatelessconnector.h>
-
-
-
-
-class QTextCodec;
-class QxtWebLegacyEnginePrivate;
-class QXT_WEB_EXPORT QxtWebLegacyEngine: public QObject
-{
-    Q_OBJECT
+#ifndef QXT_DOXYGEN_RUN
+class QxtWebServiceDirectoryPrivate : public QObject, public QxtPrivate<QxtWebServiceDirectory> {
+Q_OBJECT
 public:
-    QxtWebLegacyEngine (QxtWebStatelessConnector *);
-    ~QxtWebLegacyEngine ();
+    QXT_DECLARE_PUBLIC(QxtWebServiceDirectory);
+    QxtWebServiceDirectoryPrivate();
+    
+    QHash<QString, QxtAbstractWebService*> services;
+    QString defaultRedirect;
 
-
-    static void send(QString);
-    static void close();
-    static void header(QString,QString);
-
-    static QHttpRequestHeader & SERVER();
-    static QIODevice * socket();
-
-    static void redirect(QString location,int code=303);
-
-
-
-
-    static QxtWebLegacyEngine * instance();
-    static QByteArray content(int maxsize=5000);
-
-private slots:
-    void incomming();
-signals:
-    void request();
-
-private:
-    QxtWebStatelessConnector  * sc;
-    QxtWebStatelessConnection * cc;
-
+public slots:
+    void serviceDestroyed();
 };
-
-
-
 #endif
 
-
+#endif
