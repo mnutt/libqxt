@@ -26,11 +26,11 @@
 
 
 
-QxtSlotService::QxtSlotService(QxtAbstractWebSessionManager* sm, QObject* parent):QxtAbstractWebService(sm,parent)
+QxtWebSlotService::QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent):QxtAbstractWebService(sm,parent)
 {
 }
 
-QUrl QxtSlotService::self(QxtWebRequestEvent* event)
+QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
 
 {
     QStringList  u=event->url.path().split("/");
@@ -50,7 +50,7 @@ QUrl QxtSlotService::self(QxtWebRequestEvent* event)
 }
 
 
-void QxtSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
+void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 {
     QList<QString> args = event->url.path().split('/');
     args.removeFirst();
@@ -178,7 +178,7 @@ void QxtSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 
 }
 
-void QxtSlotService::functionInvokedEvent(QxtWebRequestEvent* event) 
+void QxtWebSlotService::functionInvokedEvent(QxtWebRequestEvent* event) 
 {
     postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 500, "<h1>Not supported</h1>"));
 }
