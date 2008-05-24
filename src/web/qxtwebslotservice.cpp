@@ -21,6 +21,43 @@
 ** <http://www.libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+
+
+/**
+\class QxtWebSlotService QxtWebSlotService
+
+\ingroup QxtWeb
+
+\brief Provides a Slot based webservice
+
+Implements the behaviour of the old QxtWebController from qxt 0.3.<br>
+path names are resolved to slot names.
+
+
+\code
+class MyService : public QxtWebSlotService
+{
+Q_OBJECT
+public slots:
+    void hello(QxtWebRequestEvent* event, QString a)
+    {
+        postEvent(new QxtWebPageEvent(event->sessionID, event->requestID, "&lth1&gt"+a.toUtf8()+"&lt/h1&gt));
+    }
+}
+\endcode 
+
+
+/path/to/service/hello/foo<br>
+will output<br>
+&lth1&gtFoo&lt/h1&gt<br>
+
+
+\sa QxtAbstractWebService
+*/
+
+
+
+
 #include "qxtwebslotservice.h"
 #include "qxtwebevent.h"
 
@@ -29,7 +66,7 @@
 QxtWebSlotService::QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent):QxtAbstractWebService(sm,parent)
 {
 }
-
+/// returns the current absolute url of this service depending on the request
 QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
 
 {
@@ -49,6 +86,8 @@ QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
     return r;
 }
 
+
+///\reimp
 
 void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 {
@@ -177,7 +216,7 @@ void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 
 
 }
-
+///\reimp
 void QxtWebSlotService::functionInvokedEvent(QxtWebRequestEvent* event) 
 {
     postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 500, "<h1>Not supported</h1>"));
