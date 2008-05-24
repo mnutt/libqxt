@@ -209,9 +209,8 @@ void   QxtPipe::sendData    (QByteArray data) const
         #else
             if(!r)
             {
-                qDebug("metacall failed. see debug output of QObject::connect");
                 QObject::connect(this,SIGNAL(readyRead()),&c.pipe->qxt_d(),SLOT(push(QByteArray,const QxtPipe *)),c.connectionType);
-                abort();
+                qFatal("metacall failed. see debug output of QObject::connect above");
             }
         #endif
 
