@@ -59,7 +59,7 @@ posting events. It is reentrant for all other functionality.
 #include <QPair>
 #include <QMetaObject>
 #include <QThread>
-#include <QxtMetaObject>
+#include <qxtmetaobject.h>
 #include <QTcpSocket>
 
 #ifndef QXT_DOXYGEN_RUN
