@@ -42,7 +42,7 @@ public:
     QxtAbstractWebService* service(const QString& path) const;
 
     virtual void pageRequestedEvent(QxtWebRequestEvent* event);
-    virtual void functionInvokedEvent(QxtWebRequestEvent* event);
+//     virtual void functionInvokedEvent(QxtWebRequestEvent* event);
 
     QString defaultRedirect() const;
     void setDefaultRedirect(const QString& path);
