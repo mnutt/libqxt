@@ -9,6 +9,7 @@ SOURCES += qxtsendmail.cpp
 SOURCES += qxtwebcontent.cpp
 SOURCES += qxtwebevent.cpp
 SOURCES += qxtwebservicedirectory.cpp
+SOURCES += qxtwebslotservice.cpp
 
 HEADERS += qxtabstracthttpconnector.h
 HEADERS += qxtabstractwebservice.h
@@ -23,4 +24,4 @@ HEADERS += qxtwebcontent.h
 HEADERS += qxtwebevent.h
 HEADERS += qxtwebservicedirectory.h
 HEADERS += qxtwebservicedirectory_p.h
-
+HEADERS += qxtwebslotservice.h
