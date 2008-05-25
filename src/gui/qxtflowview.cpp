@@ -275,7 +275,11 @@ void QxtFlowView::showNext()
 
 void QxtFlowView::showSlide(QModelIndex index)
 {
-    d->showSlide(index.row());
+    int r=d->modelmap.indexOf(index);
+    if(r<0)
+        return;
+
+    d->showSlide(r);
 }
 
 void QxtFlowView::keyPressEvent(QKeyEvent* event)
