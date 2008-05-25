@@ -245,18 +245,18 @@ set DB=0
 echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
 
 :detectfcgi
-if "%FCGI%"=="0" goto skipfcgitest
-echo    Testing for FastCGI...
-echo fcgi... >> %PROJECT_ROOT%\%CONFIG_LOG%
-cd %TESTDIR%\fcgi
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto fcgifailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto fcgifailed
-set FCGI=1
-echo DEFINES += HAVE_FCGI >> %PROJECT_ROOT%\config.in
-goto alltestsok
+rem if "%FCGI%"=="0" goto skipfcgitest
+rem echo    Testing for FastCGI...
+rem echo fcgi... >> %PROJECT_ROOT%\%CONFIG_LOG%
+rem cd %TESTDIR%\fcgi
+rem %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+rem if errorlevel 1 goto fcgifailed
+rem call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+rem call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+rem if errorlevel 1 goto fcgifailed
+rem set FCGI=1
+rem echo DEFINES += HAVE_FCGI >> %PROJECT_ROOT%\config.in
+rem goto alltestsok
 
 :fcgifailed
 set FCGI=0

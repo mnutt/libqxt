@@ -162,7 +162,7 @@ if [[ "$NO_DB" == "0" ]]; then
 fi
 
 #configtest curses  CURSES
-configtest fcgi  FCGI
+#configtest fcgi  FCGI
 
 
 #====finaly running qmake====
