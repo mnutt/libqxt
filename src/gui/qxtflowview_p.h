@@ -62,6 +62,8 @@
 #include <QVector>
 #include <QWidget>
 #include <QAbstractItemModel>
+#include <QPersistentModelIndex>
+#include <QList>
 
 // for fixed-point arithmetic, we need minimum 32-bit long
 // long long (64-bit) might be useful for multiplication and division
@@ -254,7 +256,7 @@ public:
     void insertSlide  (int index, const QImage& image);
     void replaceSlide (int index, const QImage& image);
     void removeSlide  (int index);
-
+    void setCurrentIndex(QModelIndex index);
     void showSlide(int index);
 
     int picrole;
@@ -263,6 +265,11 @@ public:
     int textcolumn;
 
     void reset();
+
+    QList<QPersistentModelIndex> modelmap;
+    QPersistentModelIndex currentcenter;
+
+
 
 public slots:
     void columnsAboutToBeInserted ( const QModelIndex & parent, int start, int end );

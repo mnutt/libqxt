@@ -220,16 +220,14 @@ QModelIndex QxtFlowView::currentIndex() const
 {
     if(!d->model)
         return QModelIndex();
-    return d->model->index(d->state->centerIndex,0,QModelIndex());
+    return d->currentcenter;
 }
 
 void QxtFlowView::setCurrentIndex(QModelIndex index)
 {
-    d->state->centerIndex = index.row();
-    d->state->reset();
-    d->animator->stop(index.row());
-    triggerRender();
+    d->setCurrentIndex(index);
 }
+
 
 void QxtFlowView::render()
 {
@@ -369,7 +367,10 @@ void QxtFlowView::updateAnimation()
     d->animator->update();
     triggerRender();
     if(d->state->centerIndex != old_center)
-        emit currentIndexChanged(d->model->index(d->state->centerIndex,0));
+    {
+        d->currentcenter=d->modelmap.at(d->state->centerIndex);
+        emit currentIndexChanged(d->currentcenter);
+    }
 }
 
 
@@ -438,10 +439,13 @@ void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int fi
 
 void QxtFlowViewPrivate::layoutAboutToBeChanged ()
 {
+
 }
 
 void QxtFlowViewPrivate::layoutChanged ()
 {
+    reset();
+    setCurrentIndex(currentcenter);
 }
 
 void QxtFlowViewPrivate::modelAboutToBeReset ()
@@ -450,6 +454,8 @@ void QxtFlowViewPrivate::modelAboutToBeReset ()
 
 void QxtFlowViewPrivate::modelReset ()
 {
+    QPersistentModelIndex
+    reset();
 }
 
 void QxtFlowViewPrivate::rowsAboutToBeInserted ( const QModelIndex & parent, int start, int end )
@@ -471,7 +477,11 @@ void QxtFlowViewPrivate::rowsInserted ( const QModelIndex & parent, int start, i
     if(parent.isValid())
         return;
     for(int i=start;i<=end;i++)
-        insertSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn),picrole)));
+    {
+        QModelIndex idx=model->index(i,piccolumn);
+        insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
+        modelmap.insert(i,idx);
+    }
 }
 
 void QxtFlowViewPrivate::rowsRemoved ( const QModelIndex & parent, int start, int end )
@@ -479,7 +489,10 @@ void QxtFlowViewPrivate::rowsRemoved ( const QModelIndex & parent, int start, in
     if(parent.isValid())
         return;
     for(int i=start;i<=end;i++)
+    {
         removeSlide  (i);
+        modelmap.removeAt(i);
+    }
 
 }
 
@@ -565,6 +578,7 @@ void QxtFlowViewPrivate::clear()
     state->slideImages.resize(0);
 
     state->reset();
+    modelmap.clear();
     triggerRender();
 }
 
@@ -617,9 +631,24 @@ void QxtFlowViewPrivate::reset()
     {
         for (int i=0;i<model->rowCount();i++)
         {
-            insertSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn),picrole)));
+            QModelIndex idx=model->index(i,piccolumn);
+            insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
+            modelmap.insert(i,idx);
         }
     }
     triggerRender();
 }
 
+
+
+void QxtFlowViewPrivate::setCurrentIndex(QModelIndex index)
+{
+    int r=modelmap.indexOf(index);
+    if(r<0)
+        return;
+
+    state->centerIndex = r;
+    state->reset();
+    animator->stop(r);
+    triggerRender();
+}
