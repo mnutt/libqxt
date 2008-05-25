@@ -336,7 +336,10 @@ void QxtFlowView::wheelEvent ( QWheelEvent * event )
     } 
     else 
     {
-        int numSteps = (event->delta() / 8) / 15;
+        int numSteps = -((event->delta() / 8) / 15);
+
+
+
         if(numSteps>0)
         {
             for (int i=0;i<numSteps;i++)
