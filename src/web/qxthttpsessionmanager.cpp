@@ -196,9 +196,10 @@ void QxtHttpSessionManager::setConnector(QxtAbstractHttpConnector* connector) {
 void QxtHttpSessionManager::setConnector(Connector connector) {
     if(connector == HttpServer)
         setConnector(new QxtHttpServerConnector(this));
-    /* commented out pending implementation
     else if(connector == Scgi)
-        setConnector(new QxtScgiConnector(this));
+        setConnector(new QxtScgiServerConnector(this));
+    /* commented out pending implementation
+
     else if(connector == Fcgi)
         setConnector(new QxtFcgiConnector(this));
     */

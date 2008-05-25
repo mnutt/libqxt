@@ -78,17 +78,25 @@ private:
     QXT_DECLARE_PRIVATE(QxtHttpServerConnector);
 };
 
-/* Commented out pending implementation
-class QxtScgiConnectorPrivate;
-class QxtScgiConnector : public QxtAbstractHttpConnector {
+class QxtScgiServerConnectorPrivate;
+class QxtScgiServerConnector : public QxtAbstractHttpConnector {
 Q_OBJECT
 public:
-    QxtScgiConnector(QObject* parent = 0);
+    QxtScgiServerConnector(QObject* parent = 0);
     virtual bool listen(const QHostAddress& interface, quint16 port);
 
+protected:
+    virtual bool canParseRequest(const QByteArray& buffer);
+    virtual QHttpRequestHeader parseRequest(QByteArray& buffer);
+    virtual void writeHeaders(QIODevice* device, const QHttpResponseHeader& header);
+
+private slots:
+    void acceptConnection();
+
 private:
-    QXT_DECLARE_PRIVATE(QxtScgiConnector);
+    QXT_DECLARE_PRIVATE(QxtScgiServerConnector);
 };
+/* Commented out pending implementation
 
 class QxtFcgiConnectorPrivate;
 class QxtFcgiConnector : public QxtAbstractHttpConnector {
