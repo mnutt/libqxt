@@ -6,6 +6,7 @@ SOURCES += qxthttpserverconnector.cpp
 SOURCES += qxthttpsessionmanager.cpp
 SOURCES += qxtmail.cpp
 SOURCES += qxtsendmail.cpp
+SOURCES += qxtscgiserverconnector.cpp
 SOURCES += qxtwebcontent.cpp
 SOURCES += qxtwebevent.cpp
 SOURCES += qxtwebservicedirectory.cpp
