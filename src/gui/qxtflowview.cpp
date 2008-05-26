@@ -75,6 +75,8 @@
 #include "qxtflowview_p.h"
 #include <QWheelEvent>
 
+
+
 QxtFlowView::QxtFlowView(QWidget* parent): QWidget(parent)
 {
     d = new QxtFlowViewPrivate;
@@ -309,11 +311,33 @@ void QxtFlowView::keyPressEvent(QKeyEvent* event)
 
 void QxtFlowView::mousePressEvent(QMouseEvent* event)
 {
-    if(event->x() > width()/2)
-        showNext();
-    else
-        showPrevious();
+    d->lastgrabpos=event->pos();
 }
+
+
+
+void QxtFlowView::mouseMoveEvent ( QMouseEvent * event )
+{
+    int i=(event->pos()-d->lastgrabpos).x()/(d->state->slideWidth/4);
+    if(i>0)
+    {
+        showPrevious();
+        d->lastgrabpos=event->pos();
+    }
+    if(i<0)
+    {
+        showNext();
+        d->lastgrabpos=event->pos();
+    }
+
+}
+
+void QxtFlowView::mouseReleaseEvent(QMouseEvent* event)
+{
+    Q_UNUSED(event);
+
+}
+
 
 void QxtFlowView::paintEvent(QPaintEvent* event)
 {
