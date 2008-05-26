@@ -269,7 +269,7 @@ public:
     QList<QPersistentModelIndex> modelmap;
     QPersistentModelIndex currentcenter;
 
-
+    QPoint lastgrabpos;
 
 public slots:
     void columnsAboutToBeInserted ( const QModelIndex & parent, int start, int end );
