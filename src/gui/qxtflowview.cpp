@@ -215,6 +215,15 @@ void QxtFlowView::setTextColumn(int a)
 #endif
 
 
+QModelIndex QxtFlowView::rootIndex() const
+{
+    return d->rootindex;
+}
+
+void QxtFlowView::setRootIndex(QModelIndex index)
+{
+    d->rootindex=index;
+}
 
 
 
@@ -445,12 +454,18 @@ void QxtFlowViewPrivate::dataChanged ( const QModelIndex & topLeft, const QModel
     Q_UNUSED(topLeft);
     Q_UNUSED(bottomRight);
 
+    if(topLeft.parent()!=rootindex)
+        return;
+
+    if(bottomRight.parent()!=rootindex)
+        return;
+
 
     int start=topLeft.row();
     int end=bottomRight.row();
 
     for(int i=start;i<=end;i++)
-        replaceSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn),picrole)));
+        replaceSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn,rootindex),picrole)));
 }
 
 void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int first, int last )
@@ -502,11 +517,11 @@ void QxtFlowViewPrivate::rowsAboutToBeRemoved ( const QModelIndex & parent, int 
 
 void QxtFlowViewPrivate::rowsInserted ( const QModelIndex & parent, int start, int end )
 {
-    if(parent.isValid())
+    if(rootindex!=parent)
         return;
     for(int i=start;i<=end;i++)
     {
-        QModelIndex idx=model->index(i,piccolumn);
+        QModelIndex idx=model->index(i,piccolumn,rootindex);
         insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
         modelmap.insert(i,idx);
     }
@@ -514,7 +529,7 @@ void QxtFlowViewPrivate::rowsInserted ( const QModelIndex & parent, int start, i
 
 void QxtFlowViewPrivate::rowsRemoved ( const QModelIndex & parent, int start, int end )
 {
-    if(parent.isValid())
+    if(rootindex!=parent)
         return;
     for(int i=start;i<=end;i++)
     {
@@ -563,6 +578,7 @@ void QxtFlowViewPrivate::setModel(QAbstractItemModel * m)
     model = m;
     if(model)
     {
+        rootindex=model->parent(QModelIndex());
 
         connect(this->model,SIGNAL(columnsAboutToBeInserted ( const QModelIndex & , int , int  )),
             this,SLOT(columnsAboutToBeInserted ( const QModelIndex & , int , int  )));
@@ -657,9 +673,9 @@ void QxtFlowViewPrivate::reset()
     clear();
     if(model)
     {
-        for (int i=0;i<model->rowCount();i++)
+        for (int i=0;i<model->rowCount(rootindex);i++)
         {
-            QModelIndex idx=model->index(i,piccolumn);
+            QModelIndex idx=model->index(i,piccolumn,rootindex);
             insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
             modelmap.insert(i,idx);
         }
@@ -671,6 +687,9 @@ void QxtFlowViewPrivate::reset()
 
 void QxtFlowViewPrivate::setCurrentIndex(QModelIndex index)
 {
+    if(model->parent(index)!=rootindex)
+        return;
+
     int r=modelmap.indexOf(index);
     if(r<0)
         return;
