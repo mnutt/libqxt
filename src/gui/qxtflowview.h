@@ -63,6 +63,7 @@ Q_OBJECT
     Q_PROPERTY(QModelIndex currentIndex READ currentIndex WRITE setCurrentIndex)
     Q_PROPERTY(int pictureRole READ pictureRole WRITE setPictureRole)
     Q_PROPERTY(int picureColumn READ picureColumn WRITE setPicureColumn)
+    Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex)
 
     #if 0
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole)
@@ -109,6 +110,15 @@ public:
 
     /*!Returns the index of slide currently shown in the middle of the viewport.*/  
     QModelIndex currentIndex() const;
+
+
+    //!Returns the model index of the model's root item. The root item is the parent item to the view's toplevel items. The root can be invalid. \n \sa setRootIndex();
+    QModelIndex rootIndex() const;
+
+
+    //!Sets the root item to the item at the given index.\n \sa rootIndex();
+    void setRootIndex(QModelIndex index);
+
 
     /*!Returns the effect applied to the reflection.*/  
     ReflectionEffect reflectionEffect() const;
