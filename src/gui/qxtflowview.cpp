@@ -497,7 +497,6 @@ void QxtFlowViewPrivate::modelAboutToBeReset ()
 
 void QxtFlowViewPrivate::modelReset ()
 {
-    QPersistentModelIndex
     reset();
 }
 
