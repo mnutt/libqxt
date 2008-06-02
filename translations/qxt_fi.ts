@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="fi">
-<defaultcodec></defaultcodec>
 <context>
     <name>QLocale</name>
     <message>
@@ -2040,6 +2039,167 @@
     </message>
 </context>
 <context>
+    <name>QxtCommandOptions</name>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="32"/>
+        <source>sets the application GUI style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="33"/>
+        <source>sets the application stylesheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="34"/>
+        <source>restores the application from an earlier session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="35"/>
+        <source>displays debugging information about widgets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="36"/>
+        <source>use right-to-left layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="38"/>
+        <source>never grab the mouse or keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="41"/>
+        <source>grab the mouse/keyboard even in a debugger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="42"/>
+        <source>run in synchronous mode for debugging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="45"/>
+        <source>use Direct3D by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="48"/>
+        <source>sets the X11 display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="49"/>
+        <source>sets the geometry of the first window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="51"/>
+        <source>sets the default font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="53"/>
+        <source>sets the default background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="55"/>
+        <source>sets the default foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="57"/>
+        <source>sets the default button color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="58"/>
+        <source>sets the application name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="59"/>
+        <source>sets the application title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="60"/>
+        <source>sets the X11 visual type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="61"/>
+        <source>limit the number of colors on an 8-bit display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="62"/>
+        <source>use a private color map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="63"/>
+        <source>sets the input method server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="64"/>
+        <source>disable the X Input Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="65"/>
+        <source>sets the style used by the input method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="289"/>
+        <source>Short options cannot have optional parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="300"/>
+        <source>positional() called before parse()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="356"/>
+        <source>unrecognized() called before parse()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="325"/>
+        <source>count() called before parse()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="342"/>
+        <source>value() called before parse()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="581"/>
+        <source>unrecognized parameters: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="584"/>
+        <source>%1 requires a parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QxtCommandOptionsPrivate</name>
+    <message>
+        <location filename="../src/core/qxtcommandoptions.cpp" line="164"/>
+        <source>option &quot;%1&quot; not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QxtConfigDialog</name>
     <message>
         <location filename="../src/gui/qxtconfigdialog.cpp" line="132"/>
@@ -2055,7 +2215,7 @@
 <context>
     <name>QxtConfirmationMessage</name>
     <message>
-        <location filename="../src/gui/qxtconfirmationmessage.cpp" line="63"/>
+        <location filename="../src/gui/qxtconfirmationmessage.cpp" line="74"/>
         <source>Do not show again.</source>
         <translation>Älä näytä uudelleen.</translation>
     </message>
@@ -2071,39 +2231,44 @@
 <context>
     <name>QxtCountryModel</name>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="203"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="205"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="205"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="207"/>
         <source>ISO 3166 Alpha 2</source>
         <translation>ISO 3166 Alpha 2</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="207"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="209"/>
         <source>QLocale</source>
         <translation>QLocale</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="209"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="211"/>
         <source>ISO 3166 Alpha 3</source>
         <translation>ISO 3166 Alpha 3</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="211"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="213"/>
         <source>Currency</source>
         <translation>Valuutta</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="213"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="215"/>
         <source>Currency Code</source>
         <translation>Valuuttakoodi</translation>
     </message>
     <message>
-        <location filename="../src/gui/qxtcountrymodel.cpp" line="215"/>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="217"/>
         <source>Currency Symbol</source>
         <translation>Valuuttasymboli</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/qxtcountrymodel.cpp" line="219"/>
+        <source>Continent</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2481,75 +2646,75 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="840"/>
         <source>Kwacha</source>
-        <translation>Malawin Kwacha</translation>
+        <translation type="obsolete">Malawin Kwacha</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="841"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="840"/>
         <source>Kwanza</source>
         <translation>Angolan Kwanza</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="842"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="841"/>
         <source>Kyat</source>
         <translation>Myanmarin Kyat</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="843"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="842"/>
         <source>Lari</source>
         <translation>Georgian Lari</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="844"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="843"/>
         <source>Latvian Lats</source>
         <translation>Latvian Lati</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="845"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="844"/>
         <source>Lebanese Pound</source>
         <translation>Libanonin Punta</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="846"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="845"/>
         <source>Lek</source>
         <translation>Albanian Lek</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="847"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="846"/>
         <source>Lempira</source>
         <translation>Hondurasin Lempira</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="848"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="847"/>
         <source>Leone</source>
         <translation>Sierra Leonen Leone</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="849"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="848"/>
         <source>Liberian Dollar</source>
         <translation>Liberian Dollari</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="850"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="849"/>
         <source>Libyan Dinar</source>
         <translation>Libyan Dinaari</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="851"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="850"/>
         <source>Lilangeni</source>
         <translation>Swazimaan Lilangeni</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="852"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="851"/>
         <source>Lithuanian Litas</source>
         <translation>Liettuan Liti</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="853"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="852"/>
         <source>Loti</source>
         <translation>Lesothon Loti</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="854"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="853"/>
         <source>Malagasy Ariary</source>
         <translation>Madagaskarin Ariary</translation>
     </message>
@@ -2934,49 +3099,64 @@
         <translation>Kiinan Kansantasavallan Yuan Renminbi</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="931"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="932"/>
         <source>Zimbabwe Dollar</source>
         <translation>Zimbabwen Dollari</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="932"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="933"/>
         <source>Zloty</source>
         <translation>Puolan Zloty</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1275"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1279"/>
         <source>NorthAmerica</source>
         <translation>Pohjois-Amerikka</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1276"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1280"/>
         <source>SouthAmerica</source>
         <translation>Etelä-Amerikka</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1277"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1281"/>
         <source>Europe</source>
         <translation>Eurooppa</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1278"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1282"/>
         <source>Africa</source>
         <translation>Afrikka</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1279"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1283"/>
         <source>Asia</source>
         <translation>Aasia</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1280"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1284"/>
         <source>Australia</source>
         <translation>Australia</translation>
     </message>
     <message>
-        <location filename="../src/core/qxtlocale_data_p.h" line="1281"/>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1285"/>
         <source>Antarctica</source>
         <translation>Antarktis</translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtlocale_data_p.h" line="854"/>
+        <source>MalawiKwacha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtlocale_data_p.h" line="931"/>
+        <source>ZambiaKwacha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/qxtlocale_data_p.h" line="1278"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
