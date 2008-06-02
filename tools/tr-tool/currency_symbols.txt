@@ -1,0 +1,116 @@
+AED	62c
+ALL 	4c, 65, 6b 
+AFN 	60b 
+ANG 	192
+ARS 	24
+AUD 	24
+AWG 	192
+AZN 	43c, 430, 43d 
+BAM 	4b, 4d 
+BBD 	24
+BGN 	43b, 432 
+BMD 	24
+BND 	24
+BOB 	24,62
+BRL 	52,24
+BSD 	24
+BWP 	50
+BYR 	70, 2e 
+BZD 	42, 5a, 24 
+CAD 	24
+CHF 	43, 48, 46 
+CLP 	24
+CNY 	5143
+COP 	24
+CRC 	20a1 
+CUP 	20b1 
+CZK 	4b, 10d 
+DKK 	6b, 72 
+DOP 	52, 44, 24 
+EEK 	6b, 72 
+EGP 	a3 
+EUR 	20ac 
+FJD 	24
+FKP 	a3 
+GBP 	a3 
+GGP 	a3 
+GHC 	a2 
+GIP 	a3 
+GTQ 	51
+GYD 	24
+HKD 	5713
+HKD 	48, 4b, 24 
+HKD 	5143
+HNL 	4c 
+HRK 	6b, 6e 
+HUF 	46,74
+IDR 	52,7
+ILS 	20aa 
+IMP 	a3 
+INR 	20a8 
+IRR 	fdfc 
+ISK 	6b, 72 
+JEP 	a3 
+JMD 	4a, 24 
+JPY 	a5 
+KGS 	43b, 432 
+KHR 	17db 
+KPW 	20a9 
+KRW 	20a9 
+KYD 	24
+KZT 	43b, 432 
+LAK 	20ad 
+LBP 	a3 
+LKR 	20a8 
+LRD 	24
+LTL 	4c, 74 
+LVL 	4c, 73 
+MKD 	434, 435, 43d 
+MNT 	20ae 
+MUR 	20a8 
+MXN 	24
+MYR 	52, 4d 
+MZN 	4d, 54 
+NAD 	24
+NGN 	20a6 
+NIO 	43,24
+NOK 	6b, 72 
+NPR 	20a8 
+NZD 	24
+OMR 	fdfc 
+PAB 	42, 2f, 2e 
+PEN 	53, 2f, 2e 
+PHP 	50, 68, 70 
+PKR 	20a8 
+PLN 	7a, 142 
+PYG 	47,73
+QAR 	fdfc 
+RON 	6c, 65, 69 
+RSD 	414, 438, 43d, 2e 
+RUB 	440, 443, 431 
+SAR 	fdfc 
+SBD 	24
+SCR 	20a8 
+SEK 	6b, 72 
+SGD 	24
+SHP 	a3 
+SOS 	53
+SRD 	24
+SVC 	24
+SYP 	a3 
+THB 	e3f 
+TRL 	20a4 
+TRY 	59, 54, 4c 
+TTD 	54, 54, 24 
+TVD 	24
+TWD 	4e, 54, 24 
+UAH 	20b4 
+USD 	24
+UYU 	24,55
+UZS 	43b, 432 
+VEF 	42,73
+VND 	20ab 
+XCD 	24
+YER 	fdfc 
+ZAR 	52
+ZWD 	5a, 24
