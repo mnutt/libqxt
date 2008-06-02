@@ -23,8 +23,8 @@
 ****************************************************************************/
 
 //
-// Generated on Tue Feb 19 21:33:23 2008
-//  for Qt 4.3.3
+// Generated on Mon Jun 2 21:57:44 2008
+//  for Qt 4.4.0
 //
 
 #ifndef QXTLOCALE_DATA_P_H
@@ -649,7 +649,7 @@ static QxtLocale::Currency currency_for_country_list[] = {
  QxtLocale::Pataca, // Macau
  QxtLocale::Denar, // Macedonia
  QxtLocale::MalagasyAriary, // Madagascar
- QxtLocale::Kwacha, // Malawi
+ QxtLocale::MalawiKwacha, // Malawi
  QxtLocale::MalaysianRinggit, // Malaysia
  QxtLocale::Rufiyaa, // Maldives
  QxtLocale::CFAFrancBCEAO, // Mali
@@ -759,7 +759,7 @@ static QxtLocale::Currency currency_for_country_list[] = {
  QxtLocale::MoroccanDirham, // WesternSahara
  QxtLocale::YemeniRial, // Yemen
  QxtLocale::NoCurrency, // Yugoslavia
- QxtLocale::Kwacha, // Zambia
+ QxtLocale::ZambiaKwacha, // Zambia
  QxtLocale::ZimbabweDollar, // Zimbabwe
 };
 static const char* currency_names[] = {
@@ -837,7 +837,6 @@ static const char* currency_names[] = {
   QT_TRANSLATE_NOOP("QxtLocale", "Kip"), // Kip
   QT_TRANSLATE_NOOP("QxtLocale", "Kroon"), // Kroon
   QT_TRANSLATE_NOOP("QxtLocale", "Kuwaiti Dinar"), // KuwaitiDinar
-  QT_TRANSLATE_NOOP("QxtLocale", "Kwacha"), // Kwacha
   QT_TRANSLATE_NOOP("QxtLocale", "Kwanza"), // Kwanza
   QT_TRANSLATE_NOOP("QxtLocale", "Kyat"), // Kyat
   QT_TRANSLATE_NOOP("QxtLocale", "Lari"), // Lari
@@ -852,6 +851,7 @@ static const char* currency_names[] = {
   QT_TRANSLATE_NOOP("QxtLocale", "Lithuanian Litas"), // LithuanianLitas
   QT_TRANSLATE_NOOP("QxtLocale", "Loti"), // Loti
   QT_TRANSLATE_NOOP("QxtLocale", "Malagasy Ariary"), // MalagasyAriary
+  QT_TRANSLATE_NOOP("QxtLocale", "MalawiKwacha"), // MalawiKwacha
   QT_TRANSLATE_NOOP("QxtLocale", "Malaysian Ringgit"), // MalaysianRinggit
   QT_TRANSLATE_NOOP("QxtLocale", "Maltese Lira"), // MalteseLira
   QT_TRANSLATE_NOOP("QxtLocale", "Manat"), // Manat
@@ -928,6 +928,7 @@ static const char* currency_names[] = {
   QT_TRANSLATE_NOOP("QxtLocale", "Yemeni Rial"), // YemeniRial
   QT_TRANSLATE_NOOP("QxtLocale", "Yen"), // Yen
   QT_TRANSLATE_NOOP("QxtLocale", "Yuan Renminbi"), // YuanRenminbi
+  QT_TRANSLATE_NOOP("QxtLocale", "ZambiaKwacha"), // ZambiaKwacha
   QT_TRANSLATE_NOOP("QxtLocale", "Zimbabwe Dollar"), // ZimbabweDollar
   QT_TRANSLATE_NOOP("QxtLocale", "Zloty"), // Zloty
 };
@@ -1007,7 +1008,6 @@ static QChar symbol_for_country_list[][5] =
 { 1,0x20ad }, // Kip
 { 2,0x6b,0x72 }, // Kroon
 {  }, // KuwaitiDinar
-{  }, // Kwacha
 {  }, // Kwanza
 {  }, // Kyat
 {  }, // Lari
@@ -1022,6 +1022,7 @@ static QChar symbol_for_country_list[][5] =
 { 2,0x4c,0x74 }, // LithuanianLitas
 {  }, // Loti
 {  }, // MalagasyAriary
+{  }, // MalawiKwacha
 { 2,0x52,0x4d }, // MalaysianRinggit
 {  }, // MalteseLira
 {  }, // Manat
@@ -1098,6 +1099,7 @@ static QChar symbol_for_country_list[][5] =
 { 1,0xfdfc }, // YemeniRial
 { 1,0xa5 }, // Yen
 { 1,0x5143 }, // YuanRenminbi
+{  }, // ZambiaKwacha
 { 2,0x5a,0x24 }, // ZimbabweDollar
 { 2,0x7a,0x142 }, // Zloty
 }
@@ -1177,7 +1179,6 @@ static const unsigned char currency_code_list[] =
 "LAK" // Kip
 "EEK" // Kroon
 "KWD" // KuwaitiDinar
-"MWK" // Kwacha
 "AOA" // Kwanza
 "MMK" // Kyat
 "GEL" // Lari
@@ -1192,6 +1193,7 @@ static const unsigned char currency_code_list[] =
 "LTL" // LithuanianLitas
 "LSL" // Loti
 "MGA" // MalagasyAriary
+"MWK" // MalawiKwacha
 "MYR" // MalaysianRinggit
 "MTL" // MalteseLira
 "TMM" // Manat
@@ -1268,6 +1270,7 @@ static const unsigned char currency_code_list[] =
 "YER" // YemeniRial
 "JPY" // Yen
 "CNY" // YuanRenminbi
+"ZMK" // ZambiaKwacha
 "ZWD" // ZimbabweDollar
 "PLN" // Zloty
 ;
