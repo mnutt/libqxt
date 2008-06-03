@@ -375,11 +375,75 @@ void printContinentForCountryList(QTextStream& out, const QMap<QString, CountryI
   out << "};" << endl;
 }
 
+void printQLocateEnumsForTranslation(QTextStream& out)
+{
+  out << "#if 0" << endl;
+
+  // generate languages
+  {
+  out << "static const char* language_strings = {" << endl;
+
+  const QMetaObject& mo = QLocale::staticMetaObject;
+  int index = mo.indexOfEnumerator("Language");
+  QMetaEnum metaEnum = mo.enumerator(index);
+  for (int idx = 0; idx < metaEnum.keyCount(); ++idx)
+  {
+    QLocale::Language l = static_cast<QLocale::Language>(metaEnum.value(idx));
+    if (l == QLocale::LastLanguage)
+      continue;
+
+    out << "  QT_TRANSLATE_NOOP(\"QLocale\", \"" << metaEnum.key(idx) << "\")," << endl;
+  }
+  out << "};" << endl;
+  }
+
+  // generate countries
+  {
+  out << "static const char* countries_strings = {" << endl;
+
+  const QMetaObject& mo = QLocale::staticMetaObject;
+  int index = mo.indexOfEnumerator("Country");
+  QMetaEnum metaEnum = mo.enumerator(index);
+  for (int idx = 0; idx < metaEnum.keyCount(); ++idx)
+  {
+    QLocale::Country l = static_cast<QLocale::Country>(metaEnum.value(idx));
+    if (l == QLocale::LastCountry)
+      continue;
+
+    out << "  QT_TRANSLATE_NOOP(\"QLocale\", \"" << metaEnum.key(idx) << "\")," << endl;
+  }
+  out << "};" << endl;
+  out << "#endif" << endl;
+  out << endl;
+  }
+}
+
+void printHelp(QTextStream& out)
+{
+  out << endl;
+  out << "This tool is used to generate code used by QxtLocale." << endl;
+  out << "The generated code is written to stdout." << endl;
+  out << endl;
+  out << "Following options are known:" << endl;
+  out << " help                   - displays this help." << endl;
+  out << " currency-enum          - generates enum QxtLocale::Currency." << endl;
+  out << " qlocate-translations   - generates dummy C++ code for translations of" << endl;
+  out << "                          enums QLocale::Language and QLocale::Country." << endl;
+  out << " <no argument>          - generated qxt_locale_data_p.h" << endl;
+  out << endl;
+}
+
 int main(int argc, char* argv[])
 {
   QCoreApplication app(argc, argv);
 
   QTextStream out(stdout);
+
+  if (app.arguments().contains("help"))
+  {
+    printHelp(out);
+    return 0;
+  }
 
   CCYInfoList ccys = load();
   CurrencySymbolMap symbolmap = loadSymbols();
@@ -404,6 +468,16 @@ int main(int argc, char* argv[])
   if (app.arguments().contains("currency-enum"))
   {
     printCurrencyEnum(out, keys);
+  }
+  else if (app.arguments().contains("qlocate-translations"))
+  {
+    out << qxt_header << endl;
+    out << "//" << endl;
+    out << "// Generated on " << QDateTime::currentDateTime().toString() << endl;
+    out << "//  for Qt " << QT_VERSION_STR << endl;
+    out << "//" << endl;
+    out << endl;
+    printQLocateEnumsForTranslation(out);
   }
   else
   {
