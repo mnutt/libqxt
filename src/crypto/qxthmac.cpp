@@ -91,10 +91,7 @@ void QxtHmac::setKey(QByteArray key) {
     if(key.size() > 64) {
         key = QCryptographicHash::hash(key, d->algorithm);
     }
-    if(key.size() < 64) {
-        key = key.leftJustified(64, '\0');
-    }
-    for(int i = 0; i < 64; i++) {
+    for(int i = key.size() - 1; i >= 0; --i) {
         d->opad[i] = d->opad[i] ^ key[i];
         d->ipad[i] = d->ipad[i] ^ key[i];
     }
