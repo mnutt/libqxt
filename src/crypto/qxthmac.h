@@ -25,7 +25,9 @@
 #ifndef QXTHMAC_H
 #define QXTHMAC_H
 
-#if QT_VERSION > 0x040300
+#include <QtGlobal>
+
+#if QT_VERSION < 0x040300
 #   warning QxtHmac requires Qt 4.3.0 or greater
 #else
 
