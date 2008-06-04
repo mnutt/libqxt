@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="fi">
+<defaultcodec></defaultcodec>
 <context>
     <name>QLocale</name>
     <message>
@@ -2043,152 +2044,152 @@
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="32"/>
         <source>sets the application GUI style</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa applikaation GUI-tyylin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="33"/>
         <source>sets the application stylesheet</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa applikaation tyyliohjeet</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="34"/>
         <source>restores the application from an earlier session</source>
-        <translation type="unfinished"></translation>
+        <translation>palauttaa applikaation aiemmasta istunnosta</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="35"/>
         <source>displays debugging information about widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>näyttää debug-informaatiota widgeteistä</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="36"/>
         <source>use right-to-left layout</source>
-        <translation type="unfinished"></translation>
+        <translation>käytä asettelua oikealta vasemmalle</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="38"/>
         <source>never grab the mouse or keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>hiirtä tai näppäimistöä ei ikinä siepata</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="41"/>
         <source>grab the mouse/keyboard even in a debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>sieppaa hiiri/näppäimistö myös debuggerissa</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="42"/>
         <source>run in synchronous mode for debugging</source>
-        <translation type="unfinished"></translation>
+        <translation>aja synkronisessa debuggaus-tilassa</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="45"/>
         <source>use Direct3D by default</source>
-        <translation type="unfinished"></translation>
+        <translation>käytä oletuksena Direct3D:tä</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="48"/>
         <source>sets the X11 display</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa X11 näytön</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="49"/>
         <source>sets the geometry of the first window</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa ensimmäisen ikkunan geometrian</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="51"/>
         <source>sets the default font</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa oletusfontin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="53"/>
         <source>sets the default background color</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa oletustaustavärin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="55"/>
         <source>sets the default foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa oletusvärin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="57"/>
         <source>sets the default button color</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa painikkeen oletusvärin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="58"/>
         <source>sets the application name</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa applikaation nimen</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="59"/>
         <source>sets the application title</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa applikaation otsikon</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="60"/>
         <source>sets the X11 visual type</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa X11 visual tyypin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="61"/>
         <source>limit the number of colors on an 8-bit display</source>
-        <translation type="unfinished"></translation>
+        <translation>rajoittaa värien määrän 8-bittisellä näytöllä</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="62"/>
         <source>use a private color map</source>
-        <translation type="unfinished"></translation>
+        <translation>käytä privaattia värikarttaa</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="63"/>
         <source>sets the input method server</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa input method palvelimen</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="64"/>
         <source>disable the X Input Method</source>
-        <translation type="unfinished"></translation>
+        <translation>disabloi X Input Method</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="65"/>
         <source>sets the style used by the input method</source>
-        <translation type="unfinished"></translation>
+        <translation>asettaa input metodin käyttämän tyylin</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="289"/>
         <source>Short options cannot have optional parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyhyillä optioilla ei voi olla valinnaisia parametreja</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="300"/>
         <source>positional() called before parse()</source>
-        <translation type="unfinished"></translation>
+        <translation>positional() kutsuttu ennen parse():a</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="356"/>
         <source>unrecognized() called before parse()</source>
-        <translation type="unfinished"></translation>
+        <translation>unrecognized() kutsuttu ennen parse():a</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="325"/>
         <source>count() called before parse()</source>
-        <translation type="unfinished"></translation>
+        <translation>count() kutsuttu ennen parsea():a</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="342"/>
         <source>value() called before parse()</source>
-        <translation type="unfinished"></translation>
+        <translation>value() kutsuttu ennen parse():a</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="581"/>
         <source>unrecognized parameters: </source>
-        <translation type="unfinished"></translation>
+        <translation>tuntemattomia parametreja:</translation>
     </message>
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="584"/>
         <source>%1 requires a parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 vaatii parametrin</translation>
     </message>
 </context>
 <context>
@@ -2196,7 +2197,7 @@
     <message>
         <location filename="../src/core/qxtcommandoptions.cpp" line="164"/>
         <source>option &quot;%1&quot; not found</source>
-        <translation type="unfinished"></translation>
+        <translation>optio &quot;%1&quot; ei löytynyt</translation>
     </message>
 </context>
 <context>
@@ -2268,7 +2269,7 @@
     <message>
         <location filename="../src/gui/qxtcountrymodel.cpp" line="219"/>
         <source>Continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Maanosa</translation>
     </message>
 </context>
 <context>
@@ -3146,17 +3147,17 @@
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="854"/>
         <source>MalawiKwacha</source>
-        <translation type="unfinished"></translation>
+        <translation>Malawin Kwacha</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="931"/>
         <source>ZambiaKwacha</source>
-        <translation type="unfinished"></translation>
+        <translation>Zambian Kwacha</translation>
     </message>
     <message>
         <location filename="../src/core/qxtlocale_data_p.h" line="1278"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mikään</translation>
     </message>
 </context>
 <context>
