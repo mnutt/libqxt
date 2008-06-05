@@ -69,6 +69,14 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     qxt_d().m_startUnixTime = 0;
     qxt_d().m_endUnixTime = 0;
     qxt_d().delegate = new QxtScheduleItemDelegate(this);
+
+    qxt_d().m_vHeader = new QxtScheduleHeaderWidget(Qt::Vertical,this);
+    connect(qxt_d().m_vHeader,SIGNAL(geometriesChanged ()),this,SLOT(updateGeometries()) );    
+    qxt_d().m_vHeader->hide();
+
+    qxt_d().m_hHeader = new QxtScheduleHeaderWidget(Qt::Horizontal,this);
+    connect(qxt_d().m_hHeader,SIGNAL(geometriesChanged ()),this,SLOT(updateGeometries()) );
+    qxt_d().m_hHeader->hide();
     
 }
 
