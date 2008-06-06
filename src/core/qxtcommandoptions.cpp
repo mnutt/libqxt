@@ -464,7 +464,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
                             if(option->paramType & QxtCommandOptions::Required) {
                                 // Check for required parameters
                                 // Short options can't have optional parameters
-                                if(pos + 1 >= params.count()) {
+                                if(pos >= params.count()) {
                                     missingParams.append(param);
                                     break;
                                 }
@@ -498,7 +498,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
                 } else {
                     if(option->paramType & QxtCommandOptions::Required && !hasEquals) {
                         // Check for parameters
-                        if(pos + 1 > params.count()) {
+                        if(pos >= params.count()) {
                             missingParams.append(param);
                             break;
                         }
