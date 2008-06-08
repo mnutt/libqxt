@@ -147,7 +147,11 @@ void QxtTabBar::mouseMoveEvent(QMouseEvent* event)
     // a crude way to distinguish tab-reodering drops from other ones
     mimeData->setData("action", "tab-reordering") ;
     drag->setMimeData(mimeData);
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
     drag->exec();
+#else
+    drag->start();
+#endif
 }
 
 /*!
