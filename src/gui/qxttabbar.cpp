@@ -147,7 +147,7 @@ void QxtTabBar::mouseMoveEvent(QMouseEvent* event)
     // a crude way to distinguish tab-reodering drops from other ones
     mimeData->setData("action", "tab-reordering") ;
     drag->setMimeData(mimeData);
-#if (QT_VERSION >= QT_VERSION_CHECK(4, 3, 0))
+#if (QT_VERSION >= 0x040300)
     drag->exec();
 #else
     drag->start();
@@ -167,14 +167,36 @@ void QxtTabBar::dragEnterEvent(QDragEnterEvent* event)
     }
 }
 
+#if (QT_VERSION < 0x040300)
+/*!
+   back ported from Qt 4.3+
+*/
+
+int tabAt(const QTabBar& bar, const QPoint &position)
+{
+    const int max = bar.count();
+    for (int i = 0; i < max; ++i) {
+        if (bar.tabRect(i).contains(position)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+#endif
+
 /*!
     \reimp
  */
 void QxtTabBar::dropEvent(QDropEvent* event)
 {
+#if (QT_VERSION >= 0x040300)
     int previousIndex   = tabAt(qxt_d().dragStartPos);
     int newIndex     = tabAt(event->pos());
-
+#else
+    int previousIndex   = tabAt(*this, qxt_d().dragStartPos);
+    int newIndex     = tabAt(*this, event->pos());
+#endif
     // Store tab data
     Tab tab;
     tab.save(previousIndex, this);
