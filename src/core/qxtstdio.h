@@ -36,6 +36,13 @@ class QXT_CORE_EXPORT QxtStdio : public QxtPipe
 public:
     /**constructs a QxtStdio with the given parent*/
     QxtStdio(QObject * parent=0);
+
+    /**will block forever regardless of the parameter. returns false on EOF*/
+    virtual bool waitForReadyRead ( int msecs );
+
+    /**Blocks until EOF is received.*/
+    void waitForEOF ();
+
 protected:
     /**\reimp*/
     virtual qint64 writeData ( const char * data, qint64 maxSize );
