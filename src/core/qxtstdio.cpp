@@ -84,6 +84,12 @@ qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
 void QxtStdioPrivate::activated(int )
 {
     char c=getchar();
+    if(c==EOF)
+    {
+        emit qxt_p().readChannelFinished();
+        hadeof=true;
+        return;
+    }
     QByteArray b(1,c);
     qxt_p().enqueData(b);
     qxt_p().sendData(b);
@@ -94,3 +100,45 @@ void   QxtStdio::receiveData (QByteArray data, const QxtPipe *  )
 {
     writeData (data.data(),data.size());
 }
+
+bool QxtStdio::waitForReadyRead ( int  )
+{
+    if(qxt_d().hadeof)
+        return false;
+
+
+    char c=getchar();
+    if(c==EOF)
+    {
+        emit readChannelFinished();
+        qxt_d().hadeof=true;
+        return false;
+    }
+    QByteArray b(1,c);
+    enqueData(b);
+    sendData(b);
+    return true;
+}
+
+
+void QxtStdio::waitForEOF ()
+{
+    if(qxt_d().hadeof)
+        return;
+
+    forever
+    {
+        char c=getchar();
+        if(c==EOF)
+        {
+            emit readChannelFinished();
+            qxt_d().hadeof=true;
+            return;
+        }
+        QByteArray b(1,c);
+        enqueData(b);
+        sendData(b);
+    }
+}
+
+
