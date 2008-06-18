@@ -40,6 +40,10 @@ QxtStringValidatorPrivate::QxtStringValidatorPrivate() : isUserModel(false)
 
 QModelIndex QxtStringValidatorPrivate::lookupPartialMatch(const QString &value) const
 {
+    //a empty string is always invalid
+    if(value.isEmpty())
+        return QModelIndex();
+
     Qt::MatchFlags matchFlags = Qt::MatchStartsWith| userFlags;
     if (cs == Qt::CaseSensitive)
         matchFlags |= Qt::MatchCaseSensitive;
@@ -109,22 +113,15 @@ QxtStringValidator::~QxtStringValidator(void)
 
 /*!
     Fixes up the string input if there is no exact match in the stringlist/model.
-    The first match in the stringlist/model is used to fix the input.
+    The default implementation does nothing
 */
 void QxtStringValidator::fixup ( QString & input ) const
 {
     qDebug()<<"Fixup called";
-
-    if (!qxt_d().model)
-        return;
-
-    if (qxt_d().lookupExactMatch(input).isValid())
-        return;
-
-    QModelIndex partialMatch = qxt_d().lookupPartialMatch(input);
-    if (partialMatch.isValid())
-        input = partialMatch.data(qxt_d().lookupRole).toString();
-
+    /*we can not choose whats the correct fixup, if a user needs a fixup he has to do it himself
+      using the first match in the model is just wrong, because thats what QCompleter should do
+    */
+    QValidator::fixup(input);
 }
 
 /*!
