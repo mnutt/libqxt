@@ -86,7 +86,9 @@ void QxtStdioPrivate::activated(int )
     char c=getchar();
     if(c==EOF)
     {
-        emit qxt_p().readChannelFinished();
+#if QT_VERSION >= 0x040400
+        emit qxt_p().readChannelFinished(); 
+#endif
         hadeof=true;
         return;
     }
@@ -110,7 +112,9 @@ bool QxtStdio::waitForReadyRead ( int  )
     char c=getchar();
     if(c==EOF)
     {
-        emit readChannelFinished();
+#if QT_VERSION >= 0x040400
+        emit qxt_p().readChannelFinished();
+#endif
         qxt_d().hadeof=true;
         return false;
     }
@@ -131,7 +135,9 @@ void QxtStdio::waitForEOF ()
         char c=getchar();
         if(c==EOF)
         {
-            emit readChannelFinished();
+#if QT_VERSION >= 0x040400
+            emit qxt_p().readChannelFinished(); 
+#endif
             qxt_d().hadeof=true;
             return;
         }
