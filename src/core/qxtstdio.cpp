@@ -113,7 +113,7 @@ bool QxtStdio::waitForReadyRead ( int  )
     if(c==EOF)
     {
 #if QT_VERSION >= 0x040400
-        emit qxt_p().readChannelFinished();
+        emit readChannelFinished();
 #endif
         qxt_d().hadeof=true;
         return false;
@@ -136,7 +136,7 @@ void QxtStdio::waitForEOF ()
         if(c==EOF)
         {
 #if QT_VERSION >= 0x040400
-            emit qxt_p().readChannelFinished(); 
+            emit readChannelFinished();
 #endif
             qxt_d().hadeof=true;
             return;
