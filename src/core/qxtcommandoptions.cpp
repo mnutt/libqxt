@@ -472,7 +472,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
                             } else {
                                 value = "";
                             }
-                            setOption(option);
+                            setOption(option, value);
                         }
                     }
                 }
