@@ -21,6 +21,7 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+#include <QtDebug>
 #include "qxtglobalshortcut.h"
 #include "qxtglobalshortcut_p.h"
 
@@ -35,12 +36,17 @@ bool QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
 {
     key = shortcut.isEmpty() ? Qt::Key(0) : Qt::Key(shortcut[0] & 0x01FFFFFF);
     mods = shortcut.isEmpty() ? Qt::KeyboardModifiers(0) : Qt::KeyboardModifiers(shortcut[0] & 0xFE000000);
-    return registerShortcut(nativeKeycode(key), nativeModifiers(mods));
+    bool res = registerShortcut(nativeKeycode(key), nativeModifiers(mods));
+    if (!res)
+        qWarning() << "QxtGlobalShortcut failed to register:" << QKeySequence(key + mods).toString();
+    return res;
 }
 
 bool QxtGlobalShortcutPrivate::unsetShortcut()
 {
     bool res = unregisterShortcut(nativeKeycode(key), nativeModifiers(mods));
+    if (!res)
+        qWarning() << "QxtGlobalShortcut failed to unregister:" << QKeySequence(key + mods).toString();
     key = Qt::Key(0);
     mods = Qt::KeyboardModifiers(0);
     return res;
