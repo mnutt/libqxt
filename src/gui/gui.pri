@@ -100,8 +100,8 @@ SOURCES  += qxtscheduleview_p.cpp
 SOURCES  += qxtscheduleviewheadermodel_p.cpp
 SOURCES  += qxtstyleoptionscheduleviewitem.cpp
 SOURCES  += qxtscheduleheaderwidget.cpp
-    
-unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
+
+unix:x11:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
 macx {
        SOURCES += qxtapplication_mac.cpp
        SOURCES += qxtglobalshortcut_mac.cpp
