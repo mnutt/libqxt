@@ -756,6 +756,42 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 }
 
 /*!
+    Reimplemented from QDialog.
+
+    \note The default implementation calls SLOT(accept()) of
+    each page page provided that such slot exists.
+
+    \sa reject()
+ */
+void QxtConfigDialog::accept()
+{
+    Q_ASSERT(qxt_d().stack);
+    for (int i = 0; i < qxt_d().stack->count(); ++i)
+    {
+        QMetaObject::invokeMethod(qxt_d().stack->widget(i), "accept");
+    }
+    QDialog::accept();
+}
+
+/*!
+    Reimplemented from QDialog.
+
+    \note The default implementation calls SLOT(reject()) of
+    each page provided that such slot exists.
+
+    \sa accept()
+ */
+void QxtConfigDialog::reject()
+{
+    Q_ASSERT(qxt_d().stack);
+    for (int i = 0; i < qxt_d().stack->count(); ++i)
+    {
+        QMetaObject::invokeMethod(qxt_d().stack->widget(i), "reject");
+    }
+    QDialog::reject();
+}
+
+/*!
     Returns the internal table widget used for showing page icons.
 
     \sa stackedWidget()

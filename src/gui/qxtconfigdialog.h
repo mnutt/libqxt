@@ -96,6 +96,9 @@ public slots:
     void setCurrentIndex(int index);
     void setCurrentPage(QWidget* page);
 
+    virtual void accept();
+    virtual void reject();
+
 signals:
     void currentIndexChanged(int index);
 
