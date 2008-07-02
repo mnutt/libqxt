@@ -34,22 +34,32 @@ class QXT_GUI_EXPORT QxtTabBar : public QTabBar
 {
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtTabBar)
-    Q_PROPERTY(bool reorderable READ reorderable WRITE setReorderable)
+    Q_PROPERTY(TabMovementMode tabMovementMode READ tabMovementMode WRITE setTabMovementMode)
+
 public:
     explicit QxtTabBar(QWidget* parent = 0);
     virtual ~QxtTabBar();
 
-    bool reorderable() const;
-    void setReorderable(bool reorderable);
+    enum TabMovementMode
+    {
+        NoMovement,
+        InPlaceMovement,
+        DragDropMovement
+    };
+
+    TabMovementMode tabMovementMode() const;
+    void setTabMovementMode(TabMovementMode mode);
 
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
     void dragEnterEvent(QDragEnterEvent* event);
+    void dragMoveEvent(QDragMoveEvent* event);
     void dropEvent(QDropEvent* event);
 
 signals:
-    void tabReordered(int previousIndex, int newIndex);
+    void tabMoved(int fromIndex, int toIndex);
 };
 
 #endif // QXTTABBAR_H

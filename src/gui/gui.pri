@@ -40,7 +40,6 @@ HEADERS  += qxtstringspinbox.h
 HEADERS  += qxtstringvalidator.h
 HEADERS  += qxtstringvalidator_p.h
 HEADERS  += qxttabbar.h
-HEADERS  += qxttabbar_p.h
 HEADERS  += qxttablewidget.h
 HEADERS  += qxttablewidget_p.h
 HEADERS  += qxttablewidgetitem.h

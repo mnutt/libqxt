@@ -21,47 +21,197 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-// Own
 #include "qxttabbar.h"
-#include "qxttabbar_p.h"
+#include <QDragMoveEvent>
+#include <QApplication>
+#include <QTabWidget>
+#include <QMimeData>
+#include <QIcon>
 
-// Qt
-#include <QtGui> // TODO remove and insert only the needed headers
-
-class Tab
+class QxtTabBarPrivate : public QxtPrivate<QxtTabBar>
 {
-
 public:
-    void save(int index, const QTabBar* const tabbar) {
-        if (!tabbar) return;
-        m_icon      = tabbar->tabIcon(index);
-        m_data      = tabbar->tabData(index);
-        m_text      = tabbar->tabText(index);
-        m_textColor = tabbar->tabTextColor(index);
-        m_toolTip   = tabbar->tabToolTip(index);
-        m_whatsThis = tabbar->tabWhatsThis(index);
-    }
-    void restore(int index, QTabBar* tabbar) const {
-        if (!tabbar) return;
-        tabbar->setTabIcon(index, m_icon);
-        tabbar->setTabData(index, m_data);
-        tabbar->setTabText(index, m_text);
-        tabbar->setTabTextColor(index, m_textColor);
-        tabbar->setTabToolTip(index, m_toolTip);
-        tabbar->setTabWhatsThis(index, m_whatsThis);
-    }
+    QXT_DECLARE_PUBLIC(QxtTabBar);
 
-private:
-    QIcon     m_icon;
-    QVariant  m_data;
-    QString   m_text;
-    QColor    m_textColor;
-    QString   m_toolTip;
-    QString   m_whatsThis;
+    QxtTabBarPrivate();
+
+    enum MovementAction
+    {
+        PressAction,
+        MoveAction,
+        DragAction,
+        DropAction,
+    };
+
+    int tabAt(const QPoint& position, MovementAction action) const;
+    bool contains(const QRect& rect, const QPoint& position, MovementAction action) const;
+
+    bool shouldMove(const QPoint& pos, int fromIndex, int toIndex, MovementAction action) const;
+    bool moveTab(const QPoint& pos, int fromIndex, int toIndex, MovementAction action);
+
+    struct Tab
+    {
+        QIcon    icon;
+        QVariant data;
+        QString  text;
+        QColor   textColor;
+        QString  toolTip;
+        QString  whatsThis;
+    };
+    Tab saveTab(int index) const;
+    void restoreTab(int index, const Tab& tab);
+
+    int movingTab;
+    QPoint pressPoint;
+    QxtTabBar::TabMovementMode mode;
 };
 
-QxtTabBarPrivate::QxtTabBarPrivate() : reorderable(false)
+QxtTabBarPrivate::QxtTabBarPrivate() : movingTab(-1), mode(QxtTabBar::NoMovement)
 {
+}
+
+int QxtTabBarPrivate::tabAt(const QPoint& position, MovementAction action) const
+{
+    const int count = qxt_p().count();
+    for (int i = 0; i < count; ++i)
+    {
+        if (contains(qxt_p().tabRect(i), position, action))
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool QxtTabBarPrivate::contains(const QRect& rect, const QPoint& position, MovementAction action) const
+{
+    if (action != PressAction)
+    {
+        switch (qxt_p().shape())
+        {
+            case QTabBar::RoundedNorth:
+            case QTabBar::RoundedSouth:
+            case QTabBar::TriangularNorth:
+            case QTabBar::TriangularSouth:
+                return position.x() >= rect.x() && position.x() <= rect.x() + rect.width();
+
+            case QTabBar::RoundedWest:
+            case QTabBar::RoundedEast:
+            case QTabBar::TriangularWest:
+            case QTabBar::TriangularEast:
+                return position.y() >= rect.y() && position.y() <= rect.y() + rect.height();
+
+            default:
+                qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
+                return false;
+        }
+    }
+    else // (action == PressAction)
+    {
+        return rect.contains(position);
+    }
+}
+
+bool QxtTabBarPrivate::shouldMove(const QPoint& pos, int fromIndex, int toIndex, MovementAction action) const
+{
+    if (fromIndex == -1 || toIndex == -1 || fromIndex == toIndex)
+        return false;
+
+    QRect sourceRect = qxt_p().tabRect(fromIndex);
+    QRect targetRect = qxt_p().tabRect(toIndex);
+
+    QRect finalRect;
+    if (action == DropAction)
+    {
+        finalRect = targetRect;
+    }
+    else
+    {
+        finalRect = sourceRect;
+        switch (qxt_p().shape())
+        {
+            case QTabBar::RoundedNorth:
+            case QTabBar::RoundedSouth:
+            case QTabBar::TriangularNorth:
+            case QTabBar::TriangularSouth:
+                if (qxt_p().layoutDirection() == Qt::LeftToRight && sourceRect.x() < targetRect.x())
+                    finalRect.moveRight(targetRect.right());
+                else
+                    finalRect.moveLeft(targetRect.left());
+                break;
+
+            case QTabBar::RoundedWest:
+            case QTabBar::RoundedEast:
+            case QTabBar::TriangularWest:
+            case QTabBar::TriangularEast:
+                if (sourceRect.y() < targetRect.y())
+                    finalRect.moveBottom(targetRect.bottom());
+                else
+                    finalRect.moveTop(targetRect.top());
+                break;
+
+            default:
+                qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
+                return false;
+        }
+    }
+
+    return contains(finalRect, pos, action);
+}
+
+bool QxtTabBarPrivate::moveTab(const QPoint& pos, int fromIndex, int toIndex, MovementAction action)
+{
+    QxtTabBar* tabBar = &qxt_p();
+
+    if (shouldMove(pos, fromIndex, toIndex, action))
+    {
+        Tab tab = saveTab(fromIndex);
+
+        // if parent is a QTabWidget we can use it to move the tabs and widgets
+        QTabWidget* tabWidget = qobject_cast<QTabWidget*>(tabBar->parent());
+        if (tabWidget)
+        {
+            QWidget* widget = tabWidget->widget(fromIndex);
+            tabWidget->removeTab(fromIndex);
+            tabWidget->insertTab(toIndex, widget, "");
+            tabWidget->setCurrentIndex(toIndex);
+        }
+        else // tabbar is standalone (not embedded into a QTabWidget)
+        {
+            tabBar->removeTab(fromIndex);
+            tabBar->insertTab(toIndex, "");
+            tabBar->setCurrentIndex(toIndex);
+        }
+
+        restoreTab(toIndex, tab);
+        return true;
+    }
+
+    return false;
+}
+
+QxtTabBarPrivate::Tab QxtTabBarPrivate::saveTab(int index) const
+{
+    Tab tab;
+    const QTabBar* tabBar = &qxt_p();
+    tab.icon      = tabBar->tabIcon(index);
+    tab.data      = tabBar->tabData(index);
+    tab.text      = tabBar->tabText(index);
+    tab.textColor = tabBar->tabTextColor(index);
+    tab.toolTip   = tabBar->tabToolTip(index);
+    tab.whatsThis = tabBar->tabWhatsThis(index);
+    return tab;
+}
+
+void QxtTabBarPrivate::restoreTab(int index, const Tab& tab)
+{
+    QTabBar* tabBar = &qxt_p();
+    tabBar->setTabIcon(index, tab.icon);
+    tabBar->setTabData(index, tab.data);
+    tabBar->setTabText(index, tab.text);
+    tabBar->setTabTextColor(index, tab.textColor);
+    tabBar->setTabToolTip(index, tab.toolTip);
+    tabBar->setTabWhatsThis(index, tab.whatsThis);
 }
 
 /*!
@@ -69,19 +219,20 @@ QxtTabBarPrivate::QxtTabBarPrivate() : reorderable(false)
     \ingroup QxtGui
     \brief An extended QTabBar.
 
-    QxtTabBar provides tabs that can be reordered. QxtTabWidget internally uses a QxtTabBar and thus is reorderable too.
+    QxtTabBar provides tabs that can be moved. QxtTabWidget uses QxtTabBar internally
+    and thus its tabs are also optionally movable.
 
     Example usage:
     \code
-    QxtTabBar* tb = new QxtTabBar;
-    tb->setReoderable(true); // Tabs are reorderable now.
+    QxtTabBar* tabBar = new QxtTabBar(tabWidget);
+    tabBar->setMovableTabs(true); // tabs are movable now
     \endcode
  */
 
 /*!
-    \fn QxtTabBar::tabReordered(int previousIndex, int newIndex)
+    \fn QxtTabBar::tabMoved(int fromIndex, int toIndex)
 
-    This signal is emitted whenever a tab is moved from \a previousIndex to the new position \a newIndex.
+    This signal is emitted whenever a tab is moved \a fromIndex \a toIndex.
  */
 
 /*!
@@ -92,28 +243,29 @@ QxtTabBar::QxtTabBar(QWidget* parent)
         : QTabBar(parent)
 {
     QXT_INIT_PRIVATE(QxtTabBar);
-    setAcceptDrops(true);
 }
 
 QxtTabBar::~QxtTabBar() {}
 
 /*!
-    \property QxtTabBar::reorderable
-    \brief This property holds whether the tabs are reorderable by drag and drop or not.
+    \property QxtTabBar::tabMovementMode
+    \brief This property holds how tabs can be moved.
 
-    The default value of this property is false. If set to true the signal tabsReodered will be emitted whenever the order changes.
+    The default value of this property is \b QxtTabBar::NoMovement.
 
-    \sa tabsReordered()
+    \sa tabMoved()
  */
 
-bool QxtTabBar::reorderable() const
+QxtTabBar::TabMovementMode QxtTabBar::tabMovementMode() const
 {
-    return qxt_d().reorderable;
+    return qxt_d().mode;
 }
 
-void QxtTabBar::setReorderable(bool reorderable)
+void QxtTabBar::setTabMovementMode(TabMovementMode mode)
 {
-    qxt_d().reorderable = reorderable;
+    qxt_d().mode = mode;
+    if (mode == DragDropMovement)
+        setAcceptDrops(true);
 }
 
 /*!
@@ -121,9 +273,12 @@ void QxtTabBar::setReorderable(bool reorderable)
  */
 void QxtTabBar::mousePressEvent(QMouseEvent* event)
 {
-    if (event->button() == Qt::LeftButton)
-        qxt_d().dragStartPos = event->pos();
     QTabBar::mousePressEvent(event);
+    if (event->button() == Qt::LeftButton)
+    {
+        qxt_d().movingTab = qxt_d().tabAt(event->pos(), QxtTabBarPrivate::PressAction);
+        qxt_d().pressPoint = event->pos();
+    }
 }
 
 /*!
@@ -132,26 +287,43 @@ void QxtTabBar::mousePressEvent(QMouseEvent* event)
 void QxtTabBar::mouseMoveEvent(QMouseEvent* event)
 {
     QTabBar::mouseMoveEvent(event);
-    if (!qxt_d().reorderable) return;
 
-    if (!(event->buttons() & Qt::LeftButton))
+    if (qxt_d().movingTab == -1)
         return;
 
-    if ((event->pos() - qxt_d().dragStartPos).manhattanLength()
-        < QApplication::startDragDistance())
-        return;
+    if (qxt_d().mode == InPlaceMovement)
+    {
+        int hoverTab = qxt_d().tabAt(event->pos(), QxtTabBarPrivate::MoveAction);
+        if (qxt_d().moveTab(event->pos(), qxt_d().movingTab, hoverTab, QxtTabBarPrivate::MoveAction))
+        {
+            emit tabMoved(qxt_d().movingTab, hoverTab);
+            qxt_d().movingTab = hoverTab;
+            event->accept();
+        }
+    }
+    else if (qxt_d().mode == DragDropMovement)
+    {
+        if ((event->pos() - qxt_d().pressPoint).manhattanLength()
+             >= QApplication::startDragDistance())
+        {
+            QDrag* drag = new QDrag(this);
+            QMimeData* mimeData = new QMimeData;
 
-    QDrag* drag = new QDrag(this);
-    QMimeData* mimeData = new QMimeData;
+            // a crude way to distinguish tab movement drops from other ones
+            mimeData->setData("action", "tabMovement");
+            drag->setMimeData(mimeData);
+            drag->start(); // to support < Qt 4.3
+        }
+    }
+}
 
-    // a crude way to distinguish tab-reodering drops from other ones
-    mimeData->setData("action", "tab-reordering") ;
-    drag->setMimeData(mimeData);
-#if (QT_VERSION >= 0x040300)
-    drag->exec();
-#else
-    drag->start();
-#endif
+/*!
+    \reimp
+ */
+void QxtTabBar::mouseReleaseEvent(QMouseEvent* event)
+{
+    QTabBar::mouseReleaseEvent(event);
+    qxt_d().movingTab = -1;
 }
 
 /*!
@@ -159,71 +331,46 @@ void QxtTabBar::mouseMoveEvent(QMouseEvent* event)
  */
 void QxtTabBar::dragEnterEvent(QDragEnterEvent* event)
 {
-    // Only accept if it's an tab-reordering request
-    const QMimeData* m = event->mimeData();
-    QStringList formats = m->formats();
-    if (formats.contains("action") && (m->data("action") == "tab-reordering")) {
+    // only accept if it's a tab movement request
+    const QMimeData* mimeData = event->mimeData();
+    QStringList formats = mimeData->formats();
+    if (formats.contains("action") && (mimeData->data("action") == "tabMovement"))
         event->acceptProposedAction();
-    }
+    else
+        QTabBar::dragEnterEvent(event);
 }
 
-#if (QT_VERSION < 0x040300)
-/*!
-   back ported from Qt 4.3+
-*/
-
-int tabAt(const QTabBar& bar, const QPoint &position)
+void QxtTabBar::dragMoveEvent(QDragMoveEvent* event)
 {
-    const int max = bar.count();
-    for (int i = 0; i < max; ++i) {
-        if (bar.tabRect(i).contains(position)) {
-            return i;
-        }
-    }
-    return -1;
+    // only accept if it's a tab movement request
+    const QMimeData* mimeData = event->mimeData();
+    QStringList formats = mimeData->formats();
+    if (formats.contains("action") && (mimeData->data("action") == "tabMovement"))
+        event->acceptProposedAction();
+    else
+        QTabBar::dragMoveEvent(event);
 }
-
-#endif
 
 /*!
     \reimp
  */
 void QxtTabBar::dropEvent(QDropEvent* event)
 {
-#if (QT_VERSION >= 0x040300)
-    int previousIndex   = tabAt(qxt_d().dragStartPos);
-    int newIndex     = tabAt(event->pos());
-#else
-    int previousIndex   = tabAt(*this, qxt_d().dragStartPos);
-    int newIndex     = tabAt(*this, event->pos());
-#endif
-    // Store tab data
-    Tab tab;
-    tab.save(previousIndex, this);
-
-    // If parent is a QTabWidget we can use it to move the tabs and widgets
-    QTabWidget* tw = qobject_cast<QTabWidget*>(parent());
-
-    if (tw) {
-        QWidget* w = tw->widget(previousIndex);
-        tw->removeTab(previousIndex);
-        tw->insertTab(newIndex, w, "");
-        tw->setCurrentIndex(newIndex);
+    // only accept if it's a tab movement request
+    const QMimeData* mimeData = event->mimeData();
+    QStringList formats = mimeData->formats();
+    if (formats.contains("action") && (mimeData->data("action") == "tabMovement"))
+    {
+        int dropTab = qxt_d().tabAt(event->pos(), QxtTabBarPrivate::DropAction);
+        if (qxt_d().moveTab(event->pos(), qxt_d().movingTab, dropTab, QxtTabBarPrivate::DropAction))
+        {
+            emit tabMoved(qxt_d().movingTab, dropTab);
+            qxt_d().movingTab = -1;
+            event->acceptProposedAction();
+        }
     }
-    // Tabbar is standalone (not embedded into a QTabWidget)
-    else {
-        removeTab(previousIndex);
-        insertTab(newIndex, "");
-        setCurrentIndex(newIndex);
+    else
+    {
+        QTabBar::dropEvent(event);
     }
-
-    // Restore tab
-    tab.restore(newIndex, this);
-
-    // Inform interested parties about reordering
-    if (previousIndex != newIndex) {
-        emit tabReordered(previousIndex, newIndex);
-    }
-
-    event->acceptProposedAction();
 }

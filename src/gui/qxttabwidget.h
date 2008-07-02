@@ -37,7 +37,7 @@ class QXT_GUI_EXPORT QxtTabWidget : public QTabWidget
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtTabWidget);
     Q_PROPERTY(Qt::ContextMenuPolicy tabContextMenuPolicy READ tabContextMenuPolicy WRITE setTabContextMenuPolicy)
-    Q_PROPERTY(bool reorderable READ reorderable WRITE setReorderable)
+    Q_PROPERTY(TabMovementMode tabMovementMode READ tabMovementMode WRITE setTabMovementMode)
 
 public:
     explicit QxtTabWidget(QWidget* parent = 0);
@@ -45,9 +45,17 @@ public:
 
     Qt::ContextMenuPolicy tabContextMenuPolicy() const;
     void setTabContextMenuPolicy(Qt::ContextMenuPolicy policy);
-    
-    void setReorderable(bool reorderable);
-    bool reorderable() const;
+
+    enum TabMovementMode
+    {
+        NoMovement,
+        InPlaceMovement,
+        DragDropMovement
+    };
+
+    TabMovementMode tabMovementMode() const;
+    void setTabMovementMode(TabMovementMode mode);
+
     void addTabAction(int index, QAction* action);
     QAction* addTabAction(int index, const QString& text);
     QAction* addTabAction(int index, const QIcon& icon, const QString& text);
@@ -70,7 +78,6 @@ signals:
 
 protected:
     QxtTabBar* tabBar () const;
-    void setTabBar(QxtTabBar* tb);
 
     virtual void tabInserted(int index);
     virtual void tabRemoved(int index);
