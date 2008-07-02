@@ -110,6 +110,25 @@ QxtTabWidget::~QxtTabWidget()
 }
 
 /*!
+    \property QxtTabBar::tabMovementMode
+    \brief This property holds how tabs can be moved.
+
+    The default value of this property is \b QxtTabBar::NoMovement.
+
+    \sa tabMoved()
+ */
+
+QxtTabWidget::TabMovementMode QxtTabWidget::tabMovementMode() const
+{
+    return TabMovementMode(tabBar()->tabMovementMode());
+}
+
+void QxtTabWidget::setTabMovementMode(TabMovementMode mode)
+{
+    tabBar()->setTabMovementMode(QxtTabBar::TabMovementMode(mode));
+}
+
+/*!
     \property QxtTabWidget::tabContextMenuPolicy
     \brief This property holds how the tab specific context menus are handled.
 
@@ -130,22 +149,6 @@ Qt::ContextMenuPolicy QxtTabWidget::tabContextMenuPolicy() const
 void QxtTabWidget::setTabContextMenuPolicy(Qt::ContextMenuPolicy policy)
 {
     qxt_d().policy = policy;
-}
-
-/*!
-    \property QxtTabWidget::reorderable
-    \brief This property holds whether the tabs on this QxtTabWidget are reorderable or not.
-
-    The default value of this property is false. 
- */
-bool QxtTabWidget::reorderable() const
-{
-    return tabBar()->reorderable();
-}
-
-void QxtTabWidget::setReorderable(bool reorderable)
-{
-    tabBar()->setReorderable(reorderable);
 }
 
 /*!
@@ -405,12 +408,6 @@ QxtTabBar* QxtTabWidget::tabBar () const
 {
     return qobject_cast<QxtTabBar*>(QTabWidget::tabBar());
 }
-
-void QxtTabWidget::setTabBar(QxtTabBar* tb)
-{
-    QTabWidget::setTabBar(tb);
-}
-
 
 /*!
     \reimp
