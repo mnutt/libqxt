@@ -39,6 +39,8 @@ public:
     QxtTabWidgetPrivate();
     int tabIndexAt(const QPoint& pos) const;
 
+    bool always;
+
     QList<Actions> actions;
     Qt::ContextMenuPolicy policy;
 
