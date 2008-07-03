@@ -21,39 +21,32 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#if 0
-#ifndef QxtHeaderViewHHGuard
-#define QxtHeaderViewHHGuard
-#include <Qxt/qxtglobal.h>
+#ifndef QXTHEADERVIEW_H
+#define QXTHEADERVIEW_H
+
 #include <QHeaderView>
+#include "qxtglobal.h"
+#include "qxtpimpl.h"
 
-
-class QPainter;
-class QAction;
 class QxtHeaderViewPrivate;
+
 class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
 {
     Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtHeaderView);
+    Q_PROPERTY(bool proportionalSectionSizes READ hasProportionalSectionSizes WRITE setProportionalSectionSizes)
 
 public:
-    QxtHeaderView (Qt::Orientation orientation ,QWidget * parent);
-    void addAction(QAction * action);
+    QxtHeaderView(Qt::Orientation orientation, QWidget* parent = 0);
+
+    bool hasProportionalSectionSizes() const;
+    void setProportionalSectionSizes(bool enabled);
+
+    int sectionStretchFactor(int logicalIndex) const;
+    void setSectionStretchFactor(int logicalIndex, int factor);
+
 protected:
-    virtual void subPaint(QPainter * painter, const QRect & rect, int logicalIndex,QSize  icon_size, int spacing) const;
-    virtual void subClick(QMouseEvent * m,QSize icon_size, int spacing ) ;
-    virtual int  subWidth(QSize icon_size, int spacing) const;
-signals:
-    void checkBoxChanged(bool);
-
-private:
-    virtual	void paintSection ( QPainter * painter, const QRect & rect, int logicalIndex ) const;
-    virtual void mousePressEvent ( QMouseEvent * m );
-    virtual void mouseMoveEvent ( QMouseEvent * event );
-
-    QxtHeaderViewPrivate * priv;///TODO NO. this is wrong!!!
-
+    void resizeEvent(QResizeEvent* event);
 };
 
-
-#endif
-#endif
+#endif // QXTHEADERVIEW_H

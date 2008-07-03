@@ -21,197 +21,106 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#if 0
-#include "QxtHeaderView.h"
-#include <QPainter>
-#include <QApplication>
-#include <QDebug>
-#include <QMouseEvent>
-#include <QAction>
+#include "qxtheaderview.h"
 
-
-class QxtHeaderViewPrivate
+class QxtHeaderViewPrivate : public QxtPrivate<QxtHeaderView>
 {
 public:
+    QXT_DECLARE_PUBLIC(QxtHeaderView);
 
-    QxtHeaderViewPrivate()
-    {
-        space=10;
-        action_size=NULL;
-    }
+    QxtHeaderViewPrivate();
 
-    QSize action_size_c() const
-    {
-        return *action_size;
-    }
-
-    QList<QAction *> actions;
-    QSize * action_size;
-    int space;
-
+    bool proportional;
+    QMap<int, int> factors;
 };
 
+QxtHeaderViewPrivate::QxtHeaderViewPrivate() : proportional(false)
+{
+}
 
 /*!
     \class QxtHeaderView QxtHeaderView
     \ingroup QxtGui
-    \brief a headerview that can have QActions
-
-    draws actions directly into the header. it's like a toolbar for your ItemView.
-
-    \image html qxtheaderview.png "QxtHeaderView with a few actions."
+    \brief An extended QHeaderView with optionally proportional section sizes.
  */
 
 /*!
-    \fn QxtHeaderView::QxtHeaderView()
-
-   default Constructor
+    Constructs a new QxtHeaderView with \a orientation and \a parent.
  */
 
-QxtHeaderView::QxtHeaderView (Qt::Orientation o ,QWidget *parent):QHeaderView(o,parent)
+QxtHeaderView::QxtHeaderView(Qt::Orientation orientation, QWidget* parent)
+    : QHeaderView(orientation, parent)
 {
-    priv = new QxtHeaderViewPrivate;
-    setStretchLastSection(true);
-    QStyleOptionViewItem  option;
-    option.initFrom(this);
-    priv->action_size= new QSize( QApplication::style()->subElementRect(QStyle::SE_ViewItemCheckIndicator,&option).size());
-    setMouseTracking (true );
+    QXT_INIT_PRIVATE(QxtHeaderView);
 }
 
-
-
-//-----------------------------------------------------------------
 /*!
-    adds a new QAction \a action to the header.
+    \property QxtHeaderView::hasProportionalSectionSizes
+    \brief This property holds whether section sizes are proportional.
+
+    The default value is \b true.
+
+    \note Enabling proportional sections sizes sets resize mode 
+    \b QHeaderView::Fixed, which means that the user cannot resize
+    sections.
  */
-void QxtHeaderView::addAction(QAction * action)
+bool QxtHeaderView::hasProportionalSectionSizes() const
 {
-    priv->actions.append(action);
+    return qxt_d().proportional;
 }
 
-//-----------------------------------------------------------------
-
-void  QxtHeaderView::mouseMoveEvent ( QMouseEvent * m )
+void QxtHeaderView::setProportionalSectionSizes(bool enabled)
 {
-    if (!priv->action_size)
+    if (qxt_d().proportional != enabled)
     {
-        setToolTip (QString());
-        leaveEvent ( m );
-        return;
+        qxt_d().proportional = enabled;
+        if (enabled)
+            setResizeMode(QHeaderView::Fixed);
     }
-    int moved = subWidth(priv->action_size_c(),priv->space);
-    int wm=width()-moved;
-    if (m->x()>wm)
-    {
-        setToolTip (QString());
-        leaveEvent ( m );
-        return;
-    }
-    int i=0;
-    wm-=priv->space;
-    while (wm>0)
-    {
-        wm-=priv->action_size_c().width();
-        wm-=priv->space;
+}
 
-        if (i>(priv->actions.count()-1))break;
+/*!
+    Returns the stretch factor of the section at \a logicalIndex.
 
-        if (m->x() >  wm)
+    \sa setSectionStretchFactor()
+ */
+int QxtHeaderView::sectionStretchFactor(int logicalIndex) const
+{
+    return qxt_d().factors.value(logicalIndex);
+}
+
+/*!
+    Sets the stretch \a factor of the section at \a logicalIndex.
+
+    \sa sectionStretchFactor()
+ */
+void QxtHeaderView::setSectionStretchFactor(int logicalIndex, int factor)
+{
+    qxt_d().factors.insert(logicalIndex, factor);
+}
+
+/*!
+    \reimp
+ */
+void QxtHeaderView::resizeEvent(QResizeEvent* event)
+{
+    QHeaderView::resizeEvent(event);
+    if (qxt_d().proportional)
+    {
+        int total = 0;
+        for (int i = 0; i < count(); ++i)
+            total += qxt_d().factors.value(i, 1);
+
+        int totalSize = 0;
+        for (int i = 0; i < count() - 1; ++i)
         {
-            setToolTip (priv->actions[i]->toolTip ());
-            return;
+            qreal factor = qxt_d().factors.value(i, 1) / static_cast<qreal>(total);
+            int sectionSize = factor * (orientation() == Qt::Horizontal ? width() : height());
+            sectionSize = qMax(minimumSectionSize(), sectionSize);
+            resizeSection(i, sectionSize);
+            totalSize += sectionSize;
         }
-        i++;
-    }
-
-    setToolTip (QString());
-    leaveEvent ( m );
-
-}
-
-
-void QxtHeaderView::paintSection ( QPainter * painter, const QRect & rm, int logicalIndex ) const
-{
-    QRect rect=rm;
-
-
-    painter->save();
-    QHeaderView::paintSection(painter,rect,logicalIndex);
-    painter->restore();
-
-
-    subPaint(painter, rect, logicalIndex,priv->action_size_c(),priv->space);
-    int moved = subWidth(priv->action_size_c(),priv->space);
-    rect.adjust(0,0,-moved,0);
-
-    rect.adjust(0,0,-priv->space,0);
-    QAction * a;
-    foreach(a, priv->actions)
-    {
-        QIcon img = a->icon();
-        QRect r=QStyle::alignedRect ( Qt::LeftToRight, Qt::AlignRight | Qt::AlignVCenter, *priv->action_size,rect);
-        img.paint(painter, r.x(), r.y(), r.width(), r.height(), Qt::AlignCenter);
-        rect.adjust(0,0,-priv->action_size->width()-priv->space,0);	///shrink the available space rect
+        // avoid rounding errors, give rest to the last section
+        resizeSection(count() - 1, width() - totalSize);
     }
 }
-
-void  QxtHeaderView::mousePressEvent ( QMouseEvent * m )
-{
-    if (!priv->action_size)return;
-
-    subClick(m,priv->action_size_c(), priv->space ) ;
-    int moved = subWidth(priv->action_size_c(),priv->space);
-
-
-    int wm=width()-moved;
-
-    if (m->x()>wm)return;
-
-    int i=0;
-    wm-=priv->space;
-    while (wm>0)
-    {
-        wm-=priv->action_size_c().width();
-        wm-=priv->space;
-
-        if (i>(priv->actions.count()-1))break;
-
-        if (m->x() >  wm)
-        {
-            priv->actions[i]->trigger();
-            break;
-        }
-
-        i++;
-    }
-
-
-//                 v
-//         | x | x | x |
-
-}
-
-
-//-----------------------------------------------------------------
-/*!
-        reimplement this to add your own icons, widgets, or whatever to the header.\n
- */
-
-void QxtHeaderView::subPaint(QPainter * , const QRect & , int ,QSize , int ) const
-    {}
-/*!
-        reimplement this to receive clicks to your own icons,widgets, etc...
- */
-
-void QxtHeaderView::subClick(QMouseEvent * ,QSize , int)
-{}
-/*!
-        when reimplementing subPaint and/or subClick  you must also override this function and return the width your custom drawing takes,
-        so the QActions know where to start.
- */
-
-int QxtHeaderView::subWidth(QSize , int ) const
-{
-    return 0;
-}
-#endif
