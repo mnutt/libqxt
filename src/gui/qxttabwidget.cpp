@@ -31,7 +31,7 @@
 #include <QMovie>
 #include <QMenu>
 
-QxtTabWidgetPrivate::QxtTabWidgetPrivate() : policy(Qt::DefaultContextMenu)
+QxtTabWidgetPrivate::QxtTabWidgetPrivate() : always(true), policy(Qt::DefaultContextMenu)
 {
 }
 
@@ -110,6 +110,27 @@ QxtTabWidget::~QxtTabWidget()
 }
 
 /*!
+    \property QxtTabWidget::alwaysShowTabBar
+    \brief This property holds whether the tab bar is shown always
+    regardless of how many tabs there are.
+
+    The default value of this property is \b true.
+
+    Set this property to \b false if you want to show
+    the tab bar only in case there are more than one tabs.
+ */
+bool QxtTabWidget::alwaysShowTabBar() const
+{
+    return qxt_d().always;
+}
+
+void QxtTabWidget::setAlwaysShowTabBar(bool always)
+{
+    qxt_d().always = always;
+    tabBar()->setVisible(always || count() > 1);
+}
+
+/*!
     \property QxtTabBar::tabMovementMode
     \brief This property holds how tabs can be moved.
 
@@ -117,7 +138,6 @@ QxtTabWidget::~QxtTabWidget()
 
     \sa tabMoved()
  */
-
 QxtTabWidget::TabMovementMode QxtTabWidget::tabMovementMode() const
 {
     return TabMovementMode(tabBar()->tabMovementMode());
@@ -419,6 +439,7 @@ void QxtTabWidget::tabInserted(int index)
     Q_ASSERT(index <= qxt_d().animations.count());
     qxt_d().actions.insert(index, Actions());
     qxt_d().animations.insert(index, 0);
+    tabBar()->setVisible(qxt_d().always || count() > 1);
 }
 
 /*!
@@ -431,6 +452,7 @@ void QxtTabWidget::tabRemoved(int index)
     Q_ASSERT(index < qxt_d().animations.count());
     qxt_d().actions.removeAt(index);
     qxt_d().animations.removeAt(index);
+    tabBar()->setVisible(qxt_d().always || count() > 1);
 }
 
 /*!
