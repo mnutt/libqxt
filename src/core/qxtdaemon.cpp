@@ -47,6 +47,7 @@ returns true on sucess
 */
 #include "qxtdaemon.h"
 #include <cassert>
+#include <cstdlib>
 #include <QFile>
 #include <QCoreApplication>
 #include <QDateTime>
@@ -56,7 +57,6 @@ returns true on sucess
     #include <signal.h>
     #include <fcntl.h>
     #include <pwd.h>
-    #include <stdlib.h>
     #include <unistd.h>
     #include <sys/types.h>
 #endif
