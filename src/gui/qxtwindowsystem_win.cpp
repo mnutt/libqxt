@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxtwindowsystem.h"
 #include <qt_windows.h>
+#include <qglobal.h> // QT_WA
 
 static WindowList qxt_Windows;
 
@@ -50,8 +51,11 @@ WId QxtWindowSystem::activeWindow()
 
 WId QxtWindowSystem::findWindow(const QString& title)
 {
-    std::wstring str = title.toStdWString();
-    return ::FindWindow(NULL, str.c_str());
+    QT_WA({
+        return ::FindWindow(NULL, (TCHAR*)title.utf16());
+    }, {
+        return ::FindWindowA(NULL, title.toLocal8Bit());
+    });
 }
 
 WId QxtWindowSystem::windowAt(const QPoint& pos)
@@ -68,9 +72,13 @@ QString QxtWindowSystem::windowTitle(WId window)
     int len = ::GetWindowTextLength(window);
     if (len >= 0)
     {
-        wchar_t* buf = new wchar_t[len+1];
+        TCHAR* buf = new TCHAR[len+1];
         len = ::GetWindowText(window, buf, len+1);
-        title = QString::fromStdWString(std::wstring(buf, len));
+        QT_WA({
+            title = QString::fromUtf16((const ushort*)buf, len);
+        }, {
+            title = QString::fromLocal8Bit((const char*)buf, len);
+        });
         delete[] buf;
     }
     return title;
