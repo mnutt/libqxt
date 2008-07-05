@@ -38,6 +38,7 @@
 #include "qxtitemeditorcreatorbase.h"
 #include "qxtlabel.h"
 #include "qxtlanguagecombobox.h"
+#include "qxtletterboxwidget.h"
 #include "qxtlistwidget.h"
 #include "qxtlistwidgetitem.h"
 #include "qxtnativeeventfilter.h"
