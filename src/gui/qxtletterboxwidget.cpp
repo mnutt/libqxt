@@ -23,6 +23,8 @@
 ****************************************************************************/
 #include "qxtletterboxwidget.h"
 #include "qxtletterboxwidget_p.h"
+#include <QLayout>
+#include <QStyle>
 
 QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), multX(1), multY(1)
 {
@@ -32,56 +34,14 @@ QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), multX(1), mu
 
 void QxtLetterBoxWidgetPrivate::resize()
 {
-    if (!center)
-        return;
-
-    const int width = qxt_p().width();
-    const int height = qxt_p().height();
-
-    if (width < center->minimumWidth() || height < center->minimumHeight())
+    if (center)
     {
-        center->resize(center->minimumSize());
-        center->move((width - center->width()) / 2, (height - center->height()) / 2);
-        return;
+        QSize size(multX, multY);
+        size.scale(qxt_p().size(), Qt::KeepAspectRatio);
+        size = QLayout::closestAcceptableSize(center, size);
+        QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size, qxt_p().rect());
+        center->setGeometry(rect);
     }
-
-    int hmargin = (width - center->minimumWidth()) % multX;
-    int vmargin = (height - center->minimumHeight()) % multY;
-    int w = width - hmargin, h;
-
-    if (center->heightForWidth(w) == -1)
-    {
-        h = height - vmargin;
-    }
-    else
-    {
-        h = center->heightForWidth(w);
-        if (h > height && center->heightForWidth(w / 2) < w)
-        {   // directly proportional
-            // First, make an educated guess that such an object maintains a predictable aspect ratio
-            uint maxw = w, minw = w / 2;
-            if (center->minimumWidth() != 0)
-                w = uint(float(center->minimumWidth()) / center->minimumHeight() * height);
-            else
-                w = uint(float(w) / h * height);
-            w -= (w - center->minimumWidth()) % multX;
-            h = center->heightForWidth(w);
-            while (uint(height - h) > multY || height < h)
-            {
-                // Educated guess has failed! Binary search time.
-                w = (maxw + minw) / 2;
-                h = center->heightForWidth(w);
-                if (h > height)
-                    maxw = w;
-                else
-                    minw = w;
-                if (minw >= maxw)
-                    break;
-            }
-        } // inverse proportion implies no amount of narrowing will make it fit vertically
-    }
-    center->move((width - w) / 2, (height - h) / 2);
-    center->resize(w, h);
 }
 
 /*!
@@ -112,8 +72,8 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
     \brief This property holds the background color
 
     \note This property corresponds to \b QPalette::Window. Setting
-    this property also sets property QWidget::autoFillBackground
-    property as \b true.
+    and unsetting the property also sets the property 
+    \b QWidget::autoFillBackground as \b true or \b false, respectively.
  */
 QColor QxtLetterBoxWidget::backgroundColor() const
 {
@@ -126,6 +86,12 @@ void QxtLetterBoxWidget::setBackgroundColor(const QColor& color)
     pal.setColor(QPalette::Window, color);
     setPalette(pal);
     setAutoFillBackground(true);
+}
+
+void QxtLetterBoxWidget::unsetBackgroundColor()
+{
+    setBackgroundColor(QColor());
+    setAutoFillBackground(false);
 }
 
 /*!
@@ -153,8 +119,10 @@ void QxtLetterBoxWidget::setCentralWidget(QWidget* widget)
         qxt_d().center->deleteLater();
     qxt_d().center = widget;
     if (widget)
+    {
         widget->setParent(this);
-    qxt_d().resize();
+        qxt_d().resize();
+    }
 }
 
 /*!
@@ -197,6 +165,15 @@ void QxtLetterBoxWidget::setHeightMultiple(uint multiple)
     }
 }
 
+/*!
+    \property QxtLetterBoxWidget::resizeDelay
+    \brief This property holds the delay of resize
+
+    The default value is \b 0 which means immediate resize.
+
+    Using a short resize delay might be useful if the central
+    widget is complex and resizing it is expensive.
+ */
 uint QxtLetterBoxWidget::resizeDelay() const
 {
     return qxt_d().timer.interval();
@@ -213,5 +190,8 @@ void QxtLetterBoxWidget::setResizeDelay(uint delay)
 void QxtLetterBoxWidget::resizeEvent(QResizeEvent* event)
 {
     QFrame::resizeEvent(event);
-    qxt_d().timer.start();
+    if (resizeDelay() > 0)
+        qxt_d().timer.start();
+    else
+        qxt_d().resize();
 }
