@@ -38,6 +38,7 @@
 #include "qxttablewidgetplugin.h"
 #include "qxttreewidgetplugin.h"
 #include "qxtflowviewplugin.h"
+#include "qxtletterboxwidgetplugin.h"
 
 #include <QtPlugin>
 
@@ -58,7 +59,8 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
     << new QxtProgressLabelPlugin()
     << new QxtCountryComboBoxPlugin()
     << new QxtLanguageComboBoxPlugin()
-    << new QxtFlowViewPlugin();
+    << new QxtFlowViewPlugin()
+    << new QxtLetterBoxWidgetPlugin();
 
     return plugins;
 }
