@@ -42,7 +42,6 @@ public slots:
 
 public:
     QWidget* center;
-    uint multX, multY;
     QTimer timer;
 };
 

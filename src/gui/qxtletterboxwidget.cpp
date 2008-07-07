@@ -26,7 +26,7 @@
 #include <QLayout>
 #include <QStyle>
 
-QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), multX(1), multY(1)
+QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0)
 {
     timer.setSingleShot(true);
     connect(&timer, SIGNAL(timeout()), this, SLOT(resize()));
@@ -36,7 +36,7 @@ void QxtLetterBoxWidgetPrivate::resize()
 {
     if (center)
     {
-        QSize size(multX, multY);
+        QSize size = qxt_p().sizeIncrement();
         size.scale(qxt_p().size(), Qt::KeepAspectRatio);
         size = QLayout::closestAcceptableSize(center, size);
         QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size, qxt_p().rect());
@@ -50,6 +50,14 @@ void QxtLetterBoxWidgetPrivate::resize()
     \brief A letter box widget.
 
     QxtLetterBoxWidget preserves the aspect ratio of its content widget.
+
+    Use \b QWidget::sizeIncrement to define the aspect ratio:
+    \code
+    QxtLetterBoxWidget letterBox;
+    letterBox.setSizeIncrement(16, 9);
+    letterBox.setWidget(widget);
+    letterBox.show();
+    \endcode
  */
 
 /*!
@@ -71,8 +79,10 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
     \property QxtLetterBoxWidget::backgroundColor
     \brief This property holds the background color
 
-    \note This property corresponds to \b QPalette::Window. Setting
-    or clearing the property also sets the property 
+    This property is provided for convenience.
+    This property corresponds to \b QPalette::Window.
+
+    \note Setting or clearing the property also sets the property
     \b QWidget::autoFillBackground as \b true or \b false, respectively.
  */
 QColor QxtLetterBoxWidget::backgroundColor() const
@@ -121,46 +131,6 @@ void QxtLetterBoxWidget::setWidget(QWidget* widget)
     if (widget)
     {
         widget->setParent(this);
-        qxt_d().resize();
-    }
-}
-
-/*!
-    \property QxtLetterBoxWidget::widthMultiple
-    \brief This property holds the width multiple
-
-    The default value is \b 1
- */
-uint QxtLetterBoxWidget::widthMultiple() const
-{
-    return qxt_d().multX;
-}
-
-void QxtLetterBoxWidget::setWidthMultiple(uint multiple)
-{
-    if (qxt_d().multX != multiple)
-    {
-        qxt_d().multX = multiple;
-        qxt_d().resize();
-    }
-}
-
-/*!
-    \property QxtLetterBoxWidget::heightMultiple
-    \brief This property holds the height multiple
-
-    The default value is \b 1
- */
-uint QxtLetterBoxWidget::heightMultiple() const
-{
-    return qxt_d().multY;
-}
-
-void QxtLetterBoxWidget::setHeightMultiple(uint multiple)
-{
-    if (qxt_d().multY != multiple)
-    {
-        qxt_d().multY = multiple;
         qxt_d().resize();
     }
 }
