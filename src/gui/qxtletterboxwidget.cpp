@@ -49,7 +49,7 @@ void QxtLetterBoxWidgetPrivate::resize()
     \ingroup QxtGui
     \brief A letter box widget.
 
-    QxtLetterBoxWidget preserves the aspect ratio of its central widget.
+    QxtLetterBoxWidget preserves the aspect ratio of its content widget.
  */
 
 /*!
@@ -72,7 +72,7 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
     \brief This property holds the background color
 
     \note This property corresponds to \b QPalette::Window. Setting
-    and unsetting the property also sets the property 
+    or clearing the property also sets the property 
     \b QWidget::autoFillBackground as \b true or \b false, respectively.
  */
 QColor QxtLetterBoxWidget::backgroundColor() const
@@ -88,32 +88,32 @@ void QxtLetterBoxWidget::setBackgroundColor(const QColor& color)
     setAutoFillBackground(true);
 }
 
-void QxtLetterBoxWidget::unsetBackgroundColor()
+void QxtLetterBoxWidget::clearBackgroundColor()
 {
     setBackgroundColor(QColor());
     setAutoFillBackground(false);
 }
 
 /*!
-    Returns the central widget for the letter box.
-    This function returns zero if the central widget has not been set.
+    Returns the widget for the letter box.
+    This function returns zero if the widget has not been set.
 
-    \sa setCentralWidget()
+    \sa setWidget()
  */
-QWidget* QxtLetterBoxWidget::centralWidget() const
+QWidget* QxtLetterBoxWidget::widget() const
 {
     return qxt_d().center;
 }
 
 /*!
-    Sets the given widget to be the letter box's central widget.
+    Sets the given widget to be the letter box's widget.
 
     \note QxtLetterBox takes ownership of the widget pointer
     and deletes it at the appropriate time.
 
-    \sa centralWidget()
+    \sa widget()
  */
-void QxtLetterBoxWidget::setCentralWidget(QWidget* widget)
+void QxtLetterBoxWidget::setWidget(QWidget* widget)
 {
     if (qxt_d().center && qxt_d().center != widget)
         qxt_d().center->deleteLater();
@@ -171,7 +171,7 @@ void QxtLetterBoxWidget::setHeightMultiple(uint multiple)
 
     The default value is \b 0 which means immediate resize.
 
-    Using a short resize delay might be useful if the central
+    Using a short resize delay might be useful if the
     widget is complex and resizing it is expensive.
  */
 uint QxtLetterBoxWidget::resizeDelay() const
