@@ -36,7 +36,7 @@ void QxtLetterBoxWidgetPrivate::resize()
 {
     if (center)
     {
-        QSize size = qxt_p().sizeIncrement();
+        QSize size = center->sizeIncrement();
         size.scale(qxt_p().size(), Qt::KeepAspectRatio);
         size = QLayout::closestAcceptableSize(center, size);
         QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size, qxt_p().rect());
@@ -54,7 +54,7 @@ void QxtLetterBoxWidgetPrivate::resize()
     Use \b QWidget::sizeIncrement to define the aspect ratio:
     \code
     QxtLetterBoxWidget letterBox;
-    letterBox.setSizeIncrement(16, 9);
+    widget->setSizeIncrement(16, 9);
     letterBox.setWidget(widget);
     letterBox.show();
     \endcode
