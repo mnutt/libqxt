@@ -35,8 +35,6 @@ class QxtLetterBoxWidget : public QFrame
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET clearBackgroundColor)
-    Q_PROPERTY(uint widthMultiple READ widthMultiple WRITE setWidthMultiple)
-    Q_PROPERTY(uint heightMultiple READ heightMultiple WRITE setHeightMultiple)
     Q_PROPERTY(uint resizeDelay READ resizeDelay WRITE setResizeDelay)
 
 public:
@@ -49,12 +47,6 @@ public:
 
     QWidget* widget() const;
     void setWidget(QWidget* widget);
-
-    uint widthMultiple() const;
-    void setWidthMultiple(uint multiple);
-
-    uint heightMultiple() const;
-    void setHeightMultiple(uint multiple);
 
     uint resizeDelay() const;
     void setResizeDelay(uint delay);
