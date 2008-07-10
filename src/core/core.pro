@@ -10,3 +10,4 @@ CONFIG          += qxtbuild
 
 include(../../config.pri)
 include(core.pri)
+include(logengines/logengines.pri)
