@@ -30,7 +30,7 @@
 
 class QxtLetterBoxWidgetPrivate;
 
-class QxtLetterBoxWidget : public QFrame
+class QXT_GUI_EXPORT QxtLetterBoxWidget : public QFrame
 {
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
