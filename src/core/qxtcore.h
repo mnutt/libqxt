@@ -21,17 +21,24 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+#include "qxtboundcfunction.h"
+#include "qxtboundfunction.h"
+#include "qxtboundfunctionbase.h"
+#include "qxtcommandoptions.h"
 #include "qxtcsvmodel.h"
 #include "qxtdaemon.h"
+#include "qxtdeplex.h"
 #include "qxterror.h"
 #include "qxtfifo.h"
 #include "qxtfilelock.h"
 #include "qxtglobal.h"
-#include "qxthypermacros.h"
 #include "qxtjob.h"
 #include "qxtlinesocket.h"
+#include "qxtlinkedtree.h"
+#include "qxtlocale.h"
 #include "qxtmetaobject.h"
 #include "qxtmetatype.h"
+#include "qxtmultisignalwaiter.h"
 #include "qxtnamespace.h"
 #include "qxtnull.h"
 #include "qxtnullable.h"
@@ -41,6 +48,7 @@
 #include "qxtpointerlist.h"
 #include "qxtsemaphore.h"
 #include "qxtsharedprivate.h"
+#include "qxtsignalgroup.h"
 #include "qxtsignalwaiter.h"
 #include "qxtslotjob.h"
 #include "qxtstdio.h"
@@ -48,7 +56,6 @@
 #include "qxttuple.h"
 #include "qxttuplelist.h"
 #include "qxttypelist.h"
-#include "qxtcommandoptions.h"
 
 /** \defgroup QxtCore QxtCore
     \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
