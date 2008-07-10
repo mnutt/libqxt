@@ -2,20 +2,44 @@ LibQxt 0.4.0 introduces new features and contains bug fixes to the 0.3.x
 series. For more details, see the documentation included in this package
 or online at http://docs.libqxt.org.
 
-****************************************************************************
-*                           0.4.0                                          *
-****************************************************************************
-
-New features
-------------
+0.4.0
+-----
 
 - QxtCore
-    * QxtCommandOptions
-    * QxtLogger
+    * Added QxtDeplex
+    * Added QxtLocale
+    * Added QxtPointerList
+    * Added QxtMultiSignalWaiter
+    * Added QxtSignalGroup
+    * Added QxtCommandOptions
+    * Added QxtLogger
 
+- QxtCrypto
+    * Added QxtHmac
+	
 - QxtGui
-    * QxtCountryComboBox
-    * QxtCountryModel
-    * QxtLanguageComboBox
-    * QxtScheduleView
-    * QxtLetterBoxWidget
+    * Added QxtItemEditorCreatorBase
+    * Added QxtStandardItemEditorCreator
+    * Added QxtItemEditorCreator
+    * Added QxtBaseSpinBox
+    * Added QxtCountryComboBox
+    * Added QxtCountryModel
+    * Added QxtLanguageComboBox
+    * Added QxtScheduleView
+    * Added QxtTabBar
+    * Added QxtFlowView
+    * Added QxtLetterBoxWidget
+    * Improved QxtTabWidget
+        - Added QxtTabWidget::tabAnimation
+    * Improved QxtConfirmationMessage
+        - Added QxtConfirmationMessage::settingsFormat
+        - Added QxtConfirmationMessage::rememberOnReject
+        - Added QxtConfirmationMessage::overrideSettingsApplication
+        - Added QxtConfirmationMessage::overrideSettingsKey
+        - Added QxtConfirmationMessage::overrideSettingsOrganization
+
+- QxtBerkeley
+    * Added QxtBdbTree
+
+- QxtWeb
+    * Revised the whole module
