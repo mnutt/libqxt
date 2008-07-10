@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxtblowfish.h"
 #include "qxthash.h"
+#include "qxthmac.h"
 
 /** \defgroup QxtCrypto QxtCrypto
     \brief    The QxtCrypto module provides tools for encryption and hashing.

@@ -21,16 +21,17 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtabstractwebconnector.h"
+#include "qxtabstracthttpconnector.h"
+#include "qxtabstractwebservice.h"
+#include "qxtabstractwebsessionmanager.h"
 #include "qxthtmltemplate.h"
+#include "qxthttpsessionmanager.h"
 #include "qxtmail.h"
 #include "qxtsendmail.h"
-#include "qxtwebcontroller.h"
-#include "qxtwebcore.h"
-#include "qxtwebfcgiconnector.h"
-#include "qxtwebhttpconnector.h"
-#include "qxtwebscgiconnector.h"
-#include "qxtwebstatelessconnector.h"
+#include "qxtwebcontent.h"
+#include "qxtwebevent.h"
+#include "qxtwebservicedirectory.h"
+#include "qxtwebslotservice.h"
 
 /**
 \defgroup QxtWeb QxtWeb
