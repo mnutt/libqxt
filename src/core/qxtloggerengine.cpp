@@ -34,12 +34,21 @@
     do the actual work of logging the data.
 */
 
-struct QxtLoggerEnginePrivate : public QxtPrivate<QxtLoggerEngine>
+class QxtLoggerEnginePrivate : public QxtPrivate<QxtLoggerEngine>
 {
-QXT_DECLARE_PUBLIC(QxtLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtLoggerEngine);
+
+public:
+    QxtLoggerEnginePrivate();
+
     QxtLogger::LogLevels    bm_logLevel;
     bool                    b_isLogging;
 };
+
+QxtLoggerEnginePrivate::QxtLoggerEnginePrivate()
+    : bm_logLevel(QxtLogger::AllLevels), b_isLogging(true)
+{
+}
 
 QxtLoggerEngine::QxtLoggerEngine()
 {

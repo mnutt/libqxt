@@ -72,7 +72,6 @@
     can give you a lot of data if you need it.  But if you only want to see warnings and errors, qLog->setMinimumLogLevel(WarningLevel) might
     be more useful.
 
-
     \section Extending
     The functionality of QxtLogger can be extended by creating plugins derived from QxtLoggerEngine.  Logger Engines
     are the little workers that actually take the raw data, format it, and spit it out into meaningful forms.

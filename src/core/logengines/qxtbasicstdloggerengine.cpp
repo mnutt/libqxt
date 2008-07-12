@@ -54,11 +54,11 @@ QxtBasicSTDLoggerEngine::QxtBasicSTDLoggerEngine()
 {
     QXT_INIT_PRIVATE(QxtBasicSTDLoggerEngine);
 #ifndef QT_NO_DEBUG
-        setLogLevelEnabled(QXT_REQUIRED_LEVELS);
+    setLogLevelEnabled(QXT_REQUIRED_LEVELS);
 #else
-        setLogLevelEnabled(QXT_REQUIRED_LEVELS | QxtLogger::DebugLevel);
+    setLogLevelEnabled(QXT_REQUIRED_LEVELS | QxtLogger::DebugLevel);
 #endif
-        enableLogging();
+    enableLogging();
 }
 
 /*******************************************************************************
@@ -123,7 +123,7 @@ QTextStream* QxtBasicSTDLoggerEngine::stdOutStream() const
 void QxtBasicSTDLoggerEngine::setLogLevelEnabled( QxtLogger::LogLevels level, bool enable )
 {
     QxtLoggerEngine::setLogLevelEnabled(level | QXT_REQUIRED_LEVELS, enable);
-        if ( !enable) QxtLoggerEngine::setLogLevelEnabled( QXT_REQUIRED_LEVELS );
+    if ( !enable) QxtLoggerEngine::setLogLevelEnabled( QXT_REQUIRED_LEVELS );
 }
 
 /*******************************************************************************
