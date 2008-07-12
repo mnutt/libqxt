@@ -550,7 +550,7 @@ QxtLogger::~QxtLogger()
     // implicit destruction only
 }
 
-/*!	\short Returns a pointer to the instance of the Logger
+/*! \short Returns a pointer to the instance of the Logger
     QxtLogger is implemented as a singleton, a single object, that
     manages all of the logging done in an application.  The easiest way
     to use it is by calling the qLog macro:
@@ -598,16 +598,16 @@ QString QxtLogger::logLevelToString(LogLevel l)
 */
 QxtLogger::LogLevel QxtLogger::stringToLogLevel(const QString& a)
 {
-        if (a.toLower() == "alllevels") return QxtLogger::AllLevels;
-        else if  (a.toLower() == "writelevel") return QxtLogger::TraceLevel;
-        else if  (a.toLower() == "fatallevel") return QxtLogger::DebugLevel;
-        else if  (a.toLower() == "criticallevel") return QxtLogger::InfoLevel;
-        else if  (a.toLower() == "errorlevel") return QxtLogger::WarningLevel;
-        else if  (a.toLower() == "warnlevel") return QxtLogger::ErrorLevel;
-        else if  (a.toLower() == "infolevel") return QxtLogger::CriticalLevel;
-        else if  (a.toLower() == "debuglevel") return QxtLogger::FatalLevel;
-        else if  (a.toLower() == "tracelevel") return QxtLogger::WriteLevel;
-        else return QxtLogger::NoLevels;
+    if (a.toLower() == "alllevels") return QxtLogger::AllLevels;
+    else if  (a.toLower() == "writelevel") return QxtLogger::TraceLevel;
+    else if  (a.toLower() == "fatallevel") return QxtLogger::DebugLevel;
+    else if  (a.toLower() == "criticallevel") return QxtLogger::InfoLevel;
+    else if  (a.toLower() == "errorlevel") return QxtLogger::WarningLevel;
+    else if  (a.toLower() == "warnlevel") return QxtLogger::ErrorLevel;
+    else if  (a.toLower() == "infolevel") return QxtLogger::CriticalLevel;
+    else if  (a.toLower() == "debuglevel") return QxtLogger::FatalLevel;
+    else if  (a.toLower() == "tracelevel") return QxtLogger::WriteLevel;
+    else return QxtLogger::NoLevels;
 }
 
 /*! \short Enables the given LogLevels across all Engines.
@@ -631,7 +631,6 @@ void QxtLogger::enableLogLevel(LogLevels level)
             eng->enableLogLevel(level);
         }
     }
-
 }
 
 /*! \short Returns a reference to a refcounted stream.
@@ -815,7 +814,7 @@ void QxtLogger::killLoggerEngine(const QString &str_engineName)
     \param level           A LogLevel or LogLevels to disable.
     \ret                   Returns true or false.
 */
-bool QxtLogger::isLogLevelEnabled  (const QString &str_engineName, LogLevel level) const
+bool QxtLogger::isLogLevelEnabled(const QString &str_engineName, LogLevel level) const
 {
     QMutexLocker lock(qxt_d().mut_lock);
     if (qxt_d().map_logEngineMap.contains(str_engineName))
@@ -973,7 +972,7 @@ QStringList QxtLogger::allEnabledLoggerEngines() const
 /*! \short Retuns a QStringList containing the namnes of all loaded Engines that are currently disabled.
     \ret QStringList engine names.
 */
-QStringList QxtLogger::allDisabledLoggerEngines	() const
+QStringList QxtLogger::allDisabledLoggerEngines() const
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QStringList sl_engineNames = qxt_d().map_logEngineMap.keys();
@@ -988,7 +987,7 @@ QStringList QxtLogger::allDisabledLoggerEngines	() const
 /*! \short Checks if the given string names a currently loaded Engine.
     \ret True or false.
 */
-bool QxtLogger::isLoggerEngine	(const QString &str_engineName) const
+bool QxtLogger::isLoggerEngine(const QString &str_engineName) const
 {
     QMutexLocker lock(qxt_d().mut_lock);
     return qxt_d().map_logEngineMap.contains(str_engineName);
@@ -997,13 +996,13 @@ bool QxtLogger::isLoggerEngine	(const QString &str_engineName) const
 /*! \short Checkes if the named engine is currently enabled
     \ret True or false
 */
-bool QxtLogger::isLoggerEngineEnabled			(const QString &str_engineName) const
+bool QxtLogger::isLoggerEngineEnabled(const QString &str_engineName) const
 {
     QMutexLocker lock(qxt_d().mut_lock);
     return (qxt_d().map_logEngineMap.contains(str_engineName) && qxt_d().map_logEngineMap.value(str_engineName)->isLoggingEnabled());
 }
 
-void QxtLogger::setQxtLoggerEngineMinimumLevel(QxtLoggerEngine * eng, LogLevel level)
+void QxtLogger::setQxtLoggerEngineMinimumLevel(QxtLoggerEngine *eng, LogLevel level)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     if (!eng) return; 

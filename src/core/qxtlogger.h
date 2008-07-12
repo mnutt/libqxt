@@ -207,4 +207,5 @@ Q_DECLARE_METATYPE(QxtLogger::LogLevels);
 #define qxtLog QxtLogger::getInstance()
 
 #include "qxtlogstream.h"
+
 #endif // QXTLOGGER_H

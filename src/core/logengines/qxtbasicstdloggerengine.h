@@ -44,12 +44,12 @@ public:
     QxtBasicSTDLoggerEngine ();
     ~QxtBasicSTDLoggerEngine();
 
-    void    initLoggerEngine      ();
-    void    killLoggerEngine      ();
+    void    initLoggerEngine();
+    void    killLoggerEngine();
     void    writeFormatted  ( QxtLogger::LogLevel level, const QList<QVariant> &messages );
     void    setLogLevelEnabled( QxtLogger::LogLevels level, bool enable = true );
 
-    bool    isInitialized () const;
+    bool    isInitialized() const;
 
     QTextStream* stdErrStream() const;
     QTextStream* stdOutStream() const;
