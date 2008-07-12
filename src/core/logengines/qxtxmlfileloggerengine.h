@@ -30,19 +30,20 @@
 #include <QTextStream>
 #include <QFile>
 
+class QxtXmlFileLoggerEnginePrivate;
+
 class QXT_CORE_EXPORT QxtXmlFileLoggerEngine : public QxtAbstractFileLoggerEngine
 {
+    QXT_DECLARE_PRIVATE(QxtXmlFileLoggerEngine);
+
 public:
     QxtXmlFileLoggerEngine();
-   
-    void initLoggerEngine();
-    void writeFormatted     ( QxtLogger::LogLevel level, const QVariantList& messages );
+
+    virtual void initLoggerEngine();
 
 protected:
-    ~QxtXmlFileLoggerEngine();
-    void   writeToFile ( const QString &level, const QVariantList &messages);
+    virtual void   writeToFile ( const QString &level, const QVariantList &messages);
     static QString toXmlSafeString( const QString& unformatted ); // because we're using 4.2, this was added in 4.4
-    QString tab;
 };
 
-#endif
+#endif // QXTXMLFILELOGGERENGINE_H

@@ -33,13 +33,13 @@ class QxtLogStreamPrivate
 {
 friend class QxtLogStream;
 public:
-	QxtLogStreamPrivate(QxtLogger* owner, QxtLogger::LogLevel level, const QList<QVariant>& data);
-	~QxtLogStreamPrivate();
+    QxtLogStreamPrivate(QxtLogger* owner, QxtLogger::LogLevel level, const QList<QVariant>& data);
+    ~QxtLogStreamPrivate();
 
-	QxtLogger *owner;
-	QxtLogger::LogLevel level;
-	int refcount;	// Unfortunately, QExplicitlySharedDataPointer was introduced in Qt 4.4, and we have to work with Qt 4.2 ;_;
-	QList<QVariant> data;
+    QxtLogger *owner;
+    QxtLogger::LogLevel level;
+    int refcount;   // Unfortunately, QExplicitlySharedDataPointer was introduced in Qt 4.4, and we have to work with Qt 4.2 ;_;
+    QList<QVariant> data;
 };
 
-#endif
+#endif // QXTLOGSTREAM_P_H

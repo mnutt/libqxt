@@ -23,39 +23,38 @@
 ****************************************************************************/
 
 #include "qxtlogstream.h"
+#include "qxtlogstream_p.h"
 #include "qxtlogger.h"
 
-
-QxtLogStreamPrivate::QxtLogStreamPrivate( QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : owner(owner), level(level), refcount(1), data(data)
+QxtLogStreamPrivate::QxtLogStreamPrivate(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : owner(owner), level(level), refcount(1), data(data)
 {
-	// Nothing to see here.
+    // Nothing to see here.
 }
 
 QxtLogStreamPrivate::~QxtLogStreamPrivate()
 {
-	owner->log( level, data );
+    owner->log( level, data );
 }
 
-QxtLogStream::QxtLogStream( QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data)) 
+QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data)) 
 {
-	//Nothing here either.
+    // Nothing here either.
 }
 
-QxtLogStream::QxtLogStream( const QxtLogStream &other )
+QxtLogStream::QxtLogStream(const QxtLogStream &other)
 {
-	d = other.d;
-	d->refcount++;
+    d = other.d;
+    d->refcount++;
 }
 
 QxtLogStream::~QxtLogStream()
 {
-	d->refcount--;
-	if ( d->refcount == 0 ) delete d;
+    d->refcount--;
+    if ( d->refcount == 0 ) delete d;
 }
 
-QxtLogStream& QxtLogStream::operator<< ( const QVariant &value )
+QxtLogStream& QxtLogStream::operator<< (const QVariant &value)
 {
-	d->data.append( value );
-	return *this;
+    d->data.append( value );
+    return *this;
 }
-

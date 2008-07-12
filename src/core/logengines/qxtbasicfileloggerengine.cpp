@@ -24,52 +24,33 @@
 
 #include "qxtbasicfileloggerengine.h"
 #include <QTime>
-/**
-	Constructor: initialize the file pointer to null.
-*/
-QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine()
-{
-	this->ptr_fileTarget	= NULL;
-}
-
 
 /**
-	Destructor: close an open file, then delete.
+    Constructor: initialize the file pointer to null.
 */
-QxtBasicFileLoggerEngine::~QxtBasicFileLoggerEngine()
+QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine( const QString &fileName )
+    : QxtAbstractFileLoggerEngine( fileName )
 {
-	this->killLoggerEngine();
-}
-
-void QxtBasicFileLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &messages )
-{
-		 if ( (level & QxtLogger::ErrorLevel)== QxtLogger::ErrorLevel )	writeToFile("Error", messages);
-	else if ( (level & QxtLogger::WarningLevel) == QxtLogger::WarningLevel)	writeToFile("Warning", messages);
-	else if ( (level & QxtLogger::CriticalLevel) == QxtLogger::CriticalLevel)	writeToFile("Critical", messages);
-	else if ( (level & QxtLogger::FatalLevel)== QxtLogger::FatalLevel)	writeToFile("Fatal", messages);
-	else if ( (level & QxtLogger::TraceLevel)== QxtLogger::TraceLevel)  writeToFile("Trace", messages);
-	else if ( (level & QxtLogger::DebugLevel)== QxtLogger::DebugLevel ) writeToFile("Debug", messages);
-	else if ( (level & QxtLogger::InfoLevel) == QxtLogger::InfoLevel )  writeToFile("Info", messages);
-	else	writeToFile(QString(), messages);
 }
 
 void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
-{	
+{
     if ( messages.isEmpty() ) return;
     QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
-    ptr_fileTarget->write(header.toUtf8());
+    QIODevice* file = device();
+    Q_ASSERT(file);
+    file->write(header.toUtf8());
     for ( int i = 0; i < header.size(); i++ ) padding.append(" ");
     int count = 0;
     Q_FOREACH(QVariant out, messages )
     {
         if( !out.isNull() )
         {
-            if ( count != 0 ) ptr_fileTarget->write(padding.toUtf8());
-            ptr_fileTarget->write(out.toString().toUtf8()); 
-            ptr_fileTarget->write("\n");
+            if ( count != 0 ) file->write(padding.toUtf8());
+            file->write(out.toString().toUtf8()); 
+            file->write("\n");
         }
         count++;
     }
 }
-

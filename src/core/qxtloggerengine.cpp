@@ -24,14 +24,14 @@
 
 #include "qxtloggerengine.h"
 
-/*! \class QxtLoggerEngine
+/*! \class QxtLoggerEngine QxtLoggerEngine
     \brief The parent class of all extended Engine Plugins.
-    
+    \ingroup QxtCore
+
     \section Overview
     QxtLoggerEngine is what gives the QxtLogger it's power.  While the Logger itself
     manages memory, logic, and log levels, it is the various Engine Plugins that 
     do the actual work of logging the data.
-
 */
 
 struct QxtLoggerEnginePrivate : public QxtPrivate<QxtLoggerEngine>
@@ -48,49 +48,49 @@ QxtLoggerEngine::QxtLoggerEngine()
 
 QxtLoggerEngine::~QxtLoggerEngine()
 {
-	QxtLogger::getInstance()->removeLoggerEngine(this);
+    QxtLogger::getInstance()->removeLoggerEngine(this);
 }
 
 bool QxtLoggerEngine::isLoggingEnabled() const
 {
-	return qxt_d().b_isLogging;
+    return qxt_d().b_isLogging;
 }
 
 void QxtLoggerEngine::enableLogging()
 {
-	setLoggingEnabled();
+    setLoggingEnabled();
 }
 
 void QxtLoggerEngine::disableLogging()
 {
-	setLoggingEnabled(false);
+    setLoggingEnabled(false);
 }
 
 void QxtLoggerEngine::setLoggingEnabled(bool enable)
 {
-	qxt_d().b_isLogging = enable;
+    qxt_d().b_isLogging = enable;
 }
 
 void QxtLoggerEngine::setLogLevelEnabled(QxtLogger::LogLevels level, bool enable)
 {
-	if(enable)
-	{
-		qxt_d().bm_logLevel |= level;
-	}
+    if(enable)
+    {
+        qxt_d().bm_logLevel |= level;
+    }
     else
     {
-		qxt_d().bm_logLevel &= ~level;
-	}
+        qxt_d().bm_logLevel &= ~level;
+    }
 }
 
 void QxtLoggerEngine::enableLogLevel(QxtLogger::LogLevels level)
 {
-	 setLogLevelEnabled(level, true);
+    setLogLevelEnabled(level, true);
 }
 
 void QxtLoggerEngine::disableLogLevel(QxtLogger::LogLevels level)
 {
-	setLogLevelEnabled(level, false);
+    setLogLevelEnabled(level, false);
 }
 
 bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const 

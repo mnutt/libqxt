@@ -22,35 +22,41 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QBASIC__STD__LOGGER_ENGINE_H
-#define QXT__QBASIC__STD__LOGGER_ENGINE_H
+#ifndef QXTBASICSTDLOGGERENGINE_H
+#define QXTBASICSTDLOGGERENGINE_H
+
 #include "qxtloggerengine.h"
-#include <QTextStream>
+#include "qxtglobal.h"
+#include "qxtpimpl.h"
+
+class QTextStream;
+class QxtBasicSTDLoggerEnginePrivate;
 
 /*******************************************************************************
-	QBasicSTDLoggerEngine
-	The basic logger engine included with QxtLogger.
+    QBasicSTDLoggerEngine
+    The basic logger engine included with QxtLogger.
 *******************************************************************************/
 class QXT_CORE_EXPORT QxtBasicSTDLoggerEngine : public QxtLoggerEngine
 {
+    QXT_DECLARE_PRIVATE(QxtBasicSTDLoggerEngine);
+
 public:
-	 QxtBasicSTDLoggerEngine	();
-	~QxtBasicSTDLoggerEngine	();
+    QxtBasicSTDLoggerEngine ();
+    ~QxtBasicSTDLoggerEngine();
 
-	void	initLoggerEngine      ();
-	void	killLoggerEngine      ();
-	void	writeFormatted	( QxtLogger::LogLevel level, const QList<QVariant> &messages );
-	void	setLogLevelEnabled( QxtLogger::LogLevels level, bool enable = true );
+    void    initLoggerEngine      ();
+    void    killLoggerEngine      ();
+    void    writeFormatted  ( QxtLogger::LogLevel level, const QList<QVariant> &messages );
+    void    setLogLevelEnabled( QxtLogger::LogLevels level, bool enable = true );
 
-	bool	isInitialized () const;
+    bool    isInitialized () const;
+
+    QTextStream* stdErrStream() const;
+    QTextStream* stdOutStream() const;
 
 protected:
-	void WriteToSTDERR	( const QString& str_level, const QList<QVariant> &msgs );
-	void WriteToSTDOUT	( const QString& str_level, const QList<QVariant> &msgs );
-	QTextStream *errstream, *outstream;
-	QxtLogger::LogLevels	bm_reqLevels;
-
-
+    virtual void writeToStdErr  ( const QString& str_level, const QList<QVariant> &msgs );
+    virtual void writeToStdOut  ( const QString& str_level, const QList<QVariant> &msgs );
 };
-#endif //QXT__QBASIC__STD__LOGGER_ENGINE_H
 
+#endif // QXTBASICSTDLOGGERENGINE_H

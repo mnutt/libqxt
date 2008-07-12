@@ -22,8 +22,9 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QxtLogger__Q_LOGGER_ENGINE__H
-#define QXT__QxtLogger__Q_LOGGER_ENGINE__H
+#ifndef QXTLOGGERENGINE_H
+#define QXTLOGGERENGINE_H
+
 #include <QString>
 #include <QVariant>
 #include <QIODevice>
@@ -35,8 +36,10 @@ class QxtLoggerEnginePrivate;
 
 class QXT_CORE_EXPORT QxtLoggerEngine 
 {
-friend class QxtLogger;
-friend class QxtLoggerPrivate;
+    friend class QxtLogger;
+    friend class QxtLoggerPrivate;
+    QXT_DECLARE_PRIVATE(QxtLoggerEngine);
+
 public:
     QxtLoggerEngine();
     virtual ~QxtLoggerEngine();
@@ -47,7 +50,7 @@ public:
 
     virtual void    writeFormatted(QxtLogger::LogLevel level, const QList<QVariant>& messages) = 0;
 
-    virtual void    setLoggingEnabled (bool enable = true);
+    virtual void    setLoggingEnabled(bool enable = true);
     bool            isLoggingEnabled() const;
     void            enableLogging();
     void            disableLogging();
@@ -56,9 +59,6 @@ public:
     bool            isLogLevelEnabled(QxtLogger::LogLevel level) const;
     void            enableLogLevel(QxtLogger::LogLevels level);
     void            disableLogLevel(QxtLogger::LogLevels level);
-
-private:
-    QXT_DECLARE_PRIVATE(QxtLoggerEngine);
 };
 
-#endif // QXT__QxtLogger__Q_LOGGER_ENGINE__H
+#endif // QXTLOGGERENGINE_H

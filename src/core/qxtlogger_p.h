@@ -22,18 +22,16 @@
 **
 ****************************************************************************/
 
-//! \cond
-//
-#ifndef QXT__QXT_LOGGER__PRIVATE_H
-#define QXT__QXT_LOGGER__PRIVATE_H
+#ifndef QXTLOGGERPRIVATE_H
+#define QXTLOGGERPRIVATE_H
 
 #include "qxtlogger.h"
 #include <QHash>
 
 /*******************************************************************************
-	QxtLoggerPrivate
-	This is the d_ptr private class containing the actual data this library
-works with.
+    QxtLoggerPrivate
+    This is the d_ptr private class containing the actual data this library
+    works with.
 *******************************************************************************/
 class QMutex;
 class QxtLoggerPrivate : public QObject, public QxtPrivate<QxtLogger>
@@ -50,6 +48,4 @@ public slots:
     void log(QxtLogger::LogLevel, const QList<QVariant>&);
 };
 
-//! \endcond
-            
-#endif
+#endif // QXTLOGGERPRIVATE_H
