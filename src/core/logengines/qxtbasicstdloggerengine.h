@@ -41,22 +41,22 @@ class QXT_CORE_EXPORT QxtBasicSTDLoggerEngine : public QxtLoggerEngine
     QXT_DECLARE_PRIVATE(QxtBasicSTDLoggerEngine);
 
 public:
-    QxtBasicSTDLoggerEngine ();
+    QxtBasicSTDLoggerEngine();
     ~QxtBasicSTDLoggerEngine();
 
-    void    initLoggerEngine();
-    void    killLoggerEngine();
-    void    writeFormatted  ( QxtLogger::LogLevel level, const QList<QVariant> &messages );
-    void    setLogLevelEnabled( QxtLogger::LogLevels level, bool enable = true );
+    void initLoggerEngine();
+    void killLoggerEngine();
+    void writeFormatted(QxtLogger::LogLevel level, const QList<QVariant> &messages);
+    void setLogLevelEnabled(QxtLogger::LogLevels level, bool enable = true);
 
-    bool    isInitialized() const;
+    bool isInitialized() const;
 
     QTextStream* stdErrStream() const;
     QTextStream* stdOutStream() const;
 
 protected:
-    virtual void writeToStdErr  ( const QString& str_level, const QList<QVariant> &msgs );
-    virtual void writeToStdOut  ( const QString& str_level, const QList<QVariant> &msgs );
+    virtual void writeToStdErr(const QString& str_level, const QList<QVariant> &msgs);
+    virtual void writeToStdOut(const QString& str_level, const QList<QVariant> &msgs);
 };
 
 #endif // QXTBASICSTDLOGGERENGINE_H

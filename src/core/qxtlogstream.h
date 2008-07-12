@@ -35,13 +35,15 @@ class QxtLogStreamPrivate;
 class QXT_CORE_EXPORT QxtLogStream
 {
     friend class QxtLogger;
-private:
-    QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data);
-    QxtLogStreamPrivate *d;
+
 public:
     QxtLogStream(const QxtLogStream &other);
     ~QxtLogStream();
     QxtLogStream& operator<< (const QVariant &value);
+
+private:
+    QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data);
+    QxtLogStreamPrivate *d;
 };
 
 #endif // QXTLOGSTREAM_H
