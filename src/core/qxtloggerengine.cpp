@@ -97,4 +97,3 @@ bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const
 {
     return (qxt_d().bm_logLevel & level);
 }
-

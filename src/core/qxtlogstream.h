@@ -29,7 +29,6 @@
 #include <QList>
 #include "qxtlogger.h"
 
-// forward declarations
 class QxtLogger;
 class QxtLogStreamPrivate;
 

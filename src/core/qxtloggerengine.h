@@ -34,7 +34,7 @@
 
 class QxtLoggerEnginePrivate;
 
-class QXT_CORE_EXPORT QxtLoggerEngine 
+class QXT_CORE_EXPORT QxtLoggerEngine
 {
     friend class QxtLogger;
     friend class QxtLoggerPrivate;

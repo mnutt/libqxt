@@ -198,11 +198,11 @@ void QxtBasicSTDLoggerEngine::writeToStdErr( const QString &level, const QList<Q
 *******************************************************************************/
 void QxtBasicSTDLoggerEngine::writeToStdOut( const QString& level, const QList<QVariant> &msgs )
 {
-/* Message format...
-[time] [error level] First message.....
+    /* Message format...
+        [time] [error level] First message.....
                     second message
                     third message
-*/
+    */
     if ( msgs.isEmpty() ) return;
     QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
