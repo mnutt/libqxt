@@ -1,8 +1,8 @@
 INCLUDEPATH += logengines/
 
 # interfaces
-HEADERS += logengines/qxtabstractfileloggerengine.h 
-SOURCES += logengines/qxtabstractfileloggerengine.cpp 
+HEADERS += logengines/qxtabstractfileloggerengine.h logengines/qxtabstractiologgerengine.h
+SOURCES += logengines/qxtabstractfileloggerengine.cpp logengines/qxtabstractiologgerengine.cpp
 
 # Basic STD Logger Engine
 HEADERS += logengines/qxtbasicstdloggerengine.h
