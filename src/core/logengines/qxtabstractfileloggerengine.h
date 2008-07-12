@@ -22,22 +22,34 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QXT__ABSTRACT__IO__LOGGER_ENGINE_H
-#define QXT__QXT__ABSTRACT__IO__LOGGER_ENGINE_H
-#include "qxtloggerengine.h"
-class QxtAbstractFileLoggerEngine : public QxtLoggerEngine
+#ifndef QXTABSTRACTFILELOGGERENGINE_H
+#define QXTABSTRACTFILELOGGERENGINE_H
+
+#include "qxtabstractiologgerengine.h"
+#include "qxtglobal.h"
+#include "qxtpimpl.h"
+
+class QxtAbstractFileLoggerEnginePrivate;
+
+class QXT_CORE_EXPORT QxtAbstractFileLoggerEngine : public QxtAbstractIOLoggerEngine
 {
+    QXT_DECLARE_PRIVATE(QxtAbstractFileLoggerEngine);
+
 public:
     QxtAbstractFileLoggerEngine ( const QString &fileName = QString() );
+    ~QxtAbstractFileLoggerEngine();
+
     virtual void    initLoggerEngine    ();
     virtual void    killLoggerEngine    ();
-    virtual void    setLogFile             ( const QString &fileName );
-    virtual QString logFile             () const;
-	bool isInitialized() const;
-        
+    virtual bool    isInitialized       () const;
+
+    virtual void    writeFormatted      ( QxtLogger::LogLevel level, const QList<QVariant> &messages );
+
+    void    setLogFileName ( const QString &fileName );
+    QString logFileName    () const;
+
 protected:
-    QString str_logFile;
-    QFile *ptr_fileTarget;
+    virtual void writeToFile( const QString &level, const QVariantList &messages ) = 0;
 };
 
-#endif // QXT__QXT__ABSTRACT__IO__LOGGER_ENGINE_H
+#endif // QXTABSTRACTFILELOGGERENGINE_H

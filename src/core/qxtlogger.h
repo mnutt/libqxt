@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QxtLogger__H
-#define QXT__QxtLogger__H
+#ifndef QXTLOGGER_H
+#define QXTLOGGER_H
 
 #include "qxtglobal.h"
 #include <QObject>
@@ -41,9 +41,9 @@ void QxtLoggerMessageHandler(QtMsgType type, const char *msg);
 
 class QXT_CORE_EXPORT QxtLogger : public QObject
 {
-Q_OBJECT
-QXT_DECLARE_PRIVATE(QxtLogger);
-private:
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtLogger);
+
     // Constructor & Destructor.  Made private as QxtLogger is implemented as a singleton.
     QxtLogger();
     ~QxtLogger();
@@ -66,7 +66,7 @@ public:
         AllLevels      = TraceLevel | DebugLevel | InfoLevel | WarningLevel | ErrorLevel | CriticalLevel | FatalLevel | WriteLevel /**< Enables all log levels */
     };
     Q_DECLARE_FLAGS(LogLevels, LogLevel)
-	
+
     /* Sone useful things */
     static QString logLevelToString(LogLevel);
     static QxtLogger::LogLevel stringToLogLevel(const QString&);
@@ -75,18 +75,18 @@ public:
     void initLoggerEngine(const QString& str_engineName);
     void killLoggerEngine(const QString& str_engineName);
 
-	// Functions to install or remove QxtLogger as a handler for qDebug, qFatal, etc...
+    // Functions to install or remove QxtLogger as a handler for qDebug, qFatal, etc...
     void installAsMessageHandler();
     void removeAsMessageHandler();
 
-	//Functions for adding and removing loggers.
+    //Functions for adding and removing loggers.
     void addLoggerEngine(const QString& str_engineName, QxtLoggerEngine *ptr_engine);
     void removeLoggerEngine(const QString& str_engineName);
-	void removeLoggerEngine(QxtLoggerEngine *rem);
-	QxtLoggerEngine* takeLoggerEngine(const QString& take);
+    void removeLoggerEngine(QxtLoggerEngine *rem);
+    QxtLoggerEngine* takeLoggerEngine(const QString& take);
     QxtLoggerEngine* engine(const QString& engName);
 
-	// Functions for checking loggers.
+    // Functions for checking loggers.
     QStringList allLoggerEngines           () const;
     QStringList allEnabledLoggerEngines    () const;
     QStringList allEnabledLoggerEngines    (LogLevel level);
@@ -96,9 +96,9 @@ public:
     bool   isLoggerEngine                  (const QString& str_engineName) const;
     bool   isLoggerEngineEnabled           (const QString& str_engineName) const;
 
-	/*******************************************************************************
-	Streaming!
-	*******************************************************************************/
+    /*******************************************************************************
+    Streaming!
+    *******************************************************************************/
     QxtLogStream stream(LogLevel level);
     QxtLogStream trace();
     QxtLogStream debug();
@@ -109,10 +109,10 @@ public:
     QxtLogStream fatal();
     QxtLogStream write();
 
-	/*******************************************************************************
-	Log Level enable and disable: The 1-param functions enable/disable that level on
-	ALL log engines.  The 2-param functions enable/disable that on a named logger.
-	*******************************************************************************/
+    /*******************************************************************************
+    Log Level enable and disable: The 1-param functions enable/disable that level on
+    ALL log engines.  The 2-param functions enable/disable that on a named logger.
+    *******************************************************************************/
     void enableLogLevel        (LogLevels level);
     void enableLogLevel        (const QString& str_engineName, LogLevels level);
     void enableAllLogLevels    ();
@@ -129,9 +129,9 @@ public:
     void setMinimumLevel       (const QString& str_engineName, LogLevel level);
 
 public slots:
-	/*******************************************************************************
-	Logging Functions: what the QxtLogger is all about.
-	*******************************************************************************/
+    /*******************************************************************************
+    Logging Functions: what the QxtLogger is all about.
+    *******************************************************************************/
     void info      (const QVariant& message, const QVariant& msg1 = QVariant(),
                     const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
                     const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
@@ -172,10 +172,10 @@ public slots:
                     const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
                     const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
                     const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-	
-	/*******************************************************************************
-	Logging Functions in QList<QVariant> form.
-	*******************************************************************************/
+
+    /*******************************************************************************
+    Logging Functions in QList<QVariant> form.
+    *******************************************************************************/
     void info      (const QList<QVariant>&);
     void trace     (const QList<QVariant>&);
     void warning   (const QList<QVariant>&);
@@ -185,9 +185,9 @@ public slots:
     void fatal     (const QList<QVariant>&);
     void write     (const QList<QVariant>&);
 
-	/*******************************************************************************
-	And now a generic Logging function
-	*******************************************************************************/
+    /*******************************************************************************
+    And now a generic Logging function
+    *******************************************************************************/
     void log       (LogLevel level, const QList<QVariant>& msgList);
 
 signals:
@@ -207,4 +207,4 @@ Q_DECLARE_METATYPE(QxtLogger::LogLevels);
 #define qxtLog QxtLogger::getInstance()
 
 #include "qxtlogstream.h"
-#endif // QXT__QxtLogger__H
+#endif // QXTLOGGER_H

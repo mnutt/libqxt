@@ -22,32 +22,26 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QXT__BASIC_FILE__LOGGER_ENGINE_H
-#define QXT__QXT__BASIC_FILE__LOGGER_ENGINE_H
+#ifndef QXTBASICFILELOGGERENGINE_H
+#define QXTBASICFILELOGGERENGINE_H
 
 #include "qxtloggerengine.h"
 #include "qxtabstractfileloggerengine.h"
 #include <QTextStream>
 #include <QFile>
 
-
-
 /*******************************************************************************
-	QBasicSTDLoggerEngine
-	The basic logger engine included with QxtLogger.
+    QBasicSTDLoggerEngine
+    The basic logger engine included with QxtLogger.
 *******************************************************************************/
 
 class QXT_CORE_EXPORT QxtBasicFileLoggerEngine : public QxtAbstractFileLoggerEngine
 {
 public:
-	 QxtBasicFileLoggerEngine	();
-	~QxtBasicFileLoggerEngine	();
-	void	writeFormatted	( QxtLogger::LogLevel level, const QList<QVariant> &messages );
-	void	enableLogging	();
-	void	disableLogging	();
+    QxtBasicFileLoggerEngine    ( const QString &fileName = QString() );
 
 protected:
-	void	writeToFile( const QString &level, const QVariantList &messages );
+    virtual void writeToFile( const QString &level, const QVariantList &messages );
 };
 
-#endif // QXT__QXT__BASIC_FILE__LOGGER_ENGINE_H
+#endif // QXTBASICFILELOGGERENGINE_H

@@ -22,39 +22,27 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QXT_LOG_STREAM__H
-#define QXT__QXT_LOG_STREAM__H
+#ifndef QXTLOGSTREAM_H
+#define QXTLOGSTREAM_H
+
 #include <QVariant>
 #include <QList>
 #include "qxtlogger.h"
 
-// forward declaration
+// forward declarations
 class QxtLogger;
-
-class QxtLogStreamPrivate
-{
-public:
-	QxtLogStreamPrivate( QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data);
-	~QxtLogStreamPrivate();
-
-	QxtLogger *owner;
-	QxtLogger::LogLevel level;
-	int refcount;	// Unfortunately, QExplicitlySharedDataPointer was introduced in Qt 4.4, and we have to work with Qt 4.2 ;_;
-	QList<QVariant> data;
-};
+class QxtLogStreamPrivate;
 
 class QXT_CORE_EXPORT QxtLogStream
 {
-	friend class QxtLogger;
+    friend class QxtLogger;
 private:
-	QxtLogStream( QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data);
-	QxtLogStreamPrivate *d;
+    QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data);
+    QxtLogStreamPrivate *d;
 public:
-	QxtLogStream( const QxtLogStream &other );
-	~QxtLogStream();
-	QxtLogStream& operator<< ( const QVariant &value );
+    QxtLogStream(const QxtLogStream &other);
+    ~QxtLogStream();
+    QxtLogStream& operator<< (const QVariant &value);
 };
 
-
-#endif // QXT__QXT_LOG_STREAM__H
-
+#endif // QXTLOGSTREAM_H

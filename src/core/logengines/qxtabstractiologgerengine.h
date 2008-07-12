@@ -22,19 +22,26 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__QXT__ABSTRACT__FILE__LOGGER_ENGINE_H
-#define QXT__QXT__ABSTRACT__FILE__LOGGER_ENGINE_H
+#ifndef QXTABSTRACTIOLOGGERENGINE_H
+#define QXTABSTRACTIOLOGGERENGINE_H
+
 #include "qxtloggerengine.h"
-class QxtAbstractIOLoggerEngine : public QxtLoggerEngine
+#include "qxtglobal.h"
+#include "qxtpimpl.h"
+
+class QxtAbstractIOLoggerEnginePrivate;
+
+class QXT_CORE_EXPORT QxtAbstractIOLoggerEngine : public QxtLoggerEngine
 {
-    public:
-        QxtAbstractIOLoggerEngine( QIODevice *device = 0 );
-        virtual void device( QIODevice *device ) = 0;
-        virtual QIODevice* device() const = 0;
-		bool isInitialized() const;
-    
-    protected:
-        QIODevice *io_device;
+    QXT_DECLARE_PRIVATE(QxtAbstractIOLoggerEngine);
+
+public:
+    QxtAbstractIOLoggerEngine( QIODevice *device = 0 );
+
+    virtual bool isInitialized() const;
+
+    void setDevice( QIODevice *device );
+    QIODevice* device() const;
 };
 
-#endif // QXT__QXT__ABSTRACT__FILE__LOGGER_ENGINE_H
+#endif // QXTABSTRACTIOLOGGERENGINE_H
