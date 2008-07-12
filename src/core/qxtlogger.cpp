@@ -24,6 +24,9 @@
 
 /*!
     \class QxtLogger
+    \ingroup QxtCore
+
+
     \brief An easy to use, easy to extend logging tool.
     
     \section Overview
