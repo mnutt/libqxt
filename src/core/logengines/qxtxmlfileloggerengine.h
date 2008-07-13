@@ -37,7 +37,7 @@ class QXT_CORE_EXPORT QxtXmlFileLoggerEngine : public QxtAbstractFileLoggerEngin
     QXT_DECLARE_PRIVATE(QxtXmlFileLoggerEngine);
 
 public:
-    QxtXmlFileLoggerEngine();
+    QxtXmlFileLoggerEngine(const QString& fileName = QString());
 
     virtual void initLoggerEngine();
 

@@ -26,6 +26,14 @@
 #include "qxtlogstream_p.h"
 #include "qxtlogger.h"
 
+/*!
+    \class QxtLogStream QxtLogStream
+    \brief A logging stream.
+    \ingroup QxtCore
+
+    \sa QxtLogger
+ */
+
 QxtLogStreamPrivate::QxtLogStreamPrivate(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : owner(owner), level(level), refcount(1), data(data)
 {
     // Nothing to see here.
@@ -36,23 +44,35 @@ QxtLogStreamPrivate::~QxtLogStreamPrivate()
     owner->log( level, data );
 }
 
+/*!
+    Constructor.
+ */
 QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data)) 
 {
     // Nothing here either.
 }
 
+/*!
+    Copy constructor.
+ */
 QxtLogStream::QxtLogStream(const QxtLogStream &other)
 {
     d = other.d;
     d->refcount++;
 }
 
+/*!
+    Destructor.
+ */
 QxtLogStream::~QxtLogStream()
 {
     d->refcount--;
     if ( d->refcount == 0 ) delete d;
 }
 
+/*!
+    Stream operator.
+ */
 QxtLogStream& QxtLogStream::operator<< (const QVariant &value)
 {
     d->data.append( value );

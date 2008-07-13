@@ -24,6 +24,14 @@
 
 #include "qxtabstractiologgerengine.h"
 
+/*!
+    \class QxtAbstractIOLoggerEngine QxtAbstractIOLoggerEngine
+    \brief The base class of IO logger engines.
+    \ingroup QxtCore
+
+    \sa QxtLogger
+ */
+
 class QxtAbstractIOLoggerEnginePrivate : public QxtPrivate<QxtAbstractIOLoggerEngine>
 {
     QXT_DECLARE_PUBLIC(QxtAbstractIOLoggerEngine);
@@ -39,18 +47,26 @@ QxtAbstractIOLoggerEnginePrivate::QxtAbstractIOLoggerEnginePrivate()
 {
 }
 
-// Abstract QIODevice Logger Engine
+/*!
+    Constructs a QxtAbstractIOLoggerEngine with device.
+ */
 QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine( QIODevice *device )
 {
     QXT_INIT_PRIVATE(QxtAbstractFileLoggerEngine);
     setDevice(device);
 }
 
+/*!
+    Sets the IO device.
+ */
 void QxtAbstractIOLoggerEngine::setDevice( QIODevice *device )
 {
     qxt_d().io_device = device;
 }
 
+/*!
+    Returns the IO device.
+ */
 QIODevice *QxtAbstractIOLoggerEngine::device() const
 {
     return qxt_d().io_device;
