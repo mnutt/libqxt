@@ -57,7 +57,7 @@ public:
         NoLevels       = 0,     /**< No Levels enabled */
         TraceLevel     = 1<<0,  /**< The most verbose, flags trace() messages to be logged */
         DebugLevel     = 1<<1,  /**< Flags debug() messages to be logged */
-        InfoLevel      = 1<<2,  /**< Flags into() messages to be logged */
+        InfoLevel      = 1<<2,  /**< Flags info() messages to be logged */
         WarningLevel   = 1<<3,  /**< Flags warning() messages to be logged */
         ErrorLevel     = 1<<4,  /**< Flags error() messages to be logged */
         CriticalLevel  = 1<<5,  /**< Flags critical() messages to be logged */
@@ -68,33 +68,33 @@ public:
     Q_DECLARE_FLAGS(LogLevels, LogLevel)
 
     /* Sone useful things */
-    static QString logLevelToString(LogLevel);
-    static QxtLogger::LogLevel stringToLogLevel(const QString&);
+    static QString logLevelToString(LogLevel level);
+    static QxtLogger::LogLevel stringToLogLevel(const QString& level);
     static QxtLogger* getInstance();
 
-    void initLoggerEngine(const QString& str_engineName);
-    void killLoggerEngine(const QString& str_engineName);
+    void initLoggerEngine(const QString& engineName);
+    void killLoggerEngine(const QString& engineName);
 
     // Functions to install or remove QxtLogger as a handler for qDebug, qFatal, etc...
     void installAsMessageHandler();
     void removeAsMessageHandler();
 
     //Functions for adding and removing loggers.
-    void addLoggerEngine(const QString& str_engineName, QxtLoggerEngine *ptr_engine);
-    void removeLoggerEngine(const QString& str_engineName);
-    void removeLoggerEngine(QxtLoggerEngine *rem);
-    QxtLoggerEngine* takeLoggerEngine(const QString& take);
-    QxtLoggerEngine* engine(const QString& engName);
+    void addLoggerEngine(const QString& engineName, QxtLoggerEngine *engine);
+    void removeLoggerEngine(const QString& engineName);
+    void removeLoggerEngine(QxtLoggerEngine *engine);
+    QxtLoggerEngine* takeLoggerEngine(const QString& engineName);
+    QxtLoggerEngine* engine(const QString& engineName);
 
     // Functions for checking loggers.
     QStringList allLoggerEngines           () const;
     QStringList allEnabledLoggerEngines    () const;
-    QStringList allEnabledLoggerEngines    (LogLevel level);
+    QStringList allEnabledLoggerEngines    (LogLevel level) const;
     QStringList allDisabledLoggerEngines   () const;
 
-    bool   isLogLevelEnabled               (const QString& str_engineName, LogLevel level) const;
-    bool   isLoggerEngine                  (const QString& str_engineName) const;
-    bool   isLoggerEngineEnabled           (const QString& str_engineName) const;
+    bool   isLogLevelEnabled               (const QString& engineName, LogLevel level) const;
+    bool   isLoggerEngine                  (const QString& engineName) const;
+    bool   isLoggerEngineEnabled           (const QString& engineName) const;
 
     /*******************************************************************************
     Streaming!
@@ -113,20 +113,20 @@ public:
     Log Level enable and disable: The 1-param functions enable/disable that level on
     ALL log engines.  The 2-param functions enable/disable that on a named logger.
     *******************************************************************************/
-    void enableLogLevel        (LogLevels level);
-    void enableLogLevel        (const QString& str_engineName, LogLevels level);
+    void enableLogLevels       (LogLevels levels);
+    void enableLogLevels       (const QString& engineName, LogLevels levels);
     void enableAllLogLevels    ();
-    void enableAllLogLevels    (const QString& str_engineName);
-    void enableLoggerEngine    (const QString& str_engineName);
+    void enableAllLogLevels    (const QString& engineName);
+    void enableLoggerEngine    (const QString& engineName);
 
-    void disableLogLevel       (LogLevels level);	
-    void disableLogLevel       (const QString& str_engineName, LogLevels level);	
+    void disableLogLevels      (LogLevels levels);
+    void disableLogLevels      (const QString& engineName, LogLevels levels);
     void disableAllLogLevels   ();
-    void disableAllLogLevels   (const QString& str_engineName);	
-    void disableLoggerEngine   (const QString& str_engineName);
+    void disableAllLogLevels   (const QString& engineName);
+    void disableLoggerEngine   (const QString& engineName);
 
     void setMinimumLevel       (LogLevel level);
-    void setMinimumLevel       (const QString& str_engineName, LogLevel level);
+    void setMinimumLevel       (const QString& engineName, LogLevel level);
 
 public slots:
     /*******************************************************************************
@@ -176,29 +176,25 @@ public slots:
     /*******************************************************************************
     Logging Functions in QList<QVariant> form.
     *******************************************************************************/
-    void info      (const QList<QVariant>&);
-    void trace     (const QList<QVariant>&);
-    void warning   (const QList<QVariant>&);
-    void error     (const QList<QVariant>&);
-    void debug     (const QList<QVariant>&);
-    void critical  (const QList<QVariant>&);
-    void fatal     (const QList<QVariant>&);
-    void write     (const QList<QVariant>&);
+    void info      (const QList<QVariant>& args);
+    void trace     (const QList<QVariant>& args);
+    void warning   (const QList<QVariant>& args);
+    void error     (const QList<QVariant>& args);
+    void debug     (const QList<QVariant>& args);
+    void critical  (const QList<QVariant>& args);
+    void fatal     (const QList<QVariant>& args);
+    void write     (const QList<QVariant>& args);
 
     /*******************************************************************************
     And now a generic Logging function
     *******************************************************************************/
-    void log       (LogLevel level, const QList<QVariant>& msgList);
+    void log       (LogLevel level, const QList<QVariant>& args);
 
 signals:
-    void loggerAdded(const QString&);
-    void loggerRemoved(const QString&);
-    void loggerEnabled(const QString&);
-    void loggerDisabled(const QString&);
-
-private:
-    void setQxtLoggerEngineMinimumLevel    (QxtLoggerEngine *, LogLevel level);
-    void directLog                         (LogLevel level, const QList<QVariant>& data);
+    void loggerEngineAdded(const QString& engineName);
+    void loggerEngineRemoved(const QString& engineName);
+    void loggerEngineEnabled(const QString& engineName);
+    void loggerEngineDisabled(const QString& engineName);
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(QxtLogger::LogLevels);
 Q_DECLARE_METATYPE(QxtLogger::LogLevel);

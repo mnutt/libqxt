@@ -53,10 +53,10 @@ public:
     void            enableLogging();
     void            disableLogging();
 
-    virtual void    setLogLevelEnabled(QxtLogger::LogLevels level, bool enable = true);
+    virtual void    setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enable = true);
     bool            isLogLevelEnabled(QxtLogger::LogLevel level) const;
-    void            enableLogLevel(QxtLogger::LogLevels level);
-    void            disableLogLevel(QxtLogger::LogLevels level);
+    void            enableLogLevels(QxtLogger::LogLevels levels);
+    void            disableLogLevels(QxtLogger::LogLevels levels);
 };
 
 #endif // QXTLOGGERENGINE_H
