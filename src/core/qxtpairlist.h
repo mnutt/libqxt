@@ -22,6 +22,8 @@
 **
 ****************************************************************************/
 
+#ifndef QXTPAIRLIST_H
+#define QXTPAIRLIST_H
 
 /**
 \class QxtPairList QxtPairList
@@ -103,7 +105,7 @@ public:
     are all valid
     */
 
-    QList<int> find( qxNull(T,v1) , qxNull(K,v2) )
+    QList<int> find( qxtNull(T,v1) , qxtNull(K,v2) )
     {
         QList<int> found;
 
@@ -167,3 +169,4 @@ public:
     QList<QPair<T,K> > list;
 };
 
+#endif // QXTPAIRLIST_H
