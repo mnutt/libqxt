@@ -25,14 +25,25 @@
 #include "qxtbasicfileloggerengine.h"
 #include <QTime>
 
-/**
-    Constructor: initialize the file pointer to null.
+/*!
+    \class QxtBasicFileLoggerEngine QxtBasicFileLoggerEngine
+    \brief A basic file logger engine.
+    \ingroup QxtCore
+
+    \sa QxtLogger
+ */
+
+/*!
+    Constructs a basic file logger engine with file name.
 */
 QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine( const QString &fileName )
     : QxtAbstractFileLoggerEngine( fileName )
 {
 }
 
+/*!
+    \reimp
+ */
 void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
     if ( messages.isEmpty() ) return;

@@ -38,8 +38,6 @@ class QXT_CORE_EXPORT QxtAbstractIOLoggerEngine : public QxtLoggerEngine
 public:
     QxtAbstractIOLoggerEngine( QIODevice *device = 0 );
 
-    virtual bool isInitialized() const = 0;
-
     void setDevice( QIODevice *device );
     QIODevice* device() const;
 };

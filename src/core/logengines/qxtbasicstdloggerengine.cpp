@@ -28,6 +28,14 @@
 
 #define QXT_REQUIRED_LEVELS (QxtLogger::WarningLevel | QxtLogger::ErrorLevel | QxtLogger::CriticalLevel | QxtLogger::FatalLevel)
 
+/*!
+    \class QxtBasicSTDLoggerEngine QxtBasicSTDLoggerEngine
+    \brief A basic STD logger engine.
+    \ingroup QxtCore
+
+    \sa QxtLogger
+ */
+
 class QxtBasicSTDLoggerEnginePrivate : public QxtPrivate<QxtBasicSTDLoggerEngine>
 {
     QXT_DECLARE_PUBLIC(QxtBasicSTDLoggerEngine);
@@ -46,10 +54,9 @@ QxtBasicSTDLoggerEnginePrivate::QxtBasicSTDLoggerEnginePrivate()
     outstream = new QTextStream(stdout);
 }
 
-/*******************************************************************************
-    CONSTRUCTOR
-    sets up logging to STDERR with default flags. (the top 3 log levels )
-*******************************************************************************/
+/*!
+    Constructor.
+ */
 QxtBasicSTDLoggerEngine::QxtBasicSTDLoggerEngine()
 {
     QXT_INIT_PRIVATE(QxtBasicSTDLoggerEngine);
@@ -61,10 +68,9 @@ QxtBasicSTDLoggerEngine::QxtBasicSTDLoggerEngine()
     enableLogging();
 }
 
-/*******************************************************************************
-    DESTRUCTOR
-    Properly close the File pointer to STDERR
-*******************************************************************************/
+/*!
+    Destructor.
+ */
 QxtBasicSTDLoggerEngine::~QxtBasicSTDLoggerEngine()
 {
     if (qxt_d().errstream)
@@ -81,55 +87,58 @@ QxtBasicSTDLoggerEngine::~QxtBasicSTDLoggerEngine()
     }
 }
 
-/*******************************************************************************
-    initLoggerEngine()
-    Doesn't do anthing for the default logger.
-*******************************************************************************/
+/*!
+    \reimp
+ */
 void QxtBasicSTDLoggerEngine::initLoggerEngine()
 {
     return; // Should work out of the box!
 }
 
-/*******************************************************************************
-    killLoggerEngine()
-    Doesn't do anything for the default logger.
-*******************************************************************************/
+/*!
+    \reimp
+ */
 void QxtBasicSTDLoggerEngine::killLoggerEngine()
 {
     return; // I do nothing.
 }
 
+/*!
+    \reimp
+ */
 bool QxtBasicSTDLoggerEngine::isInitialized() const
 {
     return qxt_d().errstream && qxt_d().outstream;
 }
 
+/*!
+    Returns the stderr stream.
+ */
 QTextStream* QxtBasicSTDLoggerEngine::stdErrStream() const
 {
     return qxt_d().errstream;
 }
 
+/*!
+    Returns the stdout stream.
+ */
 QTextStream* QxtBasicSTDLoggerEngine::stdOutStream() const
 {
     return qxt_d().outstream;
 }
 
-/*******************************************************************************
-    isLoggable
-    Checks if the given log level(s) are enabled for logging and returns true.
-    The STD engine requires that the Warning+ levels are always logged if
-    this engine is logging, so this will return true.
-*******************************************************************************/
+/*!
+    \reimp
+ */
 void QxtBasicSTDLoggerEngine::setLogLevelEnabled( QxtLogger::LogLevels level, bool enable )
 {
     QxtLoggerEngine::setLogLevelsEnabled(level | QXT_REQUIRED_LEVELS, enable);
     if ( !enable) QxtLoggerEngine::setLogLevelsEnabled( QXT_REQUIRED_LEVELS );
 }
 
-/*******************************************************************************
-    writeFormatted
-    Writes Messages to STDERR and STDOUT
-*******************************************************************************/
+/*!
+    \reimp
+ */
 void QxtBasicSTDLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &msgs )
 {
     if ( level & QxtLogger::ErrorLevel )
@@ -166,10 +175,11 @@ void QxtBasicSTDLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const Q
     }
 }
 
-/*******************************************************************************
-    writeToStdErr
+/*!
     A helper function that actually writes to stderr.
-*******************************************************************************/
+
+    This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
+ */
 void QxtBasicSTDLoggerEngine::writeToStdErr( const QString &level, const QList<QVariant> &msgs )
 {
     if ( msgs.isEmpty() ) return;
@@ -192,10 +202,11 @@ void QxtBasicSTDLoggerEngine::writeToStdErr( const QString &level, const QList<Q
     *errstream << endl;
 }
 
-/*******************************************************************************
-    writeToStdOut
+/*!
     A helper function that actually writes to stdout.
-*******************************************************************************/
+
+    This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
+ */
 void QxtBasicSTDLoggerEngine::writeToStdOut( const QString& level, const QList<QVariant> &msgs )
 {
     /* Message format...

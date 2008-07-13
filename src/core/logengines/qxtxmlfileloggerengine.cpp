@@ -25,6 +25,14 @@
 #include "qxtxmlfileloggerengine.h"
 #include <QTime>
 
+/*!
+    \class QxtXmlFileLoggerEngine QxtXmlFileLoggerEngine
+    \brief An XML file logger engine.
+    \ingroup QxtCore
+
+    \sa QxtLogger
+ */
+
 class QxtXmlFileLoggerEnginePrivate : public QxtPrivate<QxtXmlFileLoggerEngine>
 {
     QXT_DECLARE_PUBLIC(QxtXmlFileLoggerEngine);
@@ -39,15 +47,18 @@ QxtXmlFileLoggerEnginePrivate::QxtXmlFileLoggerEnginePrivate()
 {
 }
 
-/**
-    Constructor: initialize the file pointer to null.
+/*!
+    Constructs an XML file logger engine with file name.
 */
-QxtXmlFileLoggerEngine::QxtXmlFileLoggerEngine()
+QxtXmlFileLoggerEngine::QxtXmlFileLoggerEngine(const QString& fileName)
+    : QxtAbstractFileLoggerEngine(fileName)
 {
     QXT_INIT_PRIVATE(QxtXmlFileLoggerEngine);
 }
 
-// init
+/*!
+    \reimp
+ */
 void QxtXmlFileLoggerEngine::initLoggerEngine()
 {
     QxtAbstractFileLoggerEngine::initLoggerEngine();
@@ -84,6 +95,9 @@ void QxtXmlFileLoggerEngine::initLoggerEngine()
     }
 }
 
+/*!
+    \reimp
+ */
 void QxtXmlFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
     QIODevice* ptr_fileTarget = device();
@@ -107,6 +121,9 @@ void QxtXmlFileLoggerEngine::writeToFile(const QString &level, const QVariantLis
     ptr_fileTarget->write("</log>");
 }
 
+/*!
+    Replaces reserved characters with corresponding entities.
+ */
 QString QxtXmlFileLoggerEngine::toXmlSafeString( const QString &raw )
 {
     /* Reserved characters:
