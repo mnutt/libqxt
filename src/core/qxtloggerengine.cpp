@@ -80,29 +80,29 @@ void QxtLoggerEngine::setLoggingEnabled(bool enable)
     qxt_d().b_isLogging = enable;
 }
 
-void QxtLoggerEngine::setLogLevelEnabled(QxtLogger::LogLevels level, bool enable)
+void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enable)
 {
     if(enable)
     {
-        qxt_d().bm_logLevel |= level;
+        qxt_d().bm_logLevel |= levels;
     }
     else
     {
-        qxt_d().bm_logLevel &= ~level;
+        qxt_d().bm_logLevel &= ~levels;
     }
 }
 
-void QxtLoggerEngine::enableLogLevel(QxtLogger::LogLevels level)
+void QxtLoggerEngine::enableLogLevels(QxtLogger::LogLevels levels)
 {
-    setLogLevelEnabled(level, true);
+    setLogLevelsEnabled(levels, true);
 }
 
-void QxtLoggerEngine::disableLogLevel(QxtLogger::LogLevels level)
+void QxtLoggerEngine::disableLogLevels(QxtLogger::LogLevels levels)
 {
-    setLogLevelEnabled(level, false);
+    setLogLevelsEnabled(levels, false);
 }
 
-bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const 
+bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const
 {
     return (qxt_d().bm_logLevel & level);
 }

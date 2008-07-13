@@ -41,6 +41,7 @@ QXT_DECLARE_PUBLIC(QxtLogger);
 public:
     QxtLoggerPrivate();
     ~QxtLoggerPrivate();
+    void setQxtLoggerEngineMinimumLevel(QxtLoggerEngine *engine, QxtLogger::LogLevel level);
     QHash<QString, QxtLoggerEngine*> map_logEngineMap;
     QMutex* mut_lock;
 
