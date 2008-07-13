@@ -21,7 +21,15 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-QList<int> find( qxNull(T,args)[] )
+#ifndef QXTTUPLELIST_H
+#define QXTTUPLELIST_H
+
+#include <QxtNullable>
+
+#if 0 // TODO: fix to compile
+
+template <typename T>
+QList<int> find( qxtNull(T,args)[] )
 {
     QList<int> found;
 
@@ -31,21 +39,20 @@ QList<int> find( qxNull(T,args)[] )
         hit=true;
 
         for (int h=0;h<count(args);h++)
+        {
             if (!(args[h].isNull() or (list[i].[h]==args[h]))
-                {
-                    hit = false;
-                    break;
-                }
-
-            if (hit) found.append(i);
+            {
+                hit = false;
+                break;
             }
+        }
 
-        return found;
+        if (hit) found.append(i);
+    }
+
+    return found;
 }
 
+#endif // 0
 
-
-
-
-
-
+#endif // QXTTUPLELIST_H
