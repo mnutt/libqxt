@@ -37,7 +37,7 @@
     Constructs a basic file logger engine with file name.
 */
 QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine( const QString &fileName )
-    : QxtAbstractFileLoggerEngine( fileName )
+    : QxtAbstractFileLoggerEngine( fileName, QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered )
 {
 }
 
