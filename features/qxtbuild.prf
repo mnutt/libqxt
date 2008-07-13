@@ -1,4 +1,4 @@
-!win32:VERSION = 0.3
+!win32:VERSION   = 0.4
 win32: CONFIG   += dll
 MOC_DIR          = .moc
 OBJECTS_DIR      = .obj

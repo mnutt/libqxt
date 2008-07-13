@@ -6,7 +6,7 @@ doxygen=doxygen
 [doxygen]
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = Qt Extension Library
-PROJECT_NUMBER         = 0.3
+PROJECT_NUMBER         = 0.4
 INPUT_ENCODING         = UTF-8
 INPUT                  = src
 FILE_PATTERNS          = *
