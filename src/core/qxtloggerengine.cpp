@@ -50,36 +50,89 @@ QxtLoggerEnginePrivate::QxtLoggerEnginePrivate()
 {
 }
 
+/*!
+    Constructor
+ */
 QxtLoggerEngine::QxtLoggerEngine()
 {
     QXT_INIT_PRIVATE(QxtLoggerEngine);
 }
 
+/*!
+    Destructor
+ */
 QxtLoggerEngine::~QxtLoggerEngine()
 {
     QxtLogger::getInstance()->removeLoggerEngine(this);
 }
 
+/*!
+    \fn virtual void QxtLoggerEngine::initLoggerEngine() = 0
+
+    Initializes the logger engine.
+
+    This function is called by QxtLogger. Reimplement this function when creating a subclass of QxtLoggerEngine.
+ */
+
+/*!
+    \fn virtual void QxtLoggerEngine::killLoggerEngine() = 0
+
+    Kills the logger engine.
+
+    This function is called by QxtLogger. Reimplement this function when creating a subclass of QxtLoggerEngine.
+ */
+
+/*!
+    \fn virtual bool QxtLoggerEngine::isInitialized() const = 0
+
+    Returns \c true if the logger engine is initialized.
+
+    This function is called by QxtLogger. Reimplement this function when creating a subclass of QxtLoggerEngine.
+ */
+
+/*!
+    \fn virtual void QxtLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QList<QVariant>& messages) = 0
+
+    Writes a formatted message.
+
+    This function is called by QxtLogger. Reimplement this function when creating a subclass of QxtLoggerEngine.
+ */
+
+/*!
+    Returns \c true if logging is enabled and \c false otherwise.
+ */
 bool QxtLoggerEngine::isLoggingEnabled() const
 {
     return qxt_d().b_isLogging;
 }
 
+/*!
+    Enables logging.
+ */
 void QxtLoggerEngine::enableLogging()
 {
     setLoggingEnabled();
 }
 
+/*!
+    Disables logging.
+ */
 void QxtLoggerEngine::disableLogging()
 {
     setLoggingEnabled(false);
 }
 
+/*!
+    Sets logging enabled or disabled.
+ */
 void QxtLoggerEngine::setLoggingEnabled(bool enable)
 {
     qxt_d().b_isLogging = enable;
 }
 
+/*!
+    Sets log levels enabled or disables.
+ */
 void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enable)
 {
     if(enable)
@@ -92,16 +145,25 @@ void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enab
     }
 }
 
+/*!
+    Enables log levels.
+ */
 void QxtLoggerEngine::enableLogLevels(QxtLogger::LogLevels levels)
 {
     setLogLevelsEnabled(levels, true);
 }
 
+/*!
+    Disables log levels.
+ */
 void QxtLoggerEngine::disableLogLevels(QxtLogger::LogLevels levels)
 {
     setLogLevelsEnabled(levels, false);
 }
 
+/*!
+    Returns \c true if log level is enabled and \c false otherwise.
+ */
 bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const
 {
     return (qxt_d().bm_logLevel & level);
