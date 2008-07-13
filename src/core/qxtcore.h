@@ -21,6 +21,10 @@
 ** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+#include "qxtabstractfileloggerengine.h"
+#include "qxtabstractiologgerengine.h"
+#include "qxtbasicfileloggerengine.h"
+#include "qxtbasicstdloggerengine.h"
 #include "qxtboundcfunction.h"
 #include "qxtboundfunction.h"
 #include "qxtboundfunctionbase.h"
@@ -35,6 +39,9 @@
 #include "qxtjob.h"
 #include "qxtlinesocket.h"
 #include "qxtlinkedtree.h"
+#include "qxtlogger.h"
+#include "qxtloggerengine.h"
+#include "qxtlogstream.h"
 #include "qxtlocale.h"
 #include "qxtmetaobject.h"
 #include "qxtmetatype.h"
@@ -56,6 +63,7 @@
 #include "qxttuple.h"
 #include "qxttuplelist.h"
 #include "qxttypelist.h"
+#include "qxtxmlfileloggerengine.h"
 
 /** \defgroup QxtCore QxtCore
     \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
