@@ -51,7 +51,7 @@ QxtXmlFileLoggerEnginePrivate::QxtXmlFileLoggerEnginePrivate()
     Constructs an XML file logger engine with file name.
 */
 QxtXmlFileLoggerEngine::QxtXmlFileLoggerEngine(const QString& fileName)
-    : QxtAbstractFileLoggerEngine(fileName)
+    : QxtAbstractFileLoggerEngine(fileName, QIODevice::ReadWrite | QIODevice::Unbuffered)
 {
     QXT_INIT_PRIVATE(QxtXmlFileLoggerEngine);
 }
@@ -85,7 +85,7 @@ void QxtXmlFileLoggerEngine::initLoggerEngine()
     else
     {
         QByteArray data = file->read(64);
-        if ( !data.contains("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<log>") ) 
+        if ( !data.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<log>") )
         {
             QFile* ptr_fileTarget = static_cast<QFile*>(file);
             qxtLog->warning( QString(" is not a valid XML log file.").prepend( ptr_fileTarget->fileName() ) );
@@ -101,6 +101,7 @@ void QxtXmlFileLoggerEngine::initLoggerEngine()
 void QxtXmlFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
     QIODevice* ptr_fileTarget = device();
+    Q_ASSERT(ptr_fileTarget);
     ptr_fileTarget->seek( ptr_fileTarget->size()-6 );
     ptr_fileTarget->write(qxt_d().tab.toUtf8() );
     ptr_fileTarget->write("<entry type=\"");

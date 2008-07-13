@@ -38,15 +38,17 @@ class QxtAbstractFileLoggerEnginePrivate : public QxtPrivate<QxtAbstractFileLogg
 
 public:
     QString logFile;
+    QIODevice::OpenMode mode;
 };
 
 /*!
     Constructs a QxtAbstractFileLoggerEngine with file name.
  */
-QxtAbstractFileLoggerEngine::QxtAbstractFileLoggerEngine( const QString &fileName )
+QxtAbstractFileLoggerEngine::QxtAbstractFileLoggerEngine( const QString &fileName, QIODevice::OpenMode mode )
     : QxtAbstractIOLoggerEngine(0)
 {
     QXT_INIT_PRIVATE(QxtAbstractFileLoggerEngine);
+    qxt_d().mode = mode;
     setLogFileName(fileName);
 }
 
@@ -70,10 +72,11 @@ void QxtAbstractFileLoggerEngine::initLoggerEngine()
     // If the file doesn't exits, try to create it.
     // If we can't write to a file, disable this plugin.
     setDevice(new QFile(qxt_d().logFile));
-    if ( !device()->open(QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered )
+    if ( !device()->open(qxt_d().mode )
           || !device()->isWritable() )
     {
         killLoggerEngine();
+        return;
     }
 
     enableLogging();
