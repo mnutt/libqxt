@@ -30,6 +30,20 @@
     \brief An XML file logger engine.
     \ingroup QxtCore
 
+    Example XML log output:
+    \code
+    <?xml version="1.0" encoding="UTF-8"?>
+    <log>
+        <entry type="Error" time="22:38:33.159159">
+            <message>Unknown error</message>
+        </entry>
+        <entry type="Debug" time="22:51:43.488488">
+            <message>What's going on?</message>
+            <message>Hi there</message>
+        </entry>
+    </log>
+    \endcode
+
     \sa QxtLogger
  */
 

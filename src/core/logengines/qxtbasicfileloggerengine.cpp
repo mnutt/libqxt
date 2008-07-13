@@ -30,6 +30,13 @@
     \brief A basic file logger engine.
     \ingroup QxtCore
 
+    Example basic file log output:
+    \code
+    [22:38:33.159] [Error] Unknown error
+    [22:51:43.488] [Debug] What's going on?
+                           Hi there!
+    \endcode
+
     \sa QxtLogger
  */
 
