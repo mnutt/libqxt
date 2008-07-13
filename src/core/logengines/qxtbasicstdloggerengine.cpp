@@ -33,6 +33,13 @@
     \brief A basic STD logger engine.
     \ingroup QxtCore
 
+    Example basic STD log output:
+    \code
+    [22:38:33.159] [Error] Unknown error
+    [22:51:43.488] [Debug] What's going on?
+                           Hi there!
+    \endcode
+
     \sa QxtLogger
  */
 
@@ -44,11 +51,9 @@ public:
     QxtBasicSTDLoggerEnginePrivate();
 
     QTextStream *errstream, *outstream;
-    QxtLogger::LogLevels bm_reqLevels;
 };
 
 QxtBasicSTDLoggerEnginePrivate::QxtBasicSTDLoggerEnginePrivate()
-    : bm_reqLevels(0)
 {
     errstream = new QTextStream(stderr);
     outstream = new QTextStream(stdout);
@@ -141,37 +146,32 @@ void QxtBasicSTDLoggerEngine::setLogLevelEnabled( QxtLogger::LogLevels level, bo
  */
 void QxtBasicSTDLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &msgs )
 {
-    if ( level & QxtLogger::ErrorLevel )
+    switch (level)
     {
-        writeToStdErr("Error", msgs);
-    }
-    else if ( level & QxtLogger::WarningLevel)
-    {
-        writeToStdOut("Warning", msgs);
-    }
-    else if ( level & QxtLogger::CriticalLevel )
-    {
-        writeToStdErr("Critical", msgs);
-    }
-    else if ( level & QxtLogger::FatalLevel )
-    {
-        writeToStdErr("!!FATAL!!", msgs);
-    }
-    else if ( level & QxtLogger::TraceLevel )
-    {
-        writeToStdOut("Trace", msgs);
-    }
-    else if ( level & QxtLogger::DebugLevel )
-    {
-        writeToStdErr("DEBUG", msgs);
-    }
-    else if ( level & QxtLogger::InfoLevel )
-    {
-        writeToStdOut("INFO", msgs);
-    }
-    else
-    {
-        writeToStdOut("", msgs);
+        case QxtLogger::ErrorLevel:
+            writeToStdErr("Error", msgs);
+            break;
+        case QxtLogger::WarningLevel:
+            writeToStdOut("Warning", msgs);
+            break;
+        case QxtLogger::CriticalLevel:
+            writeToStdErr("Critical", msgs);
+            break;
+        case QxtLogger::FatalLevel:
+            writeToStdErr("!!FATAL!!", msgs);
+            break;
+        case QxtLogger::TraceLevel:
+            writeToStdOut("Trace", msgs);
+            break;
+        case QxtLogger::DebugLevel:
+            writeToStdErr("DEBUG", msgs);
+            break;
+        case QxtLogger::InfoLevel:
+            writeToStdOut("INFO", msgs);
+            break;
+        default:
+            writeToStdOut("", msgs);
+            break;
     }
 }
 

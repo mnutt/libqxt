@@ -108,14 +108,33 @@ bool QxtAbstractFileLoggerEngine::isInitialized() const
  */
 void QxtAbstractFileLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &messages )
 {
-    if ( (level & QxtLogger::ErrorLevel)== QxtLogger::ErrorLevel )  writeToFile("Error", messages);
-    else if ( (level & QxtLogger::WarningLevel) == QxtLogger::WarningLevel) writeToFile("Warning", messages);
-    else if ( (level & QxtLogger::CriticalLevel) == QxtLogger::CriticalLevel)   writeToFile("Critical", messages);
-    else if ( (level & QxtLogger::FatalLevel)== QxtLogger::FatalLevel)  writeToFile("Fatal", messages);
-    else if ( (level & QxtLogger::TraceLevel)== QxtLogger::TraceLevel)  writeToFile("Trace", messages);
-    else if ( (level & QxtLogger::DebugLevel)== QxtLogger::DebugLevel ) writeToFile("Debug", messages);
-    else if ( (level & QxtLogger::InfoLevel) == QxtLogger::InfoLevel )  writeToFile("Info", messages);
-    else    writeToFile(QString(), messages);
+    switch (level)
+    {
+        case QxtLogger::ErrorLevel:
+            writeToFile("Error", messages);
+            break;
+        case QxtLogger::WarningLevel:
+            writeToFile("Warning", messages);
+            break;
+        case QxtLogger::CriticalLevel:
+            writeToFile("Critical", messages);
+            break;
+        case QxtLogger::FatalLevel:
+            writeToFile("Fatal", messages);
+            break;
+        case QxtLogger::TraceLevel:
+            writeToFile("Trace", messages);
+            break;
+        case QxtLogger::DebugLevel:
+            writeToFile("Debug", messages);
+            break;
+        case QxtLogger::InfoLevel:
+            writeToFile("Info", messages);
+            break;
+        default:
+            writeToFile(QString(), messages);
+            break;
+    }
 }
 
 /*!
