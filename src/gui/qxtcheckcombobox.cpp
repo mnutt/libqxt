@@ -26,7 +26,7 @@
 #include <QLineEdit>
 #include <QKeyEvent>
 
-QxtCheckComboBoxPrivate::QxtCheckComboBoxPrivate()
+QxtCheckComboBoxPrivate::QxtCheckComboBoxPrivate() : containerMousePress(false)
 {
     separator = QLatin1String(",");
 }
@@ -53,11 +53,17 @@ bool QxtCheckComboBoxPrivate::eventFilter(QObject* receiver, QEvent* event)
                 if (keyEvent->key() != Qt::Key_Escape)
                     return true;
             }
-            return false;
         }
+        case QEvent::MouseButtonPress:
+            containerMousePress = (receiver == qxt_p().view()->window());
+            break;
+        case QEvent::MouseButtonRelease:
+            containerMousePress = false;;
+            break;
         default:
-            return false;
+            break;
     }
+    return false;
 }
 
 void QxtCheckComboBoxPrivate::updateCheckedItems()
@@ -166,6 +172,7 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
     setInsertPolicy(QComboBox::NoInsert);
 
     view()->installEventFilter(&qxt_d());
+    view()->window()->installEventFilter(&qxt_d());
     view()->viewport()->installEventFilter(&qxt_d());
     this->installEventFilter(&qxt_d());
 }
@@ -182,6 +189,8 @@ QxtCheckComboBox::~QxtCheckComboBox()
  */
 void QxtCheckComboBox::hidePopup()
 {
+    if (qxt_d().containerMousePress)
+        QComboBox::hidePopup();
 }
 
 /*!

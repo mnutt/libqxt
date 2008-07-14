@@ -54,6 +54,7 @@ public:
     bool eventFilter(QObject* receiver, QEvent* event);
     QString separator;
     QString defaultText;
+    bool containerMousePress;
 
 public slots:
     void updateCheckedItems();
