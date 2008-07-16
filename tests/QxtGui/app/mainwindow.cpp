@@ -54,7 +54,7 @@ void MainWindow::aboutQxtGui()
 {
 	QMessageBox::information(this, tr("About QxtGui"),
 		tr("<h3>About QxtGui</h3>"
-		"<p>QxtGui is part of Qxt, the Qt eXTension library &lt;"
+		"<p>QxtGui is part of Qxt, the Qxt library &lt;"
 		"<a href=\"http://libqxt.sf.net\">http://libqxt.sf.net</a>&gt;.</p>"));
 }
 

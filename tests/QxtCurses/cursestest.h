@@ -2,7 +2,7 @@
 **
 ** Copyright (C) Qxt Foundation. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtCore module of the Qxt library.
 **
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
@@ -16,7 +16,7 @@
 ** If you did not receive a copy of the file try to download it or
 ** contact the libqxt Management
 ** 
-** <http://libqxt.sourceforge.net>  <aep@exys.org>
+** <http://libqxt.org>  <aep@exys.org>
 **
 ****************************************************************************/
 #include <QObject>

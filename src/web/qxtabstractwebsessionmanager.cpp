@@ -2,7 +2,7 @@
 **
 ** Copyright (C) Qxt Foundation. Some rights reserved.
 **
-** This file is part of the QxtWeb  module of the Qt eXTension library
+** This file is part of the QxtWeb  module of the Qxt library.
 **
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
