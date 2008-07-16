@@ -2,10 +2,10 @@
 **
 ** Copyright (C) Qxt Foundation. Some rights reserved.
 **
-** This file is part of the QxtCore module of the Qt eXTension library
+** This file is part of the QxtCore module of the Qxt library.
 **
 ** This library is free software; you can redistribute it and/or modify it
-** under the terms of th Common Public License, version 1.0, as published by
+** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
 **
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
@@ -18,9 +18,22 @@
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
 **
-** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>
+** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+
+/****************************************************************************
+** This file is derived from code bearing the following notice:
+** The sole author of this file, Adam Higerd, has explicitly disclaimed all
+** copyright interest and protection for the content within. This file has
+** been placed in the public domain according to United States copyright
+** statute and case law. In jurisdictions where this public domain dedication
+** is not legally recognized, anyone who receives a copy of this file is
+** permitted to use, modify, duplicate, and redistribute this file, in whole
+** or in part, with no restrictions or conditions. In these jurisdictions,
+** this file shall be copyright (C) 2006-2008 by Adam Higerd.
+****************************************************************************/
+
 /**
 \class QxtPimpl QxtPimpl
 \ingroup QxtCore

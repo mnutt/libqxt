@@ -15,10 +15,10 @@ static const char* qxt_header =
 "**\n"
 "** Copyright (C) Qxt Foundation. Some rights reserved.\n"
 "**\n"
-"** This file is part of the QxtDesigner module of the Qt eXTension library\n"
+"** This file is part of the QxtDesigner module of the Qxt library\n"
 "**\n"
 "** This library is free software; you can redistribute it and/or modify it\n"
-"** under the terms of th Common Public License, version 1.0, as published by\n"
+"** under the terms of the Common Public License, version 1.0, as published by\n"
 "** IBM.\n"
 "**\n"
 "** This file is provided \"AS IS\", without WARRANTIES OR CONDITIONS OF ANY\n"
@@ -31,7 +31,7 @@ static const char* qxt_header =
 "** distribution for more information. If you did not receive a copy of the\n"
 "** license, contact the Qxt Foundation.\n"
 "**\n"
-"** <http://libqxt.sourceforge.net>  <foundation@libqxt.org>\n"
+"** <http://libqxt.org>  <foundation@libqxt.org>\n"
 "**\n"
 "****************************************************************************/\n";
 
