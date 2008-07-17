@@ -16,7 +16,7 @@ or online at http://docs.libqxt.org.
 
 - QxtCrypto
     * Added QxtHmac
-	
+
 - QxtGui
     * Added QxtItemEditorCreatorBase
     * Added QxtStandardItemEditorCreator
@@ -30,7 +30,9 @@ or online at http://docs.libqxt.org.
     * Added QxtFlowView
     * Added QxtLetterBoxWidget
     * Improved QxtTabWidget
+        - Added QxtTabWidget::alwaysShowTabBar
         - Added QxtTabWidget::tabAnimation
+        - Added QxtTabWidget::tabMovementMode
     * Improved QxtConfirmationMessage
         - Added QxtConfirmationMessage::settingsFormat
         - Added QxtConfirmationMessage::rememberOnReject

@@ -57,6 +57,7 @@ SOURCES  += qxtfifo.cpp
 SOURCES  += qxtfilelock.cpp
 SOURCES  += qxtfilelock_unix.cpp
 SOURCES  += qxtfilelock_win.cpp
+SOURCES  += qxtglobal.cpp
 SOURCES  += qxtlocale.cpp
 SOURCES  += qxtjob.cpp
 SOURCES  += qxtlinesocket.cpp
