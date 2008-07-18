@@ -137,11 +137,13 @@ public:
      * an OR combination of ParamType values.
      */
     enum ParamType {
-        NoValue = 0,        /*!< The option does not accept a value. */
-        Optional = 1,       /*!< The option may accept a value. */
-        Required = 2,       /*!< The option requires a value. */
-        AllowMultiple = 4,  /*!< The option may be passed multiple times. */
-        Undocumented = 8    /*!< The option is not output in the help text. */
+        NoValue = 0,                /*!< The option does not accept a value. */
+        ValueOptional = 1,          /*!< The option may accept a value. */
+        ValueRequired = 2,          /*!< The option requires a value. */
+        Optional = ValueOptional,   /*!< The option may accept a value. Deprecated in favor of ValueOptional. */
+        Required = ValueRequired,   /*!< The option requires a value. Deprecated in favor of ValueRequired. */
+        AllowMultiple = 4,          /*!< The option may be passed multiple times. */
+        Undocumented = 8            /*!< The option is not output in the help text. */
     };
     Q_DECLARE_FLAGS(ParamTypes, ParamType)
 
