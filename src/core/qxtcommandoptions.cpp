@@ -75,6 +75,9 @@ static int isQtOption(const QString& param) {
     // Qt options all start with a single dash regardless of platform
     if(param[0] != '-') return 0;
     if(param[1] == '-') return 0;
+#ifdef Q_OS_MAC
+    if(param.left(5) == "-psn_") return 1;
+#endif
     QString name = param.mid(1), value;
     bool hasEquals;
     
