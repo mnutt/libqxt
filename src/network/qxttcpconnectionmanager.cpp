@@ -34,13 +34,21 @@ QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractC
 }
 
 QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate() : QTcpServer(0) {
-    // initializers only
+    QObject::connect(&mapper, SIGNAL(mapped(QObject*)), this, SLOT(socketDisconnected(QObject*)));
 }
 
 void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor) {
     QIODevice* device = qxt_p().incomingConnection(socketDescriptor);
-    if(device)
+    if(device) {
         qxt_p().addConnection(device, (quint64)(device));
+        mapper.setMapping(device, device);
+        QObject::connect(device, SIGNAL(destroyed()), &mapper, SLOT(map()));
+        QTcpSocket* sock = qobject_cast<QTcpSocket*>(device);
+        if(sock) {
+            QObject::connect(sock, SIGNAL(error(QAbstractSocket::SocketError)), &mapper, SLOT(map()));
+            QObject::connect(sock, SIGNAL(disconnected()), &mapper, SLOT(map()));
+        }
+    }
 }
 
 /**
@@ -108,4 +116,8 @@ void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy) {
  */
 QNetworkProxy QxtTcpConnectionManager::proxy() const {
     return qxt_d().proxy();
+}
+
+void QxtTcpConnectionManagerPrivate::socketDisconnected(QObject* client) {
+    qxt_p().disconnect((quint64)(client));
 }

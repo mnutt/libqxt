@@ -26,6 +26,9 @@
 #define QXTTCPCONNECTIONMANAGER_P_H
 
 #include <qxttcpconnectionmanager.h>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QSignalMapper>
 
 class QxtTcpConnectionManagerPrivate : public QTcpServer, public QxtPrivate<QxtTcpConnectionManager> {
 Q_OBJECT
@@ -35,6 +38,12 @@ public:
 
 protected:
     void incomingConnection(int socketDescriptor);
+
+private slots:
+    void socketDisconnected(QObject* client);
+
+private:
+    QSignalMapper disconnectionMapper;
 };
 
 #endif
