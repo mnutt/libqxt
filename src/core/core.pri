@@ -47,6 +47,9 @@ HEADERS  += qxtstdstreambufdevice.h
 HEADERS  += qxttuple.h
 HEADERS  += qxttuplelist.h
 HEADERS  += qxttypelist.h
+HEADERS  += qxtabstractconnectionmanager.h
+HEADERS  += qxtabstractsignalserializer.h
+HEADERS  += qxtdatastreamsignalserializer.h
 
 SOURCES  += qxtcommandoptions.cpp
 SOURCES  += qxtcsvmodel.cpp
@@ -76,3 +79,5 @@ SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
 SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
+SOURCES  += qxtabstractconnectionmanager.cpp
+SOURCES  += qxtdatastreamsignalserializer.cpp
