@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "qxttcpconnectionmanager.h"
+#include "qxttcpconnectionmanager_p.h"
 #include <QTcpSocket>
 #include <QtDebug>
 
@@ -85,7 +86,7 @@ void QxtTcpConnectionManager::stopListening()
  */
 QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor) {
     QTcpSocket* device = new QTcpSocket(this);
-    device->setSocketDescriptor(socketDescriptior);
+    device->setSocketDescriptor(socketDescriptor);
     return device;
 }
 
