@@ -73,6 +73,7 @@ static const char* qxt_qt_options[] = {
  */
 static int isQtOption(const QString& param) {
     // Qt options all start with a single dash regardless of platform
+    if(param.length() < 2) return 0;
     if(param[0] != '-') return 0;
     if(param[1] == '-') return 0;
 #ifdef Q_OS_MAC
