@@ -58,7 +58,7 @@ QByteArray QxtDataStreamSignalSerializer::serialize(QString fn, QVariant p1, QVa
     return rv;
 }
 
-DeserializedData QxtDataStreamSignalSerializer::deserialize(QByteArray& data)
+QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::deserialize(QByteArray& data)
 {
     QByteArray cmd;
     int pos = data.indexOf('\n');

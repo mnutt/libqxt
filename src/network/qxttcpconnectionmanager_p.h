@@ -43,7 +43,7 @@ private slots:
     void socketDisconnected(QObject* client);
 
 private:
-    QSignalMapper disconnectionMapper;
+    QSignalMapper mapper;
 };
 
 #endif
