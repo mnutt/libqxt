@@ -25,10 +25,8 @@
 #include <qxtdatastreamsignalserializer.h>
 #include <QIODevice>
 #include <QDataStream>
-#include <qtglobal.h>
-#if QT_VERSION < 0x040300
-#    include <string.h>
-#endif
+#include <QtGlobal>
+#include <qendian.h>
 
 QByteArray QxtDataStreamSignalSerializer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const
 {
@@ -56,15 +54,7 @@ QByteArray QxtDataStreamSignalSerializer::serialize(QString fn, QVariant p1, QVa
     if (ct-- >0) str << p8;
     if (ct-- >0) str << p9;
 	uchar sizeData[4];
-#if QT_VERSION >= 0x040300
     qToLittleEndian(rv.size(), sizeData);
-#elif Q_BYTE_ORDER == Q_BIG_ENDIAN
-    quint32 sz = rv.size();
-    memcpy(sizeData, reinterpret_cast<char*>(&sz), 4);
-#else
-    quint32 sz = rv.size();
-    memcpy(sizeData, reinterpret_cast<char*>(&sz), 4);
-#endif
     return rv;
 }
 
