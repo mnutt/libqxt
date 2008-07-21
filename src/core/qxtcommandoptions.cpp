@@ -431,8 +431,11 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params) {
 
     while(pos < ct) {
         // Ignore Qt built-in options
-        while((skip = isQtOption(params[pos])))
+        while((skip = isQtOption(params[pos]))) {
             pos += skip;
+            if(pos >= ct)
+                return;
+        }
 
         param = params[pos];
         pos++;
