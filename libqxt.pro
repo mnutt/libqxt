@@ -64,13 +64,6 @@ contains( QXT_BUILD, sql ){
     SUBDIRS += src/sql
 }
 
-contains(DEFINES,HAVE_CURSES){
-contains( QXT_BUILD, curses ){
-    message( building curses module )
-    SUBDIRS += src/curses
-}
-}
-
 contains(DEFINES,HAVE_DB){
 contains( QXT_BUILD, berkeley ){
     message( building berkeley module )
