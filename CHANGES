@@ -13,6 +13,8 @@ or online at http://docs.libqxt.org.
     * Added QxtSignalGroup
     * Added QxtCommandOptions
     * Added QxtLogger
+    * Added QxtAbstractConnectionManager
+    * Added QxtDataStreamSignalSerializer
 
 - QxtCrypto
     * Added QxtHmac
@@ -45,3 +47,6 @@ or online at http://docs.libqxt.org.
 
 - QxtWeb
     * Revised the whole module
+
+- QxtNetwork
+    * Added QxtTcpConnectionManager

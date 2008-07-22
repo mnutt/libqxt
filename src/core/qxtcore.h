@@ -22,6 +22,7 @@
 **
 ****************************************************************************/
 #include "qxtabstractfileloggerengine.h"
+#include "qxtabstractconnectionmanager.h"
 #include "qxtabstractiologgerengine.h"
 #include "qxtbasicfileloggerengine.h"
 #include "qxtbasicstdloggerengine.h"
@@ -31,6 +32,7 @@
 #include "qxtcommandoptions.h"
 #include "qxtcsvmodel.h"
 #include "qxtdaemon.h"
+#include "qxtdatastreamsignalserializer.h"
 #include "qxtdeplex.h"
 #include "qxterror.h"
 #include "qxtfifo.h"
