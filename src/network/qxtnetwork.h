@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxtnamedpipe.h"
 #include "qxtrpcpeer.h"
+#include "qxttcpconnectionmanager.h"
 
 /** \defgroup QxtNetwork QxtNetwork
     \brief    The QxtNetwork module extends QtNetwork with RPC functionality.
