@@ -24,6 +24,7 @@
 #include "qxtabstractfileloggerengine.h"
 #include "qxtabstractconnectionmanager.h"
 #include "qxtabstractiologgerengine.h"
+#include "qxtabstractsignalserializer.h"
 #include "qxtbasicfileloggerengine.h"
 #include "qxtbasicstdloggerengine.h"
 #include "qxtboundcfunction.h"
