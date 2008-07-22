@@ -26,8 +26,6 @@
 
 #include <QxtNullable>
 
-#if 0 // TODO: fix to compile
-
 template <typename T>
 QList<int> find( qxtNull(T,args)[] )
 {
@@ -40,7 +38,7 @@ QList<int> find( qxtNull(T,args)[] )
 
         for (int h=0;h<count(args);h++)
         {
-            if (!(args[h].isNull() or (list[i].[h]==args[h]))
+            if (!(args[h].isNull() or (list[i].[h]==args[h])))
             {
                 hit = false;
                 break;
@@ -52,7 +50,5 @@ QList<int> find( qxtNull(T,args)[] )
 
     return found;
 }
-
-#endif // 0
 
 #endif // QXTTUPLELIST_H

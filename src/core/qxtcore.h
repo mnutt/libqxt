@@ -63,9 +63,6 @@
 #include "qxtslotjob.h"
 #include "qxtstdio.h"
 #include "qxtstdstreambufdevice.h"
-#include "qxttuple.h"
-#include "qxttuplelist.h"
-#include "qxttypelist.h"
 #include "qxtxmlfileloggerengine.h"
 
 /** \defgroup QxtCore QxtCore
