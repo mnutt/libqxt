@@ -31,14 +31,12 @@ QxtTableWidgetPrivate::QxtTableWidgetPrivate()
 void QxtTableWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
     QTableWidgetItem* item = qxt_p().itemFromIndex(index);
-    Q_ASSERT(item);
     emit qxt_p().itemEditingStarted(item);
 }
 
 void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
 {
     QTableWidgetItem* item = qxt_p().itemFromIndex(index);
-    Q_ASSERT(item);
     emit qxt_p().itemEditingFinished(item);
 }
 
@@ -57,7 +55,9 @@ void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
     This signal is emitted after the editing of \a item has been started.
 
-    \sa itemEditingFinished()
+    \note The \a item can be \b 0 if no item has been set to the corresponding cell.
+
+    \sa itemEditingFinished(), QTableWidget::setItem()
  */
 
 /*!
