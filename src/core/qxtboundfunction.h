@@ -76,7 +76,7 @@
  *
  *
  */
-class QxtBoundFunction : public QObject
+class QXT_CORE_EXPORT QxtBoundFunction : public QObject
 {
     Q_OBJECT
 public:
