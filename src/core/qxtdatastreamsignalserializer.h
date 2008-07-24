@@ -33,7 +33,9 @@ public:
     /*!
      * Serializes a signal into a form suitable for sending to an I/O device.
      */
-    virtual QByteArray serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const;
+    virtual QByteArray serialize(const QString& fn, const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(), const QVariant& p3 = QVariant(),
+                                 const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
+                                 const QVariant& p7 = QVariant(), const QVariant& p8 = QVariant()) const;
 
     /*!
      * Deserializes binary data into a signal name and a list of parameters.

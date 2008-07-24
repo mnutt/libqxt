@@ -50,6 +50,8 @@ HEADERS  += qxtstdstreambufdevice.h
 HEADERS  += qxttuple.h
 HEADERS  += qxttuplelist.h
 HEADERS  += qxttypelist.h
+HEADERS  += qxtrpcservice.h
+HEADERS  += qxtrpcservice_p.h
 
 SOURCES  += qxtabstractconnectionmanager.cpp
 SOURCES  += qxtcommandoptions.cpp
@@ -81,3 +83,4 @@ SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
 SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
+SOURCES  += qxtrpcservice.cpp
