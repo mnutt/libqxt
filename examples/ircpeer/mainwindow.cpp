@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <QtGui>
 
 MainWindow::MainWindow() : QMainWindow(0) {
     centralwidget = new QWidget(this);
@@ -19,6 +18,7 @@ MainWindow::MainWindow() : QMainWindow(0) {
     QObject::connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabActivated(int)));
     lineEdit->installEventFilter(this);
 
+    irc.setSerializer(new IRCSerializer);
     irc.attachSlot("PRIVMSG",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("NOTICE",this, SLOT(receiveNotice(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("JOIN",this, SLOT(userJoin(IRCName, QByteArray)));
@@ -29,8 +29,8 @@ MainWindow::MainWindow() : QMainWindow(0) {
     irc.attachSlot("system",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSlot("numeric",this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
     irc.attachSignal(this, SIGNAL(sendMessage(IRCName, QByteArray, QByteArray)), "PRIVMSG");
-    QObject::connect(&irc, SIGNAL(peerConnected()), this, SLOT(peerConnected()));
-    QObject::connect(&irc, SIGNAL(peerError(QAbstractSocket::SocketError)), this, SLOT(peerError(QAbstractSocket::SocketError)));
+    QObject::connect(&irc, SIGNAL(connectedToServer()), this, SLOT(peerConnected()));
+    QObject::connect(&irc, SIGNAL(serverError(QAbstractSocket::SocketError)), this, SLOT(peerError(QAbstractSocket::SocketError)));
     connect(this, SIGNAL(sendMessage(IRCName, QByteArray, QByteArray)), this, SLOT(receiveMessage(IRCName, QByteArray, QByteArray)));
 
     setWindowTitle("Qxt RPC IRC example");
@@ -147,7 +147,7 @@ void MainWindow::send() {
             receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),"unknown command "+msg);
         }
     } else {
-        emit sendMessage  (IRCName(condiag.nickname().toUtf8()),
+        emit sendMessage(IRCName(condiag.nickname().toUtf8()),
                 tabWidget->tabText(tabWidget->currentIndex()).toUtf8(), msg);
     }
 
@@ -194,4 +194,11 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
 
 void MainWindow::tabActivated(int index) {
     tabWidget->setTabIcon(index, QIcon());
+}
+
+int main(int argc, char** argv) {
+    QApplication app(argc, argv);
+    MainWindow main;
+    main.show();
+    return app.exec();
 }

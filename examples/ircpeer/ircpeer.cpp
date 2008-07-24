@@ -1,20 +1,16 @@
 #include "ircpeer.h"
 #include <QRegExp>
 
-IRCPeer::IRCPeer(QObject* parent) : QxtRPCPeer(parent) 
-{
+IRCSerializer::IRCSerializer() : QxtAbstractSignalSerializer() {
     qRegisterMetaType<IRCName>();
 }
 
-bool IRCPeer::canDeserialize(const QByteArray& buffer) const 
-{
+bool IRCSerializer::canDeserialize(const QByteArray& buffer) const {
     return buffer.indexOf('\n') != -1 || buffer.indexOf('\r') != -1;
 }
 
-static bool serializeParam(QTextStream& str, QVariant p) 
-{
-    if(!p.isValid() || !p.canConvert(QVariant::ByteArray)) 
-    {
+static bool serializeParam(QTextStream& str, QVariant p) {
+    if(!p.isValid() || !p.canConvert(QVariant::ByteArray)) {
         str << "\r\n" << flush;
         return true;
     }
@@ -28,16 +24,20 @@ static bool serializeParam(QTextStream& str, QVariant p)
     return false;
 }
 
-QByteArray IRCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const 
-    {
+QByteArray IRCSerializer::serialize(const QString& fn, const QVariant& p1, const QVariant& p2, const QVariant& p3,
+                                    const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) const {
     if(fn == "raw") return p1.toString().toUtf8() + "\r\n";
     QByteArray rv;
     QTextStream str(&rv);
     if(p1.isValid()) {
-        if(p1.canConvert<IRCName>())
-            str << ":" << p1.value<IRCName>().assemble() << " ";
-        else if(!p1.toByteArray().isEmpty())
+        if(p1.canConvert<IRCName>()) {
+            QByteArray name = p1.value<IRCName>().assemble();
+            if(!name.isEmpty())
+                str << ":" << p1.value<IRCName>().assemble() << " ";
+            
+        } else if(!p1.toByteArray().isEmpty()) {
             str << ":" << p1.toByteArray() << " ";
+        }
     }
     str << fn << flush;
 
@@ -48,17 +48,14 @@ QByteArray IRCPeer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3,
     if(serializeParam(str, p6)) return rv;
     if(serializeParam(str, p7)) return rv;
     if(serializeParam(str, p8)) return rv;
-    if(serializeParam(str, p9)) return rv;
     return rv + "\r\n";
 }
 
-QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data) 
-{
+QPair<QString, QList<QVariant> > IRCSerializer::deserialize(QByteArray& data) {
     int lfPos = data.indexOf('\n'), crPos = data.indexOf('\r'), wordPos = 0, endPos = (crPos == -1 || lfPos < crPos) ? lfPos : crPos;
     QByteArray message = data.left(endPos).trimmed(), prefix;
     data = data.mid(endPos+1);
     if(message.isEmpty()) return qMakePair(QString(), QList<QVariant>());
-    qDebug() << message;
 
     QList<QByteArray> words = message.split(' ');
     if(words[0][0] == ':') {
@@ -130,8 +127,7 @@ QPair<QString, QList<QVariant> > IRCPeer::deserialize(QByteArray& data)
     return qMakePair(command, params);
 }
 
-IRCName IRCName::fromName(const QByteArray& name) 
-{
+IRCName IRCName::fromName(const QByteArray& name) {
     QRegExp re("([^@!]*)(?:!([^@]*)?)(?:@(.*))?");
     re.exactMatch(QString::fromUtf8(name.data()));
     return IRCName(re.cap(1).toUtf8(), re.cap(2).toUtf8(), re.cap(3).toUtf8());
@@ -139,7 +135,6 @@ IRCName IRCName::fromName(const QByteArray& name)
 
 IRCName::IRCName(QByteArray nick, QByteArray ident, QByteArray host) : nick(nick), ident(ident), host(host) {}
 
-QByteArray IRCName::assemble() const 
-{
+QByteArray IRCName::assemble() const {
     return nick + (ident.isEmpty() ? QByteArray() : "!" + ident) + (host.isEmpty() ? QByteArray() : "@" + host);
 }

@@ -39,6 +39,7 @@ public:
 
     bool listen(QHostAddress iface = QHostAddress::Any, int port = 80);
     void stopListening();
+    bool isAcceptingConnections() const;
 
     void setProxy(const QNetworkProxy& proxy);
     QNetworkProxy proxy() const;

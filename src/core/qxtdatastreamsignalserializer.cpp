@@ -28,12 +28,13 @@
 #include <QtGlobal>
 #include <qendian.h>
 
-QByteArray QxtDataStreamSignalSerializer::serialize(QString fn, QVariant p1, QVariant p2, QVariant p3, QVariant p4, QVariant p5, QVariant p6, QVariant p7, QVariant p8, QVariant p9) const
+QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVariant& p1, const QVariant& p2, const QVariant& p3,
+                               const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) const
 {
     QByteArray rv;
     QDataStream str(&rv, QIODevice::WriteOnly);
     str << fn;
-    unsigned char ct = 9;
+    unsigned char ct = 8;
     if (p1.isNull()) ct = 0;
     else if (p2.isNull()) ct = 1;
     else if (p3.isNull()) ct = 2;
@@ -42,17 +43,15 @@ QByteArray QxtDataStreamSignalSerializer::serialize(QString fn, QVariant p1, QVa
     else if (p6.isNull()) ct = 5;
     else if (p7.isNull()) ct = 6;
     else if (p8.isNull()) ct = 7;
-    else if (p9.isNull()) ct = 8;
     str << ct;
-    if (ct-- >0 ) str << p1;
-    if (ct-- >0) str << p2;
-    if (ct-- >0) str << p3;
-    if (ct-- >0) str << p4;
-    if (ct-- >0) str << p5;
-    if (ct-- >0) str << p6;
-    if (ct-- >0) str << p7;
-    if (ct-- >0) str << p8;
-    if (ct-- >0) str << p9;
+    if (ct-- > 0) str << p1;
+    if (ct-- > 0) str << p2;
+    if (ct-- > 0) str << p3;
+    if (ct-- > 0) str << p4;
+    if (ct-- > 0) str << p5;
+    if (ct-- > 0) str << p6;
+    if (ct-- > 0) str << p7;
+    if (ct-- > 0) str << p8;
 	uchar sizeData[4];
     qToLittleEndian(rv.size(), sizeData);
     return rv;

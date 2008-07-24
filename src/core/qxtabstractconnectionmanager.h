@@ -37,8 +37,15 @@ public:
     QxtAbstractConnectionManager(QObject* parent);
     virtual ~QxtAbstractConnectionManager();
 
+    int clientCount() const;
     QList<quint64> clients() const;
     QIODevice* client(quint64 clientID) const;
+
+    /**
+     * Returns true if the connection manager is currently accepting connections.
+     * Returns false otherwise.
+     */
+    virtual bool isAcceptingConnections() const = 0;
 
 signals:
     /**
@@ -49,7 +56,7 @@ signals:
     /**
      * Indicates that the device with the specified client ID has been disconnected.
      */
-    void disconnected(quint64 clientID);
+    void disconnected(QIODevice* device, quint64 clientID);
 
 public slots:
     void disconnect(quint64 clientID);

@@ -48,6 +48,13 @@ QxtAbstractConnectionManager::~QxtAbstractConnectionManager() {
 }
 
 /**
+ * Returns the number of connected clients.
+ */
+int QxtAbstractConnectionManager::clientCount() const {
+    return qxt_d().clients.count();
+}
+
+/**
  * Returns a list of client IDs for all connected clients.
  */
 QList<quint64> QxtAbstractConnectionManager::clients() const {
@@ -75,8 +82,8 @@ void QxtAbstractConnectionManager::disconnect(quint64 clientID) {
         qWarning() << "QxtAbstractConnectionManager::disconnect: client ID not in use";
         return;
     }
+    emit disconnected(device, clientID);
     removeConnection(device, clientID);
-    emit disconnected(clientID);
 }
 
 /**

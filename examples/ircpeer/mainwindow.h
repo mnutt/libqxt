@@ -1,18 +1,11 @@
-#include <QMainWindow>
+#ifndef IRCMAINWINDOW
+#define IRCMAINWINDOW
+#include <QtGui>
 #include <QHash>
 #include "ircpeer.h"
 #include "dialog.h"
 
-class QAction;
-class QGridLayout;
-class QLineEdit;
-class QMenuBar;
-class QPushButton;
-class QTabWidget;
-class QTextBrowser;
-
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
 Q_OBJECT
 public:
     MainWindow();
@@ -43,8 +36,7 @@ private:
     QPushButton *pushButton;
     QMenuBar *menubar;
     QHash <QByteArray,QTextBrowser*> channels;
-    IRCPeer irc;
+    QxtRPCPeer irc;
     ConnectDialog condiag;
-
 };
-
+#endif

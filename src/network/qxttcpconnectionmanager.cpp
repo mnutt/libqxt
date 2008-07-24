@@ -41,7 +41,7 @@ QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate() : QTcpServer(0)
 void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor) {
     QIODevice* device = qxt_p().incomingConnection(socketDescriptor);
     if(device) {
-        qxt_p().addConnection(device, (quint64)(device));
+        qxt_p().addConnection(device, (quint64)static_cast<QObject*>(device));
         mapper.setMapping(device, device);
         QObject::connect(device, SIGNAL(destroyed()), &mapper, SLOT(map()));
         QTcpSocket* sock = qobject_cast<QTcpSocket*>(device);
@@ -77,6 +77,13 @@ void QxtTcpConnectionManager::stopListening()
 }
 
 /**
+ * \reimp
+ */
+bool QxtTcpConnectionManager::isAcceptingConnections() const {
+    return qxt_d().isListening();
+}
+
+/**
  * This function is called when a new TCP connection becomes available. The parameter
  * is the native socket descriptor for the connection, suitable for use in
  * QTcpSocket::setSocketDescriptor.
@@ -96,6 +103,8 @@ QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor) {
 void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 clientID) {
     Q_UNUSED(clientID);
     if(device) {
+        QAbstractSocket* sock = qobject_cast<QAbstractSocket*>(device);
+        if(sock) sock->disconnectFromHost();
         device->close();
         delete device;
     }
