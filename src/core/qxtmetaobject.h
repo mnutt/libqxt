@@ -29,6 +29,7 @@
 #include <QGenericArgument>
 #include <typeinfo>
 #include "qxtnullable.h"
+#include "qxtglobal.h"
 class QByteArray;
 class QxtBoundArgument;
 class QxtBoundFunction;
@@ -37,7 +38,7 @@ class QxtBoundFunction;
 #define QXT_PROTO_9ARGS(T) T p2 = T(), T p3 = T(), T p4 = T(), T p5 = T(), T p6 = T(), T p7 = T(), T p8 = T(), T p9 = T(), T p10 = T()
 #define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
 
-class QxtGenericFunctionPointer {
+class QXT_CORE_EXPORT QxtGenericFunctionPointer {
 template<typename FUNCTION>
 friend QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr);
 public:
