@@ -22,19 +22,19 @@
 **
 ****************************************************************************/
 
-#ifndef QXTNULL_DEFINED
-#define QXTNULL_DEFINED
+#ifndef QXTNULL_H
+#define QXTNULL_H
+
 #include <qxtglobal.h>
 
 /**
 \class QxtNull QxtNull
 
-
 \ingroup QxtCore
 
 \brief An object representing the "null" value for QxtNullable.
 
-seealso: QxtNullable
+\sa QxtNullable
 */
 
 struct QXT_CORE_EXPORT QxtNull
@@ -47,18 +47,19 @@ struct QXT_CORE_EXPORT QxtNull
         return 0;
     }
     enum { isNull = true };
+
+    /** A predefined null object that can be assigned to any QxtNullable object.
+     */
+    static const QxtNull null;
 };
 
-/*! \relates QxtNull
- * A predefined null object that can be assigned to any QxtNullable object.
- */
-extern QxtNull qxtNull;
-
 #ifndef QXT_NO_MACROS
-/*! \relates QxtNull
- * A convenience alias for qxtNull.
- */
-#define SKIP qxtNull
-#endif
 
-#endif
+/*! \relates QxtNull
+ * A convenience alias for QxtNull::null.
+ */
+#define SKIP QxtNull::null
+
+#endif // QXT_NO_MACROS
+
+#endif // QXTNULL_H
