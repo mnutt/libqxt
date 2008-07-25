@@ -4,6 +4,6 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 SOURCES += main.cpp
-CONFIG+=qxt qtestlib debug
+CONFIG+=qxt qtestlib
 QXT += core web
 
