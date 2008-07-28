@@ -28,6 +28,26 @@
 #include <QtDebug>
 
 /**
+ * \class QxtTcpConnectionManager QxtTcpConnectionManager 
+ * \ingroup QxtNetwork
+ * \brief Accepts TCP connections and maintains a connection pool
+ *
+ * QxtTcpConnectionManager is a standardized interface for accepting and tracking
+ * incoming TCP connections.
+ * 
+ * Each incoming connection is assigned an arbitrary, opaque client ID number. This
+ * number can be used to retrieve the QTcpSocket associated with it. A list of IDs
+ * for all current connections can be retrieved with the clients() function.
+ *
+ * Like QTcpServer, QxtTcpConnectionManager can listen for incoming connections on
+ * a specified interface and port, and like QTcpServer you may override the
+ * incomingConnection() function to change the handling of new connections. This
+ * is, for instance, where you would create a QSslSocket to encrypt communications.
+ * 
+ * \sa QTcpServer
+ */
+
+/**
  * Constructs a new QxtTcpConnectionManager object with the specified parent.
  */
 QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent) {
