@@ -26,6 +26,27 @@
 #include <QHash>
 #include <QtDebug>
 
+/**
+ * \class QxtAbstractConnectionManager QxtAbstractConnectionManager 
+ * \ingroup QxtCore
+ * \brief Interface for classes that maintain connection pools
+ *
+ * QxtAbstractConnectionManager is a standardized interface for accepting and tracking
+ * incoming connections.
+ * 
+ * Each incoming connection is assigned an arbitrary, opaque client ID number. This
+ * number can be used to retrieve the QIODevice associated with it. A list of IDs
+ * for all current connections can be retrieved with the clients() function.
+ *
+ * As an abstract class, QxtAbstractConnectionManager cannot be used on its own.
+ * Subclasses must implement isAcceptingConnections() to indicate the current listening
+ * status of the connection manager and removeConnection() to perform necessary clean-up
+ * of an established connection before disconnecting. Finally, a subclass must invoke
+ * addConnection() after a new incoming connection has been established and prepared.
+ *
+ * \sa QxtTcpConnectionManager
+ */
+
 class QxtAbstractConnectionManagerPrivate : public QxtPrivate<QxtAbstractConnectionManager> {
 public:
     QHash<quint64, QIODevice*> clients;
