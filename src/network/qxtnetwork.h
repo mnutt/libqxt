@@ -21,7 +21,6 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#include "qxtnamedpipe.h"
 #include "qxtrpcpeer.h"
 #include "qxttcpconnectionmanager.h"
 
