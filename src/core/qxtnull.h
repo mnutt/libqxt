@@ -47,18 +47,14 @@ struct QXT_CORE_EXPORT QxtNull
         return 0;
     }
     enum { isNull = true };
-
-    /** A predefined null object that can be assigned to any QxtNullable object.
-     */
-    static const QxtNull null;
 };
 
 #ifndef QXT_NO_MACROS
 
 /*! \relates QxtNull
- * A convenience alias for QxtNull::null.
+ * A convenience alias for QxtNull().
  */
-#define SKIP QxtNull::null
+#define QXT_NULL QxtNull()
 
 #endif // QXT_NO_MACROS
 

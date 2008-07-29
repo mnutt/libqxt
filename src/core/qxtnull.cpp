@@ -22,11 +22,5 @@
 **
 ****************************************************************************/
 #include "qxtnull.h"
-#include <QtGlobal>
 
-// static storage
-#if defined(Q_CC_MSVC) && _MSC_VER <= 1300
-const QxtNull QxtNull::null;
-#else
-const QxtNull QxtNull::null = { };
-#endif
+// nothing here
