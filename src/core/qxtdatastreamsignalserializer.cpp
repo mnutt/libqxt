@@ -60,10 +60,10 @@ QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVa
 QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::deserialize(QByteArray& data)
 {
     QByteArray cmd;
-    quint32 len = qFromLittleEndian<quint32>(buffer.constData());
+    quint32 len = qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(data.constData()));
     
-    cmd = data.mid(4,pos);
-    data = data.mid(pos+4);
+    cmd = data.mid(4,len);
+    data = data.mid(len+4);
     if (cmd.length()==0) return NoOp();
 
     QDataStream str(cmd);
@@ -85,5 +85,5 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
 }
 
 bool QxtDataStreamSignalSerializer::canDeserialize(const QByteArray& buffer) const {
-    return qFromLittleEndian<quint32>(buffer.constData()) >= (buffer.length() - 4);
+    return qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(buffer.constData())) >= (buffer.length() - 4);
 }
