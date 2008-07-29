@@ -53,21 +53,19 @@ QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVa
     if (ct-- > 0) str << p7;
     if (ct-- > 0) str << p8;
 	uchar sizeData[4];
-    qToLittleEndian(rv.size(), sizeData);
+    qToLittleEndian(quint32(rv.size()), sizeData);
     return rv;
 }
 
 QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::deserialize(QByteArray& data)
 {
     QByteArray cmd;
-    int pos = data.indexOf('\n');
+    quint32 len = qFromLittleEndian<quint32>(buffer.constData());
     
-    cmd = data.left(pos);
-    data = data.mid(pos+1);
+    cmd = data.mid(4,pos);
+    data = data.mid(pos+4);
     if (cmd.length()==0) return NoOp();
 
-    cmd.replace(QByteArray("\\n"), QByteArray("\n"));
-    cmd.replace(QByteArray("\\\\"), QByteArray("\\"));
     QDataStream str(cmd);
 
     QString signal;
@@ -87,5 +85,5 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
 }
 
 bool QxtDataStreamSignalSerializer::canDeserialize(const QByteArray& buffer) const {
-    return buffer.indexOf('\n') != -1;
+    return qFromLittleEndian<quint32>(buffer.constData()) >= (buffer.length() - 4);
 }
