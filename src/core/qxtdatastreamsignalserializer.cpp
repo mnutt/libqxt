@@ -85,5 +85,5 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
 }
 
 bool QxtDataStreamSignalSerializer::canDeserialize(const QByteArray& buffer) const {
-    return qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(buffer.constData())) >= (buffer.length() - 4);
+    return qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(buffer.constData())) >= quint32(buffer.length() - 4);
 }
