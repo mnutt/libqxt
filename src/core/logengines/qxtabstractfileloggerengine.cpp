@@ -71,6 +71,8 @@ void QxtAbstractFileLoggerEngine::initLoggerEngine()
     // If the file exists, check if we can write to it.  If we can, we append!
     // If the file doesn't exits, try to create it.
     // If we can't write to a file, disable this plugin.
+    Q_ASSERT( !qxt_d().logFile.isEmpty() );
+
     setDevice(new QFile(qxt_d().logFile));
     if ( !device()->open(qxt_d().mode )
           || !device()->isWritable() )

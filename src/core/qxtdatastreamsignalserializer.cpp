@@ -35,14 +35,14 @@ QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVa
     QDataStream str(&rv, QIODevice::WriteOnly);
     str << fn;
     unsigned char ct = 8;
-    if (p1.isNull()) ct = 0;
-    else if (p2.isNull()) ct = 1;
-    else if (p3.isNull()) ct = 2;
-    else if (p4.isNull()) ct = 3;
-    else if (p5.isNull()) ct = 4;
-    else if (p6.isNull()) ct = 5;
-    else if (p7.isNull()) ct = 6;
-    else if (p8.isNull()) ct = 7;
+    if (!p1.isValid()) ct = 0;
+    else if (!p2.isValid()) ct = 1;
+    else if (!p3.isValid()) ct = 2;
+    else if (!p4.isValid()) ct = 3;
+    else if (!p5.isValid()) ct = 4;
+    else if (!p6.isValid()) ct = 5;
+    else if (!p7.isValid()) ct = 6;
+    else if (!p8.isValid()) ct = 7;
     str << ct;
     if (ct-- > 0) str << p1;
     if (ct-- > 0) str << p2;
@@ -52,9 +52,9 @@ QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVa
     if (ct-- > 0) str << p6;
     if (ct-- > 0) str << p7;
     if (ct-- > 0) str << p8;
-	uchar sizeData[4];
-    qToLittleEndian(quint32(rv.size()), sizeData);
-    return rv;
+	char sizeData[4];
+    qToLittleEndian(quint32(rv.size()), (uchar*)sizeData);
+    return QByteArray(sizeData, 4) + rv;
 }
 
 QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::deserialize(QByteArray& data)

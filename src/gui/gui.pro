@@ -8,7 +8,7 @@ QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
 CONFIG          += qxtbuild
 CONFIG          += link_prl
-
+LIBS += -lX11 -lm -lXext
 include(../../config.pri)
 include(gui.pri)
 
