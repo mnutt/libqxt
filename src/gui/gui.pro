@@ -16,5 +16,5 @@ win32:LIBS      += -luser32
 # means that each library must explicitly link to all dependencies 
 # than assuming that the application or another library will bring
 # in the necessary symbols at run time.
-x11:contains(QMAKE_LFLAGS, "-Wl,--no-undefined"):LIBS += -lX11 -lXext -lm
+contains(QMAKE_LFLAGS, "-Wl,--no-undefined"):LIBS += $${QMAKE_LIBS_X11}
 
