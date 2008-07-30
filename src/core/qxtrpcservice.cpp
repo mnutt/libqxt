@@ -28,6 +28,7 @@
 #include "qxtdatastreamsignalserializer.h"
 #include "qxtmetaobject.h"
 #include "qxtboundfunction.h"
+#include "qxtlogger.h"
 #include <QIODevice>
 #include <QtDebug>
 #include <QMetaObject>
@@ -175,8 +176,11 @@ void QxtRPCServicePrivate::clientData(quint64 id) {
     QIODevice* dev = manager->client(id);
     QByteArray& buf = buffers[id]; // caching to avoid repeated hash lookups
     buf.append(dev->readAll());
+    qDebug() << buf.constData();
+    qxtLog->debug("QxtRPCService_P client data", buf.length());
     while(serializer->canDeserialize(buf)) {
         QxtAbstractSignalSerializer::DeserializedData data = serializer->deserialize(buf);
+        qDebug() << data.first << data.second;
         // check for blank command
         if(serializer->isNoOp(data))
             continue;
@@ -189,6 +193,7 @@ void QxtRPCServicePrivate::clientData(quint64 id) {
         // pad arguments to 8
         while(data.second.count() < 8)
             data.second << QVariant();
+        qxtLog->trace(QVariantList() << "Data" << id << data.first << data.second[0] << data.second[1] << data.second[2] << data.second[3] << data.second[4] <<  data.second[5] << data.second[6] << data.second[7]);
         dispatchFromClient(id, data.first, data.second[0], data.second[1], data.second[2], data.second[3], data.second[4], data.second[5], data.second[6], data.second[7]);
     }
 }
