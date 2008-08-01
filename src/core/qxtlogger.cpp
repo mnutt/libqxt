@@ -156,7 +156,7 @@ void QxtLoggerPrivate::log(QxtLogger::LogLevel level, const QList<QVariant>& msg
 {
     Q_FOREACH(QxtLoggerEngine *eng, map_logEngineMap)
     {
-        if (eng && eng->isLoggingEnabled() && eng->isLogLevelEnabled(level))
+        if (eng && eng->isInitialized() && eng->isLoggingEnabled() && eng->isLogLevelEnabled(level))
         {
             eng->writeFormatted(level, msgList);
         }
