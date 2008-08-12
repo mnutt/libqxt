@@ -68,26 +68,26 @@ constructs a new QxtFifo
 #include <limits.h>
 #include <QDebug>
 #include <QQueue>
-#include <QAtomicInt>
-#include <QAtomicPointer>
+#include <qatomic.h>
+#include <qbasicatomic.h>
 
 struct QxtFifoNode {
-    QxtFifoNode(const char* data, int size) : content(data, size), next(NULL) {
+    QxtFifoNode(const char* data, int size) : content(data, size) {
     }
    
     QByteArray content;
-    QAtomicPointer<QxtFifoNode> next;
+    QBasicAtomicPointer<QxtFifoNode> next;
 };
 
 class QxtFifoPrivate : public QxtPrivate<QxtFifo> {
 public:
     QXT_DECLARE_PUBLIC(QxtFifo);
-    QxtFifoPrivate() : available(0) {
+    QxtFifoPrivate() {
         head = tail = new QxtFifoNode("", 0);
     }
 
-    QAtomicPointer<QxtFifoNode> head, tail;
-    QAtomicInt available;
+    QBasicAtomicPointer<QxtFifoNode> head, tail;
+    QBasicAtomicInt available;
 };
 
 QxtFifo::QxtFifo(QObject *parent) : QIODevice(parent)
@@ -112,11 +112,11 @@ qint64 QxtFifo::readData ( char * data, qint64 maxSize )
             memcpy(writePos, node->content.constData(), bytes);
             step = bytes;
             QxtFifoNode* newData = new QxtFifoNode(node->content.right(rem).constData(), rem);
-            newData->next = node->next;
-            qxt_d().head = newData;
+            newData->next.fetchAndStoreOrdered(node->next);
+            qxt_d().head.fetchAndStoreOrdered(newData);
         } else {
             memcpy(writePos, node->content.constData(), step);
-            qxt_d().head = node->next;
+            qxt_d().head.fetchAndStoreOrdered(node->next);
         }
         delete node;
         node = qxt_d().head;
@@ -132,8 +132,8 @@ qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
     if(maxSize > 0) {
         if(maxSize > INT_MAX) maxSize = INT_MAX; // qint64 could easily exceed QAtomicInt, so let's play it safe
         QxtFifoNode* newData = new QxtFifoNode(data, maxSize);
-        qxt_d().tail->next = newData;
-        qxt_d().tail = newData;
+        qxt_d().tail->next.fetchAndStoreOrdered(newData);
+        qxt_d().tail.fetchAndStoreOrdered(newData);
         qxt_d().available.fetchAndAddOrdered(maxSize);
         QMetaObject::invokeMethod(this, "bytesWritten", Qt::QueuedConnection, Q_ARG(qint64, maxSize));
         QMetaObject::invokeMethod(this, "readyRead", Qt::QueuedConnection);
