@@ -44,41 +44,69 @@ QMAKE_EXTRA_TARGETS += docs
 
 contains( QXT_BUILD, core ){
     message( building core module )
-    SUBDIRS += src/core	
+    sub_core.subdir = src/core
+    sub_core.file = src/core/core.pro
+    SUBDIRS += sub_core	
 }
 
 
 contains( QXT_BUILD, gui ){
     message( building gui module )
-    SUBDIRS += src/gui
-    contains( QXT_BUILD, designer ): SUBDIRS += src/designer
+    sub_gui.subdir = src/gui
+    sub_gui.file = src/gui/gui.pro
+    sub_gui.depends = sub_core
+    SUBDIRS += sub_gui
+    contains( QXT_BUILD, designer ){
+        sub_designer.subdir = src/designer
+        sub_designer.file = src/designer/designer.pro
+        sub_designer.depends = sub_core sub_gui
+        SUBDIRS += sub_designer
+    }
 }
 
 contains( QXT_BUILD, network ){
     message( building network module )
-    SUBDIRS += src/network
+    sub_network.subdir = src/network
+    sub_network.file = src/network/network.pro
+    sub_network.depends = sub_core
+    SUBDIRS += sub_network
+
 }
 
 contains( QXT_BUILD, sql ){
     message( building sql module )
-    SUBDIRS += src/sql
+    sub_sql.subdir = src/sql
+    sub_sql.file = src/sql/sql.pro
+    sub_sql.depends = sub_core
+    SUBDIRS += sub_sql
+
 }
 
 contains(DEFINES,HAVE_DB){
 contains( QXT_BUILD, berkeley ){
     message( building berkeley module )
-    SUBDIRS += src/berkeley
+    sub_berkeley.subdir = src/berkeley
+    sub_berkeley.file = src/berkeley/berkeley.pro
+    sub_berkeley.depends = sub_core
+    SUBDIRS += sub_berkeley
+
 }
 }
 
-	
 contains( QXT_BUILD, web ){
     message( building web module )
-    SUBDIRS += src/web
+    sub_web.subdir = src/web
+    sub_web.file = src/web/web.pro
+    sub_web.depends = sub_core sub_network
+    SUBDIRS += sub_web
+
 }
 contains( QXT_BUILD, crypto ){
     message( building crypto module )
-    SUBDIRS += src/crypto
+    sub_crypto.subdir = src/crypto
+    sub_crypto.file = src/crypto/crypto.pro
+    sub_crypto.depends = sub_core
+    SUBDIRS += sub_crypto
 }
 
 
