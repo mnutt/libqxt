@@ -24,6 +24,9 @@
 #include "qxtwindowsystem.h"
 #include <QX11Info>
 #include <X11/Xutil.h>
+#ifdef HAVE_XSS
+#include <X11/extensions/scrnsaver.h>
+#endif // HAVE_XSS
 
 static void qxt_getWindowProperty(Window wid, Atom prop, int maxlen, Window** data, int* count)
 {
@@ -137,4 +140,18 @@ QRect QxtWindowSystem::windowGeometry(WId window)
         }
     }
     return rect;
+}
+
+uint QxtWindowSystem::idleTime()
+{
+    uint idle = -1;
+#ifdef HAVE_XSS
+    XScreenSaverInfo* info = XScreenSaverAllocInfo();
+    const int screen = QX11Info::appScreen();
+    Qt::HANDLE rootWindow = QX11Info::appRootWindow(screen);
+    XScreenSaverQueryInfo(QX11Info::display(), rootWindow, info);
+    idle = info->idle;
+    XFree(info);
+#endif // HAVE_XSS
+    return idle;
 }

@@ -129,6 +129,13 @@
     \sa QWidget::frameGeometry()
  */
 
+/*!
+    \fn QxtWindowSystem::idleTime()
+
+    Returns the system "idle time" ie. the time since last user input
+    in milliseconds.
+ */
+
 QStringList QxtWindowSystem::windowTitles()
 {
     WindowList windows = QxtWindowSystem::windows();
