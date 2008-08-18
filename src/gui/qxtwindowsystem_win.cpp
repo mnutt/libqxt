@@ -97,3 +97,8 @@ QRect QxtWindowSystem::windowGeometry(WId window)
     }
     return rect;
 }
+
+uint QxtWindowSystem::idleTime()
+{
+    return -1;
+}
