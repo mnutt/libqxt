@@ -7,6 +7,7 @@ WHICH=which
 NO_OPENSSL=0
 NO_DB=0
 NO_FFMPEG=0
+NO_XSS=0
 
 if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
@@ -62,12 +63,16 @@ while (( $# > 0 )); do
     elif [ $1 == "-no-db" ]; then
         echo "QXT_LIBS -= db" >> config.in
         NO_DB=1
+    elif [ $1 == "-no-xss" ]; then
+        echo "QXT_LIBS -= xss" >> config.in
+        NO_XSS=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
-        echo "       [-static] [-debug] [-release] [-no-openssl] [-nomake <module>]"
+        echo "       [-static] [-debug] [-release] [-no-openssl] [-no-db] [-no-xss]"
+        echo "       [-nomake <module>]"
         echo
         echo "Installation options:"
         echo
@@ -88,6 +93,7 @@ while (( $# > 0 )); do
         echo "-release ............ Build Qxt without debugging support"
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-no-db .............. Do not link to Berkeley DB"
+        echo "-no-xss ............. Do not link to XScreenSaver"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: berkeley crypto designer gui network sql web"
         echo "-verbose ............ shows compiler output"
@@ -159,6 +165,10 @@ fi
 
 if [[ "$NO_DB" == "0" ]]; then
     configtest "db  "    DB
+fi
+
+if [[ "$NO_XSS" == "0" ]]; then
+    configtest "xss  "    XSS
 fi
 
 #configtest curses  CURSES
