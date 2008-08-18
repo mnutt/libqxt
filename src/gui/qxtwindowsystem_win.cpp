@@ -100,5 +100,10 @@ QRect QxtWindowSystem::windowGeometry(WId window)
 
 uint QxtWindowSystem::idleTime()
 {
-    return -1;
+    uint idle = -1;
+    LASTINPUTINFO info;
+    info.cbSize = sizeof(LASTINPUTINFO);
+    if (::GetLastInputInfo(&info))
+        idle = ::GetTickCount() - info.dwTime;
+    return idle;
 }
