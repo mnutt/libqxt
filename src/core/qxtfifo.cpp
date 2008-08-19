@@ -73,6 +73,7 @@ constructs a new QxtFifo
 
 struct QxtFifoNode {
     QxtFifoNode(const char* data, int size) : content(data, size) {
+        next = NULL;
     }
    
     QByteArray content;
@@ -83,7 +84,8 @@ class QxtFifoPrivate : public QxtPrivate<QxtFifo> {
 public:
     QXT_DECLARE_PUBLIC(QxtFifo);
     QxtFifoPrivate() {
-        head = tail = new QxtFifoNode("", 0);
+        head = tail = new QxtFifoNode(NULL, 0);
+        available = 0;
     }
 
     QBasicAtomicPointer<QxtFifoNode> head, tail;
@@ -107,19 +109,17 @@ qint64 QxtFifo::readData ( char * data, qint64 maxSize )
     while(bytes > 0) {
         node = qxt_d().head;
         step = node->content.size();
-        if(step > bytes) {
+        if(step >= bytes) {
             int rem = step - bytes;
             memcpy(writePos, node->content.constData(), bytes);
             step = bytes;
-            QxtFifoNode* newData = new QxtFifoNode(node->content.right(rem).constData(), rem);
-            newData->next.fetchAndStoreOrdered(node->next);
-            qxt_d().head.fetchAndStoreOrdered(newData);
+            node->content = node->content.right(rem);
         } else {
             memcpy(writePos, node->content.constData(), step);
             qxt_d().head.fetchAndStoreOrdered(node->next);
+            delete node;
+            node = qxt_d().head;
         }
-        delete node;
-        node = qxt_d().head;
         writePos += step;
         bytes -= step;
     }
