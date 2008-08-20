@@ -20,6 +20,7 @@ private slots:
 	void switchLayoutDirection();
 	void toggleVisibility();
 	void configure();
+    void updateIdleTime();
 	
 private:
 	void createProgressBar();

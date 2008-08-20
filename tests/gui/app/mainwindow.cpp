@@ -4,6 +4,7 @@
 #include <QxtGlobalShortcut>
 #include <QxtProgressLabel>
 #include <QxtConfigDialog>
+#include <QxtWindowSystem>
 #include <QxtApplication>
 #include <QProgressBar>
 #include <QMessageBox>
@@ -11,6 +12,8 @@
 #include <QCloseEvent>
 #include <QTreeView>
 #include <QDirModel>
+#include <QTimer>
+#include <QLabel>
 #if QT_VERSION >= 0x040200
 #include <QCalendarWidget>
 #include <QTimeLine>
@@ -34,6 +37,11 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
     connect(shortcut, SIGNAL(activated()), this, SLOT(toggleVisibility()));
     if (!shortcut->setShortcut(QKeySequence("Ctrl+Shift+Alt+S")))
 		ui.labelVisibility->hide();
+
+    QTimer* timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateIdleTime()));
+    timer->start(150);
+    updateIdleTime();
 }
 
 MainWindow::~MainWindow()
@@ -78,6 +86,11 @@ void MainWindow::toggleVisibility()
 	setVisible(!isVisible());
 }
 
+void MainWindow::updateIdleTime()
+{
+    setWindowTitle(tr("QxtDemo - System Idle: %1ms").arg(QxtWindowSystem::idleTime()));
+}
+
 void MainWindow::createProgressBar()
 {
 	QxtProgressLabel* label = new QxtProgressLabel(statusBar());
@@ -95,7 +108,8 @@ void MainWindow::createProgressBar()
 	connect(bar, SIGNAL(valueChanged(int)), label, SLOT(setValue(int)));
 	timeLine->start();
 #endif // QT_VERSION
-	
+
+    statusBar()->addPermanentWidget(new QLabel(tr("Dummy Progress:"), this));
 	statusBar()->addPermanentWidget(bar);
 	statusBar()->addPermanentWidget(label);
 }
