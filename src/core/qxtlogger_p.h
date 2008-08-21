@@ -33,7 +33,9 @@
     This is the d_ptr private class containing the actual data this library
     works with.
 *******************************************************************************/
+QT_BEGIN_NAMESPACE
 class QMutex;
+QT_END_NAMESPACE
 class QxtLoggerPrivate : public QObject, public QxtPrivate<QxtLogger>
 {
 Q_OBJECT

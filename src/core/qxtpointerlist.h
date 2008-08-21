@@ -1,4 +1,3 @@
-
 /****************************************************************************
 **
 ** Copyright (C) Qxt Foundation. Some rights reserved.
@@ -22,23 +21,9 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-/**
-\class QxtPointerList QxtPointerList
 
-\ingroup QxtCore
-
-\brief a list of pointers to QObjects, that cleans itself
-
-
-when you add a QObject* to this list, it will be removed from the list when the QObject is deleted.
-
-\sa QPointer
-
-*/
-
-
-#ifndef QxtPointerList_Header_Guard
-#define QxtPointerList_Header_Guard
+#ifndef QXTPOINTERLIST_H
+#define QXTPOINTERLIST_H
 
 #include <QList>
 #include <QObject>
@@ -52,7 +37,6 @@ protected:
 private Q_SLOTS:
     void removeSender();
 };
-
 
 template<class T>
 class QxtPointerList : public QxtPointerListDeleter, public QList<T*>
@@ -152,5 +136,4 @@ protected:
     }
 };
 
-
-#endif
+#endif // QXTPOINTERLIST_H

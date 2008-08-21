@@ -58,4 +58,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtWebContent);
 };
 
-#endif
+#endif // QXTWEBCONTENT_H

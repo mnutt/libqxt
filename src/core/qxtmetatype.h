@@ -29,9 +29,10 @@
 #include <QDataStream>
 #include <QGenericArgument>
 #include <QtDebug>
+#include <qxtglobal.h>
 
 template <typename T>
-class QxtMetaType {
+class QXT_CORE_EXPORT QxtMetaType {
 public:
     static inline T* construct(const T* copy = 0) {
         return QMetaType::construct(qMetaTypeId<T>(), reinterpret_cast<const void*>(copy));
@@ -61,7 +62,7 @@ public:
 };
 
 template <>
-class QxtMetaType<void> {
+class QXT_CORE_EXPORT QxtMetaType<void> {
 public:
     static inline void* construct(const void* copy = 0) {
         Q_UNUSED(copy);

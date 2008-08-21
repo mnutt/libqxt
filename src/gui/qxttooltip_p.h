@@ -28,7 +28,9 @@
 #include <QWidget>
 #include <QHash>
 
+QT_BEGIN_NAMESPACE
 class QVBoxLayout;
+QT_END_NAMESPACE
 
 typedef QPointer<QWidget> WidgetPtr;
 typedef QPair<WidgetPtr, QRect> WidgetArea;

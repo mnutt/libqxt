@@ -29,7 +29,9 @@
 #include "qxtstyleoptionscheduleviewitem.h"
 #include "qxtglobal.h"
 
+QT_BEGIN_NAMESPACE
 class QPainter;
+QT_END_NAMESPACE
 
 /**
     @author Benjamin Zeller <zbenjamin@users.sourceforge.net>

@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QxtJob_H_GUARD
-#define QxtJob_H_GUARD
+#ifndef QXTJOB_H
+#define QXTJOB_H
 
 #include <qxtpimpl.h>
 #include <qxtglobal.h>
@@ -31,7 +31,9 @@
 #include <QObject>
 
 class QxtJobPrivate;
+QT_BEGIN_NAMESPACE
 class QThread;
+QT_END_NAMESPACE
 
 class QXT_CORE_EXPORT QxtJob : public QObject
 {
@@ -52,6 +54,4 @@ Q_SIGNALS:
     void subseed();
 };
 
-#endif
-
-
+#endif // QXTJOB_H

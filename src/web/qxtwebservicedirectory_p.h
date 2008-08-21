@@ -42,6 +42,6 @@ public:
 public Q_SLOTS:
     void serviceDestroyed();
 };
-#endif
+#endif // QXT_DOXYGEN_RUN
 
-#endif
+#endif // QXTWEBSERVICEDIRECTORY_P_H

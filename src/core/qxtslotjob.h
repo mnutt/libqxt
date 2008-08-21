@@ -22,9 +22,8 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTJOB_H_GUARD
-#define QXTJOB_H_GUARD
-
+#ifndef QXTSLOTJOB_H
+#define QXTSLOTJOB_H
 
 #include <QVariant>
 
@@ -56,7 +55,9 @@ Q_SIGNALS:
 
 
 class QxtSlotJobPrivate;
+QT_BEGIN_NAMESPACE
 class QThread;
+QT_END_NAMESPACE
 class QXT_CORE_EXPORT QxtSlotJob : public QxtJob
 {
 Q_OBJECT
@@ -100,9 +101,4 @@ private Q_SLOTS:
 
 };
 
-
-
-
-#endif
-
-
+#endif // QXTSLOTJOB_H

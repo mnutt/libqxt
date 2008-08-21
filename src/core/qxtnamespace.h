@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QXTNAMSPACE_GUARD_H
-#define QXTNAMSPACE_GUARD_H
+#ifndef QXTNAMESPACE_H
+#define QXTNAMESPACE_H
 
 #include <qxtglobal.h>
 
@@ -142,5 +142,4 @@ namespace Qxt
 
 };
 
-#endif
-
+#endif // QXTNAMESPACE_H

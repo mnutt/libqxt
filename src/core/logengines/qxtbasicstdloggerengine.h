@@ -29,7 +29,9 @@
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
+QT_BEGIN_NAMESPACE
 class QTextStream;
+QT_END_NAMESPACE
 class QxtBasicSTDLoggerEnginePrivate;
 
 /*******************************************************************************

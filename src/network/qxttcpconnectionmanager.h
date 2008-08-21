@@ -29,7 +29,9 @@
 #include <qxtpimpl.h>
 #include <QObject>
 #include <QNetworkProxy>
+QT_BEGIN_NAMESPACE
 class QIODevice;
+QT_END_NAMESPACE
 
 class QxtTcpConnectionManagerPrivate;
 class QXT_NETWORK_EXPORT QxtTcpConnectionManager : public QxtAbstractConnectionManager {

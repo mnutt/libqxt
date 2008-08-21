@@ -124,4 +124,4 @@ QxtLongTypeList(int, int, int, int, int, int, int, int, int, int) tuple;        
 #define QxtLongTypeList(a, b, c, d, e, f, g, h, i, extend) QxtTypeList<a, b, c, d, e, f, g, h, i, extend >
 #endif
 
-#endif
+#endif // QXTTYPELIST_H

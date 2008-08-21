@@ -21,8 +21,8 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTSEMAPHORE_H_NNN
-#define QXTSEMAPHORE_H_NNN
+#ifndef QXTSEMAPHORE_H
+#define QXTSEMAPHORE_H
 
 #include <qxtpimpl.h>
 #include <QString>
@@ -40,4 +40,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtSemaphore);
 };
 
-#endif
+#endif // QXTSEMAPHORE_H

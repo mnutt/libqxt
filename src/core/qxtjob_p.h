@@ -21,12 +21,13 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+
+#ifndef QXTJOB_P_H
+#define QXTJOB_P_H
+
 #include <QMutex>
 #include <qxtjob.h>
 #include <QWaitCondition>
-
-
-
 
 class QxtJobPrivate : public QObject, public QxtPrivate<QxtJob>
 {
@@ -66,5 +67,4 @@ Q_SIGNALS:
 
 };
 
-
-
+#endif // QXTJOB_P_H

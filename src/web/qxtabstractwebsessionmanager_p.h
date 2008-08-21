@@ -49,6 +49,6 @@ public:
 public Q_SLOTS:
     void sessionDestroyed(int sessionID);
 };
-#endif
+#endif // QXT_DOXYGEN_RUN
 
-#endif
+#endif // QXTABSTRACTWEBSESSIONMANAGER_P_H

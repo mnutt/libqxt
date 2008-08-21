@@ -22,9 +22,8 @@
 **
 ****************************************************************************/
 
-
-#ifndef QXTFILELOCK_P_H_INCLUDED
-#define QXTFILELOCK_P_H_INCLUDED
+#ifndef QXTFILELOCK_P_H
+#define QXTFILELOCK_P_H
 
 #include "qxtpimpl.h"
 #include <QMutex>
@@ -45,4 +44,5 @@ public:
     QxtFileLock::Mode mode;
     bool isLocked;
 };
-#endif
+
+#endif // QXTFILELOCK_P_H

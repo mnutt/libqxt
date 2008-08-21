@@ -90,4 +90,4 @@ protected:
     virtual void tabContextMenuEvent(int index, QContextMenuEvent* event);
 };
 
-#endif // QXTQXTTABWIDGET_H
+#endif // QXTTABWIDGET_H

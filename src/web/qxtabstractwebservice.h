@@ -46,4 +46,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtAbstractWebService);
 };
 
-#endif
+#endif // QXTABSTRACTWEBSERVICE_H

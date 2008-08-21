@@ -29,8 +29,10 @@
 #include <QPersistentModelIndex>
 #include <QPointer>
 
+QT_BEGIN_NAMESPACE
 class QPainter;
 class QTreeView;
+QT_END_NAMESPACE
 
 class QxtItemDelegatePrivate : public QObject, public QxtPrivate<QxtItemDelegate>
 {

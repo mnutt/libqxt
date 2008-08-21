@@ -55,4 +55,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtWebServiceDirectory);
 };
 
-#endif
+#endif // QXTWEBSERVICEDIRECTORY_H

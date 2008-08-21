@@ -30,7 +30,9 @@
 #include <QHostAddress>
 #include <QHttpHeader>
 
+QT_BEGIN_NAMESPACE
 class QIODevice;
+QT_END_NAMESPACE
 class QxtHttpSessionManager;
 
 class QxtAbstractHttpConnectorPrivate;
@@ -110,4 +112,4 @@ private:
 };
 */
 
-#endif
+#endif // QXTABSTRACTHTTPCONNECTOR_H

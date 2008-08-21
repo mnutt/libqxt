@@ -30,7 +30,9 @@
 #include <typeinfo>
 #include "qxtnullable.h"
 #include "qxtglobal.h"
+QT_BEGIN_NAMESPACE
 class QByteArray;
+QT_END_NAMESPACE
 class QxtBoundArgument;
 class QxtBoundFunction;
 

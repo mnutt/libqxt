@@ -32,7 +32,9 @@
 #include <QUrl>
 #include <QMultiHash>
 #include <QDateTime>
+QT_BEGIN_NAMESPACE
 class QIODevice;
+QT_END_NAMESPACE
 class QxtWebContent;
 
 class QxtWebEvent {
@@ -131,4 +133,4 @@ public:
     QString destination;
 };
 
-#endif
+#endif // QXTWEBEVENT_H

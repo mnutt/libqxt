@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QxtFifo_H_GUARD
-#define QxtFifo_H_GUARD
+#ifndef QXTFIFO_H
+#define QXTFIFO_H
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 #include <QIODevice>
@@ -45,5 +45,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtFifo);
 };
 
-#endif
-
+#endif // QXTFIFO_H

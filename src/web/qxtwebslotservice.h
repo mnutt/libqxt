@@ -22,27 +22,23 @@
 **
 ****************************************************************************/
 
-#ifndef QXTWEBSLOTSERVICE_H_ijakbsd
-#define QXTWEBSLOTSERVICE_H_ijakbsd
+#ifndef QXTWEBSLOTSERVICE_H
+#define QXTWEBSLOTSERVICE_H
 
 #include "qxtabstractwebservice.h"
 #include <QUrl>
-
 
 class QxtWebSlotService : public QxtAbstractWebService 
 {
 Q_OBJECT
 public:
     QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
-protected:
 
+protected:
     QUrl self(QxtWebRequestEvent* event);
 
     virtual void pageRequestedEvent(QxtWebRequestEvent* event);
     virtual void functionInvokedEvent(QxtWebRequestEvent* event);
 };
 
-
-
-#endif
-
+#endif // QXTWEBSLOTSERVICE_H

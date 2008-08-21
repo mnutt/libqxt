@@ -21,8 +21,8 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtStdStreambufDevice_HEADER_GUARD
-#define QxtStdStreambufDevice_HEADER_GUARD
+#ifndef QXTSTDSTREAMBUFDEVICE_H
+#define QXTSTDSTREAMBUFDEVICE_H
 
 #include <QIODevice>
 #include <QObject>
@@ -49,4 +49,4 @@ private:
 
 };
 
-#endif
+#endif // QXTSTDSTREAMBUFDEVICE_H

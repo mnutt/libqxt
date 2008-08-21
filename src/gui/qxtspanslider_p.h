@@ -29,8 +29,10 @@
 #include "qxtspanslider.h"
 #include "qxtpimpl.h"
 
+QT_BEGIN_NAMESPACE
 class QStylePainter;
 class QStyleOptionSlider;
+QT_END_NAMESPACE
 
 class QxtSpanSliderPrivate : public QObject, public QxtPrivate<QxtSpanSlider>
 {

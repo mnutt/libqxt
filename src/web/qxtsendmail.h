@@ -21,8 +21,8 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtSendmail_H_piasodnasoidnapoinasdorcunzaser
-#define QxtSendmail_H_piasodnasoidnapoinasdorcunzaser
+#ifndef QXTSENDMAIL_H
+#define QXTSENDMAIL_H
 
 #include <qxtglobal.h>
 #include "qxtmail.h"
@@ -33,7 +33,4 @@ public:
     static bool send(QxtMail  mail);
 };
 
-
-
-#endif
-
+#endif // QXTSENDMAIL_H

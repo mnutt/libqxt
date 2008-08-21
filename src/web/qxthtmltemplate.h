@@ -43,5 +43,5 @@ private:
     QString data;
 };
 
-#endif
+#endif // QXTHTMLTEMPLATE_H
 
