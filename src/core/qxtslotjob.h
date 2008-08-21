@@ -49,7 +49,7 @@ private:
     QxtFuture(QxtSlotJob* j);
     QxtSlotJob * job;
     QxtSignalWaiter * waiter;
-signals:
+Q_SIGNALS:
     void done();
     void done(QVariant);
 };
@@ -90,12 +90,12 @@ public:
 
 protected:
     virtual void run();
-signals:
+Q_SIGNALS:
     void done(QVariant);
 private:
     QXT_DECLARE_PRIVATE(QxtSlotJob);
 ///must not be in pimpl. that's heavy doom when they are both Qobject and one moves to another thread
-private slots:  
+private Q_SLOTS:  
     void pdone();
 
 };

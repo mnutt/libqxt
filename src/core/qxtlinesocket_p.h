@@ -37,7 +37,7 @@ public:
 
     QByteArray rbuff;
 
-public slots:
+public Q_SLOTS:
     void readyRead();
 
 };

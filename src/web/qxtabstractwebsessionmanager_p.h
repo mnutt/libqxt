@@ -46,7 +46,7 @@ public:
 
     int getNextID();
 
-public slots:
+public Q_SLOTS:
     void sessionDestroyed(int sessionID);
 };
 #endif

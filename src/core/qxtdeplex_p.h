@@ -34,7 +34,7 @@ Q_OBJECT
 public:
     QXT_DECLARE_PUBLIC(QxtDeplex);
     QIODevice * delegate;
-public slots:
+public Q_SLOTS:
     void readyRead();
     void extDestroyed(QObject*);
 };

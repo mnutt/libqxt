@@ -36,7 +36,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtListWidget);
     QxtListWidgetPrivate();
 
-private slots:
+private Q_SLOTS:
     void informStartEditing(const QModelIndex& index);
     void informFinishEditing(const QModelIndex& index);
 };

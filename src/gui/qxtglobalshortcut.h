@@ -47,11 +47,11 @@ public:
 
     bool isEnabled() const;
 
-public slots:
+public Q_SLOTS:
     void setEnabled(bool enabled = true);
     void setDisabled(bool disabled = true);
 
-signals:
+Q_SIGNALS:
     void activated();
 };
 

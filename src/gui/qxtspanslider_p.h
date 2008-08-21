@@ -69,7 +69,7 @@ public:
     QStyle::SubControl lowerPressed;
     QStyle::SubControl upperPressed;
 
-public slots:
+public Q_SLOTS:
     void updateRange(int min, int max);
 };
 

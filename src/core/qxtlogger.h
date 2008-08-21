@@ -128,7 +128,7 @@ public:
     void setMinimumLevel       (LogLevel level);
     void setMinimumLevel       (const QString& engineName, LogLevel level);
 
-public slots:
+public Q_SLOTS:
     /*******************************************************************************
     Logging Functions: what the QxtLogger is all about.
     *******************************************************************************/
@@ -190,7 +190,7 @@ public slots:
     *******************************************************************************/
     void log       (LogLevel level, const QList<QVariant>& args);
 
-signals:
+Q_SIGNALS:
     void loggerEngineAdded(const QString& engineName);
     void loggerEngineRemoved(const QString& engineName);
     void loggerEngineEnabled(const QString& engineName);

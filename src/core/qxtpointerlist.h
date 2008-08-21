@@ -49,7 +49,7 @@ class QXT_CORE_EXPORT QxtPointerListDeleter : public QObject
 Q_OBJECT
 protected:
     virtual void removeThisObject(QObject * obj)=0;
-private slots:
+private Q_SLOTS:
     void removeSender();
 };
 

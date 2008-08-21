@@ -47,7 +47,7 @@ public:
      */
     virtual bool isAcceptingConnections() const = 0;
 
-signals:
+Q_SIGNALS:
     /**
      * Indicates that the specified device, with the specified client ID, is ready for use.
      */
@@ -58,7 +58,7 @@ signals:
      */
     void disconnected(QIODevice* device, quint64 clientID);
 
-public slots:
+public Q_SLOTS:
     void disconnect(quint64 clientID);
 
 protected:

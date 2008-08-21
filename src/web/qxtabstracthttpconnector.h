@@ -50,7 +50,7 @@ protected:
     virtual QHttpRequestHeader parseRequest(QByteArray& buffer) = 0;
     virtual void writeHeaders(QIODevice* device, const QHttpResponseHeader& header) = 0;
 
-private slots:
+private Q_SLOTS:
     void incomingData(QIODevice* device = 0);
     void disconnected();
 
@@ -71,7 +71,7 @@ protected:
     virtual QHttpRequestHeader parseRequest(QByteArray& buffer);
     virtual void writeHeaders(QIODevice* device, const QHttpResponseHeader& header);
 
-private slots:
+private Q_SLOTS:
     void acceptConnection();
 
 private:
@@ -90,7 +90,7 @@ protected:
     virtual QHttpRequestHeader parseRequest(QByteArray& buffer);
     virtual void writeHeaders(QIODevice* device, const QHttpResponseHeader& header);
 
-private slots:
+private Q_SLOTS:
     void acceptConnection();
 
 private:

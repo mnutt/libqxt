@@ -52,7 +52,7 @@ public:
     int updateInterval() const;
     void setUpdateInterval(int msecs);
 
-public slots:
+public Q_SLOTS:
     void setValue(int value);
     void refresh();
     void restart();

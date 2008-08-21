@@ -81,7 +81,7 @@ public:
     static QString settingsPath();
     static void setSettingsPath(const QString& path);
 
-public slots:
+public Q_SLOTS:
     int exec();
     void reset();
     virtual void done(int result);

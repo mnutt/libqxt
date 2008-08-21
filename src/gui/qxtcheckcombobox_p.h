@@ -40,7 +40,7 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 
-signals:
+Q_SIGNALS:
     void checkStateChanged();
 };
 
@@ -56,7 +56,7 @@ public:
     QString defaultText;
     bool containerMousePress;
 
-public slots:
+public Q_SLOTS:
     void updateCheckedItems();
     void toggleCheckState(int index);
 };

@@ -59,10 +59,10 @@ public:
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
 
-public slots:
+public Q_SLOTS:
     void setText(const QString& text);
 
-signals:
+Q_SIGNALS:
     void clicked();
     void textChanged(const QString& text);
 

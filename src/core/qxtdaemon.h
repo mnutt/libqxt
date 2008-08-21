@@ -28,7 +28,7 @@ public:
 private:
     QString m_name;
     QFile *logfile;
-signals:
+Q_SIGNALS:
     void signal(int);
     void hangup();
     void terminate();

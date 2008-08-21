@@ -66,7 +66,7 @@ public:
     void detachSlots(QObject* obj);
     void detachObject(QObject* obj);
 
-public slots:
+public Q_SLOTS:
     void disconnectClient(quint64 id);
     void disconnectServer();
     void disconnectAll();
@@ -89,7 +89,7 @@ public slots:
      */
     void detachSender();
 
-signals:
+Q_SIGNALS:
     /**
      * This signal is emitted after a successful connection from a client.
      *

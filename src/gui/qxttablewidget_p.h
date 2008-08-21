@@ -36,7 +36,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtTableWidget);
     QxtTableWidgetPrivate();
 
-private slots:
+private Q_SLOTS:
     void informStartEditing(const QModelIndex& index);
     void informFinishEditing(const QModelIndex& index);
 };

@@ -49,7 +49,7 @@ public:
     QString translationPath() const
     { return _mTranslationPath; }
 
-public slots:
+public Q_SLOTS:
     void setCurrentLanguage(QLocale::Language language);
     void comboBoxCurrentIndexChanged(int index);
 

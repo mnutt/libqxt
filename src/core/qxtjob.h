@@ -43,11 +43,11 @@ public:
     void join();
 protected:
     virtual void run()=0; 
-signals:
+Q_SIGNALS:
     void done();
 private:
     QXT_DECLARE_PRIVATE(QxtJob);
-signals:
+Q_SIGNALS:
     ///\priv
     void subseed();
 };

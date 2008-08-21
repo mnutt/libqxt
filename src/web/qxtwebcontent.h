@@ -44,14 +44,14 @@ public:
 
     void waitForAllContent();
 
-public slots:
+public Q_SLOTS:
     void ignoreRemainingContent();
 
 protected:
     virtual qint64 readData(char* data, qint64 maxSize);
     virtual qint64 writeData(const char* data, qint64 maxSize);
 
-private slots:
+private Q_SLOTS:
     void errorReceived(QAbstractSocket::SocketError);
 
 private:

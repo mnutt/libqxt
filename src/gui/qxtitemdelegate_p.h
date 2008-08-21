@@ -52,7 +52,7 @@ public:
     mutable QPointer<QWidget> currentEditor;
     mutable QPersistentModelIndex currentEdited;
 
-private slots:
+private Q_SLOTS:
     void closeEditor(QWidget* editor);
 };
 

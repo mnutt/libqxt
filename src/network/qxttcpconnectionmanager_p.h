@@ -39,7 +39,7 @@ public:
 protected:
     void incomingConnection(int socketDescriptor);
 
-private slots:
+private Q_SLOTS:
     void socketDisconnected(QObject* client);
 
 private:

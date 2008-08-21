@@ -92,14 +92,14 @@ public:
     QString pageWhatsThis(int index) const;
     void setPageWhatsThis(int index, const QString& whatsthis);
 
-public slots:
+public Q_SLOTS:
     void setCurrentIndex(int index);
     void setCurrentPage(QWidget* page);
 
     virtual void accept();
     virtual void reject();
 
-signals:
+Q_SIGNALS:
     void currentIndexChanged(int index);
 
 protected:

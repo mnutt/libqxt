@@ -50,7 +50,7 @@ public:
     Qt::TextElideMode elideMode() const;
     void setElideMode(Qt::TextElideMode mode);
 
-signals:
+Q_SIGNALS:
     void itemEditingStarted(QTreeWidgetItem* item);
     void itemEditingFinished(QTreeWidgetItem* item);
     void itemCheckStateChanged(QxtTreeWidgetItem* item);

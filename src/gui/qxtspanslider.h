@@ -46,12 +46,12 @@ public:
     int lowerValue() const;
     int upperValue() const;
 
-public slots:
+public Q_SLOTS:
     void setLowerValue(int lower);
     void setUpperValue(int upper);
     void setSpan(int lower, int upper);
 
-signals:
+Q_SIGNALS:
     void spanChanged(int lower, int upper);
     void lowerValueChanged(int lower);
     void upperValueChanged(int upper);

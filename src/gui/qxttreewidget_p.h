@@ -37,7 +37,7 @@ public:
     QxtTreeWidgetPrivate();
     QxtItemDelegate* delegate() const;
 
-private slots:
+private Q_SLOTS:
     void informStartEditing(const QModelIndex& index);
     void informFinishEditing(const QModelIndex& index);
     void expandCollapse(QTreeWidgetItem* item);

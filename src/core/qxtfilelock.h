@@ -63,7 +63,7 @@ public:
     QFile *file() const;
     QxtFileLock::Mode mode() const;
 
-public slots:
+public Q_SLOTS:
     bool lock ();
     bool unlock();
 

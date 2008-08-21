@@ -57,12 +57,12 @@ public:
     QLocale::Language currentLanguage() const;
     QString currentLanguageName() const;
 
-public slots:
+public Q_SLOTS:
     void setCurrentLanguage(QLocale::Language lang);
     void setDisplayMode(DisplayMode mode);
     void setTranslationPath(const QString& path);
 
-signals:
+Q_SIGNALS:
     void currentLanguageChanged(QLocale::Language country);
     void currentLanguageNameChanged(const QString& name);
 

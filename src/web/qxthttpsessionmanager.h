@@ -68,10 +68,10 @@ protected:
     virtual int newSession();
     virtual void incomingRequest(quint32 requestID, const QHttpRequestHeader& header, QxtWebContent* device);
 
-protected slots:
+protected Q_SLOTS:
     virtual void processEvents();
 
-private slots:
+private Q_SLOTS:
     void closeConnection(int requestID);
     void chunkReadyRead(int requestID, QObject* dataSource);
     void sendNextChunk(int requestID, QObject* dataSource);
