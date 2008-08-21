@@ -44,7 +44,7 @@ public:
     bool isCollapsive() const;
     void setCollapsive(bool enabled);
 
-public slots:
+public Q_SLOTS:
     void setCollapsed(bool collapsed = true);
     void setExpanded(bool expanded = true);
 

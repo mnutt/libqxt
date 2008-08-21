@@ -65,7 +65,7 @@ public:
                             const QVariant& p3 = QVariant(), const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(),
                             const QVariant& p6 = QVariant(), const QVariant& p7 = QVariant()) const;
 
-public slots:
+public Q_SLOTS:
     void clientConnected(QIODevice* dev, quint64 id);
     void clientDisconnected(QIODevice* dev, quint64 id);
     void clientData(quint64 id);

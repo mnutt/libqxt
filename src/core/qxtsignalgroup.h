@@ -44,10 +44,10 @@ public:
     bool hasReceivedFirstSignal() const;
     bool hasReceivedAllSignals() const;
 
-public slots:
+public Q_SLOTS:
     void reset();
     
-signals:
+Q_SIGNALS:
     void firstSignalReceived();
     void allSignalsReceived();
 };

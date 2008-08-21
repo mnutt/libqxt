@@ -59,9 +59,9 @@ public:
     QWaitCondition synca;
 
 
-public slots:
+public Q_SLOTS:
     void inwrap_d();
-signals:
+Q_SIGNALS:
     void done();
 
 };

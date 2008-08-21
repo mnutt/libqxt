@@ -48,10 +48,10 @@ public:
     QLocale::Country currentCountry() const;
     QString currentCountryName() const;
 
-public slots:
+public Q_SLOTS:
     void setCurrentCountry(QLocale::Country country);
 
-signals:
+Q_SIGNALS:
     void currentCountryChanged(QLocale::Country country);
     void currentCountryNameChanged(const QString& name);
 

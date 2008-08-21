@@ -39,7 +39,7 @@ public:
     QHash<QString, QxtAbstractWebService*> services;
     QString defaultRedirect;
 
-public slots:
+public Q_SLOTS:
     void serviceDestroyed();
 };
 #endif

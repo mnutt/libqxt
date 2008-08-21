@@ -41,7 +41,7 @@ public:
     QLocale::Country currentCountry() const;
     QString currentCountryName() const;
 
-public slots:
+public Q_SLOTS:
     void setCurrentCountry(QLocale::Country country);
     void comboBoxCurrentIndexChanged(int index);
 };

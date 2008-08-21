@@ -43,7 +43,7 @@ public:
     bool listen(QHostAddress iface = QHostAddress::Any, int port = 80);
     void stopListening();
 
-signals:
+Q_SIGNALS:
     /**
      * This signal is emitted after a successful connection to a server.
      */

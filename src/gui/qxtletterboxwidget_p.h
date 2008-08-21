@@ -37,7 +37,7 @@ public:
 
     QxtLetterBoxWidgetPrivate();
 
-public slots:
+public Q_SLOTS:
     void resize();
 
 public:

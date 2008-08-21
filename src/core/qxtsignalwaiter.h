@@ -44,7 +44,7 @@ public:
     bool wait(int msec = -1, QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents);
     bool hasCapturedSignal() const;
     
-public slots:
+public Q_SLOTS:
     void signalCaught();
     void cancelWait();
 

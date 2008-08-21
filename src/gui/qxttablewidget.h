@@ -42,7 +42,7 @@ public:
     explicit QxtTableWidget(int rows, int columns, QWidget* parent = 0);
     virtual ~QxtTableWidget();
 
-signals:
+Q_SIGNALS:
     void itemEditingStarted(QTableWidgetItem* item);
     void itemEditingFinished(QTableWidgetItem* item);
     void itemCheckStateChanged(QxtTableWidgetItem* item);

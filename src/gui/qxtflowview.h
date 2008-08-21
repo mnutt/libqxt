@@ -144,7 +144,7 @@ public:
     void setTextColumn(int);
     #endif
 
-public slots:
+public Q_SLOTS:
 
     /*! Sets slide to be shown in the middle of the viewport. No animation 
         effect will be produced, unlike using showSlide. */  
@@ -165,7 +165,7 @@ public slots:
     /*! Schedules a rendering update. Unlike render(), this function does not cause immediate rendering.*/
     void triggerRender();
 
-signals:
+Q_SIGNALS:
     void currentIndexChanged(QModelIndex index);
 
 protected:
@@ -176,7 +176,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void resizeEvent(QResizeEvent* event);
     virtual void wheelEvent ( QWheelEvent * event );
-private slots:
+private Q_SLOTS:
     void updateAnimation();
 
 private:

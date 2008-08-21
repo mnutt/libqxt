@@ -41,7 +41,7 @@ public:
     explicit QxtListWidget(QWidget* parent = 0);
     virtual ~QxtListWidget();
 
-signals:
+Q_SIGNALS:
     void itemEditingStarted(QListWidgetItem* item);
     void itemEditingFinished(QListWidgetItem* item);
     void itemCheckStateChanged(QxtListWidgetItem* item);

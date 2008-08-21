@@ -48,7 +48,7 @@ public:
 protected:
     int createService();
 
-protected slots:
+protected Q_SLOTS:
     virtual void processEvents() = 0;
 
 private:

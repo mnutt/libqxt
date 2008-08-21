@@ -41,7 +41,7 @@ public:
     QIODevice * socket() const;
 
     void sendLine(QByteArray);
-signals:
+Q_SIGNALS:
     void newLineReceived(QByteArray);
 protected:
     virtual void newLine(QByteArray);

@@ -58,7 +58,7 @@ protected:
     void dragMoveEvent(QDragMoveEvent* event);
     void dropEvent(QDropEvent* event);
 
-signals:
+Q_SIGNALS:
     void tabMoved(int fromIndex, int toIndex);
 };
 

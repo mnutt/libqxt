@@ -46,7 +46,7 @@ public:
 
     QList<QMovie*> animations;
 
-public slots:
+public Q_SLOTS:
     void setMovieFrame(int frame);
 };
 

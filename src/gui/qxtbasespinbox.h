@@ -50,10 +50,10 @@ public:
 
     int base() const;
 
-public slots:
+public Q_SLOTS:
     void setBase(int base);
 
-signals:
+Q_SIGNALS:
     void baseChanged(int base);
 
 protected:

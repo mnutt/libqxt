@@ -272,7 +272,7 @@ public:
     QPoint lastgrabpos;
     QModelIndex rootindex;
 
-public slots:
+public Q_SLOTS:
     void columnsAboutToBeInserted ( const QModelIndex & parent, int start, int end );
     void columnsAboutToBeRemoved ( const QModelIndex & parent, int start, int end );
     void columnsInserted ( const QModelIndex & parent, int start, int end );

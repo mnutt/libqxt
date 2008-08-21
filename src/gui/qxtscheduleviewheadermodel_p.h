@@ -67,7 +67,7 @@ class QxtScheduleViewHeaderModel : public QAbstractTableModel
         virtual Qt::ItemFlags   flags           ( const QModelIndex &index) const;
         virtual bool            hasChildren     ( const QModelIndex & parent = QModelIndex() ) const;   
         
-    public slots:
+    public Q_SLOTS:
         void                    newZoomDepth    ( const int zoomDepth );
         void                    viewModeChanged ( const int viewMode  );
     

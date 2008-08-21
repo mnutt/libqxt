@@ -77,7 +77,7 @@ public:
     void setTabAnimation(int index, const QString& fileName, bool start = true);
     QMovie* takeTabAnimation(int index);
 
-signals:
+Q_SIGNALS:
     void tabContextMenuRequested(int index, const QPoint& globalPos);
 
 protected:

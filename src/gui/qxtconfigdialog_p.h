@@ -75,7 +75,7 @@ public:
     QxtConfigTableWidget* table;
     QxtConfigDialog::IconPosition pos;
 
-public slots:
+public Q_SLOTS:
     void setCurrentIndex(int row, int column);
     void setCurrentIndex(int index);
 };

@@ -45,7 +45,7 @@ public:
     QHash<QString, QxtLoggerEngine*> map_logEngineMap;
     QMutex* mut_lock;
 
-public slots:
+public Q_SLOTS:
     void log(QxtLogger::LogLevel, const QList<QVariant>&);
 };
 

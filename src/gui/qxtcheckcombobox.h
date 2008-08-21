@@ -56,10 +56,10 @@ public:
 
     QStringList checkedItems() const;
 
-public slots:
+public Q_SLOTS:
     void setCheckedItems(const QStringList& items);
 
-signals:
+Q_SIGNALS:
     void checkedItemsChanged(const QStringList& items);
 };
 

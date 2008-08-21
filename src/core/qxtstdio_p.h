@@ -15,7 +15,7 @@ public:
     bool hadeof;
 private:
     QSocketNotifier * notify;
-private slots:
+private Q_SLOTS:
     void activated(int );
 };
 

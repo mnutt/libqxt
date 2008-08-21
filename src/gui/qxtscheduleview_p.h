@@ -167,7 +167,7 @@ class QxtScheduleViewPrivate : public QObject,public QxtPrivate<QxtScheduleView>
         bool handlesConcurrency;
         QxtScheduleItemDelegate *delegate;
 
-    public slots:
+    public Q_SLOTS:
         void itemGeometryChanged(QxtScheduleInternalItem * item, QVector<QRect> oldGeometry);        
         void scrollTimerTimeout();
 
