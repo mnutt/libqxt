@@ -438,4 +438,4 @@ QxtLongTuple(int, int, int, int, int, int, int, int, int, int) tuple;           
 
 #endif
 
-#endif
+#endif // QXTTUPLE_H

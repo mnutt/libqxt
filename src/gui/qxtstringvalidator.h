@@ -32,7 +32,9 @@
 #include "qxtglobal.h"
 
 class QxtStringValidatorPrivate;
+QT_BEGIN_NAMESPACE
 class QAbstractItemModel;
+QT_END_NAMESPACE
 
 class QXT_GUI_EXPORT QxtStringValidator : public QValidator
 {

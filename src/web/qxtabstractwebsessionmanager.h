@@ -55,4 +55,4 @@ private:
     QXT_DECLARE_PRIVATE(QxtAbstractWebSessionManager);
 };
 
-#endif
+#endif // QXTABSTRACTWEBSESSIONMANAGER_H

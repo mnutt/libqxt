@@ -21,12 +21,12 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtStdin_H_GUARD
-#define QxtStdin_H_GUARD
+#ifndef QXTSTDIO_H
+#define QXTSTDIO_H
+
 #include <qxtglobal.h>
 #include <qxtpimpl.h>
 #include <qxtpipe.h>
-
 
 class QxtStdioPrivate;
 class QXT_CORE_EXPORT QxtStdio : public QxtPipe
@@ -51,4 +51,5 @@ protected:
 
 
 };
-#endif
+
+#endif // QXTSTDIO_H

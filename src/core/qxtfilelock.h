@@ -22,9 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QXTFILELOCK_H_INCLUDED
-#define QXTFILELOCK_H_INCLUDED
-
+#ifndef QXTFILELOCK_H
+#define QXTFILELOCK_H
 
 #include <QFile>
 #include <QObject>
@@ -71,4 +70,5 @@ private:
     QxtFileLock(const QxtFileLock &other);
     QXT_DECLARE_PRIVATE(QxtFileLock);
 };
-#endif
+
+#endif // QXTFILELOCK_H

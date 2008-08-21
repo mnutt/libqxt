@@ -22,6 +22,9 @@
 **
 ****************************************************************************/
 
+#ifndef QXTLINESOCKET_P_H
+#define QXTLINESOCKET_P_H
+
 #include "qxtlinesocket.h"
 
 class QxtLineSocketPrivate : public QObject,public QxtPrivate<QxtLineSocket>
@@ -41,3 +44,5 @@ public Q_SLOTS:
     void readyRead();
 
 };
+
+#endif // QXTLINESOCKET_P_H

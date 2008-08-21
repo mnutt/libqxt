@@ -50,9 +50,11 @@ public:
     static void setOpacity(qreal level);
 };
 
+QT_BEGIN_NAMESPACE
 inline uint qHash(const QPointer<QWidget> key)
 {
     return reinterpret_cast<quint64>(key ? (&*key) : 0);
 }
+QT_END_NAMESPACE
 
 #endif // QXTTOOLTIP_H

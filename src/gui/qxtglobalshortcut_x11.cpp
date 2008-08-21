@@ -65,7 +65,7 @@ bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativ
     Bool owner = True;
     int pointer = GrabModeAsync;
     int keyboard = GrabModeAsync;
-    return XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard);
+    return XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard) == GrabSuccess;
 }
 
 bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nativeMods)

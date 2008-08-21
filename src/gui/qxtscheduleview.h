@@ -36,12 +36,14 @@
 #include "qxtglobal.h"
 #include "qxtnamespace.h"
 
-class QxtScheduleItemDelegate;
+QT_BEGIN_NAMESPACE
 class QResizeEvent;
-class QxtScheduleViewPrivate;
-class QxtScheduleInternalItem;
 class QAbstractItemModel;
 class QWidget;
+QT_END_NAMESPACE
+class QxtScheduleItemDelegate;
+class QxtScheduleViewPrivate;
+class QxtScheduleInternalItem;
 
 #if 0
 enum

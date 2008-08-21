@@ -21,6 +21,9 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
+#ifndef QXTSLOTJOB_P_H
+#define QXTSLOTJOB_P_H
+
 #include "qxtslotjob.h"
 #include <qxtsignalwaiter.h>
 #include <qxtboundfunction.h>
@@ -35,3 +38,4 @@ public:
     QXT_DECLARE_PUBLIC(QxtSlotJob);
 };
 
+#endif // QXTSLOTJOB_P_H

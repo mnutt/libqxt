@@ -32,8 +32,10 @@
 #include <QMultiHash>
 #include <QFlags>
 class QxtCommandOptionsPrivate;
+QT_BEGIN_NAMESPACE
 class QTextStream;
 class QIODevice;
+QT_END_NAMESPACE
 
 /**
 \class QxtCommandOptions QxtCommandOptions

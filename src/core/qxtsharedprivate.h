@@ -104,14 +104,14 @@ if you ever really want to define a copy constructor for your public class, reme
 Also remember you must not delete the private data yourself at any time.
 */
 
-#ifndef QXTSHAREDPRIVATE_H_HEADER_GUARD
-#define QXTSHAREDPRIVATE_H_HEADER_GUARD
+#ifndef QXTSHAREDPRIVATE_H
+#define QXTSHAREDPRIVATE_H
 
 #include <QSharedData>
 #include <QSharedDataPointer>
+#include <qxtglobal.h>
 
 #ifndef QXT_DOXYGEN_RUN
-
 
 template <typename PVT>
 class QxtSharedPrivateData : public QSharedData
@@ -131,13 +131,10 @@ public:
     PVT * data;
 };
 
-#endif
-
-
-
+#endif // QXT_DOXYGEN_RUN
 
 template <typename PVT>
-class QxtSharedPrivate
+class QXT_CORE_EXPORT QxtSharedPrivate
 {
 public:
 
@@ -173,17 +170,4 @@ private:
     QSharedDataPointer<QxtSharedPrivateData<PVT> > pvt;
 };
 
-
-
-
-
-
-
-
-
-#endif
-
-
-
-
-
+#endif // QXTSHAREDPRIVATE_H

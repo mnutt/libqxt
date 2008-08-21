@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QxtPipe_H_GUARD
-#define QxtPipe_H_GUARD
+#ifndef QXTPIPE_H
+#define QXTPIPE_H
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
@@ -59,5 +59,4 @@ private:
 
 };
 
-#endif
-
+#endif // QXTPIPE_H

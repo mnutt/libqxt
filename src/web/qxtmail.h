@@ -21,19 +21,15 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTMAIL_HEADER_GUARDJKLNS
-#define QXTMAIL_HEADER_GUARDJKLNS
-
+#ifndef QXTMAIL_H
+#define QXTMAIL_H
 
 #include <qxtpimpl.h>
 #include <qxtglobal.h>
 #include <qxtsharedprivate.h>
 
 #include <QObject>
-
-
 #include <QStringList>
-
 
 struct QxtMailPrivate;
 class QXT_WEB_EXPORT QxtMail
@@ -62,6 +58,4 @@ private:
     QxtSharedPrivate<QxtMailPrivate> qxt_d;
 };
 
-
-#endif
-
+#endif // QXTMAIL_H

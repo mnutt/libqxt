@@ -28,9 +28,11 @@
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
+QT_BEGIN_NAMESPACE
 class QTableWidget;
 class QStackedWidget;
 class QDialogButtonBox;
+QT_END_NAMESPACE
 class QxtConfigDialogPrivate;
 
 class QXT_GUI_EXPORT QxtConfigDialog : public QDialog

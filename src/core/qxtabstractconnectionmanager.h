@@ -28,7 +28,10 @@
 #include <QObject>
 #include <qxtglobal.h>
 #include <qxtpimpl.h>
+
+QT_BEGIN_NAMESPACE
 class QIODevice;
+QT_END_NAMESPACE
 
 class QxtAbstractConnectionManagerPrivate;
 class QXT_CORE_EXPORT QxtAbstractConnectionManager : public QObject {

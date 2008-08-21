@@ -21,14 +21,16 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QXTLINESOCKET_H_GUARD_ioadniaosd
-#define QXTLINESOCKET_H_GUARD_ioadniaosd
+#ifndef QXTLINESOCKET_H
+#define QXTLINESOCKET_H
 
 #include <QObject>
 #include <qxtpimpl.h>
 #include <qxtglobal.h>
 
+QT_BEGIN_NAMESPACE
 class QIODevice;
+QT_END_NAMESPACE
 class QxtLineSocketPrivate;
 class QXT_CORE_EXPORT QxtLineSocket: public QObject
 {
@@ -50,6 +52,4 @@ private:
 
 };
 
-
-#endif
-
+#endif // QXTLINESOCKET_H
