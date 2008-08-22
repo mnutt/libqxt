@@ -141,21 +141,25 @@ qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
     return maxSize;
 }
 
-
 bool QxtFifo::isSequential () const
 {
     return true;
 }
-
 
 qint64 QxtFifo::bytesAvailable () const
 {
     return qxt_d().available;
 }
 
-
-
-
-
-
-
+void QxtFifo::clear()
+{
+    qxt_d().available.fetchAndStoreOrdered(0);
+    qxt_d().tail.fetchAndStoreOrdered(qxt_d().head);
+    QxtFifoNode* node = qxt_d().head->next.fetchAndStoreOrdered(NULL);
+    while(node && node->next) {
+        QxtFifoNode* next = node->next.fetchAndStoreOrdered(NULL);
+        delete node;
+        node = next;
+    }
+    qxt_d().head->content = QByteArray();
+}
