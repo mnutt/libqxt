@@ -25,7 +25,7 @@
 #ifndef QXTALGORITHMS_H
 #define QXTALGORITHMS_H
 
-template<typename InputIterator>
+template<typename InputIterator, typename LessThan>
 InputIterator qxtMinimum(InputIterator begin, InputIterator end, LessThan lessThan) {
     InputIterator iter = begin, rv = begin;
     while((++iter) != end) {
@@ -48,13 +48,9 @@ Container::iterator qxtMinimum(const Container& container) {
     return qxtMinimum(container.begin(), container.end(), qLess<Container::value_type>());
 }
 
-template<typename InputIterator>
+template<typename InputIterator, typename GreaterThan>
 InputIterator qxtMaximum(InputIterator begin, InputIterator end, GreaterThan greaterThan) {
-    InputIterator iter = begin, rv = begin;
-    while((++iter) != end) {
-        if(greaterThan(*iter, *rv)) rv = iter;
-    }
-    return rv;
+    return qxtMinimum(begin, end, greaterThan);
 }
 
 template<typename InputIterator>
