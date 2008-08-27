@@ -44,7 +44,7 @@ InputIterator qxtMinimum(InputIterator begin, InputIterator end) {
 }
 
 template<typename Container>
-typename Container::iterator qxtMinimum(const Container& container) {
+typename Container::const_iterator qxtMinimum(const Container& container) {
     return qxtMinimum(container.begin(), container.end());
 }
 
@@ -63,7 +63,7 @@ InputIterator qxtMaximum(InputIterator begin, InputIterator end) {
 }
 
 template<typename Container>
-typename Container::iterator qxtMaximum(const Container& container) {
+typename Container::const_iterator qxtMaximum(const Container& container) {
     return qxtMinimum(container.begin(), container.end());
 }
 
