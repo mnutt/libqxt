@@ -1,5 +1,6 @@
 HEADERS  += qxtabstractconnectionmanager.h
 HEADERS  += qxtabstractsignalserializer.h
+HEADERS  += qxtalgorithms.h
 HEADERS  += qxtboundcfunction.h
 HEADERS  += qxtboundfunction.h
 HEADERS  += qxtboundfunctionbase.h
