@@ -26,6 +26,7 @@
 #include <QIODevice>
 #include <QDataStream>
 #include <QtGlobal>
+#include <QtDebug>
 #include <qendian.h>
 
 QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVariant& p1, const QVariant& p2, const QVariant& p3,
