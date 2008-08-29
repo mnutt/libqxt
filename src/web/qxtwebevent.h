@@ -70,6 +70,8 @@ public:
     const QUrl originalUrl;
     QString contentType;
     QPointer<QxtWebContent> content;
+    QString method;
+    QString remoteAddress;
 
     QMultiHash<QString, QString> cookies;
     QMultiHash<QString, QString> headers;

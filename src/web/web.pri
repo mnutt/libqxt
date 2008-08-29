@@ -11,6 +11,7 @@ SOURCES += qxtwebcontent.cpp
 SOURCES += qxtwebevent.cpp
 SOURCES += qxtwebservicedirectory.cpp
 SOURCES += qxtwebslotservice.cpp
+SOURCES += qxtwebcgiservice.cpp
 
 HEADERS += qxtabstracthttpconnector.h
 HEADERS += qxtabstractwebservice.h
@@ -26,3 +27,5 @@ HEADERS += qxtwebevent.h
 HEADERS += qxtwebservicedirectory.h
 HEADERS += qxtwebservicedirectory_p.h
 HEADERS += qxtwebslotservice.h
+HEADERS += qxtwebcgiservice.h
+HEADERS += qxtwebcgiservice_p.h
