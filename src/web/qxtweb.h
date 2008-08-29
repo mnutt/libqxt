@@ -24,6 +24,7 @@
 #include "qxtabstracthttpconnector.h"
 #include "qxtabstractwebservice.h"
 #include "qxtabstractwebsessionmanager.h"
+#include "qxtwebcgiservice.h"
 #include "qxthtmltemplate.h"
 #include "qxthttpsessionmanager.h"
 #include "qxtmail.h"

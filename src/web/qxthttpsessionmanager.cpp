@@ -318,7 +318,9 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
     } else {
         sessionID = 0;
     }
-    QxtHttpSessionManagerPrivate::ConnectionState& state = qxt_d().connectionState[connector()->getRequestConnection(requestID)];
+    
+    QIODevice* device = connector()->getRequestConnection(requestID);
+    QxtHttpSessionManagerPrivate::ConnectionState& state = qxt_d().connectionState[device];
     state.sessionID = sessionID;
     state.httpMajorVersion = header.majorVersion();
     state.httpMinorVersion = header.minorVersion();
@@ -329,10 +331,17 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
     qxt_d().sessionLock.unlock();
 
     QxtWebRequestEvent* event = new QxtWebRequestEvent(sessionID, requestID, QUrl(header.path()));
+    QTcpSocket* socket = qobject_cast<QTcpSocket*>(device);
+    if(socket) {
+        event->remoteAddress = socket->peerAddress().toString();
+    }
+    event->method = header.method();
     event->cookies = cookies;
     event->url.setScheme("http");
     if(event->url.host().isEmpty())
         event->url.setHost(header.value("host"));
+    if(event->url.port() == -1)
+        event->url.setPort(port());
     event->contentType = header.contentType();
     event->content = content;
     typedef QPair<QString,QString> StringPair;
@@ -340,6 +349,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
         if(line.first.toLower() == "cookie") continue;
         event->headers.insert(line.first, line.second);
     }
+    event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + "." + QString::number(state.httpMinorVersion));
     if(sessionID) {
         session(sessionID)->pageRequestedEvent(event);
     } else if(qxt_d().staticService) {
@@ -396,12 +406,15 @@ void QxtHttpSessionManager::processEvents() {
         if(e->type() == QxtWebEvent::StoreCookie) {
             QxtWebStoreCookieEvent* ce = static_cast<QxtWebStoreCookieEvent*>(e);
             QString cookie = ce->name + "=" + ce->data;
-            if(ce->expiration.isValid()) cookie += "; expires=" + ce->expiration.toUTC().toString("ddd, dd-MMM-YYYY hh:mm:ss GMT");
+            if(ce->expiration.isValid()) {
+                cookie += "; max-age=" + QString::number(QDateTime::currentDateTime().secsTo(ce->expiration))
+                        + "; expires=" + ce->expiration.toUTC().toString("ddd, dd-MMM-YYYY hh:mm:ss GMT");
+            }
             header.addValue("set-cookie", cookie);
             removeIDs.push_front(i);
         } else if(e->type() == QxtWebEvent::RemoveCookie) {
             QxtWebRemoveCookieEvent* ce = static_cast<QxtWebRemoveCookieEvent*>(e);
-            header.addValue("set-cookie", ce->name + "=; expires=" + QDateTime(QDate(1970, 1, 1)).toString("ddd, dd-MMM-YYYY hh:mm:ss GMT"));
+            header.addValue("set-cookie", ce->name + "=; max-age=0; expires=" + QDateTime(QDate(1970, 1, 1)).toString("ddd, dd-MMM-YYYY hh:mm:ss GMT"));
             removeIDs.push_front(i);
         }
     }
@@ -502,8 +515,10 @@ void QxtHttpSessionManager::sendNextChunk(int requestID, QObject* dataSourceObje
         return;
     }
     QByteArray chunk = dataSource->read(32768); // this is a good chunk size
-    QByteArray data = QString::number(chunk.size(), 16).toUtf8()+"\r\n"+chunk+"\r\n";
-    device->write(data);
+    if(chunk.size()) {
+        QByteArray data = QString::number(chunk.size(), 16).toUtf8()+"\r\n"+chunk+"\r\n";
+        device->write(data);
+    }
     state.readyRead = false;
     if(!state.streaming && !dataSource->bytesAvailable())
         QMetaObject::invokeMethod(this, "sendEmptyChunk", Q_ARG(int, requestID), Q_ARG(QObject*, dataSource));
