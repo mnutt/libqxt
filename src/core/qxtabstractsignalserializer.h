@@ -32,7 +32,8 @@
 #include <QPair>
 #include <QByteArray>
 
-class QXT_CORE_EXPORT QxtAbstractSignalSerializer {
+class QXT_CORE_EXPORT QxtAbstractSignalSerializer
+{
 public:
     typedef QPair<QString, QList<QVariant> > DeserializedData;
 
@@ -61,22 +62,36 @@ public:
     /**
      * Returns an object that indicates that the deserialized data does not invoke a signal.
      */
-    static inline DeserializedData NoOp() { static DeserializedData rv = qMakePair(QString(), QList<QVariant>()); return rv; }
+    static inline DeserializedData NoOp()
+    {
+        static DeserializedData rv = qMakePair(QString(), QList<QVariant>());
+        return rv;
+    }
 
     /**
      * Returns an object that indicates that the deserialized data indicates a fatal protocol error.
      */
-    static inline DeserializedData ProtocolError() { static DeserializedData rv = qMakePair(QString(), QList<QVariant>() << QVariant()); return rv; }
-    
+    static inline DeserializedData ProtocolError()
+    {
+        static DeserializedData rv = qMakePair(QString(), QList<QVariant>() << QVariant());
+        return rv;
+    }
+
     /**
      * Checks to see if the provided object does not invoke a signal.
      */
-    static inline bool isNoOp(const DeserializedData& value) { return value.first.isEmpty() && value.second.isEmpty(); }
-    
+    static inline bool isNoOp(const DeserializedData& value)
+    {
+        return value.first.isEmpty() && value.second.isEmpty();
+    }
+
     /**
      * Checks to see if the provided object indicates a fatal protocol error.
      */
-    static inline bool isProtocolError(const DeserializedData& value) { return value.first.isEmpty() && !value.second.isEmpty(); }
+    static inline bool isProtocolError(const DeserializedData& value)
+    {
+        return value.first.isEmpty() && !value.second.isEmpty();
+    }
 };
 
 #endif

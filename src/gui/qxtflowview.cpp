@@ -54,12 +54,12 @@
     \ingroup QxtGui
     \brief An ItemView for Images with impressive Flow effects
 
-    an image show widget with animation effect 
-    like Apple's CoverFlow (in iTunes and iPod). Images are arranged in form 
-    of slides, one main slide is shown at the center with few slides on 
-    the left and right sides of the center slide. When the next or previous 
-    slide is brought to the front, the whole slides flow to the right or 
-    the right with smooth animation effect; until the new slide is finally 
+    an image show widget with animation effect
+    like Apple's CoverFlow (in iTunes and iPod). Images are arranged in form
+    of slides, one main slide is shown at the center with few slides on
+    the left and right sides of the center slide. When the next or previous
+    slide is brought to the front, the whole slides flow to the right or
+    the right with smooth animation effect; until the new slide is finally
     placed at the center.
     <br>
     <br>
@@ -81,11 +81,11 @@ QxtFlowView::QxtFlowView(QWidget* parent): QWidget(parent)
 {
     d = new QxtFlowViewPrivate;
 
-    d->model=0;
-    d->picrole=Qt::DecorationRole;
-    d->textrole=Qt::DisplayRole;
-    d->piccolumn=0;
-    d->textcolumn=0;
+    d->model = 0;
+    d->picrole = Qt::DecorationRole;
+    d->textrole = Qt::DisplayRole;
+    d->piccolumn = 0;
+    d->textcolumn = 0;
 
 
 
@@ -171,7 +171,7 @@ int QxtFlowView::pictureRole()
 
 void QxtFlowView::setPictureRole(int a)
 {
-    d->picrole=a;
+    d->picrole = a;
     d->reset();
 }
 
@@ -186,7 +186,7 @@ int QxtFlowView::picureColumn()
 
 void QxtFlowView::setPicureColumn(int a)
 {
-    d->piccolumn=a;
+    d->piccolumn = a;
     d->reset();
 }
 
@@ -198,7 +198,7 @@ int QxtFlowView::textRole()
 
 void QxtFlowView::setTextRole(int a)
 {
-    d->textrole= a;
+    d->textrole = a;
     d->reset();
 }
 
@@ -209,7 +209,7 @@ int QxtFlowView::textColumn()
 
 void QxtFlowView::setTextColumn(int a)
 {
-    d->textcolumn=a;
+    d->textcolumn = a;
     d->reset();
 }
 #endif
@@ -222,14 +222,14 @@ QModelIndex QxtFlowView::rootIndex() const
 
 void QxtFlowView::setRootIndex(QModelIndex index)
 {
-    d->rootindex=index;
+    d->rootindex = index;
 }
 
 
 
 QModelIndex QxtFlowView::currentIndex() const
 {
-    if(!d->model)
+    if (!d->model)
         return QModelIndex();
     return d->currentcenter;
 }
@@ -257,14 +257,14 @@ void QxtFlowView::showPrevious()
     int step = d->animator->step;
     int center = d->state->centerIndex;
 
-    if(step > 0)
+    if (step > 0)
         d->animator->start(center);
 
-    if(step == 0)
-        if(center > 0)
+    if (step == 0)
+        if (center > 0)
             d->animator->start(center - 1);
 
-    if(step < 0)
+    if (step < 0)
         d->animator->target = qMax(0, center - 2);
 }
 
@@ -273,21 +273,21 @@ void QxtFlowView::showNext()
     int step = d->animator->step;
     int center = d->state->centerIndex;
 
-    if(step < 0)
+    if (step < 0)
         d->animator->start(center);
 
-    if(step == 0)
-        if(center < d->state->slideImages.count()-1)
+    if (step == 0)
+        if (center < d->state->slideImages.count() - 1)
             d->animator->start(center + 1);
 
-    if(step > 0)
-        d->animator->target = qMin(center + 2, d->state->slideImages.count()-1);
+    if (step > 0)
+        d->animator->target = qMin(center + 2, d->state->slideImages.count() - 1);
 }
 
 void QxtFlowView::showSlide(QModelIndex index)
 {
-    int r=d->modelmap.indexOf(index);
-    if(r<0)
+    int r = d->modelmap.indexOf(index);
+    if (r < 0)
         return;
 
     d->showSlide(r);
@@ -295,20 +295,20 @@ void QxtFlowView::showSlide(QModelIndex index)
 
 void QxtFlowView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Left)
+    if (event->key() == Qt::Key_Left)
     {
-        if(event->modifiers() == Qt::ControlModifier)
-            d->showSlide(currentIndex().row()-10);
+        if (event->modifiers() == Qt::ControlModifier)
+            d->showSlide(currentIndex().row() - 10);
         else
             showPrevious();
         event->accept();
         return;
     }
 
-    if(event->key() == Qt::Key_Right)
+    if (event->key() == Qt::Key_Right)
     {
-        if(event->modifiers() == Qt::ControlModifier)
-            d->showSlide(currentIndex().row()+10);
+        if (event->modifiers() == Qt::ControlModifier)
+            d->showSlide(currentIndex().row() + 10);
         else
             showNext();
         event->accept();
@@ -320,23 +320,23 @@ void QxtFlowView::keyPressEvent(QKeyEvent* event)
 
 void QxtFlowView::mousePressEvent(QMouseEvent* event)
 {
-    d->lastgrabpos=event->pos();
+    d->lastgrabpos = event->pos();
 }
 
 
 
-void QxtFlowView::mouseMoveEvent ( QMouseEvent * event )
+void QxtFlowView::mouseMoveEvent(QMouseEvent * event)
 {
-    int i=(event->pos()-d->lastgrabpos).x()/(d->state->slideWidth/4);
-    if(i>0)
+    int i = (event->pos() - d->lastgrabpos).x() / (d->state->slideWidth / 4);
+    if (i > 0)
     {
         showPrevious();
-        d->lastgrabpos=event->pos();
+        d->lastgrabpos = event->pos();
     }
-    if(i<0)
+    if (i < 0)
     {
         showNext();
-        d->lastgrabpos=event->pos();
+        d->lastgrabpos = event->pos();
     }
 
 }
@@ -362,29 +362,29 @@ void QxtFlowView::resizeEvent(QResizeEvent* event)
 
 
 
-void QxtFlowView::wheelEvent ( QWheelEvent * event )
+void QxtFlowView::wheelEvent(QWheelEvent * event)
 {
 
-    if (event->orientation() == Qt::Horizontal) 
+    if (event->orientation() == Qt::Horizontal)
     {
         event->ignore();
-    } 
-    else 
+    }
+    else
     {
         int numSteps = -((event->delta() / 8) / 15);
 
 
 
-        if(numSteps>0)
+        if (numSteps > 0)
         {
-            for (int i=0;i<numSteps;i++)
+            for (int i = 0;i < numSteps;i++)
             {
                 showNext();
             }
         }
         else
         {
-            for (int i=numSteps;i<0;i++)
+            for (int i = numSteps;i < 0;i++)
             {
                 showPrevious();
             }
@@ -403,9 +403,9 @@ void QxtFlowView::updateAnimation()
     int old_center = d->state->centerIndex;
     d->animator->update();
     triggerRender();
-    if(d->state->centerIndex != old_center)
+    if (d->state->centerIndex != old_center)
     {
-        d->currentcenter=d->modelmap.at(d->state->centerIndex);
+        d->currentcenter = d->modelmap.at(d->state->centerIndex);
         emit currentIndexChanged(d->currentcenter);
     }
 }
@@ -418,7 +418,7 @@ void QxtFlowView::updateAnimation()
 
 
 
-void QxtFlowViewPrivate::columnsAboutToBeInserted ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::columnsAboutToBeInserted(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
@@ -426,7 +426,7 @@ void QxtFlowViewPrivate::columnsAboutToBeInserted ( const QModelIndex & parent, 
 
 }
 
-void QxtFlowViewPrivate::columnsAboutToBeRemoved ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::columnsAboutToBeRemoved(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
@@ -434,7 +434,7 @@ void QxtFlowViewPrivate::columnsAboutToBeRemoved ( const QModelIndex & parent, i
 
 }
 
-void QxtFlowViewPrivate::columnsInserted ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::columnsInserted(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
@@ -442,33 +442,33 @@ void QxtFlowViewPrivate::columnsInserted ( const QModelIndex & parent, int start
 
 }
 
-void QxtFlowViewPrivate::columnsRemoved ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::columnsRemoved(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
 }
 
-void QxtFlowViewPrivate::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
+void QxtFlowViewPrivate::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
 {
     Q_UNUSED(topLeft);
     Q_UNUSED(bottomRight);
 
-    if(topLeft.parent()!=rootindex)
+    if (topLeft.parent() != rootindex)
         return;
 
-    if(bottomRight.parent()!=rootindex)
+    if (bottomRight.parent() != rootindex)
         return;
 
 
-    int start=topLeft.row();
-    int end=bottomRight.row();
+    int start = topLeft.row();
+    int end = bottomRight.row();
 
-    for(int i=start;i<=end;i++)
-        replaceSlide(i,qvariant_cast<QImage>(model->data(model->index(i,piccolumn,rootindex),picrole)));
+    for (int i = start;i <= end;i++)
+        replaceSlide(i, qvariant_cast<QImage>(model->data(model->index(i, piccolumn, rootindex), picrole)));
 }
 
-void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int first, int last )
+void QxtFlowViewPrivate::headerDataChanged(Qt::Orientation orientation, int first, int last)
 {
     Q_UNUSED(orientation);
     Q_UNUSED(first);
@@ -480,59 +480,59 @@ void QxtFlowViewPrivate::headerDataChanged ( Qt::Orientation orientation, int fi
 
 }
 
-void QxtFlowViewPrivate::layoutAboutToBeChanged ()
+void QxtFlowViewPrivate::layoutAboutToBeChanged()
 {
 
 }
 
-void QxtFlowViewPrivate::layoutChanged ()
+void QxtFlowViewPrivate::layoutChanged()
 {
     reset();
     setCurrentIndex(currentcenter);
 }
 
-void QxtFlowViewPrivate::modelAboutToBeReset ()
+void QxtFlowViewPrivate::modelAboutToBeReset()
 {
 }
 
-void QxtFlowViewPrivate::modelReset ()
+void QxtFlowViewPrivate::modelReset()
 {
     reset();
 }
 
-void QxtFlowViewPrivate::rowsAboutToBeInserted ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::rowsAboutToBeInserted(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
 }
 
-void QxtFlowViewPrivate::rowsAboutToBeRemoved ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
 }
 
-void QxtFlowViewPrivate::rowsInserted ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::rowsInserted(const QModelIndex & parent, int start, int end)
 {
-    if(rootindex!=parent)
+    if (rootindex != parent)
         return;
-    for(int i=start;i<=end;i++)
+    for (int i = start;i <= end;i++)
     {
-        QModelIndex idx=model->index(i,piccolumn,rootindex);
-        insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
-        modelmap.insert(i,idx);
+        QModelIndex idx = model->index(i, piccolumn, rootindex);
+        insertSlide(i, qvariant_cast<QImage>(model->data(idx, picrole)));
+        modelmap.insert(i, idx);
     }
 }
 
-void QxtFlowViewPrivate::rowsRemoved ( const QModelIndex & parent, int start, int end )
+void QxtFlowViewPrivate::rowsRemoved(const QModelIndex & parent, int start, int end)
 {
-    if(rootindex!=parent)
+    if (rootindex != parent)
         return;
-    for(int i=start;i<=end;i++)
+    for (int i = start;i <= end;i++)
     {
-        removeSlide  (i);
+        removeSlide(i);
         modelmap.removeAt(i);
     }
 
@@ -542,71 +542,71 @@ void QxtFlowViewPrivate::setModel(QAbstractItemModel * m)
 {
 
 
-    if(model)
+    if (model)
     {
 
-        disconnect(this->model,SIGNAL(columnsAboutToBeInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsAboutToBeInserted ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(columnsInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsInserted ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(columnsRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsRemoved ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(dataChanged ( const QModelIndex & , const QModelIndex &  )),
-            this,SLOT(dataChanged ( const QModelIndex & , const QModelIndex &  )));
-        disconnect(this->model,SIGNAL(headerDataChanged ( Qt::Orientation , int , int  )),
-            this,SLOT(headerDataChanged ( Qt::Orientation , int , int  )));
-        disconnect(this->model,SIGNAL(layoutAboutToBeChanged ()),
-            this,SLOT(layoutAboutToBeChanged ()));
-        disconnect(this->model,SIGNAL(layoutChanged ()),
-            this,SLOT(layoutChanged ()));
-        disconnect(this->model,SIGNAL(modelAboutToBeReset ()),
-            this,SLOT(modelAboutToBeReset ()));
-        disconnect(this->model,SIGNAL(modelReset ()),
-            this,SLOT(modelReset ()));
-        disconnect(this->model,SIGNAL(rowsAboutToBeInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsAboutToBeInserted ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(rowsInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsInserted ( const QModelIndex & , int , int  )));
-        disconnect(this->model,SIGNAL(rowsRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsRemoved ( const QModelIndex & , int , int  )));
+        disconnect(this->model, SIGNAL(columnsAboutToBeInserted(const QModelIndex & , int , int)),
+                   this, SLOT(columnsAboutToBeInserted(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(columnsAboutToBeRemoved(const QModelIndex & , int , int)),
+                   this, SLOT(columnsAboutToBeRemoved(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(columnsInserted(const QModelIndex & , int , int)),
+                   this, SLOT(columnsInserted(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(columnsRemoved(const QModelIndex & , int , int)),
+                   this, SLOT(columnsRemoved(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(dataChanged(const QModelIndex & , const QModelIndex &)),
+                   this, SLOT(dataChanged(const QModelIndex & , const QModelIndex &)));
+        disconnect(this->model, SIGNAL(headerDataChanged(Qt::Orientation , int , int)),
+                   this, SLOT(headerDataChanged(Qt::Orientation , int , int)));
+        disconnect(this->model, SIGNAL(layoutAboutToBeChanged()),
+                   this, SLOT(layoutAboutToBeChanged()));
+        disconnect(this->model, SIGNAL(layoutChanged()),
+                   this, SLOT(layoutChanged()));
+        disconnect(this->model, SIGNAL(modelAboutToBeReset()),
+                   this, SLOT(modelAboutToBeReset()));
+        disconnect(this->model, SIGNAL(modelReset()),
+                   this, SLOT(modelReset()));
+        disconnect(this->model, SIGNAL(rowsAboutToBeInserted(const QModelIndex & , int , int)),
+                   this, SLOT(rowsAboutToBeInserted(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(rowsAboutToBeRemoved(const QModelIndex & , int , int)),
+                   this, SLOT(rowsAboutToBeRemoved(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(rowsInserted(const QModelIndex & , int , int)),
+                   this, SLOT(rowsInserted(const QModelIndex & , int , int)));
+        disconnect(this->model, SIGNAL(rowsRemoved(const QModelIndex & , int , int)),
+                   this, SLOT(rowsRemoved(const QModelIndex & , int , int)));
     }
     model = m;
-    if(model)
+    if (model)
     {
-        rootindex=model->parent(QModelIndex());
+        rootindex = model->parent(QModelIndex());
 
-        connect(this->model,SIGNAL(columnsAboutToBeInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsAboutToBeInserted ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(columnsInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsInserted ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(columnsRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(columnsRemoved ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(dataChanged ( const QModelIndex & , const QModelIndex &  )),
-            this,SLOT(dataChanged ( const QModelIndex & , const QModelIndex &  )));
-        connect(this->model,SIGNAL(headerDataChanged ( Qt::Orientation , int , int  )),
-            this,SLOT(headerDataChanged ( Qt::Orientation , int , int  )));
-        connect(this->model,SIGNAL(layoutAboutToBeChanged ()),
-            this,SLOT(layoutAboutToBeChanged ()));
-        connect(this->model,SIGNAL(layoutChanged ()),
-            this,SLOT(layoutChanged ()));
-        connect(this->model,SIGNAL(modelAboutToBeReset ()),
-            this,SLOT(modelAboutToBeReset ()));
-        connect(this->model,SIGNAL(modelReset ()),
-            this,SLOT(modelReset ()));
-        connect(this->model,SIGNAL(rowsAboutToBeInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsAboutToBeInserted ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsAboutToBeRemoved ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(rowsInserted ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsInserted ( const QModelIndex & , int , int  )));
-        connect(this->model,SIGNAL(rowsRemoved ( const QModelIndex & , int , int  )),
-            this,SLOT(rowsRemoved ( const QModelIndex & , int , int  )));
+        connect(this->model, SIGNAL(columnsAboutToBeInserted(const QModelIndex & , int , int)),
+                this, SLOT(columnsAboutToBeInserted(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(columnsAboutToBeRemoved(const QModelIndex & , int , int)),
+                this, SLOT(columnsAboutToBeRemoved(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(columnsInserted(const QModelIndex & , int , int)),
+                this, SLOT(columnsInserted(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(columnsRemoved(const QModelIndex & , int , int)),
+                this, SLOT(columnsRemoved(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(dataChanged(const QModelIndex & , const QModelIndex &)),
+                this, SLOT(dataChanged(const QModelIndex & , const QModelIndex &)));
+        connect(this->model, SIGNAL(headerDataChanged(Qt::Orientation , int , int)),
+                this, SLOT(headerDataChanged(Qt::Orientation , int , int)));
+        connect(this->model, SIGNAL(layoutAboutToBeChanged()),
+                this, SLOT(layoutAboutToBeChanged()));
+        connect(this->model, SIGNAL(layoutChanged()),
+                this, SLOT(layoutChanged()));
+        connect(this->model, SIGNAL(modelAboutToBeReset()),
+                this, SLOT(modelAboutToBeReset()));
+        connect(this->model, SIGNAL(modelReset()),
+                this, SLOT(modelReset()));
+        connect(this->model, SIGNAL(rowsAboutToBeInserted(const QModelIndex & , int , int)),
+                this, SLOT(rowsAboutToBeInserted(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(rowsAboutToBeRemoved(const QModelIndex & , int , int)),
+                this, SLOT(rowsAboutToBeRemoved(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(rowsInserted(const QModelIndex & , int , int)),
+                this, SLOT(rowsInserted(const QModelIndex & , int , int)));
+        connect(this->model, SIGNAL(rowsRemoved(const QModelIndex & , int , int)),
+                this, SLOT(rowsRemoved(const QModelIndex & , int , int)));
     }
 
     reset();
@@ -616,7 +616,7 @@ void QxtFlowViewPrivate::setModel(QAbstractItemModel * m)
 void QxtFlowViewPrivate::clear()
 {
     int c = state->slideImages.count();
-    for(int i = 0; i < c; i++)
+    for (int i = 0; i < c; i++)
         delete state->slideImages[i];
     state->slideImages.resize(0);
 
@@ -634,13 +634,13 @@ void QxtFlowViewPrivate::triggerRender()
 
 
 
-void QxtFlowViewPrivate::insertSlide  (int index, const QImage& image)
+void QxtFlowViewPrivate::insertSlide(int index, const QImage& image)
 {
-    state->slideImages.insert(index,new QImage(image));
+    state->slideImages.insert(index, new QImage(image));
     triggerRender();
 }
 
-void QxtFlowViewPrivate::replaceSlide (int index, const QImage& image)
+void QxtFlowViewPrivate::replaceSlide(int index, const QImage& image)
 {
     Q_ASSERT((index >= 0) && (index < state->slideImages.count()));
 
@@ -650,7 +650,7 @@ void QxtFlowViewPrivate::replaceSlide (int index, const QImage& image)
     triggerRender();
 }
 
-void QxtFlowViewPrivate::removeSlide  (int index)
+void QxtFlowViewPrivate::removeSlide(int index)
 {
     delete state->slideImages[index];
     state->slideImages.remove(index);
@@ -660,7 +660,7 @@ void QxtFlowViewPrivate::removeSlide  (int index)
 
 void QxtFlowViewPrivate::showSlide(int index)
 {
-    if(index == state->centerSlide.slideIndex)
+    if (index == state->centerSlide.slideIndex)
         return;
     animator->start(index);
 }
@@ -670,13 +670,13 @@ void QxtFlowViewPrivate::showSlide(int index)
 void QxtFlowViewPrivate::reset()
 {
     clear();
-    if(model)
+    if (model)
     {
-        for (int i=0;i<model->rowCount(rootindex);i++)
+        for (int i = 0;i < model->rowCount(rootindex);i++)
         {
-            QModelIndex idx=model->index(i,piccolumn,rootindex);
-            insertSlide(i,qvariant_cast<QImage>(model->data(idx,picrole)));
-            modelmap.insert(i,idx);
+            QModelIndex idx = model->index(i, piccolumn, rootindex);
+            insertSlide(i, qvariant_cast<QImage>(model->data(idx, picrole)));
+            modelmap.insert(i, idx);
         }
     }
     triggerRender();
@@ -686,11 +686,11 @@ void QxtFlowViewPrivate::reset()
 
 void QxtFlowViewPrivate::setCurrentIndex(QModelIndex index)
 {
-    if(model->parent(index)!=rootindex)
+    if (model->parent(index) != rootindex)
         return;
 
-    int r=modelmap.indexOf(index);
-    if(r<0)
+    int r = modelmap.indexOf(index);
+    if (r < 0)
         return;
 
     state->centerIndex = r;

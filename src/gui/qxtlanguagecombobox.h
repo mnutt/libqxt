@@ -66,10 +66,10 @@ Q_SIGNALS:
     void currentLanguageChanged(QLocale::Language country);
     void currentLanguageNameChanged(const QString& name);
 
-/*public:
-    QSize sizeHint() const;
-    QSize minimumSize() const;
-    QSize maximumSize() const;*/
+    /*public:
+        QSize sizeHint() const;
+        QSize minimumSize() const;
+        QSize maximumSize() const;*/
 };
 
 

@@ -70,7 +70,7 @@ public:
         Constructs a new QxtItemEditorCreator with \a valuePropertyName.
      */
     inline QxtItemEditorCreator(const QByteArray& valuePropertyName)
-        : QItemEditorCreator<T>(valuePropertyName)
+            : QItemEditorCreator<T>(valuePropertyName)
     {
     }
 

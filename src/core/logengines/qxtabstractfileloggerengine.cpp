@@ -44,8 +44,8 @@ public:
 /*!
     Constructs a QxtAbstractFileLoggerEngine with file name.
  */
-QxtAbstractFileLoggerEngine::QxtAbstractFileLoggerEngine( const QString &fileName, QIODevice::OpenMode mode )
-    : QxtAbstractIOLoggerEngine(0)
+QxtAbstractFileLoggerEngine::QxtAbstractFileLoggerEngine(const QString &fileName, QIODevice::OpenMode mode)
+        : QxtAbstractIOLoggerEngine(0)
 {
     QXT_INIT_PRIVATE(QxtAbstractFileLoggerEngine);
     qxt_d().mode = mode;
@@ -71,11 +71,11 @@ void QxtAbstractFileLoggerEngine::initLoggerEngine()
     // If the file exists, check if we can write to it.  If we can, we append!
     // If the file doesn't exits, try to create it.
     // If we can't write to a file, disable this plugin.
-    if( qxt_d().logFile.isEmpty() ) return; // if there's no filename, disable the engine until one is given
+    if (qxt_d().logFile.isEmpty()) return;  // if there's no filename, disable the engine until one is given
 
     setDevice(new QFile(qxt_d().logFile));
-    if ( !device()->open(qxt_d().mode )
-          || !device()->isWritable() )
+    if (!device()->open(qxt_d().mode)
+            || !device()->isWritable())
     {
         killLoggerEngine();
         return;
@@ -89,11 +89,11 @@ void QxtAbstractFileLoggerEngine::initLoggerEngine()
  */
 void QxtAbstractFileLoggerEngine::killLoggerEngine()
 {
-    if ( device() != 0 )
+    if (device() != 0)
     {
-        if ( device()->isOpen() ) device()->close();
+        if (device()->isOpen()) device()->close();
         delete device();
-        setDevice( 0 );
+        setDevice(0);
     }
 }
 
@@ -102,47 +102,47 @@ void QxtAbstractFileLoggerEngine::killLoggerEngine()
  */
 bool QxtAbstractFileLoggerEngine::isInitialized() const
 {
-    return ( device() != 0 );
+    return (device() != 0);
 }
 
 /*!
     \reimp
  */
-void QxtAbstractFileLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &messages )
+void QxtAbstractFileLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QList<QVariant> &messages)
 {
     switch (level)
     {
-        case QxtLogger::ErrorLevel:
-            writeToFile("Error", messages);
-            break;
-        case QxtLogger::WarningLevel:
-            writeToFile("Warning", messages);
-            break;
-        case QxtLogger::CriticalLevel:
-            writeToFile("Critical", messages);
-            break;
-        case QxtLogger::FatalLevel:
-            writeToFile("Fatal", messages);
-            break;
-        case QxtLogger::TraceLevel:
-            writeToFile("Trace", messages);
-            break;
-        case QxtLogger::DebugLevel:
-            writeToFile("Debug", messages);
-            break;
-        case QxtLogger::InfoLevel:
-            writeToFile("Info", messages);
-            break;
-        default:
-            writeToFile(QString(), messages);
-            break;
+    case QxtLogger::ErrorLevel:
+        writeToFile("Error", messages);
+        break;
+    case QxtLogger::WarningLevel:
+        writeToFile("Warning", messages);
+        break;
+    case QxtLogger::CriticalLevel:
+        writeToFile("Critical", messages);
+        break;
+    case QxtLogger::FatalLevel:
+        writeToFile("Fatal", messages);
+        break;
+    case QxtLogger::TraceLevel:
+        writeToFile("Trace", messages);
+        break;
+    case QxtLogger::DebugLevel:
+        writeToFile("Debug", messages);
+        break;
+    case QxtLogger::InfoLevel:
+        writeToFile("Info", messages);
+        break;
+    default:
+        writeToFile(QString(), messages);
+        break;
     }
 }
 
 /*!
     Sets the log file name.
  */
-void QxtAbstractFileLoggerEngine::setLogFileName( const QString &fileName )
+void QxtAbstractFileLoggerEngine::setLogFileName(const QString &fileName)
 {
     qxt_d().logFile = fileName;
     initLoggerEngine();

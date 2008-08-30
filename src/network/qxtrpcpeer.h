@@ -33,7 +33,7 @@
 class QxtRPCPeerPrivate;
 class QXT_NETWORK_EXPORT QxtRPCPeer : public QxtRPCService
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtRPCPeer(QObject* parent = 0);
 

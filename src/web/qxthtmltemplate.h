@@ -30,7 +30,7 @@
 #include <QHash>
 #include <qxtglobal.h>
 
-class QXT_WEB_EXPORT QxtHtmlTemplate : public QMap<QString,QString>
+class QXT_WEB_EXPORT QxtHtmlTemplate : public QMap<QString, QString>
 {
 public:
     QxtHtmlTemplate();

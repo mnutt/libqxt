@@ -7,7 +7,7 @@
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
-** 
+**
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -62,73 +62,73 @@ class QXT_GUI_EXPORT QxtScheduleView : public QAbstractScrollArea
     friend class QxtScheduleInternalItem;
     friend class QxtScheduleViewHeaderModel;
 
-    public:
-        
-        enum ViewMode
-        {
-            MinuteView,
-            HourView,
-            DayView,
-            CustomView
-        };
-    
-        QxtScheduleView                                               ( QWidget *parent = 0 );
-        
-        void                        setModel                        ( QAbstractItemModel *model );
-        QAbstractItemModel*         model                           ( ) const;
-        
-        void                        setViewMode                     ( const QxtScheduleView::ViewMode mode );
-        QxtScheduleView::ViewMode   viewMode                        ( ) const;
-        
-        void                        setDateRange                    ( const QDate & fromDate , const QDate & toDate );
-        void                        setTimeRange                    ( const QDateTime &fromDateTime , const QDateTime &toTime );
-        
-        void                        setZoomStepWidth                ( const int zoomWidth , const Qxt::Timeunit unit = Qxt::Second );
-        void                        setCurrentZoomDepth             ( const int depth , const Qxt::Timeunit unit = Qxt::Second );
-        int                         currentZoomDepth                ( const Qxt::Timeunit unit = Qxt::Second);
-        
-        QPoint                      mapFromViewport                 ( const QPoint& point ) const;
-        QPoint                      mapToViewport                   ( const QPoint& point ) const;
-        
-        QModelIndex                 indexAt                         ( const QPoint &pt );
-        void                        raiseItem                       ( const QModelIndex &index );
-        void                        handleItemConcurrency           ( const QModelIndex &index );
-        QModelIndex                 currentIndex                    ( );
-        int                         rows                            ( ) const;
-        int                         cols                            ( ) const;
+public:
 
-    Q_SIGNALS:
-        void                        itemMoved                       ( int rows,int cols, QModelIndex index );
-        void                        indexSelected                   ( QModelIndex index );
-        void                        indexClicked                    ( QModelIndex index );
-        void                        contextMenuRequested            ( QModelIndex index );
-        void                        newZoomDepth                    ( const int newDepthInSeconds );
-        void                        viewModeChanged                 ( const int newViewMode );
-        
+    enum ViewMode
+    {
+        MinuteView,
+        HourView,
+        DayView,
+        CustomView
+    };
 
-    protected:
-        virtual int                 timePerColumn                   ( ) const;
-        virtual void                adjustRangeToViewMode           ( QDateTime *startTime, QDateTime *endTime ) const;        
-        
-        virtual void                scrollContentsBy                ( int dx, int dy );
-        virtual void                paintEvent                      ( QPaintEvent  *e );
-        virtual void                mouseMoveEvent                  ( QMouseEvent  * e );
-        virtual void                mousePressEvent                 ( QMouseEvent  * e );
-        virtual void                mouseReleaseEvent               ( QMouseEvent  * e );
-        virtual void                resizeEvent                     ( QResizeEvent * e );
-        virtual void                wheelEvent                      ( QWheelEvent  * e ); 
+    QxtScheduleView(QWidget *parent = 0);
 
-    public Q_SLOTS:        
-        void                        dataChanged                     (const QModelIndex & topLeft,const  QModelIndex & bottomRight);
-        void                        updateGeometries                ( );
-        void                        zoomIn                          ( );
-        void                        zoomOut                         ( );
+    void                        setModel(QAbstractItemModel *model);
+    QAbstractItemModel*         model() const;
 
-    protected Q_SLOTS:
-        virtual void                rowsAboutToBeRemoved            ( const QModelIndex & parent, int start, int end );
-        virtual void                rowsAboutToBeInserted           ( const QModelIndex & parent, int start, int end );
-        virtual void                rowsRemoved                     ( const QModelIndex & parent, int start, int end );
-        virtual void                rowsInserted                    ( const QModelIndex & parent, int start, int end );
+    void                        setViewMode(const QxtScheduleView::ViewMode mode);
+    QxtScheduleView::ViewMode   viewMode() const;
+
+    void                        setDateRange(const QDate & fromDate , const QDate & toDate);
+    void                        setTimeRange(const QDateTime &fromDateTime , const QDateTime &toTime);
+
+    void                        setZoomStepWidth(const int zoomWidth , const Qxt::Timeunit unit = Qxt::Second);
+    void                        setCurrentZoomDepth(const int depth , const Qxt::Timeunit unit = Qxt::Second);
+    int                         currentZoomDepth(const Qxt::Timeunit unit = Qxt::Second);
+
+    QPoint                      mapFromViewport(const QPoint& point) const;
+    QPoint                      mapToViewport(const QPoint& point) const;
+
+    QModelIndex                 indexAt(const QPoint &pt);
+    void                        raiseItem(const QModelIndex &index);
+    void                        handleItemConcurrency(const QModelIndex &index);
+    QModelIndex                 currentIndex();
+    int                         rows() const;
+    int                         cols() const;
+
+Q_SIGNALS:
+    void                        itemMoved(int rows, int cols, QModelIndex index);
+    void                        indexSelected(QModelIndex index);
+    void                        indexClicked(QModelIndex index);
+    void                        contextMenuRequested(QModelIndex index);
+    void                        newZoomDepth(const int newDepthInSeconds);
+    void                        viewModeChanged(const int newViewMode);
+
+
+protected:
+    virtual int                 timePerColumn() const;
+    virtual void                adjustRangeToViewMode(QDateTime *startTime, QDateTime *endTime) const;
+
+    virtual void                scrollContentsBy(int dx, int dy);
+    virtual void                paintEvent(QPaintEvent  *e);
+    virtual void                mouseMoveEvent(QMouseEvent  * e);
+    virtual void                mousePressEvent(QMouseEvent  * e);
+    virtual void                mouseReleaseEvent(QMouseEvent  * e);
+    virtual void                resizeEvent(QResizeEvent * e);
+    virtual void                wheelEvent(QWheelEvent  * e);
+
+public Q_SLOTS:
+    void                        dataChanged(const QModelIndex & topLeft, const  QModelIndex & bottomRight);
+    void                        updateGeometries();
+    void                        zoomIn();
+    void                        zoomOut();
+
+protected Q_SLOTS:
+    virtual void                rowsAboutToBeRemoved(const QModelIndex & parent, int start, int end);
+    virtual void                rowsAboutToBeInserted(const QModelIndex & parent, int start, int end);
+    virtual void                rowsRemoved(const QModelIndex & parent, int start, int end);
+    virtual void                rowsInserted(const QModelIndex & parent, int start, int end);
 };
 
 #endif //QXTSCHEDULEVIEW_H_INCLUDED

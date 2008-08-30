@@ -35,7 +35,8 @@
 #include "qxtpimpl.h"
 
 class QxtHmacPrivate;
-class QxtHmac {
+class QxtHmac
+{
 public:
     typedef QCryptographicHash::Algorithm Algorithm;
 
@@ -43,10 +44,10 @@ public:
 
     void setKey(QByteArray key);
     void reset();
-    
+
     void addData(const char* data, int length);
     void addData(const QByteArray& data);
-    
+
     QByteArray innerHash() const;
     QByteArray result();
     bool verify(const QByteArray& otherInner);

@@ -65,19 +65,24 @@ clean up its internal session tracking data.
 #include <QtDebug>
 
 #ifndef QXT_DOXYGEN_RUN
-QxtAbstractWebSessionManagerPrivate::QxtAbstractWebSessionManagerPrivate() : factory(0), maxID(0) {
+QxtAbstractWebSessionManagerPrivate::QxtAbstractWebSessionManagerPrivate() : factory(0), maxID(0)
+{
     // initializers only
 }
 
-void QxtAbstractWebSessionManagerPrivate::sessionDestroyed(int sessionID) {
-    if(sessions.contains(sessionID)) {
+void QxtAbstractWebSessionManagerPrivate::sessionDestroyed(int sessionID)
+{
+    if (sessions.contains(sessionID))
+    {
         freeList.enqueue(sessionID);
         sessions.remove(sessionID);
     }
 }
 
-int QxtAbstractWebSessionManagerPrivate::getNextID() {
-    if(freeList.empty()) {
+int QxtAbstractWebSessionManagerPrivate::getNextID()
+{
+    if (freeList.empty())
+    {
         int next = maxID;
         maxID++;
         return next;
@@ -91,7 +96,8 @@ int QxtAbstractWebSessionManagerPrivate::getNextID() {
  *
  * Note that this is an abstract class and cannot be instantiated directly.
  */
-QxtAbstractWebSessionManager::QxtAbstractWebSessionManager(QObject* parent) : QObject(parent) {
+QxtAbstractWebSessionManager::QxtAbstractWebSessionManager(QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtAbstractWebSessionManager);
 }
 
@@ -106,7 +112,8 @@ QxtAbstractWebSessionManager::QxtAbstractWebSessionManager(QObject* parent) : QO
  *
  * \sa QxtAbstractWebSessionManager::ServiceFactory
  */
-void QxtAbstractWebSessionManager::setServiceFactory(ServiceFactory* factory) {
+void QxtAbstractWebSessionManager::setServiceFactory(ServiceFactory* factory)
+{
     qxt_d().factory = factory;
 }
 
@@ -115,27 +122,30 @@ void QxtAbstractWebSessionManager::setServiceFactory(ServiceFactory* factory) {
  *
  * \sa setServiceFactory(ServiceFactory*)
  */
-QxtAbstractWebSessionManager::ServiceFactory* QxtAbstractWebSessionManager::serviceFactory() const {
+QxtAbstractWebSessionManager::ServiceFactory* QxtAbstractWebSessionManager::serviceFactory() const
+{
     return qxt_d().factory;
 }
 
 /**
  * Returns the service object corresponding to the provided session ID.
  */
-QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) const {
-    if(qxt_d().sessions.contains(sessionID))
+QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) const
+{
+    if (qxt_d().sessions.contains(sessionID))
         return qxt_d().sessions[sessionID];
     return 0;
 }
 
 /**
  * Creates a new session and returns its session ID.
- * 
+ *
  * This function uses the serviceFactory() to request an instance of the web service.
  * \sa serviceFactory()
  */
-int QxtAbstractWebSessionManager::createService() {
-    if(!qxt_d().factory) return 0;
+int QxtAbstractWebSessionManager::createService()
+{
+    if (!qxt_d().factory) return 0;
     int sessionID = qxt_d().getNextID();
     QxtAbstractWebService* service = serviceFactory()(this, sessionID);
     qxt_d().sessions[sessionID] = service;
@@ -147,7 +157,7 @@ int QxtAbstractWebSessionManager::createService() {
 /**
  * \fn virtual bool QxtAbstractWebSessionManager::start() = 0;
  * Starts the session manager.
- * 
+ *
  * Session managers should not create sessions before start() is invoked.
  * Subclasses are encouraged to refrain from accepting connections until the
  * session manager is started.

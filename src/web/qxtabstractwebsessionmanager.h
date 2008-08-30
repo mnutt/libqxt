@@ -31,8 +31,9 @@ class QxtAbstractWebService;
 class QxtWebEvent;
 
 class QxtAbstractWebSessionManagerPrivate;
-class QxtAbstractWebSessionManager : public QObject {
-Q_OBJECT
+class QxtAbstractWebSessionManager : public QObject
+{
+    Q_OBJECT
 public:
     typedef QxtAbstractWebService* ServiceFactory(QxtAbstractWebSessionManager*, int);
 

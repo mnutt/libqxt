@@ -36,9 +36,10 @@ QT_END_NAMESPACE
 class QxtHttpSessionManager;
 
 class QxtAbstractHttpConnectorPrivate;
-class QxtAbstractHttpConnector : public QObject {
-friend class QxtHttpSessionManager;
-Q_OBJECT
+class QxtAbstractHttpConnector : public QObject
+{
+    friend class QxtHttpSessionManager;
+    Q_OBJECT
 public:
     QxtAbstractHttpConnector(QObject* parent = 0);
     virtual bool listen(const QHostAddress& interface, quint16 port) = 0;
@@ -62,8 +63,9 @@ private:
 };
 
 class QxtHttpServerConnectorPrivate;
-class QxtHttpServerConnector : public QxtAbstractHttpConnector {
-Q_OBJECT
+class QxtHttpServerConnector : public QxtAbstractHttpConnector
+{
+    Q_OBJECT
 public:
     QxtHttpServerConnector(QObject* parent = 0);
     virtual bool listen(const QHostAddress& interface, quint16 port);
@@ -81,8 +83,9 @@ private:
 };
 
 class QxtScgiServerConnectorPrivate;
-class QxtScgiServerConnector : public QxtAbstractHttpConnector {
-Q_OBJECT
+class QxtScgiServerConnector : public QxtAbstractHttpConnector
+{
+    Q_OBJECT
 public:
     QxtScgiServerConnector(QObject* parent = 0);
     virtual bool listen(const QHostAddress& interface, quint16 port);

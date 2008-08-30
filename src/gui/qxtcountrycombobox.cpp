@@ -35,28 +35,28 @@ QxtCountryComboBoxPrivate::QxtCountryComboBoxPrivate()
 
 void QxtCountryComboBoxPrivate::comboBoxCurrentIndexChanged(int)
 {
-  emit qxt_p().currentCountryChanged(currentCountry());
-  emit qxt_p().currentCountryNameChanged(currentCountryName());
+    emit qxt_p().currentCountryChanged(currentCountry());
+    emit qxt_p().currentCountryNameChanged(currentCountryName());
 }
 
 QLocale::Country QxtCountryComboBoxPrivate::currentCountry() const
 {
-  QModelIndex idx = qxt_p().model()->index(qxt_p().currentIndex(), 3);
-  return static_cast<QLocale::Country>(idx.data().toInt());
+    QModelIndex idx = qxt_p().model()->index(qxt_p().currentIndex(), 3);
+    return static_cast<QLocale::Country>(idx.data().toInt());
 }
 
 QString QxtCountryComboBoxPrivate::currentCountryName() const
 {
-  return qxt_p().currentText();
+    return qxt_p().currentText();
 }
 
 void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
 {
-  // column 3 is QLocale::Country
-  QModelIndex start = qxt_p().model()->index(0, 3);
-  QModelIndexList result = qxt_p().model()->match(start, Qt::DisplayRole, country, 1, Qt::MatchExactly);
-  if (!result.isEmpty())
-    qxt_p().setCurrentIndex(result.first().row());
+    // column 3 is QLocale::Country
+    QModelIndex start = qxt_p().model()->index(0, 3);
+    QModelIndexList result = qxt_p().model()->match(start, Qt::DisplayRole, country, 1, Qt::MatchExactly);
+    if (!result.isEmpty())
+        qxt_p().setCurrentIndex(result.first().row());
 }
 
 /*!
@@ -86,27 +86,27 @@ void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
     Constructs a new QxtCountryComboBox with \a parent.
  */
 QxtCountryComboBox::QxtCountryComboBox(QWidget* parent)
-: QComboBox(parent)
+        : QComboBox(parent)
 {
     QXT_INIT_PRIVATE(QxtCountryComboBox);
 #ifdef QXT_DESIGNER_MODE
-      setEditable(false);
+    setEditable(false);
 #else
-      setModel(new QxtCountryModel(this));
-      setModelColumn(0);
+    setModel(new QxtCountryModel(this));
+    setModelColumn(0);
 
-      setCurrentCountry(QLocale::system().country());
+    setCurrentCountry(QLocale::system().country());
 #endif
 
-    connect(this,SIGNAL(currentIndexChanged(int)), &qxt_d(), SLOT(comboBoxCurrentIndexChanged(int)));
+    connect(this, SIGNAL(currentIndexChanged(int)), &qxt_d(), SLOT(comboBoxCurrentIndexChanged(int)));
 }
 
 #ifdef QXT_DESIGNER_MODE
 void QxtCountryComboBox::paintEvent(QPaintEvent *e)
 {
-  QComboBox::paintEvent(e);
-  QStylePainter painter(this);
-  painter.drawItemText(e->rect(), Qt::AlignCenter, palette(), true, tr("DESIGNER MODE  -  DESIGNER MODE"));
+    QComboBox::paintEvent(e);
+    QStylePainter painter(this);
+    painter.drawItemText(e->rect(), Qt::AlignCenter, palette(), true, tr("DESIGNER MODE  -  DESIGNER MODE"));
 }
 #endif
 /*!
@@ -122,7 +122,7 @@ QxtCountryComboBox::~QxtCountryComboBox()
  */
 QLocale::Country QxtCountryComboBox::currentCountry() const
 {
-  return qxt_d().currentCountry();
+    return qxt_d().currentCountry();
 }
 
 /*!
@@ -131,11 +131,11 @@ QLocale::Country QxtCountryComboBox::currentCountry() const
  */
 QString QxtCountryComboBox::currentCountryName() const
 {
-  return qxt_d().currentCountryName();
+    return qxt_d().currentCountryName();
 }
 
 void QxtCountryComboBox::setCurrentCountry(QLocale::Country country)
 {
-  return qxt_d().setCurrentCountry(country);
+    return qxt_d().setCurrentCountry(country);
 }
 

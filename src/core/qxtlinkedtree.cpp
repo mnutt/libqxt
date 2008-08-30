@@ -75,7 +75,7 @@ returns an iterator on the root node
 
 \fn void * QxtLinkedTree::toVoid  (QxtLinkedTreeIterator);
 get an unique void pointer to be able to stuff an iterator into other structures.\n
-You must not do anything else but pass this to fromVoid(). 
+You must not do anything else but pass this to fromVoid().
 the pointer is invalid when the actual data has been removed and passing it to fromVoid will crash. You have been warned. \n
 
 \fn QxtLinkedTreeIterator QxtLinkedTree::fromVoid  (void *);

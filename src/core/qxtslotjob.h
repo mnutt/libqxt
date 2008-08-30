@@ -36,9 +36,9 @@ class QxtSignalWaiter;
 class QxtSlotJob;
 class QXT_CORE_EXPORT QxtFuture: public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    QVariant delayedResult(int msec=-1);
+    QVariant delayedResult(int msec = -1);
     QVariant joinedResult();
 
     QxtFuture(const QxtFuture& other);
@@ -60,31 +60,31 @@ class QThread;
 QT_END_NAMESPACE
 class QXT_CORE_EXPORT QxtSlotJob : public QxtJob
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-     static QxtFuture detach(QThread * o,QObject* recv, const char* slot,
-        QGenericArgument p1=QGenericArgument(),
-        QGenericArgument p2=QGenericArgument(),
-        QGenericArgument p3=QGenericArgument(),
-        QGenericArgument p4=QGenericArgument(),
-        QGenericArgument p5=QGenericArgument(),
-        QGenericArgument p6=QGenericArgument(),
-        QGenericArgument p7=QGenericArgument(),
-        QGenericArgument p8=QGenericArgument(),
-        QGenericArgument p9=QGenericArgument(),
-        QGenericArgument p10=QGenericArgument()); 
+    static QxtFuture detach(QThread * o, QObject* recv, const char* slot,
+                            QGenericArgument p1 = QGenericArgument(),
+                            QGenericArgument p2 = QGenericArgument(),
+                            QGenericArgument p3 = QGenericArgument(),
+                            QGenericArgument p4 = QGenericArgument(),
+                            QGenericArgument p5 = QGenericArgument(),
+                            QGenericArgument p6 = QGenericArgument(),
+                            QGenericArgument p7 = QGenericArgument(),
+                            QGenericArgument p8 = QGenericArgument(),
+                            QGenericArgument p9 = QGenericArgument(),
+                            QGenericArgument p10 = QGenericArgument());
 
     QxtSlotJob(QObject* recv, const char* slot,
-        QGenericArgument p1=QGenericArgument(),
-        QGenericArgument p2=QGenericArgument(),
-        QGenericArgument p3=QGenericArgument(),
-        QGenericArgument p4=QGenericArgument(),
-        QGenericArgument p5=QGenericArgument(),
-        QGenericArgument p6=QGenericArgument(),
-        QGenericArgument p7=QGenericArgument(),
-        QGenericArgument p8=QGenericArgument(),
-        QGenericArgument p9=QGenericArgument(),
-        QGenericArgument p10=QGenericArgument());
+               QGenericArgument p1 = QGenericArgument(),
+               QGenericArgument p2 = QGenericArgument(),
+               QGenericArgument p3 = QGenericArgument(),
+               QGenericArgument p4 = QGenericArgument(),
+               QGenericArgument p5 = QGenericArgument(),
+               QGenericArgument p6 = QGenericArgument(),
+               QGenericArgument p7 = QGenericArgument(),
+               QGenericArgument p8 = QGenericArgument(),
+               QGenericArgument p9 = QGenericArgument(),
+               QGenericArgument p10 = QGenericArgument());
 
     QVariant result();
     QxtFuture exec(QThread *o);
@@ -96,7 +96,7 @@ Q_SIGNALS:
 private:
     QXT_DECLARE_PRIVATE(QxtSlotJob);
 ///must not be in pimpl. that's heavy doom when they are both Qobject and one moves to another thread
-private Q_SLOTS:  
+private Q_SLOTS:
     void pdone();
 
 };

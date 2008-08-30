@@ -89,21 +89,21 @@ bool QxtTabBarPrivate::contains(const QRect& rect, const QPoint& position, Movem
     {
         switch (qxt_p().shape())
         {
-            case QTabBar::RoundedNorth:
-            case QTabBar::RoundedSouth:
-            case QTabBar::TriangularNorth:
-            case QTabBar::TriangularSouth:
-                return position.x() >= rect.x() && position.x() <= rect.x() + rect.width();
+        case QTabBar::RoundedNorth:
+        case QTabBar::RoundedSouth:
+        case QTabBar::TriangularNorth:
+        case QTabBar::TriangularSouth:
+            return position.x() >= rect.x() && position.x() <= rect.x() + rect.width();
 
-            case QTabBar::RoundedWest:
-            case QTabBar::RoundedEast:
-            case QTabBar::TriangularWest:
-            case QTabBar::TriangularEast:
-                return position.y() >= rect.y() && position.y() <= rect.y() + rect.height();
+        case QTabBar::RoundedWest:
+        case QTabBar::RoundedEast:
+        case QTabBar::TriangularWest:
+        case QTabBar::TriangularEast:
+            return position.y() >= rect.y() && position.y() <= rect.y() + rect.height();
 
-            default:
-                qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
-                return false;
+        default:
+            qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
+            return false;
         }
     }
     else // (action == PressAction)
@@ -130,29 +130,29 @@ bool QxtTabBarPrivate::shouldMove(const QPoint& pos, int fromIndex, int toIndex,
         finalRect = sourceRect;
         switch (qxt_p().shape())
         {
-            case QTabBar::RoundedNorth:
-            case QTabBar::RoundedSouth:
-            case QTabBar::TriangularNorth:
-            case QTabBar::TriangularSouth:
-                if (qxt_p().layoutDirection() == Qt::LeftToRight && sourceRect.x() < targetRect.x())
-                    finalRect.moveRight(targetRect.right());
-                else
-                    finalRect.moveLeft(targetRect.left());
-                break;
+        case QTabBar::RoundedNorth:
+        case QTabBar::RoundedSouth:
+        case QTabBar::TriangularNorth:
+        case QTabBar::TriangularSouth:
+            if (qxt_p().layoutDirection() == Qt::LeftToRight && sourceRect.x() < targetRect.x())
+                finalRect.moveRight(targetRect.right());
+            else
+                finalRect.moveLeft(targetRect.left());
+            break;
 
-            case QTabBar::RoundedWest:
-            case QTabBar::RoundedEast:
-            case QTabBar::TriangularWest:
-            case QTabBar::TriangularEast:
-                if (sourceRect.y() < targetRect.y())
-                    finalRect.moveBottom(targetRect.bottom());
-                else
-                    finalRect.moveTop(targetRect.top());
-                break;
+        case QTabBar::RoundedWest:
+        case QTabBar::RoundedEast:
+        case QTabBar::TriangularWest:
+        case QTabBar::TriangularEast:
+            if (sourceRect.y() < targetRect.y())
+                finalRect.moveBottom(targetRect.bottom());
+            else
+                finalRect.moveTop(targetRect.top());
+            break;
 
-            default:
-                qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
-                return false;
+        default:
+            qWarning("QTabBarPrivate: unknown QTabBar::Shape %i", qxt_p().shape());
+            return false;
         }
     }
 
@@ -304,7 +304,7 @@ void QxtTabBar::mouseMoveEvent(QMouseEvent* event)
     else if (qxt_d().mode == DragDropMovement)
     {
         if ((event->pos() - qxt_d().pressPoint).manhattanLength()
-             >= QApplication::startDragDistance())
+                >= QApplication::startDragDistance())
         {
             QDrag* drag = new QDrag(this);
             QMimeData* mimeData = new QMimeData;

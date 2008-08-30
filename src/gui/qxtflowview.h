@@ -56,7 +56,7 @@
 class QxtFlowViewPrivate;
 class QXT_GUI_EXPORT QxtFlowView : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)
     Q_PROPERTY(QSize slideSize READ slideSize WRITE setSlideSize)
@@ -65,10 +65,10 @@ Q_OBJECT
     Q_PROPERTY(int picureColumn READ picureColumn WRITE setPicureColumn)
     Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex)
 
-    #if 0
+#if 0
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole)
     Q_PROPERTY(int textColumn READ textColumn WRITE setTextColumn)
-    #endif
+#endif
 
 
 public:
@@ -80,7 +80,7 @@ public:
         BlurredReflection
     };
 
-    /*!Creates a new PictureFlow widget.*/  
+    /*!Creates a new PictureFlow widget.*/
     QxtFlowView(QWidget* parent = 0);
 
     /*!Destroys the widget.*/
@@ -102,13 +102,13 @@ public:
     /*!Sets the background color. By default it is black.*/
     void setBackgroundColor(const QColor& c);
 
-    /*!Returns the dimension of each slide (in pixels).*/  
+    /*!Returns the dimension of each slide (in pixels).*/
     QSize slideSize() const;
 
-    /*!Sets the dimension of each slide (in pixels).*/  
+    /*!Sets the dimension of each slide (in pixels).*/
     void setSlideSize(QSize size);
 
-    /*!Returns the index of slide currently shown in the middle of the viewport.*/  
+    /*!Returns the index of slide currently shown in the middle of the viewport.*/
     QModelIndex currentIndex() const;
 
 
@@ -120,34 +120,34 @@ public:
     void setRootIndex(QModelIndex index);
 
 
-    /*!Returns the effect applied to the reflection.*/  
+    /*!Returns the effect applied to the reflection.*/
     ReflectionEffect reflectionEffect() const;
 
-    /*!Sets the effect applied to the reflection. The default is PlainReflection.*/  
+    /*!Sets the effect applied to the reflection. The default is PlainReflection.*/
     void setReflectionEffect(ReflectionEffect effect);
 
 
-    /*!Returns the role currently used for the image.*/  
+    /*!Returns the role currently used for the image.*/
     int pictureRole();
-    /*!Sets the role to use for the image. the default is Qt::DecorationRole*/  
+    /*!Sets the role to use for the image. the default is Qt::DecorationRole*/
     void setPictureRole(int);
 
-    /*!Returns the column currently used for the image.*/  
+    /*!Returns the column currently used for the image.*/
     int picureColumn();
-    /*!Sets the column to use for the image. the default is 0*/  
+    /*!Sets the column to use for the image. the default is 0*/
     void setPicureColumn(int);
 
-    #if 0
+#if 0
     int textRole();
     void setTextRole(int);
     int textColumn();
     void setTextColumn(int);
-    #endif
+#endif
 
 public Q_SLOTS:
 
-    /*! Sets slide to be shown in the middle of the viewport. No animation 
-        effect will be produced, unlike using showSlide. */  
+    /*! Sets slide to be shown in the middle of the viewport. No animation
+        effect will be produced, unlike using showSlide. */
     void setCurrentIndex(QModelIndex index);
 
     /*! Shows previous slide using animation effect. */
@@ -172,10 +172,10 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void keyPressEvent(QKeyEvent* event);
     virtual void mousePressEvent(QMouseEvent* event);
-    virtual void mouseMoveEvent ( QMouseEvent * event );
+    virtual void mouseMoveEvent(QMouseEvent * event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void resizeEvent(QResizeEvent* event);
-    virtual void wheelEvent ( QWheelEvent * event );
+    virtual void wheelEvent(QWheelEvent * event);
 private Q_SLOTS:
     void updateAnimation();
 

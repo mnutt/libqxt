@@ -30,7 +30,7 @@
 
     \section Overview
     QxtLoggerEngine is what gives the QxtLogger it's power.  While the Logger itself
-    manages memory, logic, and log levels, it is the various Engine Plugins that 
+    manages memory, logic, and log levels, it is the various Engine Plugins that
     do the actual work of logging the data.
 */
 
@@ -46,7 +46,7 @@ public:
 };
 
 QxtLoggerEnginePrivate::QxtLoggerEnginePrivate()
-    : bm_logLevel(QxtLogger::AllLevels), b_isLogging(true)
+        : bm_logLevel(QxtLogger::AllLevels), b_isLogging(true)
 {
 }
 
@@ -135,7 +135,7 @@ void QxtLoggerEngine::setLoggingEnabled(bool enable)
  */
 void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enable)
 {
-    if(enable)
+    if (enable)
     {
         qxt_d().bm_logLevel |= levels;
     }

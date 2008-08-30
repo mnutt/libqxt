@@ -33,12 +33,13 @@
 #include <QPair>
 
 class QxtRPCServiceIntrospector;
-class QxtRPCServicePrivate : public QObject, public QxtPrivate<QxtRPCService> {
-Q_OBJECT
+class QxtRPCServicePrivate : public QObject, public QxtPrivate<QxtRPCService>
+{
+    Q_OBJECT
 public:
     QxtRPCServicePrivate();
     QXT_DECLARE_PUBLIC(QxtRPCService);
-    
+
     QxtRPCServiceIntrospector* introspector;
     QxtAbstractConnectionManager* manager;
     QxtAbstractSignalSerializer* serializer;
@@ -47,11 +48,13 @@ public:
     QByteArray serverBuffer;
     QHash<quint64, QByteArray> buffers;
 
-    struct SlotDef {
+    struct SlotDef
+    {
         QObject* recv;
         QByteArray slot;
         Qt::ConnectionType type;
-        inline bool operator==(const SlotDef& other) const {
+        inline bool operator==(const SlotDef& other) const
+        {
             return (recv == other.recv) && (slot == other.slot) && (type == other.type);
         }
     };

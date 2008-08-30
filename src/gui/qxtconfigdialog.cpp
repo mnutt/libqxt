@@ -103,7 +103,7 @@ void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& opt
     QItemDelegate::paint(painter, opt, index);
 }
 
-QSize QxtConfigDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index ) const
+QSize QxtConfigDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     int margin = qApp->style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
     int textWidth = option.fontMetrics.width(index.data().toString());
@@ -263,7 +263,7 @@ void QxtConfigDialogPrivate::setCurrentIndex(int index)
     int previousIndex = stack->currentIndex();
     if (previousIndex != -1 && previousIndex != index)
         qxt_p().cleanupPage(previousIndex);
-    
+
     stack->setCurrentIndex(index);
     table->setCurrentItem(item(index));
 

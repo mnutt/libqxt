@@ -44,7 +44,8 @@ QxtScgiServerConnector implements the SCGI protocoll supported by almost all mod
 #include <QString>
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtScgiServerConnectorPrivate : public QxtPrivate<QxtScgiServerConnector> {
+class QxtScgiServerConnectorPrivate : public QxtPrivate<QxtScgiServerConnector>
+{
 public:
     QTcpServer* server;
 };
@@ -53,7 +54,8 @@ public:
 /**
  * Creates a QxtHttpServerConnector with the given parent.
  */
-QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent) {
+QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent)
+{
     QXT_INIT_PRIVATE(QxtScgiServerConnector);
     qxt_d().server = new QTcpServer(this);
     QObject::connect(qxt_d().server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
@@ -62,14 +64,15 @@ QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHtt
 /**
  * \reimp
  */
-bool QxtScgiServerConnector::listen(const QHostAddress& interface, quint16 port) {
+bool QxtScgiServerConnector::listen(const QHostAddress& interface, quint16 port)
+{
     return qxt_d().server->listen(interface, port);
 }
 
 /**
  * \priv
  */
-void QxtScgiServerConnector::acceptConnection() 
+void QxtScgiServerConnector::acceptConnection()
 {
     QTcpSocket* socket = qxt_d().server->nextPendingConnection();
     addConnection(socket);
@@ -78,24 +81,24 @@ void QxtScgiServerConnector::acceptConnection()
 /**
  * \reimp
  */
-bool QxtScgiServerConnector::canParseRequest(const QByteArray& buffer) 
+bool QxtScgiServerConnector::canParseRequest(const QByteArray& buffer)
 {
-    if(buffer.size()<10)
+    if (buffer.size() < 10)
         return false;
     QString expectedsize;
-    for(int i=0;i<10;i++)
+    for (int i = 0;i < 10;i++)
     {
-        if (buffer.at(i)==':')
+        if (buffer.at(i) == ':')
         {
             break;
         }
         else
         {
-            expectedsize+=buffer.at(i);
+            expectedsize += buffer.at(i);
         }
     }
 
-    if(expectedsize.isEmpty())
+    if (expectedsize.isEmpty())
     {
         //protocoll error
         return false;
@@ -107,62 +110,62 @@ bool QxtScgiServerConnector::canParseRequest(const QByteArray& buffer)
 /**
  * \reimp
  */
-QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer) 
+QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
 {
     QString expectedsize_s;
-    for(int i=0;i<20;i++)
+    for (int i = 0;i < 20;i++)
     {
-        if (buffer.at(i)==':')
+        if (buffer.at(i) == ':')
         {
             break;
         }
         else
         {
-            expectedsize_s+=buffer.at(i);
+            expectedsize_s += buffer.at(i);
         }
     }
 
-    if(expectedsize_s.isEmpty())
+    if (expectedsize_s.isEmpty())
     {
         //protocoll error
         return QHttpRequestHeader();
     }
 
 
-    buffer=buffer.right(buffer.size()-(expectedsize_s.count()+1));
+    buffer = buffer.right(buffer.size() - (expectedsize_s.count() + 1));
 
 
     QHttpRequestHeader request_m;
 
     QByteArray name;
-    int i=0;
-    while ((i=buffer.indexOf('\0'))>-1)
+    int i = 0;
+    while ((i = buffer.indexOf('\0')) > -1)
     {
-        if (name=="")
+        if (name == "")
         {
-            name= buffer.left(i);
+            name = buffer.left(i);
         }
         else
         {
-            request_m.setValue (QString::fromAscii(name).toLower(),QString::fromAscii(buffer.left(i)));
-            name="";
+            request_m.setValue(QString::fromAscii(name).toLower(), QString::fromAscii(buffer.left(i)));
+            name = "";
         }
-        buffer=buffer.mid(i+1);
+        buffer = buffer.mid(i + 1);
     }
 
 
-    request_m.setRequest (request_m.value("request_method"),request_m.value("request_uri"),1,0);
+    request_m.setRequest(request_m.value("request_method"), request_m.value("request_uri"), 1, 0);
 
 
-    foreach(QString key,request_m.keys())
+    foreach(QString key, request_m.keys())
     {
-        if(key.startsWith("http_"))
+        if (key.startsWith("http_"))
         {
-            request_m.setValue (key.right(key.size()-5),request_m.value(key));
+            request_m.setValue(key.right(key.size() - 5), request_m.value(key));
         }
     }
 
-    request_m.setValue ("Connection","close");
+    request_m.setValue("Connection", "close");
 
 
     buffer.chop(1);
@@ -171,17 +174,17 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
     return request_m;
 }
 
-/** 
+/**
  * \reimp
  */
-void QxtScgiServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& response_m) 
+void QxtScgiServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& response_m)
 {
 
-    device->write(("Status:"+QString::number(response_m.statusCode ())+" "+response_m.reasonPhrase ()+"\r\n").toAscii());
+    device->write(("Status:" + QString::number(response_m.statusCode()) + " " + response_m.reasonPhrase() + "\r\n").toAscii());
 
     foreach(QString key, response_m.keys())
     {
-        device->write((key+":"+response_m.value(key)+"\r\n").toAscii());
+        device->write((key + ":" + response_m.value(key) + "\r\n").toAscii());
     }
     device->write("\r\n");
 }

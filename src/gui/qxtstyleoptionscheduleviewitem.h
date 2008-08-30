@@ -7,7 +7,7 @@
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
-** 
+**
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -31,24 +31,24 @@
 
 
 /**
-	@author Benjamin Zeller <zbenjamin@users.sourceforge.net>
+ @author Benjamin Zeller <zbenjamin@users.sourceforge.net>
 */
 class QxtStyleOptionScheduleViewItem : public QStyleOptionViewItem
 {
 public:
     QxtStyleOptionScheduleViewItem();
     ~QxtStyleOptionScheduleViewItem();
-   
+
     enum StyleOptionType { Type = QStyleOption::SO_CustomBase };
     enum StyleOptionVersion { Version = 1 };
-    
-    
+
+
     QVector<QRect> itemGeometries;
     mutable QVector<QPixmap> *itemPaintCache;
     QPoint translate;
     int roundCornersRadius;
     int itemHeaderHeight;
-    
+
 
 };
 

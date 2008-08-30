@@ -34,7 +34,8 @@
 class QProcess;
 class QxtWebContent;
 
-struct QxtCgiRequestInfo {
+struct QxtCgiRequestInfo
+{
     QxtCgiRequestInfo();
     QxtCgiRequestInfo(QxtWebRequestEvent* req);
     int sessionID;
@@ -43,11 +44,12 @@ struct QxtCgiRequestInfo {
     bool eventSent;
 };
 
-class QxtWebCgiServicePrivate : public QObject, public QxtPrivate<QxtWebCgiService> {
-Q_OBJECT
+class QxtWebCgiServicePrivate : public QObject, public QxtPrivate<QxtWebCgiService>
+{
+    Q_OBJECT
 public:
     QXT_DECLARE_PUBLIC(QxtWebCgiService);
-    
+
     QHash<QProcess*, QxtCgiRequestInfo> requests;
     QHash<QxtWebContent*, QProcess*> processes;
     QString binary;

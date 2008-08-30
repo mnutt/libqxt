@@ -43,28 +43,28 @@ public:
     }
 
 private:
-    QxtLinkedTreeItem (T tt)
+    QxtLinkedTreeItem(T tt)
     {
-        t=tt;
-        next=0;
-        previous=0;
-        parent=0;
-        child=0;
-        childcount=0;
+        t = tt;
+        next = 0;
+        previous = 0;
+        parent = 0;
+        child = 0;
+        childcount = 0;
     }
 
     void clear()
     {
-        if(child)
+        if (child)
         {
-            QxtLinkedTreeItem * c= child;
-            while(c)
+            QxtLinkedTreeItem * c = child;
+            while (c)
             {
-                QxtLinkedTreeItem * e=c;
-                c=c->next;
+                QxtLinkedTreeItem * e = c;
+                c = c->next;
                 delete e;
             }
-            child=0;
+            child = 0;
         }
     }
 
@@ -87,36 +87,36 @@ class QXT_CORE_EXPORT QxtLinkedTreeIterator
 public:
     QxtLinkedTreeIterator();
     QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> & other);
-    QxtLinkedTreeIterator & operator= ( const QxtLinkedTreeIterator<T> & other );
+    QxtLinkedTreeIterator & operator= (const QxtLinkedTreeIterator<T> & other);
 
-    QxtLinkedTreeIterator    parent   () const;
-    QxtLinkedTreeIterator    next     () const;
-    QxtLinkedTreeIterator    previous () const;
-    QxtLinkedTreeIterator    child    () const;
+    QxtLinkedTreeIterator    parent() const;
+    QxtLinkedTreeIterator    next() const;
+    QxtLinkedTreeIterator    previous() const;
+    QxtLinkedTreeIterator    child() const;
 
     bool isValid() const;
     int children() const;
 
-    T & operator* () const;
+    T & operator*() const;
     T * operator-> () const;
     operator T() const;
 
-    QxtLinkedTreeIterator    operator + ( int j ) const;
+    QxtLinkedTreeIterator    operator + (int j) const;
     QxtLinkedTreeIterator &  operator ++ ();
     QxtLinkedTreeIterator    operator ++ (int);
-    QxtLinkedTreeIterator &  operator += ( int j );
+    QxtLinkedTreeIterator &  operator += (int j);
 
-    QxtLinkedTreeIterator    operator - ( int j ) const;
+    QxtLinkedTreeIterator    operator - (int j) const;
     QxtLinkedTreeIterator &  operator -- ();
     QxtLinkedTreeIterator    operator -- (int);
-    QxtLinkedTreeIterator &  operator -= ( int j );
+    QxtLinkedTreeIterator &  operator -= (int j);
 
-    bool operator== ( const QxtLinkedTreeIterator<T> & other ) const;
-    bool operator!= ( const QxtLinkedTreeIterator<T> & other ) const;
+    bool operator== (const QxtLinkedTreeIterator<T> & other) const;
+    bool operator!= (const QxtLinkedTreeIterator<T> & other) const;
 
-    QxtLinkedTreeIterator erase  () ;
-    QxtLinkedTreeIterator append (const T & value);
-    QxtLinkedTreeIterator insert (int i,const T & value);
+    QxtLinkedTreeIterator erase() ;
+    QxtLinkedTreeIterator append(const T & value);
+    QxtLinkedTreeIterator insert(int i, const T & value);
 
 private:
     friend class QxtLinkedTree<T>;
@@ -135,12 +135,12 @@ public:
     ~QxtLinkedTree();
     void clear();
     QxtLinkedTreeIterator<T> root();
-    static QxtLinkedTreeIterator<T> fromVoid (void *) ;
-    static void * toVoid (QxtLinkedTreeIterator<T>) ;
+    static QxtLinkedTreeIterator<T> fromVoid(void *) ;
+    static void * toVoid(QxtLinkedTreeIterator<T>) ;
 
-    #if 0
-    QxtLinkedTreeIterator insert ( iterator before, const T & value );
-    #endif
+#if 0
+    QxtLinkedTreeIterator insert(iterator before, const T & value);
+#endif
 
 private:
     QxtSharedPrivate< QxtLinkedTreeItem<T> >  qxt_d;
@@ -149,98 +149,98 @@ private:
 template<class T>
 QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator()
 {
-    item=0;
+    item = 0;
 }
 
 template<class T>
 QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator(const QxtLinkedTreeIterator<T> & other)
 {
-    item=other.item;
+    item = other.item;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> & QxtLinkedTreeIterator<T>::operator= ( const QxtLinkedTreeIterator<T> & other )
+QxtLinkedTreeIterator<T> & QxtLinkedTreeIterator<T>::operator= (const QxtLinkedTreeIterator<T> & other)
 {
-    item=other.item;
+    item = other.item;
     return *this;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::parent   () const
+QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::parent() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return QxtLinkedTreeIterator<T>(item->parent);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::next     () const
+QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::next() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return QxtLinkedTreeIterator<T>(item->next);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::previous () const
+QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::previous() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return QxtLinkedTreeIterator<T>(item->previous);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::child    () const
+QxtLinkedTreeIterator<T> QxtLinkedTreeIterator<T>::child() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return QxtLinkedTreeIterator<T>(item->child);
 }
 
 template<class T>
 bool  QxtLinkedTreeIterator<T>::isValid() const
 {
-    return (item!=0);
+    return (item != 0);
 }
 
 template<class T>
 int  QxtLinkedTreeIterator<T>::children() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return item->childcount;
 }
 
 template<class T>
-T &  QxtLinkedTreeIterator<T>::operator* () const
+T &  QxtLinkedTreeIterator<T>::operator*() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return item->t;
 }
 
 template<class T>
 T *  QxtLinkedTreeIterator<T>::operator-> () const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item, Q_FUNC_INFO, "iterator out of range");
     return &item->t;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>::operator T () const
+QxtLinkedTreeIterator<T>::operator T() const
 {
-    Q_ASSERT_X(item,Q_FUNC_INFO,"iterator out of range");
+    Q_ASSERT_X(item,Q_FUNC_INFO, "iterator out of range");
     return item->t;
 }
 
 template<class T>
 QxtLinkedTreeIterator<T>::QxtLinkedTreeIterator(QxtLinkedTreeItem<T> * t)
 {
-    item=t;
+    item = t;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator + ( int j ) const
+QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator + (int j) const
 {
-    QxtLinkedTreeItem<T>  * m=item;
-    for (int i=0;i<j;i++)
+    QxtLinkedTreeItem<T>  * m = item;
+    for (int i = 0;i < j;i++)
     {
-        m=m->next;
-        if(m==0)
+        m = m->next;
+        if (m == 0)
             return QxtLinkedTreeIterator<T>();
     }
     return QxtLinkedTreeIterator<T>(m);
@@ -249,7 +249,7 @@ QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator + ( int j ) const
 template<class T>
 QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator ++ () /*prefix*/
 {
-    *this= QxtLinkedTreeIterator<T>(item->next);
+    *this = QxtLinkedTreeIterator<T>(item->next);
     return *this;
 }
 
@@ -257,25 +257,25 @@ template<class T>
 QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator ++ (int) /*postfix*/
 {
     QxtLinkedTreeIterator<T> d(*this);
-    *this= QxtLinkedTreeIterator<T>(item->next);
+    *this = QxtLinkedTreeIterator<T>(item->next);
     return d;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator += ( int j )
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator += (int j)
 {
-    *this=*this+j;
+    *this = *this + j;
     return *this;
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator - ( int j ) const
+QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator - (int j) const
 {
-    QxtLinkedTreeItem<T>  * m=item;
-    for (int i=0;i<j;i++)
+    QxtLinkedTreeItem<T>  * m = item;
+    for (int i = 0;i < j;i++)
     {
-        m=m->previous;
-        if(m==0)
+        m = m->previous;
+        if (m == 0)
             return QxtLinkedTreeIterator<T>();
     }
     return QxtLinkedTreeIterator<T>(m);
@@ -284,7 +284,7 @@ QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator - ( int j ) const
 template<class T>
 QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -- () /*prefix*/
 {
-    *this= QxtLinkedTreeIterator<T>(item->previous);
+    *this = QxtLinkedTreeIterator<T>(item->previous);
     return *this;
 }
 
@@ -292,132 +292,132 @@ template<class T>
 QxtLinkedTreeIterator<T>   QxtLinkedTreeIterator<T>::operator -- (int) /*postfix*/
 {
     QxtLinkedTreeIterator<T> d(*this);
-    *this= QxtLinkedTreeIterator<T>(item->previous);
+    *this = QxtLinkedTreeIterator<T>(item->previous);
     return d;
 
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -= ( int j )
+QxtLinkedTreeIterator<T> &  QxtLinkedTreeIterator<T>::operator -= (int j)
 {
-    *this=*this-j;
+    *this = *this - j;
     return *this;
 }
 
 template<class T>
-bool QxtLinkedTreeIterator<T>::operator== ( const QxtLinkedTreeIterator<T> & other ) const
+bool QxtLinkedTreeIterator<T>::operator== (const QxtLinkedTreeIterator<T> & other) const
 {
-    return (other.item==item);
+    return (other.item == item);
 }
 
 template<class T>
-bool QxtLinkedTreeIterator<T>::operator!= ( const QxtLinkedTreeIterator<T> & other ) const
+bool QxtLinkedTreeIterator<T>::operator!= (const QxtLinkedTreeIterator<T> & other) const
 {
-    return (other.item!=item);
+    return (other.item != item);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase  () 
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::erase()
 {
-    QxtLinkedTreeItem <T> *node= item;
-    Q_ASSERT_X(item,Q_FUNC_INFO,"can't erase invalid node.");
-    QxtLinkedTreeItem <T> *parent= item->parent;
-    Q_ASSERT_X(parent,Q_FUNC_INFO,"erasing root node not supported.");
-    QxtLinkedTreeItem <T> *next= node->next;
+    QxtLinkedTreeItem <T> *node = item;
+    Q_ASSERT_X(item, Q_FUNC_INFO, "can't erase invalid node.");
+    QxtLinkedTreeItem <T> *parent = item->parent;
+    Q_ASSERT_X(parent, Q_FUNC_INFO, "erasing root node not supported.");
+    QxtLinkedTreeItem <T> *next = node->next;
 
     ///delete children
-    QxtLinkedTreeIterator<T> ci= child();
-    while(ci.isValid())
+    QxtLinkedTreeIterator<T> ci = child();
+    while (ci.isValid())
     {
-        ci=ci.erase();
+        ci = ci.erase();
     }
 
     ///realign chains
-    if(parent->child==node)
+    if (parent->child == node)
     {
-        parent->child=node->next;
+        parent->child = node->next;
     }
-    else 
+    else
     {
-        QxtLinkedTreeItem <T> * n=parent->child;
-        while(n->next!=node)
+        QxtLinkedTreeItem <T> * n = parent->child;
+        while (n->next != node)
         {
-            Q_ASSERT_X(n->next!=0,Q_FUNC_INFO,"reached end of chain and didn't find the node requested for removal.");
-            n=n->next;
+            Q_ASSERT_X(n->next != 0, Q_FUNC_INFO, "reached end of chain and didn't find the node requested for removal.");
+            n = n->next;
         }
-        n->next=node->next;
+        n->next = node->next;
     }
     parent->childcount--;
     delete node;
-    item=0;
+    item = 0;
     return QxtLinkedTreeIterator<T>(next);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append (const T & value )
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::append(const T & value)
 {
-    QxtLinkedTreeItem <T> * parent= item;
-    Q_ASSERT_X(parent,Q_FUNC_INFO,"invalid iterator");
+    QxtLinkedTreeItem <T> * parent = item;
+    Q_ASSERT_X(parent, Q_FUNC_INFO, "invalid iterator");
 
     QxtLinkedTreeItem<T> *node = new QxtLinkedTreeItem<T>(value);
 
-    if(parent->child==0)
+    if (parent->child == 0)
     {
-        parent->child=node;
-        node->parent=parent;
-        node->previous=0;
-        parent->childcount=1;
+        parent->child = node;
+        node->parent = parent;
+        node->previous = 0;
+        parent->childcount = 1;
         return QxtLinkedTreeIterator<T>(node);
     }
 
-    QxtLinkedTreeItem <T> * n=parent->child;
-    while(n->next!=0)
-        n=n->next;
-    n->next=node;
-    node->parent=parent;
-    node->previous=n;
+    QxtLinkedTreeItem <T> * n = parent->child;
+    while (n->next != 0)
+        n = n->next;
+    n->next = node;
+    node->parent = parent;
+    node->previous = n;
     parent->childcount++;
     return QxtLinkedTreeIterator<T>(node);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::insert (int i,const T & value )
+QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::insert(int i, const T & value)
 {
-    QxtLinkedTreeItem <T> * parent= item;
-    Q_ASSERT_X(parent,Q_FUNC_INFO,"invalid iterator");
+    QxtLinkedTreeItem <T> * parent = item;
+    Q_ASSERT_X(parent, Q_FUNC_INFO, "invalid iterator");
 
 
-    Q_ASSERT_X(i<=children(),Q_FUNC_INFO,"cannot insert out of range");
+    Q_ASSERT_X(i <= children(), Q_FUNC_INFO, "cannot insert out of range");
 
 
-    if(parent->child==0 ||  i==children())
+    if (parent->child == 0 ||  i == children())
     {
         return append(value);
     }
 
     QxtLinkedTreeItem<T> *node = new QxtLinkedTreeItem<T>(value);
 
-    QxtLinkedTreeItem <T> * n=parent->child;
+    QxtLinkedTreeItem <T> * n = parent->child;
 
-    while(i-->0)
+    while (i-- > 0)
     {
-        n=n->next;
-        Q_ASSERT_X(n,Q_FUNC_INFO,"out of range");
+        n = n->next;
+        Q_ASSERT_X(n, Q_FUNC_INFO, "out of range");
     }
-    if(n->previous)
+    if (n->previous)
     {
-        n->previous->next=node;
-        node->previous=n->previous;
+        n->previous->next = node;
+        node->previous = n->previous;
     }
     else
     {
-        Q_ASSERT_X(parent->child==n,Q_FUNC_INFO,"corupted linked tree");
-        parent->child=node;
-        node->previous=0;
+        Q_ASSERT_X(parent->child == n, Q_FUNC_INFO, "corupted linked tree");
+        parent->child = node;
+        node->previous = 0;
     }
-    node->next=n;
-    n->previous=node;
-    node->parent=parent;
+    node->next = n;
+    n->previous = node;
+    node->parent = parent;
     parent->childcount++;
     return QxtLinkedTreeIterator<T>(node);
 }
@@ -425,13 +425,13 @@ QxtLinkedTreeIterator<T>  QxtLinkedTreeIterator<T>::insert (int i,const T & valu
 template<class T>
 QxtLinkedTree<T>::QxtLinkedTree(T t)
 {
-    qxt_d=new QxtLinkedTreeItem<T>(t);
+    qxt_d = new QxtLinkedTreeItem<T>(t);
 }
 
 template<class T>
 QxtLinkedTree<T>::QxtLinkedTree()
 {
-    qxt_d=new QxtLinkedTreeItem<T>(T());
+    qxt_d = new QxtLinkedTreeItem<T>(T());
 }
 
 template<class T>
@@ -446,19 +446,19 @@ void QxtLinkedTree<T>::clear()
 }
 
 template<class T>
-QxtLinkedTreeIterator<T>  QxtLinkedTree<T>::fromVoid (void * d) 
+QxtLinkedTreeIterator<T>  QxtLinkedTree<T>::fromVoid(void * d)
 {
     return QxtLinkedTreeIterator<T>(reinterpret_cast<QxtLinkedTreeItem<T> *>(d));
 }
 
 template<class T>
-void *  QxtLinkedTree<T>::toVoid (QxtLinkedTreeIterator<T> n) 
+void *  QxtLinkedTree<T>::toVoid(QxtLinkedTreeIterator<T> n)
 {
     return reinterpret_cast<void*>(n.item);
 }
 
 template<class T>
-QxtLinkedTreeIterator<T> QxtLinkedTree<T>::root ()
+QxtLinkedTreeIterator<T> QxtLinkedTree<T>::root()
 {
     return QxtLinkedTreeIterator<T>(&qxt_d());
 }

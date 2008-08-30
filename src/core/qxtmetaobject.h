@@ -40,11 +40,13 @@ class QxtBoundFunction;
 #define QXT_PROTO_9ARGS(T) T p2 = T(), T p3 = T(), T p4 = T(), T p5 = T(), T p6 = T(), T p7 = T(), T p8 = T(), T p9 = T(), T p10 = T()
 #define QXT_IMPL_10ARGS(T) T p1, T p2, T p3, T p4, T p5, T p6, T p7, T p8, T p9, T p10
 
-class QXT_CORE_EXPORT QxtGenericFunctionPointer {
-template<typename FUNCTION>
-friend QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr);
+class QXT_CORE_EXPORT QxtGenericFunctionPointer
+{
+    template<typename FUNCTION>
+    friend QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr);
 public:
-    QxtGenericFunctionPointer(const QxtGenericFunctionPointer& other) {
+    QxtGenericFunctionPointer(const QxtGenericFunctionPointer& other)
+    {
         funcPtr = other.funcPtr;
         typeName = other.typeName;
     }
@@ -54,28 +56,30 @@ public:
     QByteArray typeName;
 
 protected:
-    QxtGenericFunctionPointer(voidFunc* ptr, const QByteArray& typeIdName) {
+    QxtGenericFunctionPointer(voidFunc* ptr, const QByteArray& typeIdName)
+    {
         funcPtr = ptr;
         typeName = typeIdName;
     }
 };
 
 template<typename FUNCTION>
-QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr) {
+QxtGenericFunctionPointer qxtFuncPtr(FUNCTION funcPtr)
+{
     return QxtGenericFunctionPointer(reinterpret_cast<QxtGenericFunctionPointer::voidFunc*>(funcPtr), typeid(funcPtr).name());
 }
 
 namespace QxtMetaObject
 {
-QXT_CORE_EXPORT QByteArray methodName(const char* method);
-QXT_CORE_EXPORT QByteArray methodSignature(const char* method);
+    QXT_CORE_EXPORT QByteArray methodName(const char* method);
+    QXT_CORE_EXPORT QByteArray methodSignature(const char* method);
 
-QXT_CORE_EXPORT bool isSignalOrSlot (const char* method);
+    QXT_CORE_EXPORT bool isSignalOrSlot(const char* method);
 
-QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
-QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QVariant p1, QXT_PROTO_9ARGS(QVariant));
-QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
-                             Qt::ConnectionType type = Qt::AutoConnection);
+    QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QXT_PROTO_10ARGS(QGenericArgument));
+    QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QVariant p1, QXT_PROTO_9ARGS(QVariant));
+    QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
+                                 Qt::ConnectionType type = Qt::AutoConnection);
 };
 
 /**

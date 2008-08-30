@@ -7,7 +7,7 @@
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
-** 
+**
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -43,7 +43,7 @@
 
 /**
  *@author Benjamin Zeller <zbenjamin@users.sourceforge.net>
- *@desc This Model is used to tell the Header how many rows and columns the view has 
+ *@desc This Model is used to tell the Header how many rows and columns the view has
  */
 
 class QxtScheduleView;
@@ -51,30 +51,30 @@ class QxtScheduleView;
 class QxtScheduleViewHeaderModel : public QAbstractTableModel
 {
     Q_OBJECT
-    
-    public:
-        QxtScheduleViewHeaderModel( QObject *parent = 0 );
-        
-        void                    setDataSource   ( QxtScheduleView *dataSource );
-        
-        virtual QModelIndex     parent          ( const QModelIndex & index                                      ) const;
-        virtual int             rowCount        ( const QModelIndex & parent = QModelIndex()                     ) const;
-        virtual int             columnCount     ( const QModelIndex & parent = QModelIndex()                     ) const;
-        virtual  QVariant       data            ( const QModelIndex & index, int role = Qt::DisplayRole          ) const;
-        virtual bool            setData         ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-        virtual bool            insertRow       ( int row, const QModelIndex & parent = QModelIndex() );
-        virtual QVariant        headerData      ( int section, Qt::Orientation orientation,  int role = Qt::DisplayRole ) const;
-        virtual Qt::ItemFlags   flags           ( const QModelIndex &index) const;
-        virtual bool            hasChildren     ( const QModelIndex & parent = QModelIndex() ) const;   
-        
-    public Q_SLOTS:
-        void                    newZoomDepth    ( const int zoomDepth );
-        void                    viewModeChanged ( const int viewMode  );
-    
-    private:
-        QPointer<QxtScheduleView> m_dataSource;
-        int                       m_rowCountBuffer;
-        int                       m_colCountBuffer;
+
+public:
+    QxtScheduleViewHeaderModel(QObject *parent = 0);
+
+    void                    setDataSource(QxtScheduleView *dataSource);
+
+    virtual QModelIndex     parent(const QModelIndex & index) const;
+    virtual int             rowCount(const QModelIndex & parent = QModelIndex()) const;
+    virtual int             columnCount(const QModelIndex & parent = QModelIndex()) const;
+    virtual  QVariant       data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    virtual bool            setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+    virtual bool            insertRow(int row, const QModelIndex & parent = QModelIndex());
+    virtual QVariant        headerData(int section, Qt::Orientation orientation,  int role = Qt::DisplayRole) const;
+    virtual Qt::ItemFlags   flags(const QModelIndex &index) const;
+    virtual bool            hasChildren(const QModelIndex & parent = QModelIndex()) const;
+
+public Q_SLOTS:
+    void                    newZoomDepth(const int zoomDepth);
+    void                    viewModeChanged(const int viewMode);
+
+private:
+    QPointer<QxtScheduleView> m_dataSource;
+    int                       m_rowCountBuffer;
+    int                       m_colCountBuffer;
 };
 
 #endif

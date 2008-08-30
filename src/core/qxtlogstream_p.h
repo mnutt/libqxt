@@ -31,7 +31,7 @@ class QxtLogStream;
 
 class QxtLogStreamPrivate
 {
-friend class QxtLogStream;
+    friend class QxtLogStream;
 public:
     QxtLogStreamPrivate(QxtLogger* owner, QxtLogger::LogLevel level, const QList<QVariant>& data);
     ~QxtLogStreamPrivate();

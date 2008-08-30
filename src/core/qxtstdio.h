@@ -35,19 +35,19 @@ class QXT_CORE_EXPORT QxtStdio : public QxtPipe
     QXT_DECLARE_PRIVATE(QxtStdio);
 public:
     /**constructs a QxtStdio with the given parent*/
-    QxtStdio(QObject * parent=0);
+    QxtStdio(QObject * parent = 0);
 
     /**will block forever regardless of the parameter. returns false on EOF*/
-    virtual bool waitForReadyRead ( int msecs );
+    virtual bool waitForReadyRead(int msecs);
 
     /**Blocks until EOF is received.*/
-    void waitForEOF ();
+    void waitForEOF();
 
 protected:
     /**\reimp*/
-    virtual qint64 writeData ( const char * data, qint64 maxSize );
+    virtual qint64 writeData(const char * data, qint64 maxSize);
     /**\reimp*/
-    virtual void   receiveData (QByteArray data, const QxtPipe * sender );
+    virtual void   receiveData(QByteArray data, const QxtPipe * sender);
 
 
 };

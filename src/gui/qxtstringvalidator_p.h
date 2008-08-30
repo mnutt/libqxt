@@ -47,7 +47,7 @@ public:
 
     QModelIndex lookupPartialMatch(const QString &value) const;
     QModelIndex lookupExactMatch(const QString &value) const;
-    QModelIndex lookup(const QString &value,const Qt::MatchFlags  &matchFlags) const;
+    QModelIndex lookup(const QString &value, const Qt::MatchFlags  &matchFlags) const;
 
 };
 

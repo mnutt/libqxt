@@ -28,7 +28,7 @@
 #include <qxtsignalwaiter.h>
 #include <qxtboundfunction.h>
 
-class QxtSlotJobPrivate : public QObject,public QxtPrivate<QxtSlotJob>
+class QxtSlotJobPrivate : public QObject, public QxtPrivate<QxtSlotJob>
 {
 public:
     QxtBoundFunction * f;

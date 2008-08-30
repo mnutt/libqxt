@@ -45,9 +45,13 @@ public:
     void setDisplayMode(QxtLanguageComboBox::DisplayMode mode);
     void setTranslationPath(const QString& path);
     QxtLanguageComboBox::DisplayMode displayMode() const
-    { return _mDisplayMode; }
+    {
+        return _mDisplayMode;
+    }
     QString translationPath() const
-    { return _mTranslationPath; }
+    {
+        return _mTranslationPath;
+    }
 
 public Q_SLOTS:
     void setCurrentLanguage(QLocale::Language language);

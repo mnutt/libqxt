@@ -33,27 +33,27 @@
 class QxtPipePrivate;
 class QXT_CORE_EXPORT QxtPipe : public QIODevice
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    QxtPipe(QObject * parent=0);
+    QxtPipe(QObject * parent = 0);
 
-    virtual bool isSequential () const;
-    virtual qint64 bytesAvailable () const;
+    virtual bool isSequential() const;
+    virtual qint64 bytesAvailable() const;
 
-    bool connect   (QxtPipe * other ,
-                    QIODevice::OpenMode mode=QIODevice::ReadWrite,
-                    Qt::ConnectionType connectionTyp=Qt::AutoConnection);
-    bool disconnect (QxtPipe * other );
+    bool connect(QxtPipe * other ,
+                 QIODevice::OpenMode mode = QIODevice::ReadWrite,
+                 Qt::ConnectionType connectionTyp = Qt::AutoConnection);
+    bool disconnect(QxtPipe * other);
 
     QxtPipe & operator | (QxtPipe & target);
 
 protected:
-    virtual qint64 readData    ( char * data, qint64 maxSize       );
-    virtual qint64 writeData   ( const char * data, qint64 maxSize );
+    virtual qint64 readData(char * data, qint64 maxSize);
+    virtual qint64 writeData(const char * data, qint64 maxSize);
 
-    virtual void   receiveData (QByteArray data, const QxtPipe * sender );
-    void   sendData     (QByteArray data) const;
-    void   enqueData    (QByteArray data);
+    virtual void   receiveData(QByteArray data, const QxtPipe * sender);
+    void   sendData(QByteArray data) const;
+    void   enqueData(QByteArray data);
 private:
     QXT_DECLARE_PRIVATE(QxtPipe);
 

@@ -37,14 +37,14 @@ QT_END_NAMESPACE
 
 class QXT_CORE_EXPORT QxtJob : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtJob();
     ~QxtJob();
     void exec(QThread * onthread);
     void join();
 protected:
-    virtual void run()=0; 
+    virtual void run() = 0;
 Q_SIGNALS:
     void done();
 private:

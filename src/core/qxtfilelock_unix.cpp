@@ -43,8 +43,8 @@
 class QxtFileLockRegistry
 {
 public:
-    bool registerLock(QxtFileLock *lock );
-    bool removeLock(QxtFileLock *lock );
+    bool registerLock(QxtFileLock *lock);
+    bool removeLock(QxtFileLock *lock);
     static QxtFileLockRegistry& instance();
 
 private:
@@ -67,7 +67,7 @@ QxtFileLockRegistry& QxtFileLockRegistry::instance()
  * \internal if there is no collision it inserts the lock into the registry and returns
  * \internal return true for success
  */
-bool QxtFileLockRegistry::registerLock(QxtFileLock * lock )
+bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
 {
     QMutexLocker locker(&this->registryMutex);
 
@@ -76,11 +76,11 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock )
     if (fileToLock)
     {
         struct stat fileInfo;
-        if ( fstat(fileToLock->handle(),&fileInfo) < 0 )
+        if (fstat(fileToLock->handle(), &fileInfo) < 0)
             return false;
 
         int newLockStart = lock ->offset();
-        int newLockEnd = lock ->offset()+lock ->length();
+        int newLockEnd = lock ->offset() + lock ->length();
 
         QMutableLinkedListIterator< QPointer<QxtFileLock> >iterator(this->procLocks);
 
@@ -92,7 +92,7 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock )
                 struct stat currFileInfo;
 
                 /*first check if the current lock is on the same file*/
-                if ( fstat(currLock->file()->handle(),&currFileInfo) < 0 )
+                if (fstat(currLock->file()->handle(), &currFileInfo) < 0)
                 {
                     /*that should never happen because a closing file should remove all locks*/
                     Q_ASSERT(false);
@@ -103,38 +103,38 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock )
                 {
                     /*same file, check if our locks are in conflict*/
                     int currLockStart = currLock->offset();
-                    int currLockEnd = currLock->offset()+currLock->length();
+                    int currLockEnd = currLock->offset() + currLock->length();
 
                     /*do we have to check for threads here?*/
                     if (newLockEnd >= currLockStart  && newLockStart <= currLockEnd)
                     {
-                        qDebug()<<"we may have a collision";
-                        qDebug()<<newLockEnd<<" >= "<<currLockStart<<"  &&  "<<newLockStart<<" <= "<<currLockEnd;
+                        qDebug() << "we may have a collision";
+                        qDebug() << newLockEnd << " >= " << currLockStart << "  &&  " << newLockStart << " <= " << currLockEnd;
 
                         /*same lock region if one of both locks are exclusive we have a collision*/
                         if (lock ->mode() == QxtFileLock::WriteLockWait || lock ->mode() == QxtFileLock::WriteLock ||
-                                    currLock->mode() == QxtFileLock::WriteLockWait || currLock->mode() == QxtFileLock::WriteLock)
+                                currLock->mode() == QxtFileLock::WriteLockWait || currLock->mode() == QxtFileLock::WriteLock)
+                        {
+                            qDebug() << "Okay if this is not the same thread using the same handle there is a collision";
+                            /*the same thread  can lock the same region with the same handle*/
+
+                            qDebug() << "! (" << lock ->thread() << " == " << currLock->thread() << " && " << lock ->file()->handle() << " == " << currLock->file()->handle() << ")";
+
+                            if (!(lock ->thread() == currLock->thread() && lock ->file()->handle() == currLock->file()->handle()))
                             {
-                                qDebug()<<"Okay if this is not the same thread using the same handle there is a collision";
-                                /*the same thread  can lock the same region with the same handle*/
-
-                                qDebug()<<"! ("<<lock ->thread()<<" == "<<currLock->thread()<<" && "<<lock ->file()->handle()<<" == "<<currLock->file()->handle()<<")";
-
-                                if (! (lock ->thread() == currLock->thread() && lock ->file()->handle() == currLock->file()->handle()))
-                                    {
-                                        qDebug()<<"Collision";
-                                        return false;
-                                    }
+                                qDebug() << "Collision";
+                                return false;
                             }
+                        }
                     }
                 }
             }
             else //remove dead locks
                 iterator.remove();
         }
-        qDebug()<<"The lock is okay";
+        qDebug() << "The lock is okay";
         /*here we can insert the lock into the list and return*/
-        procLocks.append(QPointer<QxtFileLock>(lock ));
+        procLocks.append(QPointer<QxtFileLock>(lock));
         return true;
 
     }
@@ -142,10 +142,10 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock )
     return false;
 }
 
-bool QxtFileLockRegistry::removeLock(QxtFileLock * lock )
+bool QxtFileLockRegistry::removeLock(QxtFileLock * lock)
 {
     QMutexLocker locker(&this->registryMutex);
-    procLocks.removeAll(lock );
+    procLocks.removeAll(lock);
     return true;
 }
 
@@ -169,7 +169,7 @@ bool QxtFileLock::unlock()
             lockDesc.l_start = qxt_d().offset;
             lockDesc.l_len = qxt_d().length;
             lockDesc.l_pid = 0;
-            result = fcntl (this->file()->handle(), lockmode, &lockDesc);
+            result = fcntl(this->file()->handle(), lockmode, &lockDesc);
         }
         while (result && errno == EINTR);
 
@@ -180,7 +180,7 @@ bool QxtFileLock::unlock()
     return false;
 }
 
-bool QxtFileLock::lock ()
+bool QxtFileLock::lock()
 {
     if (file() && file()->isOpen() && !isActive())
     {
@@ -246,7 +246,7 @@ bool QxtFileLock::lock ()
             lockDesc.l_start = qxt_d().offset;
             lockDesc.l_len = qxt_d().length;
             lockDesc.l_pid = 0;
-            result = fcntl (this->file()->handle(), lockmode, &lockDesc);
+            result = fcntl(this->file()->handle(), lockmode, &lockDesc);
         }
         while (result && errno == EINTR);
 

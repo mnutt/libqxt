@@ -40,25 +40,25 @@
 
 
 
-QxtLineSocket::QxtLineSocket (QIODevice * socket,QObject * parent):QObject(parent)
+QxtLineSocket::QxtLineSocket(QIODevice * socket, QObject * parent): QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtLineSocket);
-    qxt_d().socket=socket;
-    connect(qxt_d().socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
+    qxt_d().socket = socket;
+    connect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
 }
 
-QxtLineSocket::QxtLineSocket (QObject * parent):QObject(parent)
+QxtLineSocket::QxtLineSocket(QObject * parent): QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtLineSocket);
-    qxt_d().socket=0;
+    qxt_d().socket = 0;
 }
 
 void QxtLineSocket::setSocket(QIODevice * a)
 {
     if (qxt_d().socket)
         disconnect(qxt_d().socket);
-    qxt_d().socket=a;
-    connect(qxt_d().socket,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
+    qxt_d().socket = a;
+    connect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
 }
 
 
@@ -72,7 +72,7 @@ QIODevice * QxtLineSocket::socket() const
 
 void QxtLineSocket::sendLine(QByteArray a)
 {
-    qxt_d().socket->write(a.replace('\n',"")+'\n');
+    qxt_d().socket->write(a.replace('\n', "") + '\n');
 }
 
 void QxtLineSocket::newLine(QByteArray a)
@@ -83,13 +83,13 @@ void QxtLineSocket::newLine(QByteArray a)
 
 void QxtLineSocketPrivate::readyRead()
 {
-    rbuff+=socket->readAll();
+    rbuff += socket->readAll();
 
-    int i=0;
-    while((i=rbuff.indexOf('\n'))>-1)
+    int i = 0;
+    while ((i = rbuff.indexOf('\n')) > -1)
     {
         (&qxt_p())->newLine(rbuff.left(i));
-        rbuff=rbuff.mid(i+1);
+        rbuff = rbuff.mid(i + 1);
     }
 }
 

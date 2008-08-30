@@ -33,7 +33,7 @@
         #include <QxtLogger>
         ...
         QxtLogger::getInstance()->debug("Hi!"); // without using the macro
-        qxtLog->debug("Hi!");	// using the macro
+        qxtLog->debug("Hi!"); // using the macro
     \endcode
     \see getInstance()
 
@@ -51,7 +51,7 @@
         \li write()
 
     These named members only have meaning to the person who uses them.  For example, you could call qxtLog->trace() from
-    many parts of a complicated, massively recursive function to trace it's output; use qxtLog->info() to log that 
+    many parts of a complicated, massively recursive function to trace it's output; use qxtLog->info() to log that
     an event such as "Logging has started" has happened; use qxtLog->fatal() when an unhandled exception is thrown.  Or,
     you could use qxtLog->write() for everything.
 
@@ -191,7 +191,8 @@ QxtLoggerEngine *QxtLogger::engine(const QString &engineName)
     qxtLog->info() << "informational message";
     \endcode
 */
-QxtLogStream QxtLogger::info() {
+QxtLogStream QxtLogger::info()
+{
     return stream(QxtLogger::InfoLevel);
 }
 
@@ -201,7 +202,8 @@ QxtLogStream QxtLogger::info() {
     qxtLog->trace() << "detailed trace message";
     \endcode
 */
-QxtLogStream QxtLogger::trace() {
+QxtLogStream QxtLogger::trace()
+{
     return stream(QxtLogger::TraceLevel);
 }
 
@@ -211,7 +213,8 @@ QxtLogStream QxtLogger::trace() {
     qxtLog->error() << "error message";
     \endcode
 */
-QxtLogStream QxtLogger::error() {
+QxtLogStream QxtLogger::error()
+{
     return stream(QxtLogger::ErrorLevel);
 }
 
@@ -221,7 +224,8 @@ QxtLogStream QxtLogger::error() {
     qxtLog->warning() << "warning message";
     \endcode
 */
-QxtLogStream QxtLogger::warning() {
+QxtLogStream QxtLogger::warning()
+{
     return stream(QxtLogger::WarningLevel);
 }
 
@@ -231,7 +235,8 @@ QxtLogStream QxtLogger::warning() {
     qxtLog->debug() << "debugging log message";
     \endcode
 */
-QxtLogStream QxtLogger::debug() {
+QxtLogStream QxtLogger::debug()
+{
     return stream(QxtLogger::DebugLevel);
 }
 
@@ -241,7 +246,8 @@ QxtLogStream QxtLogger::debug() {
     qxtLog->critical() << "critical error message";
     \endcode
 */
-QxtLogStream QxtLogger::critical() {
+QxtLogStream QxtLogger::critical()
+{
     return stream(QxtLogger::CriticalLevel);
 }
 
@@ -251,7 +257,8 @@ QxtLogStream QxtLogger::critical() {
     qxtLog->fatal() << "fatal error message";
     \endcode
 */
-QxtLogStream QxtLogger::fatal() {
+QxtLogStream QxtLogger::fatal()
+{
     return stream(QxtLogger::FatalLevel);
 }
 
@@ -261,7 +268,8 @@ QxtLogStream QxtLogger::fatal() {
     qxtLog->write() << "log message";
     \endcode
 */
-QxtLogStream QxtLogger::write() {
+QxtLogStream QxtLogger::write()
+{
     return stream(QxtLogger::WriteLevel);
 }
 
@@ -271,9 +279,9 @@ QxtLogStream QxtLogger::write() {
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::info(const QVariant &message, const QVariant &msg1, const QVariant &msg2, const QVariant &msg3, const QVariant &msg4, const QVariant &msg5, const QVariant &msg6, const QVariant &msg7, const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::info(const QVariant &message, const QVariant &msg1, const QVariant &msg2, const QVariant &msg3, const QVariant &msg4, const QVariant &msg5, const QVariant &msg6, const QVariant &msg7, const QVariant &msg8 , const QVariant &msg9)
 {
-    QMutexLocker lock(qxt_d().mut_lock);	
+    QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
     args.push_back(message);
     if (!msg1.isNull()) args.push_back(msg1);
@@ -295,7 +303,7 @@ void QxtLogger::info(const QVariant &message, const QVariant &msg1, const QVaria
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::trace(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::trace(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -318,7 +326,7 @@ void QxtLogger::trace(const QVariant &message, const QVariant &msg1 , const QVar
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::warning(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::warning(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -341,7 +349,7 @@ void QxtLogger::warning(const QVariant &message, const QVariant &msg1 , const QV
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::error(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::error(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -364,7 +372,7 @@ void QxtLogger::error(const QVariant &message, const QVariant &msg1 , const QVar
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::debug(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::debug(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -387,7 +395,7 @@ void QxtLogger::debug(const QVariant &message, const QVariant &msg1 , const QVar
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::write(const QVariant &message, const QVariant &msg1 , const QVariant &msg2, const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::write(const QVariant &message, const QVariant &msg1 , const QVariant &msg2, const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -410,7 +418,7 @@ void QxtLogger::write(const QVariant &message, const QVariant &msg1 , const QVar
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::critical(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::critical(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -433,7 +441,7 @@ void QxtLogger::critical(const QVariant &message, const QVariant &msg1 , const Q
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
 */
-void QxtLogger::fatal(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9 )
+void QxtLogger::fatal(const QVariant &message, const QVariant &msg1 , const QVariant &msg2 , const QVariant &msg3 , const QVariant &msg4 , const QVariant &msg5 , const QVariant &msg6 , const QVariant &msg7 , const QVariant &msg8 , const QVariant &msg9)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QList<QVariant> args;
@@ -545,7 +553,8 @@ void QxtLogger::log(LogLevel level, const QList<QVariant>& args)
 *******************************************************************************/
 void QxtLoggerMessageHandler(QtMsgType type, const char *msg)
 {
-    switch (type) {
+    switch (type)
+    {
     case QtDebugMsg:
         QxtLogger::getInstance()->debug(msg, "qdebug");
         break;
@@ -599,7 +608,7 @@ QxtLogger::QxtLogger()
 /***************************************************************************//**
     Destructor.
     The Destructor for QxtLogger iterates through all the currently installed
-    QxtLoggerEngines, calls their killLoggerEngine functions through QxtLoggerEngine::killLoggerEngine(), 
+    QxtLoggerEngines, calls their killLoggerEngine functions through QxtLoggerEngine::killLoggerEngine(),
     and then deletes them from the map.
 *******************************************************************************/
 QxtLogger::~QxtLogger()
@@ -640,16 +649,26 @@ QString QxtLogger::logLevelToString(LogLevel level)
 {
     switch (level)
     {
-        case TraceLevel: return "TraceLevel";
-        case DebugLevel: return "DebugLevel";
-        case InfoLevel: return "InfoLevel";
-        case WarningLevel: return "WarningLevel";
-        case ErrorLevel: return "ErrorLevel";
-        case CriticalLevel: return "CriticalLevel";
-        case FatalLevel: return "FatalLevel";
-        case WriteLevel: return "WriteLevel";
-        case AllLevels: return "AllLevels";
-        default: return "NoLevels";
+    case TraceLevel:
+        return "TraceLevel";
+    case DebugLevel:
+        return "DebugLevel";
+    case InfoLevel:
+        return "InfoLevel";
+    case WarningLevel:
+        return "WarningLevel";
+    case ErrorLevel:
+        return "ErrorLevel";
+    case CriticalLevel:
+        return "CriticalLevel";
+    case FatalLevel:
+        return "FatalLevel";
+    case WriteLevel:
+        return "WriteLevel";
+    case AllLevels:
+        return "AllLevels";
+    default:
+        return "NoLevels";
     }
 }
 
@@ -682,7 +701,7 @@ QxtLogger::LogLevel QxtLogger::stringToLogLevel(const QString& level)
 void QxtLogger::enableLogLevels(LogLevels levels)
 {
     QMutexLocker lock(qxt_d().mut_lock);
-    if(qxt_d().map_logEngineMap.empty()) return;
+    if (qxt_d().map_logEngineMap.empty()) return;
 
     Q_FOREACH(QxtLoggerEngine *eng, qxt_d().map_logEngineMap)
     {
@@ -713,8 +732,8 @@ QxtLogStream QxtLogger::stream(LogLevel level)
     qxtLog->write("You can see me through your 'test' logger now!");
     \endcode
 
-    \param engineName	The name of a QxtLoggerEngine.
-    \param levels			A LogLevel or LogLevels to enable.
+    \param engineName The name of a QxtLoggerEngine.
+    \param levels   A LogLevel or LogLevels to enable.
     \see addLoggerEngine()
 *******************************************************************************/
 void QxtLogger::enableLogLevels(const QString &engineName, LogLevels levels)
@@ -776,7 +795,7 @@ void QxtLogger::enableLoggerEngine(const QString &engineName)
 void QxtLogger::disableLogLevels(LogLevels levels)
 {
     QMutexLocker lock(qxt_d().mut_lock);
-    if(qxt_d().map_logEngineMap.empty()) return;
+    if (qxt_d().map_logEngineMap.empty()) return;
     Q_FOREACH(QxtLoggerEngine *eng, qxt_d().map_logEngineMap)
     {
         if (eng)
@@ -854,7 +873,7 @@ void QxtLogger::initLoggerEngine(const QString &engineName)
 
 /*! \short Calls QxtLoggerEngine::killLoggerEngine() for the named Engine.
     Some QxtLoggerEngine plugins might require special cleanup before destruction.
-    Check the documentation	for your plugin.  Most basic plugins will not require this.
+    Check the documentation for your plugin.  Most basic plugins will not require this.
     \param engineName The name of a QxtLoggerEngine.
 */
 void QxtLogger::killLoggerEngine(const QString &engineName)
@@ -883,9 +902,9 @@ bool QxtLogger::isLogLevelEnabled(const QString &engineName, LogLevel level) con
     else return false;
 }
 
-/*! \short	Disables the given LogLevel across the named QxtLoggersEngines.
-    \param engineName	The name of a QxtLoggerEngine.
-    \param level			A LogLevel or LogLevels to disable.
+/*! \short Disables the given LogLevel across the named QxtLoggersEngines.
+    \param engineName The name of a QxtLoggerEngine.
+    \param level   A LogLevel or LogLevels to disable.
 */
 void QxtLogger::disableLogLevels(const QString &engineName, LogLevels levels)
 {
@@ -981,7 +1000,7 @@ void QxtLogger::removeLoggerEngine(const QString &engineName)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QxtLoggerEngine* eng = takeLoggerEngine(engineName);
-    if(!eng) return;
+    if (!eng) return;
     eng->killLoggerEngine();
     delete eng;
 }
@@ -991,7 +1010,7 @@ void QxtLogger::removeLoggerEngine(const QString &engineName)
 void QxtLogger::removeLoggerEngine(QxtLoggerEngine *engine)
 {
     QMutexLocker lock(qxt_d().mut_lock);
-    Q_FOREACH (QString i, this->qxt_d().map_logEngineMap.keys(engine))
+    Q_FOREACH(QString i, this->qxt_d().map_logEngineMap.keys(engine))
     {
         takeLoggerEngine(i); // return value ignored
     }
@@ -1003,7 +1022,7 @@ QxtLoggerEngine *QxtLogger::takeLoggerEngine(const QString &engineName)
 {
     QMutexLocker lock(qxt_d().mut_lock);
     QxtLoggerEngine *eng = qxt_d().map_logEngineMap.take(engineName);
-    if(!eng) return NULL;
+    if (!eng) return NULL;
     emit loggerEngineRemoved(engineName);
     return eng;
 }

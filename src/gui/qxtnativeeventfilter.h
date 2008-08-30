@@ -11,13 +11,13 @@
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
-** FITNESS FOR A PARTICULAR PURPOSE. 
+** FITNESS FOR A PARTICULAR PURPOSE.
 **
 ** You should have received a copy of the CPL along with this file.
 ** See the LICENSE file and the cpl1.0.txt file included with the source
 ** distribution for more information. If you did not receive a copy of the
 ** license, contact the Qxt Foundation.
-** 
+**
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
@@ -112,14 +112,25 @@ class QxtNativeEventFilter
 {
 public:
     virtual ~QxtNativeEventFilter()
-    { qxtApp->removeNativeEventFilter(this); }
+    {
+        qxtApp->removeNativeEventFilter(this);
+    }
 
 #if defined(Q_WS_X11)
-    virtual bool x11EventFilter(XEvent*) { return false; }
+    virtual bool x11EventFilter(XEvent*)
+    {
+        return false;
+    }
 #elif defined(Q_WS_WIN)
-    virtual bool winEventFilter(MSG*, long*) { return false; }
+    virtual bool winEventFilter(MSG*, long*)
+    {
+        return false;
+    }
 #elif defined(Q_WS_MAC)
-    virtual bool macEventFilter(EventHandlerCallRef, EventRef) { return false; }
+    virtual bool macEventFilter(EventHandlerCallRef, EventRef)
+    {
+        return false;
+    }
 #endif // Q_WS_*
 };
 

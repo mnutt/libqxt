@@ -36,7 +36,7 @@ class QXT_SQL_EXPORT QxtSqlPackageModel : public  QAbstractTableModel
 {
 public:
 /// \reimp
-    QxtSqlPackageModel  (QObject * parent = 0 );
+    QxtSqlPackageModel(QObject * parent = 0);
 
 
 
@@ -44,13 +44,13 @@ public:
 
 
 /// \reimp
-    int rowCount ( const QModelIndex &  = QModelIndex()) const ;
+    int rowCount(const QModelIndex &  = QModelIndex()) const ;
 /// \reimp
-    int columnCount ( const QModelIndex  & = QModelIndex() ) const ;
+    int columnCount(const QModelIndex  & = QModelIndex()) const ;
 /// \reimp
-    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 /// \reimp
-    QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 private:
 

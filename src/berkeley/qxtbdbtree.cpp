@@ -45,7 +45,7 @@ Constructs a QxtBdbTree, and opens the file specified as its database.
 
 
 \fn bool QxtBdbTree<T>::open  (QString file)
-opens the specified file. 
+opens the specified file.
 
 returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
 
@@ -88,7 +88,7 @@ constructs an invalid QxtBdbTreeIterator
 It's an error to use this to iterate, access data, etc..
 
 \fn QxtBdbTreeIterator<T>::~QxtBdbTreeIterator()
-destructs the iterator. 
+destructs the iterator.
 
 The underlieing cursos will be closed.
 

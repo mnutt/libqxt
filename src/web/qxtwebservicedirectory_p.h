@@ -30,12 +30,13 @@
 #include <QHash>
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtWebServiceDirectoryPrivate : public QObject, public QxtPrivate<QxtWebServiceDirectory> {
-Q_OBJECT
+class QxtWebServiceDirectoryPrivate : public QObject, public QxtPrivate<QxtWebServiceDirectory>
+{
+    Q_OBJECT
 public:
     QXT_DECLARE_PUBLIC(QxtWebServiceDirectory);
     QxtWebServiceDirectoryPrivate();
-    
+
     QHash<QString, QxtAbstractWebService*> services;
     QString defaultRedirect;
 

@@ -555,9 +555,9 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
     const QPoint c = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this).center();
     QRect spanRect;
     if (orientation() == Qt::Horizontal)
-        spanRect = QRect(QPoint(minv, c.y()-2), QPoint(maxv, c.y()+1));
+        spanRect = QRect(QPoint(minv, c.y() - 2), QPoint(maxv, c.y() + 1));
     else
-        spanRect = QRect(QPoint(c.x()-2, minv), QPoint(c.x()+1, maxv));
+        spanRect = QRect(QPoint(c.x() - 2, minv), QPoint(c.x() + 1, maxv));
     qxt_d().drawSpan(&painter, spanRect);
 
     // handles

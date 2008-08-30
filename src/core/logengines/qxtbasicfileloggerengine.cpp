@@ -43,8 +43,8 @@
 /*!
     Constructs a basic file logger engine with file name.
 */
-QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine( const QString &fileName )
-    : QxtAbstractFileLoggerEngine( fileName, QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered )
+QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
+        : QxtAbstractFileLoggerEngine(fileName, QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered)
 {
 }
 
@@ -53,20 +53,20 @@ QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine( const QString &fileName )
  */
 void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
-    if ( messages.isEmpty() ) return;
+    if (messages.isEmpty()) return;
     QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QIODevice* file = device();
     Q_ASSERT(file);
     file->write(header.toUtf8());
-    for ( int i = 0; i < header.size(); i++ ) padding.append(" ");
+    for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, messages )
+    Q_FOREACH(QVariant out, messages)
     {
-        if( !out.isNull() )
+        if (!out.isNull())
         {
-            if ( count != 0 ) file->write(padding.toUtf8());
-            file->write(out.toString().toUtf8()); 
+            if (count != 0) file->write(padding.toUtf8());
+            file->write(out.toString().toUtf8());
             file->write("\n");
         }
         count++;

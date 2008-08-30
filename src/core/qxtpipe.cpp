@@ -65,22 +65,22 @@
 /**
  * Contructs a new QxtPipe.
  */
-QxtPipe::QxtPipe(QObject * parent):QIODevice(parent)
+QxtPipe::QxtPipe(QObject * parent): QIODevice(parent)
 {
     QXT_INIT_PRIVATE(QxtPipe);
-    setOpenMode (QIODevice::ReadWrite);
+    setOpenMode(QIODevice::ReadWrite);
 
 }
 
 
 /**\reimp*/
-bool QxtPipe::isSequential () const
+bool QxtPipe::isSequential() const
 {
     return true;
 }
 
 /**\reimp*/
-qint64 QxtPipe::bytesAvailable () const
+qint64 QxtPipe::bytesAvailable() const
 {
     return qxt_d().q.count();
 }
@@ -106,20 +106,20 @@ qint64 QxtPipe::bytesAvailable () const
  * \endcode
 
  */
-bool  QxtPipe::connect   (QxtPipe * other ,QIODevice::OpenMode mode,Qt::ConnectionType connectionType)
+bool  QxtPipe::connect(QxtPipe * other , QIODevice::OpenMode mode, Qt::ConnectionType connectionType)
 {
 
     ///tell the other pipe to write into this
-    if(mode & QIODevice::ReadOnly)
+    if (mode & QIODevice::ReadOnly)
     {
-        other->connect(this,QIODevice::WriteOnly,connectionType);
+        other->connect(this, QIODevice::WriteOnly, connectionType);
     }
 
 
     Connection c;
-    c.pipe=other;
-    c.mode=mode;
-    c.connectionType=connectionType;
+    c.pipe = other;
+    c.mode = mode;
+    c.connectionType = connectionType;
     qxt_d().connections.append(c);
 
     return true;
@@ -128,18 +128,18 @@ bool  QxtPipe::connect   (QxtPipe * other ,QIODevice::OpenMode mode,Qt::Connecti
 /**
  * cuts the connection to the \p other QxtPipe
  */
-bool QxtPipe::disconnect (QxtPipe * other )
+bool QxtPipe::disconnect(QxtPipe * other)
 {
-    bool e=false;
+    bool e = false;
 
     QMutableListIterator<Connection> i(qxt_d().connections);
     while (i.hasNext())
     {
         i.next();
-        if(i.value().pipe==other)
+        if (i.value().pipe == other)
         {
             i.remove();
-            e=true;
+            e = true;
             other->disconnect(this);
         }
     }
@@ -151,104 +151,104 @@ bool QxtPipe::disconnect (QxtPipe * other )
  * convinence function for QxtPipe::connect.
  * pipes the output of this instance to the \p other  QxtPipe in readwrite mode with autoconnection
  */
-QxtPipe & QxtPipe::operator | ( QxtPipe & target)
+QxtPipe & QxtPipe::operator | (QxtPipe & target)
 {
     connect(&target);
     return *this;
 }
 
 /**\reimp*/
-qint64 QxtPipe::readData ( char * data, qint64 maxSize )
+qint64 QxtPipe::readData(char * data, qint64 maxSize)
 {
-    QQueue<char> * q=&qxt_d().q;
+    QQueue<char> * q = &qxt_d().q;
 
-    qint64 i=0;
-    for (;i<maxSize;i++)
+    qint64 i = 0;
+    for (;i < maxSize;i++)
     {
         if (q->isEmpty())
             break;
-        (*data++)=q->dequeue();
+        (*data++) = q->dequeue();
     }
     return i;
 }
 
 /**\reimp*/
-qint64 QxtPipe::writeData ( const char * data, qint64 maxSize )
+qint64 QxtPipe::writeData(const char * data, qint64 maxSize)
 {
-    sendData(QByteArray(data,maxSize));
+    sendData(QByteArray(data, maxSize));
     return maxSize;
 }
 
-/** 
+/**
 call this from your subclass to write data to the pipe network.
 All write connected pipes will be invoked with receiveData
 In this case this is called from receiveData, the sender will be excluded from the receiver list.
 */
 
-void   QxtPipe::sendData    (QByteArray data) const
+void   QxtPipe::sendData(QByteArray data) const
 {
-    foreach(Connection c,qxt_d().connections)
+    foreach(Connection c, qxt_d().connections)
     {
 
 
         //don't write back to sender
-        if(c.pipe==qxt_d().lastsender)
-             continue;
-
-
-
-        if(!(c.mode & QIODevice::WriteOnly))
+        if (c.pipe == qxt_d().lastsender)
             continue;
 
 
-        bool r=QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push",c.connectionType,
-            Q_ARG(QByteArray, data),Q_ARG(const QxtPipe *,this));
 
-        #ifdef QT_NO_DEBUG
-            Q_UNUSED(r);
-        #else
-            if(!r)
-            {
-                QObject::connect(this,SIGNAL(readyRead()),&c.pipe->qxt_d(),SLOT(push(QByteArray,const QxtPipe *)),c.connectionType);
-                qFatal("metacall failed. see debug output of QObject::connect above");
-            }
-        #endif
+        if (!(c.mode & QIODevice::WriteOnly))
+            continue;
+
+
+        bool r = QMetaObject::invokeMethod(&c.pipe->qxt_d(), "push", c.connectionType,
+                                           Q_ARG(QByteArray, data), Q_ARG(const QxtPipe *, this));
+
+#ifdef QT_NO_DEBUG
+        Q_UNUSED(r);
+#else
+        if (!r)
+        {
+            QObject::connect(this, SIGNAL(readyRead()), &c.pipe->qxt_d(), SLOT(push(QByteArray, const QxtPipe *)), c.connectionType);
+            qFatal("metacall failed. see debug output of QObject::connect above");
+        }
+#endif
 
     }
-    qxt_d().lastsender=0;
+    qxt_d().lastsender = 0;
 
 }
-/** 
+/**
 call this from your subclass to make data available to the QIODevice::read facility
 */
-void   QxtPipe::enqueData    (QByteArray datab)
+void   QxtPipe::enqueData(QByteArray datab)
 {
-    QQueue<char> * q=&qxt_d().q;
+    QQueue<char> * q = &qxt_d().q;
 
-    const char * data =datab.constData();
-    qint64 maxSize =datab.size();
+    const char * data = datab.constData();
+    qint64 maxSize = datab.size();
 
-    qint64 i=0;
-    for (;i<maxSize;i++)
+    qint64 i = 0;
+    for (;i < maxSize;i++)
         q->enqueue(*data++);
-    if (i>0)
-        emit(readyRead ());
+    if (i > 0)
+        emit(readyRead());
 }
 
-/** 
+/**
 receiveData is called from any connected pipe to input data into this instance.
 reimplement this function to handle data from the pipe network.
 
 The default implementation calls enqueData and sendData
 */
-void QxtPipe::receiveData (QByteArray datab ,const QxtPipe * sender)
+void QxtPipe::receiveData(QByteArray datab , const QxtPipe * sender)
 {
     enqueData(datab);
-    qxt_d().lastsender=sender;
+    qxt_d().lastsender = sender;
     sendData(datab);
 }
 
-void QxtPipePrivate::push (QByteArray data, const QxtPipe * sender )
+void QxtPipePrivate::push(QByteArray data, const QxtPipe * sender)
 {
-    (&qxt_p())->receiveData(data,sender);
+    (&qxt_p())->receiveData(data, sender);
 }

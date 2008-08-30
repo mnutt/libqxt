@@ -34,8 +34,9 @@ class QIODevice;
 QT_END_NAMESPACE
 
 class QxtAbstractConnectionManagerPrivate;
-class QXT_CORE_EXPORT QxtAbstractConnectionManager : public QObject {
-Q_OBJECT
+class QXT_CORE_EXPORT QxtAbstractConnectionManager : public QObject
+{
+    Q_OBJECT
 public:
     QxtAbstractConnectionManager(QObject* parent);
     virtual ~QxtAbstractConnectionManager();

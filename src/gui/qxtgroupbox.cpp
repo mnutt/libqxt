@@ -59,7 +59,7 @@ QxtGroupBox::QxtGroupBox(QWidget* parent)
     QXT_INIT_PRIVATE(QxtGroupBox);
     setCheckable(true);
     setChecked(true);
-    connect(this, SIGNAL(toggled(bool)),this, SLOT(setExpanded(bool)));
+    connect(this, SIGNAL(toggled(bool)), this, SLOT(setExpanded(bool)));
 
 }
 
@@ -72,7 +72,7 @@ QxtGroupBox::QxtGroupBox(const QString& title, QWidget* parent)
     QXT_INIT_PRIVATE(QxtGroupBox);
     setCheckable(true);
     setChecked(true);
-    connect(this, SIGNAL(toggled(bool)),this, SLOT(setExpanded(bool)));
+    connect(this, SIGNAL(toggled(bool)), this, SLOT(setExpanded(bool)));
 }
 
 /*!
@@ -126,7 +126,7 @@ void QxtGroupBox::setExpanded(bool expanded)
     if (qxt_d().collapsive || expanded)
     {
         // show/hide direct children
-        foreach (QObject* child, children())
+        foreach(QObject* child, children())
         {
             if (child->isWidgetType())
                 static_cast<QWidget*>(child)->setVisible(expanded);

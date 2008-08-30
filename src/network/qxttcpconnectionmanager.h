@@ -34,8 +34,9 @@ class QIODevice;
 QT_END_NAMESPACE
 
 class QxtTcpConnectionManagerPrivate;
-class QXT_NETWORK_EXPORT QxtTcpConnectionManager : public QxtAbstractConnectionManager {
-Q_OBJECT
+class QXT_NETWORK_EXPORT QxtTcpConnectionManager : public QxtAbstractConnectionManager
+{
+    Q_OBJECT
 public:
     QxtTcpConnectionManager(QObject* parent);
 

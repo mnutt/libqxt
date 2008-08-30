@@ -35,7 +35,7 @@ public:
 
     QString group() const;
     QIcon icon() const;
-    QString includeFile () const;
+    QString includeFile() const;
     void initialize(QDesignerFormEditorInterface*);
     bool isContainer() const;
     bool isInitialized() const;

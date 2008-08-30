@@ -47,10 +47,10 @@
         </html>
         \endcode
 
-        funny storry: whe are using this class to make our documentation (eat your own dogfood, you know ;).  
+        funny storry: whe are using this class to make our documentation (eat your own dogfood, you know ;).
         but when we where parsing exactly this file you read right now the first time, QxtHtmlTemplate got stuck in an infinite loop. guess why. becouse of that example above :D
         So be warned: when you assign content to a variable that contains the variable name itself, render() will never return.
-                  
+
 
 */
 
@@ -69,12 +69,12 @@
 #include <QFile>
 #include <QStringList>
 
-QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString,QString>()
+QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString, QString>()
 {}
 
 void QxtHtmlTemplate::load(const QString& d)
 {
-    data=d;
+    data = d;
 }
 
 bool QxtHtmlTemplate::open(const QString& filename)
@@ -84,10 +84,10 @@ bool QxtHtmlTemplate::open(const QString& filename)
     data = QString::fromLocal8Bit(f.readAll());
     f.close();
     if (data.isEmpty())
-        {
-        qWarning("QxtHtmlTemplate::open(\"%s\") empty or non existant",qPrintable(filename));
+    {
+        qWarning("QxtHtmlTemplate::open(\"%s\") empty or non existant", qPrintable(filename));
         return false;
-        }
+    }
     return true;
 }
 
@@ -97,45 +97,45 @@ QString QxtHtmlTemplate::render() const
 
 
     QString output = data;
-    int lastnewline=0;
+    int lastnewline = 0;
 
 
-    for (int i=0;i<output.count();i++)
+    for (int i = 0;i < output.count();i++)
     {
-        if (output.at(i)=='\n')
+        if (output.at(i) == '\n')
         {
-            lastnewline=i;
+            lastnewline = i;
         }
 
-        if (output.at(i)=='<' && output.at(i+1)=='?'  && output.at(i+2)=='=')
+        if (output.at(i) == '<' && output.at(i + 1) == '?'  && output.at(i + 2) == '=')
         {
-            int j=i+3;
+            int j = i + 3;
             QString var;
 
-            for (int jj=j;jj<output.count();jj++)
+            for (int jj = j;jj < output.count();jj++)
             {
-                if (output.at(jj)=='?' && output.at(jj+1)=='>')
+                if (output.at(jj) == '?' && output.at(jj + 1) == '>')
                 {
-                    j=jj;
+                    j = jj;
                     break;
                 }
-                var+=output.at(jj);
+                var += output.at(jj);
             }
 
 
-            if (j==i)
+            if (j == i)
             {
                 qWarning("QxtHtmlTemplate::render()  unterminated <?= ");
                 continue;
             }
 
 
-            if(!contains(var))
+            if (!contains(var))
             {
-                qWarning("QxtHtmlTemplate::render()  unused variable \"%s\"",qPrintable(var));
+                qWarning("QxtHtmlTemplate::render()  unused variable \"%s\"", qPrintable(var));
                 continue;
             }
-            output.replace(i,j-i+2,QString(value(var)).replace("\n","\n"+QString(i-lastnewline-1,QChar(' '))));
+            output.replace(i, j - i + 2, QString(value(var)).replace("\n", "\n" + QString(i - lastnewline - 1, QChar(' '))));
 
         }
 

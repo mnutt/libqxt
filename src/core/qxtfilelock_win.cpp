@@ -17,7 +17,7 @@ bool QxtFileLock::unlock()
         if (w32FileHandle == INVALID_HANDLE_VALUE)
             return false;
 
-        memset(&ov1,0, sizeof(ov1));
+        memset(&ov1, 0, sizeof(ov1));
         ov1.Offset =  qxt_d().offset;
 
         if (UnlockFileEx(w32FileHandle, 0, qxt_d().length, 0, &ov1))
@@ -29,7 +29,7 @@ bool QxtFileLock::unlock()
     return false;
 }
 
-bool QxtFileLock::lock ()
+bool QxtFileLock::lock()
 {
     if (file() && file()->isOpen() && !isActive())
     {
@@ -66,7 +66,7 @@ bool QxtFileLock::lock ()
         memset(&ov1, 0, sizeof(ov1));
         ov1.Offset =  qxt_d().offset;
 
-        if (LockFileEx(w32FileHandle,dwflags, 0,  qxt_d().length, 0, &ov1))
+        if (LockFileEx(w32FileHandle, dwflags, 0,  qxt_d().length, 0, &ov1))
         {
             qxt_d().isLocked = true;
             return true;

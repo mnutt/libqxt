@@ -38,8 +38,8 @@ class QMutex;
 QT_END_NAMESPACE
 class QxtLoggerPrivate : public QObject, public QxtPrivate<QxtLogger>
 {
-Q_OBJECT
-QXT_DECLARE_PUBLIC(QxtLogger);
+    Q_OBJECT
+    QXT_DECLARE_PUBLIC(QxtLogger);
 public:
     QxtLoggerPrivate();
     ~QxtLoggerPrivate();

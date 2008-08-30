@@ -31,8 +31,9 @@
 #include <qxtpimpl.h>
 
 class QxtWebContentPrivate;
-class QxtWebContent : public QIODevice {
-Q_OBJECT
+class QxtWebContent : public QIODevice
+{
+    Q_OBJECT
 public:
     QxtWebContent(int contentLength, const QByteArray& start, QIODevice* device);
     QxtWebContent(int contentLength, QIODevice* device);

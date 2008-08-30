@@ -38,10 +38,10 @@
 class QXT_CORE_EXPORT QxtBasicFileLoggerEngine : public QxtAbstractFileLoggerEngine
 {
 public:
-    QxtBasicFileLoggerEngine    ( const QString &fileName = QString() );
+    QxtBasicFileLoggerEngine(const QString &fileName = QString());
 
 protected:
-    virtual void writeToFile( const QString &level, const QVariantList &messages );
+    virtual void writeToFile(const QString &level, const QVariantList &messages);
 };
 
 #endif // QXTBASICFILELOGGERENGINE_H

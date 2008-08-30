@@ -41,14 +41,14 @@ class QXT_GUI_EXPORT QxtStringValidator : public QValidator
     Q_OBJECT
 
 public:
-    QxtStringValidator (QObject * parent);
-    ~QxtStringValidator ();
+    QxtStringValidator(QObject * parent);
+    ~QxtStringValidator();
 
-    virtual void fixup ( QString & input ) const;
-    virtual QValidator::State validate ( QString & input, int & pos ) const;
+    virtual void fixup(QString & input) const;
+    virtual QValidator::State validate(QString & input, int & pos) const;
 
-    Qt::CaseSensitivity caseSensitivity () const;
-    void setCaseSensitivity ( Qt::CaseSensitivity caseSensitivity );
+    Qt::CaseSensitivity caseSensitivity() const;
+    void setCaseSensitivity(Qt::CaseSensitivity caseSensitivity);
     void setStartModelIndex(const QModelIndex &index);
     void setStringList(const QStringList &stringList);
     void setRecursiveLookup(bool enable);

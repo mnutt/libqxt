@@ -60,10 +60,12 @@ signal when all batches are finished.
 #include <QMetaObject>
 #include <QtDebug>
 
-class QxtSignalGroupPrivate : public QObject, public QxtPrivate<QxtSignalGroup> {
+class QxtSignalGroupPrivate : public QObject, public QxtPrivate<QxtSignalGroup>
+{
 public:
     QXT_DECLARE_PUBLIC(QxtSignalGroup);
-    QxtSignalGroupPrivate() : QObject(0) {
+    QxtSignalGroupPrivate() : QObject(0)
+    {
         // since we don't have a metaobject of our own due to not
         // using the Q_OBJECT macro, we need to find methodOffset
         // on our own.
@@ -75,20 +77,22 @@ public:
     int baseSignal, emitCount, disconnectCount;
 
 protected:
-    int qt_metacall(QMetaObject::Call _c, int _id, void **_a) {
+    int qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+    {
         Q_UNUSED(_c);
         Q_UNUSED(_a);
         // We don't care about QObject's methods, so skip them
         _id -= baseSignal;
         int ct = emittedSignals.count();    // cached for slight performance gain
-        if(_id < 0 || _id > ct) return _id;
+        if (_id < 0 || _id > ct) return _id;
         bool& state = emittedSignals[_id];  // more performance caching
-        if(!state) {
-            if(emitCount == 0)
+        if (!state)
+        {
+            if (emitCount == 0)
                 qxt_p().firstSignalReceived();
             emitCount++;
             state = true;
-            if(emitCount + disconnectCount == ct)
+            if (emitCount + disconnectCount == ct)
                 qxt_p().allSignalsReceived();
         }
         return _id;
@@ -98,32 +102,39 @@ protected:
 /**
  * Constructs a QxtSignalWaiter with the specified parent.
  */
-QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent) {
+QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtSignalGroup);
 }
 
 /**
  * Returns true if at least one attached signal has been emitted since the last reset().
  */
-bool QxtSignalGroup::hasReceivedFirstSignal() const {
+bool QxtSignalGroup::hasReceivedFirstSignal() const
+{
     return qxt_d().emitCount > 0;
 }
 
 /**
  * Returns true if every attached signal has been emitted at least once since the last reset().
  */
-bool QxtSignalGroup::hasReceivedAllSignals() const {
+bool QxtSignalGroup::hasReceivedAllSignals() const
+{
     return (qxt_d().emitCount + qxt_d().disconnectCount) >= qxt_d().emittedSignals.count();
 }
 
 /**
  * Add a signal to the group.
  */
-void QxtSignalGroup::addSignal(QObject* sender, const char* sig) {
-    int signalID = sender->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(sig+1));
-    if(signalID < 0) {
+void QxtSignalGroup::addSignal(QObject* sender, const char* sig)
+{
+    int signalID = sender->metaObject()->indexOfSignal(QMetaObject::normalizedSignature(sig + 1));
+    if (signalID < 0)
+    {
         qWarning() << "QxtSignalGroup::addSignal: no such signal" << sig;
-    } else {
+    }
+    else
+    {
         QMetaObject::connect(sender, signalID, &(qxt_d()), qxt_d().emittedSignals.count() + qxt_d().baseSignal);
         qxt_d().emittedSignals.append(false);
     }
@@ -132,15 +143,17 @@ void QxtSignalGroup::addSignal(QObject* sender, const char* sig) {
 /**
  * Remove a signal from the group.
  */
-void QxtSignalGroup::removeSignal(QObject* sender, const char* sig) {
-    if(QObject::disconnect(sender, sig, &(qxt_d()), 0))
+void QxtSignalGroup::removeSignal(QObject* sender, const char* sig)
+{
+    if (QObject::disconnect(sender, sig, &(qxt_d()), 0))
         qxt_d().disconnectCount++;
 }
 
 /**
  * Reset the signal tracking, that is, after calling reset() no signals are considered to have been caught.
  */
-void QxtSignalGroup::reset() {
+void QxtSignalGroup::reset()
+{
     qxt_d().emittedSignals.fill(false);
     qxt_d().emitCount = 0;
 }
@@ -148,7 +161,8 @@ void QxtSignalGroup::reset() {
 /**
  * Removes all signals from the group and resets the signal tracking.
  */
-void QxtSignalGroup::clear() {
+void QxtSignalGroup::clear()
+{
     qxt_d().emittedSignals.clear();
     qxt_d().emitCount = 0;
     qxt_d().disconnectCount = 0;

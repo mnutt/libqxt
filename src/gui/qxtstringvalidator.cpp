@@ -41,14 +41,14 @@ QxtStringValidatorPrivate::QxtStringValidatorPrivate() : isUserModel(false)
 QModelIndex QxtStringValidatorPrivate::lookupPartialMatch(const QString &value) const
 {
     //a empty string is always invalid
-    if(value.isEmpty())
+    if (value.isEmpty())
         return QModelIndex();
 
-    Qt::MatchFlags matchFlags = Qt::MatchStartsWith| userFlags;
+    Qt::MatchFlags matchFlags = Qt::MatchStartsWith | userFlags;
     if (cs == Qt::CaseSensitive)
         matchFlags |= Qt::MatchCaseSensitive;
 
-    return lookup(value,matchFlags);
+    return lookup(value, matchFlags);
 }
 
 QModelIndex QxtStringValidatorPrivate::lookupExactMatch(const QString &value) const
@@ -57,14 +57,14 @@ QModelIndex QxtStringValidatorPrivate::lookupExactMatch(const QString &value) co
     if (cs == Qt::CaseSensitive)
         matchFlags |= Qt::MatchCaseSensitive;
 
-    return lookup(value,matchFlags);
+    return lookup(value, matchFlags);
 }
 
-QModelIndex QxtStringValidatorPrivate::lookup(const QString &value,const Qt::MatchFlags  &matchFlags) const
+QModelIndex QxtStringValidatorPrivate::lookup(const QString &value, const Qt::MatchFlags  &matchFlags) const
 {
-    QModelIndex startIndex =  lookupStartModelIndex.isValid() ? lookupStartModelIndex : model->index(0,0);
+    QModelIndex startIndex =  lookupStartModelIndex.isValid() ? lookupStartModelIndex : model->index(0, 0);
 
-    QModelIndexList list = model->match(startIndex,lookupRole,value,1,matchFlags);
+    QModelIndexList list = model->match(startIndex, lookupRole, value, 1, matchFlags);
 
     if (list.size() > 0)
         return list[0];
@@ -115,9 +115,9 @@ QxtStringValidator::~QxtStringValidator(void)
     Fixes up the string input if there is no exact match in the stringlist/model.
     The default implementation does nothing
 */
-void QxtStringValidator::fixup ( QString & input ) const
+void QxtStringValidator::fixup(QString & input) const
 {
-    qDebug()<<"Fixup called";
+    qDebug() << "Fixup called";
     /*we can not choose whats the correct fixup, if a user needs a fixup he has to do it himself
       using the first match in the model is just wrong, because thats what QCompleter should do
     */
@@ -140,7 +140,7 @@ void QxtStringValidator::setStringList(const QStringList &stringList)
     qxt_d().isUserModel = false;
     qxt_d().lookupStartModelIndex = QModelIndex();
     qxt_d().lookupRole = Qt::EditRole;
-    qxt_d().model = new QStringListModel(stringList,this);
+    qxt_d().model = new QStringListModel(stringList, this);
 }
 
 /*!
@@ -151,7 +151,7 @@ void QxtStringValidator::setStringList(const QStringList &stringList)
     Note: A partial match means the beginning of the strings are matching:
         qxtL matches qxtLib but not testqxtLib
 */
-QValidator::State QxtStringValidator::validate ( QString & input, int & pos ) const
+QValidator::State QxtStringValidator::validate(QString & input, int & pos) const
 {
     Q_UNUSED(pos);
 
@@ -167,17 +167,17 @@ QValidator::State QxtStringValidator::validate ( QString & input, int & pos ) co
 
     if (qxt_d().lookupExactMatch(input).isValid())
     {
-        qDebug()<<input<<" is QValidator::Acceptable";
+        qDebug() << input << " is QValidator::Acceptable";
         return QValidator::Acceptable;
     }
 
     if (qxt_d().lookupPartialMatch(input).isValid())
     {
-        qDebug()<<input<<" is QValidator::Intermediate";
+        qDebug() << input << " is QValidator::Intermediate";
         return QValidator::Intermediate;
     }
 
-    qDebug()<<input<<" is QValidator::Invalid";
+    qDebug() << input << " is QValidator::Invalid";
     return QValidator::Invalid;
 }
 
@@ -194,7 +194,7 @@ QModelIndex QxtStringValidator::startModelIndex() const
         if (qxt_d().lookupStartModelIndex.isValid())
             return qxt_d().lookupStartModelIndex;
         else
-            return qxt_d().model->index(0,0);
+            return qxt_d().model->index(0, 0);
     }
     return QModelIndex();
 }
@@ -236,7 +236,7 @@ QAbstractItemModel * QxtStringValidator::lookupModel() const
     Returns Qt::CaseSensitive if the QxtStringValidator is matched case sensitively; otherwise returns Qt::CaseInsensitive.
     \sa setCaseSensitivity().
 */
-Qt::CaseSensitivity QxtStringValidator::caseSensitivity () const
+Qt::CaseSensitivity QxtStringValidator::caseSensitivity() const
 {
     return qxt_d().cs;
 }
@@ -247,7 +247,7 @@ Qt::CaseSensitivity QxtStringValidator::caseSensitivity () const
     The default is Qt::CaseSensitive.
     \sa caseSensitivity().
 */
-void QxtStringValidator::setCaseSensitivity ( Qt::CaseSensitivity caseSensitivity )
+void QxtStringValidator::setCaseSensitivity(Qt::CaseSensitivity caseSensitivity)
 {
     qxt_d().cs = caseSensitivity;
 }
@@ -265,7 +265,7 @@ void QxtStringValidator::setStartModelIndex(const QModelIndex &index)
     if (index.model() == qxt_d().model)
         qxt_d().lookupStartModelIndex = index;
     else
-        qWarning()<<"ModelIndex from different model. Ignoring.";
+        qWarning() << "ModelIndex from different model. Ignoring.";
 }
 
 /*!

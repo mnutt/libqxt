@@ -31,10 +31,10 @@
 #include "qxtpimpl.h"
 
 #ifdef Q_OS_WIN
-    #include <windows.h>
-    typedef long off_t;
+#include <windows.h>
+typedef long off_t;
 #else
-    #include <sys/types.h>
+#include <sys/types.h>
 #endif
 
 class QxtFileLockPrivate;
@@ -53,7 +53,7 @@ public:
         WriteLock
     };
 
-    QxtFileLock(QFile *file, const off_t offset,const off_t length,const QxtFileLock::Mode mode = WriteLockWait);
+    QxtFileLock(QFile *file, const off_t offset, const off_t length, const QxtFileLock::Mode mode = WriteLockWait);
     ~QxtFileLock();
 
     off_t offset() const;
@@ -63,7 +63,7 @@ public:
     QxtFileLock::Mode mode() const;
 
 public Q_SLOTS:
-    bool lock ();
+    bool lock();
     bool unlock();
 
 private:

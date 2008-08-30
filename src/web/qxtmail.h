@@ -37,8 +37,8 @@ class QXT_WEB_EXPORT QxtMail
 public:
     QxtMail();
     QxtMail(const QStringList& recipients,
-                const QString& subject, const QString& body,
-                const QStringList& extraHeaders = QStringList());
+            const QString& subject, const QString& body,
+            const QStringList& extraHeaders = QStringList());
 
     QStringList recipients()    const;
     QString     sender()        const;
@@ -46,10 +46,10 @@ public:
     QString     body()          const;
     QStringList extraHeaders()  const;
 
-    void setRecipients  (QStringList);
-    void setSender      (QString);
-    void setSubject     (QString);
-    void setBody        (QString);
+    void setRecipients(QStringList);
+    void setSender(QString);
+    void setSubject(QString);
+    void setBody(QString);
     void setExtraHeaders(QStringList);
 
     QString rfc822();

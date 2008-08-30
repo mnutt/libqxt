@@ -30,11 +30,11 @@
 
 
 \code
-	QxtSemaphore instance("com.mycompany.foobla.uniquestring");
-	if(!instance.trylock())
-		{
-		qDebug("already started")
-		}
+ QxtSemaphore instance("com.mycompany.foobla.uniquestring");
+ if(!instance.trylock())
+  {
+  qDebug("already started")
+  }
 
 \endcode
 
@@ -51,19 +51,19 @@ public:
     unsigned sem_m;
     void init()
     {
-        sem_m=0;
+        sem_m = 0;
     }
 
     bool trylock()
     {
-        sem_m = (unsigned ) CreateSemaphoreA ( NULL , 1 , 2 , qPrintable("Global\\"+name) );
-        if (sem_m == 0 )
+        sem_m = (unsigned) CreateSemaphoreA(NULL , 1 , 2 , qPrintable("Global\\" + name));
+        if (sem_m == 0)
             return false;
         return true;
     }
     bool unlock()
     {
-        if (sem_m==0)
+        if (sem_m == 0)
             return false;
         return CloseHandle((void *)sem_m);
     }
@@ -85,31 +85,31 @@ public:
     bool s_N;
     void init()
     {
-        s_N=false;
-        m_sem=NULL;
+        s_N = false;
+        m_sem = NULL;
     }
 
     bool trylock()
     {
-        m_sem=sem_open(qPrintable(name), O_CREAT, S_IRUSR | S_IWUSR, 1);
-        if (m_sem==(sem_t*)(SEM_FAILED) || sem_trywait(m_sem))
+        m_sem = sem_open(qPrintable(name), O_CREAT, S_IRUSR | S_IWUSR, 1);
+        if (m_sem == (sem_t*)(SEM_FAILED) || sem_trywait(m_sem))
         {
-            m_sem=NULL;
-            s_N=true;
+            m_sem = NULL;
+            s_N = true;
             return false;
         }
-        s_N=false;
+        s_N = false;
         return true;
     }
     bool unlock()
     {
-        if (m_sem==NULL)
+        if (m_sem == NULL)
             return false;
         if (!s_N)
         {
             sem_post(m_sem);
         }
-        return (sem_close(m_sem)==0);
+        return (sem_close(m_sem) == 0);
     }
 };
 
@@ -117,7 +117,7 @@ public:
 
 QxtSemaphore::QxtSemaphore(QString uniqueID)
 {
-    qxt_d().name=uniqueID;
+    qxt_d().name = uniqueID;
     qxt_d().init();
 }
 

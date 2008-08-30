@@ -26,11 +26,13 @@
 #include "qxttcpconnectionmanager.h"
 #include <QTcpSocket>
 
-class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer> {
+class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer>
+{
 public:
     QXT_DECLARE_PUBLIC(QxtRPCPeer);
-    
-    QTcpSocket* getTcpSocket() {
+
+    QTcpSocket* getTcpSocket()
+    {
         QxtRPCPeer* p = &qxt_p();
         QTcpSocket* socket = new QTcpSocket(p);
         QObject::connect(socket, SIGNAL(connected()), p, SIGNAL(connectedToServer()));
@@ -68,7 +70,8 @@ public:
 /**
  * Creates a QxtRPCPeer object with the given parent.
  */
-QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent) {
+QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent)
+{
     QXT_INIT_PRIVATE(QxtRPCPeer);
     setConnectionManager(new QxtTcpConnectionManager(this));
 }
@@ -78,7 +81,8 @@ QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent) {
  *
  * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
  */
-void QxtRPCPeer::connect(QHostAddress addr, int port) {
+void QxtRPCPeer::connect(QHostAddress addr, int port)
+{
     qxt_d().getTcpSocket()->connectToHost(addr, port);
 }
 
@@ -87,7 +91,8 @@ void QxtRPCPeer::connect(QHostAddress addr, int port) {
  *
  * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
  */
-void QxtRPCPeer::connect(QString addr, int port) {
+void QxtRPCPeer::connect(QString addr, int port)
+{
     qxt_d().getTcpSocket()->connectToHost(addr, port);
 }
 
@@ -99,9 +104,11 @@ void QxtRPCPeer::connect(QString addr, int port) {
  * signal will be emitted. In Server mode, multiple connections can be active at a time. Each client that connects will be provided a unique ID,
  * included in the \a clientConnected() signal that will be emitted.
  */
-bool QxtRPCPeer::listen(QHostAddress iface, int port) {
+bool QxtRPCPeer::listen(QHostAddress iface, int port)
+{
     QxtTcpConnectionManager* mgr = qobject_cast<QxtTcpConnectionManager*>(connectionManager());
-    if(!mgr) {
+    if (!mgr)
+    {
         qWarning() << "QxtRPCPeer::listen: cannot listen with non-QxtTcpConnectionManager";
         return false;
     }
@@ -111,11 +118,15 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port) {
 /**
  * Stops listening for connections. Any connections still open will remain connected.
  */
-void QxtRPCPeer::stopListening() {
+void QxtRPCPeer::stopListening()
+{
     QxtTcpConnectionManager* mgr = qobject_cast<QxtTcpConnectionManager*>(connectionManager());
-    if(!mgr) {
+    if (!mgr)
+    {
         qWarning() << "QxtRPCPeer::listen: cannot stop listening with non-QxtTcpConnectionManager";
-    } else {
+    }
+    else
+    {
         mgr->stopListening();
     }
 }

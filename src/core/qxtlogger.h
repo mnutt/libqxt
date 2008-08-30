@@ -53,16 +53,17 @@ public:
     Defines for a bitmask to enable/disable logging levels.
     Arranged in levels from (assumed) most verbose to most important.
     *******************************************************************************/
-    enum LogLevel {
+    enum LogLevel
+    {
         NoLevels       = 0,     /**< No Levels enabled */
-        TraceLevel     = 1<<0,  /**< The most verbose, flags trace() messages to be logged */
-        DebugLevel     = 1<<1,  /**< Flags debug() messages to be logged */
-        InfoLevel      = 1<<2,  /**< Flags info() messages to be logged */
-        WarningLevel   = 1<<3,  /**< Flags warning() messages to be logged */
-        ErrorLevel     = 1<<4,  /**< Flags error() messages to be logged */
-        CriticalLevel  = 1<<5,  /**< Flags critical() messages to be logged */
-        FatalLevel     = 1<<6,  /**< Flags fatal() messages to be logged */
-        WriteLevel     = 1<<7,  /**< The most important, flags write() messages to be logged */
+        TraceLevel     = 1 << 0,  /**< The most verbose, flags trace() messages to be logged */
+        DebugLevel     = 1 << 1,  /**< Flags debug() messages to be logged */
+        InfoLevel      = 1 << 2,  /**< Flags info() messages to be logged */
+        WarningLevel   = 1 << 3,  /**< Flags warning() messages to be logged */
+        ErrorLevel     = 1 << 4,  /**< Flags error() messages to be logged */
+        CriticalLevel  = 1 << 5,  /**< Flags critical() messages to be logged */
+        FatalLevel     = 1 << 6,  /**< Flags fatal() messages to be logged */
+        WriteLevel     = 1 << 7,  /**< The most important, flags write() messages to be logged */
         AllLevels      = TraceLevel | DebugLevel | InfoLevel | WarningLevel | ErrorLevel | CriticalLevel | FatalLevel | WriteLevel /**< Enables all log levels */
     };
     Q_DECLARE_FLAGS(LogLevels, LogLevel)
@@ -87,14 +88,14 @@ public:
     QxtLoggerEngine* engine(const QString& engineName);
 
     // Functions for checking loggers.
-    QStringList allLoggerEngines           () const;
-    QStringList allEnabledLoggerEngines    () const;
-    QStringList allEnabledLoggerEngines    (LogLevel level) const;
-    QStringList allDisabledLoggerEngines   () const;
+    QStringList allLoggerEngines() const;
+    QStringList allEnabledLoggerEngines() const;
+    QStringList allEnabledLoggerEngines(LogLevel level) const;
+    QStringList allDisabledLoggerEngines() const;
 
-    bool   isLogLevelEnabled               (const QString& engineName, LogLevel level) const;
-    bool   isLoggerEngine                  (const QString& engineName) const;
-    bool   isLoggerEngineEnabled           (const QString& engineName) const;
+    bool   isLogLevelEnabled(const QString& engineName, LogLevel level) const;
+    bool   isLoggerEngine(const QString& engineName) const;
+    bool   isLoggerEngineEnabled(const QString& engineName) const;
 
     /*******************************************************************************
     Streaming!
@@ -113,82 +114,82 @@ public:
     Log Level enable and disable: The 1-param functions enable/disable that level on
     ALL log engines.  The 2-param functions enable/disable that on a named logger.
     *******************************************************************************/
-    void enableLogLevels       (LogLevels levels);
-    void enableLogLevels       (const QString& engineName, LogLevels levels);
-    void enableAllLogLevels    ();
-    void enableAllLogLevels    (const QString& engineName);
-    void enableLoggerEngine    (const QString& engineName);
+    void enableLogLevels(LogLevels levels);
+    void enableLogLevels(const QString& engineName, LogLevels levels);
+    void enableAllLogLevels();
+    void enableAllLogLevels(const QString& engineName);
+    void enableLoggerEngine(const QString& engineName);
 
-    void disableLogLevels      (LogLevels levels);
-    void disableLogLevels      (const QString& engineName, LogLevels levels);
-    void disableAllLogLevels   ();
-    void disableAllLogLevels   (const QString& engineName);
-    void disableLoggerEngine   (const QString& engineName);
+    void disableLogLevels(LogLevels levels);
+    void disableLogLevels(const QString& engineName, LogLevels levels);
+    void disableAllLogLevels();
+    void disableAllLogLevels(const QString& engineName);
+    void disableLoggerEngine(const QString& engineName);
 
-    void setMinimumLevel       (LogLevel level);
-    void setMinimumLevel       (const QString& engineName, LogLevel level);
+    void setMinimumLevel(LogLevel level);
+    void setMinimumLevel(const QString& engineName, LogLevel level);
 
 public Q_SLOTS:
     /*******************************************************************************
     Logging Functions: what the QxtLogger is all about.
     *******************************************************************************/
-    void info      (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void trace     (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void warning   (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void error     (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void debug     (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void critical  (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void fatal     (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
-    void write     (const QVariant& message, const QVariant& msg1 = QVariant(),
-                    const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
-                    const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
-                    const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
-                    const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void info(const QVariant& message, const QVariant& msg1 = QVariant(),
+              const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+              const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+              const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+              const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void trace(const QVariant& message, const QVariant& msg1 = QVariant(),
+               const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+               const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+               const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+               const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void warning(const QVariant& message, const QVariant& msg1 = QVariant(),
+                 const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+                 const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+                 const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+                 const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void error(const QVariant& message, const QVariant& msg1 = QVariant(),
+               const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+               const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+               const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+               const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void debug(const QVariant& message, const QVariant& msg1 = QVariant(),
+               const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+               const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+               const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+               const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void critical(const QVariant& message, const QVariant& msg1 = QVariant(),
+                  const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+                  const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+                  const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+                  const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void fatal(const QVariant& message, const QVariant& msg1 = QVariant(),
+               const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+               const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+               const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+               const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
+    void write(const QVariant& message, const QVariant& msg1 = QVariant(),
+               const QVariant& msg2 = QVariant(), const QVariant& msg3 = QVariant(),
+               const QVariant& msg4 = QVariant(), const QVariant& msg5 = QVariant(),
+               const QVariant& msg6 = QVariant(), const QVariant& msg7 = QVariant(),
+               const QVariant& msg8 = QVariant(), const QVariant& msg9 = QVariant());
 
     /*******************************************************************************
     Logging Functions in QList<QVariant> form.
     *******************************************************************************/
-    void info      (const QList<QVariant>& args);
-    void trace     (const QList<QVariant>& args);
-    void warning   (const QList<QVariant>& args);
-    void error     (const QList<QVariant>& args);
-    void debug     (const QList<QVariant>& args);
-    void critical  (const QList<QVariant>& args);
-    void fatal     (const QList<QVariant>& args);
-    void write     (const QList<QVariant>& args);
+    void info(const QList<QVariant>& args);
+    void trace(const QList<QVariant>& args);
+    void warning(const QList<QVariant>& args);
+    void error(const QList<QVariant>& args);
+    void debug(const QList<QVariant>& args);
+    void critical(const QList<QVariant>& args);
+    void fatal(const QList<QVariant>& args);
+    void write(const QList<QVariant>& args);
 
     /*******************************************************************************
     And now a generic Logging function
     *******************************************************************************/
-    void log       (LogLevel level, const QList<QVariant>& args);
+    void log(LogLevel level, const QList<QVariant>& args);
 
 Q_SIGNALS:
     void loggerEngineAdded(const QString& engineName);

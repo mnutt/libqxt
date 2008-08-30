@@ -31,7 +31,7 @@
 
 class QXT_CORE_EXPORT QxtMultiSignalWaiter : public QxtSignalGroup
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtMultiSignalWaiter(QObject* parent = 0);
     virtual ~QxtMultiSignalWaiter();

@@ -26,7 +26,7 @@
 #include <QtPlugin>
 
 QxtLanguageComboBoxPlugin::QxtLanguageComboBoxPlugin(QObject* parent)
-: QObject(parent), QxtDesignerPlugin("QxtLanguageComboBox")
+        : QObject(parent), QxtDesignerPlugin("QxtLanguageComboBox")
 {}
 
 QWidget* QxtLanguageComboBoxPlugin::createWidget(QWidget* parent)

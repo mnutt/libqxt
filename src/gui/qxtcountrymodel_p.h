@@ -32,7 +32,7 @@ class QxtCountryModelPrivate : public QObject, public QxtPrivate<QxtCountryModel
 public:
     QXT_DECLARE_PUBLIC(QxtCountryModel);
 
-  public:
+public:
     explicit QxtCountryModelPrivate();
 
     int rowCount(const QModelIndex&) const;

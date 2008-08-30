@@ -34,8 +34,9 @@ class QxtWebEvent;
 class QxtWebRequestEvent;
 
 class QxtWebCgiServicePrivate;
-class QxtWebCgiService : public QxtAbstractWebService {
-Q_OBJECT
+class QxtWebCgiService : public QxtAbstractWebService
+{
+    Q_OBJECT
 public:
     QxtWebCgiService(const QString& binary, QxtAbstractWebSessionManager* manager, QObject* parent = 0);
 

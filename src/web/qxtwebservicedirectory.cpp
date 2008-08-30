@@ -57,15 +57,18 @@ This accepts the URLs "/1/a/", "/1/b/", and "/2/".
 #include <QtDebug>
 
 #ifndef QXT_DOXYGEN_RUN
-QxtWebServiceDirectoryPrivate::QxtWebServiceDirectoryPrivate() : QObject(0) {
+QxtWebServiceDirectoryPrivate::QxtWebServiceDirectoryPrivate() : QObject(0)
+{
     // initializers only
 }
 
-void QxtWebServiceDirectoryPrivate::serviceDestroyed() {
+void QxtWebServiceDirectoryPrivate::serviceDestroyed()
+{
     QxtAbstractWebService* service = qobject_cast<QxtAbstractWebService*>(sender());
-    if(!service) return; // this shouldn't happen
+    if (!service) return; // this shouldn't happen
     QString path;
-    while(!(path = services.key(service)).isNull()) {
+    while (!(path = services.key(service)).isNull())
+    {
         services.remove(path);
     }
 }
@@ -76,7 +79,8 @@ void QxtWebServiceDirectoryPrivate::serviceDestroyed() {
  *
  * Often, the session manager will also be the parent, but this is not a requirement.
  */
-QxtWebServiceDirectory::QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent) : QxtAbstractWebService(sm, parent) {
+QxtWebServiceDirectory::QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent) : QxtAbstractWebService(sm, parent)
+{
     QXT_INIT_PRIVATE(QxtWebServiceDirectory);
 }
 
@@ -85,13 +89,15 @@ QxtWebServiceDirectory::QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm,
  * \sa removeService
  * \sa service
  */
-void QxtWebServiceDirectory::addService(const QString& path, QxtAbstractWebService* service) {
-    if(qxt_d().services.contains(path)) {
+void QxtWebServiceDirectory::addService(const QString& path, QxtAbstractWebService* service)
+{
+    if (qxt_d().services.contains(path))
+    {
         qWarning() << "QxtWebServiceDirectory::addService:" << path << "already registered";
     }
-    
+
     qxt_d().services[path] = service;
-    if(qxt_d().defaultRedirect.isEmpty())
+    if (qxt_d().defaultRedirect.isEmpty())
         setDefaultRedirect(path);
     connect(service, SIGNAL(destroyed()), &qxt_d(), SLOT(serviceDestroyed()));
 }
@@ -101,10 +107,14 @@ void QxtWebServiceDirectory::addService(const QString& path, QxtAbstractWebServi
  *
  * Note that the service object is not destroyed.
  */
-void QxtWebServiceDirectory::removeService(const QString& path) {
-    if(!qxt_d().services.contains(path)) {
+void QxtWebServiceDirectory::removeService(const QString& path)
+{
+    if (!qxt_d().services.contains(path))
+    {
         qWarning() << "QxtWebServiceDirectory::removeService:" << path << "not registered";
-    } else {
+    }
+    else
+    {
         qxt_d().services.remove(path);
     }
 }
@@ -112,8 +122,9 @@ void QxtWebServiceDirectory::removeService(const QString& path) {
 /**
  * Returns the service at the given path.
  */
-QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) const {
-    if(!qxt_d().services.contains(path))
+QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) const
+{
+    if (!qxt_d().services.contains(path))
         return 0;
     return qxt_d().services[path];
 }
@@ -124,28 +135,37 @@ QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) cons
  * (i.e. "a" from "/a/b/c") This also removes the path segment from the
  * event object. (in the previous example, the event's URL is now "/b/c")
  */
-static QString extractPathLevel(QxtWebRequestEvent* event) {
+static QString extractPathLevel(QxtWebRequestEvent* event)
+{
     QString path = event->url.path();
     int pos = path.indexOf("/", 1); // the path always starts with /
-    if(pos == -1)
+    if (pos == -1)
         event->url.setPath(""); // cue to redirect to /service/
     else
         event->url.setPath(path.mid(pos));
     return path.mid(1, pos - 1);
-}    
+}
 
 /**
  * \reimp
  */
-void QxtWebServiceDirectory::pageRequestedEvent(QxtWebRequestEvent* event) {
+void QxtWebServiceDirectory::pageRequestedEvent(QxtWebRequestEvent* event)
+{
     QString path = extractPathLevel(event);
-    if(path == "") {
+    if (path == "")
+    {
         indexRequested(event);
-    } else if(!qxt_d().services.contains(path)) {
+    }
+    else if (!qxt_d().services.contains(path))
+    {
         unknownServiceRequested(event, path);
-    } else if(event->url.path().isEmpty()) {
+    }
+    else if (event->url.path().isEmpty())
+    {
         postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, path + "/", 307));
-    } else {
+    }
+    else
+    {
         qxt_d().services[path]->pageRequestedEvent(event);
     }
 }
@@ -173,8 +193,9 @@ void QxtWebServiceDirectory::functionInvokedEvent(QxtWebRequestEvent* event) {
  * The default implementation returns a 404 "Service not known" error.
  * Subclasses may reimplement this event handler to customize this behavior.
  */
-void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, const QString& name) {
-    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + QString(name).replace("<","&lt") + "&quot; not known").toUtf8()));
+void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, const QString& name)
+{
+    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + QString(name).replace("<", "&lt") + "&quot; not known").toUtf8()));
 }
 
 /**
@@ -185,10 +206,14 @@ void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, 
  * setDefaultRedirect(), or invokes unknownServiceRequested() if no default
  * redirect has been set.
  */
-void QxtWebServiceDirectory::indexRequested(QxtWebRequestEvent* event) {
-    if(defaultRedirect().isEmpty()) {
+void QxtWebServiceDirectory::indexRequested(QxtWebRequestEvent* event)
+{
+    if (defaultRedirect().isEmpty())
+    {
         unknownServiceRequested(event, "/");
-    } else {
+    }
+    else
+    {
         postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, defaultRedirect() + "/", 307));
     }
 }
@@ -198,7 +223,8 @@ void QxtWebServiceDirectory::indexRequested(QxtWebRequestEvent* event) {
  * \sa indexRequested
  * \sa setDefaultRedirect
  */
-QString QxtWebServiceDirectory::defaultRedirect() const {
+QString QxtWebServiceDirectory::defaultRedirect() const
+{
     return qxt_d().defaultRedirect;
 }
 
@@ -207,8 +233,9 @@ QString QxtWebServiceDirectory::defaultRedirect() const {
  * \sa indexRequested
  * \sa defaultRedirect
  */
-void QxtWebServiceDirectory::setDefaultRedirect(const QString& path) {
-    if(!qxt_d().services.contains(path))
+void QxtWebServiceDirectory::setDefaultRedirect(const QString& path)
+{
+    if (!qxt_d().services.contains(path))
         qWarning() << "QxtWebServiceDirectory::setDefaultRedirect:" << path << "not registered";
     qxt_d().defaultRedirect = path;
 }

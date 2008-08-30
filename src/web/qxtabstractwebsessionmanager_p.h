@@ -33,8 +33,9 @@
 #include "qxtabstractwebsessionmanager.h"
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtAbstractWebSessionManagerPrivate : public QObject, public QxtPrivate<QxtAbstractWebSessionManager> {
-Q_OBJECT
+class QxtAbstractWebSessionManagerPrivate : public QObject, public QxtPrivate<QxtAbstractWebSessionManager>
+{
+    Q_OBJECT
 public:
     QxtAbstractWebSessionManagerPrivate();
     QXT_DECLARE_PUBLIC(QxtAbstractWebSessionManager);

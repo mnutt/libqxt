@@ -32,13 +32,17 @@ class QxtWebEvent;
 class QxtWebRequestEvent;
 
 class QxtAbstractWebServicePrivate;
-class QxtAbstractWebService : public QObject {
-Q_OBJECT
+class QxtAbstractWebService : public QObject
+{
+    Q_OBJECT
 public:
     QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent = 0);
 
     QxtAbstractWebSessionManager* sessionManager() const;
-    inline void postEvent(QxtWebEvent* event) { sessionManager()->postEvent(event); }
+    inline void postEvent(QxtWebEvent* event)
+    {
+        sessionManager()->postEvent(event);
+    }
     virtual void pageRequestedEvent(QxtWebRequestEvent* event) = 0;
     // virtual void functionInvokedEvent(QxtWebRequestEvent* event) = 0; // todo: implement
 
