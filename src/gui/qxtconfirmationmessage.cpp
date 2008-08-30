@@ -39,7 +39,7 @@ class QxtConfirmationMessagePrivate : public QxtPrivate<QxtConfirmationMessage>
 public:
     QXT_DECLARE_PUBLIC(QxtConfirmationMessage);
     void init(const QString& message = QString());
-    
+
     QString key() const;
     QString applicationName() const;
     QString organizationName() const;
@@ -94,9 +94,9 @@ QString QxtConfirmationMessagePrivate::key() const
     {
         const QString all = qxt_p().windowTitle() + qxt_p().text()
 #if QT_VERSION >= 0x040200
-                + qxt_p().informativeText()
+                            + qxt_p().informativeText()
 #endif // QT_VERSION
-            ;
+                            ;
         const QByteArray data = all.toLocal8Bit();
         value = QString::number(qChecksum(data.constData(), data.length()));
     }
@@ -415,8 +415,8 @@ void QxtConfirmationMessage::done(int result)
     Q_ASSERT(buttons != 0);
 
     int role = buttons->buttonRole(clickedButton());
-    if (qxt_d().confirm->isChecked() && 
-        (qxt_d().remember || role != QDialogButtonBox::RejectRole))
+    if (qxt_d().confirm->isChecked() &&
+            (qxt_d().remember || role != QDialogButtonBox::RejectRole))
     {
         qxt_d().doNotShowAgain(result);
     }

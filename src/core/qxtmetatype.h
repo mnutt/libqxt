@@ -32,81 +32,99 @@
 #include <qxtglobal.h>
 
 template <typename T>
-class QXT_CORE_EXPORT QxtMetaType {
+class QXT_CORE_EXPORT QxtMetaType
+{
 public:
-    static inline T* construct(const T* copy = 0) {
+    static inline T* construct(const T* copy = 0)
+    {
         return QMetaType::construct(qMetaTypeId<T>(), reinterpret_cast<const void*>(copy));
     }
 
-    static inline void destroy(T* data) {
+    static inline void destroy(T* data)
+    {
         QMetaType::destroy(qMetaTypeId<T>(), data);
     }
 
     // no need to reimplement isRegistered since this class will fail at compile time if it isn't
-    
-    static inline bool load(QDataStream& stream, T* data) {
+
+    static inline bool load(QDataStream& stream, T* data)
+    {
         return QMetaType::load(stream, qMetaTypeId<T>(), reinterpret_cast<void*>(data));
     }
 
-    static inline bool save(QDataStream& stream, const T* data) {
+    static inline bool save(QDataStream& stream, const T* data)
+    {
         return QMetaType::save(stream, qMetaTypeId<T>(), reinterpret_cast<const void*>(data));
     }
 
-    static inline int type() {
+    static inline int type()
+    {
         return qMetaTypeId<T>();
     }
 
-    static inline const char* name() {
+    static inline const char* name()
+    {
         return QMetaType::typeName(qMetaTypeId<T>());
     }
 };
 
 template <>
-class QXT_CORE_EXPORT QxtMetaType<void> {
+class QXT_CORE_EXPORT QxtMetaType<void>
+{
 public:
-    static inline void* construct(const void* copy = 0) {
+    static inline void* construct(const void* copy = 0)
+    {
         Q_UNUSED(copy);
         return 0;
     }
 
-    static inline void destroy(void* data) {
+    static inline void destroy(void* data)
+    {
         Q_UNUSED(data);
     }
 
-    static inline bool load(QDataStream& stream, void* data) {
+    static inline bool load(QDataStream& stream, void* data)
+    {
         Q_UNUSED(stream);
         Q_UNUSED(data);
         return false;
     }
 
-    static inline bool save(QDataStream& stream, const void* data) {
+    static inline bool save(QDataStream& stream, const void* data)
+    {
         Q_UNUSED(stream);
         Q_UNUSED(data);
         return false;
     }
 
-    static inline int type() {
+    static inline int type()
+    {
         return 0;
     }
 
-    static inline const char* name() {
+    static inline const char* name()
+    {
         return 0;
     }
 };
 
-inline void* qxtConstructByName(const char* typeName, const void* copy = 0) {
+inline void* qxtConstructByName(const char* typeName, const void* copy = 0)
+{
     return QMetaType::construct(QMetaType::type(typeName), copy);
 }
 
-inline void qxtDestroyByName(const char* typeName, void* data) {
+inline void qxtDestroyByName(const char* typeName, void* data)
+{
     QMetaType::destroy(QMetaType::type(typeName), data);
 }
 
-inline void* qxtConstructFromGenericArgument(QGenericArgument arg) {
+inline void* qxtConstructFromGenericArgument(QGenericArgument arg)
+{
     return qxtConstructByName(arg.name(), arg.data());
 }
 
-inline void qxtDestroyFromGenericArgument(QGenericArgument arg) {
+inline void qxtDestroyFromGenericArgument(QGenericArgument arg)
+{
     qxtDestroyByName(arg.name(), arg.data());
 }
 

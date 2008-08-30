@@ -28,7 +28,8 @@
 #include <qxtglobal.h>
 #include <qxtabstractsignalserializer.h>
 
-class QXT_CORE_EXPORT QxtDataStreamSignalSerializer : public QxtAbstractSignalSerializer {
+class QXT_CORE_EXPORT QxtDataStreamSignalSerializer : public QxtAbstractSignalSerializer
+{
 public:
     /*!
      * Serializes a signal into a form suitable for sending to an I/O device.

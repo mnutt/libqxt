@@ -27,18 +27,18 @@
 #include <QxtNullable>
 
 template <typename T>
-QList<int> find( qxtNull(T,args)[] )
+QList<int> find(qxtNull(T, args)[])
 {
     QList<int> found;
 
     bool hit;
-    for (int i=0;i<list.count();i++)
+    for (int i = 0;i < list.count();i++)
     {
-        hit=true;
+        hit = true;
 
-        for (int h=0;h<count(args);h++)
+        for (int h = 0;h < count(args);h++)
         {
-            if (!(args[h].isNull() or (list[i].[h]==args[h])))
+            if (!(args[h].isNull() or(list[i].[h] == args[h])))
             {
                 hit = false;
                 break;

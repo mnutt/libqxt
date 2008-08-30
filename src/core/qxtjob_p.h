@@ -31,7 +31,7 @@
 
 class QxtJobPrivate : public QObject, public QxtPrivate<QxtJob>
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     class RunningState
     {
@@ -39,13 +39,13 @@ public:
         void set(bool a)
         {
             mutex.lock();
-            r=a;
+            r = a;
             mutex.unlock();
         }
         bool get()
         {
             mutex.lock();
-            bool a=r;
+            bool a = r;
             mutex.unlock();
             return a;
         }

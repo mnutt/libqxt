@@ -30,8 +30,9 @@
 #include <QTcpSocket>
 #include <QSignalMapper>
 
-class QxtTcpConnectionManagerPrivate : public QTcpServer, public QxtPrivate<QxtTcpConnectionManager> {
-Q_OBJECT
+class QxtTcpConnectionManagerPrivate : public QTcpServer, public QxtPrivate<QxtTcpConnectionManager>
+{
+    Q_OBJECT
 public:
     QxtTcpConnectionManagerPrivate();
     QXT_DECLARE_PUBLIC(QxtTcpConnectionManager);

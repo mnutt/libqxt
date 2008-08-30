@@ -24,7 +24,7 @@
 
 // This file exists for the convenience of QxtBoundCFunction.
 // It is not part of the public API and is subject to change.
-// 
+//
 // We mean it.
 
 #ifndef QXTBOUNDFUNCTIONBASE_H

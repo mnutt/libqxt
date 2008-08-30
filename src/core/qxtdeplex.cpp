@@ -63,31 +63,31 @@ implements a normal QxtPipe with the exception that r/w operations are delegated
 
 
 
-QxtDeplex::QxtDeplex(QObject * parent):QxtPipe(parent)
+QxtDeplex::QxtDeplex(QObject * parent): QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtDeplex);
-    qxt_d().delegate=0;
+    qxt_d().delegate = 0;
     setDevice(0);
 }
-QxtDeplex::QxtDeplex(QIODevice * device,QObject * parent):QxtPipe(parent)
+QxtDeplex::QxtDeplex(QIODevice * device, QObject * parent): QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtDeplex);
-    qxt_d().delegate=0;
+    qxt_d().delegate = 0;
     setDevice(device);
 }
 
 void QxtDeplex::setDevice(QIODevice * device)
 {
-    if(qxt_d().delegate)
+    if (qxt_d().delegate)
     {
-        QObject::disconnect(qxt_d().delegate,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
-        QObject::disconnect(qxt_d().delegate,SIGNAL(destroyed(QObject *)),&qxt_d(),SLOT(extDestroyed(QObject *)));
+        QObject::disconnect(qxt_d().delegate, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
+        QObject::disconnect(qxt_d().delegate, SIGNAL(destroyed(QObject *)), &qxt_d(), SLOT(extDestroyed(QObject *)));
     }
-    qxt_d().delegate=device;
-    if(qxt_d().delegate)
+    qxt_d().delegate = device;
+    if (qxt_d().delegate)
     {
-        QObject::connect(qxt_d().delegate,SIGNAL(readyRead()),&qxt_d(),SLOT(readyRead()));
-        QObject::connect(qxt_d().delegate,SIGNAL(destroyed(QObject *)),&qxt_d(),SLOT(extDestroyed(QObject *)));
+        QObject::connect(qxt_d().delegate, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
+        QObject::connect(qxt_d().delegate, SIGNAL(destroyed(QObject *)), &qxt_d(), SLOT(extDestroyed(QObject *)));
     }
 }
 QIODevice *QxtDeplex::device() const
@@ -97,7 +97,7 @@ QIODevice *QxtDeplex::device() const
 
 void QxtDeplexPrivate::readyRead()
 {
-    QByteArray d=static_cast<QIODevice*>(sender())->readAll();
+    QByteArray d = static_cast<QIODevice*>(sender())->readAll();
 
     qxt_p().enqueData(d);
     qxt_p().sendData(d);
@@ -105,20 +105,20 @@ void QxtDeplexPrivate::readyRead()
 
 void QxtDeplexPrivate::extDestroyed(QObject *)
 {
-    delegate=0;
+    delegate = 0;
 }
 
 
-qint64 QxtDeplex::writeData ( const char * a, qint64 s )
+qint64 QxtDeplex::writeData(const char * a, qint64 s)
 {
-    if(!qxt_d().delegate)
+    if (!qxt_d().delegate)
         return 0;
-    return qxt_d().delegate->write(a,s);
+    return qxt_d().delegate->write(a, s);
 
 }
-void  QxtDeplex::receiveData (QByteArray data, const QxtPipe *  )
+void  QxtDeplex::receiveData(QByteArray data, const QxtPipe *)
 {
-    if(!qxt_d().delegate)
+    if (!qxt_d().delegate)
         return;
     qxt_d().delegate->write(data);
 }

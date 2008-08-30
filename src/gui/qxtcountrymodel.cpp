@@ -38,52 +38,58 @@ typedef QList<QxtCountry> QxtCountryList;
 
 class QxtCountry
 {
-  public:
+public:
     explicit QxtCountry(QLocale::Country country)
-    : _mCountry(country)
+            : _mCountry(country)
     {
-      _mName = qApp->translate("QLocale", qPrintable(QLocale::countryToString(_mCountry)));
-      _mCurrency = QxtLocale::currencyForCountry(_mCountry);
+        _mName = qApp->translate("QLocale", qPrintable(QLocale::countryToString(_mCountry)));
+        _mCurrency = QxtLocale::currencyForCountry(_mCountry);
     }
 
     const QString& name() const
-    { return _mName; }
+    {
+        return _mName;
+    }
     QLocale::Country country() const
-    { return _mCountry; }
+    {
+        return _mCountry;
+    }
     QxtLocale::Currency currency() const
-    { return _mCurrency; }
+    {
+        return _mCurrency;
+    }
 
     bool operator<(const QxtCountry& country) const
     {
-      return _mName.localeAwareCompare(country._mName) < 0;
+        return _mName.localeAwareCompare(country._mName) < 0;
     }
 
     static const QxtCountryList& loadCountries()
     {
-      if (!_smCountryNames.empty())
+        if (!_smCountryNames.empty())
+            return _smCountryNames;
+
+        for (int idx = 0; idx < QLocale::LastCountry; ++idx)
+        {
+            QLocale::Country c = static_cast<QLocale::Country>(idx);
+            if (c == QLocale::LastCountry)
+                continue;
+            if (c == QLocale::AnyCountry)
+                continue;
+
+            _smCountryNames.push_back(QxtCountry(c));
+        }
+
+        qSort(_smCountryNames);
         return _smCountryNames;
-
-      for (int idx = 0; idx < QLocale::LastCountry; ++idx)
-      {
-        QLocale::Country c = static_cast<QLocale::Country>(idx);
-        if (c == QLocale::LastCountry)
-          continue;
-        if (c == QLocale::AnyCountry)
-          continue;
-
-        _smCountryNames.push_back(QxtCountry(c));
-      }
-
-      qSort(_smCountryNames);
-      return _smCountryNames;
     }
 
-  private:
+private:
     QString             _mName;
     QLocale::Country    _mCountry;
     QxtLocale::Currency _mCurrency;
 
-  private:
+private:
     static QxtCountryList _smCountryNames;
 };
 
@@ -95,48 +101,48 @@ QxtCountryModelPrivate::QxtCountryModelPrivate()
 
 int QxtCountryModelPrivate::rowCount(const QModelIndex&) const
 {
-  return QxtCountry::loadCountries().size();
+    return QxtCountry::loadCountries().size();
 }
 
 int QxtCountryModelPrivate::columnCount(const QModelIndex&) const
 {
-  return 8;
+    return 8;
 }
 
-QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role ) const
+QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role) const
 {
-  if (!index.isValid())
-    return QVariant();
+    if (!index.isValid())
+        return QVariant();
 
-  const QxtCountry& c = QxtCountry::loadCountries().operator[](index.row());
-  if (role == Qt::DecorationRole && index.column() == 0)
-    return QIcon(":/flags/" + QxtLocale::countryToISO2Letter(c.country()) + ".png");
+    const QxtCountry& c = QxtCountry::loadCountries().operator[](index.row());
+    if (role == Qt::DecorationRole && index.column() == 0)
+        return QIcon(":/flags/" + QxtLocale::countryToISO2Letter(c.country()) + ".png");
 
-  if (role == Qt::DisplayRole)
-  {
-    switch (index.column())
+    if (role == Qt::DisplayRole)
     {
-      case 0:
-        return c.name();
-      case 1:
-        return QxtLocale::countryToISO2Letter(c.country());
-      case 2:
-	return c.country();
-      case 3:
-        return QxtLocale::countryToISO3Letter(c.country());
-      case 4:
-        return QxtLocale::currencyToName(c.currency());
-      case 5:
-        return QxtLocale::currencyToCode(c.currency());
-      case 6:
-        return QxtLocale::currencyToSymbol(c.currency());
-      case 7:
-        return QxtLocale::continentToName(QxtLocale::continentForCountry(c.country()));
-      default:
-	return QVariant();
+        switch (index.column())
+        {
+        case 0:
+            return c.name();
+        case 1:
+            return QxtLocale::countryToISO2Letter(c.country());
+        case 2:
+            return c.country();
+        case 3:
+            return QxtLocale::countryToISO3Letter(c.country());
+        case 4:
+            return QxtLocale::currencyToName(c.currency());
+        case 5:
+            return QxtLocale::currencyToCode(c.currency());
+        case 6:
+            return QxtLocale::currencyToSymbol(c.currency());
+        case 7:
+            return QxtLocale::continentToName(QxtLocale::continentForCountry(c.country()));
+        default:
+            return QVariant();
+        }
     }
-  }
-  return QVariant();
+    return QVariant();
 }
 
 /*!
@@ -151,9 +157,9 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role ) const
  */
 
 QxtCountryModel::QxtCountryModel(QObject* parent)
-: QAbstractTableModel(parent)
+        : QAbstractTableModel(parent)
 {
-  QXT_INIT_PRIVATE(QxtCountryModel);
+    QXT_INIT_PRIVATE(QxtCountryModel);
 }
 
 QxtCountryModel::~QxtCountryModel()
@@ -167,7 +173,7 @@ QxtCountryModel::~QxtCountryModel()
  */
 int QxtCountryModel::rowCount(const QModelIndex& parent) const
 {
-  return qxt_d().rowCount(parent);
+    return qxt_d().rowCount(parent);
 }
 
 /*!
@@ -177,7 +183,7 @@ int QxtCountryModel::rowCount(const QModelIndex& parent) const
  */
 int QxtCountryModel::columnCount(const QModelIndex& parent) const
 {
-  return qxt_d().columnCount(parent);
+    return qxt_d().columnCount(parent);
 }
 
 /*!
@@ -185,9 +191,9 @@ int QxtCountryModel::columnCount(const QModelIndex& parent) const
 
     Returns the data for the given \a index for a sepcific role.
  */
-QVariant QxtCountryModel::data(const QModelIndex& index, int role ) const
+QVariant QxtCountryModel::data(const QModelIndex& index, int role) const
 {
-  return qxt_d().data(index, role);
+    return qxt_d().data(index, role);
 }
 
 /*!
@@ -195,31 +201,31 @@ QVariant QxtCountryModel::data(const QModelIndex& index, int role ) const
 
     Returns the column or row name for the given \a section for a sepcific role.
  */
-QVariant QxtCountryModel::headerData ( int section, Qt::Orientation orientation, int role ) const
+QVariant QxtCountryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-  if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-  {
-    switch (section)
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
-      case 0:
-        return tr("Name");
-      case 1:
-        return tr("ISO 3166 Alpha 2");
-      case 2:
-        return tr("QLocale");
-      case 3:
-        return tr("ISO 3166 Alpha 3");
-      case 4:
-        return tr("Currency");
-      case 5:
-        return tr("Currency Code");
-      case 6:
-        return tr("Currency Symbol");
-      case 7:
-        return tr("Continent");
+        switch (section)
+        {
+        case 0:
+            return tr("Name");
+        case 1:
+            return tr("ISO 3166 Alpha 2");
+        case 2:
+            return tr("QLocale");
+        case 3:
+            return tr("ISO 3166 Alpha 3");
+        case 4:
+            return tr("Currency");
+        case 5:
+            return tr("Currency Code");
+        case 6:
+            return tr("Currency Symbol");
+        case 7:
+            return tr("Continent");
+        }
     }
-  }
 
-  return QAbstractTableModel::headerData(section, orientation, role);
+    return QAbstractTableModel::headerData(section, orientation, role);
 }
 

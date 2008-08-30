@@ -27,9 +27,9 @@
 
 #include "qxtlinesocket.h"
 
-class QxtLineSocketPrivate : public QObject,public QxtPrivate<QxtLineSocket>
+class QxtLineSocketPrivate : public QObject, public QxtPrivate<QxtLineSocket>
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtLineSocketPrivate()
     {

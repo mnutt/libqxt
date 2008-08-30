@@ -26,7 +26,7 @@
 #include <QtPlugin>
 
 QxtLetterBoxWidgetPlugin::QxtLetterBoxWidgetPlugin(QObject* parent)
-    : QObject(parent), QxtDesignerPlugin("QxtLetterBoxWidget")
+        : QObject(parent), QxtDesignerPlugin("QxtLetterBoxWidget")
 {
 }
 
@@ -38,13 +38,13 @@ QWidget* QxtLetterBoxWidgetPlugin::createWidget(QWidget* parent)
 QString QxtLetterBoxWidgetPlugin::domXml() const
 {
     return "<widget class=\"QxtLetterBoxWidget\" name=\"qxtLetterBoxWidget\">\n"
-            " <property name=\"geometry\">\n"
-            "  <rect>\n"
-            "   <x>0</x>\n"
-            "   <y>0</y>\n"
-            "   <width>120</width>\n"
-            "   <height>80</height>\n"
-            "  </rect>\n"
-            " </property>\n"
-            "</widget>\n";
+           " <property name=\"geometry\">\n"
+           "  <rect>\n"
+           "   <x>0</x>\n"
+           "   <y>0</y>\n"
+           "   <width>120</width>\n"
+           "   <height>80</height>\n"
+           "  </rect>\n"
+           " </property>\n"
+           "</widget>\n";
 }

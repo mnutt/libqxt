@@ -34,10 +34,10 @@ QT_END_NAMESPACE
 class QxtLineSocketPrivate;
 class QXT_CORE_EXPORT QxtLineSocket: public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    QxtLineSocket (QIODevice * socket,QObject * parent=0);
-    QxtLineSocket (QObject * parent=0);
+    QxtLineSocket(QIODevice * socket, QObject * parent = 0);
+    QxtLineSocket(QObject * parent = 0);
 
     void setSocket(QIODevice *);
     QIODevice * socket() const;

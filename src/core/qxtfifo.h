@@ -31,17 +31,17 @@
 class QxtFifoPrivate;
 class QXT_CORE_EXPORT QxtFifo : public QIODevice
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    QxtFifo(QObject * parent=0);
-    virtual bool isSequential () const;
-    virtual qint64 bytesAvailable () const;
+    QxtFifo(QObject * parent = 0);
+    virtual bool isSequential() const;
+    virtual qint64 bytesAvailable() const;
 
     void clear();
 
 protected:
-    virtual qint64 readData ( char * data, qint64 maxSize );
-    virtual qint64 writeData ( const char * data, qint64 maxSize );
+    virtual qint64 readData(char * data, qint64 maxSize);
+    virtual qint64 writeData(const char * data, qint64 maxSize);
 
 private:
     QXT_DECLARE_PRIVATE(QxtFifo);

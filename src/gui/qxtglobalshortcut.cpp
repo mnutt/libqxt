@@ -27,7 +27,7 @@
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
 #ifdef Q_WS_WIN
-    , widget(0)
+        , widget(0)
 #endif // Q_WS_WIN
 {
 }
@@ -83,7 +83,7 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     Constructs a new QxtGlobalShortcut with \a parent.
  */
 QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
-    : QObject(parent)
+        : QObject(parent)
 {
     Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
@@ -94,7 +94,7 @@ QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
     Constructs a new QxtGlobalShortcut with \a shortcut and \a parent.
  */
 QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent)
-    : QObject(parent)
+        : QObject(parent)
 {
     Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);

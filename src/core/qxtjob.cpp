@@ -31,7 +31,7 @@
 
 QxtJob allows easily starting jobs on different threads.\n
 exec() will ask for the QThread to run the job on.
-The Qthread needs an event loop. since version 4.4, QThread has 
+The Qthread needs an event loop. since version 4.4, QThread has
 a non pure run function with a default event loop, allowing easy deployment of jobs.
 
 \code
@@ -43,14 +43,14 @@ LockJob().exec(&thread);
 
 
 /**
-\fn  virtual void QxtJob::run()=0; 
+\fn  virtual void QxtJob::run()=0;
 This function is called by QxtJob. \n
 reimplemented this function to do useful work. \n
 Returning from this method will end the execution of the job. \n
 */
 
 /**
-\fn  virtual void QxtJob::done(); 
+\fn  virtual void QxtJob::done();
 This signal is emitted, when the run() function returns.
 */
 
@@ -73,7 +73,7 @@ QxtJob::QxtJob()
 {
     QXT_INIT_PRIVATE(QxtJob);
     qxt_d().running.set(false);
-    connect(&qxt_d(),SIGNAL(done()),this,SIGNAL(done()));
+    connect(&qxt_d(), SIGNAL(done()), this, SIGNAL(done()));
 }
 /*!
 execute the Job on \p onthread \n
@@ -81,7 +81,7 @@ execute the Job on \p onthread \n
 void QxtJob::exec(QThread * onthread)
 {
     qxt_d().moveToThread(onthread);
-    connect(this,SIGNAL(subseed()),&qxt_d(),SLOT(inwrap_d()),Qt::QueuedConnection);
+    connect(this, SIGNAL(subseed()), &qxt_d(), SLOT(inwrap_d()), Qt::QueuedConnection);
 
     qxt_d().running.set(true);
     emit(subseed());
@@ -101,10 +101,10 @@ Maybe you actualy want to use QxtSignalWaiter.
 */
 void QxtJob::join()
 {
-    while(qxt_d().running.get()==true)
+    while (qxt_d().running.get() == true)
     {
         /**
-        oh yeah that sucks ass, 
+        oh yeah that sucks ass,
         but since any kind of waitcondition will just fail due to undeterminnism,
         we have no chance then polling.
         And no, a mutex won't work either.

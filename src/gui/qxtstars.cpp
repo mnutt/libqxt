@@ -46,16 +46,16 @@ public:
 QxtStarsPrivate::QxtStarsPrivate()
         : snapBackPosition(0), readOnly(false)
 {
-    star.moveTo(14.285716,-43.352104);
-    star.lineTo(38.404536,9.1654726);
-    star.lineTo(95.804846,15.875014);
-    star.lineTo(53.310787,55.042197);
-    star.lineTo(64.667306,111.7065);
-    star.lineTo(14.285714,83.395573);
-    star.lineTo(-36.095881,111.7065);
-    star.lineTo(-24.739359,55.042198);
-    star.lineTo(-67.233416,15.875009);
-    star.lineTo(-9.8331075,9.1654728);
+    star.moveTo(14.285716, -43.352104);
+    star.lineTo(38.404536, 9.1654726);
+    star.lineTo(95.804846, 15.875014);
+    star.lineTo(53.310787, 55.042197);
+    star.lineTo(64.667306, 111.7065);
+    star.lineTo(14.285714, 83.395573);
+    star.lineTo(-36.095881, 111.7065);
+    star.lineTo(-24.739359, 55.042198);
+    star.lineTo(-67.233416, 15.875009);
+    star.lineTo(-9.8331075, 9.1654728);
     star.closeSubpath();
 }
 

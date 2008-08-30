@@ -69,7 +69,8 @@ the associated session.
 #include "qxtabstractwebservice.h"
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtAbstractWebServicePrivate : public QxtPrivate<QxtAbstractWebService> {
+class QxtAbstractWebServicePrivate : public QxtPrivate<QxtAbstractWebService>
+{
 public:
     QXT_DECLARE_PUBLIC(QxtAbstractWebService);
     QxtAbstractWebServicePrivate() {}
@@ -85,7 +86,8 @@ public:
  *
  * Note that this is an abstract class and cannot be instantiated directly.
  */
-QxtAbstractWebService::QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent) : QObject(parent) {
+QxtAbstractWebService::QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtAbstractWebService);
     qxt_d().manager = manager;
 }
@@ -93,7 +95,8 @@ QxtAbstractWebService::QxtAbstractWebService(QxtAbstractWebSessionManager* manag
 /**
  * Returns the session manager associated with the web service.
  */
-QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const {
+QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const
+{
     return qxt_d().manager;
 }
 
@@ -106,12 +109,12 @@ QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const {
  * \fn virtual void QxtAbstractWebService::pageRequestedEvent(QxtWebRequestEvent* event)
  * This event handler must be reimplemented in subclasses to receive page
  * request events.
- * 
+ *
  * Every page request event received MUST be responded to with a QxtWebPageEvent
  * or a QxtWebPageEvent subclass. This response does not have to be posted
  * during the execution of this function, to support asynchronous design, but
  * failure to post an event will cause the web browser making the request to
  * wait until it times out.
- * 
+ *
  * \sa QxtWebRequestEvent
  */

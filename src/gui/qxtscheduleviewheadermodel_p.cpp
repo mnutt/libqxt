@@ -7,7 +7,7 @@
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
-** 
+**
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -28,18 +28,18 @@
 #include <QDateTime>
 #include <QDebug>
 
-QxtScheduleViewHeaderModel::QxtScheduleViewHeaderModel( QObject *parent ) : QAbstractTableModel(parent)
-                                                                          , m_rowCountBuffer(0)
-                                                                          , m_colCountBuffer(0)
+QxtScheduleViewHeaderModel::QxtScheduleViewHeaderModel(QObject *parent) : QAbstractTableModel(parent)
+        , m_rowCountBuffer(0)
+        , m_colCountBuffer(0)
 {
-    
+
 }
 
-void QxtScheduleViewHeaderModel::newZoomDepth    ( const int zoomDepth )
+void QxtScheduleViewHeaderModel::newZoomDepth(const int zoomDepth)
 {
     Q_UNUSED(zoomDepth);
-    
-    if(this->m_dataSource)
+
+    if (this->m_dataSource)
     {
         /*
         qDebug()<<"old rows "<<m_rowCountBuffer<<" new rows "<<m_dataSource->rows();
@@ -48,69 +48,69 @@ void QxtScheduleViewHeaderModel::newZoomDepth    ( const int zoomDepth )
         endRemoveRows();
 
         beginInsertRows(QModelIndex(),0,m_dataSource->rows());
-        m_rowCountBuffer = m_dataSource->rows(); 
+        m_rowCountBuffer = m_dataSource->rows();
         endInsertRows();
         */
         m_rowCountBuffer = m_dataSource->rows();
         reset();
-        
+
     }
 }
 
-void QxtScheduleViewHeaderModel::viewModeChanged ( const int viewMode  )
+void QxtScheduleViewHeaderModel::viewModeChanged(const int viewMode)
 {
     Q_UNUSED(viewMode);
-    
-    if(this->m_dataSource)
+
+    if (this->m_dataSource)
     {
-        beginRemoveRows(QModelIndex(),0,m_rowCountBuffer);
+        beginRemoveRows(QModelIndex(), 0, m_rowCountBuffer);
         m_rowCountBuffer = 0;
         endRemoveRows();
-        
-        beginInsertRows(QModelIndex(),0,m_dataSource->rows());
+
+        beginInsertRows(QModelIndex(), 0, m_dataSource->rows());
         m_rowCountBuffer = m_dataSource->rows();
-        endInsertRows();        
-        
-        beginRemoveColumns(QModelIndex(),0,m_colCountBuffer);
+        endInsertRows();
+
+        beginRemoveColumns(QModelIndex(), 0, m_colCountBuffer);
         m_colCountBuffer = 0;
         endRemoveColumns();
-        
-        beginInsertColumns(QModelIndex(),0,m_dataSource->cols());
+
+        beginInsertColumns(QModelIndex(), 0, m_dataSource->cols());
         m_colCountBuffer = m_dataSource->cols();
-        endInsertColumns();        
+        endInsertColumns();
     }
 }
 
-void QxtScheduleViewHeaderModel::setDataSource   ( QxtScheduleView *dataSource )
+void QxtScheduleViewHeaderModel::setDataSource(QxtScheduleView *dataSource)
 {
-    if(this->m_dataSource)
+    if (this->m_dataSource)
     {
-        disconnect(m_dataSource,SIGNAL( newZoomDepth (const int) ),this,SLOT( newZoomDepth ( const int ) ));
-        disconnect(m_dataSource,SIGNAL( viewModeChanged (const int) ),this,SLOT( viewModeChanged (const int) ));
-        
-        emit beginRemoveRows(QModelIndex(),0,m_rowCountBuffer);
+        disconnect(m_dataSource, SIGNAL(newZoomDepth(const int)), this, SLOT(newZoomDepth(const int)));
+        disconnect(m_dataSource, SIGNAL(viewModeChanged(const int)), this, SLOT(viewModeChanged(const int)));
+
+        emit beginRemoveRows(QModelIndex(), 0, m_rowCountBuffer);
         m_rowCountBuffer = 0;
         emit endRemoveRows();
-        
-        emit beginRemoveColumns(QModelIndex(),0,m_colCountBuffer);
+
+        emit beginRemoveColumns(QModelIndex(), 0, m_colCountBuffer);
         m_colCountBuffer = 0;
         emit endRemoveColumns();
     }
-    
-    if(dataSource)
+
+    if (dataSource)
     {
-        connect(dataSource,SIGNAL( newZoomDepth (const int) ),this,SLOT( newZoomDepth ( const int ) ));
-        connect(dataSource,SIGNAL( viewModeChanged (const int) ),this,SLOT( viewModeChanged (const int) ));
-        
-        emit beginInsertRows(QModelIndex(),0,dataSource->rows());
+        connect(dataSource, SIGNAL(newZoomDepth(const int)), this, SLOT(newZoomDepth(const int)));
+        connect(dataSource, SIGNAL(viewModeChanged(const int)), this, SLOT(viewModeChanged(const int)));
+
+        emit beginInsertRows(QModelIndex(), 0, dataSource->rows());
         m_rowCountBuffer = dataSource->rows();
         emit endInsertRows();
-        
-        emit beginInsertColumns(QModelIndex(),0,dataSource->cols());
+
+        emit beginInsertColumns(QModelIndex(), 0, dataSource->cols());
         m_colCountBuffer = dataSource->cols();
         emit endInsertColumns();
     }
-    
+
     m_dataSource = dataSource;
 }
 
@@ -122,9 +122,9 @@ QModelIndex QxtScheduleViewHeaderModel::parent(const QModelIndex & index) const
 
 int QxtScheduleViewHeaderModel::rowCount(const QModelIndex & parent) const
 {
-    if(!parent.isValid())
+    if (!parent.isValid())
     {
-        if(this->m_dataSource)
+        if (this->m_dataSource)
             return m_dataSource->rows();
     }
     return 0;
@@ -132,12 +132,12 @@ int QxtScheduleViewHeaderModel::rowCount(const QModelIndex & parent) const
 
 int QxtScheduleViewHeaderModel::columnCount(const QModelIndex & parent) const
 {
-    if(!parent.isValid())
+    if (!parent.isValid())
     {
-        if(this->m_dataSource)
+        if (this->m_dataSource)
             return m_dataSource->cols();
     }
-    return 0;    
+    return 0;
 }
 
 QVariant QxtScheduleViewHeaderModel::data(const QModelIndex & index, int role) const
@@ -164,35 +164,35 @@ bool QxtScheduleViewHeaderModel::insertRow(int row, const QModelIndex & parent)
 
 QVariant QxtScheduleViewHeaderModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(!m_dataSource)
+    if (!m_dataSource)
         return QVariant();
 #if 0
-   if(role == Qt::SizeHintRole)
-   {
-       if(this->viewModel)
-      {
-          return viewModel->headerData(section,orientation,role);
-      }
-   }
+    if (role == Qt::SizeHintRole)
+    {
+        if (this->viewModel)
+        {
+            return viewModel->headerData(section, orientation, role);
+        }
+    }
 #endif
-   
-   if(role == Qt::DisplayRole || role == Qt::EditRole)
-   {
-       if(Qt::Horizontal == orientation)
-       {
-           int iTableOffset = m_dataSource->qxt_d().visualIndexToOffset(0,section);
-           QDateTime startTime = QDateTime::fromTime_t(m_dataSource->qxt_d().offsetToUnixTime(iTableOffset));
+
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
+    {
+        if (Qt::Horizontal == orientation)
+        {
+            int iTableOffset = m_dataSource->qxt_d().visualIndexToOffset(0, section);
+            QDateTime startTime = QDateTime::fromTime_t(m_dataSource->qxt_d().offsetToUnixTime(iTableOffset));
             return QVariant(startTime.date().toString());
-       }
-       else
-       {  
-           int iTableOffset = m_dataSource->qxt_d().visualIndexToOffset(section,0);                        
-           QTime time =QDateTime::fromTime_t(m_dataSource->qxt_d().offsetToUnixTime(iTableOffset)).time();
-           return QVariant(time.toString());
-       }
-   }
-   
-   return QVariant();
+        }
+        else
+        {
+            int iTableOffset = m_dataSource->qxt_d().visualIndexToOffset(section, 0);
+            QTime time = QDateTime::fromTime_t(m_dataSource->qxt_d().offsetToUnixTime(iTableOffset)).time();
+            return QVariant(time.toString());
+        }
+    }
+
+    return QVariant();
 }
 
 Qt::ItemFlags QxtScheduleViewHeaderModel::flags(const QModelIndex & index) const

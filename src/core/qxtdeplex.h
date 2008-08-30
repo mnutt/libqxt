@@ -32,14 +32,14 @@ class QXT_CORE_EXPORT QxtDeplex : public QxtPipe
 {
     Q_OBJECT
 public:
-    QxtDeplex(QObject * parent=0);
-    QxtDeplex(QIODevice * device,QObject * parent=0);
+    QxtDeplex(QObject * parent = 0);
+    QxtDeplex(QIODevice * device, QObject * parent = 0);
 
     void setDevice(QIODevice * device);
     QIODevice *device() const;
 protected:
-    virtual qint64 writeData ( const char * data, qint64 maxSize );
-    virtual void   receiveData (QByteArray data, const QxtPipe * sender );
+    virtual qint64 writeData(const char * data, qint64 maxSize);
+    virtual void   receiveData(QByteArray data, const QxtPipe * sender);
 private:
     QXT_DECLARE_PRIVATE(QxtDeplex);
 

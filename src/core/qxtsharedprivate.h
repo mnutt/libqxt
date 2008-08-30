@@ -33,12 +33,12 @@ It is assumed you are familiar with QxtPimpl and QSharedData / QSharedDataPointe
 
 <h4>Major differences to QxtPimpl are:</h4>
     - there is no qxt_p() since there are multiple public classes sharing the same private
-    - you have to explicitly initialise the private data in the ctor of your public class using new 
+    - you have to explicitly initialise the private data in the ctor of your public class using new
     - instead of using QXT_DECLARE_PRIVATE(MyClass) you use QxtSharedPrivate<myCLassPrivate> d;
     - The private data does not have to be a QxtPrivate subclass
 
 <h4>Major differences to QSharedData / QSharedDataPointer are:</h4>
-    - the actual Data can be a private implementation 
+    - the actual Data can be a private implementation
     - access via d().member() instead of  d->member(); (QxtPimpl style)
     - The private data does not have to be a QSharedData subclass
 
@@ -124,9 +124,9 @@ public:
     {
         delete data;
     }
-    QxtSharedPrivateData(const QxtSharedPrivateData & other ):QSharedData(other)
+    QxtSharedPrivateData(const QxtSharedPrivateData & other): QSharedData(other)
     {
-        data=new PVT(*other.data); 
+        data = new PVT(*other.data);
     }
     PVT * data;
 };
@@ -140,19 +140,19 @@ public:
 
     QxtSharedPrivate()
     {
-        pvt=0;
+        pvt = 0;
     }
     QxtSharedPrivate(const QxtSharedPrivate &other)
     {
-        pvt=other.pvt;
+        pvt = other.pvt;
     }
-    inline PVT& operator=( PVT * n)
+    inline PVT& operator=(PVT * n)
     {
-        Q_ASSERT(pvt==0);
+        Q_ASSERT(pvt == 0);
 
-        QxtSharedPrivateData<PVT> *t=new QxtSharedPrivateData<PVT>;
-        t->data=n;
-        pvt=t;
+        QxtSharedPrivateData<PVT> *t = new QxtSharedPrivateData<PVT>;
+        t->data = n;
+        pvt = t;
 
         return   *static_cast<PVT *>(pvt->data);
 

@@ -71,19 +71,23 @@ constructs a new QxtFifo
 #include <qatomic.h>
 #include <qbasicatomic.h>
 
-struct QxtFifoNode {
-    QxtFifoNode(const char* data, int size) : content(data, size) {
+struct QxtFifoNode
+{
+    QxtFifoNode(const char* data, int size) : content(data, size)
+    {
         next = NULL;
     }
-   
+
     QByteArray content;
     QBasicAtomicPointer<QxtFifoNode> next;
 };
 
-class QxtFifoPrivate : public QxtPrivate<QxtFifo> {
+class QxtFifoPrivate : public QxtPrivate<QxtFifo>
+{
 public:
     QXT_DECLARE_PUBLIC(QxtFifo);
-    QxtFifoPrivate() {
+    QxtFifoPrivate()
+    {
         head = tail = new QxtFifoNode(NULL, 0);
         available = 0;
     }
@@ -98,23 +102,27 @@ QxtFifo::QxtFifo(QObject *parent) : QIODevice(parent)
     setOpenMode(QIODevice::ReadWrite);
 }
 
-qint64 QxtFifo::readData ( char * data, qint64 maxSize )
+qint64 QxtFifo::readData(char * data, qint64 maxSize)
 {
     int bytes = qxt_d().available, step;
-    if(!bytes) return 0;
-    if(bytes > maxSize) bytes = maxSize;
+    if (!bytes) return 0;
+    if (bytes > maxSize) bytes = maxSize;
     int written = bytes;
     char* writePos = data;
     QxtFifoNode* node;
-    while(bytes > 0) {
+    while (bytes > 0)
+    {
         node = qxt_d().head;
         step = node->content.size();
-        if(step >= bytes) {
+        if (step >= bytes)
+        {
             int rem = step - bytes;
             memcpy(writePos, node->content.constData(), bytes);
             step = bytes;
             node->content = node->content.right(rem);
-        } else {
+        }
+        else
+        {
             memcpy(writePos, node->content.constData(), step);
             qxt_d().head.fetchAndStoreOrdered(node->next);
             delete node;
@@ -127,10 +135,11 @@ qint64 QxtFifo::readData ( char * data, qint64 maxSize )
     return written;
 }
 
-qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
+qint64 QxtFifo::writeData(const char * data, qint64 maxSize)
 {
-    if(maxSize > 0) {
-        if(maxSize > INT_MAX) maxSize = INT_MAX; // qint64 could easily exceed QAtomicInt, so let's play it safe
+    if (maxSize > 0)
+    {
+        if (maxSize > INT_MAX) maxSize = INT_MAX; // qint64 could easily exceed QAtomicInt, so let's play it safe
         QxtFifoNode* newData = new QxtFifoNode(data, maxSize);
         qxt_d().tail->next.fetchAndStoreOrdered(newData);
         qxt_d().tail.fetchAndStoreOrdered(newData);
@@ -141,12 +150,12 @@ qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
     return maxSize;
 }
 
-bool QxtFifo::isSequential () const
+bool QxtFifo::isSequential() const
 {
     return true;
 }
 
-qint64 QxtFifo::bytesAvailable () const
+qint64 QxtFifo::bytesAvailable() const
 {
     return qxt_d().available;
 }
@@ -156,7 +165,8 @@ void QxtFifo::clear()
     qxt_d().available.fetchAndStoreOrdered(0);
     qxt_d().tail.fetchAndStoreOrdered(qxt_d().head);
     QxtFifoNode* node = qxt_d().head->next.fetchAndStoreOrdered(NULL);
-    while(node && node->next) {
+    while (node && node->next)
+    {
         QxtFifoNode* next = node->next.fetchAndStoreOrdered(NULL);
         delete node;
         node = next;

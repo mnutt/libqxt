@@ -257,7 +257,7 @@ QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString&
  */
 void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
 {
-    foreach (QAction* action, actions)
+    foreach(QAction* action, actions)
     {
         insertTabAction(index, 0, action);
     }
@@ -325,7 +325,7 @@ void QxtTabWidget::insertTabAction(int index, QAction* before, QAction* action)
  */
 void QxtTabWidget::insertTabActions(int index, QAction* before, QList<QAction*> actions)
 {
-    foreach (QAction* action, actions)
+    foreach(QAction* action, actions)
     {
         insertTabAction(index, before, action);
     }
@@ -424,7 +424,7 @@ QMovie* QxtTabWidget::takeTabAnimation(int index)
     return animation;
 }
 
-QxtTabBar* QxtTabWidget::tabBar () const
+QxtTabBar* QxtTabWidget::tabBar() const
 {
     return qobject_cast<QxtTabBar*>(QTabWidget::tabBar());
 }

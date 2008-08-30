@@ -81,7 +81,7 @@ Q_SIGNALS:
     void tabContextMenuRequested(int index, const QPoint& globalPos);
 
 protected:
-    QxtTabBar* tabBar () const;
+    QxtTabBar* tabBar() const;
 
     virtual void tabInserted(int index);
     virtual void tabRemoved(int index);

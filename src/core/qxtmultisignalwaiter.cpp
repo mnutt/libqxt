@@ -47,14 +47,16 @@ QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWait
 /**
  * Constructs a QxtMultiSignalWaiter with the specified parent.
  */
-QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(parent) {
+QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(parent)
+{
     /* initializers only */
 }
 
 /**
  * \reimp
  */
-QxtMultiSignalWaiter::~QxtMultiSignalWaiter() {
+QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
+{
     /* no-op */
 }
 
@@ -70,8 +72,9 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter() {
  * \sa QxtSignalGroup::addSignal
  * \sa QxtSignalGroup::firstSignalEmitted
  */
-bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags flags) {
-    if(hasReceivedFirstSignal()) return true;
+bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags flags)
+{
+    if (hasReceivedFirstSignal()) return true;
     return QxtSignalWaiter::wait(this, SIGNAL(firstSignalReceived()), msec, flags);
 }
 
@@ -87,8 +90,9 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
  * \sa QxtSignalGroup::addSignal
  * \sa QxtSignalGroup::allSignalsEmitted
  */
-bool QxtMultiSignalWaiter::waitForAll(int msec, QEventLoop::ProcessEventsFlags flags) {
-    if(hasReceivedAllSignals()) return true;
+bool QxtMultiSignalWaiter::waitForAll(int msec, QEventLoop::ProcessEventsFlags flags)
+{
+    if (hasReceivedAllSignals()) return true;
     return QxtSignalWaiter::wait(this, SIGNAL(allSignalsReceived()), msec, flags);
 }
 

@@ -135,43 +135,43 @@ QTextStream* QxtBasicSTDLoggerEngine::stdOutStream() const
 /*!
     \reimp
  */
-void QxtBasicSTDLoggerEngine::setLogLevelEnabled( QxtLogger::LogLevels level, bool enable )
+void QxtBasicSTDLoggerEngine::setLogLevelEnabled(QxtLogger::LogLevels level, bool enable)
 {
     QxtLoggerEngine::setLogLevelsEnabled(level | QXT_REQUIRED_LEVELS, enable);
-    if ( !enable) QxtLoggerEngine::setLogLevelsEnabled( QXT_REQUIRED_LEVELS );
+    if (!enable) QxtLoggerEngine::setLogLevelsEnabled(QXT_REQUIRED_LEVELS);
 }
 
 /*!
     \reimp
  */
-void QxtBasicSTDLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const QList<QVariant> &msgs )
+void QxtBasicSTDLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QList<QVariant> &msgs)
 {
     switch (level)
     {
-        case QxtLogger::ErrorLevel:
-            writeToStdErr("Error", msgs);
-            break;
-        case QxtLogger::WarningLevel:
-            writeToStdOut("Warning", msgs);
-            break;
-        case QxtLogger::CriticalLevel:
-            writeToStdErr("Critical", msgs);
-            break;
-        case QxtLogger::FatalLevel:
-            writeToStdErr("!!FATAL!!", msgs);
-            break;
-        case QxtLogger::TraceLevel:
-            writeToStdOut("Trace", msgs);
-            break;
-        case QxtLogger::DebugLevel:
-            writeToStdErr("DEBUG", msgs);
-            break;
-        case QxtLogger::InfoLevel:
-            writeToStdOut("INFO", msgs);
-            break;
-        default:
-            writeToStdOut("", msgs);
-            break;
+    case QxtLogger::ErrorLevel:
+        writeToStdErr("Error", msgs);
+        break;
+    case QxtLogger::WarningLevel:
+        writeToStdOut("Warning", msgs);
+        break;
+    case QxtLogger::CriticalLevel:
+        writeToStdErr("Critical", msgs);
+        break;
+    case QxtLogger::FatalLevel:
+        writeToStdErr("!!FATAL!!", msgs);
+        break;
+    case QxtLogger::TraceLevel:
+        writeToStdOut("Trace", msgs);
+        break;
+    case QxtLogger::DebugLevel:
+        writeToStdErr("DEBUG", msgs);
+        break;
+    case QxtLogger::InfoLevel:
+        writeToStdOut("INFO", msgs);
+        break;
+    default:
+        writeToStdOut("", msgs);
+        break;
     }
 }
 
@@ -180,21 +180,21 @@ void QxtBasicSTDLoggerEngine::writeFormatted( QxtLogger::LogLevel level, const Q
 
     This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
  */
-void QxtBasicSTDLoggerEngine::writeToStdErr( const QString &level, const QList<QVariant> &msgs )
+void QxtBasicSTDLoggerEngine::writeToStdErr(const QString &level, const QList<QVariant> &msgs)
 {
-    if ( msgs.isEmpty() ) return;
+    if (msgs.isEmpty()) return;
     QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QTextStream* errstream = stdErrStream();
     Q_ASSERT(errstream);
     *errstream << header;
-    for ( int i = 0; i < header.size(); i++ ) padding.append(" ");
+    for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, msgs )
+    Q_FOREACH(QVariant out, msgs)
     {
-        if( !out.isNull() )
+        if (!out.isNull())
         {
-            if ( count != 0 ) *errstream << padding;
+            if (count != 0) *errstream << padding;
             *errstream << out.toString() << '\n';
         }
         count++;
@@ -207,26 +207,26 @@ void QxtBasicSTDLoggerEngine::writeToStdErr( const QString &level, const QList<Q
 
     This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
  */
-void QxtBasicSTDLoggerEngine::writeToStdOut( const QString& level, const QList<QVariant> &msgs )
+void QxtBasicSTDLoggerEngine::writeToStdOut(const QString& level, const QList<QVariant> &msgs)
 {
     /* Message format...
         [time] [error level] First message.....
                     second message
                     third message
     */
-    if ( msgs.isEmpty() ) return;
+    if (msgs.isEmpty()) return;
     QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QTextStream* outstream = stdOutStream();
     Q_ASSERT(outstream);
     *outstream << header;
-    for ( int i = 0; i < header.size(); i++ ) padding.append(" ");
+    for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, msgs )
+    Q_FOREACH(QVariant out, msgs)
     {
-        if( !out.isNull() )
+        if (!out.isNull())
         {
-            if ( count != 0 ) *outstream << padding;
+            if (count != 0) *outstream << padding;
             *outstream << out.toString() << '\n';
         }
         count++;

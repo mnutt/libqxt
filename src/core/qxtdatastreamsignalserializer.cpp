@@ -30,7 +30,7 @@
 #include <qendian.h>
 
 QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVariant& p1, const QVariant& p2, const QVariant& p3,
-                               const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) const
+        const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) const
 {
     QByteArray rv;
     QDataStream str(&rv, QIODevice::WriteOnly);
@@ -53,7 +53,7 @@ QByteArray QxtDataStreamSignalSerializer::serialize(const QString& fn, const QVa
     if (ct-- > 0) str << p6;
     if (ct-- > 0) str << p7;
     if (ct-- > 0) str << p8;
-	char sizeData[4];
+    char sizeData[4];
     qToLittleEndian(quint32(rv.size()), (uchar*)sizeData);
     return QByteArray(sizeData, 4) + rv;
 }
@@ -62,10 +62,10 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
 {
     QByteArray cmd;
     quint32 len = qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(data.constData()));
-    
-    cmd = data.mid(4,len);
-    data = data.mid(len+4);
-    if (cmd.length()==0) return NoOp();
+
+    cmd = data.mid(4, len);
+    data = data.mid(len + 4);
+    if (cmd.length() == 0) return NoOp();
 
     QDataStream str(cmd);
 
@@ -75,9 +75,9 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
     QVariant t;
     str >> signal >> argCount;
 
-    if(str.status() == QDataStream::ReadCorruptData) return ProtocolError();
+    if (str.status() == QDataStream::ReadCorruptData) return ProtocolError();
 
-    for (int i=0; i<argCount; i++)
+    for (int i = 0; i < argCount; i++)
     {
         str >> t;
         v << t;
@@ -85,6 +85,7 @@ QxtAbstractSignalSerializer::DeserializedData QxtDataStreamSignalSerializer::des
     return qMakePair(signal, v);
 }
 
-bool QxtDataStreamSignalSerializer::canDeserialize(const QByteArray& buffer) const {
+bool QxtDataStreamSignalSerializer::canDeserialize(const QByteArray& buffer) const
+{
     return qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(buffer.constData())) >= quint32(buffer.length() - 4);
 }

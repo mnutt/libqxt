@@ -42,7 +42,7 @@ class QxtAbstractSignalSerializer;
 class QxtRPCServicePrivate;
 class QXT_CORE_EXPORT QxtRPCService : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtRPCService(QObject* parent = 0);
     QxtRPCService(QIODevice* device, QObject* parent = 0);

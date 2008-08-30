@@ -28,9 +28,9 @@
 
 #include "qxtdeplex.h"
 
-class QxtDeplexPrivate:public QObject,public QxtPrivate<QxtDeplex>
+class QxtDeplexPrivate: public QObject, public QxtPrivate<QxtDeplex>
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QXT_DECLARE_PUBLIC(QxtDeplex);
     QIODevice * delegate;

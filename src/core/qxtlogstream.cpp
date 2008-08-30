@@ -41,13 +41,13 @@ QxtLogStreamPrivate::QxtLogStreamPrivate(QxtLogger *owner, QxtLogger::LogLevel l
 
 QxtLogStreamPrivate::~QxtLogStreamPrivate()
 {
-    owner->log( level, data );
+    owner->log(level, data);
 }
 
 /*!
     Constructor.
  */
-QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data)) 
+QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data))
 {
     // Nothing here either.
 }
@@ -67,7 +67,7 @@ QxtLogStream::QxtLogStream(const QxtLogStream &other)
 QxtLogStream::~QxtLogStream()
 {
     d->refcount--;
-    if ( d->refcount == 0 ) delete d;
+    if (d->refcount == 0) delete d;
 }
 
 /*!
@@ -75,6 +75,6 @@ QxtLogStream::~QxtLogStream()
  */
 QxtLogStream& QxtLogStream::operator<< (const QVariant &value)
 {
-    d->data.append( value );
+    d->data.append(value);
     return *this;
 }

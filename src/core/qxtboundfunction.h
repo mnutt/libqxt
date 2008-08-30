@@ -90,7 +90,7 @@ public:
     inline QxtNullable<T> invoke(QXT_PROTO_10ARGS(QVariant))
     {
         if (!parent() || QThread::currentThread() == parent()->thread())
-            return invoke<T>(Qt::DirectConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10); 
+            return invoke<T>(Qt::DirectConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #if QT_VERSION >= 0x040300
         return invoke<T>(Qt::BlockingQueuedConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 #else
@@ -175,7 +175,8 @@ public:
      * This function returns true if the invocation was successful, otherwise it
      * returns false.
      */
-    inline bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument)) {
+    inline bool invoke(Qt::ConnectionType type, QXT_PROTO_10ARGS(QGenericArgument))
+    {
         return invoke(type, QGenericReturnArgument(), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
 

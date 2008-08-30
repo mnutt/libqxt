@@ -33,14 +33,14 @@ class QXT_CORE_EXPORT QxtStdStreambufDevice : public QIODevice
 {
     Q_OBJECT
 public:
-    QxtStdStreambufDevice(std::streambuf *,QObject * parent=0);
-    QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent=0);
+    QxtStdStreambufDevice(std::streambuf *, QObject * parent = 0);
+    QxtStdStreambufDevice(std::streambuf * r, std::streambuf * w, QObject * parent = 0);
 
-    virtual bool isSequential () const;
-    virtual qint64 bytesAvailable () const;
+    virtual bool isSequential() const;
+    virtual qint64 bytesAvailable() const;
 protected:
-    virtual qint64 readData ( char * data, qint64 maxSize );
-    virtual qint64 writeData ( const char * data, qint64 maxSize );
+    virtual qint64 readData(char * data, qint64 maxSize);
+    virtual qint64 writeData(const char * data, qint64 maxSize);
 
 
 private:

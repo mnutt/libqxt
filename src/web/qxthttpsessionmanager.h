@@ -33,9 +33,10 @@ class QxtWebEvent;
 class QxtWebContent;
 
 class QxtHttpSessionManagerPrivate;
-class QxtHttpSessionManager : public QxtAbstractWebSessionManager {
-friend class QxtAbstractHttpConnector;
-Q_OBJECT
+class QxtHttpSessionManager : public QxtAbstractWebSessionManager
+{
+    friend class QxtAbstractHttpConnector;
+    Q_OBJECT
 public:
     enum Connector { HttpServer, Scgi, Fcgi };
 

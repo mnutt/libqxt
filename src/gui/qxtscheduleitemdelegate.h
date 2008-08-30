@@ -7,7 +7,7 @@
 ** This library is free software; you can redistribute it and/or modify it
 ** under the terms of the Common Public License, version 1.0, as published by
 ** IBM.
-** 
+**
 ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
 ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -39,26 +39,26 @@ QT_END_NAMESPACE
 class QXT_GUI_EXPORT QxtScheduleItemDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
-    public:
-        
-        enum ItemPart
-        {
-            Top,
-            Middle,
-            Bottom,
-            Single
-        
-        };
-        
-        QxtScheduleItemDelegate                 ( QObject *parent = 0 );
-        ~QxtScheduleItemDelegate                ( );
-        
-        virtual void        paint               ( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
-        virtual void        paintItemBody       ( QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option ,const ItemPart part, const QModelIndex & index ) const;
-        virtual void        paintItemHeader     ( QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const QModelIndex & index ) const;
-        virtual void        paintSubItem        ( QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const QModelIndex & index ) const;
-        virtual QSize       sizeHint            ( const QStyleOptionViewItem & option , const QModelIndex & index ) const;
-        virtual void        createPainterPath   ( QPainterPath &emptyPath,const QRect &fullItemRect ,const int iRoundTop, const int iRoundBottom ) const;
+public:
+
+    enum ItemPart
+    {
+        Top,
+        Middle,
+        Bottom,
+        Single
+
+    };
+
+    QxtScheduleItemDelegate(QObject *parent = 0);
+    ~QxtScheduleItemDelegate();
+
+    virtual void        paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    virtual void        paintItemBody(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const ItemPart part, const QModelIndex & index) const;
+    virtual void        paintItemHeader(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const QModelIndex & index) const;
+    virtual void        paintSubItem(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const QModelIndex & index) const;
+    virtual QSize       sizeHint(const QStyleOptionViewItem & option , const QModelIndex & index) const;
+    virtual void        createPainterPath(QPainterPath &emptyPath, const QRect &fullItemRect , const int iRoundTop, const int iRoundBottom) const;
 
 
 };

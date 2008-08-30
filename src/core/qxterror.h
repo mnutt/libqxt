@@ -86,10 +86,10 @@ check for errors
 example
 \code
 QXT_DROP_SCOPE(error,critical_function())
-	{
-	qDebug()<<error;
-	QXT_DROP_F(error);
-	};
+ {
+ qDebug()<<error;
+ QXT_DROP_F(error);
+ };
 \endcode
 
 short for  QxtError name = call; if (name != Qxt::NoError )
@@ -106,7 +106,7 @@ short for  QxtError name = call; if (name != Qxt::NoError )
 class QXT_CORE_EXPORT QxtError
 {
 public:
-    QxtError(const char * file, long line, Qxt::ErrorCode errorcode, const char * errorString=0);
+    QxtError(const char * file, long line, Qxt::ErrorCode errorcode, const char * errorString = 0);
     Qxt::ErrorCode errorCode() const;
     long line() const;
     const char * file() const;

@@ -23,12 +23,12 @@
 ****************************************************************************/
 #include "qxterror.h"
 
-QxtError::QxtError(const char * file, long line, Qxt::ErrorCode errorcode,const char * errorString)
+QxtError::QxtError(const char * file, long line, Qxt::ErrorCode errorcode, const char * errorString)
 {
-    file_m=file;
-    line_m=line;
-    errorcode_m=errorcode;
-    errorString_m=errorString;
+    file_m = file;
+    line_m = line;
+    errorcode_m = errorcode;
+    errorString_m = errorString;
 }
 
 

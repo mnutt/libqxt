@@ -26,12 +26,12 @@
 #include "qxtnativeeventfilter.h"
 
 QxtApplication::QxtApplication(Display* display, Qt::HANDLE visual, Qt::HANDLE colormap)
-    : QApplication(display, visual, colormap)
+        : QApplication(display, visual, colormap)
 {
 }
 
 QxtApplication::QxtApplication(Display* display, int& argc, char** argv, Qt::HANDLE visual, Qt::HANDLE colormap)
-    : QApplication(display, argc, argv, visual, colormap)
+        : QApplication(display, argc, argv, visual, colormap)
 {
 }
 
@@ -40,7 +40,7 @@ QxtApplication::QxtApplication(Display* display, int& argc, char** argv, Qt::HAN
  */
 bool QxtApplication::x11EventFilter(XEvent* event)
 {
-    foreach (QxtNativeEventFilter* filter, qxt_d().nativeFilters)
+    foreach(QxtNativeEventFilter* filter, qxt_d().nativeFilters)
     {
         if (filter && filter->x11EventFilter(event))
             return true;

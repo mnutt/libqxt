@@ -52,9 +52,9 @@ a= fish.decrypt(a);
 
 
 
-QxtBlowFish::QxtBlowFish(QObject * parent) :QObject(parent)
+QxtBlowFish::QxtBlowFish(QObject * parent) : QObject(parent)
 {
-    key=new BF_KEY;
+    key = new BF_KEY;
 }
 
 QxtBlowFish::~QxtBlowFish()
@@ -63,9 +63,9 @@ QxtBlowFish::~QxtBlowFish()
 }
 
 
-void QxtBlowFish::setPassword(QByteArray k )
+void QxtBlowFish::setPassword(QByteArray k)
 {
-    BF_set_key(key, k.count() , (unsigned char *)k.constData ());
+    BF_set_key(key, k.count() , (unsigned char *)k.constData());
 }
 
 
@@ -73,21 +73,21 @@ void QxtBlowFish::setPassword(QByteArray k )
 QByteArray  QxtBlowFish::encrypt(QByteArray in)
 {
     QByteArray out(in);
-    int num =0;
+    int num = 0;
     unsigned char  ivec [9];
-    ivec[0]=(unsigned char )3887;
-    ivec[1]=(unsigned char )3432;
-    ivec[2]=(unsigned char )3887;
-    ivec[3]=(unsigned char )2344;
-    ivec[4]=(unsigned char )678;
-    ivec[5]=(unsigned char )3887;
-    ivec[6]=(unsigned char )575;
-    ivec[7]=(unsigned char )2344;
-    ivec[8]=(unsigned char )2222;
+    ivec[0] = (unsigned char)3887;
+    ivec[1] = (unsigned char)3432;
+    ivec[2] = (unsigned char)3887;
+    ivec[3] = (unsigned char)2344;
+    ivec[4] = (unsigned char)678;
+    ivec[5] = (unsigned char)3887;
+    ivec[6] = (unsigned char)575;
+    ivec[7] = (unsigned char)2344;
+    ivec[8] = (unsigned char)2222;
 
 
     BF_cfb64_encrypt(
-        (unsigned char *)in.constData (),
+        (unsigned char *)in.constData(),
         (unsigned char *)out.data(),
         in.size(),
         key,
@@ -97,7 +97,7 @@ QByteArray  QxtBlowFish::encrypt(QByteArray in)
     );
 
 
-    out=out.toBase64();
+    out = out.toBase64();
     return out;
 
 }
@@ -106,25 +106,25 @@ QByteArray  QxtBlowFish::encrypt(QByteArray in)
 QByteArray  QxtBlowFish::decrypt(QByteArray in)
 
 {
-    in=QByteArray::fromBase64(in);
+    in = QByteArray::fromBase64(in);
 
     QByteArray out(in);
 
-    int num =0;
+    int num = 0;
     unsigned char  ivec [9];
-    ivec[0]=(unsigned char )3887;
-    ivec[1]=(unsigned char )3432;
-    ivec[2]=(unsigned char )3887;
-    ivec[3]=(unsigned char )2344;
-    ivec[4]=(unsigned char )678;
-    ivec[5]=(unsigned char )3887;
-    ivec[6]=(unsigned char )575;
-    ivec[7]=(unsigned char )2344;
-    ivec[8]=(unsigned char )2222;
+    ivec[0] = (unsigned char)3887;
+    ivec[1] = (unsigned char)3432;
+    ivec[2] = (unsigned char)3887;
+    ivec[3] = (unsigned char)2344;
+    ivec[4] = (unsigned char)678;
+    ivec[5] = (unsigned char)3887;
+    ivec[6] = (unsigned char)575;
+    ivec[7] = (unsigned char)2344;
+    ivec[8] = (unsigned char)2222;
 
 
     BF_cfb64_encrypt(
-        (unsigned char *)in.constData (),
+        (unsigned char *)in.constData(),
         (unsigned char *)out.data(),
         in.size(),
         key,

@@ -38,15 +38,15 @@ void  somefunction( qxtNull(int,a) , qxtNull(int,b) )
 {
 
 if (!a.isNull())
-	{
-	int i = a.value();
-	//do something with i
-	}
+ {
+ int i = a.value();
+ //do something with i
+ }
  if (!b.isNull())
-	{
-	int x = b.value();
-	//do something with x
-	}
+ {
+ int x = b.value();
+ //do something with x
+ }
 }
 \endcode
 
@@ -68,7 +68,7 @@ somefunction(1);
 /*! \relates QxtNullable
  * defines a skipable argument with type \a t and variable name \a n
  */
-#define qxtNull(t,n)	  QxtNullable<t> n = QxtNullable<t>()
+#define qxtNull(t,n)   QxtNullable<t> n = QxtNullable<t>()
 
 #include <qxtnull.h>
 
@@ -127,17 +127,17 @@ T& QxtNullable<T>::value() const
 template<typename T>
 bool QxtNullable<T>::isNull() const
 {
-    return (val==0);
+    return (val == 0);
 }
 
 template<typename T>
 void QxtNullable<T>::nullify()
 {
-    val=0;
+    val = 0;
 }
 
 template<typename T>
-void QxtNullable<T>::operator=(const T& p)
+void QxtNullable<T>::operator=(const T & p)
 {
     val = const_cast<T*>(&p);
 }

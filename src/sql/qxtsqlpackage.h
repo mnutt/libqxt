@@ -37,7 +37,7 @@ class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
 
 public:
     QxtSqlPackage(QObject *parent = 0);
-    QxtSqlPackage(const QxtSqlPackage & other,QObject *parent = 0);
+    QxtSqlPackage(const QxtSqlPackage & other, QObject *parent = 0);
 
     bool isValid();
     int at();
@@ -49,12 +49,12 @@ public:
     int count() const;
     QByteArray data() const;
     void setData(const QByteArray& data);
-    QHash<QString,QString> hash(int index);
-    QHash<QString,QString> hash();
+    QHash<QString, QString> hash(int index);
+    QHash<QString, QString> hash();
     QxtSqlPackage& operator= (const QxtSqlPackage& other);
 
 private:
-    QList<QHash<QString,QString> > map;
+    QList<QHash<QString, QString> > map;
     int record;
 };
 

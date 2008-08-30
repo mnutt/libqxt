@@ -36,20 +36,20 @@ class QXT_CORE_EXPORT QxtAbstractFileLoggerEngine : public QxtAbstractIOLoggerEn
     QXT_DECLARE_PRIVATE(QxtAbstractFileLoggerEngine);
 
 public:
-    QxtAbstractFileLoggerEngine ( const QString &fileName, QIODevice::OpenMode mode );
+    QxtAbstractFileLoggerEngine(const QString &fileName, QIODevice::OpenMode mode);
     ~QxtAbstractFileLoggerEngine();
 
-    virtual void    initLoggerEngine    ();
-    virtual void    killLoggerEngine    ();
-    virtual bool    isInitialized       () const;
+    virtual void    initLoggerEngine();
+    virtual void    killLoggerEngine();
+    virtual bool    isInitialized() const;
 
-    virtual void    writeFormatted      ( QxtLogger::LogLevel level, const QList<QVariant> &messages );
+    virtual void    writeFormatted(QxtLogger::LogLevel level, const QList<QVariant> &messages);
 
-    void    setLogFileName ( const QString &fileName );
-    QString logFileName    () const;
+    void    setLogFileName(const QString &fileName);
+    QString logFileName() const;
 
 protected:
-    virtual void writeToFile( const QString &level, const QVariantList &messages ) = 0;
+    virtual void writeToFile(const QString &level, const QVariantList &messages) = 0;
 };
 
 #endif // QXTABSTRACTFILELOGGERENGINE_H

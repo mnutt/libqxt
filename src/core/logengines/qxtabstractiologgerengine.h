@@ -36,9 +36,9 @@ class QXT_CORE_EXPORT QxtAbstractIOLoggerEngine : public QxtLoggerEngine
     QXT_DECLARE_PRIVATE(QxtAbstractIOLoggerEngine);
 
 public:
-    QxtAbstractIOLoggerEngine( QIODevice *device = 0 );
+    QxtAbstractIOLoggerEngine(QIODevice *device = 0);
 
-    void setDevice( QIODevice *device );
+    void setDevice(QIODevice *device);
     QIODevice* device() const;
 };
 

@@ -28,9 +28,9 @@
 #include "qxtabstractwebservice.h"
 #include <QUrl>
 
-class QxtWebSlotService : public QxtAbstractWebService 
+class QxtWebSlotService : public QxtAbstractWebService
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 

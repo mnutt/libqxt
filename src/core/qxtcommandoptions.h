@@ -104,7 +104,7 @@ if(options.count("level")) {
 */
 class QXT_CORE_EXPORT QxtCommandOptions
 {
-Q_DECLARE_TR_FUNCTIONS(QxtCommandOptions)
+    Q_DECLARE_TR_FUNCTIONS(QxtCommandOptions)
 
 public:
     /**
@@ -113,7 +113,8 @@ public:
      * Slash is the default on Windows.
      * DoubleDash is the default on all other platforms.
      */
-    enum FlagStyle {
+    enum FlagStyle
+    {
         DoubleDash,         /*!< Two dashes (GNU-style) */
         SingleDash,         /*!< One dash (UNIX-style) */
         Slash               /*!< Forward slash (Windows-style) */
@@ -124,7 +125,8 @@ public:
      * require parameters. Equals is the default on Windows.
      * SpaceAndEquals is the default on all other platforms.
      */
-    enum ParamStyle {
+    enum ParamStyle
+    {
         Space = 1,          /*!< Space ("-option value") */
         Equals = 2,         /*!< Equals sign ("/option=value") */
         SpaceAndEquals = 3  /*!< Accept either */
@@ -138,7 +140,8 @@ public:
      * The ParamTypes type is a typedef for QFlags<ParamType>. It stores
      * an OR combination of ParamType values.
      */
-    enum ParamType {
+    enum ParamType
+    {
         NoValue = 0,                /*!< The option does not accept a value. */
         ValueOptional = 1,          /*!< The option may accept a value. */
         ValueRequired = 2,          /*!< The option requires a value. */
@@ -170,11 +173,11 @@ public:
 
     void parse(int argc, char** argv);
     void parse(QStringList params);
-    
+
     void showUsage(bool showQtOptions = false, QIODevice* device = 0) const;
     void showUsage(bool showQtOptions, QTextStream& stream) const;
     QString getUsage(bool showQtOptions = false) const;
-    
+
     bool showUnrecognizedWarning(QIODevice* device = 0) const;
     bool showUnrecognizedWarning(QTextStream& stream) const;
     QString getUnrecognizedWarning() const;

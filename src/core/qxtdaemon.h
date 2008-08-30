@@ -35,21 +35,21 @@ QT_END_NAMESPACE
 
 class QxtDaemon : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    QxtDaemon(QString applicationName=QCoreApplication::applicationName());
-    bool daemonize(bool pidfile=true);
+    QxtDaemon(QString applicationName = QCoreApplication::applicationName());
+    bool daemonize(bool pidfile = true);
     static int pid();
     bool changeUser(QString name);
 
-    #ifndef QXT_DOXYGEN_RUN
+#ifndef QXT_DOXYGEN_RUN
 
-        static void messageHandler(QtMsgType type, const char *msg);
-        #ifdef Q_OS_UNIX
-            static void signalHandler (int signal);
-        #endif
+    static void messageHandler(QtMsgType type, const char *msg);
+#ifdef Q_OS_UNIX
+    static void signalHandler(int signal);
+#endif
 
-    #endif
+#endif
 
 private:
     QString m_name;

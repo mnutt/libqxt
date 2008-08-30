@@ -39,7 +39,8 @@
 #include <QByteArray>
 #include <QPair>
 
-class QxtRPCServiceIntrospector : public QObject {
+class QxtRPCServiceIntrospector : public QObject
+{
 public:
     QxtRPCService* rpc;
     quint32 nextSlotID;
@@ -51,31 +52,39 @@ public:
     QHash<int, int> idToParams;
     QMultiHash<int, QString> idToRpc;
 
-    QxtRPCServiceIntrospector(QxtRPCService* parent) : QObject(parent), rpc(parent) {
+    QxtRPCServiceIntrospector(QxtRPCService* parent) : QObject(parent), rpc(parent)
+    {
         nextSlotID = QObject::staticMetaObject.methodCount();
     }
 
-    bool addSignal(QObject* obj, const char* signature, const QString& rpcFunction) {
+    bool addSignal(QObject* obj, const char* signature, const QString& rpcFunction)
+    {
         const QMetaObject* meta = obj->metaObject();
         QByteArray norm = QxtMetaObject::methodSignature(signature);
         QPair<const QMetaObject*, QByteArray> signal = qMakePair(meta, norm);
         int sigID, methodID;
-        if(signalIDs.count(signal)) {
+        if (signalIDs.count(signal))
+        {
             // already cached
             sigID = signalIDs.value(signal);
             methodID = methodIDs.value(signal);
-        } else {
+        }
+        else
+        {
             methodID = meta->indexOfMethod(norm.constData());
-            if(methodID < 0) {
+            if (methodID < 0)
+            {
                 qWarning() << "QxtRPCService::attachSignal: " << obj << "::" << signature << " does not exist";
                 return false;
             }
             QList<QByteArray> types = meta->method(methodID).parameterTypes();
             QList<int> typeIDs;
             int ct = types.count();
-            for(int i = 0; i < ct; i++) {
+            for (int i = 0; i < ct; i++)
+            {
                 int typeID = QMetaType::type(types.value(i).constData());
-                if(typeID <= 0) {
+                if (typeID <= 0)
+                {
                     qWarning() << "QxtRPCService::attachSignal: cannot queue arguments of type " << types.value(i);
                     return false;
                 }
@@ -91,18 +100,23 @@ public:
         idToRpc.insert(nextSlotID, rpcFunction);
         idToParams[nextSlotID] = sigID;
         QMetaObject::connect(obj, methodID, this, nextSlotID);
-        do {
+        do
+        {
             nextSlotID++;
-        } while(nextSlotID < quint32(QObject::staticMetaObject.methodCount()) || idToParams.contains(nextSlotID));
+        }
+        while (nextSlotID < quint32(QObject::staticMetaObject.methodCount()) || idToParams.contains(nextSlotID));
         return true;
     }
 
-    void disconnectObject(QObject* obj) {
+    void disconnectObject(QObject* obj)
+    {
         const QMetaObject* meta = obj->metaObject();
-        foreach(SignalDef sig, signalToId.keys()) {
-            if(sig.first != obj) continue;
+        foreach(SignalDef sig, signalToId.keys())
+        {
+            if (sig.first != obj) continue;
             int methodID = methodIDs[qMakePair(meta, sig.second)];
-            foreach(int id, signalToId.values(sig)) {
+            foreach(int id, signalToId.values(sig))
+            {
                 QMetaObject::disconnect(obj, methodID, this, id);
                 idToRpc.remove(id);
                 idToParams.remove(id);
@@ -110,18 +124,21 @@ public:
             signalToId.remove(sig);
         }
     }
-    
-    int qt_metacall(QMetaObject::Call _c, int _id, void **_a) {
+
+    int qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+    {
         // invoked when an attached signal is emitted
-        if(QObject::qt_metacall(_c, _id, _a) < 0 || _c != QMetaObject::InvokeMetaMethod) return _id;
+        if (QObject::qt_metacall(_c, _id, _a) < 0 || _c != QMetaObject::InvokeMetaMethod) return _id;
         QVariant v[8];
         const QList<int>& types = signalParameters.at(idToParams.value(_id));
         int n = types.count();
         int i;
-        for(i = 0; i < n; i++) {
+        for (i = 0; i < n; i++)
+        {
             v[i] = QVariant(types.at(i), _a[i+1]);
         }
-        foreach(const QString& rpcName, idToRpc.values(_id)) {
+        foreach(const QString& rpcName, idToRpc.values(_id))
+        {
             rpc->call(rpcName, v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7]);
         }
         return -1;
@@ -150,64 +167,73 @@ public:
  * to QxtRPCService, is limited to 8.
  */
 
-QxtRPCServicePrivate::QxtRPCServicePrivate() : QObject(NULL) {
+QxtRPCServicePrivate::QxtRPCServicePrivate() : QObject(NULL)
+{
     manager = NULL;
     device = NULL;
     serializer = new QxtDataStreamSignalSerializer;
 }
 
-void QxtRPCServicePrivate::clientConnected(QIODevice* dev, quint64 id) {
+void QxtRPCServicePrivate::clientConnected(QIODevice* dev, quint64 id)
+{
     QxtMetaObject::connect(dev, SIGNAL(readyRead()), QxtMetaObject::bind(this, SLOT(clientData(quint64)), Q_ARG(quint64, id)));
     emit qxt_p().clientConnected(id);
     buffers[id] = QByteArray();
-    if(dev->bytesAvailable() > 0)
+    if (dev->bytesAvailable() > 0)
         clientData(id);
 }
 
-void QxtRPCServicePrivate::clientDisconnected(QIODevice* dev, quint64 id) {
+void QxtRPCServicePrivate::clientDisconnected(QIODevice* dev, quint64 id)
+{
     QObject::disconnect(dev, 0, this, 0);
     QObject::disconnect(dev, 0, &qxt_p(), 0);
     buffers.remove(id);
     emit qxt_p().clientDisconnected(id);
 }
 
-void QxtRPCServicePrivate::clientData(quint64 id) {
+void QxtRPCServicePrivate::clientData(quint64 id)
+{
     QIODevice* dev = manager->client(id);
     QByteArray& buf = buffers[id]; // caching to avoid repeated hash lookups
     buf.append(dev->readAll());
-    while(serializer->canDeserialize(buf)) {
+    while (serializer->canDeserialize(buf))
+    {
         QxtAbstractSignalSerializer::DeserializedData data = serializer->deserialize(buf);
         // check for blank command
-        if(serializer->isNoOp(data))
+        if (serializer->isNoOp(data))
             continue;
         // check for errors
-        if(serializer->isProtocolError(data)) {
+        if (serializer->isProtocolError(data))
+        {
             qWarning() << "QxtRPCService: Invalid data received; disconnecting";
             qxt_p().disconnectClient(id);
             return;
         }
         // pad arguments to 8
-        while(data.second.count() < 8)
+        while (data.second.count() < 8)
             data.second << QVariant();
         dispatchFromClient(id, data.first, data.second[0], data.second[1], data.second[2], data.second[3], data.second[4], data.second[5], data.second[6], data.second[7]);
     }
 }
 
-void QxtRPCServicePrivate::serverData() {
+void QxtRPCServicePrivate::serverData()
+{
     serverBuffer.append(device->readAll());
-    while(serializer->canDeserialize(serverBuffer)) {
+    while (serializer->canDeserialize(serverBuffer))
+    {
         QxtAbstractSignalSerializer::DeserializedData data = serializer->deserialize(serverBuffer);
         // check for blank command
-        if(serializer->isNoOp(data))
+        if (serializer->isNoOp(data))
             continue;
         // check for errors
-        if(serializer->isProtocolError(data)) {
+        if (serializer->isProtocolError(data))
+        {
             qWarning() << "QxtRPCService: Invalid data received; disconnecting";
             qxt_p().disconnectServer();
             return;
         }
         // pad arguments to 8
-        while(data.second.count() < 8)
+        while (data.second.count() < 8)
             data.second << QVariant();
         dispatchFromServer(data.first, data.second[0], data.second[1], data.second[2], data.second[3], data.second[4], data.second[5], data.second[6], data.second[7]);
     }
@@ -215,26 +241,32 @@ void QxtRPCServicePrivate::serverData() {
 
 #define QXT_ARG(i) ((numParams>i)?QGenericArgument(p ## i .typeName(), p ## i.constData()):QGenericArgument())
 void QxtRPCServicePrivate::dispatchFromServer(const QString& fn, const QVariant& p0, const QVariant& p1, const QVariant& p2, const QVariant& p3,
-                                              const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const {
-    if(!connectedSlots.contains(fn)) return; // nothing connected
-    foreach(SlotDef slot, connectedSlots.value(fn)) {
+        const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const
+{
+    if (!connectedSlots.contains(fn)) return; // nothing connected
+    foreach(SlotDef slot, connectedSlots.value(fn))
+    {
         const QList<QByteArray>& params = slotParameters.value(qMakePair(slot.recv->metaObject(), slot.slot));
         int numParams = params.count();
-        if(!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, QXT_ARG(0), QXT_ARG(1), QXT_ARG(2),
-                                      QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7))) {
+        if (!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, QXT_ARG(0), QXT_ARG(1), QXT_ARG(2),
+                                       QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7)))
+        {
             qWarning() << "QxtRPCService: invokeMethod for " << slot.recv << "::" << slot.slot << " failed";
         }
     }
 }
 
 void QxtRPCServicePrivate::dispatchFromClient(quint64 id, const QString& fn, const QVariant& p0, const QVariant& p1, const QVariant& p2, const QVariant& p3,
-                                              const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const {
-    if(!connectedSlots.contains(fn)) return; // nothing connected
-    foreach(SlotDef slot, connectedSlots.value(fn)) {
+        const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const
+{
+    if (!connectedSlots.contains(fn)) return; // nothing connected
+    foreach(SlotDef slot, connectedSlots.value(fn))
+    {
         const QList<QByteArray>& params = slotParameters.value(qMakePair(slot.recv->metaObject(), slot.slot));
         int numParams = params.count();
-        if(!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, Q_ARG(quint64, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2),
-                                      QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7))) {
+        if (!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, Q_ARG(quint64, id), QXT_ARG(0), QXT_ARG(1), QXT_ARG(2),
+                                       QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7)))
+        {
             qWarning() << "QxtRPCService: invokeMethod for " << slot.recv << "::" << slot.slot << " failed";
         }
     }
@@ -243,7 +275,8 @@ void QxtRPCServicePrivate::dispatchFromClient(quint64 id, const QString& fn, con
 /**
  * Creates a QxtRPCService object with the given parent.
  */
-QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent) {
+QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtRPCService);
     qxt_d().introspector = new QxtRPCServiceIntrospector(this);
 }
@@ -253,7 +286,8 @@ QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent) {
  *
  * The I/O device must already be opened for reading and writing.
  */
-QxtRPCService::QxtRPCService(QIODevice* device, QObject* parent) : QObject(parent) {
+QxtRPCService::QxtRPCService(QIODevice* device, QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtRPCService);
     qxt_d().introspector = new QxtRPCServiceIntrospector(this);
     setDevice(device);
@@ -262,7 +296,8 @@ QxtRPCService::QxtRPCService(QIODevice* device, QObject* parent) : QObject(paren
 /**
  * Destroys the QxtRPCService object.
  */
-QxtRPCService::~QxtRPCService() {
+QxtRPCService::~QxtRPCService()
+{
     delete qxt_d().serializer;
 }
 
@@ -273,7 +308,8 @@ QxtRPCService::~QxtRPCService() {
  * are connected, and no QIODevice is set for a server.
  * \sa isClient
  */
-bool QxtRPCService::isServer() const {
+bool QxtRPCService::isServer() const
+{
     return qxt_d().manager && (qxt_d().manager->isAcceptingConnections() || qxt_d().manager->clientCount() > 0);
 }
 
@@ -284,21 +320,25 @@ bool QxtRPCService::isServer() const {
  * is set for a server.
  * \sa isServer
  */
-bool QxtRPCService::isClient() const {
+bool QxtRPCService::isClient() const
+{
     return qxt_d().device != NULL;
 }
 
 /**
  * Disconnects a client using the attached connection manager.
- * 
+ *
  * If connected to a server, this function is ignored with a warning.
  */
-void QxtRPCService::disconnectClient(quint64 id) {
-    if(!isServer()) {
+void QxtRPCService::disconnectClient(quint64 id)
+{
+    if (!isServer())
+    {
         qWarning() << "QxtRPCService::disconnectClient: not operating as a server";
         return;
     }
-    if(!qxt_d().manager->client(id)) {
+    if (!qxt_d().manager->client(id))
+    {
         qWarning() << "QxtRPCService::disconnectClient: no client with specified ID";
         return;
     }
@@ -316,8 +356,10 @@ void QxtRPCService::disconnectClient(quint64 id) {
  * \sa device
  * \sa takeDevice
  */
-void QxtRPCService::disconnectServer() {
-    if(!isClient()) {
+void QxtRPCService::disconnectServer()
+{
+    if (!isClient())
+    {
         qWarning() << "QxtRPCService::disconnectServer: not connected to a server";
         return;
     }
@@ -327,13 +369,17 @@ void QxtRPCService::disconnectServer() {
 /**
  * Disconnects all clients, or disconnects from the server.
  */
-void QxtRPCService::disconnectAll() {
-    if(isClient()) {
+void QxtRPCService::disconnectAll()
+{
+    if (isClient())
+    {
         disconnectServer();
     }
-    if(isServer()) {
+    if (isServer())
+    {
         QList<quint64> cList = clients();
-        foreach(quint64 id, cList) {
+        foreach(quint64 id, cList)
+        {
             disconnectClient(id);
         }
     }
@@ -342,8 +388,10 @@ void QxtRPCService::disconnectAll() {
 /**
  * Returns a list of client IDs for all connected clients.
  */
-QList<quint64> QxtRPCService::clients() const {
-    if(!isServer()) {
+QList<quint64> QxtRPCService::clients() const
+{
+    if (!isServer())
+    {
         qWarning() << "QxtRPCService::clients: not a server";
         return QList<quint64>();
     }
@@ -356,7 +404,8 @@ QList<quint64> QxtRPCService::clients() const {
  * \sa setDevice
  * \sa takeDevice
  */
-QIODevice* QxtRPCService::device() const {
+QIODevice* QxtRPCService::device() const
+{
     return qxt_d().device;
 }
 
@@ -372,24 +421,27 @@ QIODevice* QxtRPCService::device() const {
  * information.
  * \sa device
  */
-void QxtRPCService::setDevice(QIODevice* dev) {
-    if(qxt_d().device)
+void QxtRPCService::setDevice(QIODevice* dev)
+{
+    if (qxt_d().device)
         delete qxt_d().device;
     qxt_d().device = dev;
     dev->setParent(this);
-    QObject::connect(dev, SIGNAL(readyRead()), &qxt_d(), SLOT(serverData())); 
+    QObject::connect(dev, SIGNAL(readyRead()), &qxt_d(), SLOT(serverData()));
 }
 
 /**
- * When operating as a client, returns the QIODevice used to communicate with 
+ * When operating as a client, returns the QIODevice used to communicate with
  * the server. After this function is called, the QxtRPCService will no longer
  * be connected and device() will return NULL.
  * When operating as a server, or if not connected to a server, returns NULL.
  * \sa device
  */
-QIODevice* QxtRPCService::takeDevice() {
+QIODevice* QxtRPCService::takeDevice()
+{
     QIODevice* rv = qxt_d().device;
-    if(rv) {
+    if (rv)
+    {
         QObject::disconnect(rv, 0, this, 0);
         QObject::disconnect(rv, 0, &qxt_d(), 0);
         qxt_d().device = NULL;
@@ -401,7 +453,8 @@ QIODevice* QxtRPCService::takeDevice() {
  * Returns the signal serializer used to encode signals before transmission.
  * \sa setSerializer
  */
-QxtAbstractSignalSerializer* QxtRPCService::serializer() const {
+QxtAbstractSignalSerializer* QxtRPCService::serializer() const
+{
     return qxt_d().serializer;
 }
 
@@ -410,7 +463,8 @@ QxtAbstractSignalSerializer* QxtRPCService::serializer() const {
  * The existing serializer will be deleted.
  * \sa serializer
  */
-void QxtRPCService::setSerializer(QxtAbstractSignalSerializer* serializer) {
+void QxtRPCService::setSerializer(QxtAbstractSignalSerializer* serializer)
+{
     delete qxt_d().serializer;
     qxt_d().serializer = serializer;
 }
@@ -419,7 +473,8 @@ void QxtRPCService::setSerializer(QxtAbstractSignalSerializer* serializer) {
  * Returns the connection manager used to accept incoming connections.
  * \sa setConnectionManager
  */
-QxtAbstractConnectionManager* QxtRPCService::connectionManager() const {
+QxtAbstractConnectionManager* QxtRPCService::connectionManager() const
+{
     return qxt_d().manager;
 }
 
@@ -429,8 +484,9 @@ QxtAbstractConnectionManager* QxtRPCService::connectionManager() const {
  * be reparented to the QxtRPCService.
  * \sa connectionManager
  */
-void QxtRPCService::setConnectionManager(QxtAbstractConnectionManager* manager) {
-    if(qxt_d().manager)
+void QxtRPCService::setConnectionManager(QxtAbstractConnectionManager* manager)
+{
+    if (qxt_d().manager)
         delete qxt_d().manager;
     qxt_d().manager = manager;
     manager->setParent(this);
@@ -447,7 +503,8 @@ void QxtRPCService::setConnectionManager(QxtAbstractConnectionManager* manager) 
  *
  * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
  */
-bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QString& rpcFunction) {
+bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QString& rpcFunction)
+{
     return qxt_d().introspector->addSignal(sender, signal, rpcFunction);
 }
 
@@ -463,22 +520,27 @@ bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QStr
  * signal follow. For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(quint64, QString)) on
  * the server.
  */
-bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const char* slot, Qt::ConnectionType type) {
+bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const char* slot, Qt::ConnectionType type)
+{
     const QMetaObject* meta = recv->metaObject();
     QByteArray name = QxtMetaObject::methodName(slot);
     QPair<const QMetaObject*, QByteArray> info = qMakePair(meta, name);
-    if(!qxt_d().slotParameters.count(info)) {
+    if (!qxt_d().slotParameters.count(info))
+    {
         QByteArray norm = QxtMetaObject::methodSignature(slot);
         int methodID = meta->indexOfMethod(norm.constData());
-        if(methodID < 0) {
+        if (methodID < 0)
+        {
             qWarning() << "QxtRPCService::attachSlot: " << recv << "::" << slot << " does not exist";
             return false;
         }
         QList<QByteArray> types = meta->method(methodID).parameterTypes();
         int ct = types.count();
-        for(int i = 0; i < ct; i++) {
+        for (int i = 0; i < ct; i++)
+        {
             int typeID = QMetaType::type(types.value(i).constData());
-            if(typeID <= 0) {
+            if (typeID <= 0)
+            {
                 qWarning() << "QxtRPCService::attachSlot: cannot queue arguments of type " << types.value(i);
                 return false;
             }
@@ -490,13 +552,14 @@ bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const 
     slotDef.slot = name;
     slotDef.type = type;
     qxt_d().connectedSlots[rpcFunction].append(slotDef);
-    return true;    
+    return true;
 }
 
 /**
  * Detaches all signals and slots for the given object.
  */
-void QxtRPCService::detachObject(QObject* obj) {
+void QxtRPCService::detachObject(QObject* obj)
+{
     detachSignals(obj);
     detachSlots(obj);
 }
@@ -504,17 +567,21 @@ void QxtRPCService::detachObject(QObject* obj) {
 /**
  * Detaches all signals for the given object.
  */
-void QxtRPCService::detachSignals(QObject* obj) {
+void QxtRPCService::detachSignals(QObject* obj)
+{
     qxt_d().introspector->disconnectObject(obj);
 }
 
 /**
  * Detaches all slots for the given object.
  */
-void QxtRPCService::detachSlots(QObject* obj) {
-    foreach(QString name, qxt_d().connectedSlots.keys()) {
-        foreach(QxtRPCServicePrivate::SlotDef slot, qxt_d().connectedSlots.value(name)) {
-            if(slot.recv != obj) continue;
+void QxtRPCService::detachSlots(QObject* obj)
+{
+    foreach(QString name, qxt_d().connectedSlots.keys())
+    {
+        foreach(QxtRPCServicePrivate::SlotDef slot, qxt_d().connectedSlots.value(name))
+        {
+            if (slot.recv != obj) continue;
             qxt_d().connectedSlots[name].removeAll(slot);
         }
     }
@@ -527,13 +594,16 @@ void QxtRPCService::detachSlots(QObject* obj) {
  * communicating with a server, this function does nothing.
  */
 void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, const QVariant& p3, const QVariant& p4,
-                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) {
-    if(isClient()) {
+                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
+{
+    if (isClient())
+    {
         QByteArray data = qxt_d().serializer->serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8);
         qxt_d().device->write(data);
     }
 
-    if(isServer()) {
+    if (isServer())
+    {
         call(clients(), fn, p1, p2, p3, p4, p5, p6, p7, p8);
     }
 }
@@ -545,11 +615,14 @@ void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, con
  * is ignored with a warning. If acting as a client, this function does nothing.
  */
 void QxtRPCService::call(QList<quint64> ids, QString fn, const QVariant& p1, const QVariant& p2, const QVariant& p3, const QVariant& p4,
-                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) {
+                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
+{
     QByteArray data = qxt_d().serializer->serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8);
-    foreach(quint64 id, ids) {
+    foreach(quint64 id, ids)
+    {
         QIODevice* dev = qxt_d().manager->client(id);
-        if(!dev) {
+        if (!dev)
+        {
             qWarning() << "QxtRPCService::call: client ID not connected";
             continue;
         }
@@ -564,8 +637,9 @@ void QxtRPCService::call(QList<quint64> ids, QString fn, const QVariant& p1, con
  * will be ignored with a warning. If acting as a client, this function does nothing.
  */
 void QxtRPCService::call(quint64 id, QString fn, const QVariant& p1, const QVariant& p2, const QVariant& p3, const QVariant& p4,
-                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) {
-    call(QList<quint64>() << id, fn, p1, p2, p3, p4, p5, p6, p7, p8); 
+                         const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
+{
+    call(QList<quint64>() << id, fn, p1, p2, p3, p4, p5, p6, p7, p8);
 }
 
 /**
@@ -575,7 +649,8 @@ void QxtRPCService::call(quint64 id, QString fn, const QVariant& p1, const QVari
  * to all other connected clients. If acting as a client, this function does nothing.
  */
 void QxtRPCService::callExcept(quint64 id, QString fn, const QVariant& p1, const QVariant& p2, const QVariant& p3, const QVariant& p4,
-                               const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8) {
+                               const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
+{
     QList<quint64> ids = clients();
     ids.removeAll(id);
     call(ids, fn, p1, p2, p3, p4, p5, p6, p7, p8);
@@ -584,7 +659,8 @@ void QxtRPCService::callExcept(quint64 id, QString fn, const QVariant& p1, const
 /**
  * Detaches all signals and slots for the object that emitted the signal connected to detachSender().
  */
-void QxtRPCService::detachSender() {
+void QxtRPCService::detachSender()
+{
     detachObject(sender());
 }
 

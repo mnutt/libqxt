@@ -26,12 +26,12 @@ struct QxtMailPrivate
 
 QxtMail::QxtMail()
 {
-     qxt_d = new QxtMailPrivate;
+    qxt_d = new QxtMailPrivate;
 }
 
 QxtMail::QxtMail(const QStringList& recipients,
-                const QString& subject, const QString& body,
-                const QStringList& extraHeaders)
+                 const QString& subject, const QString& body,
+                 const QStringList& extraHeaders)
 {
     qxt_d = new QxtMailPrivate;
     setRecipients(recipients);
@@ -65,53 +65,53 @@ QStringList QxtMail::extraHeaders()  const
 
 }
 
-void QxtMail::setRecipients  (QStringList a)
+void QxtMail::setRecipients(QStringList a)
 {
-    qxt_d().recipients=a;
+    qxt_d().recipients = a;
 
 }
-void QxtMail::setSender     (QString a)
+void QxtMail::setSender(QString a)
 {
-    qxt_d().sender=a;
+    qxt_d().sender = a;
 
 }
-void QxtMail::setSubject     (QString a)
+void QxtMail::setSubject(QString a)
 {
-    qxt_d().subject=a;
+    qxt_d().subject = a;
 
 }
 
-void QxtMail::setBody        (QString a)
+void QxtMail::setBody(QString a)
 {
-    qxt_d().body=a;
+    qxt_d().body = a;
 
 }
 
 void QxtMail::setExtraHeaders(QStringList a)
 {
-    qxt_d().extraHeaders=a;
+    qxt_d().extraHeaders = a;
 }
 
 QString QxtMail::rfc822()
 {
     QString e;
-    foreach(QString r,recipients())
+    foreach(QString r, recipients())
     {
-        e+="TO:"+r+"\n";
+        e += "TO:" + r + "\n";
     }
 
-    e+="Subject:"+subject()+"\n";
+    e += "Subject:" + subject() + "\n";
 
-    foreach(QString r,extraHeaders())
+    foreach(QString r, extraHeaders())
     {
-        e+=r+"\n";
+        e += r + "\n";
     }
 
-    if(!sender().isEmpty())
-        e+="From:"+sender()+"\n";
+    if (!sender().isEmpty())
+        e += "From:" + sender() + "\n";
 
 
-    e+="\n"+body()+"\n";
+    e += "\n" + body() + "\n";
 
     return e;
 }

@@ -31,9 +31,9 @@
 
 class QXT_CORE_EXPORT QxtPointerListDeleter : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 protected:
-    virtual void removeThisObject(QObject * obj)=0;
+    virtual void removeThisObject(QObject * obj) = 0;
 private Q_SLOTS:
     void removeSender();
 };
@@ -43,7 +43,7 @@ class QxtPointerList : public QxtPointerListDeleter, public QList<T*>
 {
 public:
     ///constructs a new QxtPointerList
-    QxtPointerList ():QList<T*>()
+    QxtPointerList(): QList<T*>()
     {
     }
     ///destructs the QxtPointerList
@@ -52,73 +52,73 @@ public:
         QList<T*>::clear();
     }
     ///\reimp
-    QxtPointerList ( const QxtPointerList<T> & other ):QxtPointerListDeleter(),QList<T*>(other)
+    QxtPointerList(const QxtPointerList<T> & other): QxtPointerListDeleter(), QList<T*>(other)
     {
-        for(int i=0;i<other.size();i++)
+        for (int i = 0;i < other.size();i++)
         {
-        addThisObject(other.at(i));
+            addThisObject(other.at(i));
         }
     }
     ///\reimp
-    void append (  T*  value )
+    void append(T*  value)
     {
         addThisObject(value);
         QList<T*>::append(value);
     }
     ///\reimp
-    void insert ( int i, T * value )
+    void insert(int i, T * value)
     {
         addThisObject(value);
-        QList<T*>::insert(i,value);
+        QList<T*>::insert(i, value);
     }
     ///\reimp
-    typename QList<T*>::iterator insert ( typename QList<T*>::iterator before,  T*  value )
+    typename QList<T*>::iterator insert(typename QList<T*>::iterator before,  T*  value)
     {
         addThisObject(value);
-        return QList<T*>::insert(before,value);
+        return QList<T*>::insert(before, value);
     }
     ///\reimp
-    QxtPointerList<T> operator+ ( const QxtPointerList<T> & other ) const
+    QxtPointerList<T> operator+ (const QxtPointerList<T> & other) const
     {
-        QxtPointerList<T> m=*this;
-        m+=other;
+        QxtPointerList<T> m = *this;
+        m += other;
         return m;
     }
     ///\reimp
-    QxtPointerList<T> & operator+= ( const QxtPointerList<T> & other )
+    QxtPointerList<T> & operator+= (const QxtPointerList<T> & other)
     {
-        foreach(T*t,other)
+        foreach(T*t, other)
         {
-            *this<<t;
+            *this << t;
         }
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator+= ( T*  value )
+    QxtPointerList<T> & operator+= (T*  value)
     {
         addThisObject(value);
         QList<T*>::operator+=(value);
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator<< ( const QxtPointerList<T> & other )
+    QxtPointerList<T> & operator<< (const QxtPointerList<T> & other)
     {
-        *this+=other;
+        *this += other;
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator<< ( T* value )
+    QxtPointerList<T> & operator<< (T* value)
     {
-        *this+=value;
+        *this += value;
         return *this;
     }
     ///\reimp
-    QxtPointerList<T> & operator= ( const QxtPointerList<T> & other )
+    QxtPointerList<T> & operator= (const QxtPointerList<T> & other)
     {
         QList<T*>::clear();
-        foreach(T*t,other)
+        foreach(T*t, other)
         {
-            *this<<t;
+            *this << t;
         }
         return *this;
     }
@@ -132,7 +132,7 @@ protected:
     ///reimplement to access objects before they are added
     virtual void addThisObject(QObject * obj)
     {
-        QObject::connect(obj,SIGNAL(destroyed( QObject *  )),this,SLOT(removeSender()));
+        QObject::connect(obj, SIGNAL(destroyed(QObject *)), this, SLOT(removeSender()));
     }
 };
 

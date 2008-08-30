@@ -26,44 +26,53 @@
 #define QXTALGORITHMS_H
 
 template<typename InputIterator, typename LessThan>
-InputIterator qxtMinimum(InputIterator begin, InputIterator end, LessThan lessThan) {
+InputIterator qxtMinimum(InputIterator begin, InputIterator end, LessThan lessThan)
+{
     InputIterator iter = begin, rv = begin;
-    while((++iter) != end) {
-        if(lessThan(*iter, *rv)) rv = iter;
+    while ((++iter) != end)
+    {
+        if (lessThan(*iter, *rv)) rv = iter;
     }
     return rv;
 }
 
 template<typename InputIterator>
-InputIterator qxtMinimum(InputIterator begin, InputIterator end) {
+InputIterator qxtMinimum(InputIterator begin, InputIterator end)
+{
     InputIterator iter = begin, rv = begin;
-    while((++iter) != end) {
-        if((*iter) < (*rv)) rv = iter;
+    while ((++iter) != end)
+    {
+        if ((*iter) < (*rv)) rv = iter;
     }
     return rv;
 }
 
 template<typename Container>
-typename Container::const_iterator qxtMinimum(const Container& container) {
+typename Container::const_iterator qxtMinimum(const Container& container)
+{
     return qxtMinimum(container.begin(), container.end());
 }
 
 template<typename InputIterator, typename GreaterThan>
-InputIterator qxtMaximum(InputIterator begin, InputIterator end, GreaterThan greaterThan) {
+InputIterator qxtMaximum(InputIterator begin, InputIterator end, GreaterThan greaterThan)
+{
     return qxtMinimum(begin, end, greaterThan);
 }
 
 template<typename InputIterator>
-InputIterator qxtMaximum(InputIterator begin, InputIterator end) {
+InputIterator qxtMaximum(InputIterator begin, InputIterator end)
+{
     InputIterator iter = begin, rv = begin;
-    while((++iter) != end) {
-        if((*iter) > (*rv)) rv = iter;
+    while ((++iter) != end)
+    {
+        if ((*iter) > (*rv)) rv = iter;
     }
     return rv;
 }
 
 template<typename Container>
-typename Container::const_iterator qxtMaximum(const Container& container) {
+typename Container::const_iterator qxtMaximum(const Container& container)
+{
     return qxtMinimum(container.begin(), container.end());
 }
 

@@ -56,11 +56,11 @@ for confidence the interface is similiar to QSqlQuery.
 returns false if there is no next entry.\n
 provided for easy porting from QSqlQuery.
 
-\code   
+\code
 while (query.next())
     {
     }
-\endcode 
+\endcode
 
 
 \fn bool QxtSqlPackage::last();
@@ -79,8 +79,8 @@ in contrast to QSqlQuery you have to provide the name of the key.
 
 the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.
 \code
-QString name = query.value("name"); 
-\endcode 
+QString name = query.value("name");
+\endcode
 
 
 \fn void QxtSqlPackage::insert(QSqlQuery query);
@@ -91,7 +91,7 @@ read out a QSqlQuery and store the result. you may close the query after reading
 
 \code
 QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
-\endcode 
+\endcode
 
 
 \fn int QxtSqlPackage::count() const;
@@ -145,7 +145,7 @@ int QxtSqlPackage::at()
 bool QxtSqlPackage::next()
 {
     record++;
-    if (record > (map.count()-1))
+    if (record > (map.count() - 1))
     {
         last();
         return false;
@@ -156,7 +156,7 @@ bool QxtSqlPackage::next()
 
 bool QxtSqlPackage::last()
 {
-    record=map.count()-1;
+    record = map.count() - 1;
     if (record >= 0)
         return true;
     else
@@ -167,19 +167,19 @@ bool QxtSqlPackage::first()
 {
     if (map.count())
     {
-        record=0;
+        record = 0;
         return true;
     }
     else
     {
-        record=-1;
+        record = -1;
         return false;
     }
 }
 
 QString QxtSqlPackage::value(const QString& key)
 {
-    if ((record<0) || !map.count()) return QString();
+    if ((record < 0) || !map.count()) return QString();
 
     return map.at(record).value(key);
 }
@@ -189,7 +189,7 @@ QString QxtSqlPackage::value(const QString& key)
 void QxtSqlPackage::insert(QSqlQuery query)
 {
     map.clear();
-    record=-1;
+    record = -1;
 
     /*query will be invalid if next is not called first*/
     if (!query.isValid())
@@ -211,7 +211,7 @@ void QxtSqlPackage::insert(QSqlQuery query)
      */
     do
     {
-        QHash<QString,QString> hash;
+        QHash<QString, QString> hash;
         for (int iColLoop = 0; iColLoop < iNumCols; iColLoop++)
         {
             hash[tableMap[iColLoop]] = query.value(iColLoop).toString();
@@ -235,8 +235,8 @@ QByteArray QxtSqlPackage::data() const
     buff.open(QBuffer::WriteOnly);
     QDataStream stream(&buff);
 
-    stream<<count();
-    for (int i=0; i < count();i++)
+    stream << count();
+    for (int i = 0; i < count();i++)
         stream << map.at(i);
 
     buff.close();
@@ -246,7 +246,7 @@ QByteArray QxtSqlPackage::data() const
 void QxtSqlPackage::setData(const QByteArray& data)
 {
     map.clear();
-    record=-1;
+    record = -1;
 
     QBuffer buff;
     buff.setData(data);
@@ -256,29 +256,29 @@ void QxtSqlPackage::setData(const QByteArray& data)
     int c;
     stream >> c;
 
-    for (int i=0; i<c;i++)
+    for (int i = 0; i < c;i++)
     {
-        QHash<QString,QString> hash;
+        QHash<QString, QString> hash;
         stream >> hash;
         map.append(hash);
     }
 }
 
-QHash<QString,QString> QxtSqlPackage::hash(int index)
+QHash<QString, QString> QxtSqlPackage::hash(int index)
 {
-    if (index > count()) return QHash<QString,QString>();
+    if (index > count()) return QHash<QString, QString>();
     return map.at(index);
 }
 
 
-QHash<QString,QString> QxtSqlPackage::hash()
+QHash<QString, QString> QxtSqlPackage::hash()
 {
-    qDebug()<<record;
+    qDebug() << record;
     return map.at(record);
 }
 
 
-QxtSqlPackage& QxtSqlPackage::operator= ( const QxtSqlPackage & other )
+QxtSqlPackage& QxtSqlPackage::operator= (const QxtSqlPackage & other)
 {
     setData(other.data());
     return *this;

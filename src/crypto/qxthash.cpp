@@ -40,20 +40,20 @@ qDebug()<<QxtHash(QxtHash::Md5,"foo").hash();
 \fn QxtHash::QxtHash (Algorithm algo)
 constructs a new hash with Algorithm \p algo
 */
-QxtHash::QxtHash (Algorithm algo)
+QxtHash::QxtHash(Algorithm algo)
 {
     QXT_INIT_PRIVATE(QxtHash);
-    qxt_d().algo=algo;
+    qxt_d().algo = algo;
     reset();
 }
 /**
 \fn QxtHash::QxtHash (Algorithm algo, const QByteArray & data)
 constructs a new hash with Algorithm \p algo and reads the data \p data
 */
-QxtHash::QxtHash (Algorithm algo, const QByteArray & data)
+QxtHash::QxtHash(Algorithm algo, const QByteArray & data)
 {
     QXT_INIT_PRIVATE(QxtHash);
-    qxt_d().algo=algo;
+    qxt_d().algo = algo;
     reset();
     append(data);
 }
@@ -62,13 +62,13 @@ QxtHash::QxtHash (Algorithm algo, const QByteArray & data)
 appends the data \p dt to the current data
 */
 
-void QxtHash::append ( const QByteArray & dt)
+void QxtHash::append(const QByteArray & dt)
 {
-    if (qxt_d().algo==Md5)
+    if (qxt_d().algo == Md5)
     {
         MD5Update(&qxt_d().md5ctx, (const unsigned char *)dt.constData(), dt.length());
     }
-    else if (qxt_d().algo==Md4)
+    else if (qxt_d().algo == Md4)
     {
         md4_update(&qxt_d().md4ctx, (const unsigned char *)dt.constData(), dt.length());
     }
@@ -78,7 +78,7 @@ void QxtHash::append ( const QByteArray & dt)
 \fn void QxtHash::operator+= ( const QByteArray & dt)
 appends the data \p dt to the current data
 */
-void  QxtHash::operator+= ( const QByteArray & dt)
+void  QxtHash::operator+= (const QByteArray & dt)
 {
     append(dt);
 }
@@ -88,11 +88,11 @@ resets teh hash, deletes all data
 */
 void QxtHash::reset()
 {
-    if (qxt_d().algo==Md5)
+    if (qxt_d().algo == Md5)
     {
         MD5Init(&qxt_d().md5ctx);
     }
-    else if (qxt_d().algo==Md4)
+    else if (qxt_d().algo == Md4)
     {
         md4_init(&qxt_d().md4ctx);
     }
@@ -106,12 +106,12 @@ QByteArray QxtHash::hash()
 {
     QByteArray hs;
 
-    if (qxt_d().algo==Md5)
+    if (qxt_d().algo == Md5)
     {
         hs.resize(16);
         MD5Final(&qxt_d().md5ctx, (unsigned char *)hs.data());
     }
-    else if (qxt_d().algo==Md4)
+    else if (qxt_d().algo == Md4)
     {
         hs.resize(MD4_RESULTLEN);
         md4_final(&qxt_d().md4ctx, (unsigned char *)hs.data());

@@ -32,8 +32,9 @@ class QxtAbstractWebSessionManager;
 class QxtWebEvent;
 
 class QxtWebServiceDirectoryPrivate;
-class QxtWebServiceDirectory : public QxtAbstractWebService {
-Q_OBJECT
+class QxtWebServiceDirectory : public QxtAbstractWebService
+{
+    Q_OBJECT
 public:
     QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 

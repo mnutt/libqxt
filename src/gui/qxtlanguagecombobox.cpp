@@ -32,107 +32,113 @@ typedef QList<Language> LanguageList;
 
 static QStringList findQmFiles(const QString& pathToTranslations)
 {
-  QDir dir(pathToTranslations);
-  QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files, QDir::Name);
+    QDir dir(pathToTranslations);
+    QStringList fileNames = dir.entryList(QStringList("*.qm"), QDir::Files, QDir::Name);
 
-  QMutableStringListIterator i(fileNames);
-  while (i.hasNext())
-  {
-    i.next();
-    int start = i.value().indexOf('_');
-    int end = i.value().lastIndexOf('.');
-    QString s = i.value().mid(start+1, end-start-1).toLower();
+    QMutableStringListIterator i(fileNames);
+    while (i.hasNext())
+    {
+        i.next();
+        int start = i.value().indexOf('_');
+        int end = i.value().lastIndexOf('.');
+        QString s = i.value().mid(start + 1, end - start - 1).toLower();
 
-    i.setValue(s);
-  }
+        i.setValue(s);
+    }
 
-  return fileNames;
+    return fileNames;
 }
 
 
 class Language
 {
 public:
-  Language(const QLocale::Language& language)
-  : _mLanguage(language)
-  , _mCountryCode("C")
-  {
-    QLocale loc(language);
-    if (loc.language() == language)
-      _mCountryCode = loc.name().right(2);
-    else
-      _mCountryCode = "";
-
-    _mDisplayName = qApp->translate("QLocale", qPrintable(QLocale::languageToString(_mLanguage)));
-  };
-
-  bool operator<(const Language& lang) const
-  {
-    return _mDisplayName.localeAwareCompare(lang._mDisplayName) < 0;
-  }
-
-  static const LanguageList& getAllLanguages()
-  {
-    if (_smAllLanguages.empty())
+    Language(const QLocale::Language& language)
+            : _mLanguage(language)
+            , _mCountryCode("C")
     {
+        QLocale loc(language);
+        if (loc.language() == language)
+            _mCountryCode = loc.name().right(2);
+        else
+            _mCountryCode = "";
 
-      for (int idx = 0; idx < QLocale::LastLanguage; ++idx)
-      {
-        QLocale::Language l = static_cast<QLocale::Language>(idx);
-        if (l == QLocale::LastLanguage)
-          continue;
-        // obsolete - NorwegianNynorsk is used instead
-        if (l == QLocale::Nynorsk)
-          continue;
-        if (l == QLocale::C)
-          continue;
+        _mDisplayName = qApp->translate("QLocale", qPrintable(QLocale::languageToString(_mLanguage)));
+    };
 
-        _smAllLanguages.push_back(Language(l));
-      }
-
-      qSort(_smAllLanguages);
-    }
-    return _smAllLanguages;
-  };
-
-  static LanguageList getTrLanguages(const QString& translationPath)
-  {
-    LanguageList trLanguages;
-
-    QStringList qms = findQmFiles(translationPath);
-    for (int i = 0; i < qms.size(); ++i)
+    bool operator<(const Language& lang) const
     {
-      QLocale locale(qms[i]);
-      if (locale.language() == QLocale::C)
-        continue;
-      trLanguages.push_back(Language(locale.language()));
+        return _mDisplayName.localeAwareCompare(lang._mDisplayName) < 0;
     }
-    qSort(trLanguages);
-    return trLanguages;
-  };
 
-  const QString& name() const
-  { return _mDisplayName; }
-  const QLocale::Language& language() const
-  { return _mLanguage; }
-  const QString& countryName() const
-  { return _mCountryCode; }
+    static const LanguageList& getAllLanguages()
+    {
+        if (_smAllLanguages.empty())
+        {
+
+            for (int idx = 0; idx < QLocale::LastLanguage; ++idx)
+            {
+                QLocale::Language l = static_cast<QLocale::Language>(idx);
+                if (l == QLocale::LastLanguage)
+                    continue;
+                // obsolete - NorwegianNynorsk is used instead
+                if (l == QLocale::Nynorsk)
+                    continue;
+                if (l == QLocale::C)
+                    continue;
+
+                _smAllLanguages.push_back(Language(l));
+            }
+
+            qSort(_smAllLanguages);
+        }
+        return _smAllLanguages;
+    };
+
+    static LanguageList getTrLanguages(const QString& translationPath)
+    {
+        LanguageList trLanguages;
+
+        QStringList qms = findQmFiles(translationPath);
+        for (int i = 0; i < qms.size(); ++i)
+        {
+            QLocale locale(qms[i]);
+            if (locale.language() == QLocale::C)
+                continue;
+            trLanguages.push_back(Language(locale.language()));
+        }
+        qSort(trLanguages);
+        return trLanguages;
+    };
+
+    const QString& name() const
+    {
+        return _mDisplayName;
+    }
+    const QLocale::Language& language() const
+    {
+        return _mLanguage;
+    }
+    const QString& countryName() const
+    {
+        return _mCountryCode;
+    }
 
 private:
-  QLocale::Language _mLanguage;
-  QString _mDisplayName;
-  QString _mCountryCode;
+    QLocale::Language _mLanguage;
+    QString _mDisplayName;
+    QString _mCountryCode;
 
-  static LanguageList _smAllLanguages;
+    static LanguageList _smAllLanguages;
 };
 
 LanguageList Language::_smAllLanguages;
 
 class LanguageModel : public QAbstractTableModel
 {
-  public:
+public:
     LanguageModel(const LanguageList& languages, QObject* parent = 0)
-    : QAbstractTableModel(parent), _mLanguages(languages)
+            : QAbstractTableModel(parent), _mLanguages(languages)
     {
     }
 
@@ -157,7 +163,7 @@ class LanguageModel : public QAbstractTableModel
         const Language& l = _mLanguages[idx];
         if (role == Qt::DecorationRole)
         {
-          return QIcon(":/flags/"+l.countryName()+".png");
+            return QIcon(":/flags/" + l.countryName() + ".png");
         }
 
         if (role == Qt::DisplayRole)
@@ -174,95 +180,95 @@ class LanguageModel : public QAbstractTableModel
         }
         return QVariant();
     }
-  private:
+private:
     LanguageList _mLanguages;
 };
 
 QxtLanguageComboBoxPrivate::QxtLanguageComboBoxPrivate()
-: _mDisplayMode(QxtLanguageComboBox::AllLanguages), _mTranslationPath("."), _mModel(0)
+        : _mDisplayMode(QxtLanguageComboBox::AllLanguages), _mTranslationPath("."), _mModel(0)
 {
 }
 
 void QxtLanguageComboBoxPrivate::init()
 {
-  connect(&qxt_p(),SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxCurrentIndexChanged(int)));
+    connect(&qxt_p(), SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxCurrentIndexChanged(int)));
 }
 
 void QxtLanguageComboBoxPrivate::setTranslationPath(const QString& path)
 {
-  if (_mTranslationPath == path)
-    return;
+    if (_mTranslationPath == path)
+        return;
 
-  _mTranslationPath = path;
-  reset();
+    _mTranslationPath = path;
+    reset();
 }
 
 void QxtLanguageComboBoxPrivate::setDisplayMode(QxtLanguageComboBox::DisplayMode mode)
 {
-  if (_mDisplayMode == mode && _mModel != 0)
-    return;
+    if (_mDisplayMode == mode && _mModel != 0)
+        return;
 
-  _mDisplayMode = mode;
-  reset();
+    _mDisplayMode = mode;
+    reset();
 }
 
 void QxtLanguageComboBoxPrivate::reset()
 {
-  if (_mModel != 0)
-  {
-    delete _mModel;
-    _mModel = 0;
-  }
+    if (_mModel != 0)
+    {
+        delete _mModel;
+        _mModel = 0;
+    }
 
-  QLocale::Language currentLang = currentLanguage();
-  if (_mDisplayMode == QxtLanguageComboBox::AllLanguages)
-    _mModel = new LanguageModel(Language::getAllLanguages(), &qxt_p());
-  else
-    _mModel = new LanguageModel(Language::getTrLanguages(_mTranslationPath), &qxt_p());
+    QLocale::Language currentLang = currentLanguage();
+    if (_mDisplayMode == QxtLanguageComboBox::AllLanguages)
+        _mModel = new LanguageModel(Language::getAllLanguages(), &qxt_p());
+    else
+        _mModel = new LanguageModel(Language::getTrLanguages(_mTranslationPath), &qxt_p());
 
-  qxt_p().setModel(_mModel);
-  qxt_p().setModelColumn(0);
+    qxt_p().setModel(_mModel);
+    qxt_p().setModelColumn(0);
 
-  setCurrentLanguage(currentLang);
+    setCurrentLanguage(currentLang);
 }
 
 void QxtLanguageComboBoxPrivate::comboBoxCurrentIndexChanged(int)
 {
-  handleLanguageChange();
+    handleLanguageChange();
 }
 
 void QxtLanguageComboBoxPrivate::handleLanguageChange()
 {
-  emit qxt_p().currentLanguageChanged(currentLanguage());
-  emit qxt_p().currentLanguageNameChanged(currentLanguageName());
+    emit qxt_p().currentLanguageChanged(currentLanguage());
+    emit qxt_p().currentLanguageNameChanged(currentLanguageName());
 }
 
 QLocale::Language QxtLanguageComboBoxPrivate::currentLanguage() const
 {
-  if (_mModel == NULL)
-    return QLocale::C;
+    if (_mModel == NULL)
+        return QLocale::C;
 
-  QModelIndex idx = _mModel->index(qxt_p().currentIndex(), 1);
-  QLocale::Language currentLang = static_cast<QLocale::Language>(idx.data().toInt());
-  return currentLang;
+    QModelIndex idx = _mModel->index(qxt_p().currentIndex(), 1);
+    QLocale::Language currentLang = static_cast<QLocale::Language>(idx.data().toInt());
+    return currentLang;
 }
 
 QString QxtLanguageComboBoxPrivate::currentLanguageName() const
 {
-  return qxt_p().currentText();
+    return qxt_p().currentText();
 }
 
 void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
 {
-  // column 1 is QLocale::Language
-  QModelIndex start = _mModel->index(0, 1);
-  QModelIndexList result = _mModel->match(start, Qt::DisplayRole, language, 1, Qt::MatchExactly);
-  if (!result.isEmpty())
-    qxt_p().setCurrentIndex(result.first().row());
+    // column 1 is QLocale::Language
+    QModelIndex start = _mModel->index(0, 1);
+    QModelIndexList result = _mModel->match(start, Qt::DisplayRole, language, 1, Qt::MatchExactly);
+    if (!result.isEmpty())
+        qxt_p().setCurrentIndex(result.first().row());
 //   else
 //     qDebug() << "Cannot setCurrentLanguage: " << language << _mModel;
 
-  handleLanguageChange();
+    handleLanguageChange();
 }
 
 /*!
@@ -301,12 +307,12 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
     Constructs a new QxtCountryComboBox with \a parent.
  */
 QxtLanguageComboBox::QxtLanguageComboBox(QWidget* parent)
-: QComboBox(parent)
+        : QComboBox(parent)
 {
-  QXT_INIT_PRIVATE(QxtLanguageComboBox);
-  setDisplayMode(AllLanguages);
-  setCurrentLanguage(QLocale::system().language());
-  qxt_d().init();
+    QXT_INIT_PRIVATE(QxtLanguageComboBox);
+    setDisplayMode(AllLanguages);
+    setCurrentLanguage(QLocale::system().language());
+    qxt_d().init();
 }
 
 /*!
@@ -322,7 +328,7 @@ QxtLanguageComboBox::~QxtLanguageComboBox()
  */
 QLocale::Language QxtLanguageComboBox::currentLanguage() const
 {
-  return qxt_d().currentLanguage();
+    return qxt_d().currentLanguage();
 }
 
 /*!
@@ -331,12 +337,12 @@ QLocale::Language QxtLanguageComboBox::currentLanguage() const
  */
 QString QxtLanguageComboBox::currentLanguageName() const
 {
-  return qxt_d().currentLanguageName();
+    return qxt_d().currentLanguageName();
 }
 
 void QxtLanguageComboBox::setCurrentLanguage(QLocale::Language language)
 {
-  qxt_d().setCurrentLanguage(language);
+    qxt_d().setCurrentLanguage(language);
 }
 
 /*!
@@ -345,12 +351,12 @@ void QxtLanguageComboBox::setCurrentLanguage(QLocale::Language language)
  */
 void QxtLanguageComboBox::setDisplayMode(DisplayMode mode)
 {
-  qxt_d().setDisplayMode(mode);
+    qxt_d().setDisplayMode(mode);
 }
 
 QxtLanguageComboBox::DisplayMode QxtLanguageComboBox::displayMode() const
 {
-  return qxt_d().displayMode();
+    return qxt_d().displayMode();
 }
 
 /*!
@@ -359,10 +365,10 @@ QxtLanguageComboBox::DisplayMode QxtLanguageComboBox::displayMode() const
  */
 void QxtLanguageComboBox::setTranslationPath(const QString& path)
 {
-  qxt_d().setTranslationPath(path);
+    qxt_d().setTranslationPath(path);
 }
 
 QString QxtLanguageComboBox::translationPath() const
 {
-  return qxt_d().translationPath();
+    return qxt_d().translationPath();
 }

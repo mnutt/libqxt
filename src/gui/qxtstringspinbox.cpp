@@ -113,10 +113,10 @@ void QxtStringSpinBox::fixup(QString& input) const
  */
 QValidator::State QxtStringSpinBox::validate(QString& input, int& pos) const
 {
-    // Invalid:		input is invalid according to the string list
-    // Intermediate:	it is likely that a little more editing will make the input acceptable
-    //			(e.g. the user types "A" and stringlist contains "ABC")
-    // Acceptable:		the input is valid.
+    // Invalid:  input is invalid according to the string list
+    // Intermediate: it is likely that a little more editing will make the input acceptable
+    //   (e.g. the user types "A" and stringlist contains "ABC")
+    // Acceptable:  the input is valid.
     Q_UNUSED(pos);
     QString temp;
     QValidator::State state = QValidator::Invalid;

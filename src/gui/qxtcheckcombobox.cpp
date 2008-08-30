@@ -35,33 +35,33 @@ bool QxtCheckComboBoxPrivate::eventFilter(QObject* receiver, QEvent* event)
 {
     switch (event->type())
     {
-        case QEvent::KeyPress:
-        case QEvent::KeyRelease:
+    case QEvent::KeyPress:
+    case QEvent::KeyRelease:
+    {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (receiver == &qxt_p() && (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down))
         {
-            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-            if (receiver == &qxt_p() && (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down))
-            {
-                qxt_p().showPopup();
-                return true;
-            }
-            else if (keyEvent->key() == Qt::Key_Enter || 
-                     keyEvent->key() == Qt::Key_Return ||
-                     keyEvent->key() == Qt::Key_Escape)
-            {
-                // it is important to call QComboBox implementation
-                qxt_p().QComboBox::hidePopup();
-                if (keyEvent->key() != Qt::Key_Escape)
-                    return true;
-            }
+            qxt_p().showPopup();
+            return true;
         }
-        case QEvent::MouseButtonPress:
-            containerMousePress = (receiver == qxt_p().view()->window());
-            break;
-        case QEvent::MouseButtonRelease:
-            containerMousePress = false;;
-            break;
-        default:
-            break;
+        else if (keyEvent->key() == Qt::Key_Enter ||
+                 keyEvent->key() == Qt::Key_Return ||
+                 keyEvent->key() == Qt::Key_Escape)
+        {
+            // it is important to call QComboBox implementation
+            qxt_p().QComboBox::hidePopup();
+            if (keyEvent->key() != Qt::Key_Escape)
+                return true;
+        }
+    }
+    case QEvent::MouseButtonPress:
+        containerMousePress = (receiver == qxt_p().view()->window());
+        break;
+    case QEvent::MouseButtonRelease:
+        containerMousePress = false;;
+        break;
+    default:
+        break;
     }
     return false;
 }
@@ -220,8 +220,8 @@ QStringList QxtCheckComboBox::checkedItems() const
     {
         QModelIndex index = model()->index(0, modelColumn(), rootModelIndex());
         QModelIndexList indexes = model()->match(index, Qt::CheckStateRole, Qt::Checked, -1, Qt::MatchExactly);
-        foreach (const QModelIndex& index, indexes)
-            items += index.data().toString();
+        foreach(const QModelIndex& index, indexes)
+        items += index.data().toString();
     }
     return items;
 }
@@ -230,7 +230,7 @@ void QxtCheckComboBox::setCheckedItems(const QStringList& items)
 {
     // not the most efficient solution but most likely nobody
     // will put too many items into a combo box anyway so...
-    foreach (const QString& text, items)
+    foreach(const QString& text, items)
     {
         const int index = findText(text);
         setItemCheckState(index, index != -1 ? Qt::Checked : Qt::Unchecked);

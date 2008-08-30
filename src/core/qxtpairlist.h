@@ -76,20 +76,20 @@ public:
     QxtPairList()
     {}
 
-    QxtPairList( const QxtPairList<T,K> & other )
+    QxtPairList(const QxtPairList<T, K> & other)
     {
-        list= other.list;
+        list = other.list;
     }
 
-    QxtPairList operator= ( const QxtPairList<T,K> & other )
+    QxtPairList operator= (const QxtPairList<T, K> & other)
     {
-        list= other.list;
+        list = other.list;
     }
 
 
     void append(T v1, K v2)
     {
-        list.append(qMakePair(v1,v2));
+        list.append(qMakePair(v1, v2));
     }
 
 
@@ -105,32 +105,32 @@ public:
     are all valid
     */
 
-    QList<int> find( qxtNull(T,v1) , qxtNull(K,v2) )
+    QList<int> find(qxtNull(T, v1) , qxtNull(K, v2))
     {
         QList<int> found;
 
-        if ((!v1.isNull()) and (!v2.isNull()))
+        if ((!v1.isNull()) and(!v2.isNull()))
         {
-            for (int i=0;i<list.count();i++)
-                if ((list[i].first()==v1)and(list[i].second()==v2))
+            for (int i = 0;i < list.count();i++)
+                if ((list[i].first() == v1)and(list[i].second() == v2))
                     found.append(i);
 
             return found;
         }
 
-        if ((!v1.isNull()) and (v2.isNull()))
+        if ((!v1.isNull()) and(v2.isNull()))
         {
-            for (int i=0;i<list.count();i++)
-                if (list[i].first()==v1)
+            for (int i = 0;i < list.count();i++)
+                if (list[i].first() == v1)
                     found.append(i);
 
             return found;
         }
 
-        if ((v1.isNull()) and (!v2.isNull()))
+        if ((v1.isNull()) and(!v2.isNull()))
         {
-            for (int i=0;i<list.count();i++)
-                if (list[i].second()==v2)
+            for (int i = 0;i < list.count();i++)
+                if (list[i].second() == v2)
                     found.append(i);
 
             return found;
@@ -152,7 +152,7 @@ public:
     void remove(QList<int> nrs)
     {
         int i;
-        foreach (i,nrs)
+        foreach(i, nrs)
         list.removeAt(i);
     }
 
@@ -161,12 +161,12 @@ public:
 
     /** \brief operate on the list directly
 
-    you may use the internal list directly, but be carefull 
-    dont expect to work the QxPairList to work normal if you mess around with it.		
+    you may use the internal list directly, but be carefull
+    dont expect to work the QxPairList to work normal if you mess around with it.
     */
 
 
-    QList<QPair<T,K> > list;
+    QList<QPair<T, K> > list;
 };
 
 #endif // QXTPAIRLIST_H

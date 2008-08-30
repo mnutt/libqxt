@@ -42,8 +42,8 @@ public:
     virtual void initLoggerEngine();
 
 protected:
-    virtual void   writeToFile ( const QString &level, const QVariantList &messages);
-    static QString toXmlSafeString( const QString& unformatted ); // because we're using 4.2, this was added in 4.4
+    virtual void   writeToFile(const QString &level, const QVariantList &messages);
+    static QString toXmlSafeString(const QString& unformatted);   // because we're using 4.2, this was added in 4.4
 };
 
 #endif // QXTXMLFILELOGGERENGINE_H

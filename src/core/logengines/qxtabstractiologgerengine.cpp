@@ -43,14 +43,14 @@ public:
 };
 
 QxtAbstractIOLoggerEnginePrivate::QxtAbstractIOLoggerEnginePrivate()
-    : io_device(0)
+        : io_device(0)
 {
 }
 
 /*!
     Constructs a QxtAbstractIOLoggerEngine with device.
  */
-QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine( QIODevice *device )
+QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine(QIODevice *device)
 {
     QXT_INIT_PRIVATE(QxtAbstractFileLoggerEngine);
     setDevice(device);
@@ -59,7 +59,7 @@ QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine( QIODevice *device )
 /*!
     Sets the IO device.
  */
-void QxtAbstractIOLoggerEngine::setDevice( QIODevice *device )
+void QxtAbstractIOLoggerEngine::setDevice(QIODevice *device)
 {
     qxt_d().io_device = device;
 }

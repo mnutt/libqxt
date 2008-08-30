@@ -32,7 +32,7 @@ class QxtSemaphorePrivate;
 class QXT_CORE_EXPORT QxtSemaphore
 {
 public:
-    QxtSemaphore(QString );
+    QxtSemaphore(QString);
     ~QxtSemaphore();
     bool trylock();
     bool unlock();

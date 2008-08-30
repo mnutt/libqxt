@@ -59,9 +59,10 @@ timed out or successfully caught its signal.
 class QxtSignalWaiterPrivate : public QxtPrivate<QxtSignalWaiter>
 {
 public:
-QXT_DECLARE_PUBLIC(QxtSignalWaiter);
+    QXT_DECLARE_PUBLIC(QxtSignalWaiter);
 
-    QxtSignalWaiterPrivate() {
+    QxtSignalWaiterPrivate()
+    {
         ready = false;
         emitted = false;
         timeout = false;
@@ -71,8 +72,9 @@ QXT_DECLARE_PUBLIC(QxtSignalWaiter);
     bool ready, timeout, emitted, waiting;
     int timerID;
 
-    void stopTimer() {
-        if(timerID)
+    void stopTimer()
+    {
+        if (timerID)
             qxt_p().killTimer(timerID);
         timerID = 0;
         waiting = false;
@@ -111,17 +113,17 @@ bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec, 
 bool QxtSignalWaiter::wait(int msec, QEventLoop::ProcessEventsFlags flags)
 {
     QxtSignalWaiterPrivate& d = qxt_d();
-    
+
     // Clear the emission status
     d.ready = false;
     d.emitted = false;
 
     // Check input parameters
-    if(msec < -1 || msec == 0)
+    if (msec < -1 || msec == 0)
         return false;
 
     // activate the timeout
-    if(msec != -1)
+    if (msec != -1)
         d.timerID = startTimer(msec);
     else
         d.timerID = 0;
@@ -131,7 +133,7 @@ bool QxtSignalWaiter::wait(int msec, QEventLoop::ProcessEventsFlags flags)
 
     // Begin waiting
     d.waiting = true;
-    while(!d.ready && !d.timeout)
+    while (!d.ready && !d.timeout)
         QCoreApplication::processEvents(flags);
 
     // Clean up and return status
@@ -156,7 +158,7 @@ bool QxtSignalWaiter::hasCapturedSignal() const
  */
 void QxtSignalWaiter::signalCaught()
 {
-    if(!qxt_d().waiting) return;
+    if (!qxt_d().waiting) return;
     qxt_d().ready = true;
     qxt_d().stopTimer();
 }
@@ -178,7 +180,7 @@ void QxtSignalWaiter::timerEvent(QTimerEvent* event)
  */
 void QxtSignalWaiter::cancelWait()
 {
-    if(!qxt_d().waiting) return;
+    if (!qxt_d().waiting) return;
     qxt_d().timeout = true;
     qxt_d().stopTimer();
 }

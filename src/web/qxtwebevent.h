@@ -37,9 +37,11 @@ class QIODevice;
 QT_END_NAMESPACE
 class QxtWebContent;
 
-class QxtWebEvent {
+class QxtWebEvent
+{
 public:
-    enum EventType {
+    enum EventType
+    {
         None = 0,
         Request,
         FileUpload,
@@ -48,18 +50,22 @@ public:
         RemoveCookie,
         Redirect
     };
-      
+
     QxtWebEvent(EventType type, int sessionID);
     virtual ~QxtWebEvent();
 
-    inline EventType type() const { return m_type; }
+    inline EventType type() const
+    {
+        return m_type;
+    }
     const int sessionID;
 
 private:
     EventType m_type;
 };
 
-class QxtWebRequestEvent : public QxtWebEvent {
+class QxtWebRequestEvent : public QxtWebEvent
+{
 public:
     QxtWebRequestEvent(int sessionID, int requestID, const QUrl& url);
     ~QxtWebRequestEvent();
@@ -89,7 +95,8 @@ public:
 */
 
 class QxtWebRedirectEvent;
-class QxtWebPageEvent : public QxtWebEvent {
+class QxtWebPageEvent : public QxtWebEvent
+{
 public:
     QxtWebPageEvent(int sessionID, int requestID, QIODevice* source = 0);
     QxtWebPageEvent(int sessionID, int requestID, QByteArray source);    // creates a QBuffer
@@ -107,12 +114,14 @@ private:
     QxtWebPageEvent(QxtWebEvent::EventType typeOverride, int sessionID, int requestID, QByteArray source);
 };
 
-class QxtWebErrorEvent : public QxtWebPageEvent {
+class QxtWebErrorEvent : public QxtWebPageEvent
+{
 public:
     QxtWebErrorEvent(int sessionID, int requestID, int status, QByteArray statusMessage);
 };
 
-class QxtWebStoreCookieEvent : public QxtWebEvent {
+class QxtWebStoreCookieEvent : public QxtWebEvent
+{
 public:
     QxtWebStoreCookieEvent(int sessionID, QString name, QString data, QDateTime expiration = QDateTime());
 
@@ -121,14 +130,16 @@ public:
     QDateTime expiration;
 };
 
-class QxtWebRemoveCookieEvent : public QxtWebEvent {
+class QxtWebRemoveCookieEvent : public QxtWebEvent
+{
 public:
     QxtWebRemoveCookieEvent(int sessionID, QString name);
 
     QString name;
 };
 
-class QxtWebRedirectEvent : public QxtWebPageEvent {
+class QxtWebRedirectEvent : public QxtWebPageEvent
+{
 public:
     QxtWebRedirectEvent(int sessionID, int requestID, const QString& destination, int statusCode = 302);
 

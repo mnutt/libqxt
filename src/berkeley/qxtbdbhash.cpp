@@ -44,7 +44,7 @@
     There is an extensive example in /examples/berkeley/adressbook
 
 
-    All functions of this class are thread safe. 
+    All functions of this class are thread safe.
     Calling open() multiple times is undefined.
     An Iterator may only be used from one thread at once, but you can have multiple iterators.
 
@@ -79,7 +79,7 @@
     Erase all records. This does not delete the unerlieing file.
 
 
-    
+
     \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHash::begin()
 
     return an iterator to the first key,value pair
@@ -162,7 +162,7 @@
 
     Constructs an invalid QxtBdbHashIterator
 
-    
+
     \fn QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(const QxtBdbHashIterator<KEY,VAL> & other)
 
     copy Constructor
@@ -173,14 +173,14 @@
 
     \fn bool QxtBdbHashIterator<KEY,VAL>::isValid() const
 
-    return true if the iterator is valid. 
+    return true if the iterator is valid.
     Invalid iterators are unusable and accessing any function will fail.
 
 
     \fn QxtBdbHashIterator<KEY,VAL>::operator KEY() const
 
     conversation operator to the current value.
-    
+
     \sa key();
 
     \fn KEY     QxtBdbHashIterator<KEY,VAL>::key() const

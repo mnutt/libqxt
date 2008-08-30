@@ -35,15 +35,15 @@ class QxtSignalWaiterPrivate;
 
 class QXT_CORE_EXPORT QxtSignalWaiter : public QObject
 {
-Q_OBJECT
-QXT_DECLARE_PRIVATE(QxtSignalWaiter)
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtSignalWaiter)
 public:
     QxtSignalWaiter(const QObject* sender, const char* signal);
 
     static bool wait(const QObject* sender, const char* signal, int msec = -1, QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents);
     bool wait(int msec = -1, QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents);
     bool hasCapturedSignal() const;
-    
+
 public Q_SLOTS:
     void signalCaught();
     void cancelWait();

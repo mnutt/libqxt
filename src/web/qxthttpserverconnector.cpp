@@ -48,7 +48,8 @@ high traffic scenarios or virtual hosting configurations.
 #include <QString>
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtHttpServerConnectorPrivate : public QxtPrivate<QxtHttpServerConnector> {
+class QxtHttpServerConnectorPrivate : public QxtPrivate<QxtHttpServerConnector>
+{
 public:
     QTcpServer* server;
 };
@@ -57,7 +58,8 @@ public:
 /**
  * Creates a QxtHttpServerConnector with the given parent.
  */
-QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent) {
+QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent)
+{
     QXT_INIT_PRIVATE(QxtHttpServerConnector);
     qxt_d().server = new QTcpServer(this);
     QObject::connect(qxt_d().server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
@@ -66,14 +68,16 @@ QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHtt
 /**
  * \reimp
  */
-bool QxtHttpServerConnector::listen(const QHostAddress& interface, quint16 port) {
+bool QxtHttpServerConnector::listen(const QHostAddress& interface, quint16 port)
+{
     return qxt_d().server->listen(interface, port);
 }
 
 /**
  * \priv
  */
-void QxtHttpServerConnector::acceptConnection() {
+void QxtHttpServerConnector::acceptConnection()
+{
     QTcpSocket* socket = qxt_d().server->nextPendingConnection();
     addConnection(socket);
 }
@@ -81,35 +85,40 @@ void QxtHttpServerConnector::acceptConnection() {
 /**
  * \reimp
  */
-bool QxtHttpServerConnector::canParseRequest(const QByteArray& buffer) {
-    if(buffer.indexOf("\r\n\r\n") >= 0) return true; // 1.0+
-    if(buffer.indexOf("\r\n") >= 0 && buffer.indexOf("HTTP/") == -1) return true; // 0.9
+bool QxtHttpServerConnector::canParseRequest(const QByteArray& buffer)
+{
+    if (buffer.indexOf("\r\n\r\n") >= 0) return true; // 1.0+
+    if (buffer.indexOf("\r\n") >= 0 && buffer.indexOf("HTTP/") == -1) return true; // 0.9
     return false;
 }
 
 /**
  * \reimp
  */
-QHttpRequestHeader QxtHttpServerConnector::parseRequest(QByteArray& buffer) {
+QHttpRequestHeader QxtHttpServerConnector::parseRequest(QByteArray& buffer)
+{
     int pos = buffer.indexOf("\r\n\r\n"), endpos = pos + 3;
-    if(pos == -1) {
+    if (pos == -1)
+    {
         pos = buffer.indexOf("\r\n"); // 0.9
         endpos = pos + 1;
     }
 
     QHttpRequestHeader header(QString::fromUtf8(buffer.left(endpos)));
     QByteArray firstLine = buffer.left(buffer.indexOf('\r'));
-    if(firstLine.indexOf("HTTP/") == -1) {
+    if (firstLine.indexOf("HTTP/") == -1)
+    {
         header.setRequest(header.method(), header.path(), 0, 9);
     }
     buffer.remove(0, endpos + 1);
     return header;
 }
 
-/** 
+/**
  * \reimp
  */
-void QxtHttpServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& header) {
-    if(header.majorVersion() == 0) return; // 0.9 doesn't have headers
+void QxtHttpServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& header)
+{
+    if (header.majorVersion() == 0) return; // 0.9 doesn't have headers
     device->write(header.toString().toUtf8());
 }

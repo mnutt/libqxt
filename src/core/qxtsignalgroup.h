@@ -32,8 +32,8 @@ class QxtSignalGroupPrivate;
 
 class QXT_CORE_EXPORT QxtSignalGroup : public QObject
 {
-Q_OBJECT
-QXT_DECLARE_PRIVATE(QxtSignalGroup)
+    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtSignalGroup)
 public:
     QxtSignalGroup(QObject* parent = 0);
 
@@ -46,7 +46,7 @@ public:
 
 public Q_SLOTS:
     void reset();
-    
+
 Q_SIGNALS:
     void firstSignalReceived();
     void allSignalsReceived();

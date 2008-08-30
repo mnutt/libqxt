@@ -47,101 +47,101 @@ perfect as a counter part for QProcess or debug output into a QxtPipe chain
 
 
 
-QxtStdio::QxtStdio(QObject * parent):QxtPipe(parent)
+QxtStdio::QxtStdio(QObject * parent): QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtStdio);
 
-    setvbuf ( stdin , NULL , _IONBF , 0 );
-    setvbuf ( stdout , NULL , _IONBF , 0 );
+    setvbuf(stdin , NULL , _IONBF , 0);
+    setvbuf(stdout , NULL , _IONBF , 0);
 
-    setOpenMode (QIODevice::ReadWrite);
-    qxt_d().notify = new QSocketNotifier (
+    setOpenMode(QIODevice::ReadWrite);
+    qxt_d().notify = new QSocketNotifier(
 
 #ifdef Q_CC_MSVC
-                 _fileno(stdin)
+        _fileno(stdin)
 #else
-                 fileno(stdin)
+        fileno(stdin)
 #endif
 
-                 ,QSocketNotifier::Read,this );
-    QObject::connect(qxt_d().notify, SIGNAL(activated(int)),&qxt_d(),SLOT(activated(int)));
+        , QSocketNotifier::Read, this);
+    QObject::connect(qxt_d().notify, SIGNAL(activated(int)), &qxt_d(), SLOT(activated(int)));
 }
 
-qint64 QxtStdio::writeData ( const char * data, qint64 maxSize )
+qint64 QxtStdio::writeData(const char * data, qint64 maxSize)
 {
-    qint64 i=0;
-    for (;i<maxSize;i++)
+    qint64 i = 0;
+    for (;i < maxSize;i++)
     {
-        char c=*data++;
+        char c = *data++;
         putchar(c);
     }
-// 	emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
+//  emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
     return i;
 }
 
 
 
-void QxtStdioPrivate::activated(int )
+void QxtStdioPrivate::activated(int)
 {
-    char c=getchar();
-    if(c==EOF)
+    char c = getchar();
+    if (c == EOF)
     {
 #if QT_VERSION >= 0x040400
-        emit qxt_p().readChannelFinished(); 
+        emit qxt_p().readChannelFinished();
 #endif
-        hadeof=true;
+        hadeof = true;
         return;
     }
-    QByteArray b(1,c);
+    QByteArray b(1, c);
     qxt_p().enqueData(b);
     qxt_p().sendData(b);
 }
 
 
-void   QxtStdio::receiveData (QByteArray data, const QxtPipe *  )
+void   QxtStdio::receiveData(QByteArray data, const QxtPipe *)
 {
-    writeData (data.data(),data.size());
+    writeData(data.data(), data.size());
 }
 
-bool QxtStdio::waitForReadyRead ( int  )
+bool QxtStdio::waitForReadyRead(int)
 {
-    if(qxt_d().hadeof)
+    if (qxt_d().hadeof)
         return false;
 
 
-    char c=getchar();
-    if(c==EOF)
+    char c = getchar();
+    if (c == EOF)
     {
 #if QT_VERSION >= 0x040400
         emit readChannelFinished();
 #endif
-        qxt_d().hadeof=true;
+        qxt_d().hadeof = true;
         return false;
     }
-    QByteArray b(1,c);
+    QByteArray b(1, c);
     enqueData(b);
     sendData(b);
     return true;
 }
 
 
-void QxtStdio::waitForEOF ()
+void QxtStdio::waitForEOF()
 {
-    if(qxt_d().hadeof)
+    if (qxt_d().hadeof)
         return;
 
     forever
     {
-        char c=getchar();
-        if(c==EOF)
+        char c = getchar();
+        if (c == EOF)
         {
 #if QT_VERSION >= 0x040400
             emit readChannelFinished();
 #endif
-            qxt_d().hadeof=true;
+            qxt_d().hadeof = true;
             return;
         }
-        QByteArray b(1,c);
+        QByteArray b(1, c);
         enqueData(b);
         sendData(b);
     }

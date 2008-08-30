@@ -28,13 +28,13 @@
 #include <QtDebug>
 
 /**
- * \class QxtTcpConnectionManager QxtTcpConnectionManager 
+ * \class QxtTcpConnectionManager QxtTcpConnectionManager
  * \ingroup QxtNetwork
  * \brief Accepts TCP connections and maintains a connection pool
  *
  * QxtTcpConnectionManager is a standardized interface for accepting and tracking
  * incoming TCP connections.
- * 
+ *
  * Each incoming connection is assigned an arbitrary, opaque client ID number. This
  * number can be used to retrieve the QTcpSocket associated with it. A list of IDs
  * for all current connections can be retrieved with the clients() function.
@@ -43,29 +43,34 @@
  * a specified interface and port, and like QTcpServer you may override the
  * incomingConnection() function to change the handling of new connections. This
  * is, for instance, where you would create a QSslSocket to encrypt communications.
- * 
+ *
  * \sa QTcpServer
  */
 
 /**
  * Constructs a new QxtTcpConnectionManager object with the specified parent.
  */
-QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent) {
+QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent)
+{
     QXT_INIT_PRIVATE(QxtTcpConnectionManager);
 }
 
-QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate() : QTcpServer(0) {
+QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate() : QTcpServer(0)
+{
     QObject::connect(&mapper, SIGNAL(mapped(QObject*)), this, SLOT(socketDisconnected(QObject*)));
 }
 
-void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor) {
+void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor)
+{
     QIODevice* device = qxt_p().incomingConnection(socketDescriptor);
-    if(device) {
+    if (device)
+    {
         qxt_p().addConnection(device, (quint64)static_cast<QObject*>(device));
         mapper.setMapping(device, device);
         QObject::connect(device, SIGNAL(destroyed()), &mapper, SLOT(map()));
         QTcpSocket* sock = qobject_cast<QTcpSocket*>(device);
-        if(sock) {
+        if (sock)
+        {
             QObject::connect(sock, SIGNAL(error(QAbstractSocket::SocketError)), &mapper, SLOT(map()));
             QObject::connect(sock, SIGNAL(disconnected()), &mapper, SLOT(map()));
         }
@@ -75,7 +80,7 @@ void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor) {
 /**
  * Listens on the specified interface on the specified port for connections.
  * If \a address is QHostAddress::Any, listens on all interfaces.
- * 
+ *
  * Returns true on success; otherwise returns false.
  */
 bool QxtTcpConnectionManager::listen(QHostAddress iface, int port)
@@ -99,7 +104,8 @@ void QxtTcpConnectionManager::stopListening()
 /**
  * \reimp
  */
-bool QxtTcpConnectionManager::isAcceptingConnections() const {
+bool QxtTcpConnectionManager::isAcceptingConnections() const
+{
     return qxt_d().isListening();
 }
 
@@ -111,7 +117,8 @@ bool QxtTcpConnectionManager::isAcceptingConnections() const {
  * The default implementation returns a new QTcpSocket with the specified descriptor.
  * Subclasses may return QTcpSocket subclasses, such as QSslSocket.
  */
-QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor) {
+QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor)
+{
     QTcpSocket* device = new QTcpSocket(this);
     device->setSocketDescriptor(socketDescriptor);
     return device;
@@ -120,11 +127,13 @@ QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor) {
 /**
  * \reimp
  */
-void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 clientID) {
+void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 clientID)
+{
     Q_UNUSED(clientID);
-    if(device) {
+    if (device)
+    {
         QAbstractSocket* sock = qobject_cast<QAbstractSocket*>(device);
-        if(sock) sock->disconnectFromHost();
+        if (sock) sock->disconnectFromHost();
         device->close();
         delete device;
     }
@@ -135,7 +144,8 @@ void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 client
  *
  * \sa QTcpServer::setProxy
  */
-void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy) {
+void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy)
+{
     qxt_d().setProxy(proxy);
 }
 
@@ -144,10 +154,12 @@ void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy) {
  *
  * \sa QTcpServer::proxy
  */
-QNetworkProxy QxtTcpConnectionManager::proxy() const {
+QNetworkProxy QxtTcpConnectionManager::proxy() const
+{
     return qxt_d().proxy();
 }
 
-void QxtTcpConnectionManagerPrivate::socketDisconnected(QObject* client) {
+void QxtTcpConnectionManagerPrivate::socketDisconnected(QObject* client)
+{
     qxt_p().disconnect((quint64)(client));
 }

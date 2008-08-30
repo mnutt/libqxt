@@ -39,11 +39,11 @@ public:
         Md5,
         Md4
     };
-    QxtHash (Algorithm);
-    QxtHash (Algorithm, const QByteArray & );
+    QxtHash(Algorithm);
+    QxtHash(Algorithm, const QByteArray &);
 
-    void append ( const QByteArray & );
-    void operator+= ( const QByteArray &);
+    void append(const QByteArray &);
+    void operator+= (const QByteArray &);
 
     void reset();
 

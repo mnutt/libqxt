@@ -60,9 +60,9 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
         QStyleOption branchOption;
         branchOption.initFrom(view);
         if (branchOption.direction == Qt::LeftToRight)
-            branchOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
+            branchOption.rect = QRect(r.left() + i / 2, r.top() + (r.height() - i) / 2, i, i);
         else
-            branchOption.rect = QRect(r.right() - i/2 - i, r.top() + (r.height() - i)/2, i, i);
+            branchOption.rect = QRect(r.right() - i / 2 - i, r.top() + (r.height() - i) / 2, i, i);
         branchOption.palette = option.palette;
         branchOption.state = QStyle::State_Children;
         if (view->isExpanded(index))
@@ -71,7 +71,7 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
     }
 
     // draw the text
-    QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - ((5*i)/2), r.height());
+    QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
 #if QT_VERSION < 0x040200
     QString text = QItemDelegate::elidedText(option.fontMetrics, textrect.width(), elide, index.data().toString());
 #else // QT_VERSION >= 0x040200
@@ -111,7 +111,7 @@ void QxtItemDelegatePrivate::paintMenu(QPainter* painter, const QStyleOptionView
             arrow = QStyle::PE_IndicatorArrowDown;
         static const int i = 9;
         const QRect& r = option.rect;
-        menuOption.rect = QRect(r.left() + i/2, r.top() + (r.height() - i)/2, i, i);
+        menuOption.rect = QRect(r.left() + i / 2, r.top() + (r.height() - i) / 2, i, i);
         view->style()->drawPrimitive(arrow, &menuOption, painter, view);
     }
 }
@@ -241,7 +241,7 @@ void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
     \note Progress bar is rendered for indices providing valid
     numerical data for \b ProgressRole.
 
-	\note \b \%1 is replaced by the progress percent.
+ \note \b \%1 is replaced by the progress percent.
 
     \sa progressTextVisible, Role
  */

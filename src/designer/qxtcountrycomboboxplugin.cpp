@@ -26,7 +26,7 @@
 #include <QtPlugin>
 
 QxtCountryComboBoxPlugin::QxtCountryComboBoxPlugin(QObject* parent)
-: QObject(parent), QxtDesignerPlugin("QxtCountryComboBox")
+        : QObject(parent), QxtDesignerPlugin("QxtCountryComboBox")
 {}
 
 QWidget* QxtCountryComboBoxPlugin::createWidget(QWidget* parent)

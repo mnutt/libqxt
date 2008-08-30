@@ -51,7 +51,8 @@ headers (by implementing writeHeaders(QIODevice*, const QHttpResponseHeader&)).
 #include <QByteArray>
 
 #ifndef QXT_DOXYGEN_RUN
-class QxtAbstractHttpConnectorPrivate : public QxtPrivate<QxtAbstractHttpConnector> {
+class QxtAbstractHttpConnectorPrivate : public QxtPrivate<QxtAbstractHttpConnector>
+{
 public:
     QxtHttpSessionManager* manager;
     QReadWriteLock bufferLock, requestLock;
@@ -59,22 +60,27 @@ public:
     QHash<quint32, QIODevice*> requests;    // requestID->connection
     quint32 nextRequestID;
 
-    inline quint32 getNextRequestID(QIODevice* connection) {
+    inline quint32 getNextRequestID(QIODevice* connection)
+    {
         QWriteLocker locker(&requestLock);
-        do {
+        do
+        {
             nextRequestID++;
-            if(nextRequestID == 0xFFFFFFFF) nextRequestID=1;
-        } while(requests.contains(nextRequestID));  // yeah, right
+            if (nextRequestID == 0xFFFFFFFF) nextRequestID = 1;
+        }
+        while (requests.contains(nextRequestID)); // yeah, right
         requests[nextRequestID] = connection;
         return nextRequestID;
     }
 
-    inline void doneWithRequest(quint32 requestID) {
+    inline void doneWithRequest(quint32 requestID)
+    {
         QWriteLocker locker(&requestLock);
         requests.remove(requestID);
     }
 
-    inline QIODevice* getRequestConnection(quint32 requestID) {
+    inline QIODevice* getRequestConnection(quint32 requestID)
+    {
         QReadLocker locker(&requestLock);
         return requests[requestID];
     }
@@ -86,7 +92,8 @@ public:
  *
  * Note that this is an abstract class and cannot be instantiated directly.
  */
-QxtAbstractHttpConnector::QxtAbstractHttpConnector(QObject* parent) : QObject(parent) {
+QxtAbstractHttpConnector::QxtAbstractHttpConnector(QObject* parent) : QObject(parent)
+{
     QXT_INIT_PRIVATE(QxtAbstractHttpConnector);
     qxt_d().nextRequestID = 0;
 }
@@ -94,7 +101,8 @@ QxtAbstractHttpConnector::QxtAbstractHttpConnector(QObject* parent) : QObject(pa
 /**
  * \priv
  */
-void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager) {
+void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager)
+{
     qxt_d().manager = manager;
 }
 
@@ -103,7 +111,8 @@ void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager)
  *
  * \sa QxtHttpSessionManager::setConnector
  */
-QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const {
+QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const
+{
     return qxt_d().manager;
 }
 
@@ -113,7 +122,8 @@ QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const {
  *
  * The request ID is generated internally and used by the session manager.
  */
-QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID) {
+QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID)
+{
     return qxt_d().getRequestConnection(requestID);
 }
 
@@ -123,7 +133,8 @@ QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID) {
  * This function should be invoked by a subclass to attach incoming connections
  * to the session manager.
  */
-void QxtAbstractHttpConnector::addConnection(QIODevice* device) {
+void QxtAbstractHttpConnector::addConnection(QIODevice* device)
+{
     QWriteLocker locker(&qxt_d().bufferLock);
     qxt_d().buffers[device] = QByteArray();
     QObject::connect(device, SIGNAL(readyRead()), this, SLOT(incomingData()));
@@ -135,23 +146,28 @@ void QxtAbstractHttpConnector::addConnection(QIODevice* device) {
 /**
  * \priv
  */
-void QxtAbstractHttpConnector::incomingData(QIODevice* device) {
-    if(!device) {
+void QxtAbstractHttpConnector::incomingData(QIODevice* device)
+{
+    if (!device)
+    {
         device = qobject_cast<QIODevice*>(sender());
-        if(!device) return;
+        if (!device) return;
     }
     QReadLocker locker(&qxt_d().bufferLock);
     QByteArray& buffer = qxt_d().buffers[device];
     buffer.append(device->readAll());
-    if(!canParseRequest(buffer)) return;
+    if (!canParseRequest(buffer)) return;
     QHttpRequestHeader header = parseRequest(buffer);
     QxtWebContent* content = 0;
     QByteArray start;
-    if(header.contentLength() > 0) {
+    if (header.contentLength() > 0)
+    {
         start = buffer.left(header.value("content-length").toInt());
         buffer = buffer.mid(header.value("content-length").toInt());
         content = new QxtWebContent(header.contentLength(), start, device);
-    } else if(header.hasKey("connection") && header.value("connection").toLower() == "close") {
+    }
+    else if (header.hasKey("connection") && header.value("connection").toLower() == "close")
+    {
         start = buffer;
         buffer.clear();
         content = new QxtWebContent(header.contentLength(), start, device);
@@ -163,9 +179,10 @@ void QxtAbstractHttpConnector::incomingData(QIODevice* device) {
 /**
  * \priv
  */
-void QxtAbstractHttpConnector::disconnected() {
+void QxtAbstractHttpConnector::disconnected()
+{
     QIODevice* device = qobject_cast<QIODevice*>(sender());
-    if(!device) return;
+    if (!device) return;
     QWriteLocker locker(&qxt_d().bufferLock);
     qxt_d().buffers.remove(device);
     sessionManager()->disconnected(device);
