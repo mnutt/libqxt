@@ -47,3 +47,10 @@ defineReplace(qxtLibraryTarget) {
 
 TARGET           = $$qxtLibraryTarget($$CLEAN_TARGET)
 
+astyle.params += --pad=oper
+astyle.params += --unpad=paren
+astyle.params += --convert-tabs
+astyle.params += --brackets=break
+astyle.params += --indent-namespaces
+astyle.commands = astyle $$astyle.params $$HEADERS $$SOURCES
+QMAKE_EXTRA_TARGETS += astyle
