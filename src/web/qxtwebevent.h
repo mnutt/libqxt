@@ -25,6 +25,7 @@
 #ifndef QXTWEBEVENT_H
 #define QXTWEBEVENT_H
 
+#include <qxtglobal.h>
 #include <QString>
 #include <QByteArray>
 #include <QStringList>

@@ -46,6 +46,9 @@ public:
     int timeout() const;
     void setTimeout(int time);
 
+    bool timeoutOverride() const;
+    void setTimeoutOverride(bool enable);
+
     virtual void pageRequestedEvent(QxtWebRequestEvent* event);
 
 private:

@@ -42,20 +42,37 @@ TODO: implement timeout
 #include <QProcess>
 #include <QtDebug>
 
-QxtCgiRequestInfo::QxtCgiRequestInfo() : sessionID(0), requestID(0), eventSent(false) {}
-QxtCgiRequestInfo::QxtCgiRequestInfo(QxtWebRequestEvent* req) : sessionID(req->sessionID), requestID(req->requestID), eventSent(false) {}
+QxtCgiRequestInfo::QxtCgiRequestInfo() : sessionID(0), requestID(0), eventSent(false), terminateSent(false) {}
+QxtCgiRequestInfo::QxtCgiRequestInfo(QxtWebRequestEvent* req) : sessionID(req->sessionID), requestID(req->requestID), eventSent(false), terminateSent(false) {}
 
+/**
+ * Constructs a QxtWebCgiService object with the specified session manager and parent.
+ * This service will invoke the specified binary to handle incoming requests.
+ *
+ * Often, the session manager will also be the parent, but this is not a requirement.
+ */
 QxtWebCgiService::QxtWebCgiService(const QString& binary, QxtAbstractWebSessionManager* manager, QObject* parent) : QxtAbstractWebService(manager, parent)
 {
     QXT_INIT_PRIVATE(QxtWebCgiService);
     qxt_d().binary = binary;
+    QObject::connect(&qxt_d().timeoutMapper, SIGNAL(mapped(QObject*)), &qxt_d(), SLOT(terminateProcess(QObject*)));
 }
 
+/**
+ * Returns the path to the CGI script that will be executed to handle requests.
+ *
+ * \sa setBinary
+ */
 QString QxtWebCgiService::binary() const
 {
     return qxt_d().binary;
 }
 
+/**
+ * Sets the path to the CGI script that will be executed to handle requests.
+ *
+ * \sa binary
+ */
 void QxtWebCgiService::setBinary(const QString& bin)
 {
     if (!QFile::exists(bin) || !(QFile::permissions(bin) & (QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther)))
@@ -65,14 +82,76 @@ void QxtWebCgiService::setBinary(const QString& bin)
     qxt_d().binary = bin;
 }
 
+/**
+ * Returns the maximum time a CGI script may execute, in milliseconds.
+ *
+ * The default value is 0, which indicates that CGI scripts will not be terminated
+ * due to long running times.
+ *
+ * \sa setTimeout
+ */
 int QxtWebCgiService::timeout() const
 {
     return qxt_d().timeout;
 }
 
+/**
+ * Sets the maximum time a CGI script may execute, in milliseconds.
+ *
+ * The timer is started when the script is launched. After the timeout elapses once,
+ * the script will be asked to stop, as QProcess::terminate(). (That is, the script
+ * will receive WM_CLOSE on Windows or SIGTERM on UNIX.) If the process has still
+ * failed to terminate after another timeout, it will be forcibly terminated, as
+ * QProcess::kill(). (That is, the script will receive TerminateProcess on Windows
+ * or SIGKILL on UNIX.)
+ *
+ * Set the timeout to 0 to disable this behavior; scripts will not be terminated
+ * due to excessive run time. This is the default behavior.
+ *
+ * CAUTION: Keep in mind that the timeout applies to the real running time of the
+ * script, not processor time used. A script that initiates a lengthy download 
+ * may be interrupted while transferring data to the web browser. To avoid this
+ * behavior, see the \a timeoutOverride property to allow the script to request
+ * an extended timeout, or use a different QxtAbstractWebService object for
+ * serving streaming content or large files.
+ *
+ *
+ * \sa timeout
+ * \sa timeoutOverride
+ * \sa setTimeoutOverride
+ * \sa QProcess::terminate
+ * \sa QProcess::kill
+ */
 void QxtWebCgiService::setTimeout(int time)
 {
     qxt_d().timeout = time;
+}
+
+/**
+ * Returns whether or not to allow scripts to override the timeout.
+ *
+ * \sa setTimeoutOverride
+ * \sa setTimeout
+ */
+bool QxtWebCgiService::timeoutOverride() const
+{
+    return qxt_d().timeoutOverride;
+}
+
+/**
+ * Sets whether or not to allow scripts to override the timeout.
+ *
+ * As an extension to the CGI/1.1 gateway specification, a CGI script may
+ * output a "X-QxtWeb-Timeout" header to change the termination timeout
+ * on a per-script basis. Only enable this option if you trust the scripts
+ * being executed.
+ *
+ * \sa timeoutOverride
+ * \sa setTimeout
+ */
+void QxtWebCgiService::setTimeoutOverride(bool enable)
+{
+    qxt_d().timeoutOverride = enable;
 }
 
 /**
@@ -80,12 +159,16 @@ void QxtWebCgiService::setTimeout(int time)
  */
 void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
 {
-    // Create the process object
+    // Create the process object and initialize connections
     QProcess* process = new QProcess(this);
     qxt_d().requests[process] = QxtCgiRequestInfo(event);
     qxt_d().processes[event->content] = process;
+    QxtCgiRequestInfo& requestInfo = qxt_d().requests[process];
     QObject::connect(process, SIGNAL(readyRead()), &qxt_d(), SLOT(processReadyRead()));
     QObject::connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), &qxt_d(), SLOT(processFinished()));
+    requestInfo.timeout = new QTimer(process);
+    qxt_d().timeoutMapper.setMapping(requestInfo.timeout, process);
+    QObject::connect(requestInfo.timeout, SIGNAL(timeout()), &qxt_d().timeoutMapper, SLOT(map()));
 
     // Initialize the system environment
     QStringList s_env = process->systemEnvironment();
@@ -175,6 +258,12 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
         process->start(qxt_d().binary, QIODevice::ReadWrite);
     }
 
+    // Start the timeout
+    if(qxt_d().timeout > 0)
+    {
+        requestInfo.timeout->start(qxt_d().timeout);
+    }
+
     // Transmit POST data
     if (event->content)
     {
@@ -241,6 +330,10 @@ void QxtWebCgiServicePrivate::processReadyRead()
             // Add other response headers passed from CGI (currently only Content-Type is supported)
             if (request.headers.contains("content-type"))
                 event->contentType = request.headers["content-type"].toUtf8();
+            // TODO: QxtWeb doesn't support transmitting arbitrary HTTP headers right now, but it may be desirable
+            // for applications that know what kind of server frontend they're using to allow scripts to send
+            // protocol-specific headers.
+            
             // Post the event
             qxt_p().postEvent(event);
             request.eventSent = true;
@@ -279,6 +372,11 @@ void QxtWebCgiServicePrivate::processReadyRead()
                     }
                 }
             }
+            else if(hdrName == "x-qxtweb-timeout")
+            {
+                if(timeoutOverride)
+                    request.timeout->setInterval(hdrValue.toInt());
+            }
             else
             {
                 // Store other headers for later inspection
@@ -288,6 +386,9 @@ void QxtWebCgiServicePrivate::processReadyRead()
     }
 }
 
+/**
+ * \priv
+ */
 void QxtWebCgiServicePrivate::processFinished()
 {
     QProcess* process = static_cast<QProcess*>(sender());
@@ -303,5 +404,27 @@ void QxtWebCgiServicePrivate::processFinished()
     process->close();
     QxtWebContent* key = processes.key(process);
     if (key) processes.remove(key);
+    timeoutMapper.removeMappings(request.timeout);
     requests.remove(process);
+}
+
+/**
+ * \priv
+ */
+void QxtWebCgiServicePrivate::terminateProcess(QObject* o_process)
+{
+    QProcess* process = static_cast<QProcess*>(o_process);
+    QxtCgiRequestInfo& request = requests[process];
+
+    if(request.terminateSent)
+    {
+        // kill with fire
+        process->kill();
+    }
+    else
+    {
+        // kill nicely
+        process->terminate();
+        request.terminateSent = true;
+    }
 }
