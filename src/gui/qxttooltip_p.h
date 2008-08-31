@@ -27,6 +27,7 @@
 #include <QPointer>
 #include <QWidget>
 #include <QHash>
+#include "qxttooltip.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
