@@ -29,6 +29,8 @@
 #include <QString>
 #include <QHash>
 #include <QPair>
+#include <QTimer>
+#include <QSignalMapper>
 
 #ifndef QXT_DOXYGEN_RUN
 class QProcess;
@@ -38,10 +40,10 @@ struct QxtCgiRequestInfo
 {
     QxtCgiRequestInfo();
     QxtCgiRequestInfo(QxtWebRequestEvent* req);
-    int sessionID;
-    int requestID;
+    int sessionID, requestID;
     QHash<QString, QString> headers;
-    bool eventSent;
+    bool eventSent, terminateSent;
+    QTimer* timeout;
 };
 
 class QxtWebCgiServicePrivate : public QObject, public QxtPrivate<QxtWebCgiService>
@@ -54,11 +56,14 @@ public:
     QHash<QxtWebContent*, QProcess*> processes;
     QString binary;
     int timeout;
+    bool timeoutOverride;
+    QSignalMapper timeoutMapper;
 
 public Q_SLOTS:
     void browserReadyRead(QObject* o_content = 0);
     void processReadyRead();
     void processFinished();
+    void terminateProcess(QObject* o_process);
 };
 #endif // QXT_DOXYGEN_RUN
 
