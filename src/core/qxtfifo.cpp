@@ -69,7 +69,7 @@ constructs a new QxtFifo
 #include <QDebug>
 #include <QQueue>
 #include <qatomic.h>
-#include <qbasicatomic.h>
+//#include <qbasicatomic.h>
 
 struct QxtFifoNode
 {
@@ -93,7 +93,7 @@ public:
     }
 
     QBasicAtomicPointer<QxtFifoNode> head, tail;
-    QBasicAtomicInt available;
+    QBasicAtomic available;
 };
 
 QxtFifo::QxtFifo(QObject *parent) : QIODevice(parent)
@@ -124,14 +124,14 @@ qint64 QxtFifo::readData(char * data, qint64 maxSize)
         else
         {
             memcpy(writePos, node->content.constData(), step);
-            qxt_d().head.fetchAndStoreOrdered(node->next);
+            qxt_d().head.exchange(node->next);
             delete node;
             node = qxt_d().head;
         }
         writePos += step;
         bytes -= step;
     }
-    qxt_d().available.fetchAndAddOrdered(-written);
+    qxt_d().available.exchange(-written);
     return written;
 }
 
@@ -141,9 +141,9 @@ qint64 QxtFifo::writeData(const char * data, qint64 maxSize)
     {
         if (maxSize > INT_MAX) maxSize = INT_MAX; // qint64 could easily exceed QAtomicInt, so let's play it safe
         QxtFifoNode* newData = new QxtFifoNode(data, maxSize);
-        qxt_d().tail->next.fetchAndStoreOrdered(newData);
-        qxt_d().tail.fetchAndStoreOrdered(newData);
-        qxt_d().available.fetchAndAddOrdered(maxSize);
+        qxt_d().tail->next.exchange(newData);
+        qxt_d().tail.exchange(newData);
+        qxt_d().available.exchange(maxSize);
         QMetaObject::invokeMethod(this, "bytesWritten", Qt::QueuedConnection, Q_ARG(qint64, maxSize));
         QMetaObject::invokeMethod(this, "readyRead", Qt::QueuedConnection);
     }
@@ -162,12 +162,12 @@ qint64 QxtFifo::bytesAvailable() const
 
 void QxtFifo::clear()
 {
-    qxt_d().available.fetchAndStoreOrdered(0);
-    qxt_d().tail.fetchAndStoreOrdered(qxt_d().head);
-    QxtFifoNode* node = qxt_d().head->next.fetchAndStoreOrdered(NULL);
+    qxt_d().available.exchange(0);
+    qxt_d().tail.exchange(qxt_d().head);
+    QxtFifoNode* node = qxt_d().head->next.exchange(NULL);
     while (node && node->next)
     {
-        QxtFifoNode* next = node->next.fetchAndStoreOrdered(NULL);
+        QxtFifoNode* next = node->next.exchange(NULL);
         delete node;
         node = next;
     }

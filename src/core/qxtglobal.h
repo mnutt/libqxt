@@ -101,4 +101,12 @@
 
 QXT_CORE_EXPORT const char* qxtVersion();
 
+#ifndef QT_BEGIN_NAMESPACE
+#define QT_BEGIN_NAMESPACE
+#endif
+
+#ifndef QT_END_NAMESPACE
+#define QT_END_NAMESPACE
+#endif
+
 #endif // QXT_GLOBAL

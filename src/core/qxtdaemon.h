@@ -25,6 +25,7 @@
 #ifndef QXTDAEMON_H
 #define QXTDAEMON_H
 
+#include "qxtglobal.h"
 #include <QObject>
 #include <QString>
 #include <QCoreApplication>
@@ -33,7 +34,7 @@ QT_BEGIN_NAMESPACE
 class QFile;
 QT_END_NAMESPACE
 
-class QxtDaemon : public QObject
+class QXT_CORE_EXPORT QxtDaemon : public QObject
 {
     Q_OBJECT
 public:
