@@ -1,7 +1,5 @@
 TEMPLATE = app
-TARGET = 
-DEPENDPATH += .
-INCLUDEPATH += .
-CONFIG+=QXT qtestlib
-QXT+=network 
+CONFIG  += qxt qtestlib
+QT       = core
+QXT      = core 
 SOURCES += main.cpp
