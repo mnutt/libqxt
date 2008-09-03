@@ -166,6 +166,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     QxtCgiRequestInfo& requestInfo = qxt_d().requests[process];
     QObject::connect(process, SIGNAL(readyRead()), &qxt_d(), SLOT(processReadyRead()));
     QObject::connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), &qxt_d(), SLOT(processFinished()));
+    QObject::connect(process, SIGNAL(error(QProcess::ProcessError)), &qxt_d(), SLOT(processFinished()));
     requestInfo.timeout = new QTimer(process);
     qxt_d().timeoutMapper.setMapping(requestInfo.timeout, process);
     QObject::connect(requestInfo.timeout, SIGNAL(timeout()), &qxt_d().timeoutMapper, SLOT(map()));
