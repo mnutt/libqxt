@@ -72,11 +72,13 @@ while (( $# > 0 )); do
         NO_XSS=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
+    elif [ $1 == "-qws" ]; then
+        echo "CONFIG += qws" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
         echo "       [-static] [-debug] [-release] [-no-openssl] [-no-db] [-no-xss]"
-        echo "       [-nomake <module>]"
+        echo "       [-nomake <module>] [-verbose] [-qws]"
         echo
         echo "Installation options:"
         echo
@@ -101,6 +103,7 @@ while (( $# > 0 )); do
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: berkeley crypto designer gui network sql web"
         echo "-verbose ............ shows compiler output"
+        echo "-qws ................ Build for Qt/Embedded"
 
         rm config.in
         exit

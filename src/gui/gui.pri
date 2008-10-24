@@ -1,5 +1,3 @@
-HEADERS  += qxtapplication.h
-HEADERS  += qxtapplication_p.h
 HEADERS  += qxtbasespinbox.h
 HEADERS  += qxtcheckcombobox.h
 HEADERS  += qxtcheckcombobox_p.h
@@ -10,12 +8,12 @@ HEADERS  += qxtcountrycombobox.h
 HEADERS  += qxtcountrycombobox_p.h
 HEADERS  += qxtcountrymodel.h
 HEADERS  += qxtcountrymodel_p.h
+HEADERS  += qxtcrumbview.h
+HEADERS  += qxtcrumbview_p.h
 HEADERS  += qxtdockwidget.h
 HEADERS  += qxtflowview.h
 HEADERS  += qxtflowview_p.h
 HEADERS  += qxtgui.h
-HEADERS  += qxtglobalshortcut.h
-HEADERS  += qxtglobalshortcut_p.h
 HEADERS  += qxtgroupbox.h
 HEADERS  += qxtheaderview.h
 HEADERS  += qxtitemdelegate.h
@@ -52,7 +50,6 @@ HEADERS  += qxttooltip_p.h
 HEADERS  += qxttreewidget.h
 HEADERS  += qxttreewidget_p.h
 HEADERS  += qxttreewidgetitem.h
-HEADERS  += qxtwindowsystem.h
 
 HEADERS  += qxtscheduleheaderwidget.h
 HEADERS  += qxtscheduleitemdelegate.h
@@ -68,6 +65,7 @@ SOURCES  += qxtconfigdialog.cpp
 SOURCES  += qxtconfirmationmessage.cpp
 SOURCES  += qxtcountrymodel.cpp
 SOURCES  += qxtcountrycombobox.cpp
+SOURCES  += qxtcrumbview.cpp
 SOURCES  += qxtdockwidget.cpp
 SOURCES  += qxtflowview.cpp
 SOURCES  += qxtflowview_p.cpp
@@ -103,14 +101,21 @@ SOURCES  += qxtscheduleviewheadermodel_p.cpp
 SOURCES  += qxtstyleoptionscheduleviewitem.cpp
 SOURCES  += qxtscheduleheaderwidget.cpp
 
-unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
-macx {
-       SOURCES += qxtapplication_mac.cpp
-       SOURCES += qxtglobalshortcut_mac.cpp
-       SOURCES -= qxtwindowsystem.cpp
-       HEADERS -= qxtwindowsystem.h
+!qws {
+    HEADERS  += qxtapplication.h
+    HEADERS  += qxtapplication_p.h
+    HEADERS  += qxtglobalshortcut.h
+    HEADERS  += qxtglobalshortcut_p.h
+    HEADERS  += qxtwindowsystem.h
+    unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
+    macx {
+           SOURCES += qxtapplication_mac.cpp
+           SOURCES += qxtglobalshortcut_mac.cpp
+           SOURCES -= qxtwindowsystem.cpp
+           HEADERS -= qxtwindowsystem.h
+    }
+    win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp qxtglobalshortcut_win.cpp
 }
-win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp qxtglobalshortcut_win.cpp
 
 RESOURCES += resources.qrc
 
