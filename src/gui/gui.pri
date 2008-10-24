@@ -58,7 +58,6 @@ HEADERS  += qxtscheduleviewheadermodel_p.h
 HEADERS  += qxtscheduleview_p.h
 HEADERS  += qxtstyleoptionscheduleviewitem.h
 
-SOURCES  += qxtapplication.cpp
 SOURCES  += qxtbasespinbox.cpp
 SOURCES  += qxtcheckcombobox.cpp
 SOURCES  += qxtconfigdialog.cpp
@@ -91,7 +90,6 @@ SOURCES  += qxttabwidget.cpp
 SOURCES  += qxttooltip.cpp
 SOURCES  += qxttreewidget.cpp
 SOURCES  += qxttreewidgetitem.cpp
-SOURCES  += qxtwindowsystem.cpp
 
 SOURCES  += qxtscheduleitemdelegate.cpp
 SOURCES  += qxtscheduleview.cpp
@@ -101,12 +99,17 @@ SOURCES  += qxtstyleoptionscheduleviewitem.cpp
 SOURCES  += qxtscheduleheaderwidget.cpp
 
 !qws {
+    # QxtApplication, QxtGlobalShortcut, and QxtWindowSystem are disabled for QWS pending implementation
     HEADERS  += qxtapplication.h
     HEADERS  += qxtapplication_p.h
     HEADERS  += qxtglobalshortcut.h
     HEADERS  += qxtglobalshortcut_p.h
     HEADERS  += qxtwindowsystem.h
+
+    SOURCES  += qxtapplication.cpp
     SOURCES  += qxtglobalshortcut.cpp
+    SOURCES  += qxtwindowsystem.cpp
+
     unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
     macx {
            SOURCES += qxtapplication_mac.cpp
