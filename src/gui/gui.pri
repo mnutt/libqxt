@@ -69,7 +69,6 @@ SOURCES  += qxtcrumbview.cpp
 SOURCES  += qxtdockwidget.cpp
 SOURCES  += qxtflowview.cpp
 SOURCES  += qxtflowview_p.cpp
-SOURCES  += qxtglobalshortcut.cpp
 SOURCES  += qxtgroupbox.cpp
 SOURCES  += qxtheaderview.cpp
 SOURCES  += qxtitemdelegate.cpp
@@ -107,6 +106,7 @@ SOURCES  += qxtscheduleheaderwidget.cpp
     HEADERS  += qxtglobalshortcut.h
     HEADERS  += qxtglobalshortcut_p.h
     HEADERS  += qxtwindowsystem.h
+    SOURCES  += qxtglobalshortcut.cpp
     unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
     macx {
            SOURCES += qxtapplication_mac.cpp
