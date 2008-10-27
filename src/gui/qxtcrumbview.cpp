@@ -161,8 +161,10 @@ void QxtCrumbViewPrivate::buttonPressed() {
 
 QxtCrumbView::QxtCrumbView(QWidget* parent) : QAbstractItemView(parent) {
     QXT_INIT_PRIVATE(QxtCrumbView);
-    setAutoFillBackground(true);
-    setBackgroundRole(QPalette::Base);
+    setAutoFillBackground(false);
+    setBackgroundRole(QPalette::Window);
+    viewport()->setAutoFillBackground(false);
+    viewport()->setBackgroundRole(QPalette::Window);
     setFrameStyle(QFrame::NoFrame);
     QVBoxLayout* layout = new QVBoxLayout(this);
     qxt_d().buttonLayout = new QHBoxLayout;
