@@ -115,14 +115,17 @@ public:
 
 protected:
     void enterEvent(QEvent* event) {
+        Q_UNUSED(event);
         update();
     }
 
     void leaveEvent(QEvent* event) {
+        Q_UNUSED(event);
         update();
     }
 
     void paintEvent(QPaintEvent* event) {
+        Q_UNUSED(event);
         QStylePainter painter(this);
         QStyleOptionButton option;
         option.initFrom(this);
@@ -216,12 +219,7 @@ bool QxtCrumbView::isIndexHidden(const QModelIndex& index) const {
 }
 
 QModelIndex QxtCrumbView::moveCursor(CursorAction action, Qt::KeyboardModifiers mods) {
-    if(action == MoveLeft) {
-        return qxt_d().view->rootIndex();
-    } else if(action == MoveRight) {
-    } else {
-        return qxt_d().view->moveCursor(action, mods);
-    }
+    return qxt_d().view->moveCursor(action, mods);
 }
 
 void QxtCrumbView::scrollTo(const QModelIndex& index, ScrollHint hint) {
@@ -248,7 +246,9 @@ QRegion QxtCrumbView::visualRegionForSelection(const QItemSelection& selection) 
 
 void QxtCrumbView::enterTree(const QModelIndex& index) {
     if(!model()->hasChildren(index)) return;
-    if(index.parent() != qxt_d().view->rootIndex()) {
+    if(index == qxt_d().view->rootIndex()) {
+        // do nothing but reload the view
+    } else if(index.parent() != qxt_d().view->rootIndex()) {
         foreach(QxtCrumbViewButton* b, qxt_d().buttons) b->deleteLater();
         qxt_d().crumbs.clear();
         qxt_d().buttons.clear();
@@ -278,6 +278,7 @@ void QxtCrumbView::back() {
 }
 
 void QxtCrumbView::setItemDelegate(QAbstractItemDelegate* delegate) {
+    QAbstractItemView::setItemDelegate(delegate);
     delete qxt_d().view->itemDelegate();
     qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
 }
