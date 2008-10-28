@@ -1,3 +1,4 @@
+HEADERS += qxtberkeley.h
 HEADERS += qxtbdb.h
 HEADERS += qxtbdbhash.h
 HEADERS += qxtbdbtree.h
