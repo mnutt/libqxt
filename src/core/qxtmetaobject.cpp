@@ -193,7 +193,7 @@ namespace QxtMetaObject
     QByteArray methodSignature(const char* method)
     {
         QByteArray name = QMetaObject::normalizedSignature(method);
-        if (name.startsWith("1") || name.startsWith("2"))
+        if(name[0] >= '0' && name[0] <= '9')
             return name.mid(1);
         return name;
     }
@@ -203,11 +203,11 @@ namespace QxtMetaObject
 
     \fn bool isSignalOrSlot(const char* method)
 
-    checks if \p method contains parantesis and begins with 1 or 2 */
+    checks if \p method contains parentheses and begins with 1 or 2 */
     bool isSignalOrSlot(const char* method)
     {
         QByteArray m(method);
-        return (m.count() && (m[0] == '1' || m[0] == '2') && m.contains('(') && m.contains(')'));
+        return (m.count() && (m[0] >= '0' && m[0] <= '9') && m.contains('(') && m.contains(')'));
     }
 
     /**
