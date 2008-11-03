@@ -58,7 +58,7 @@ bool QxtSerialDevice::open(OpenMode mode) {
         QObject::connect(qxt_d().notifier, SIGNAL(activated(int)), &qxt_d(), SLOT(fillBuffer()));
     }
     setOpenMode(mode);
-    return updateSettings();
+    return qxt_d().updateSettings();
 }
 
 int QxtSerialDevicePrivate::constFillBuffer() const {
@@ -197,10 +197,10 @@ bool QxtSerialDevicePrivate::setPortSettings(QxtSerialDevice::PortSettings setup
 
 bool QxtSerialDevicePrivate::updateSettings() {
     if(qxt_p().isOpen()) {
-        qxt_d().settings.c_cflag = qxt_d().baud | qxt_d().flow | qxt_d().format | CLOCAL | CREAD;
-        tcflush(qxt_d().fd, TCIFLUSH);
-        if(tcsetattr(qxt_d().fd, TCSANOW, &qxt_d().settings)) {
-            setErrorString(strerror(errno));
+        settings.c_cflag = baud | flow | format | CLOCAL | CREAD;
+        tcflush(fd, TCIFLUSH);
+        if(tcsetattr(fd, TCSANOW, &settings)) {
+            qxt_p().setErrorString(strerror(errno));
             return false;
         }
     }
