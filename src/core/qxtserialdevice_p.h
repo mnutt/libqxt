@@ -28,6 +28,7 @@ public:
 
     qint64 deviceBuffer() const;
     bool setPortSettings(QxtSerialDevice::PortSettings settings);
+    bool updateSettings();
     
 public slots:
     int fillBuffer();
