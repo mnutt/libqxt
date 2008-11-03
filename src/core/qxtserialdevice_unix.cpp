@@ -6,45 +6,11 @@
 #include <sys/ioctl.h>
 #include <errno.h>
 #include <unistd.h>
+#include <termios.h>
 #if defined(Q_OS_BSD4) || defined(Q_OS_DARWIN) || defined(Q_OS_BSDI) || defined(Q_OS_NETBSD) || defined(Q_OS_FREEBSD) || defined(Q_OS_OPENBSD)
 // definition of FIONREAD
 #include <sys/filio.h>
 #endif
-
-/*class QxtSerialDevicePrivate;
-class QXT_CORE_EXPORT QxtSerialDevice : public QIODevice {
-Q_OBJECT
-public:
-    enum BaudRate {
-        Baud50, Baud75, Baud110, Baud134, Baud150, Baud200, Baud300, Baud600, Baud1200,
-        Baud2400, Baud4800, Baud9600, Baud19200, Baud38400, Baud57600, Baud115200, Baud230400
-    };
-
-    QxtSerialDevice(const QString& device, QObject* parent = 0);
-    QxtSerialDevice(QObject* parent = 0);
-
-    virtual bool atEnd() const;
-    virtual qint64 bytesAvailable() const;
-    virtual bool canReadLine() const;
-    virtual void close();
-    virtual bool isSequential() const;
-    bool open(const QString& device, OpenMode mode);
-    virtual bool open(OpenMode mode);
-    int handle() const;
-
-    void setDeviceName(const QString& device);
-    QString deviceName() const;
-
-    void setBaud(BaudRate rate);
-    BaudRate baud() const;
-
-protected:
-    virtual qint64 readData(char* data, qint64 maxSize);
-    virtual qint64 writeData(const char* data, qint64 maxSize);
-
-private:
-    QXT_DECLARE_PRIVATE(QxtSerialDevice);
-}; */
 
 qint64 QxtSerialDevicePrivate::deviceBuffer() const {
     int bytes;
@@ -83,9 +49,8 @@ bool QxtSerialDevice::open(OpenMode mode) {
     }
     fcntl(qxt_d().fd, F_SETFL, O_NONBLOCK);
     tcgetattr(qxt_d().fd, &qxt_d().reset);
-    memset(&qxt_d().settings, 0, sizeof(termios)); 
-    qxt_d().settings.c_cflag = qxt_d().baud;
-
+    cfmakeraw(&qxt_d().settings);
+    
     qxt_d().notifier = new QSocketNotifier(qxt_d().fd, QSocketNotifier::Read, this);
     if(mode & QIODevice::Unbuffered) {
         QObject::connect(qxt_d().notifier, SIGNAL(activated(int)), this, SIGNAL(readyRead()));
@@ -93,7 +58,7 @@ bool QxtSerialDevice::open(OpenMode mode) {
         QObject::connect(qxt_d().notifier, SIGNAL(activated(int)), &qxt_d(), SLOT(fillBuffer()));
     }
     setOpenMode(mode);
-    return true;
+    return updateSettings();
 }
 
 int QxtSerialDevicePrivate::constFillBuffer() const {
@@ -135,15 +100,7 @@ bool QxtSerialDevice::setBaud(BaudRate rate) {
     case Baud57600: qxt_d().baud = B57600; break;
     case Baud115200: qxt_d().baud = B115200; break;
     };
-    if(isOpen()) {
-        qxt_d().settings.c_cflag = qxt_d().baud | qxt_d().flow | qxt_d().format | CLOCAL | CREAD; 
-        tcflush(qxt_d().fd, TCIFLUSH);
-        if(tcsetattr(qxt_d().fd, TCSANOW, &qxt_d().settings)) {
-            setErrorString(strerror(errno));
-            return false;
-        }
-    }
-    return true;
+    return qxt_d().updateSettings();
 }
 
 QxtSerialDevice::BaudRate QxtSerialDevice::baud() const {
@@ -234,6 +191,18 @@ bool QxtSerialDevicePrivate::setPortSettings(QxtSerialDevice::PortSettings setup
 #endif
     } else if(flowbits == QxtSerialDevice::FlowXonXoff) {
         flow = IXON | IXOFF;
+    }
+    return updateSettings();
+}
+
+bool QxtSerialDevicePrivate::updateSettings() {
+    if(qxt_p().isOpen()) {
+        qxt_d().settings.c_cflag = qxt_d().baud | qxt_d().flow | qxt_d().format | CLOCAL | CREAD;
+        tcflush(qxt_d().fd, TCIFLUSH);
+        if(tcsetattr(qxt_d().fd, TCSANOW, &qxt_d().settings)) {
+            setErrorString(strerror(errno));
+            return false;
+        }
     }
     return true;
 }
