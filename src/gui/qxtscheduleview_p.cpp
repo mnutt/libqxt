@@ -150,12 +150,14 @@ void QxtScheduleViewPrivate::init()
             m_vHeader = new QxtScheduleHeaderWidget(Qt::Vertical, &qxt_p());
             connect(m_vHeader, SIGNAL(geometriesChanged()), &qxt_p(), SLOT(updateGeometries()));
         }
+        m_vHeader->show();
 
         if (!m_hHeader)
         {
             m_hHeader = new QxtScheduleHeaderWidget(Qt::Horizontal, &qxt_p());
             connect(m_hHeader, SIGNAL(geometriesChanged()), &qxt_p(), SLOT(updateGeometries()));
         }
+        m_hHeader->show();
 
         /*here we also intialize the items*/
         m_vHeader->setDefaultSectionSize(20);
@@ -173,6 +175,10 @@ QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConc
     QList< QLinkedList<QxtScheduleInternalItem *> > allConcurrentItems;
 
     QList<QxtScheduleInternalItem *> allItemsSorted = m_Items;
+    
+    if(m_Items.size() == 0)
+        return allConcurrentItems;
+    
     qSort(allItemsSorted.begin(), allItemsSorted.end(), qxtScheduleItemLessThan);
 
     int startItem = 0;
@@ -266,9 +272,9 @@ QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConc
 }
 
 void QxtScheduleViewPrivate::handleItemConcurrency(const int from, const int to)
-{
+{ 
     /*collect all items that interfere only in that range*/
-    if (from < 0  ||  to < 0)
+    if (from < 0  ||  to < 0 || m_Items.size() == 0)
         return;
 
     qDebug() << "handleItemConcurrency";
