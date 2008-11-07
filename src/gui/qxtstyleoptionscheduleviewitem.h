@@ -48,7 +48,7 @@ public:
     QPoint translate;
     int roundCornersRadius;
     int itemHeaderHeight;
-
+    int maxSubItemHeight;
 
 };
 
