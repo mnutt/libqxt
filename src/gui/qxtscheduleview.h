@@ -100,7 +100,7 @@ public:
 Q_SIGNALS:
     void                        itemMoved(int rows, int cols, QModelIndex index);
     void                        indexSelected(QModelIndex index);
-    void                        indexClicked(QModelIndex index);
+    void                        indexDoubleClicked(QModelIndex index);
     void                        contextMenuRequested(QModelIndex index);
     void                        newZoomDepth(const int newDepthInSeconds);
     void                        viewModeChanged(const int newViewMode);
@@ -115,6 +115,7 @@ protected:
     virtual void                mouseMoveEvent(QMouseEvent  * e);
     virtual void                mousePressEvent(QMouseEvent  * e);
     virtual void                mouseReleaseEvent(QMouseEvent  * e);
+    virtual void                mouseDoubleClickEvent ( QMouseEvent * e );
     virtual void                resizeEvent(QResizeEvent * e);
     virtual void                wheelEvent(QWheelEvent  * e);
 

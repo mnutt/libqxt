@@ -107,14 +107,16 @@ void QxtScheduleItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
             }
 
             //paint subitems if there are any
-            int subItems = index.model()->rowCount(index);
+            int subItems       = index.model()->rowCount(index);
+            int subItemsHeight = 0;
             for (int items = paintedSubItems; items < subItems; items++)
             {
                 QModelIndex currSubItem = index.model()->index(items, 0, index);
                 QSize size = sizeHint(option, currSubItem);
 
-                if (currSubItem.isValid())
+                if (currSubItem.isValid()){
                     paintSubItem(&cachePainter, QRect(), *agendaOption, currSubItem);
+                }
 
                 paintedSubItems++;
             }

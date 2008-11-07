@@ -358,7 +358,8 @@ void QxtScheduleView::paintEvent(QPaintEvent * /*event*/)
 
             //@BUG use the correct section here or find a way to forbit section resizing
             style.roundCornersRadius = qxt_d().m_vHeader->sectionSize(1) / 2;
-            style.itemHeaderHeight = qxt_d().m_vHeader->sectionSize(1);
+            style.itemHeaderHeight   = qxt_d().m_vHeader->sectionSize(1);
+            style.maxSubItemHeight   = qxt_d().m_vHeader->sectionSize(1);
 
             if (currItem->isDirty)
                 currItem->m_cachedParts.clear();
@@ -496,6 +497,15 @@ void QxtScheduleView::mouseMoveEvent(QMouseEvent * e)
 
         if (this->viewport()->cursor().shape() != Qt::ArrowCursor)
             this->viewport()->setCursor(Qt::ArrowCursor);
+    }
+}
+
+void QxtScheduleView::mouseDoubleClickEvent ( QMouseEvent * e )
+{
+    qxt_d().m_currentItem  = qxt_d().internalItemAt(mapFromViewport(e->pos()));
+    if (qxt_d().m_currentItem)
+    {
+        emit indexDoubleClicked(qxt_d().m_currentItem->modelIndex());
     }
 }
 
