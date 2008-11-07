@@ -169,6 +169,7 @@ public:
     QAbstractItemModel *m_Model;
     bool handlesConcurrency;
     QxtScheduleItemDelegate *delegate;
+    QxtScheduleItemDelegate *defaultDelegate;
 
 public Q_SLOTS:
     void itemGeometryChanged(QxtScheduleInternalItem * item, QVector<QRect> oldGeometry);

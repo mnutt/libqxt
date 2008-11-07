@@ -82,6 +82,9 @@ public:
 
     void                        setDateRange(const QDate & fromDate , const QDate & toDate);
     void                        setTimeRange(const QDateTime &fromDateTime , const QDateTime &toTime);
+    
+    QxtScheduleItemDelegate*    delegate () const;
+    void                        setItemDelegate (QxtScheduleItemDelegate * delegate);
 
     void                        setZoomStepWidth(const int zoomWidth , const Qxt::Timeunit unit = Qxt::Second);
     void                        setCurrentZoomDepth(const int depth , const Qxt::Timeunit unit = Qxt::Second);
