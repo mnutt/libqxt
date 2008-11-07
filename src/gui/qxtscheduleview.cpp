@@ -68,7 +68,7 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     qxt_d().m_currentViewMode  = DayView;
     qxt_d().m_startUnixTime = 0;
     qxt_d().m_endUnixTime = 0;
-    qxt_d().delegate = new QxtScheduleItemDelegate(this);
+    qxt_d().delegate = qxt_d().defaultDelegate = new QxtScheduleItemDelegate(this);
 
     qxt_d().m_vHeader = new QxtScheduleHeaderWidget(Qt::Vertical, this);
     connect(qxt_d().m_vHeader, SIGNAL(geometriesChanged()), this, SLOT(updateGeometries()));
@@ -140,6 +140,31 @@ void QxtScheduleView::setViewMode(const QxtScheduleView::ViewMode mode)
     //this will calculate the correct alignment
     //@BUG this may not work because the currentZoomDepth may not fit into the new viewMode
     setCurrentZoomDepth(qxt_d().m_currentZoomDepth);
+}
+
+/**
+ *@desc returns the current used delegate
+ */
+QxtScheduleItemDelegate* QxtScheduleView::delegate () const
+{
+    return qxt_d().delegate;
+}
+
+/**
+ *Sets the item delegate for this view and its model to delegate. This is useful if you want complete control over the editing and display of items.
+*Any existing delegate will be removed, but not deleted. QxtScheduleView does not take ownership of delegate.
+*Passing a 0 pointer will restore the view to use the default delegate.
+*@Warning You should not share the same instance of a delegate between views. Doing so can cause incorrect or unintuitive behavior.
+ */
+void QxtScheduleView::setItemDelegate (QxtScheduleItemDelegate * delegate)
+{
+    if(!delegate)
+        qxt_d().delegate = qxt_d().defaultDelegate;
+    else
+        qxt_d().delegate = delegate;
+        
+    //the delegate changed repaint everything
+    viewport()->update();
 }
 
 /**
