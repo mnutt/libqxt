@@ -274,8 +274,11 @@ QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConc
 void QxtScheduleViewPrivate::handleItemConcurrency(const int from, const int to)
 { 
     /*collect all items that interfere only in that range*/
-    if (from < 0  ||  to < 0 || m_Items.size() == 0)
+    if (from < 0  ||  to < 0 || m_Items.size() == 0){
+        //do a update or we may have artifacts
+        qxt_p().viewport()->update();
         return;
+    }
 
     qDebug() << "handleItemConcurrency";
 
