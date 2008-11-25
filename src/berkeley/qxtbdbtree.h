@@ -529,6 +529,9 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::child() const
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator + (int j) const
 {
+    if(j < 0)
+        return this->operator-(j*(-1));
+
     QxtBdbTreeIterator<T> d(*this);
     for (int i = 0;i < j;i++)
         ++d;
@@ -582,6 +585,9 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator ++ (int)
 template<class T>
 QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator += (int j)
 {
+    if(j < 0)
+        return this->operator-=(j*(-1));
+
     for (int i = 0;i < j;i++)
         operator++();
     return *this;
@@ -591,6 +597,9 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator += (int j)
 template<class T>
 QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator - (int j) const
 {
+    if(j < 0)
+        return this->operator+(j*(-1));
+
     QxtBdbTreeIterator<T> d(*this);
     for (int i = 0;i < j;i++)
         --d;
@@ -649,6 +658,9 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::operator -- (int)
 template<class T>
 QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator -= (int j)
 {
+    if(j < 0)
+        return this->operator+=(j*(-1));
+
     for (int i = 0;i < j;i++)
         operator--();
     return *this;
