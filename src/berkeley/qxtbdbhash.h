@@ -443,6 +443,10 @@ VAL   QxtBdbHashIterator<KEY, VAL>::value() const
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY, VAL>    QxtBdbHashIterator<KEY, VAL>::operator + (int j) const
 {
+    // if j is negative, it should subtract as apposed to do nothing...
+    if(j < 0)
+        return this->operator-(j*(-1));
+
     QxtBdbHashIterator<KEY, VAL> d = *this;
     for (int i = 0;i < j;i++)
         ++d;
@@ -476,6 +480,10 @@ QxtBdbHashIterator<KEY, VAL>   QxtBdbHashIterator<KEY, VAL>::operator ++ (int) /
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY, VAL> &  QxtBdbHashIterator<KEY, VAL>::operator += (int j)
 {
+    // if j is negative it should subtract as apposed to do nothing
+    if(j < 0)
+        return this->operator-=(j*(-1));
+
     for (int i = 0;i < j;i++)
         this->operator++();
     return *this;
@@ -485,6 +493,10 @@ QxtBdbHashIterator<KEY, VAL> &  QxtBdbHashIterator<KEY, VAL>::operator += (int j
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY, VAL>    QxtBdbHashIterator<KEY, VAL>::operator - (int j) const
 {
+    // if j is negative, then we should add as opposed to do noting... I really need to learn to spell "opposed" correctly more regularly... hmm..
+    if(j < 0)
+        return this->operator+(j*(-1));
+
     QxtBdbHashIterator<KEY, VAL> d = *this;
     for (int i = 0;i < j;i++)
         --d;
@@ -518,6 +530,10 @@ QxtBdbHashIterator<KEY, VAL>   QxtBdbHashIterator<KEY, VAL>::operator -- (int) /
 template<class KEY, class VAL>
 QxtBdbHashIterator<KEY, VAL> &  QxtBdbHashIterator<KEY, VAL>::operator -= (int j)
 {
+    // if j is negative, we should add
+    if(j < 0)
+        return this->operator+=(j*(-1));
+
     for (int i = 0;i < j;i++)
         this->operator--();
     return *this;
