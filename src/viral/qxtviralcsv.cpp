@@ -1,7 +1,8 @@
 #include "qxtviralcsv.h"
 
 #include <Viral/Csv>
-
+#include <Viral/Csv>
+#include "qxtviraladapter_p.h"
 
 class QxtViralCsvPrivate :  public QxtPrivate<QxtViralCsv>
 {

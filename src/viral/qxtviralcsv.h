@@ -27,12 +27,13 @@
 #include <QAbstractItemModel>
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
-#include <Viral/Csv>
-#include "qxtviraladapter_p.h"
+
 
 template <class Q,class Y>
 class QxtViralAdapter;
-class Viral::Csv;
+
+namespace  Viral
+{class Csv;}
 
 class QxtViralCsvPrivate;
 class QXT_VIRAL_EXPORT QxtViralCsv : public QAbstractItemModel

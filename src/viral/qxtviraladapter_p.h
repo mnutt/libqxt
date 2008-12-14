@@ -144,7 +144,7 @@ int QxtViralAdapter<Q,V>::rowCount(const QModelIndex &parent) const
 }
 
 template <class Q,class V>
-int QxtViralAdapter<Q,V>::columnCount(const QModelIndex &parent ) const
+int QxtViralAdapter<Q,V>::columnCount(const QModelIndex & ) const
 {
     return 2;
 }
