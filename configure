@@ -8,6 +8,7 @@ NO_OPENSSL=0
 NO_DB=0
 NO_FFMPEG=0
 NO_XSS=0
+NO_VIRAL=0
 
 if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
@@ -70,6 +71,9 @@ while (( $# > 0 )); do
     elif [ $1 == "-no-xss" ]; then
         echo "QXT_LIBS -= xss" >> config.in
         NO_XSS=1
+    elif [ $1 == "-no-viral" ]; then
+        echo "QXT_LIBS -= viral" >> config.in
+        NO_VIRAL=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
     elif [ $1 == "-qws" ]; then
@@ -100,8 +104,9 @@ while (( $# > 0 )); do
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-xss ............. Do not link to XScreenSaver"
+        echo "-no-viral ........... Do not link to Asgaard Viral"
         echo "-nomake <module> .... Do not compile the specified module"
-        echo "                      options: berkeley crypto designer gui network sql web"
+        echo "                      options: berkeley crypto designer gui network sql web viral"
         echo "-verbose ............ shows compiler output"
         echo "-qws ................ Build for Qt/Embedded"
 
@@ -177,6 +182,11 @@ fi
 if [[ "$NO_XSS" == "0" ]]; then
     configtest "xss  "    XSS
 fi
+
+if [[ "$NO_VIRAL" == "0" ]]; then
+    configtest "viral  "    VIRAL
+fi
+
 
 #configtest curses  CURSES
 #configtest fcgi  FCGI

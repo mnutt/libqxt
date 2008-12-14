@@ -101,6 +101,15 @@ contains( QXT_BUILD, crypto ){
     SUBDIRS += sub_crypto
 }
 
+contains(DEFINES,HAVE_VIRAL){
+contains( QXT_BUILD, viral ){
+    message( building viral module )
+    sub_viral.subdir = src/viral
+    sub_viral.depends = sub_core
+    SUBDIRS += sub_viral
+}
+}
+
 style.CONFIG = recursive
 style.recurse = $$SUBDIRS
 style.recurse -= tools/doqsy
