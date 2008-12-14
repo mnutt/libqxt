@@ -82,6 +82,13 @@
 #        define QXT_BERKELEY_EXPORT __declspec(dllimport)
 #    endif // BUILD_QXT_BERKELEY
 
+
+#    if defined(BUILD_QXT_VIRAL)
+#        define QXT_VIRAL_EXPORT __declspec(dllexport)
+#    else
+#        define QXT_VIRAL_EXPORT __declspec(dllimport)
+#    endif
+
 #else // !QXT_WINDOWS
 
 #    define QXT_CORE_EXPORT
@@ -92,10 +99,11 @@
 #    define QXT_WEB_EXPORT
 #    define QXT_CRYPTO_EXPORT
 #    define QXT_BERKELEY_EXPORT
+#    define QXT_VIRAL_EXPORT
 
 #endif // QXT_WINDOWS
 
-#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY
+#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_VIRAL
 #   define BUILD_QXT
 #endif
 
