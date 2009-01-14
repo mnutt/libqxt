@@ -456,6 +456,7 @@ QString printAssistantNGQHPFile()
         {
             if (cl->name==m->name) ///skip ctor
                 continue;
+            m->name.replace("<","&lt;").replace(">","&gt;");
             t_i_i.clear();
             t_i_i["name"]=m->name;
             t_i_i["link"]=refToLink(m->ref);
