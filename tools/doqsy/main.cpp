@@ -1276,24 +1276,19 @@ int main(int argc,char ** argv)
     file.close();
     }
  
-    qDebug("[running qcollectiongenerator]");
+    qDebug("[running qhelpgenerator]");
 
-
-    QProcess qcollectiongenerator;
-    QDir().cd(outputDir);
-    qcollectiongenerator.setWorkingDirectory (outputDir);
-    qcollectiongenerator.setProcessChannelMode(QProcess::ForwardedChannels);
-    qcollectiongenerator.start ("qcollectiongenerator",QStringList()<<"qxt.qhcp"<<"-o"<<"qxt.qch");
-    if(!qcollectiongenerator.waitForStarted ())
-        qFatal("qcollectiongenerator failed to start");
-    qcollectiongenerator.closeWriteChannel();
-    if(!qcollectiongenerator.waitForFinished (120000))
-        qFatal("qcollectiongenerator failed to finish within 2 minutes");
-    if(qcollectiongenerator.exitCode ())
-    {
-
-        qFatal("qcollectiongenerator run unsecussfull");
-    }
+    QProcess qhelpgenerator;
+    qhelpgenerator.setWorkingDirectory (outputDir);
+    qhelpgenerator.setProcessChannelMode(QProcess::ForwardedChannels);
+    qhelpgenerator.start ("qhelpgenerator",QStringList()<<"qxt.qhp"<<"-o"<<"qxt.qch");
+    if(!qhelpgenerator.waitForStarted ())
+        qFatal("qhelpgenerator failed to start");
+    qhelpgenerator.closeWriteChannel();
+    if(!qhelpgenerator.waitForFinished (120000))
+        qFatal("qhelpgenerator failed to finish within 2 minutes");
+    if(qhelpgenerator.exitCode ())
+        qFatal("qhelpgenerator run unsecussfull");
     #endif
 
 
