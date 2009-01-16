@@ -134,7 +134,7 @@ public:
 #endif // QXT_DOXYGEN_RUN
 
 template <typename PVT>
-class QXT_CORE_EXPORT QxtSharedPrivate
+class QxtSharedPrivate
 {
 public:
 
