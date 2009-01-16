@@ -32,7 +32,6 @@ INCLUDEPATH     += $${QXTinclude}
 unix:!macx:LIBS += -Wl,-rpath,$${QXTlib}
 macx:LIBS       += -F$${QXTlib}
 LIBS            += -L$${QXTlib}
-win32:DEFINES   += QXT_WINDOWS
 
 
 contains(QXT, berkeley) {

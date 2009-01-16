@@ -25,6 +25,8 @@
 #ifndef QXTGLOBAL_H
 #define QXTGLOBAL_H
 
+#include <QtGlobal>
+
 #define QXT_VERSION 0x000400
 #define QXT_VERSION_STR "0.4.0"
 
@@ -38,70 +40,53 @@
 
 #define QXT_DLLEXPORT DO_NOT_USE_THIS_ANYMORE
 
-#if defined(QXT_WINDOWS)
+#if defined(BUILD_QXT_CORE)
+#    define QXT_CORE_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_CORE_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_CORE
 
-#    if defined(BUILD_QXT_CORE)
-#        define QXT_CORE_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_CORE_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_CORE
+#if defined(BUILD_QXT_GUI)
+#    define QXT_GUI_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_GUI_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_GUI
 
-#    if defined(BUILD_QXT_GUI)
-#        define QXT_GUI_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_GUI_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_GUI
+#if defined(BUILD_QXT_NETWORK)
+#    define QXT_NETWORK_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_NETWORK_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_NETWORK
 
-#    if defined(BUILD_QXT_NETWORK)
-#        define QXT_NETWORK_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_NETWORK_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_NETWORK
+#if defined(BUILD_QXT_SQL)
+#    define QXT_SQL_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_SQL_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_SQL
 
-#    if defined(BUILD_QXT_SQL)
-#        define QXT_SQL_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_SQL_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_SQL
+#if defined(BUILD_QXT_WEB)
+#    define QXT_WEB_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_WEB_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_WEB
 
-#    if defined(BUILD_QXT_WEB)
-#        define QXT_WEB_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_WEB_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_WEB
+#if defined(BUILD_QXT_CRYPTO)
+#    define QXT_CRYPTO_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_CRYPTO_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_CRYPTO
 
-#    if defined(BUILD_QXT_CRYPTO)
-#        define QXT_CRYPTO_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_CRYPTO_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_CRYPTO
+#if defined(BUILD_QXT_BERKELEY)
+#    define QXT_BERKELEY_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_BERKELEY_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_BERKELEY
 
-#    if defined(BUILD_QXT_BERKELEY)
-#        define QXT_BERKELEY_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_BERKELEY_EXPORT __declspec(dllimport)
-#    endif // BUILD_QXT_BERKELEY
-
-
-#    if defined(BUILD_QXT_VIRAL)
-#        define QXT_VIRAL_EXPORT __declspec(dllexport)
-#    else
-#        define QXT_VIRAL_EXPORT __declspec(dllimport)
-#    endif
-
-#else // !QXT_WINDOWS
-
-#    define QXT_CORE_EXPORT
-#    define QXT_GUI_EXPORT
-#    define QXT_MEDIA_EXPORT
-#    define QXT_NETWORK_EXPORT
-#    define QXT_SQL_EXPORT
-#    define QXT_WEB_EXPORT
-#    define QXT_CRYPTO_EXPORT
-#    define QXT_BERKELEY_EXPORT
-#    define QXT_VIRAL_EXPORT
-
-#endif // QXT_WINDOWS
+#if defined(BUILD_QXT_VIRAL)
+#    define QXT_VIRAL_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_VIRAL_EXPORT Q_DECL_IMPORT
+#endif
 
 #if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_VIRAL
 #   define BUILD_QXT
