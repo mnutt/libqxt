@@ -1,0 +1,174 @@
+/****************************************************************************
+**
+** Copyright (C) Qxt Foundation. Some rights reserved.
+**
+** This file is part of the QxtCore module of the Qt eXTension library
+**
+** This library is free software; you can redistribute it and/or modify it
+** under the terms of th Common Public License, version 1.0, as published by
+** IBM.
+**
+** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+** FITNESS FOR A PARTICULAR PURPOSE. 
+**
+** You should have received a copy of the CPL along with this file.
+** See the LICENSE file and the cpl1.0.txt file included with the source
+** distribution for more information. If you did not receive a copy of the
+** license, contact the Qxt Foundation.
+** 
+** <http://libqxt.sourceforge.net>  <libqxt@gmail.com>
+**
+****************************************************************************/
+#include "qxtslotmapper.h"
+#include "qxtmetaobject.h"
+#include <QPointer>
+#include <QVariant>
+
+/*!
+    \class QxtSlotMapper QxtSlotMapper
+    \ingroup QxtCore
+    \brief The QxtSlotMapper class maps parameterized signals to specific slots.
+
+    \code
+    QxtSlotMapper mapper;
+
+    // mapping with integers
+    mapper.addMapping(123, someWidget, SLOT(show()));
+    mapper.addMapping(456, someWidget, SLOT(hide()));
+
+    // mapping with strings
+    mapper.addMapping("lower", anotherWidget, SLOT(lower()));
+    mapper.addMapping("raise", anotherWidget, SLOT(raise()));
+
+    // establish connections
+    mapper.connect(listWidget, SIGNAL(currentRowChanged(int)));
+    mapper.connect(lineEdit, SIGNAL(textEdited(QString)));
+    \endcode
+*/
+
+struct QxtSlotMapInfo
+{
+    QVariant parameter;
+    QPointer<QObject> receiver;
+    const char* member;
+};
+
+class QxtSlotMapperPrivate : public QxtPrivate<QxtSlotMapper>
+{
+public:
+	static int checkSignal(const QObject* sender, const char* signal);
+
+    QList<QxtSlotMapInfo> mappings;
+};
+
+int QxtSlotMapperPrivate::checkSignal(const QObject* sender, const char* signal)
+{
+	if (!sender || !signal)
+	{
+		qWarning("QxtSlotMapper: Cannot connect %s::%s",
+			sender ? sender->metaObject()->className() : "(null)",
+			(signal && *signal) ? signal+1 : "(null)");
+		return false;
+    }
+
+    const QByteArray signalName = QMetaObject::normalizedSignature(signal+1);
+	int signalId = sender->metaObject()->indexOfSignal(signalName);
+	if (signalId < 0)
+	{
+		qWarning("QxtSlotMapper: No such signal %s::%s",
+			 sender->metaObject()->className(), signal+1);
+		return false;
+	}
+	return signalId;
+}
+
+/*!
+    Constructs a new QxtSlotMapper with \a parent.
+ */
+QxtSlotMapper::QxtSlotMapper(QObject* parent)
+	: QObject(parent)
+{
+}
+
+/*!
+    Destructs the slot mapper.
+ */
+QxtSlotMapper::~QxtSlotMapper()
+{
+}
+
+/*!
+    Adds mapping from connected signals with \a parameter to \a receiver's \a member.
+ */
+void QxtSlotMapper::addMapping(const QVariant& parameter, QObject* receiver, const char* member)
+{
+    QxtSlotMapInfo mapping = { parameter, receiver, member };
+    qxt_d().mappings.append(mapping);
+}
+
+/*!
+    Removes mapping from connected signals with \a parameter to \a receiver's \a member.
+
+    If \a member is \c 0, any mapping with \a parameter to \a receiver is removed.
+    If \a receiver is \c 0, any mapping with \a parameter is removed.
+ */
+void QxtSlotMapper::removeMapping(const QVariant& parameter, QObject* receiver, const char* member)
+{
+    QMutableListIterator<QxtSlotMapInfo> it(qxt_d().mappings);
+    while (it.hasNext())
+    {
+        const QxtSlotMapInfo& info = it.next();
+        if (info.parameter == parameter)
+        {
+            if ((!receiver || receiver == info.receiver) &&
+                (!member   || member   == info.member))
+            {
+                it.remove();
+            }
+        }
+    }
+}
+
+/*!
+    Connects to \a sender's \a signal.
+ */
+bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
+{
+    QByteArray signalName = QMetaObject::normalizedSignature(signal);
+    int signalId = QxtSlotMapperPrivate::checkSignal(sender, signal);
+    if (signalId < 0)
+        return false;
+
+    int index = signalName.indexOf('(');
+    if (index != -1)
+    {
+        QByteArray typeName = signalName.mid(index + 1);
+        if (typeName.endsWith(')'))
+            typeName.resize(typeName.size() - 1);
+
+        int type = QMetaType::type(typeName);
+        int methods = metaObject()->methodCount();
+        return QMetaObject::connect(sender, signalId, this, methods + type);
+    }
+    return false;
+}
+
+/*!
+    \reimp
+ */
+int QxtSlotMapper::qt_metacall(QMetaObject::Call call, int id, void** arguments)
+{
+	id = QObject::qt_metacall(call, id, arguments);
+	if (id < 0 || call != QMetaObject::InvokeMetaMethod)
+		return id;
+
+    QVariant param(id, arguments[1]);
+    foreach (const QxtSlotMapInfo& info, qxt_d().mappings)
+    {
+        if (info.parameter == param)
+            QMetaObject::invokeMethod(info.receiver, QxtMetaObject::methodName(info.member));
+    }
+	return -1;
+}
