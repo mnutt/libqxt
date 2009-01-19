@@ -63,6 +63,7 @@
 #include "qxtsignalgroup.h"
 #include "qxtsignalwaiter.h"
 #include "qxtslotjob.h"
+#include "qxtslotmapper.h"
 #include "qxtstdio.h"
 #include "qxtstdstreambufdevice.h"
 #include "qxttuple.h"
