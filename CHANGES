@@ -1,6 +1,26 @@
-LibQxt 0.4.0 introduces new features and contains bug fixes to the 0.3.x
+LibQxt 0.5.0 introduces new features and contains bug fixes to the 0.4.x
 series. For more details, see the documentation included in this package
 or online at http://docs.libqxt.org.
+
+0.5.0
+-----
+
+- QxtCore
+    * Revised QxtFifo
+    * Added QxtAlgorithms
+    * Added QxtSerialDevice
+    * Added QxtSlotMapper
+
+- QxtGui
+    * Added QxtWindowSystem::idleTime()
+    * Added QxtCrumbView
+    * Improved QxtScheduleView
+
+- QxtWeb
+    * Added QxtWebCgiService
+
+- QxtViral
+    * Added bindings for Asgaard Viral
 
 0.4.0
 -----
