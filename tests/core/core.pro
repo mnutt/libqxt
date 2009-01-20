@@ -3,4 +3,4 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += bind fifo filelock job pipe sharedprivate slotjob QxtFileLock
+SUBDIRS += bind fifo filelock job pipe sharedprivate slotjob slotmapper QxtFileLock
