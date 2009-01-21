@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxtslotmapper.h"
 #include "qxtmetaobject.h"
+#include <QMetaMethod>
 #include <QPointer>
 #include <QVariant>
 
@@ -58,50 +59,50 @@ struct QxtSlotMapInfo
 class QxtSlotMapperPrivate : public QxtPrivate<QxtSlotMapper>
 {
 public:
-	static int checkSignal(const QObject* sender, const char* signal);
+    static int checkSignal(const QObject* sender, const char* signal);
 
     QList<QxtSlotMapInfo> mappings;
 };
 
 int QxtSlotMapperPrivate::checkSignal(const QObject* sender, const char* signal)
 {
-	if (!sender || !signal)
-	{
-		qWarning("QxtSlotMapper: Cannot connect %s::%s",
-			sender ? sender->metaObject()->className() : "(null)",
-			(signal && *signal) ? signal+1 : "(null)");
-		return false;
+    if (!sender || !signal)
+    {
+        qWarning("QxtSlotMapper: Cannot connect %s::%s",
+            sender ? sender->metaObject()->className() : "(null)",
+            (signal && *signal) ? signal+1 : "(null)");
+        return false;
     }
 
     const QByteArray signalName = QMetaObject::normalizedSignature(signal+1);
-	int signalId = sender->metaObject()->indexOfSignal(signalName);
-	if (signalId < 0)
-	{
-		qWarning("QxtSlotMapper: No such signal %s::%s",
-			 sender->metaObject()->className(), signal+1);
-		return false;
-	}
-	return signalId;
+    int signalId = sender->metaObject()->indexOfSignal(signalName);
+    if (signalId < 0)
+    {
+        qWarning("QxtSlotMapper: No such signal %s::%s",
+            sender->metaObject()->className(), signal+1);
+        return false;
+    }
+    return signalId;
 }
 
 /*!
     Constructs a new QxtSlotMapper with \a parent.
- */
+*/
 QxtSlotMapper::QxtSlotMapper(QObject* parent)
-	: QObject(parent)
+    : QObject(parent)
 {
 }
 
 /*!
     Destructs the slot mapper.
- */
+*/
 QxtSlotMapper::~QxtSlotMapper()
 {
 }
 
 /*!
     Adds mapping from connected signals with \a parameter to \a receiver's \a member.
- */
+*/
 void QxtSlotMapper::addMapping(const QVariant& parameter, QObject* receiver, const char* member)
 {
     QxtSlotMapInfo mapping = { parameter, receiver, member };
@@ -113,7 +114,7 @@ void QxtSlotMapper::addMapping(const QVariant& parameter, QObject* receiver, con
 
     If \a member is \c 0, any mapping with \a parameter to \a receiver is removed.
     If \a receiver is \c 0, any mapping with \a parameter is removed.
- */
+*/
 void QxtSlotMapper::removeMapping(const QVariant& parameter, QObject* receiver, const char* member)
 {
     QMutableListIterator<QxtSlotMapInfo> it(qxt_d().mappings);
@@ -123,7 +124,7 @@ void QxtSlotMapper::removeMapping(const QVariant& parameter, QObject* receiver, 
         if (info.parameter == parameter)
         {
             if ((!receiver || receiver == info.receiver) &&
-                (!member   || member   == info.member))
+                (!member || QxtMetaObject::methodName(member) == QxtMetaObject::methodName(info.member)))
             {
                 it.remove();
             }
@@ -133,7 +134,7 @@ void QxtSlotMapper::removeMapping(const QVariant& parameter, QObject* receiver, 
 
 /*!
     Connects to \a sender's \a signal.
- */
+*/
 bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
 {
     QByteArray signalName = QMetaObject::normalizedSignature(signal);
@@ -145,9 +146,11 @@ bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
     if (index != -1)
     {
         QByteArray typeName = signalName.mid(index + 1);
-        if (typeName.endsWith(')'))
-            typeName.resize(typeName.size() - 1);
-
+        int index = typeName.indexOf(')');
+        if (index != -1)
+            typeName.truncate(index);
+        typeName = QMetaObject::normalizedType(typeName);
+        
         int type = QMetaType::type(typeName);
         int methods = metaObject()->methodCount();
         return QMetaObject::connect(sender, signalId, this, methods + type);
@@ -157,18 +160,40 @@ bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
 
 /*!
     \reimp
- */
+*/
 int QxtSlotMapper::qt_metacall(QMetaObject::Call call, int id, void** arguments)
 {
-	id = QObject::qt_metacall(call, id, arguments);
-	if (id < 0 || call != QMetaObject::InvokeMetaMethod)
-		return id;
+    id = QObject::qt_metacall(call, id, arguments);
+    if (id < 0 || call != QMetaObject::InvokeMetaMethod)
+        return id;
 
     QVariant param(id, arguments[1]);
     foreach (const QxtSlotMapInfo& info, qxt_d().mappings)
     {
-        if (info.parameter == param)
-            QMetaObject::invokeMethod(info.receiver, QxtMetaObject::methodName(info.member));
+        if (info.receiver && info.parameter == param)
+        {
+            const QMetaObject* metaObject = info.receiver->metaObject();
+            int index = metaObject->indexOfMethod(QxtMetaObject::methodSignature(info.member));
+            if (index != -1)
+            {
+                QMetaMethod method = metaObject->method(index);
+                switch (method.parameterTypes().count())
+                {
+                    case 0:
+                        QMetaObject::invokeMethod(info.receiver, 
+                                                QxtMetaObject::methodName(info.member));
+                        break;
+                    case 1:
+                        QMetaObject::invokeMethod(info.receiver, 
+                                                QxtMetaObject::methodName(info.member),
+                                                QGenericArgument(QMetaType::typeName(param.type()), arguments[1]));
+                        break;
+                    default:
+                        qWarning("QxtSlotMapper does not support slots with more than one parameter");
+                        break;
+                }
+            }
+        }
     }
-	return -1;
+    return -1;
 }
