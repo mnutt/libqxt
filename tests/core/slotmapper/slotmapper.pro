@@ -10,4 +10,5 @@ CONFIG += qxt qtestlib
 QXT = core
 
 # Input
+HEADERS += sender.h receiver.h
 SOURCES += tst_qxtslotmapper.cpp
