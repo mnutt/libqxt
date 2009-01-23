@@ -58,6 +58,8 @@ HEADERS  += qxtscheduleviewheadermodel_p.h
 HEADERS  += qxtscheduleview_p.h
 HEADERS  += qxtstyleoptionscheduleviewitem.h
 
+HEADERS  += qxtsortfilterproxymodel.h
+
 SOURCES  += qxtbasespinbox.cpp
 SOURCES  += qxtcheckcombobox.cpp
 SOURCES  += qxtconfigdialog.cpp
@@ -97,6 +99,8 @@ SOURCES  += qxtscheduleview_p.cpp
 SOURCES  += qxtscheduleviewheadermodel_p.cpp
 SOURCES  += qxtstyleoptionscheduleviewitem.cpp
 SOURCES  += qxtscheduleheaderwidget.cpp
+
+SOURCES  += qxtsortfilterproxymodel.cpp
 
 !qws {
     # QxtApplication, QxtGlobalShortcut, and QxtWindowSystem are disabled for QWS pending implementation
