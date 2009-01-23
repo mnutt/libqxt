@@ -62,6 +62,7 @@
 #include "qxttreewidget.h"
 #include "qxttreewidgetitem.h"
 #include "qxtwindowsystem.h"
+#include "qxtsortfilterproxymodel.h"
 
 /** \defgroup QxtGui QxtGui
     \brief    The QxtGui module extends QtGui.
