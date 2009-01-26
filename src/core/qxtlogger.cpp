@@ -1010,7 +1010,7 @@ void QxtLogger::removeLoggerEngine(const QString &engineName)
 void QxtLogger::removeLoggerEngine(QxtLoggerEngine *engine)
 {
     QMutexLocker lock(qxt_d().mut_lock);
-    Q_FOREACH(QString i, this->qxt_d().map_logEngineMap.keys(engine))
+    Q_FOREACH(const QString& i, this->qxt_d().map_logEngineMap.keys(engine))
     {
         takeLoggerEngine(i); // return value ignored
     }
@@ -1044,7 +1044,7 @@ QStringList QxtLogger::allEnabledLoggerEngines() const
     QMutexLocker lock(qxt_d().mut_lock);
     QStringList engineNames = qxt_d().map_logEngineMap.keys();
     QStringList result;
-    Q_FOREACH(QString name, engineNames)
+    Q_FOREACH(const QString& name, engineNames)
     {
         if (qxt_d().map_logEngineMap.value(name)->isLoggingEnabled()) result.append(name);
     }
@@ -1059,7 +1059,7 @@ QStringList QxtLogger::allEnabledLoggerEngines(LogLevel level) const
     QMutexLocker lock(qxt_d().mut_lock);
     QStringList engineNames = qxt_d().map_logEngineMap.keys();
     QStringList result;
-    Q_FOREACH(QString name, engineNames)
+    Q_FOREACH(const QString& name, engineNames)
     {
         QxtLoggerEngine* engine = qxt_d().map_logEngineMap.value(name);
         if (engine->isLoggingEnabled() && engine->isLogLevelEnabled(level))
@@ -1078,7 +1078,7 @@ QStringList QxtLogger::allDisabledLoggerEngines() const
     QMutexLocker lock(qxt_d().mut_lock);
     QStringList sl_engineNames = qxt_d().map_logEngineMap.keys();
     QStringList result;
-    Q_FOREACH(QString name, sl_engineNames)
+    Q_FOREACH(const QString& name, sl_engineNames)
     {
         if (!qxt_d().map_logEngineMap.value(name)->isLoggingEnabled()) result.append(name);
     }

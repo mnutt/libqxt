@@ -391,7 +391,7 @@ QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
         qWarning() << qPrintable(QString("QxtCommandOptions: ") + tr("unrecognized() called before parse()"));
     QMultiHash<QString, QVariant> params;
     int ct;
-    foreach(QxtCommandOption option, qxt_d().options)
+    foreach(const QxtCommandOption& option, qxt_d().options)
     {
         ct = option.values.count();
         if (!ct)
@@ -405,8 +405,8 @@ QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
         }
         else
         {
-            foreach(QVariant value, option.values)
-            params.insert(option.canonicalName, value);
+            foreach(const QVariant& value, option.values)
+                params.insert(option.canonicalName, value);
         }
     }
     return params;
@@ -666,8 +666,8 @@ bool QxtCommandOptions::showUnrecognizedWarning(QTextStream& stream) const
     if (qxt_d().unrecognized.count())
         stream << name << ": " << tr("unrecognized parameters: ") << qxt_d().unrecognized.join(" ") << endl;
 
-    foreach(QString param, qxt_d().missingParams)
-    stream << name << ": " << tr("%1 requires a parameter").arg(param) << endl;
+    foreach(const QString& param, qxt_d().missingParams)
+        stream << name << ": " << tr("%1 requires a parameter").arg(param) << endl;
 
     return true;
 }
@@ -731,7 +731,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
         // Don't generate usage for undocumented parameters
         if (option.paramType & Undocumented) continue;
 
-        foreach(QString n, option.names)
+        foreach(const QString& n, option.names)
         {
             if (name.length()) name += ", ";
             if (qxt_d().flagStyle == Slash)
@@ -815,7 +815,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
             continue;
         }
         line = " " + names[i] + QString(maxNameLength - names[i].length() + 2, ' ');
-        foreach(QString word, descs[i].split(' ', QString::SkipEmptyParts))
+        foreach(const QString& word, descs[i].split(' ', QString::SkipEmptyParts))
         {
             if (qxt_d().screenWidth > 0 && line.length() + word.length() >= qxt_d().screenWidth)
             {
