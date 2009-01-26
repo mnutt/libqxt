@@ -250,7 +250,7 @@ QHash<QString, QString> QxtWebContent::parseUrlEncodedQuery(const QString& data)
 {
     QUrl post("/?" + data);
     QHash<QString, QString> rv;
-    foreach(QxtQueryItem item, post.queryItems())
+    foreach(const QxtQueryItem& item, post.queryItems())
     {
         rv.insertMulti(item.first, item.second);
     }

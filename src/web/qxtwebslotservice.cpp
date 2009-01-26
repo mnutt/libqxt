@@ -79,7 +79,7 @@ QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
 
 
     QString r = "/";
-    foreach(QString d, o)
+    foreach(const QString& d, o)
     {
         r += d + "/";
     }

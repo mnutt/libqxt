@@ -322,9 +322,9 @@ int QxtHttpSessionManager::newSession()
 void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpRequestHeader& header, QxtWebContent* content)
 {
     QMultiHash<QString, QString> cookies;
-    foreach(QString cookie, header.allValues("cookie"))   // QHttpHeader is case-insensitive, thankfully
+    foreach(const QString& cookie, header.allValues("cookie"))   // QHttpHeader is case-insensitive, thankfully
     {
-        foreach(QString kv, cookie.split("; "))
+        foreach(const QString& kv, cookie.split("; "))
         {
             int pos = kv.indexOf('=');
             if (pos == -1) continue;
@@ -375,7 +375,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
     event->contentType = header.contentType();
     event->content = content;
     typedef QPair<QString, QString> StringPair;
-    foreach(StringPair line, header.values())
+    foreach(const StringPair& line, header.values())
     {
         if (line.first.toLower() == "cookie") continue;
         event->headers.insert(line.first, line.second);
