@@ -111,7 +111,7 @@ public:
     void disconnectObject(QObject* obj)
     {
         const QMetaObject* meta = obj->metaObject();
-        foreach(SignalDef sig, signalToId.keys())
+        foreach(const SignalDef& sig, signalToId.keys())
         {
             if (sig.first != obj) continue;
             int methodID = methodIDs[qMakePair(meta, sig.second)];
@@ -244,7 +244,7 @@ void QxtRPCServicePrivate::dispatchFromServer(const QString& fn, const QVariant&
         const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const
 {
     if (!connectedSlots.contains(fn)) return; // nothing connected
-    foreach(SlotDef slot, connectedSlots.value(fn))
+    foreach(const SlotDef& slot, connectedSlots.value(fn))
     {
         const QList<QByteArray>& params = slotParameters.value(qMakePair(slot.recv->metaObject(), slot.slot));
         int numParams = params.count();
@@ -260,7 +260,7 @@ void QxtRPCServicePrivate::dispatchFromClient(quint64 id, const QString& fn, con
         const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7) const
 {
     if (!connectedSlots.contains(fn)) return; // nothing connected
-    foreach(SlotDef slot, connectedSlots.value(fn))
+    foreach(const SlotDef& slot, connectedSlots.value(fn))
     {
         const QList<QByteArray>& params = slotParameters.value(qMakePair(slot.recv->metaObject(), slot.slot));
         int numParams = params.count();
@@ -577,9 +577,9 @@ void QxtRPCService::detachSignals(QObject* obj)
  */
 void QxtRPCService::detachSlots(QObject* obj)
 {
-    foreach(QString name, qxt_d().connectedSlots.keys())
+    foreach(const QString& name, qxt_d().connectedSlots.keys())
     {
-        foreach(QxtRPCServicePrivate::SlotDef slot, qxt_d().connectedSlots.value(name))
+        foreach(const QxtRPCServicePrivate::SlotDef& slot, qxt_d().connectedSlots.value(name))
         {
             if (slot.recv != obj) continue;
             qxt_d().connectedSlots[name].removeAll(slot);

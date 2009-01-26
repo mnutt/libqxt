@@ -61,7 +61,7 @@ void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantL
     file->write(header.toUtf8());
     for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, messages)
+    Q_FOREACH(const QVariant& out, messages)
     {
         if (!out.isNull())
         {

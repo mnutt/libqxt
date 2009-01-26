@@ -190,7 +190,7 @@ void QxtBasicSTDLoggerEngine::writeToStdErr(const QString &level, const QList<QV
     *errstream << header;
     for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, msgs)
+    Q_FOREACH(const QVariant& out, msgs)
     {
         if (!out.isNull())
         {
@@ -222,7 +222,7 @@ void QxtBasicSTDLoggerEngine::writeToStdOut(const QString& level, const QList<QV
     *outstream << header;
     for (int i = 0; i < header.size(); i++) padding.append(" ");
     int count = 0;
-    Q_FOREACH(QVariant out, msgs)
+    Q_FOREACH(const QVariant& out, msgs)
     {
         if (!out.isNull())
         {

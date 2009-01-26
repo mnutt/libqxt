@@ -187,7 +187,7 @@ In this case this is called from receiveData, the sender will be excluded from t
 
 void   QxtPipe::sendData(QByteArray data) const
 {
-    foreach(Connection c, qxt_d().connections)
+    foreach(const Connection& c, qxt_d().connections)
     {
 
 

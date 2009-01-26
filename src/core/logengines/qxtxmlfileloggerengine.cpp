@@ -124,7 +124,7 @@ void QxtXmlFileLoggerEngine::writeToFile(const QString &level, const QVariantLis
     ptr_fileTarget->write(QTime::currentTime().toString("hh:mm:ss.zzzz").toUtf8());
     ptr_fileTarget->write("\">");
     ptr_fileTarget->write("\n");
-    Q_FOREACH(QVariant m, messages)
+    Q_FOREACH(const QVariant& m, messages)
     {
         ptr_fileTarget->write(qxt_d().tab.toUtf8());
         ptr_fileTarget->write(qxt_d().tab.toUtf8());
