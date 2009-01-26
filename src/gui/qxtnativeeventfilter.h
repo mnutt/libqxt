@@ -26,14 +26,6 @@
 
 #include "qxtapplication.h"
 
-#if defined(Q_WS_X11)
-#include <X11/Xlib.h>
-#elif defined(Q_WS_WIN)
-#include <qt_windows.h>
-#elif defined(Q_WS_MAC)
-#include <Carbon/Carbon.h>
-#endif // Q_WS_*
-
 /*!
     \class QxtNativeEventFilter QxtNativeEventFilter
     \ingroup QxtGui
