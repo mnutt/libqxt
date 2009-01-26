@@ -25,7 +25,10 @@
 #include "qxtsqlpackage.h"
 #include <QBuffer>
 #include <QDataStream>
-
+#include <QSqlRecord>
+#include <QVector>
+#include <QDebug>
+#include <QVariant>
 
 /**
 \class QxtSqlPackage QxtSqlPackage
