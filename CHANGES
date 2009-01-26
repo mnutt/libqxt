@@ -15,6 +15,7 @@ or online at http://docs.libqxt.org.
     * Added QxtWindowSystem::idleTime()
     * Added QxtCrumbView
     * Improved QxtScheduleView
+    * Added QxtSortFilterProxyModel
 
 - QxtWeb
     * Added QxtWebCgiService
