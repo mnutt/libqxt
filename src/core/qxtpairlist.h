@@ -152,8 +152,8 @@ public:
     void remove(QList<int> nrs)
     {
         int i;
-        foreach(i, nrs)
-        list.removeAt(i);
+        Q_FOREACH(i, nrs)
+            list.removeAt(i);
     }
 
 

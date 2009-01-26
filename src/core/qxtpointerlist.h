@@ -87,7 +87,7 @@ public:
     ///\reimp
     QxtPointerList<T> & operator+= (const QxtPointerList<T> & other)
     {
-        foreach(T*t, other)
+        Q_FOREACH(T*t, other)
         {
             *this << t;
         }
@@ -116,7 +116,7 @@ public:
     QxtPointerList<T> & operator= (const QxtPointerList<T> & other)
     {
         QList<T*>::clear();
-        foreach(T*t, other)
+        Q_FOREACH(T*t, other)
         {
             *this << t;
         }
