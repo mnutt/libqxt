@@ -174,7 +174,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     // Initialize the system environment
     QStringList s_env = process->systemEnvironment();
     QMap<QString, QString> env;
-    foreach(QString entry, s_env)
+    foreach(const QString& entry, s_env)
     {
         int pos = entry.indexOf('=');
         env[entry.left(pos)] = entry.mid(pos + 1);
@@ -350,7 +350,7 @@ void QxtWebCgiServicePrivate::processReadyRead()
             {
                 // Parse a new cookie and post an event to send it to the client
                 QList<QByteArray> cookies = hdrValue.split(',');
-                foreach(QByteArray cookie, cookies)
+                foreach(const QByteArray& cookie, cookies)
                 {
                     int equals = cookie.indexOf("=");
                     int semi = cookie.indexOf(";");

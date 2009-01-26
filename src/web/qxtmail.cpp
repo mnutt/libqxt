@@ -95,14 +95,14 @@ void QxtMail::setExtraHeaders(QStringList a)
 QString QxtMail::rfc822()
 {
     QString e;
-    foreach(QString r, recipients())
+    foreach(const QString& r, recipients())
     {
         e += "TO:" + r + "\n";
     }
 
     e += "Subject:" + subject() + "\n";
 
-    foreach(QString r, extraHeaders())
+    foreach(const QString& r, extraHeaders())
     {
         e += r + "\n";
     }

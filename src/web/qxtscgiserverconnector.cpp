@@ -157,7 +157,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
     request_m.setRequest(request_m.value("request_method"), request_m.value("request_uri"), 1, 0);
 
 
-    foreach(QString key, request_m.keys())
+    foreach(const QString& key, request_m.keys())
     {
         if (key.startsWith("http_"))
         {
@@ -182,7 +182,7 @@ void QxtScgiServerConnector::writeHeaders(QIODevice* device, const QHttpResponse
 
     device->write(("Status:" + QString::number(response_m.statusCode()) + " " + response_m.reasonPhrase() + "\r\n").toAscii());
 
-    foreach(QString key, response_m.keys())
+    foreach(const QString& key, response_m.keys())
     {
         device->write((key + ":" + response_m.value(key) + "\r\n").toAscii());
     }
