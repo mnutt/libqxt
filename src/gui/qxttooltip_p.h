@@ -29,9 +29,7 @@
 #include <QHash>
 #include "qxttooltip.h"
 
-QT_BEGIN_NAMESPACE
-class QVBoxLayout;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QVBoxLayout)
 
 typedef QPointer<QWidget> WidgetPtr;
 typedef QPair<WidgetPtr, QRect> WidgetArea;

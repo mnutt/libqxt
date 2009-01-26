@@ -55,9 +55,7 @@ Q_SIGNALS:
 
 
 class QxtSlotJobPrivate;
-QT_BEGIN_NAMESPACE
-class QThread;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QThread)
 class QXT_CORE_EXPORT QxtSlotJob : public QxtJob
 {
     Q_OBJECT

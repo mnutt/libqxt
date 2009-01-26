@@ -31,9 +31,7 @@
 #include <QObject>
 
 class QxtJobPrivate;
-QT_BEGIN_NAMESPACE
-class QThread;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QThread)
 
 class QXT_CORE_EXPORT QxtJob : public QObject
 {

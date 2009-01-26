@@ -29,11 +29,9 @@
 #include <QItemDelegate>
 #include <QTableWidget>
 
-QT_BEGIN_NAMESPACE
-class QSplitter;
-class QStackedWidget;
-class QDialogButtonBox;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QSplitter)
+QT_FORWARD_DECLARE_CLASS(QStackedWidget)
+QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
 
 class QxtConfigTableWidget : public QTableWidget
 {

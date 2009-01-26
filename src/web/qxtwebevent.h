@@ -33,9 +33,7 @@
 #include <QUrl>
 #include <QMultiHash>
 #include <QDateTime>
-QT_BEGIN_NAMESPACE
-class QIODevice;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QIODevice)
 class QxtWebContent;
 
 class QxtWebEvent
