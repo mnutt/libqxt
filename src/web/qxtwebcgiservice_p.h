@@ -33,7 +33,7 @@
 #include <QSignalMapper>
 
 #ifndef QXT_DOXYGEN_RUN
-class QProcess;
+QT_FORWARD_DECLARE_CLASS(QProcess)
 class QxtWebContent;
 
 struct QxtCgiRequestInfo

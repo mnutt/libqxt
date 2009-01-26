@@ -8,7 +8,7 @@
 #include <termios.h>
 #endif
 
-class QSocketNotifier;
+QT_FORWARD_DECLARE_CLASS(QSocketNotifier)
 
 class QxtSerialDevicePrivate : public QObject, public QxtPrivate<QxtSerialDevice> {
 Q_OBJECT

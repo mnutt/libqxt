@@ -29,7 +29,7 @@
 #include "qxtpimpl.h"
 #include <QAbstractItemView>
 
-class QListView;
+QT_FORWARD_DECLARE_CLASS(QListView)
 class QxtCrumbViewPrivate;
 class QXT_GUI_EXPORT QxtCrumbView : public QAbstractItemView {
 Q_OBJECT

@@ -24,7 +24,7 @@
 
 #include "qxtcrumbview.h"
 
-class QHBoxLayout;
+QT_FORWARD_DECLARE_CLASS(QHBoxLayout)
 class QxtCrumbViewList;
 class QxtCrumbViewButton;
 class QxtCrumbViewPrivate : public QObject, public QxtPrivate<QxtCrumbView> {
