@@ -27,8 +27,7 @@
 #define QXTSQLPACKAGE_H
 #include <QObject>
 #include <QHash>
-#include <QList>
-#include <QtSql>
+#include <QSqlQuery>
 #include <qxtglobal.h>
 
 class QXT_SQL_EXPORT QxtSqlPackage : public  QObject
