@@ -30,9 +30,7 @@
 #include <QString>
 #include <QCoreApplication>
 
-QT_BEGIN_NAMESPACE
-class QFile;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QFile)
 
 class QXT_CORE_EXPORT QxtDaemon : public QObject
 {

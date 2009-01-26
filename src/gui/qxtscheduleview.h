@@ -25,7 +25,6 @@
 #define QXTSCHEDULEVIEW_H_INCLUDED
 
 #include <QAbstractScrollArea>
-#include <QAbstractItemView>
 #include <QTime>
 #include <QDate>
 #include <QDateTime>
@@ -36,11 +35,7 @@
 #include "qxtglobal.h"
 #include "qxtnamespace.h"
 
-QT_BEGIN_NAMESPACE
-class QResizeEvent;
-class QAbstractItemModel;
-class QWidget;
-QT_END_NAMESPACE
+QT_FORWARD_DECLARE_CLASS(QAbstractItemModel)
 class QxtScheduleItemDelegate;
 class QxtScheduleViewPrivate;
 class QxtScheduleInternalItem;

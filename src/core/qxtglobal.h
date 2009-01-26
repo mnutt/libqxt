@@ -102,4 +102,8 @@ QXT_CORE_EXPORT const char* qxtVersion();
 #define QT_END_NAMESPACE
 #endif
 
+#ifndef QT_FORWARD_DECLARE_CLASS
+#define QT_FORWARD_DECLARE_CLASS(Class) class Class;
+#endif
+
 #endif // QXT_GLOBAL
