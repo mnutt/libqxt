@@ -22,31 +22,27 @@
 **
 ****************************************************************************/
 
-#ifndef QXT__BLOWFISH_H_sadasd
-#define QXT__BLOWFISH_H_sadasd
+#ifndef QXTBLOWFISH_H
+#define QXTBLOWFISH_H
 
-#include <QByteArray>
-#include <QObject>
+#include <qxtpimpl.h>
 #include <qxtglobal.h>
-struct bf_key_st;
-class QXT_CRYPTO_EXPORT QxtBlowFish : public QObject
+#include <QByteArray>
+class QxtBlowfishPrivate;
+
+class QXT_CRYPTO_EXPORT QxtBlowfish
 {
-    Q_OBJECT
+    QXT_DECLARE_PRIVATE(QxtBlowfish);
 
 public:
-    QxtBlowFish(QObject * parent = 0);
-    ~QxtBlowFish();
+    QxtBlowfish();
+    ~QxtBlowfish();
 
-    void setPassword(QByteArray);
-    QByteArray encrypt(QByteArray);
-    QByteArray decrypt(QByteArray);
+    QByteArray password() const;
+    void setPassword(const QByteArray& password);
 
-private:
-    bf_key_st * key;
-
+    QByteArray encrypt(const QByteArray& data) const;
+    QByteArray decrypt(const QByteArray& data) const;
 };
 
-
-#endif
-
-
+#endif // QXTBLOWFISH_H

@@ -22,117 +22,123 @@
 **
 ****************************************************************************/
 
-
 #include "qxtblowfish.h"
+#ifdef HAVE_OPENSSL
 #include <openssl/blowfish.h>
+#endif // HAVE_OPENSSL
 
+/*!
+    \class QxtBlowfish QxtBlowfish
+    \ingroup QxtCrypto
+    \brief  Blowfish Encryption Class
 
+    Usage:
+    \code
+    QxtBlowfish fish;
+    fish.setPassword("foobar").
 
-/**
-\class QxtBlowFish QxtBlowFish
-
-\ingroup QxtCrypto
-
-\brief  Blowfish Encryption Class
-
-
-useage:
-\code
-QxtBlowFish() fish;
-fish.setPassword("foobar").
-
-QByteArray a("barblah");
-
-a= fish.encrypt(a);
-a= fish.decrypt(a);
-\endcode
+    QByteArray data("barblah");
+    data = fish.encrypt(data);
+    data = fish.decrypt(data);
+    \endcode
 */
 
-
-
-
-
-QxtBlowFish::QxtBlowFish(QObject * parent) : QObject(parent)
+class QxtBlowfishPrivate : public QxtPrivate<QxtBlowfish>
 {
-    key = new BF_KEY;
+public:
+#ifdef HAVE_OPENSSL
+    bf_key_st* key;
+#endif // HAVE_OPENSSL
+    QByteArray password;
+};
+
+QxtBlowfish::QxtBlowfish()
+{
+#ifdef HAVE_OPENSSL
+    qxt_d().key = new BF_KEY;
+#endif // HAVE_OPENSSL
 }
 
-QxtBlowFish::~QxtBlowFish()
+QxtBlowfish::~QxtBlowfish()
 {
-    delete(key);
+#ifdef HAVE_OPENSSL
+    delete qxt_d().key;
+#endif // HAVE_OPENSSL
 }
 
-
-void QxtBlowFish::setPassword(QByteArray k)
+QByteArray QxtBlowfish::password() const
 {
-    BF_set_key(key, k.count() , (unsigned char *)k.constData());
+    return qxt_d().password;
 }
 
-
-
-QByteArray  QxtBlowFish::encrypt(QByteArray in)
+void QxtBlowfish::setPassword(const QByteArray& password)
 {
-    QByteArray out(in);
+    qxt_d().password = password;
+#ifdef HAVE_OPENSSL
+    BF_set_key(qxt_d().key, password.size(), (uchar*)password.constData());
+#endif // HAVE_OPENSSL
+}
+
+QByteArray QxtBlowfish::encrypt(const QByteArray& data) const
+{
+    QByteArray result;
+#ifdef HAVE_OPENSSL
+    result = data;
     int num = 0;
-    unsigned char  ivec [9];
-    ivec[0] = (unsigned char)3887;
-    ivec[1] = (unsigned char)3432;
-    ivec[2] = (unsigned char)3887;
-    ivec[3] = (unsigned char)2344;
-    ivec[4] = (unsigned char)678;
-    ivec[5] = (unsigned char)3887;
-    ivec[6] = (unsigned char)575;
-    ivec[7] = (unsigned char)2344;
-    ivec[8] = (unsigned char)2222;
-
+    uchar ivec[9];
+    ivec[0] = (uchar)3887;
+    ivec[1] = (uchar)3432;
+    ivec[2] = (uchar)3887;
+    ivec[3] = (uchar)2344;
+    ivec[4] = (uchar)678;
+    ivec[5] = (uchar)3887;
+    ivec[6] = (uchar)575;
+    ivec[7] = (uchar)2344;
+    ivec[8] = (uchar)2222;
 
     BF_cfb64_encrypt(
-        (unsigned char *)in.constData(),
-        (unsigned char *)out.data(),
-        in.size(),
-        key,
+        (const uchar*)data.constData(),
+        (uchar*)result.data(),
+        data.size(),
+        qxt_d().key,
         ivec,
         &num,
         BF_ENCRYPT
     );
 
-
-    out = out.toBase64();
-    return out;
-
+    result = result.toBase64();
+#endif // HAVE_OPENSSL
+    return result;
 }
 
-
-QByteArray  QxtBlowFish::decrypt(QByteArray in)
-
+QByteArray QxtBlowfish::decrypt(const QByteArray& data) const
 {
-    in = QByteArray::fromBase64(in);
-
-    QByteArray out(in);
+    QByteArray result;
+#ifdef HAVE_OPENSSL
+    QByteArray source = QByteArray::fromBase64(data);
+    result = source;
 
     int num = 0;
-    unsigned char  ivec [9];
-    ivec[0] = (unsigned char)3887;
-    ivec[1] = (unsigned char)3432;
-    ivec[2] = (unsigned char)3887;
-    ivec[3] = (unsigned char)2344;
-    ivec[4] = (unsigned char)678;
-    ivec[5] = (unsigned char)3887;
-    ivec[6] = (unsigned char)575;
-    ivec[7] = (unsigned char)2344;
-    ivec[8] = (unsigned char)2222;
-
+    uchar ivec[9];
+    ivec[0] = (uchar)3887;
+    ivec[1] = (uchar)3432;
+    ivec[2] = (uchar)3887;
+    ivec[3] = (uchar)2344;
+    ivec[4] = (uchar)678;
+    ivec[5] = (uchar)3887;
+    ivec[6] = (uchar)575;
+    ivec[7] = (uchar)2344;
+    ivec[8] = (uchar)2222;
 
     BF_cfb64_encrypt(
-        (unsigned char *)in.constData(),
-        (unsigned char *)out.data(),
-        in.size(),
-        key,
+        (const uchar*)source.constData(),
+        (uchar*)result.data(),
+        source.size(),
+        qxt_d().key,
         ivec,
         &num,
         BF_DECRYPT
     );
-
-
-    return out;
+#endif // HAVE_OPENSSL
+    return result;
 }
