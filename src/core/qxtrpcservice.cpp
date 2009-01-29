@@ -601,6 +601,8 @@ void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, con
 {
     if (isClient())
     {
+        if(QxtMetaObject::isSignalOrSlot(fn.toAscii().constData()))
+            fn = QxtMetaObject::methodSignature(fn.toAscii().constData());
         QByteArray data = qxt_d().serializer->serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8);
         qxt_d().device->write(data);
     }
