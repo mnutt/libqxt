@@ -74,16 +74,16 @@ private slots:
 
     void TcpServerIo()
     {
-        QxtRPCPeer server(QxtRPCPeer::Server);
+        QxtRPCPeer server;
         QVERIFY2(server.attachSlot (SIGNAL(wave(QString)),this,SIGNAL(networkedwave(quint64,QString))),"cannot attach slot");
 
 
         QVERIFY(server.listen (QHostAddress::LocalHost, 23444));
 
 
-        QxtRPCPeer client(QxtRPCPeer::Client);
+        QxtRPCPeer client;
         client.connect (QHostAddress::LocalHost, 23444);
-        QVERIFY(qobject_cast<QTcpSocket*>(client.socket())->waitForConnected ( 30000 ));
+        QVERIFY(qobject_cast<QTcpSocket*>(client.device())->waitForConnected ( 30000 ));
 
 
         QSignalSpy spy(this, SIGNAL(networkedwave(quint64,QString)));
