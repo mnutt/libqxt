@@ -97,7 +97,7 @@ public:
             sigID = nextSignalID;
         }
         signalToId.insert(qMakePair(obj, norm), nextSlotID);
-        idToRpc.insert(nextSlotID, rpcFunction);
+        idToRpc.insert(nextSlotID, rpcFunction.isEmpty() ? norm : rpcFunction);
         idToParams[nextSlotID] = sigID;
         QMetaObject::connect(obj, methodID, this, nextSlotID);
         do
@@ -551,7 +551,10 @@ bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const 
     slotDef.recv = recv;
     slotDef.slot = name;
     slotDef.type = type;
-    qxt_d().connectedSlots[rpcFunction].append(slotDef);
+    QString rpcFunc = rpcFunction;
+    if(QxtMetaObject::isSignalOrSlot(rpcFunction.toAscii().constData()))
+        rpcFunc = QxtMetaObject::methodSignature(rpcFunction.toAscii().constData());
+    qxt_d().connectedSlots[rpcFunc].append(slotDef);
     return true;
 }
 
