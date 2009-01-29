@@ -35,14 +35,17 @@ class QXT_CRYPTO_EXPORT QxtBlowfish
     QXT_DECLARE_PRIVATE(QxtBlowfish);
 
 public:
-    QxtBlowfish();
+    QxtBlowfish(const QByteArray& key = QByteArray());
     ~QxtBlowfish();
 
-    QByteArray password() const;
-    void setPassword(const QByteArray& password);
+    QByteArray key() const;
+    void setKey(const QByteArray& key);
 
     QByteArray encrypt(const QByteArray& data) const;
     QByteArray decrypt(const QByteArray& data) const;
+
+    static QByteArray encrypted(const QByteArray& data, const QByteArray& key);
+    static QByteArray decrypted(const QByteArray& data, const QByteArray& key);
 };
 
 #endif // QXTBLOWFISH_H
