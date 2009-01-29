@@ -30,12 +30,12 @@
 /*!
     \class QxtBlowfish QxtBlowfish
     \ingroup QxtCrypto
-    \brief  Blowfish Encryption Class
+    \brief Blowfish encryption class
 
     Usage:
     \code
     QxtBlowfish fish;
-    fish.setPassword("foobar").
+    fish.setKey("foobar").
 
     QByteArray data("barblah");
     data = fish.encrypt(data);
@@ -47,41 +47,61 @@ class QxtBlowfishPrivate : public QxtPrivate<QxtBlowfish>
 {
 public:
 #ifdef HAVE_OPENSSL
-    bf_key_st* key;
+    bf_key_st* bf_key;
 #endif // HAVE_OPENSSL
-    QByteArray password;
+    QByteArray key;
 };
 
-QxtBlowfish::QxtBlowfish()
+/*!
+    Constructs a new QxtBlowfish with \a key.
+ */
+QxtBlowfish::QxtBlowfish(const QByteArray& key)
 {
 #ifdef HAVE_OPENSSL
-    qxt_d().key = new BF_KEY;
+    qxt_d().bf_key = new BF_KEY;
 #endif // HAVE_OPENSSL
+    if (!key.isNull())
+        setKey(key);
 }
 
+/*!
+    Destructs the QxtBlowfish instance.
+ */
 QxtBlowfish::~QxtBlowfish()
 {
 #ifdef HAVE_OPENSSL
-    delete qxt_d().key;
+    delete qxt_d().bf_key;
 #endif // HAVE_OPENSSL
 }
 
-QByteArray QxtBlowfish::password() const
+/*!
+    Returns the key.
+ */
+QByteArray QxtBlowfish::key() const
 {
-    return qxt_d().password;
+    return qxt_d().key;
 }
 
-void QxtBlowfish::setPassword(const QByteArray& password)
+/*!
+    Sets the \a key.
+ */
+void QxtBlowfish::setKey(const QByteArray& key)
 {
-    qxt_d().password = password;
+    qxt_d().key = key;
 #ifdef HAVE_OPENSSL
-    BF_set_key(qxt_d().key, password.size(), (uchar*)password.constData());
+    BF_set_key(qxt_d().bf_key, key.size(), (uchar*)key.constData());
 #endif // HAVE_OPENSSL
 }
 
+/*!
+    Encrypts \a data.
+
+    \sa setKey()
+ */
 QByteArray QxtBlowfish::encrypt(const QByteArray& data) const
 {
     QByteArray result;
+    Q_UNUSED(data);
 #ifdef HAVE_OPENSSL
     result = data;
     int num = 0;
@@ -100,7 +120,7 @@ QByteArray QxtBlowfish::encrypt(const QByteArray& data) const
         (const uchar*)data.constData(),
         (uchar*)result.data(),
         data.size(),
-        qxt_d().key,
+        qxt_d().bf_key,
         ivec,
         &num,
         BF_ENCRYPT
@@ -111,9 +131,15 @@ QByteArray QxtBlowfish::encrypt(const QByteArray& data) const
     return result;
 }
 
+/*!
+    Decrypts \a data.
+
+    \sa setKey()
+*/
 QByteArray QxtBlowfish::decrypt(const QByteArray& data) const
 {
     QByteArray result;
+    Q_UNUSED(data);
 #ifdef HAVE_OPENSSL
     QByteArray source = QByteArray::fromBase64(data);
     result = source;
@@ -134,11 +160,33 @@ QByteArray QxtBlowfish::decrypt(const QByteArray& data) const
         (const uchar*)source.constData(),
         (uchar*)result.data(),
         source.size(),
-        qxt_d().key,
+        qxt_d().bf_key,
         ivec,
         &num,
         BF_DECRYPT
     );
 #endif // HAVE_OPENSSL
     return result;
+}
+
+/*!
+    This is an overloaded member function, provided for convenience. 
+    This version can be invoked without first instantiating a QxtBlowfisn object. 
+
+    Encrypts \a data with \a key.
+ */
+QByteArray QxtBlowfish::encrypted(const QByteArray& data, const QByteArray& key)
+{
+    return QxtBlowfish(key).encrypt(data);
+}
+
+/*!
+    This is an overloaded member function, provided for convenience. 
+    This version can be invoked without first instantiating a QxtBlowfisn object. 
+
+    Decrypts \a data with \a key.
+ */
+QByteArray QxtBlowfish::decrypted(const QByteArray& data, const QByteArray& key)
+{
+    return QxtBlowfish(key).decrypt(data);
 }
