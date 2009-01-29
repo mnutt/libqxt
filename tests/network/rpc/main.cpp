@@ -28,13 +28,12 @@ private slots:
 
     void loopback()
     {
-        QxtFifo io;
-        QxtRPCPeer peer(&io);
+        QxtRPCService peer(new QxtFifo, 0);
         QVERIFY2(peer.attachSignal (this, SIGNAL(  wave  ( QString ) ) ),"cannot attach signal");
         QVERIFY2(peer.attachSlot (  SIGNAL(   wave (  QString  )   ),this, SIGNAL( counterwave(QString  )) ),"cannot attach slot");
 
         QSignalSpy spy(this, SIGNAL(counterwave(QString)));
-        QSignalSpy spyr(&io, SIGNAL(readyRead()));
+        QSignalSpy spyr(peer.device(), SIGNAL(readyRead()));
 
         emit(wave("world"));
 
@@ -51,12 +50,11 @@ private slots:
     }
     void directcall()
     {
-        QxtFifo io;
-        QxtRPCPeer peer(&io);
+        QxtRPCService peer(new QxtFifo, 0);
         QVERIFY2(peer.attachSlot (  SIGNAL(   wave (  QString  )   ),this, SIGNAL( counterwave(QString  )) ),"cannot attach slot");
 
         QSignalSpy spy(this, SIGNAL(counterwave(QString)));
-        QSignalSpy spyr(&io, SIGNAL(readyRead()));
+        QSignalSpy spyr(peer.device(), SIGNAL(readyRead()));
         peer.call(SIGNAL(wave   ( QString   )  ),QString("world"));
 
         QCoreApplication::processEvents ();
