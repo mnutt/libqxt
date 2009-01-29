@@ -30,23 +30,31 @@
 /*!
     \class QxtSlotMapper QxtSlotMapper
     \ingroup QxtCore
-    \brief The QxtSlotMapper class maps parameterized signals to specific slots.
+    \brief The QxtSlotMapper class map signals with a parameter to certain slots.
 
+    QxtSlotMapper is the counterpart of QSignalMapper. Where QSignalMapper maps
+    a parameterless signal into one that has a parameter based on the sender, 
+    QxtSlotMapper maps a signal with a parameter to a specified slot and 
+    receiver based on that parameter.
+
+    The parameter comparison is based on QVariant::operator==(). Thus, any
+    built-in Qt type supported by QVariant and QMetaType is supported.
+
+    \sa QVariant, QMetaType::Type
+
+    \image html qxtslotmapper.png
+
+    Example usage:
     \code
     QxtSlotMapper mapper;
+    mapper.connect(sender, SIGNAL(signal1(int)));
+    mapper.connect(sender, SIGNAL(signal2(QString)));
 
-    // mapping with integers
-    mapper.addMapping(123, someWidget, SLOT(show()));
-    mapper.addMapping(456, someWidget, SLOT(hide()));
-
-    // mapping with strings
-    mapper.addMapping("lower", anotherWidget, SLOT(lower()));
-    mapper.addMapping("raise", anotherWidget, SLOT(raise()));
-
-    // establish connections
-    mapper.connect(listWidget, SIGNAL(currentRowChanged(int)));
-    mapper.connect(lineEdit, SIGNAL(textEdited(QString)));
+    mapper.addMapping(3, receiver1, SLOT(slot1(int)));
+    mapper.addMapping(QString("abc"), receiver2, SLOT(slot2(QString)));
     \endcode
+
+    \sa QSignalMapper
 */
 
 struct QxtSlotMapInfo
