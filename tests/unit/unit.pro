@@ -3,4 +3,4 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += berkeley core crypto gui network sql web
+SUBDIRS += berkeley core crypto gui network sql # web

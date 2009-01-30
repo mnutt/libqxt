@@ -3,4 +3,4 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += app QxtScheduleView unit
+SUBDIRS += unit
