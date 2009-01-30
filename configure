@@ -78,6 +78,9 @@ while (( $# > 0 )); do
         echo "CONFIG -= silent" >> config.in
     elif [ $1 == "-qws" ]; then
         echo "CONFIG += qws" >> config.in
+    elif [ $1 == "-coverage" ]; then
+        echo "QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage" >> config.in
+        echo "QMAKE_LIBS += -lgcov" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
@@ -109,6 +112,7 @@ while (( $# > 0 )); do
         echo "                      options: berkeley crypto designer gui network sql web viral"
         echo "-verbose ............ shows compiler output"
         echo "-qws ................ Build for Qt/Embedded"
+        echo "-coverage ........... Collect coverage information"
 
         rm config.in
         exit
