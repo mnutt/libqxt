@@ -45,7 +45,7 @@ QMAKE_EXTRA_TARGETS += docs
 contains( QXT_BUILD, core ){
     message( building core module )
     sub_core.subdir = src/core
-    SUBDIRS += sub_core	
+    SUBDIRS += sub_core
 }
 
 
@@ -116,11 +116,28 @@ style.recurse -= tools/doqsy
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
+cov_zerocounters.CONFIG += recursive
+cov_zerocounters.recurse = $$SUBDIRS
+cov_zerocounters.recurse -= tools/doqsy sub_designer
+cov_zerocounters.recurse_target = zerocounters
+QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
 
+test.commands += $(QMAKE) tests/tests.pro & $(MAKE) -C tests test
+QMAKE_EXTRA_UNIX_TARGETS += test
 
+cov_capture.CONFIG += recursive
+cov_capture.recurse = $$SUBDIRS
+cov_capture.recurse -= tools/doqsy sub_designer
+cov_capture.recurse -= sub_sql sub_crypto # TODO: write unit tests for these!
+cov_capture.recurse_target = capture
+QMAKE_EXTRA_UNIX_TARGETS += cov_capture
 
+cov_genhtml.CONFIG += recursive
+cov_genhtml.recurse = $$SUBDIRS
+cov_genhtml.recurse -= tools/doqsy sub_designer
+cov_genhtml.recurse -= sub_sql sub_crypto # TODO: write unit tests for these!
+cov_genhtml.recurse_target = genhtml
+QMAKE_EXTRA_UNIX_TARGETS += cov_genhtml
 
-
-
-
-
+coverage.depends += first cov_zerocounters install test cov_capture cov_genhtml
+QMAKE_EXTRA_UNIX_TARGETS += coverage
