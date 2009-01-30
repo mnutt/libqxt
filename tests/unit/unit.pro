@@ -4,3 +4,6 @@
 
 TEMPLATE = subdirs
 SUBDIRS += berkeley core crypto gui network sql # web
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

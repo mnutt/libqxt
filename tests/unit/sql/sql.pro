@@ -3,3 +3,6 @@
 ######################################################################
 
 TEMPLATE = subdirs
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

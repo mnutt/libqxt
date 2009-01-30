@@ -4,3 +4,6 @@
 
 TEMPLATE = subdirs
 SUBDIRS += qxtbdbhash qxtbdbtree
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

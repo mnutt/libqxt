@@ -4,3 +4,6 @@
 
 TEMPLATE = subdirs
 SUBDIRS += unit
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

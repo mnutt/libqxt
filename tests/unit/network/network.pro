@@ -3,4 +3,7 @@
 ######################################################################
 
 TEMPLATE = subdirs
-#SUBDIRS += rpc
+SUBDIRS += rpc
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

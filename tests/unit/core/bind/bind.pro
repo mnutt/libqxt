@@ -6,3 +6,4 @@ CONFIG += qxt qtestlib
 QT -= gui
 QXT += core
 SOURCES += main.cpp
+include(../../test.pri)
