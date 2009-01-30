@@ -8,6 +8,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG += qxt qtestlib
 QXT = core
+include(../../test.pri)
 
 # Input
 HEADERS += sender.h receiver.h

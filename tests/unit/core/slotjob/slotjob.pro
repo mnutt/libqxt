@@ -5,3 +5,4 @@ INCLUDEPATH += .
 CONFIG+=qxt
 QXT+=core
 SOURCES += main.cpp
+include(../../test.pri)

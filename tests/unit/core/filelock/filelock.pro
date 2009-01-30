@@ -6,4 +6,4 @@ CONFIG += qxt qtestlib
 QXT += core
 CONFIG += warn_on
 INCLUDEPATH += .
-
+include(../../test.pri)

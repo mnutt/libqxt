@@ -4,3 +4,6 @@
 
 TEMPLATE = subdirs
 SUBDIRS += async cgi direct htmltemplate invoketest upload
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test

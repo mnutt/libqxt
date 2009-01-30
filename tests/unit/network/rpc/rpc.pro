@@ -5,3 +5,4 @@ INCLUDEPATH += .
 CONFIG+=qxt qtestlib
 QXT+=network 
 SOURCES += main.cpp
+include(../../test.pri)

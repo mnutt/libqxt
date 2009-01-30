@@ -3,4 +3,7 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += bind fifo filelock job pipe sharedprivate slotjob slotmapper QxtFileLock
+SUBDIRS += bind fifo filelock job pipe sharedprivate slotjob slotmapper
+
+test.CONFIG += recursive
+QMAKE_EXTRA_TARGETS += test
