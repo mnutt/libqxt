@@ -81,6 +81,12 @@ while (( $# > 0 )); do
     elif [ $1 == "-coverage" ]; then
         echo "QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage" >> config.in
         echo "QMAKE_LIBS += -lgcov" >> config.in
+        echo "zerocounters.commands = @lcov --directory \$(OBJECTS_DIR) --zerocounters" >> config.in
+        echo "QMAKE_EXTRA_UNIX_TARGETS *= zerocounters" >> config.in
+        echo "capture.commands = @mkdir -p \$\$PWD/coverage && lcov --directory \$(OBJECTS_DIR) --capture --output-file \$\$PWD/coverage/\$(QMAKE_TARGET).cov" >> config.in
+        echo "QMAKE_EXTRA_UNIX_TARGETS *= capture" >> config.in
+        echo "genhtml.commands = @genhtml --no-source --output-directory \$\$PWD/coverage/\$(QMAKE_TARGET) \$\$PWD/coverage/\$(QMAKE_TARGET).cov" >> config.in
+        echo "QMAKE_EXTRA_UNIX_TARGETS *= genhtml" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
@@ -152,15 +158,15 @@ fi
 
 configtest()
 {
-	echo -en "checking for $1\t" 
+	echo -en "checking for $1\t"
 	echo -e  " \n\n $1\n" >>$CONFIG_LOG
 	cd $TESTDIR/$1
-	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG 
+	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG
 	echo -n "."
-	$MAKE clean >>$CONFIG_LOG 
+	$MAKE clean >>$CONFIG_LOG
 	[ -f ./$1 ] && rm ./$1
 	echo -n "."
-	$MAKE >>$CONFIG_LOG 
+	$MAKE >>$CONFIG_LOG
 	echo -n "."
 	if ./$1 >>$CONFIG_LOG ; then
 		echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
