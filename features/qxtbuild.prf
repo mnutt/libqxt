@@ -1,7 +1,10 @@
 !win32:VERSION   = 0.4
 win32: CONFIG   += dll
-MOC_DIR          = .moc
-OBJECTS_DIR      = .obj
+# cannot use .moc/.obj with gcov ("cannot open graph file")
+!contains(CONFIG, coverage) {
+    MOC_DIR          = .moc
+    OBJECTS_DIR      = .obj
+}
 DESTDIR          = ../../deploy/libs/
 #TEMPLATE         = lib
 

@@ -13,9 +13,10 @@ contains(CONFIG, coverage) {
     zerocounters.commands = @lcov --directory \$(OBJECTS_DIR) --zerocounters
     QMAKE_EXTRA_UNIX_TARGETS *= zerocounters
     
-    capture.commands = @mkdir -p \$\$PWD/coverage && lcov --directory \$(OBJECTS_DIR) --capture --output-file \$\$PWD/coverage/\$(QMAKE_TARGET).cov
+    capture.commands = @mkdir -p ../../coverage && lcov --directory \$(OBJECTS_DIR) --capture --output-file ../../coverage/\$(QMAKE_TARGET).cov
     QMAKE_EXTRA_UNIX_TARGETS *= capture
     
-    genhtml.commands = @genhtml --no-source --output-directory \$\$PWD/coverage/\$(QMAKE_TARGET) \$\$PWD/coverage/\$(QMAKE_TARGET).cov
+    genhtml.commands = @genhtml --output-directory ../../coverage/\$(QMAKE_TARGET) ../../coverage/\$(QMAKE_TARGET).cov
+    genhtml.commands += && xdg-open ../../coverage/\$(QMAKE_TARGET)/index.html
     QMAKE_EXTRA_UNIX_TARGETS *= genhtml
 }
