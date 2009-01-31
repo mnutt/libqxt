@@ -122,8 +122,8 @@ cov_zerocounters.recurse -= tools/doqsy sub_designer
 cov_zerocounters.recurse_target = zerocounters
 QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
 
-test.commands += $(QMAKE) -r tests/tests.pro & $(MAKE) -C tests test
-QMAKE_EXTRA_UNIX_TARGETS += test
+runtests.commands += $(QMAKE) -r tests/tests.pro & $(MAKE) -C tests test
+QMAKE_EXTRA_UNIX_TARGETS += runtests
 
 cov_capture.CONFIG += recursive
 cov_capture.recurse = $$SUBDIRS
@@ -139,5 +139,5 @@ cov_genhtml.recurse -= sub_sql sub_crypto # TODO: write unit tests for these!
 cov_genhtml.recurse_target = genhtml
 QMAKE_EXTRA_UNIX_TARGETS += cov_genhtml
 
-coverage.depends += first cov_zerocounters install test cov_capture cov_genhtml
+coverage.depends += first cov_zerocounters runtests cov_capture cov_genhtml
 QMAKE_EXTRA_UNIX_TARGETS += coverage
