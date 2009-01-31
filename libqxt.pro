@@ -122,7 +122,7 @@ cov_zerocounters.recurse -= tools/doqsy sub_designer
 cov_zerocounters.recurse_target = zerocounters
 QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
 
-test.commands += $(QMAKE) tests/tests.pro & $(MAKE) -C tests test
+test.commands += $(QMAKE) -r tests/tests.pro & $(MAKE) -C tests test
 QMAKE_EXTRA_UNIX_TARGETS += test
 
 cov_capture.CONFIG += recursive
