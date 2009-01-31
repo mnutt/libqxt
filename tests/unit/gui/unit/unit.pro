@@ -1,8 +1,8 @@
-TEMPLATE     = app
-TARGET       = gui
-DEPENDPATH  += .
+TEMPLATE = app
+TARGET = 
+DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG      += qtestlib qxt
-QXT         += core gui
-SOURCES     += main.cpp
-include(../../test.pri)
+QT = core gui
+QXT = core gui
+SOURCES += main.cpp
+include(../../unit.pri)

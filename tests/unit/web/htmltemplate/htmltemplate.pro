@@ -1,8 +1,8 @@
 TEMPLATE = app
-TARGET =
+TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
+QT = core
+QXT = web
 SOURCES += main.cpp
-CONFIG+=qxt qtestlib
-QXT+=web
-
+include(../../unit.pri)

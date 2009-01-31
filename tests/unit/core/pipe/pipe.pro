@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG+=QXT qtestlib
-QXT+=network 
+QT = core
+QXT = core
 SOURCES += main.cpp
-include(../../test.pri)
+include(../../unit.pri)
