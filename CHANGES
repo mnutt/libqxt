@@ -16,6 +16,7 @@ or online at http://docs.libqxt.org.
     * Added QxtCrumbView
     * Improved QxtScheduleView
     * Added QxtSortFilterProxyModel
+    * Improved QxtSpanSlider
 
 - QxtWeb
     * Added QxtWebCgiService
