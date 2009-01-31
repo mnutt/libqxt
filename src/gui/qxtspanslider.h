@@ -37,11 +37,23 @@ class QXT_GUI_EXPORT QxtSpanSlider : public QSlider
     QXT_DECLARE_PRIVATE(QxtSpanSlider);
     Q_PROPERTY(int lowerValue READ lowerValue WRITE setLowerValue)
     Q_PROPERTY(int upperValue READ upperValue WRITE setUpperValue)
+    Q_PROPERTY(HandleMovementMode handleMovementMode READ handleMovementMode WRITE setHandleMovementMode)
+    Q_ENUMS(HandleMovementMode)
 
 public:
     explicit QxtSpanSlider(QWidget* parent = 0);
     explicit QxtSpanSlider(Qt::Orientation orientation, QWidget* parent = 0);
     virtual ~QxtSpanSlider();
+
+    enum HandleMovementMode
+    {
+        FreeMovement,
+        NoCrossing,
+        NoOverlapping
+    };
+
+    HandleMovementMode handleMovementMode() const;
+    void setHandleMovementMode(HandleMovementMode mode);
 
     int lowerValue() const;
     int upperValue() const;

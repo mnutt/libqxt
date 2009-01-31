@@ -68,6 +68,8 @@ public:
     SpanHandle mainControl;
     QStyle::SubControl lowerPressed;
     QStyle::SubControl upperPressed;
+    QxtSpanSlider::HandleMovementMode movement;
+    bool firstMovement;
 
 public Q_SLOTS:
     void updateRange(int min, int max);

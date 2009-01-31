@@ -37,8 +37,11 @@ QxtSpanSliderPrivate::QxtSpanSliderPrivate()
         lastPressed(NoHandle),
         mainControl(LowerHandle),
         lowerPressed(QStyle::SC_None),
-        upperPressed(QStyle::SC_None)
-{}
+        upperPressed(QStyle::SC_None),
+        movement(QxtSpanSlider::FreeMovement),
+        firstMovement(false)
+{
+}
 
 // TODO: get rid of this in Qt 4.3
 void QxtSpanSliderPrivate::initStyleOption(QStyleOptionSlider* option, SpanHandle handle) const
@@ -212,7 +215,12 @@ void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, b
 
     if (!up)
     {
-        if (value > upper)
+        if (movement == QxtSpanSlider::NoCrossing)
+            value = qMin(value, upper);
+        else if (movement == QxtSpanSlider::NoOverlapping)
+            value = qMin(value, upper - 1);
+
+        if (movement == QxtSpanSlider::FreeMovement && value > upper)
         {
             swapControls();
             qxt_p().setUpperValue(value);
@@ -224,7 +232,12 @@ void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, b
     }
     else
     {
-        if (value < lower)
+        if (movement == QxtSpanSlider::NoCrossing)
+            value = qMax(value, lower);
+        else if (movement == QxtSpanSlider::NoOverlapping)
+            value = qMax(value, lower + 1);
+
+        if (movement == QxtSpanSlider::FreeMovement && value < lower)
         {
             swapControls();
             qxt_p().setLowerValue(value);
@@ -304,6 +317,32 @@ void QxtSpanSliderPrivate::updateRange(int min, int max)
  */
 
 /*!
+    \enum QxtSpanSlider::HandleMovementMode
+
+    This enum describes the available handle movement modes.
+ */
+
+/*!
+    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::FreeMovement
+
+    The handles can be moved freely.
+ */
+
+/*!
+    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoCrossing
+
+    The handles cannot cross, but they can still overlap each other.
+    The lower and upper values can be the same.
+ */
+
+/*!
+    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoOverlapping
+
+    The handles cannot overlap each other. The lower and upper values
+    cannot be the same.
+ */
+
+/*!
     \fn QxtSpanSlider::lowerValueChanged(int lower)
 
     This signal is emitted whenever the lower value has changed.
@@ -343,7 +382,22 @@ QxtSpanSlider::QxtSpanSlider(Qt::Orientation orientation, QWidget* parent) : QSl
     Destructs the slider.
  */
 QxtSpanSlider::~QxtSpanSlider()
-{}
+{
+}
+
+/*!
+    \property QxtSpanSlider::handleMovementMode
+    \brief This property holds the handle movement mode
+ */
+QxtSpanSlider::HandleMovementMode QxtSpanSlider::handleMovementMode() const
+{
+    return qxt_d().movement;
+}
+
+void QxtSpanSlider::setHandleMovementMode(QxtSpanSlider::HandleMovementMode mode)
+{
+    qxt_d().movement = mode;
+}
 
 /*!
     \property QxtSpanSlider::lowerValue
@@ -457,6 +511,7 @@ void QxtSpanSlider::mousePressEvent(QMouseEvent* event)
     if (qxt_d().upperPressed != QStyle::SC_SliderHandle)
         qxt_d().handleMousePress(event->pos(), qxt_d().lowerPressed, qxt_d().lower, QxtSpanSliderPrivate::LowerHandle);
 
+    qxt_d().firstMovement = true;
     event->accept();
 }
 
@@ -484,9 +539,31 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
         }
     }
 
+    // pick the preferred handle on the first movement
+    if (qxt_d().firstMovement)
+    {
+        if (qxt_d().lower == qxt_d().upper)
+        {
+            if (newPosition < lowerValue())
+            {
+                qxt_d().swapControls();
+                qxt_d().firstMovement = false;
+            }
+        }
+        else
+        {
+            qxt_d().firstMovement = false;
+        }
+    }
+
     if (qxt_d().lowerPressed == QStyle::SC_SliderHandle)
     {
-        if (newPosition > qxt_d().upper)
+        if (qxt_d().movement == NoCrossing)
+            newPosition = qMin(newPosition, upperValue());
+        else if (qxt_d().movement == NoOverlapping)
+            newPosition = qMin(newPosition, upperValue() - 1);
+
+        if (qxt_d().movement == FreeMovement && newPosition > qxt_d().upper)
         {
             qxt_d().swapControls();
             setUpperValue(newPosition);
@@ -498,7 +575,12 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
     }
     else if (qxt_d().upperPressed == QStyle::SC_SliderHandle)
     {
-        if (newPosition < qxt_d().lower)
+        if (qxt_d().movement == NoCrossing)
+            newPosition = qMax(newPosition, lowerValue());
+        else if (qxt_d().movement == NoOverlapping)
+            newPosition = qMax(newPosition, lowerValue() + 1);
+
+        if (qxt_d().movement == FreeMovement && newPosition < qxt_d().lower)
         {
             qxt_d().swapControls();
             setLowerValue(newPosition);
