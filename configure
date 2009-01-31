@@ -79,14 +79,7 @@ while (( $# > 0 )); do
     elif [ $1 == "-qws" ]; then
         echo "CONFIG += qws" >> config.in
     elif [ $1 == "-coverage" ]; then
-        echo "QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage" >> config.in
-        echo "QMAKE_LIBS += -lgcov" >> config.in
-        echo "zerocounters.commands = @lcov --directory \$(OBJECTS_DIR) --zerocounters" >> config.in
-        echo "QMAKE_EXTRA_UNIX_TARGETS *= zerocounters" >> config.in
-        echo "capture.commands = @mkdir -p \$\$PWD/coverage && lcov --directory \$(OBJECTS_DIR) --capture --output-file \$\$PWD/coverage/\$(QMAKE_TARGET).cov" >> config.in
-        echo "QMAKE_EXTRA_UNIX_TARGETS *= capture" >> config.in
-        echo "genhtml.commands = @genhtml --no-source --output-directory \$\$PWD/coverage/\$(QMAKE_TARGET) \$\$PWD/coverage/\$(QMAKE_TARGET).cov" >> config.in
-        echo "QMAKE_EXTRA_UNIX_TARGETS *= genhtml" >> config.in
+        echo "CONFIG += coverage" >> config.in
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"

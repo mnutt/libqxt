@@ -5,3 +5,17 @@ isEmpty(docs.path):    docs.path     = $${QXTINSTALLDIR}/share/doc/libqxt
 isEmpty(include.path): include.path  = $${QXTINSTALLDIR}/include/Qxt
 isEmpty(bin.path):     bin.path      = $${QXTINSTALLDIR}/bin
 include(../qxtbuild.prf)
+
+contains(CONFIG, coverage) {
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+    QMAKE_LIBS += -lgcov
+    
+    zerocounters.commands = @lcov --directory \$(OBJECTS_DIR) --zerocounters
+    QMAKE_EXTRA_UNIX_TARGETS *= zerocounters
+    
+    capture.commands = @mkdir -p \$\$PWD/coverage && lcov --directory \$(OBJECTS_DIR) --capture --output-file \$\$PWD/coverage/\$(QMAKE_TARGET).cov
+    QMAKE_EXTRA_UNIX_TARGETS *= capture
+    
+    genhtml.commands = @genhtml --no-source --output-directory \$\$PWD/coverage/\$(QMAKE_TARGET) \$\$PWD/coverage/\$(QMAKE_TARGET).cov
+    QMAKE_EXTRA_UNIX_TARGETS *= genhtml
+}
