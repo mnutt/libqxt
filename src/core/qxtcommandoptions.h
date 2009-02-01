@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef QXTCOMMANDOPTIONS_DEFINED
-#define QXTCOMMANDOPTIONS_DEFINED
+#ifndef QXTCOMMANDOPTIONS_H
+#define QXTCOMMANDOPTIONS_H
 #include <qxtglobal.h>
 #include <qxtpimpl.h>
 #include <QStringList>
@@ -185,4 +185,4 @@ private:
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(QxtCommandOptions::ParamTypes)
 
-#endif
+#endif // QXTCOMMANDOPTIONS_H

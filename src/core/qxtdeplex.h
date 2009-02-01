@@ -21,8 +21,8 @@
 ** <http://libqxt.org>  <foundation@libqxt.org>
 **
 ****************************************************************************/
-#ifndef QxtDeplex_HEADER_GUARD
-#define QxtDeplex_HEADER_GUARD
+#ifndef QXTDEPLEX_H
+#define QXTDEPLEX_H
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 #include "qxtpipe.h"
@@ -45,5 +45,4 @@ private:
 
 };
 
-#endif
-
+#endif // QXTDEPLEX_H
