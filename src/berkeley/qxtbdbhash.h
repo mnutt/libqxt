@@ -37,7 +37,7 @@ template<class KEY, class VAL>
 class QxtBdbHashIterator;
 
 template<class KEY, class VAL>
-class QXT_BERKELEY_EXPORT QxtBdbHash
+class /*QXT_BERKELEY_EXPORT*/ QxtBdbHash
 {
 public:
     QxtBdbHash();
