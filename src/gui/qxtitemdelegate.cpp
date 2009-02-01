@@ -341,7 +341,6 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
     {
         QItemDelegate::paint(painter, option, index);
 
-        bool ok = false;
         const QVariant data = index.data(ProgressValueRole);
         if (data.isValid() && data.canConvert(QVariant::Int))
             qxt_d().paintProgress(painter, option, index);
