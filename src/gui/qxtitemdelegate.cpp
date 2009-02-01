@@ -215,8 +215,11 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
 
     QxtItemDelegate provides signals for starting and finishing of editing
     and an optional decoration for top level indices in a QTreeView.
+
     QxtItemDelegate can also draw a progress bar for indices providing
-    appropriate progress data.
+    appropriate progress data. Just like QProgressBar, QxtItemDelegate
+    can show a busy indicator. If minimum and maximum both are set to
+    \b 0, a busy indicator is shown instead of a percentage of steps.
  */
 
 /*!
@@ -233,6 +236,32 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
     This signal is emitted after the editing of \a index has been finished.
 
     \sa editingStarted()
+ */
+
+/*!
+    \enum QxtItemDelegate::Role
+
+    This enum defines custom roles used by QxtItemDelegate.
+ */
+
+/*!
+    \var QxtItemDelegate::Role QxtItemDelegate::ProgressValueRole
+
+    The progress value.
+ */
+
+/*!
+    \var QxtItemDelegate::Role QxtItemDelegate::ProgressMinimumRole
+
+    The minimum progress value. The default value \b 0 is used
+    if no value is provided for ProgressMinimumRole.
+ */
+
+/*!
+    \var QxtItemDelegate::Role QxtItemDelegate::ProgressMaximumRole
+
+    The maximum progress value. The default value \b 100 is used
+    if no value is provided for ProgressMaximumRole.
  */
 
 /*!
