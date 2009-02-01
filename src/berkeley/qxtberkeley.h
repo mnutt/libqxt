@@ -23,6 +23,7 @@
 ****************************************************************************/
 #include "qxtbdb.h"
 #include "qxtbdbhash.h"
+#include "qxtbdbtree.h"
 
 /** \defgroup QxtBerkeley  QxtBerkeley
     \brief    A Qt Interface to the Berkeley DB
