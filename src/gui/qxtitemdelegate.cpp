@@ -116,15 +116,18 @@ void QxtItemDelegatePrivate::paintMenu(QPainter* painter, const QStyleOptionView
     }
 }
 
-void QxtItemDelegatePrivate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, int progress) const
+void QxtItemDelegatePrivate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
+    QVariant min = index.data(QxtItemDelegate::ProgressMinimumRole);
+    QVariant max = index.data(QxtItemDelegate::ProgressMaximumRole);
+
     QStyleOptionProgressBar opt;
-    opt.minimum = 0;
-    opt.maximum = 100;
+    opt.minimum = (min.isValid() && min.canConvert(QVariant::Int)) ? min.toInt() : 0;
+    opt.maximum = (max.isValid() && max.canConvert(QVariant::Int)) ? max.toInt() : 100;
+    opt.progress = index.data(QxtItemDelegate::ProgressValueRole).toInt();
     opt.rect = option.rect;
-    opt.progress = progress;
     opt.textVisible = textVisible;
-    opt.text = progressFormat.arg(progress);
+    opt.text = progressFormat.arg(opt.progress);
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &opt, painter, 0);
 }
 
@@ -239,7 +242,7 @@ void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
     The default value is \b "%1%".
 
     \note Progress bar is rendered for indices providing valid
-    numerical data for \b ProgressRole.
+    numerical data for \b ProgressValueRole.
 
  \note \b \%1 is replaced by the progress percent.
 
@@ -262,7 +265,7 @@ void QxtItemDelegate::setProgressTextFormat(const QString& format)
     The default value is \b true.
 
     \note Progress bar is rendered for indices providing valid
-    numerical data for \b ProgressRole.
+    numerical data for \b ProgressValueRole.
 
     \sa progressTextFormat, QxtItemDelegate::Role
  */
@@ -339,10 +342,9 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
         QItemDelegate::paint(painter, option, index);
 
         bool ok = false;
-        const QVariant data = index.data(ProgressRole);
-        const int progress  = data.toInt(&ok);
-        if (data.isValid() && ok)
-            qxt_d().paintProgress(painter, option, progress);
+        const QVariant data = index.data(ProgressValueRole);
+        if (data.isValid() && data.canConvert(QVariant::Int))
+            qxt_d().paintProgress(painter, option, index);
     }
 }
 

@@ -42,7 +42,7 @@ public:
 
     void paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
     void paintMenu(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;
-    void paintProgress(QPainter* painter, const QStyleOptionViewItem& option, int progress) const;
+    void paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
     void setCurrentEditor(QWidget* editor, const QModelIndex& index) const;
 
     bool textVisible;
