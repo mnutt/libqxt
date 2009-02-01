@@ -35,7 +35,8 @@ QxtItemDelegatePrivate::QxtItemDelegatePrivate() :
         progressFormat("%1%"),
         elide(Qt::ElideMiddle),
         style(Qxt::NoDecoration)
-{}
+{
+}
 
 void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const
 {
@@ -131,11 +132,32 @@ void QxtItemDelegatePrivate::paintProgress(QPainter* painter, const QStyleOption
     opt.text = progressFormat.arg(opt.progress);
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &opt, painter, 0);
 
-    if (opt.minimum == 0 && opt.maximum == 0)
+    QWidget* viewport = dynamic_cast<QWidget*>(painter->device());
+    if (viewport)
     {
-        QWidget* viewport = dynamic_cast<QWidget*>(painter->device());
-        if (viewport)
-            QTimer::singleShot(1000/25, viewport, SLOT(update()));
+        if (opt.minimum == 0 && opt.maximum == 0)
+        {
+            if (!updatedItems.contains(viewport))
+                connect(viewport, SIGNAL(destroyed()), this, SLOT(viewDestroyed()));
+            updatedItems.replace(viewport, index);
+        }
+        else
+        {
+            updatedItems.remove(viewport, index);
+            if (!updatedItems.contains(viewport))
+                disconnect(viewport, SIGNAL(destroyed()), this, SLOT(viewDestroyed()));
+        }
+    }
+
+    if (updatedItems.isEmpty())
+    {
+        if (updateTimer.isActive())
+            updateTimer.stop();
+    }
+    else
+    {
+        if (!updateTimer.isActive())
+            updateTimer.start(1000 / 25, const_cast<QxtItemDelegatePrivate*>(this));
     }
 }
 
@@ -143,6 +165,38 @@ void QxtItemDelegatePrivate::setCurrentEditor(QWidget* editor, const QModelIndex
 {
     currentEditor = editor;
     currentEdited = index;
+}
+
+void QxtItemDelegatePrivate::timerEvent(QTimerEvent* event)
+{
+    if (event->timerId() == updateTimer.timerId())
+    {
+        QMutableHashIterator<QWidget*, QPersistentModelIndex> it(updatedItems);
+        while (it.hasNext())
+        {
+            it.next();
+            if (!it.key())
+            {
+                it.remove();
+                continue;
+            }
+
+            // try to update the specific view item instead of the whole view if possible
+            if (QAbstractItemView* view = qobject_cast<QAbstractItemView*>(it.key()->parentWidget()))
+                view->update(it.value());
+            else
+                it.key()->update();
+        }
+    }
+}
+
+void QxtItemDelegatePrivate::viewDestroyed()
+{
+    QWidget* viewport = qobject_cast<QWidget*>(sender());
+    if (viewport)
+    {
+        updatedItems.remove(viewport);
+    }
 }
 
 void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
