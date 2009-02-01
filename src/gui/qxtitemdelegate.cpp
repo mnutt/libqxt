@@ -26,6 +26,7 @@
 #include <QApplication>
 #include <QTreeView>
 #include <QPainter>
+#include <QTimer>
 
 static const int TOP_LEVEL_EXTENT = 2;
 
@@ -129,6 +130,13 @@ void QxtItemDelegatePrivate::paintProgress(QPainter* painter, const QStyleOption
     opt.textVisible = textVisible;
     opt.text = progressFormat.arg(opt.progress);
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &opt, painter, 0);
+
+    if (opt.minimum == 0 && opt.maximum == 0)
+    {
+        QWidget* viewport = dynamic_cast<QWidget*>(painter->device());
+        if (viewport)
+            QTimer::singleShot(1000/25, viewport, SLOT(update()));
+    }
 }
 
 void QxtItemDelegatePrivate::setCurrentEditor(QWidget* editor, const QModelIndex& index) const
