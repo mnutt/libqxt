@@ -32,7 +32,7 @@
 #include <qxtglobal.h>
 
 template <typename T>
-class QXT_CORE_EXPORT QxtMetaType
+class /*QXT_CORE_EXPORT*/ QxtMetaType
 {
 public:
     static inline T* construct(const T* copy = 0)
@@ -69,7 +69,7 @@ public:
 };
 
 template <>
-class QXT_CORE_EXPORT QxtMetaType<void>
+class /*QXT_CORE_EXPORT*/ QxtMetaType<void>
 {
 public:
     static inline void* construct(const void* copy = 0)

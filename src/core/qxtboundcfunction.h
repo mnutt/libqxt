@@ -38,7 +38,7 @@
 
 template < typename RETURN, typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void, typename T5 = void,
 typename T6 = void, typename T7 = void, typename T8 = void, typename T9 = void, typename T10 = void >
-class QXT_CORE_EXPORT qxt_cfunction_return : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10);
@@ -53,7 +53,7 @@ private:
 };
 
 template <typename RETURN>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, void, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, void, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)();
@@ -68,7 +68,7 @@ private:
 };
 
 template <typename RETURN, typename T1>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1);
@@ -83,7 +83,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2);
@@ -98,7 +98,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3);
@@ -113,7 +113,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4);
@@ -128,7 +128,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5);
@@ -143,7 +143,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6);
@@ -158,7 +158,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7);
@@ -171,7 +171,7 @@ public:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8);
@@ -186,7 +186,7 @@ private:
 };
 
 template <typename RETURN, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-class QXT_CORE_EXPORT qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction_return<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef RETURN(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9);
@@ -202,7 +202,7 @@ private:
 
 template < typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void, typename T5 = void,
 typename T6 = void, typename T7 = void, typename T8 = void, typename T9 = void, typename T10 = void >
-class QXT_CORE_EXPORT qxt_cfunction : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10);
@@ -217,7 +217,7 @@ private:
 };
 
 template <>
-class QXT_CORE_EXPORT qxt_cfunction<void, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<void, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)();
@@ -232,7 +232,7 @@ private:
 };
 
 template <typename T1>
-class QXT_CORE_EXPORT qxt_cfunction<T1, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, void, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1);
@@ -247,7 +247,7 @@ private:
 };
 
 template <typename T1, typename T2>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, void, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2);
@@ -262,7 +262,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, void, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3);
@@ -277,7 +277,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, void, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, void, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4);
@@ -292,7 +292,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, T5, void, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, T5, void, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5);
@@ -307,7 +307,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, T5, T6, void, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, T5, T6, void, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6);
@@ -322,7 +322,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, void, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, void, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7);
@@ -337,7 +337,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, void, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, void, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8);
@@ -352,7 +352,7 @@ private:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-class QXT_CORE_EXPORT qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : public QxtGenericFunctionPointer
+class /*QXT_CORE_EXPORT*/ qxt_cfunction<T1, T2, T3, T4, T5, T6, T7, T8, T9, void> : public QxtGenericFunctionPointer
 {
 public:
     typedef void(*FUNCTION)(T1, T2, T3, T4, T5, T6, T7, T8, T9);
@@ -368,7 +368,7 @@ private:
 
 template < typename RETURN = void, typename T1 = void, typename T2 = void, typename T3 = void, typename T4 = void, typename T5 = void,
 typename T6 = void, typename T7 = void, typename T8 = void, typename T9 = void, typename T10 = void >
-class QXT_CORE_EXPORT QxtBoundCFunction : public QxtBoundFunctionBase
+class /*QXT_CORE_EXPORT*/ QxtBoundCFunction : public QxtBoundFunctionBase
 {
 public:
     QxtGenericFunctionPointer funcPtr;
@@ -390,7 +390,7 @@ public:
 };
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
-class QXT_CORE_EXPORT QxtBoundCFunction<void, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : public QxtBoundFunctionBase
+class /*QXT_CORE_EXPORT*/ QxtBoundCFunction<void, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : public QxtBoundFunctionBase
 {
 public:
     QxtGenericFunctionPointer funcPtr;
