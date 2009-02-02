@@ -15,7 +15,9 @@ will be added to the project.
 ------------------- License ---------------------------------------------------
 
 This library is free software; you can redistribute it and/or modify it
-under the terms of th Common Public License, version 1.0, as published by IBM.
+under the terms of the Common Public License, version 1.0, as published by IBM 
+or under  the terms of the  GNU Lesser General Public License, version 2.1, 
+as published by the Free Software Foundation
 
 This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
 KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
@@ -24,6 +26,11 @@ FITNESS FOR A PARTICULAR PURPOSE.
 
 You should have received a copy of the CPL along with this file.
 See the LICENSE file and the cpl1.0.txt file included with the source
+distribution for more information. If you did not receive a copy of the
+license, contact the Qxt Foundation.
+
+You should have received a copy of the LGPL along with this file.
+See the LICENSE file and the lgpl-2.1.txt file included with the source
 distribution for more information. If you did not receive a copy of the
 license, contact the Qxt Foundation.
 
