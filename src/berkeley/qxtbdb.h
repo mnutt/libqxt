@@ -56,9 +56,7 @@ namespace BerkeleyDB
 
 }
 
-
-
-class  QxtBdb
+class QXT_BERKELEY_EXPORT QxtBdb
 {
 public:
     enum OpenFlag
