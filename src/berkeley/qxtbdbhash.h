@@ -221,7 +221,7 @@ void QxtBdbHash<KEY, VAL>::clear()
     if (!qxt_d().isOpen)
         return;
 
-    u_int32_t x;
+    BerkeleyDB::u_int32_t x;
     qxt_d().db->truncate(qxt_d().db, NULL, &x, 0);
 
 }

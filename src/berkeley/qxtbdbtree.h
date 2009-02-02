@@ -79,7 +79,7 @@ QxtBdbTree<T>::QxtBdbTree(QString file)
 template<class T>
 bool QxtBdbTree<T>::open(QString file)
 {
-    u_int32_t f;
+    BerkeleyDB::u_int32_t f;
     qxt_d().db->get_flags(qxt_d().db, &f);
     f |= DB_DUP;
     qxt_d().db->set_flags(qxt_d().db, f);
@@ -94,7 +94,7 @@ void QxtBdbTree<T>::clear()
     if (!qxt_d().isOpen)
         return;
 
-    u_int32_t x;
+    BerkeleyDB::u_int32_t x;
     qxt_d().db->truncate(qxt_d().db, NULL, &x, 0);
 }
 
