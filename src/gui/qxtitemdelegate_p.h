@@ -30,6 +30,7 @@
 #include <QPersistentModelIndex>
 #include <QBasicTimer>
 #include <QPointer>
+#include <QMultiHash>
 
 QT_FORWARD_DECLARE_CLASS(QPainter)
 QT_FORWARD_DECLARE_CLASS(QTreeView)
