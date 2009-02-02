@@ -25,9 +25,6 @@ LGPL license option has been added.
 - QxtWeb
     * Added QxtWebCgiService
 
-- QxtViral
-    * Added bindings for Asgaard Viral
-
 0.4.0
 -----
 
