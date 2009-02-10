@@ -34,6 +34,7 @@
 
 #include <QCryptographicHash>
 #include "qxtpimpl.h"
+#include "qxtglobal.h"
 
 class QxtHmacPrivate;
 class QXT_CRYPTO_EXPORT QxtHmac

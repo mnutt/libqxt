@@ -30,6 +30,7 @@
 #include <QByteArray>
 #include <QHash>
 #include <qxtpimpl.h>
+#include <qxtglobal.h>
 
 class QxtWebContentPrivate;
 class QXT_WEB_EXPORT QxtWebContent : public QIODevice
