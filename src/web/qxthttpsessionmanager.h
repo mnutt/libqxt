@@ -34,7 +34,7 @@ class QxtWebEvent;
 class QxtWebContent;
 
 class QxtHttpSessionManagerPrivate;
-class QxtHttpSessionManager : public QxtAbstractWebSessionManager
+class QXT_WEB_EXPORT QxtHttpSessionManager : public QxtAbstractWebSessionManager
 {
     friend class QxtAbstractHttpConnector;
     Q_OBJECT

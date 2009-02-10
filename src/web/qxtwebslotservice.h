@@ -29,7 +29,7 @@
 #include "qxtabstractwebservice.h"
 #include <QUrl>
 
-class QxtWebSlotService : public QxtAbstractWebService
+class QXT_WEB_EXPORT QxtWebSlotService : public QxtAbstractWebService
 {
     Q_OBJECT
 public:

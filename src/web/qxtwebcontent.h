@@ -32,7 +32,7 @@
 #include <qxtpimpl.h>
 
 class QxtWebContentPrivate;
-class QxtWebContent : public QIODevice
+class QXT_WEB_EXPORT QxtWebContent : public QIODevice
 {
     Q_OBJECT
 public:
