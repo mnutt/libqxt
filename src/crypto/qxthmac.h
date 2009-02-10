@@ -36,7 +36,7 @@
 #include "qxtpimpl.h"
 
 class QxtHmacPrivate;
-class QxtHmac
+class QXT_CRYPTO_EXPORT QxtHmac
 {
 public:
     typedef QCryptographicHash::Algorithm Algorithm;

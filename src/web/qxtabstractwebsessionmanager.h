@@ -32,7 +32,7 @@ class QxtAbstractWebService;
 class QxtWebEvent;
 
 class QxtAbstractWebSessionManagerPrivate;
-class QxtAbstractWebSessionManager : public QObject
+class QXT_WEB_EXPORT QxtAbstractWebSessionManager : public QObject
 {
     Q_OBJECT
 public:

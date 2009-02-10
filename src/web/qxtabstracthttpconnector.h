@@ -36,7 +36,7 @@ QT_FORWARD_DECLARE_CLASS(QIODevice)
 class QxtHttpSessionManager;
 
 class QxtAbstractHttpConnectorPrivate;
-class QxtAbstractHttpConnector : public QObject
+class QXT_WEB_EXPORT QxtAbstractHttpConnector : public QObject
 {
     friend class QxtHttpSessionManager;
     Q_OBJECT
@@ -63,7 +63,7 @@ private:
 };
 
 class QxtHttpServerConnectorPrivate;
-class QxtHttpServerConnector : public QxtAbstractHttpConnector
+class QXT_WEB_EXPORT QxtHttpServerConnector : public QxtAbstractHttpConnector
 {
     Q_OBJECT
 public:
@@ -83,7 +83,7 @@ private:
 };
 
 class QxtScgiServerConnectorPrivate;
-class QxtScgiServerConnector : public QxtAbstractHttpConnector
+class QXT_WEB_EXPORT QxtScgiServerConnector : public QxtAbstractHttpConnector
 {
     Q_OBJECT
 public:
@@ -104,7 +104,7 @@ private:
 /* Commented out pending implementation
 
 class QxtFcgiConnectorPrivate;
-class QxtFcgiConnector : public QxtAbstractHttpConnector {
+class QXT_WEB_EXPORT QxtFcgiConnector : public QxtAbstractHttpConnector {
 Q_OBJECT
 public:
     QxtFcgiConnector(QObject* parent = 0);

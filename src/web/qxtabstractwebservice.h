@@ -33,7 +33,7 @@ class QxtWebEvent;
 class QxtWebRequestEvent;
 
 class QxtAbstractWebServicePrivate;
-class QxtAbstractWebService : public QObject
+class QXT_WEB_EXPORT QxtAbstractWebService : public QObject
 {
     Q_OBJECT
 public:

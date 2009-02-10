@@ -37,7 +37,7 @@
 QT_FORWARD_DECLARE_CLASS(QIODevice)
 class QxtWebContent;
 
-class QxtWebEvent
+class QXT_WEB_EXPORT QxtWebEvent
 {
 public:
     enum EventType
@@ -64,7 +64,7 @@ private:
     EventType m_type;
 };
 
-class QxtWebRequestEvent : public QxtWebEvent
+class QXT_WEB_EXPORT QxtWebRequestEvent : public QxtWebEvent
 {
 public:
     QxtWebRequestEvent(int sessionID, int requestID, const QUrl& url);
@@ -84,7 +84,7 @@ public:
 };
 
 /* TODO: refactor and implement
-class QxtWebFileUploadEvent : public QxtWebEvent {
+class QXT_WEB_EXPORT QxtWebFileUploadEvent : public QxtWebEvent {
 public:
     QxtWebFileUploadEvent(int sessionID);
 
@@ -95,7 +95,7 @@ public:
 */
 
 class QxtWebRedirectEvent;
-class QxtWebPageEvent : public QxtWebEvent
+class QXT_WEB_EXPORT QxtWebPageEvent : public QxtWebEvent
 {
 public:
     QxtWebPageEvent(int sessionID, int requestID, QIODevice* source = 0);
@@ -114,13 +114,13 @@ private:
     QxtWebPageEvent(QxtWebEvent::EventType typeOverride, int sessionID, int requestID, QByteArray source);
 };
 
-class QxtWebErrorEvent : public QxtWebPageEvent
+class QXT_WEB_EXPORT QxtWebErrorEvent : public QxtWebPageEvent
 {
 public:
     QxtWebErrorEvent(int sessionID, int requestID, int status, QByteArray statusMessage);
 };
 
-class QxtWebStoreCookieEvent : public QxtWebEvent
+class QXT_WEB_EXPORT QxtWebStoreCookieEvent : public QxtWebEvent
 {
 public:
     QxtWebStoreCookieEvent(int sessionID, QString name, QString data, QDateTime expiration = QDateTime());
@@ -130,7 +130,7 @@ public:
     QDateTime expiration;
 };
 
-class QxtWebRemoveCookieEvent : public QxtWebEvent
+class QXT_WEB_EXPORT QxtWebRemoveCookieEvent : public QxtWebEvent
 {
 public:
     QxtWebRemoveCookieEvent(int sessionID, QString name);
@@ -138,7 +138,7 @@ public:
     QString name;
 };
 
-class QxtWebRedirectEvent : public QxtWebPageEvent
+class QXT_WEB_EXPORT QxtWebRedirectEvent : public QxtWebPageEvent
 {
 public:
     QxtWebRedirectEvent(int sessionID, int requestID, const QString& destination, int statusCode = 302);
