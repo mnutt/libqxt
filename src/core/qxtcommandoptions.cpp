@@ -273,7 +273,7 @@ quint16 QxtCommandOptions::screenWidth() const
 void QxtCommandOptions::addSection(const QString& name)
 {
     QxtCommandOption option;
-    option.canonicalName = QString();
+    option.canonicalName.clear();
     option.desc = name;
     qxt_d().options.append(option);
 }
