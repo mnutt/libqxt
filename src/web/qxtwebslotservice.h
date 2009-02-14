@@ -33,7 +33,7 @@ class QXT_WEB_EXPORT QxtWebSlotService : public QxtAbstractWebService
 {
     Q_OBJECT
 public:
-    QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
+    explicit QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 
 protected:
     QUrl self(QxtWebRequestEvent* event);

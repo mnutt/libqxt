@@ -15,7 +15,7 @@ class FsImageModel : public QAbstractItemModel
 {
 Q_OBJECT
 public:
-    FsImageModel(QString path,QObject * parent = 0);
+    explicit FsImageModel(QString path,QObject * parent = 0);
     virtual ~FsImageModel();
     virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     virtual QModelIndex parent(const QModelIndex &index) const;

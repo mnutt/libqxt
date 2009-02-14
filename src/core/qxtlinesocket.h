@@ -36,7 +36,7 @@ class QXT_CORE_EXPORT QxtLineSocket: public QObject
     Q_OBJECT
 public:
     QxtLineSocket(QIODevice * socket, QObject * parent = 0);
-    QxtLineSocket(QObject * parent = 0);
+    explicit QxtLineSocket(QObject * parent = 0);
 
     void setSocket(QIODevice *);
     QIODevice * socket() const;
