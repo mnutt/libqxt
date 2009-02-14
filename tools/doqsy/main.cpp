@@ -465,7 +465,7 @@ QString printAssistantNGQHPFile()
         }
     }
 
-    foreach(QString file,QDir(outputDir).entryList ())
+    foreach(const QString &file, QDir(outputDir).entryList())
     {
         t_i_i_i.clear();
         t_i_i_i["name"]=file;
@@ -518,7 +518,7 @@ QString printPublicClasses()
             cr=1;
     }
 
-    foreach(QString rowstr, rowstring.values())
+    foreach(const QString &rowstr, rowstring.values())
     {
         t["unroll"]+="<tr>\r\n"+rowstr+"</tr>\r\n\r\n";
     }
@@ -1144,7 +1144,7 @@ int main(int argc,char ** argv)
     settings.endGroup();
 
     qDebug("[cleaning output dir]");
-    foreach(QString asdasdasdasd,QDir(outputDir).entryList ())
+    foreach(const QString &asdasdasdasd, QDir(outputDir).entryList())
     {
         QFile(outputDir+QDir::separator()+asdasdasdasd).remove();
     }
@@ -1161,7 +1161,7 @@ int main(int argc,char ** argv)
     QString doxygeninput;
 
     settings.beginGroup ("doxygen");
-    foreach(QString key,settings.allKeys())
+    foreach(const QString &key, settings.allKeys())
     {
         doxygeninput+=(key+"="+settings.value(key).toString()+"\r\n");
         if(key=="PROJECT_NUMBER")
@@ -1259,7 +1259,7 @@ int main(int argc,char ** argv)
 
     filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"see.png"<<"note.png"<<"warning.png"<<"implicitshared.png";
 
-    foreach(QString f,filesIShouldCopy)
+    foreach(const QString &f, filesIShouldCopy)
     {
         QFile(templateDir+QDir::separator ()+f).copy (outputDir+QDir::separator ()+f);
         qDebug()<<f;
