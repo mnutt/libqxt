@@ -169,7 +169,7 @@ CurrencySymbolMap loadSymbols()
 QString capitalize(const QString& str)
 {
   QStringList words = str.split(' ');
-  for(int  i = 0; i < words.size(); i++)
+  for(int  i = 0; i < words.size(); ++i)
   {
      words[i][0] = words[i][0].toUpper();
   }
