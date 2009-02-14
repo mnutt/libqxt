@@ -102,7 +102,7 @@ void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message
         else
             channel = nick.nick;
     }
-    if(channel == "" || channel == "AUTH") {
+    if(channel.isEmpty() || channel == "AUTH") {
         channel = condiag.hostname();
     } else if(!channels.contains(channel)) {
         channels[channel] = new QTextBrowser();

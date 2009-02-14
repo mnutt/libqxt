@@ -153,7 +153,7 @@ static QString extractPathLevel(QxtWebRequestEvent* event)
 void QxtWebServiceDirectory::pageRequestedEvent(QxtWebRequestEvent* event)
 {
     QString path = extractPathLevel(event);
-    if (path == "")
+    if (path.isEmpty())
     {
         indexRequested(event);
     }
