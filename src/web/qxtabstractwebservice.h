@@ -37,7 +37,7 @@ class QXT_WEB_EXPORT QxtAbstractWebService : public QObject
 {
     Q_OBJECT
 public:
-    QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent = 0);
+    explicit QxtAbstractWebService(QxtAbstractWebSessionManager* manager, QObject* parent = 0);
 
     QxtAbstractWebSessionManager* sessionManager() const;
     inline void postEvent(QxtWebEvent* event)

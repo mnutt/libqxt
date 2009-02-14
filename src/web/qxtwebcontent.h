@@ -39,7 +39,7 @@ class QXT_WEB_EXPORT QxtWebContent : public QIODevice
 public:
     QxtWebContent(int contentLength, const QByteArray& start, QIODevice* device);
     QxtWebContent(int contentLength, QIODevice* device);
-    QxtWebContent(const QByteArray& content, QObject* parent = 0);
+    explicit QxtWebContent(const QByteArray& content, QObject* parent = 0);
     static QHash<QString, QString> parseUrlEncodedQuery(const QString& data);
 
     virtual qint64 bytesAvailable() const;
