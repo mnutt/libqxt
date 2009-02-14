@@ -29,9 +29,9 @@
 
 \ingroup QxtCore
 
-\brief Execute an arbitary Slot on a QThread.
+\brief Execute an arbitrary Slot on a QThread.
 
-\warning It is essential to understand that the Qobject you pass is not safe to use untill done();  is emited or result() or join() is called.
+\warning It is essential to understand that the QObject you pass is not safe to use untill done();  is emitted or result() or join() is called.
 */
 
 /*!
@@ -163,7 +163,7 @@ QVariant QxtFuture::joinedResult()
 
 /*!
 asks for the result of the execution. \n
-waits until the done() signal occured
+waits until the done() signal occurred
 or  return a QVariant() if the timout ocures earlier \n
 This uses QxtSignalWaiter so it will _not_ block your current thread.
 \warning this function is not reentrant. You have been warned

@@ -57,7 +57,7 @@
 
 /*!
         \fn QxtHtmlTemplate::open(const QString& filename)
-        Returns true on sucess and false on failure.
+        Returns true on success and false on failure.
         note that it will also return false for an empty html file.
 
         \fn QString QxtHtmlTemplate::render() const
@@ -86,7 +86,7 @@ bool QxtHtmlTemplate::open(const QString& filename)
     f.close();
     if (data.isEmpty())
     {
-        qWarning("QxtHtmlTemplate::open(\"%s\") empty or non existant", qPrintable(filename));
+        qWarning("QxtHtmlTemplate::open(\"%s\") empty or nonexistent", qPrintable(filename));
         return false;
     }
     return true;

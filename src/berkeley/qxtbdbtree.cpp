@@ -114,18 +114,18 @@ It's an error to use this to iterate, access data, etc..
 \fn QxtBdbTreeIterator<T>::~QxtBdbTreeIterator()
 destructs the iterator.
 
-The underlieing cursos will be closed.
+The underlying cursors will be closed.
 
 
 \fn QxtBdbTreeIterator<T>::QxtBdbTreeIterator(const QxtBdbTreeIterator<T> & other)
 copies the iterator.
 
-The underlieing cursor is duped, meaning the position will be copied, but the copy can be used independently
+The underlying cursor is duped, meaning the position will be copied, but the copy can be used independently
 
 \fn QxtBdbTreeIterator<T> & QxtBdbTreeIterator<T>::operator= ( const QxtBdbTreeIterator<T> & other )
 copies the iterator.
 
-The underlieing cursor is duped, meaning the position will be copied, but the copy can be used independently
+The underlying cursor is duped, meaning the position will be copied, but the copy can be used independently
 
 
 \fn bool QxtBdbTreeIterator<T>::isValid() const

@@ -41,7 +41,7 @@
 
 Sometimes you want to send sql results over network or store them into files. \n
 QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed. \n
-for confidence the interface is similiar to QSqlQuery.
+for confidence the interface is similar to QSqlQuery.
 */
 
 
@@ -78,7 +78,7 @@ while (query.next())
 
 
 \fn QString QxtSqlPackage::value(const QString& key);
-\brief return a cloumn in curent row
+\brief return a column in curent row
 in contrast to QSqlQuery you have to provide the name of the key.
 
 the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.

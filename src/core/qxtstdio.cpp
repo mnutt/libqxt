@@ -76,7 +76,7 @@ qint64 QxtStdio::writeData(const char * data, qint64 maxSize)
         char c = *data++;
         putchar(c);
     }
-//  emit(bytesWritten (i)); ///FIXME: acording to the docs this may not be recoursive. how do i prevent that?
+//  emit(bytesWritten (i)); ///FIXME: according to the docs this may not be recoursive. how do i prevent that?
     return i;
 }
 

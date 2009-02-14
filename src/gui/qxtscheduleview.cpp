@@ -459,7 +459,7 @@ void QxtScheduleView::mouseMoveEvent(QMouseEvent * e)
         {
             if (currentMousePosTableOffset >= 0)
             {
-                /*i can not use the model data here because all changes are commited to the model only when the move ends*/
+                /*i cannot use the model data here because all changes are committed to the model only when the move ends*/
                 int startTableOffset = qxt_d().m_selectedItem->visualStartTableOffset();
                 int endTableOffset = -1;
 

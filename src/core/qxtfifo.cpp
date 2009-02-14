@@ -32,7 +32,7 @@
 
 read and write to the same object \n
 emits a readyRead Signal. \n
-usefull for loopback tests where QBuffer does not work.
+useful for loopback tests where QBuffer does not work.
 
 \code
 QxtFifo fifo;
