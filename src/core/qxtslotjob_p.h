@@ -31,6 +31,7 @@
 
 class QxtSlotJobPrivate : public QObject, public QxtPrivate<QxtSlotJob>
 {
+Q_OBJECT
 public:
     QxtBoundFunction * f;
     QVariant r;
