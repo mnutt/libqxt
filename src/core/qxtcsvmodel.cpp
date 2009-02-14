@@ -342,7 +342,7 @@ void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
     if (withHeader)
     {
         data = "";
-        for (col = 0; col < cols; col++)
+        for (col = 0; col < cols; ++col)
         {
             data += '"' + d_ptr.header.at(col) + '"';
             if (col < cols - 1) data += separator;
@@ -350,10 +350,10 @@ void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
         data += QChar(10);
         dest->write(data.toLatin1());
     }
-    for (row = 0; row < rows; row++)
+    for (row = 0; row < rows; ++row)
     {
         data = "";
-        for (col = 0; col < cols; col++)
+        for (col = 0; col < cols; ++col)
         {
             data += '"' + d_ptr.csvData[row].section(QChar(1), col, col) + '"';
             if (col < cols - 1) data += separator;

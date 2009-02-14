@@ -233,7 +233,7 @@ QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConc
                 *we can loose some of them if the endTime of the last Item is before the endTime of the pre last item
                 */
 
-                for (QLinkedList<QxtScheduleInternalItem *>::iterator it = concurrentItems.begin(); it != concurrentItems.end(); it++)
+                for (QLinkedList<QxtScheduleInternalItem *>::iterator it = concurrentItems.begin(); it != concurrentItems.end(); ++it)
                 {
                     int lastStartOffset = (*it)->visualStartTableOffset();
                     int lastEndOffset   = (*it)->visualEndTableOffset();
