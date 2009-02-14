@@ -34,7 +34,7 @@ berkeley db is in wide use where relational databases, especially SQL, are not d
 
 <h2>Platform specific notes</h2>
 <h3>Windows</h3>
-On Windows the buildsystem is unfortunatly unable to detect the berkeley db library on your system automaticly, becouse of the wide differences in naming scheme.
+On Windows the buildsystem is unfortunately unable to detect the berkeley db library on your system automatically, because of the wide differences in naming scheme.
 <br>
 You will have to add the library yourself:
 <br>

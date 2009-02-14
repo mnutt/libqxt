@@ -10,7 +10,7 @@
 
 /**
  * the test controller controls the client over a QTcpSocker port 55555
- * there are some controll commands
+ * there are some control commands
  * n : start next test
  * a : abort testing
  * from the client there are two possible answers

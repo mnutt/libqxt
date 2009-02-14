@@ -160,7 +160,7 @@ void QxtScheduleViewPrivate::init()
         }
         m_hHeader->show();
 
-        /*here we also intialize the items*/
+        /*here we also initialize the items*/
         m_vHeader->setDefaultSectionSize(20);
         m_vHeader->setResizeMode(QHeaderView::Fixed);
         reloadItemsFromModel();
@@ -317,7 +317,7 @@ void QxtScheduleViewPrivate::handleItemConcurrency(const int from, const int to)
             while (iter.hasNext())
             {
                 iter.next();
-                //intialize the current column
+                //initialize the current column
                 if (currentColumn.isEmpty() || currentColumn[currentColumn.size()-1]->visualEndTableOffset() < iter.value()->visualStartTableOffset())
                 {
                     currentColumn.append(iter.value());

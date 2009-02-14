@@ -779,7 +779,7 @@ static const char* currency_names[] =
     QT_TRANSLATE_NOOP("QxtLocale", "Baht"), // Baht
     QT_TRANSLATE_NOOP("QxtLocale", "Balboa"), // Balboa
     QT_TRANSLATE_NOOP("QxtLocale", "Barbados Dollar"), // BarbadosDollar
-    QT_TRANSLATE_NOOP("QxtLocale", "Belarussian Ruble"), // BelarussianRuble
+    QT_TRANSLATE_NOOP("QxtLocale", "Belarussian Ruble"), // BelarussianRuble krazy:exclude=spelling
     QT_TRANSLATE_NOOP("QxtLocale", "Belize Dollar"), // BelizeDollar
     QT_TRANSLATE_NOOP("QxtLocale", "Bermudian Dollar"), // BermudianDollar
     QT_TRANSLATE_NOOP("QxtLocale", "Bolivar Fuerte"), // BolivarFuerte
