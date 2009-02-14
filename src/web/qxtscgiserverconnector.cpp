@@ -142,7 +142,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
     int i = 0;
     while ((i = buffer.indexOf('\0')) > -1)
     {
-        if (name == "")
+        if (name.isEmpty())
         {
             name = buffer.left(i);
         }
