@@ -33,13 +33,13 @@ BOOL CALLBACK qxt_EnumWindowsProc(HWND hwnd, LPARAM lParam)
     Q_UNUSED(lParam);
     if (::IsWindowVisible(hwnd))
         qxt_Windows += hwnd;
-    return TRUE;
+    return true;
 }
 
 WindowList QxtWindowSystem::windows()
 {
     qxt_Windows.clear();
-    HDESK hdesk = ::OpenInputDesktop(0, FALSE, DESKTOP_READOBJECTS);
+    HDESK hdesk = ::OpenInputDesktop(0, false, DESKTOP_READOBJECTS);
     ::EnumDesktopWindows(hdesk, qxt_EnumWindowsProc, 0);
     ::CloseDesktop(hdesk);
     return qxt_Windows;
