@@ -1,0 +1,19 @@
+syntax: glob
+Makefile*
+debug/
+release/
+*.rej
+*.obj
+*.swp
+*.dll
+*.exp
+*.ilk
+*.pdb
+*.lib
+#? deploy\qt\qxt.prf
+moc_*.cpp
+qxt.prf
+.obj\*
+*.pdb
+doqsy.exe
+qrc_resources.cpp
