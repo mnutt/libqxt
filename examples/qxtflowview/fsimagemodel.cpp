@@ -120,7 +120,7 @@ void FsImageModel::directoryChanged ( const QString & path )
     }
 
 
-    foreach(QString a,org)
+    foreach(const QString &a, org)
         fileChanged(a);
 
 
