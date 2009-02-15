@@ -108,3 +108,26 @@ uint QxtWindowSystem::idleTime()
         idle = ::GetTickCount() - info.dwTime;
     return idle;
 }
+
+QSize QxtWindowSystem::resolution(QWidget* screen)
+{
+    return QSize();
+}
+
+bool QxtWindowSystem::setResolution(int width, int height, QWidget* screen)
+{
+    DEVMODE devMode;
+    devMode.dmSize = sizeof(DEVMODE);
+    //devMode.dmBitsPerPel = depth;
+    devMode.dmPelsWidth  = width;
+    devMode.dmPelsHeight = height;
+    devMode.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT; // | DM_BITSPERPEL;
+
+    LONG res = ::ChangeDisplaySettings(&devMode, 0);
+    return res == DISP_CHANGE_SUCCESSFUL;
+}
+
+QList<QSize> QxtWindowSystem::availableResolutions(QWidget* screen)
+{
+    return QList<QSize>();
+}
