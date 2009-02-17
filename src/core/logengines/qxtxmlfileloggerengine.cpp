@@ -154,5 +154,5 @@ QString QxtXmlFileLoggerEngine::toXmlSafeString(const QString &raw)
 
     Convert ampersands first, then the rest.
     */
-    return QByteArray(raw.toUtf8()).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("'", "&apos;").replace('"', "&quot;");
+    return QByteArray(raw.toUtf8()).replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('\'', "&apos;").replace('"', "&quot;");
 }

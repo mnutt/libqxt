@@ -199,7 +199,7 @@ void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rec
     else
         font = option.font;
 
-    QString text = startTime.toString("hh:mm") + " " + endTime.toString("hh:mm");
+    QString text = startTime.toString("hh:mm") + ' ' + endTime.toString("hh:mm");
     QFontMetrics metr(font);
     text = metr.elidedText(text, Qt::ElideRight, rect.width());
     painter->drawText(rect, Qt::AlignCenter, text);

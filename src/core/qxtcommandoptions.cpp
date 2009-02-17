@@ -736,11 +736,11 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
         {
             if (name.length()) name += ", ";
             if (qxt_d().flagStyle == Slash)
-                name += "/";
+                name += '/';
             else if (qxt_d().flagStyle == DoubleDash && n.length() > 1)
                 name += "--";
             else
-                name += "-";
+                name += '-';
             name += n;
             if (option.paramType & (Optional | Required))
             {
@@ -789,7 +789,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
 
             // Concatenate on the option alias
             if (!name.isEmpty()) name += ", ";
-            name += "-";
+            name += '-';
             name += option;
             if (optionHasValue) name += "[=]x";
 
@@ -815,7 +815,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
             stream << endl << descs[i] << ":" << endl;
             continue;
         }
-        line = " " + names[i] + QString(maxNameLength - names[i].length() + 2, ' ');
+        line = ' ' + names[i] + QString(maxNameLength - names[i].length() + 2, ' ');
         foreach(const QString& word, descs[i].split(' ', QString::SkipEmptyParts))
         {
             if (qxt_d().screenWidth > 0 && line.length() + word.length() >= qxt_d().screenWidth)
@@ -823,7 +823,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
                 stream << line << endl;
                 line = wrap;
             }
-            line += word + " ";
+            line += word + ' ';
         }
         stream << line << endl;
     }
