@@ -112,7 +112,7 @@ QString refToLink( QString ref)
     {
         object="http://doc.trolltech.com/latest/"+object;
 
-        if (sub.startsWith('1'))
+        if (sub.startsWith(QString('1')))
             sub=sub.mid(1);
     }
 
@@ -218,7 +218,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
             else if(e.tagName ()=="ref")
             {
                 ///ignore namespaces, we don't have them
-                if(e.attribute("refid").startsWith("namespace"))
+                if(e.attribute("refid").startsWith(QString("namespace")))
                     text +=descRTF(e);
                 else
                     text += "<a class=\"reflink\" href=\""+refToLink(e.attribute("refid"))+"\">"+descRTF(e)+"</a>";
@@ -561,7 +561,7 @@ void preParseSection(QDomElement sectiondef,Class * cl)
 {
     qDebug()<<"preparsing section "<<sectiondef.attribute("kind");
 
-    if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
+    if(sectiondef.attribute("kind").startsWith(QString("private")))///skip private stuff
     {
         return;
     }
@@ -822,7 +822,7 @@ QString printClass(QString location,Class * cl)
     sectiondef=def.firstChildElement("sectiondef");
     while(!sectiondef.isNull()) 
     {
-        if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
+        if(sectiondef.attribute("kind").startsWith(QString("private")))///skip private stuff
         {
             sectiondef = sectiondef.nextSiblingElement("sectiondef");
             continue;
