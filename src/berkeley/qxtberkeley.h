@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTBERKELEY_H_INCLUDED
+#define QXTBERKELEY_H_INCLUDED
+
 #include "qxtbdb.h"
 #include "qxtbdbhash.h"
 #include "qxtbdbtree.h"
@@ -50,3 +53,5 @@ configure.bat -I C:\BDB-MINGW\include -L C:\BDB-MINGW\lib -l db
 <h3>Linux</h3>
 If you have issues compiling QxtBerkeley with your distributions bdb package, it is suggested that you try the upstream version from http://www.oracle.com/technology/software/products/berkeley-db/index.html
 */
+
+#endif // QXTBERKELEY_H_INCLUDED

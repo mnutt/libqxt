@@ -22,9 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include <QtDebug>
 #include "qxtglobalshortcut.h"
 #include "qxtglobalshortcut_p.h"
+#include <QtDebug>
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
 #ifdef Q_WS_WIN

@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTCRYPTO_H_INCLUDED
+#define QXTCRYPTO_H_INCLUDED
+
 #include "qxtblowfish.h"
 #include "qxthash.h"
 #include "qxthmac.h"
@@ -29,3 +32,5 @@
 /** \defgroup QxtCrypto QxtCrypto
     \brief    The QxtCrypto module provides tools for encryption and hashing.
 */
+
+#endif // QXTCRYPTO_H_INCLUDED

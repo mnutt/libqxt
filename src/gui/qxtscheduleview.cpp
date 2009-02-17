@@ -24,8 +24,9 @@
  ****************************************************************************/
 
 #include "qxtscheduleview.h"
+#include "qxtscheduleview_p.h"
+#include "qxtscheduleheaderwidget.h"
 #include "qxtscheduleviewheadermodel_p.h"
-#include <QDebug>
 #include <QPainter>
 #include <QScrollBar>
 #include <QBrush>
@@ -39,8 +40,6 @@
 #include <QListIterator>
 #include <QWheelEvent>
 
-#include "qxtscheduleheaderwidget.h"
-#include "qxtscheduleview_p.h"
 
 /**
  * @class QxtScheduleView QxtScheduleView

@@ -1,7 +1,7 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <QtCore>
+#include <QtCore> //krazy:exclude=qxtincludes
 
 class Receiver : public QObject
 {

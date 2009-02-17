@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtletterboxwidget.h"
 #include "qxtletterboxwidgetplugin.h"
+#include "qxtletterboxwidget.h"
 #include <QtPlugin>
 
 QxtLetterBoxWidgetPlugin::QxtLetterBoxWidgetPlugin(QObject* parent)

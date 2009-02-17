@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtpushbutton.h"
 #include "qxtpushbuttonplugin.h"
+#include "qxtpushbutton.h"
 #include <QtPlugin>
 
 QxtPushButtonPlugin::QxtPushButtonPlugin(QObject* parent)

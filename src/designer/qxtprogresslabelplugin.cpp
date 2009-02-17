@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtprogresslabel.h"
 #include "qxtprogresslabelplugin.h"
+#include "qxtprogresslabel.h"
 #include <QtPlugin>
 
 QxtProgressLabelPlugin::QxtProgressLabelPlugin(QObject* parent)

@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtcountrycombobox.h"
 #include "qxtcountrycomboboxplugin.h"
+#include "qxtcountrycombobox.h"
 #include <QtPlugin>
 
 QxtCountryComboBoxPlugin::QxtCountryComboBoxPlugin(QObject* parent)

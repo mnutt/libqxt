@@ -1,3 +1,6 @@
+#ifndef MODEL_H_INCLUDED
+#define MODEL_H_INCLUDED
+
 #include <QAbstractItemModel>
 #include <QxtBdbTree>
 #include <QxtLinkedTree>
@@ -24,12 +27,10 @@ public:
     virtual QModelIndex parent ( const QModelIndex & index ) const;
     virtual QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
-
-
-
     virtual bool canFetchMore ( const QModelIndex & parent ) const;
     virtual void fetchMore ( const QModelIndex & parent );
 private:
     mutable QxtLinkedTree <XmlDbModelCacheItem> cache ;
 };
 
+#endif // MODEL_H_INCLUDED

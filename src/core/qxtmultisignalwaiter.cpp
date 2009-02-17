@@ -42,8 +42,8 @@ QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWait
 \sa QxtSignalWaiter
 */
 
-#include "qxtsignalwaiter.h"
 #include "qxtmultisignalwaiter.h"
+#include "qxtsignalwaiter.h"
 
 /**
  * Constructs a QxtMultiSignalWaiter with the specified parent.

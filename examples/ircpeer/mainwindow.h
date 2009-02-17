@@ -1,6 +1,6 @@
-#ifndef IRCMAINWINDOW
-#define IRCMAINWINDOW
-#include <QtGui>
+#ifndef MAINWINDOW_H_INCLUDED
+#define MAINWINDOW_H_INCLUDED
+#include <QtMainWindow>
 #include <QHash>
 #include "ircpeer.h"
 #include "dialog.h"
@@ -39,4 +39,4 @@ private:
     QxtRPCPeer irc;
     ConnectDialog condiag;
 };
-#endif
+#endif // MAINWINDOW_H_INCLUDED

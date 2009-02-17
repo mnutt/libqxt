@@ -1,3 +1,5 @@
+#ifndef TESTDIALOG_H_INCLUDED
+#define TESTDIALOG_H_INCLUDED
 
 #include <QDebug>
 #include "ui_country.h"
@@ -21,3 +23,5 @@ class TestDialog : public QDialog
  private:
      Ui::Dialog ui;
  };
+
+#endif // TESTDIALOG_H_INCLUDED

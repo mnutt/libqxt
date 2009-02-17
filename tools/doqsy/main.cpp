@@ -1,7 +1,7 @@
 #include <QFile>
 #include <QDebug>
-#include <QtXml>
 #include <QxtHtmlTemplate>
+#include <QDomElement>
 #include <QStringList>
 #include <QPair>
 #include <QHash>

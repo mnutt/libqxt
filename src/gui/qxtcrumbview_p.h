@@ -23,6 +23,9 @@
  **
  ****************************************************************************/
 
+#ifndef QXTCRUMBVIEW_P_INCLUDED
+#define QXTCRUMBVIEW_P_INCLUDED
+
 #include "qxtcrumbview.h"
 
 QT_FORWARD_DECLARE_CLASS(QHBoxLayout)
@@ -46,4 +49,5 @@ public slots:
     void buttonPressed();
 };
 
+#endif // QXTCRUMBVIEW_P_INCLUDED
 

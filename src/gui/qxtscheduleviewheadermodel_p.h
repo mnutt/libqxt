@@ -35,8 +35,8 @@
 //
 
 
-#ifndef SPLITVIEWHEADERMODEL_H
-#define SPLITVIEWHEADERMODEL_H
+#ifndef QXTSCHEDULEVIEWHEADERMODEL_P_H_INCLUDED
+#define QXTSCHEDULEVIEWHEADERMODEL_P_H_INCLUDED
 
 #include <QAbstractTableModel>
 #include <QtGlobal>
@@ -78,4 +78,4 @@ private:
     int                       m_colCountBuffer;
 };
 
-#endif
+#endif // SPLITVIEWHEADERMODEL_H

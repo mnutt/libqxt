@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtflowview.h"
 #include "qxtflowviewplugin.h"
+#include "qxtflowview.h"
 #include <QtPlugin>
 
 QxtFlowViewPlugin::QxtFlowViewPlugin(QObject* parent)

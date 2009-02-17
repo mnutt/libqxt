@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtcheckcombobox.h"
 #include "qxtcheckcomboboxplugin.h"
+#include "qxtcheckcombobox.h"
 #include <QtPlugin>
 
 QxtCheckComboBoxPlugin::QxtCheckComboBoxPlugin(QObject* parent)

@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTHASH_P_H_INCLUDED
+#define QXTHASH_P_H_INCLUDED
+
 #include "md5.h"
 #include "md4.h"
 class QxtHashPrivate : public QxtPrivate<QxtHash>
@@ -34,3 +37,4 @@ public:
     md4_context md4ctx;
 };
 
+#endif // QXTHASH_P_H_INCLUDED

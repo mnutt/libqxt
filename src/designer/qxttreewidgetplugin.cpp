@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxttreewidget.h"
 #include "qxttreewidgetplugin.h"
+#include "qxttreewidget.h"
 #include <QtPlugin>
 
 QxtTreeWidgetPlugin::QxtTreeWidgetPlugin(QObject* parent)

@@ -22,9 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtstringspinbox.h"
 #include "qxtstringspinboxplugin.h"
-#include <QtDesigner>
+#include "qxtstringspinbox.h"
 #include <QtPlugin>
 
 QxtStringSpinBoxPlugin::QxtStringSpinBoxPlugin(QObject* parent)
