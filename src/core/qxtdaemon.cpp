@@ -68,7 +68,7 @@ returns the current processId
 \fn  bool QxtDaemon::changeUser(QString name);
 changes the current user of this process. \n
 do this after forking to drop root rights.\n
-returns true on sucess
+returns true on success
 */
 #include "qxtdaemon.h"
 #include <cassert>
