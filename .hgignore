@@ -3,6 +3,7 @@ Makefile*
 debug/
 release/
 *.rej
+*.orig
 *.obj
 *.swp
 *.dll
@@ -21,3 +22,7 @@ ui_*.h
 tools/doqsy/doqsy
 doqsy.exe
 qrc_resources.cpp
+config.log
+config.pri*
+config.tests/*
+
