@@ -160,7 +160,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
 
     foreach(const QString& key, request_m.keys())
     {
-        if (key.startsWith("http_"))
+        if (key.startsWith(QString("http_")))
         {
             request_m.setValue(key.right(key.size() - 5), request_m.value(key));
         }
