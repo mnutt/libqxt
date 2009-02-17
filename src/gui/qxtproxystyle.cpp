@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include <QStyleFactory>
 #include "qxtproxystyle.h"
+#include <QStyleFactory>
 
 /*!
     \class QxtProxyStyle QxtProxyStyle

@@ -1,5 +1,5 @@
-#ifndef CONTACT_H
-#define CONTACT_H
+#ifndef NODE_H_INCLUDED
+#define NODE_H_INCLUDED
 
 #include <QObject>
 #include <QMetaType>
@@ -21,7 +21,5 @@ QDataStream &operator>>(QDataStream &in, XmlNode &c );
 QDebug operator<<(QDebug dbg, const XmlNode &c);
 
 
-
-
-#endif
+#endif // NODE_H_INCLUDED
 

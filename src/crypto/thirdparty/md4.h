@@ -6,8 +6,8 @@
  * the public domain.  See md4.c for more information.
  */
 
-#ifndef __MD4_H
-#define __MD4_H
+#ifndef MD4_H_INCLUDED
+#define MD4_H_INCLUDED
 
 #include <qglobal.h>
 
@@ -25,4 +25,4 @@ static void md4_update(struct md4_context *ctx, const unsigned char *data, size_
 static void md4_final(struct md4_context *ctx, unsigned char result[MD4_RESULTLEN]);
 
 
-#endif
+#endif // MD4_H_INCLUDED

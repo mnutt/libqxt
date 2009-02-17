@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxttablewidget.h"
 #include "qxttablewidgetplugin.h"
+#include "qxttablewidget.h"
 #include <QtPlugin>
 
 QxtTableWidgetPlugin::QxtTableWidgetPlugin(QObject* parent)

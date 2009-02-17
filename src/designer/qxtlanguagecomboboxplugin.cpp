@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtlanguagecombobox.h"
 #include "qxtlanguagecomboboxplugin.h"
+#include "qxtlanguagecombobox.h"
 #include <QtPlugin>
 
 QxtLanguageComboBoxPlugin::QxtLanguageComboBoxPlugin(QObject* parent)

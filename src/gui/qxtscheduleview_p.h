@@ -23,8 +23,8 @@
  **
  ****************************************************************************/
 
-#ifndef __QXTSCHEDULEVIEW_P_INCLUDED__
-#define __QXTSCHEDULEVIEW_P_INCLUDED__
+#ifndef QXTSCHEDULEVIEW_P_INCLUDED
+#define QXTSCHEDULEVIEW_P_INCLUDED
 
 //
 //  W A R N I N G

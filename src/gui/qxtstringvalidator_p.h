@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTSTRINGLISTVALIDATOR_P_H_INCLUDED
-#define QXTSTRINGLISTVALIDATOR_P_H_INCLUDED
+#ifndef QXTSTRINGVALIDATOR_P_H_INCLUDED
+#define QXTSTRINGVALIDATOR_P_H_INCLUDED
 
 #include <qxtpimpl.h>
 #include <QStringList>
@@ -52,4 +52,4 @@ public:
 
 };
 
-#endif //QXTSTRINGLISTVALIDATOR_P_H_INCLUDED
+#endif //QXTSTRINGVALIDATOR_P_H_INCLUDED

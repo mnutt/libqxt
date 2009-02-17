@@ -1,3 +1,6 @@
+#ifndef MAINWINDOW_H_INCLUDED
+#define MAINWINDOW_H_INCLUDED
+
 #include "ui_mainwindow.h"
 #include "model.h"
 class MainWindow : public QMainWindow
@@ -14,3 +17,4 @@ private slots:
     void on_actionLoad_triggered();
 };
 
+#endif // MAINWINDOW_H_INCLUDED

@@ -22,9 +22,14 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTSQL_H_INCLUDED
+#define QXTSQL_H_INCLUDED
+
 #include "qxtsqlpackage.h"
 #include "qxtsqlpackagemodel.h"
 
 /** \defgroup QxtSql QxtSql
     \brief    The QxtSql module extends QtSql with serializable queries.
 */
+
+#endif // QXTSQL_H_INCLUDED

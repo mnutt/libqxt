@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTSCHEDULEHEADERVIEW_H_INCLUDED
-#define QXTSCHEDULEHEADERVIEW_H_INCLUDED
+#ifndef QXTSCHEDULEHEADERWIDGET_H_INCLUDED
+#define QXTSCHEDULEHEADERWIDGET_H_INCLUDED
 
 #include <QHeaderView>
 #include "qxtglobal.h"
@@ -45,4 +45,5 @@ private:
     virtual void            setModel(QxtScheduleViewHeaderModel *model);
 };
 
-#endif
+#endif // QXTSCHEDULEHEADERWIDGET_H_INCLUDED
+

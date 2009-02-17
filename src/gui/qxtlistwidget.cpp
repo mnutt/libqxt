@@ -23,8 +23,8 @@
  **
  ****************************************************************************/
 #include "qxtlistwidget.h"
-#include "qxtitemdelegate.h"
 #include "qxtlistwidget_p.h"
+#include "qxtitemdelegate.h"
 
 QxtListWidgetPrivate::QxtListWidgetPrivate()
 {}

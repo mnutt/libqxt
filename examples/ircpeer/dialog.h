@@ -1,3 +1,6 @@
+#ifndef DIALOG_H_INCLUDED
+#define DIALOG_H_INCLUDED
+
 #include <QDialog>
 #include "ui_dialog.h"
 
@@ -17,3 +20,4 @@ private:
     Ui::Dialog ui;
 };
 
+#endif // DIALOG_H_INCLUDED

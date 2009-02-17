@@ -25,7 +25,6 @@
 
 #include "qxtscheduleview_p.h"
 #include "qxtscheduleview.h"
-#include <QDebug>
 #include <QPainter>
 #include <QScrollBar>
 #include <QBrush>

@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtlistwidget.h"
 #include "qxtlistwidgetplugin.h"
+#include "qxtlistwidget.h"
 #include <QtPlugin>
 
 QxtListWidgetPlugin::QxtListWidgetPlugin(QObject* parent)

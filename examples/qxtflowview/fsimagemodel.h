@@ -1,4 +1,5 @@
-
+#ifndef FSIMAGEMODEL_H_INCLUDED
+#define FSIMAGEMODEL_H_INCLUDED
 /**
 
     warning: this model is a quick and dirty hack. 
@@ -31,3 +32,4 @@ private slots:
     void fileChanged ( const QString & path );
 };
 
+#endif // FSIMAGEMODEL_H_INCLUDED
