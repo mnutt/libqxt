@@ -10,10 +10,14 @@ release/
 *.ilk
 *.pdb
 *.lib
-#? deploy\qt\qxt.prf
 moc_*.cpp
 qxt.prf
 .obj\*
+*.o
+*.so.*
+*.so
 *.pdb
+ui_*.h
+tools/doqsy/doqsy
 doqsy.exe
 qrc_resources.cpp
