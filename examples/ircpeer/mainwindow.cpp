@@ -42,7 +42,7 @@ void MainWindow::lateInit() {
     if(condiag.exec()) {
         irc.connect(condiag.hostname(), condiag.port());
         receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),
-            "connecting to "+condiag.hostname()+":"+QByteArray::number(condiag.port()));
+            "connecting to "+condiag.hostname()+':'+QByteArray::number(condiag.port()));
     } else {
         qApp->quit();
     }

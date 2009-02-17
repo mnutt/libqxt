@@ -381,7 +381,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
         if (line.first.toLower() == "cookie") continue;
         event->headers.insert(line.first, line.second);
     }
-    event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + "." + QString::number(state.httpMinorVersion));
+    event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + '.' + QString::number(state.httpMinorVersion));
     if (sessionID)
     {
         session(sessionID)->pageRequestedEvent(event);
@@ -449,7 +449,7 @@ void QxtHttpSessionManager::processEvents()
         if (e->type() == QxtWebEvent::StoreCookie)
         {
             QxtWebStoreCookieEvent* ce = static_cast<QxtWebStoreCookieEvent*>(e);
-            QString cookie = ce->name + "=" + ce->data;
+            QString cookie = ce->name + '=' + ce->data;
             if (ce->expiration.isValid())
             {
                 cookie += "; max-age=" + QString::number(QDateTime::currentDateTime().secsTo(ce->expiration))

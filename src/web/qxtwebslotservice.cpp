@@ -71,8 +71,8 @@ QxtWebSlotService::QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* 
 QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
 
 {
-    QStringList  u = event->url.path().split("/");
-    QStringList  o = event->originalUrl.path().split("/");
+    QStringList  u = event->url.path().split('/');
+    QStringList  o = event->originalUrl.path().split('/');
     u.removeFirst();
     o.removeFirst();
     for (int i = 0;i < u.count();i++)
@@ -82,7 +82,7 @@ QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
     QString r = "/";
     foreach(const QString& d, o)
     {
-        r += d + "/";
+        r += d + '/';
     }
     return r;
 }
@@ -205,7 +205,7 @@ void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 
     if (!ok)
     {
-        QByteArray err = "<h1>Can not find slot</h1> <pre>Class " + QByteArray(metaObject()->className()) + "\r{\npublic slots:\r    void " + action.replace("<", "&lt") + " ( QxtWebRequestEvent* event, ";
+        QByteArray err = "<h1>Can not find slot</h1> <pre>Class " + QByteArray(metaObject()->className()) + "\r{\npublic slots:\r    void " + action.replace('<', "&lt") + " ( QxtWebRequestEvent* event, ";
         for (int i = 0;i < args.count();i++)
             err += "QString arg" + QByteArray::number(i) + ", ";
         err.chop(2);

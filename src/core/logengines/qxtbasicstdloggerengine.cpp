@@ -184,7 +184,7 @@ void QxtBasicSTDLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QL
 void QxtBasicSTDLoggerEngine::writeToStdErr(const QString &level, const QList<QVariant> &msgs)
 {
     if (msgs.isEmpty()) return;
-    QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
+    QString header = '[' + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QTextStream* errstream = stdErrStream();
     Q_ASSERT(errstream);
@@ -216,12 +216,12 @@ void QxtBasicSTDLoggerEngine::writeToStdOut(const QString& level, const QList<QV
                     third message
     */
     if (msgs.isEmpty()) return;
-    QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
+    QString header = '[' + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QTextStream* outstream = stdOutStream();
     Q_ASSERT(outstream);
     *outstream << header;
-    for (int i = 0; i < header.size(); i++) padding.append(" ");
+    for (int i = 0; i < header.size(); i++) padding.append(' ');
     int count = 0;
     Q_FOREACH(const QVariant& out, msgs)
     {

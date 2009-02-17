@@ -301,7 +301,7 @@ namespace QxtMetaObject
         QMetaMethod method = meta->method(methodID);
         int argCount = method.parameterTypes().count();
 
-        connSlot += QxtMetaObject::methodName(invokable) + "(";
+        connSlot += QxtMetaObject::methodName(invokable) + '(';
         for (int i = 0; i < 10; i++)
         {
             if (args[i]->name() == 0) break;        // done
@@ -310,7 +310,7 @@ namespace QxtMetaObject
                 qWarning() << "QxtMetaObject::bind: too many arguments passed to " << invokable;
                 return 0;
             }
-            if (i > 0) connSlot += ",";             // argument separator
+            if (i > 0) connSlot += ',';             // argument separator
             if (QByteArray(args[i]->name()) == "QxtBoundArgument")
             {
                 Q_ASSERT_X((quintptr)(args[i]->data()) > 0 && (quintptr)(args[i]->data()) <= 10, "QXT_BIND", "invalid argument number");
@@ -322,7 +322,7 @@ namespace QxtMetaObject
                 connSlot += args[i]->name();        // type name
             }
         }
-        connSlot = QMetaObject::normalizedSignature(connSlot += ")");
+        connSlot = QMetaObject::normalizedSignature(connSlot += ')');
 
         if (!QMetaObject::checkConnectArgs(recvSlot.constData(), connSlot.constData()))
         {

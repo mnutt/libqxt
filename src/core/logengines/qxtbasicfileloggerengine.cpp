@@ -55,7 +55,7 @@ QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
 void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
     if (messages.isEmpty()) return;
-    QString header = "[" + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
+    QString header = '[' + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
     QString padding;
     QIODevice* file = device();
     Q_ASSERT(file);

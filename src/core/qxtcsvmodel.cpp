@@ -174,8 +174,8 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator)
     while (!file->atEnd())
     {
         l = file->readLine();
-        l.replace(QChar('\n'), "");
-        l.replace(QChar('\r'), "");
+        l.remove('\n');
+        l.remove('\r');
         size = l.length();
         isQuoted = false;
         for (int i = 0;i < size;i++)

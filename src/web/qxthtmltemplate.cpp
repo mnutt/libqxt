@@ -136,7 +136,7 @@ QString QxtHtmlTemplate::render() const
                 qWarning("QxtHtmlTemplate::render()  unused variable \"%s\"", qPrintable(var));
                 continue;
             }
-            output.replace(i, j - i + 2, QString(value(var)).replace("\n", "\n" + QString(i - lastnewline - 1, QChar(' '))));
+            output.replace(i, j - i + 2, QString(value(var)).replace('\n', '\n' + QString(i - lastnewline - 1, QChar(' '))));
 
         }
 

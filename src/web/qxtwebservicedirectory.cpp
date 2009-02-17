@@ -163,7 +163,7 @@ void QxtWebServiceDirectory::pageRequestedEvent(QxtWebRequestEvent* event)
     }
     else if (event->url.path().isEmpty())
     {
-        postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, path + "/", 307));
+        postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, path + '/', 307));
     }
     else
     {
@@ -196,7 +196,7 @@ void QxtWebServiceDirectory::functionInvokedEvent(QxtWebRequestEvent* event) {
  */
 void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, const QString& name)
 {
-    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + QString(name).replace("<", "&lt") + "&quot; not known").toUtf8()));
+    postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 404, ("Service &quot;" + QString(name).replace('<', "&lt") + "&quot; not known").toUtf8()));
 }
 
 /**
@@ -215,7 +215,7 @@ void QxtWebServiceDirectory::indexRequested(QxtWebRequestEvent* event)
     }
     else
     {
-        postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, defaultRedirect() + "/", 307));
+        postEvent(new QxtWebRedirectEvent(event->sessionID, event->requestID, defaultRedirect() + '/', 307));
     }
 }
 
