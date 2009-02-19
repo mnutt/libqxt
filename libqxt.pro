@@ -107,14 +107,21 @@ style.recurse -= tools/doqsy
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
+sub-examples.commands += $(QMAKE) examples/examples.pro && cd examples && $(MAKE)
+QMAKE_EXTRA_TARGETS += sub-examples
+
+sub-tests.commands += $(QMAKE) tests/tests.pro && cd tests && $(MAKE)
+QMAKE_EXTRA_TARGETS += sub-tests
+
+runtests.depends += sub-tests
+runtests.commands += cd tests && $(MAKE) test
+QMAKE_EXTRA_TARGETS += runtests
+
 cov_zerocounters.CONFIG += recursive
 cov_zerocounters.recurse = $$SUBDIRS
 cov_zerocounters.recurse -= tools/doqsy sub_designer
 cov_zerocounters.recurse_target = zerocounters
 QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
-
-runtests.commands += $(QMAKE) tests/tests.pro && $(MAKE) -C tests test
-QMAKE_EXTRA_UNIX_TARGETS += runtests
 
 cov_capture.CONFIG += recursive
 cov_capture.recurse = $$SUBDIRS
