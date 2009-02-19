@@ -25,4 +25,5 @@ qrc_resources.cpp
 config.log
 config.pri*
 config.tests/*
+depends.pri*
 

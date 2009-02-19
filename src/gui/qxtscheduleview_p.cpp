@@ -539,7 +539,7 @@ void QxtScheduleViewPrivate::scrollTimerTimeout()
 int QxtScheduleViewPrivate::offsetToUnixTime(const int offset, bool indexEndTime) const
 {
     qint32 rows = qxt_p().rows();
-    qint32 unixTime = (offsetToVisualRow(offset) + (offsetToVisualColumn(offset) * rows)) * m_currentZoomDepth;
+    uint unixTime = (offsetToVisualRow(offset) + (offsetToVisualColumn(offset) * rows)) * m_currentZoomDepth;
     unixTime += m_startUnixTime;
 
     if (indexEndTime)
