@@ -155,8 +155,8 @@ public:
     int m_currentZoomDepth;
     int m_zoomStepWidth;
     int m_currentViewMode;
-    int m_startUnixTime;
-    int m_endUnixTime;
+    uint m_startUnixTime;
+    uint m_endUnixTime;
 
     QList<QxtScheduleInternalItem* > m_Items ;
     QList<QxtScheduleInternalItem* > m_InactiveItems; /*used for items that are not in the range of our view but we need to look if they get updates*/

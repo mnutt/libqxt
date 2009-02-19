@@ -251,7 +251,7 @@ bool QxtDaemon::changeUser(QString name)
         return false;
     return setuid(p->pw_uid) == 0;
 #else
-    return -1;
+    return false;
 #endif
 }
 
