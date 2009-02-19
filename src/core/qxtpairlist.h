@@ -34,7 +34,7 @@
 \brief Searchable List of Pairs
 
 
-Pair list provides a list with two values, a bit like QHash, but with posibility to operate on both values.
+Pair list provides a list with two values, a bit like QHash, but with the possibility to operate on both values.
 
 in contrast to QHash, every entry has a unique id, you can work with.  like a QList.
 
@@ -94,7 +94,7 @@ public:
     }
 
 
-    /** \brief search entrys by match
+    /** \brief search entries by match
 
     both arguments are optional, due to the use of QxtNullable
 
@@ -143,13 +143,13 @@ public:
 
 
 
-    ///remove an entrys position by position
+    ///remove an entries position by position
     void remove(int nr)
     {
         list.removeAt(nr);
     }
 
-    ///remove a list of entrys by position
+    ///remove a list of entries by position
     void remove(QList<int> nrs)
     {
         int i;
@@ -163,7 +163,7 @@ public:
     /** \brief operate on the list directly
 
     you may use the internal list directly, but be carefull
-    dont expect to work the QxPairList to work normal if you mess around with it.
+    don't expect to work the QxPairList to work normal if you mess around with it.
     */
 
 

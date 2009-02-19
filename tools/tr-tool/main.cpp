@@ -45,8 +45,8 @@ struct CCYInfo
 
   QString getEnum()
   {
-    QString str = capitalize(_mCurrencyName).replace(" ", "");
-    str.replace(QRegExp("\\(.*\\)"), "").replace("'", "").replace("-", "").trimmed().simplified();
+    QString str = capitalize(_mCurrencyName).remove(' ');
+    str.remove(QRegExp("\\(.*\\)")).remove('\'').remove('-').trimmed().simplified();
     return str;
   }
 
@@ -95,7 +95,7 @@ CCYInfoList load()
 
        QStringList cells = line.split('\t');
 //       qDebug() << cells;
-       ret.push_back(CCYInfo(cells[0].replace("\"", "").trimmed(), cells[1].replace("\"", "").trimmed(), cells[2].replace("\"", "").trimmed()));
+       ret.push_back(CCYInfo(cells[0].remove('"').trimmed(), cells[1].remove('"').trimmed(), cells[2].remove('"', "").trimmed()));
     }
   }
 
@@ -123,10 +123,10 @@ CountryInfoList loadCountries()
 
        QStringList cells = line.split('\t');
 //       qDebug() << cells;
-       QString c0 = cells[0].replace("\"", "").trimmed();
-       QString c1 = cells[1].replace("\"", "").trimmed();
-       QString c2 = cells[2].replace("\"", "").trimmed();
-       QString c3 = cells[3].replace("\"", "").trimmed();
+       QString c0 = cells[0].remove('"').trimmed();
+       QString c1 = cells[1].remove('"').trimmed();
+       QString c2 = cells[2].remove('"').trimmed();
+       QString c3 = cells[3].remove('"').trimmed();
        ret.push_back(CountryInfo(c0, c1, c2, c3));
     }
   }
@@ -153,11 +153,11 @@ CurrencySymbolMap loadSymbols()
          break;
 
        QStringList cells = line.split('\t');
-       QStringList hexs = cells[1].trimmed().split(",");
+       QStringList hexs = cells[1].trimmed().split(',');
        for (int i = 0; i < hexs.size(); i++)
          hexs[i] = "0x" + hexs[i].trimmed();
 
-       ret[cells[0].trimmed()] = QString::number(hexs.size())+ "," + hexs.join(",");
+       ret[cells[0].trimmed()] = QString::number(hexs.size())+ ',' + hexs.join(',');
 //       qDebug() << cells;
 //       ret.push_back(CCYInfo(cells[0].replace("\"", "").trimmed(), cells[1].replace("\"", "").trimmed(), cells[2].replace("\"", "").trimmed()));
     }
@@ -169,7 +169,7 @@ CurrencySymbolMap loadSymbols()
 QString capitalize(const QString& str)
 {
   QStringList words = str.split(' ');
-  for(int  i = 0; i < words.size(); i++)
+  for(int  i = 0; i < words.size(); ++i)
   {
      words[i][0] = words[i][0].toUpper();
   }
@@ -183,7 +183,7 @@ CCYInfo match(const QString& country, const CCYInfoList& ccys)
   {
     QString countrystr = ccys[i]._mCountry.trimmed();
 //    qDebug() << countrystr;
-    countrystr = capitalize(countrystr.toLower()).replace(QRegExp("\\(.*\\)"), "").replace(" ", "").replace("\"", "");
+    countrystr = capitalize(countrystr.toLower()).remove(QRegExp("\\(.*\\)")).remove(' ').remove('"');
     if (countrystr == country)
       return ccys[i];
     if (countrystr.startsWith(country, Qt::CaseInsensitive))
@@ -230,7 +230,7 @@ void printCurrencyNames(QTextStream& out, const QMap<QString, CCYInfo>& printed)
 
     QString currencyName = printed[keys[i]]._mCurrencyName;
     out << "  QT_TRANSLATE_NOOP(\"QxtLocale\", \""
-        << currencyName.replace(QRegExp("\\(.*\\)"), "").trimmed()
+        << currencyName.remove(QRegExp("\\(.*\\)")).trimmed()
         << "\"), // " << keys[i] << endl;
   }
   out << "};" << endl;

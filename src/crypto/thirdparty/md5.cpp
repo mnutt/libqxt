@@ -20,10 +20,9 @@
  * Still in the public domain.
  */
 
+#include "md5.h"
 #include <string.h>  /* for memcpy() */
 #include <sys/types.h>  /* for stupid systems */
-
-#include "md5.h"
 
 static void
 byteSwap(UWORD32 *buf, unsigned words)

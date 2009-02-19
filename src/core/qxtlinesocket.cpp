@@ -73,7 +73,7 @@ QIODevice * QxtLineSocket::socket() const
 
 void QxtLineSocket::sendLine(QByteArray a)
 {
-    qxt_d().socket->write(a.replace('\n', "") + '\n');
+    qxt_d().socket->write(a.replace(QByteArray("\n"), "") + '\n'); //krazy:exclude=doublequote_chars
 }
 
 void QxtLineSocket::newLine(QByteArray a)

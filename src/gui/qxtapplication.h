@@ -44,7 +44,7 @@ public:
     QxtApplication(int& argc, char** argv, bool GUIenabled);
     QxtApplication(int& argc, char** argv, Type type);
 #if defined(Q_WS_X11)
-    QxtApplication(Display* display, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0);
+    explicit QxtApplication(Display* display, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0);
     QxtApplication(Display* display, int& argc, char** argv, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0);
 #endif // Q_WS_X11
     virtual ~QxtApplication();

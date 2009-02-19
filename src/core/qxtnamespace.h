@@ -111,7 +111,7 @@ namespace Qxt
         SocketIOError,    /*!< Socket Input/Output Error*/
         ParserError,    /*!< Unable to parse the requested string or file.*/
         HeaderTooLong,    /*!< The Header that was passed for parsing was too long.*/
-        Auth,     /*!< Authentification failed.*/
+        Auth,     /*!< Authentication failed.*/
         Overflow    /*!< Overflow protection triggered.*/
 
     };

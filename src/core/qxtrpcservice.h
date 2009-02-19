@@ -44,7 +44,7 @@ class QXT_CORE_EXPORT QxtRPCService : public QObject
     Q_OBJECT
 public:
     QxtRPCService(QObject* parent = 0);
-    QxtRPCService(QIODevice* device, QObject* parent = 0);
+    explicit QxtRPCService(QIODevice* device, QObject* parent = 0);
     virtual ~QxtRPCService();
 
     bool isServer() const;

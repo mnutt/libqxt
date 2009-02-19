@@ -81,7 +81,7 @@ the pointer is invalid when the actual data has been removed and passing it to f
 
 \fn QxtLinkedTreeIterator QxtLinkedTree::fromVoid  (void *);
 returns an iterator pre positioned on the item specified with toVoid. \n
-passing anything that has not beeing created by toVoid() will crash. \n
+passing anything that has not being created by toVoid() will crash. \n
 also note that passing invalidated nodes will crash too. \n
 Be extremly carefull. It is easy to currupt your data with this!
 

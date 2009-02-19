@@ -25,7 +25,6 @@
 
 #include "qxtscheduleview_p.h"
 #include "qxtscheduleview.h"
-#include <QDebug>
 #include <QPainter>
 #include <QScrollBar>
 #include <QBrush>
@@ -160,7 +159,7 @@ void QxtScheduleViewPrivate::init()
         }
         m_hHeader->show();
 
-        /*here we also intialize the items*/
+        /*here we also initialize the items*/
         m_vHeader->setDefaultSectionSize(20);
         m_vHeader->setResizeMode(QHeaderView::Fixed);
         reloadItemsFromModel();
@@ -233,7 +232,7 @@ QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConc
                 *we can loose some of them if the endTime of the last Item is before the endTime of the pre last item
                 */
 
-                for (QLinkedList<QxtScheduleInternalItem *>::iterator it = concurrentItems.begin(); it != concurrentItems.end(); it++)
+                for (QLinkedList<QxtScheduleInternalItem *>::iterator it = concurrentItems.begin(); it != concurrentItems.end(); ++it)
                 {
                     int lastStartOffset = (*it)->visualStartTableOffset();
                     int lastEndOffset   = (*it)->visualEndTableOffset();
@@ -317,7 +316,7 @@ void QxtScheduleViewPrivate::handleItemConcurrency(const int from, const int to)
             while (iter.hasNext())
             {
                 iter.next();
-                //intialize the current column
+                //initialize the current column
                 if (currentColumn.isEmpty() || currentColumn[currentColumn.size()-1]->visualEndTableOffset() < iter.value()->visualStartTableOffset())
                 {
                     currentColumn.append(iter.value());
@@ -540,7 +539,7 @@ void QxtScheduleViewPrivate::scrollTimerTimeout()
 int QxtScheduleViewPrivate::offsetToUnixTime(const int offset, bool indexEndTime) const
 {
     qint32 rows = qxt_p().rows();
-    qint32 unixTime = (offsetToVisualRow(offset) + (offsetToVisualColumn(offset) * rows)) * m_currentZoomDepth;
+    uint unixTime = (offsetToVisualRow(offset) + (offsetToVisualColumn(offset) * rows)) * m_currentZoomDepth;
     unixTime += m_startUnixTime;
 
     if (indexEndTime)

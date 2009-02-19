@@ -1,6 +1,6 @@
 #include <QtTest>
-#include <QtGui>
 #include <QxtGui>
+#include <QAction>
 
 class TestQxtGui : public QObject
 {

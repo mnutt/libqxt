@@ -42,7 +42,7 @@ void MainWindow::lateInit() {
     if(condiag.exec()) {
         irc.connect(condiag.hostname(), condiag.port());
         receiveMessage(IRCName(condiag.hostname()),condiag.hostname(),
-            "connecting to "+condiag.hostname()+":"+QByteArray::number(condiag.port()));
+            "connecting to "+condiag.hostname()+':'+QByteArray::number(condiag.port()));
     } else {
         qApp->quit();
     }
@@ -64,7 +64,7 @@ void MainWindow::peerError(QAbstractSocket::SocketError e) {
 }
 
 void MainWindow::receiveMessage(IRCName nick, QByteArray channel, QByteArray message) {
-    if(message.startsWith("\001ACTION "))
+    if(message.startsWith(QString("\001ACTION ")))
         receiveAction(nick, channel, message.mid(8, message.size()-9));
     else
         logMessage(nick, channel, message, "<%1> %2");
@@ -102,7 +102,7 @@ void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message
         else
             channel = nick.nick;
     }
-    if(channel == "" || channel == "AUTH") {
+    if(channel.isEmpty() || channel == "AUTH") {
         channel = condiag.hostname();
     } else if(!channels.contains(channel)) {
         channels[channel] = new QTextBrowser();
@@ -122,24 +122,24 @@ void MainWindow::send() {
     if(msg.trimmed().isEmpty()) return;
 
     if(msg.startsWith('/')) {
-        if(msg.startsWith("/join ")) {
+        if(msg.startsWith(QString("/join "))) {
             if(msg.mid(6,1) == "#" || msg.mid(6,1) == "&")
                 irc.call("JOIN", QVariant(),msg.mid(6));
 
             receiveMessage(IRCName(condiag.hostname()),msg.mid(6),"you have joined "+msg.mid(6));        
             tabWidget->setCurrentWidget(channels[msg.mid(6)]);
-        } else if(msg.startsWith("/me ")) {
+        } else if(msg.startsWith(QString("/me "))) {
             emit sendMessage(IRCName(condiag.nickname().toUtf8()),
                     tabWidget->tabText(tabWidget->currentIndex()).toUtf8(),
                     QByteArray("\001ACTION " + msg.mid(4) + "\001"));
-        } else if(msg.startsWith("/names")) {
+        } else if(msg.startsWith(QString("/names"))) {
             if(msg == "/names")
                 irc.call("NAMES", QVariant(), tabWidget->tabText(tabWidget->currentIndex()).toUtf8());
             else
                 irc.call("NAMES", QVariant(), msg.mid(7));
         } else if(msg == "/part") {
             partCurrentChannel();
-        } else if(msg.startsWith("/raw ")) {
+        } else if(msg.startsWith(QString("/raw "))) {
             irc.call("raw", msg.mid(5));
         } else if(msg == "/quit") {
             qApp->quit();

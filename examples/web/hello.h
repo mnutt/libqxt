@@ -1,5 +1,7 @@
-#include <QxtWebController>
+#ifndef HELLO_H_INCLUDED
+#define HELLO_H_INCLUDED
 
+#include <QxtWebController>
 
 class HelloWorld : public QxtWebController
 {
@@ -11,3 +13,4 @@ public slots:
 };
 
 
+#endif // HELLO_H_INCLUDED

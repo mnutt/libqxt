@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtgroupbox.h"
 #include "qxtgroupboxplugin.h"
+#include "qxtgroupbox.h"
 #include <QtPlugin>
 
 QxtGroupBoxPlugin::QxtGroupBoxPlugin(QObject* parent)

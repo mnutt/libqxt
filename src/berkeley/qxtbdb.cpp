@@ -331,7 +331,7 @@ bool QxtBdb::get(const void* key, int keytype, void* value, int valuetype, Berke
     ::free(dbvalue.data);
     ::free(dbkey.data);
 
-    Q_ASSERT_X(ret != DB_BUFFER_SMALL, Q_FUNC_INFO, "QxtBdb::get bdb inists on retriving the key for this operation. You need to specifiy a non const key. (or just specify a non const void* with the value of 0, i'll delete the key for you after bdb fetched it, so you dont need to bother)");
+    Q_ASSERT_X(ret != DB_BUFFER_SMALL, Q_FUNC_INFO, "QxtBdb::get bdb inists on retriving the key for this operation. You need to specify a non const key. (or just specify a non const void* with the value of 0, i'll delete the key for you after bdb fetched it, so you don't need to bother)");
 
     if (ret != 0)
     {

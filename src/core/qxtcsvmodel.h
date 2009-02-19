@@ -41,8 +41,8 @@ class QXT_CORE_EXPORT QxtCsvModel : public QAbstractTableModel
     Q_OBJECT
 public:
     QxtCsvModel(QObject *parent = 0);
-    QxtCsvModel(QIODevice *file, QObject *parent = 0, bool withHeader = false, QChar separator = ',');
-    QxtCsvModel(const QString filename, QObject *parent = 0, bool withHeader = false, QChar separator = ',');
+    explicit QxtCsvModel(QIODevice *file, QObject *parent = 0, bool withHeader = false, QChar separator = ',');
+    explicit QxtCsvModel(const QString filename, QObject *parent = 0, bool withHeader = false, QChar separator = ',');
     ~QxtCsvModel();
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const;

@@ -120,13 +120,13 @@
     \sa loggerEngineEnabled()
  */
 
+#include "qxtlogger.h"
+#include "qxtlogger_p.h"
+#include "qxtlogstream.h"
+#include "logengines/qxtbasicstdloggerengine.h"
 #include <QtDebug>
 #include <QMutex>
 #include <QMutexLocker>
-#include "qxtlogger.h"
-#include "qxtlogstream.h"
-#include "logengines/qxtbasicstdloggerengine.h"
-#include "qxtlogger_p.h"
 
 /*******************************************************************************
 Constructor for QxtLogger's private data

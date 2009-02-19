@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTGUI_H_INCLUDED
+#define QXTGUI_H_INCLUDED
+
 #include "qxtapplication.h"
 #include "qxtbasespinbox.h"
 #include "qxtcheckcombobox.h"
@@ -68,3 +71,4 @@
 /** \defgroup QxtGui QxtGui
     \brief    The QxtGui module extends QtGui.
 */
+#endif // QXTGUI_H_INCLUDED

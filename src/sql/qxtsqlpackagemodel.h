@@ -23,10 +23,9 @@
  **
  ****************************************************************************/
 
+#ifndef QXTSQLPACKAGEMODEL_H_INCLUDED
+#define QXTSQLPACKAGEMODEL_H_INCLUDED
 
-
-#ifndef QXTSQLTABLEMODEL_H
-#define QXTSQLTABLEMODEL_H
 #include <QAbstractTableModel>
 #include <qxtsqlpackage.h>
 #include <qxtglobal.h>
@@ -58,8 +57,5 @@ private:
     QxtSqlPackage pack;
 };
 
-
-#endif
-
-
+#endif // QXTSQLPACKAGEMODEL_H_INCLUDED
 

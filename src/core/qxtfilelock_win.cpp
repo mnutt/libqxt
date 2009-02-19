@@ -35,7 +35,6 @@ bool QxtFileLock::unlock()
     {
         HANDLE w32FileHandle;
         OVERLAPPED ov1;
-        DWORD dwflags;
 
         w32FileHandle = (HANDLE)_get_osfhandle(file()->handle());
         if (w32FileHandle == INVALID_HANDLE_VALUE)

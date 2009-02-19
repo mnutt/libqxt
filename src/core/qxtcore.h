@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTCORE_H_INCLUDED
+#define QXTCORE_H_INCLUDED
+
 #include "qxtabstractfileloggerengine.h"
 #include "qxtabstractconnectionmanager.h"
 #include "qxtabstractiologgerengine.h"
@@ -75,3 +78,5 @@
 /** \defgroup QxtCore QxtCore
     \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
 */
+
+#endif // QXTCORE_H_INCLUDED

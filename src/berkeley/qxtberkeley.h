@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTBERKELEY_H_INCLUDED
+#define QXTBERKELEY_H_INCLUDED
+
 #include "qxtbdb.h"
 #include "qxtbdbhash.h"
 #include "qxtbdbtree.h"
@@ -34,7 +37,7 @@ berkeley db is in wide use where relational databases, especially SQL, are not d
 
 <h2>Platform specific notes</h2>
 <h3>Windows</h3>
-On Windows the buildsystem is unfortunatly unable to detect the berkeley db library on your system automaticly, becouse of the wide differences in naming scheme.
+On Windows the buildsystem is unfortunately unable to detect the berkeley db library on your system automatically, because of the wide differences in naming scheme.
 <br>
 You will have to add the library yourself:
 <br>
@@ -50,3 +53,5 @@ configure.bat -I C:\BDB-MINGW\include -L C:\BDB-MINGW\lib -l db
 <h3>Linux</h3>
 If you have issues compiling QxtBerkeley with your distributions bdb package, it is suggested that you try the upstream version from http://www.oracle.com/technology/software/products/berkeley-db/index.html
 */
+
+#endif // QXTBERKELEY_H_INCLUDED

@@ -47,6 +47,8 @@
  ** THE SOFTWARE.
  ****************************************************************************/
 
+#ifndef QXTFLOWVIEW_P_H_INCLUDED
+#define QXTFLOWVIEW_P_H_INCLUDED
 
 
 #include "qxtflowview.h"
@@ -293,3 +295,4 @@ public Q_SLOTS:
 };
 
 
+#endif // QXTFLOWVIEW_P_H_INCLUDED

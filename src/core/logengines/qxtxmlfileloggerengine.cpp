@@ -100,7 +100,7 @@ void QxtXmlFileLoggerEngine::initLoggerEngine()
     else
     {
         QByteArray data = file->read(64);
-        if (!data.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<log>"))
+        if (!data.startsWith(QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<log>")))
         {
             QFile* ptr_fileTarget = static_cast<QFile*>(file);
             qxtLog->warning(QString(" is not a valid XML log file.").prepend(ptr_fileTarget->fileName()));
@@ -154,5 +154,5 @@ QString QxtXmlFileLoggerEngine::toXmlSafeString(const QString &raw)
 
     Convert ampersands first, then the rest.
     */
-    return QByteArray(raw.toUtf8()).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("'", "&apos;").replace('"', "&quot;");
+    return QByteArray(raw.toUtf8()).replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;").replace('\'', "&apos;").replace('"', "&quot;");
 }

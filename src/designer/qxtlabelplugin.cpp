@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtlabel.h"
 #include "qxtlabelplugin.h"
+#include "qxtlabel.h"
 #include <QtPlugin>
 
 QxtLabelPlugin::QxtLabelPlugin(QObject* parent)

@@ -1,7 +1,7 @@
 #ifndef SENDER_H
 #define SENDER_H
 
-#include <QtCore>
+#include <QtCore> //krazy:exclude=qxtincludes
 
 class Sender : public QObject
 {

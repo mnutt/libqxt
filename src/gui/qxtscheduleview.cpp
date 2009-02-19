@@ -24,8 +24,9 @@
  ****************************************************************************/
 
 #include "qxtscheduleview.h"
+#include "qxtscheduleview_p.h"
+#include "qxtscheduleheaderwidget.h"
 #include "qxtscheduleviewheadermodel_p.h"
-#include <QDebug>
 #include <QPainter>
 #include <QScrollBar>
 #include <QBrush>
@@ -39,8 +40,6 @@
 #include <QListIterator>
 #include <QWheelEvent>
 
-#include "qxtscheduleheaderwidget.h"
-#include "qxtscheduleview_p.h"
 
 /**
  * @class QxtScheduleView QxtScheduleView
@@ -459,7 +458,7 @@ void QxtScheduleView::mouseMoveEvent(QMouseEvent * e)
         {
             if (currentMousePosTableOffset >= 0)
             {
-                /*i can not use the model data here because all changes are commited to the model only when the move ends*/
+                /*i cannot use the model data here because all changes are committed to the model only when the move ends*/
                 int startTableOffset = qxt_d().m_selectedItem->visualStartTableOffset();
                 int endTableOffset = -1;
 

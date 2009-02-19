@@ -34,7 +34,7 @@ class QXT_CORE_EXPORT QxtDeplex : public QxtPipe
     Q_OBJECT
 public:
     QxtDeplex(QObject * parent = 0);
-    QxtDeplex(QIODevice * device, QObject * parent = 0);
+    explicit QxtDeplex(QIODevice * device, QObject * parent = 0);
 
     void setDevice(QIODevice * device);
     QIODevice *device() const;

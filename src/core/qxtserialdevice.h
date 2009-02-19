@@ -59,7 +59,7 @@ public:
     };
     Q_DECLARE_FLAGS(PortSettings, PortSetting);
 
-    QxtSerialDevice(const QString& device, QObject* parent = 0);
+    explicit QxtSerialDevice(const QString& device, QObject* parent = 0);
     QxtSerialDevice(QObject* parent = 0);
 
     virtual bool atEnd() const;
