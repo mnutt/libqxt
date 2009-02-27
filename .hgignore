@@ -26,4 +26,4 @@ config.log
 config.pri*
 config.tests/*
 depends.pri*
-
+*~
