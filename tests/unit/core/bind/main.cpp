@@ -62,7 +62,7 @@ private slots:
         QVERIFY2(ok, "nullaryVoid invoke failed");
 
         QSignalSpy spy2(this, SIGNAL(success()));
-        ok = unaryVoid->invoke(this);
+        ok = unaryVoid->invoke(QVariant::fromValue(this));
         QVERIFY2(ok, "unaryVoid invoke failed");
         QVERIFY2(spy2.count() == 1, "unaryVoid did not emit success");
 
@@ -82,6 +82,7 @@ private slots:
     }
 
 };
+Q_DECLARE_METATYPE(QxtMetaObjectTest*)
 
 void unaryVoidFunction(QObject* obj)
 {
