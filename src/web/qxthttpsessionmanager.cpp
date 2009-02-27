@@ -79,11 +79,11 @@ public:
         int sessionID;
     };
 
-    QxtHttpSessionManagerPrivate() : interface(QHostAddress::Any), port(80), sessionCookieName("sessionID"), connector(0), staticService(0), autoCreateSession(true),
+    QxtHttpSessionManagerPrivate() : iface(QHostAddress::Any), port(80), sessionCookieName("sessionID"), connector(0), staticService(0), autoCreateSession(true),
                 eventLock(QMutex::Recursive), sessionLock(QMutex::Recursive) {}
     QXT_DECLARE_PUBLIC(QxtHttpSessionManager);
 
-    QHostAddress interface;
+    QHostAddress iface;
     quint16 port;
     QByteArray sessionCookieName;
     QxtAbstractHttpConnector* connector;
@@ -114,9 +114,9 @@ QxtHttpSessionManager::QxtHttpSessionManager(QObject* parent) : QxtAbstractWebSe
  * Returns the interface on which the session manager will listen for incoming connections.
  * \sa setInterface
  */
-QHostAddress QxtHttpSessionManager::interface() const
+QHostAddress QxtHttpSessionManager::listenInterface() const
     {
-        return qxt_d().interface;
+        return qxt_d().iface;
     }
 
 /**
@@ -128,9 +128,9 @@ QHostAddress QxtHttpSessionManager::interface() const
  *
  * \sa QxtAbstractHttpConnector::listen
  */
-void QxtHttpSessionManager::setInterface(const QHostAddress& interface)
+void QxtHttpSessionManager::setListenInterface(const QHostAddress& iface)
 {
-    qxt_d().interface = interface;
+    qxt_d().iface = iface;
 }
 
 /**
@@ -162,7 +162,7 @@ void QxtHttpSessionManager::setPort(quint16 port)
 bool QxtHttpSessionManager::start()
 {
     Q_ASSERT(qxt_d().connector);
-    return connector()->listen(interface(), port());
+    return connector()->listen(listenInterface(), port());
 }
 
 /**
