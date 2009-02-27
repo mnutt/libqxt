@@ -45,8 +45,8 @@ public:
 
     virtual void postEvent(QxtWebEvent*);
 
-    QHostAddress interface() const;
-    void setInterface(const QHostAddress& interface);
+    QHostAddress listenInterface() const;
+    void setListenInterface(const QHostAddress& iface);
 
     quint16 port() const;
     void setPort(quint16 port);

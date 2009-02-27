@@ -65,9 +65,9 @@ QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHtt
 /**
  * \reimp
  */
-bool QxtScgiServerConnector::listen(const QHostAddress& interface, quint16 port)
+bool QxtScgiServerConnector::listen(const QHostAddress& iface, quint16 port)
 {
-    return qxt_d().server->listen(interface, port);
+    return qxt_d().server->listen(iface, port);
 }
 
 /**
