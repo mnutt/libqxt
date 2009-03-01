@@ -42,11 +42,6 @@ public:
     static QRect windowGeometry(WId window);
 
     static uint idleTime();
-
-    static QSize resolution(QWidget* screen = 0);
-    static bool setResolution(int width, int height, QWidget* screen = 0);
-    static bool setResolution(const QSize& resolution, QWidget* screen = 0);
-    static QList<QSize> availableResolutions(QWidget* screen = 0);
 };
 
 #endif // QXTWINDOWSYSTEM_H
