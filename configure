@@ -8,6 +8,7 @@ NO_OPENSSL=0
 NO_DB=0
 NO_FFMPEG=0
 NO_XSS=0
+NO_XRANDR=0
 
 if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
@@ -43,7 +44,9 @@ while (( $# > 0 )); do
         echo "QXT_BUILD -= $2" >> config.in; shift
         if [ $2 == "gui" ]; then
             echo "QXT_LIBS -= xss" >> config.in
+            echo "QXT_LIBS -= xrandr" >> config.in
             NO_XSS=1
+            NO_XRANDR=1
         fi
     elif [ $1 == "-prefix" ]; then
         echo "QXTINSTALLDIR = $2" >> config.in; shift
@@ -70,6 +73,9 @@ while (( $# > 0 )); do
     elif [ $1 == "-no-xss" ]; then
         echo "QXT_LIBS -= xss" >> config.in
         NO_XSS=1
+    elif [ $1 == "-no-xrandr" ]; then
+        echo "QXT_LIBS -= xrandr" >> config.in
+        NO_XRANDR=1
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> config.in
     elif [ $1 == "-qws" ]; then
@@ -79,7 +85,7 @@ while (( $# > 0 )); do
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
-        echo "       [-static] [-debug] [-release] [-no-openssl] [-no-db] [-no-xss]"
+        echo "       [-static] [-debug] [-release] [-no-openssl] [-no-db] [-no-xss] [-no-xrandr]"
         echo "       [-nomake <module>] [-verbose] [-qws]"
         echo
         echo "Installation options:"
@@ -102,6 +108,7 @@ while (( $# > 0 )); do
         echo "-no-openssl ......... Do not link to OpenSSL"
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-xss ............. Do not link to XScreenSaver"
+        echo "-no-xrandr .......... Do not link to XRandr"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: berkeley crypto designer gui network sql web"
         echo "-verbose ............ shows compiler output"
@@ -164,8 +171,8 @@ configtest()
 	fi
 }
 
-echo >&2 "Testing for optional external librarys."
-echo >&2 "If a test fails, some features will not be available."
+echo >&2 "Testing for optional external libraries."
+echo >&2 "If tests fail, some features will not be available."
 
 
 configtest qt4     QT
@@ -174,11 +181,15 @@ if [[ "$NO_OPENSSL" == "0" ]]; then
 fi
 
 if [[ "$NO_DB" == "0" ]]; then
-    configtest "db  "    DB
+    configtest "db " DB
 fi
 
 if [[ "$NO_XSS" == "0" ]]; then
-    configtest "xss  "    XSS
+    configtest xss XSS
+fi
+
+if [[ "$NO_XRANDR" == "0" ]]; then
+    configtest xrandr XRANDR
 fi
 
 #configtest curses  CURSES
