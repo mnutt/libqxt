@@ -36,6 +36,7 @@ class QXT_GUI_EXPORT QxtLetterBoxWidget : public QFrame
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET clearBackgroundColor)
+    Q_PROPERTY(int margin READ margin WRITE setMargin)
     Q_PROPERTY(uint resizeDelay READ resizeDelay WRITE setResizeDelay)
 
 public:
@@ -45,6 +46,9 @@ public:
     QColor backgroundColor() const;
     void setBackgroundColor(const QColor& color);
     void clearBackgroundColor();
+
+    int margin() const;
+    void setMargin(int margin);
 
     QWidget* widget() const;
     void setWidget(QWidget* widget);

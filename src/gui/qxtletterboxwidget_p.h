@@ -44,6 +44,7 @@ public Q_SLOTS:
 public:
     QWidget* center;
     QTimer timer;
+    int margin;
 };
 
 #endif // QXTLETTERBOXWIDGET_P_H
