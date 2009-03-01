@@ -56,6 +56,9 @@ public:
     uint resizeDelay() const;
     void setResizeDelay(uint delay);
 
+public slots:
+    void resizeWidget();
+
 protected:
     void resizeEvent(QResizeEvent* event);
 };
