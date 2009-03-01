@@ -27,7 +27,7 @@
 #include <QLayout>
 #include <QStyle>
 
-QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0)
+QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), timer(), margin(0)
 {
     timer.setSingleShot(true);
     connect(&timer, SIGNAL(timeout()), this, SLOT(resize()));
@@ -39,6 +39,7 @@ void QxtLetterBoxWidgetPrivate::resize()
     {
         QSize size = center->sizeIncrement();
         size.scale(qxt_p().size(), Qt::KeepAspectRatio);
+        size -= QSize(2 * margin, 2 * margin);
         size = QLayout::closestAcceptableSize(center, size);
         QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size, qxt_p().rect());
         center->setGeometry(rect);
@@ -103,6 +104,26 @@ void QxtLetterBoxWidget::clearBackgroundColor()
 {
     setBackgroundColor(QColor());
     setAutoFillBackground(false);
+}
+
+/*!
+    \property QxtLetterBoxWidget::margin
+    \brief This property holds the margin
+
+    The default value is \b 0.
+ */
+int QxtLetterBoxWidget::margin() const
+{
+    return qxt_d().margin;
+}
+
+void QxtLetterBoxWidget::setMargin(int margin)
+{
+    if (qxt_d().margin != margin)
+    {
+        qxt_d().margin = margin;
+        qxt_d().resize();
+    }
 }
 
 /*!
