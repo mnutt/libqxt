@@ -14,6 +14,9 @@ include(gui.pri)
 contains(DEFINES,HAVE_XSS){
     !win32:LIBS += -lXss
 }
+contains(DEFINES,HAVE_XRANDR){
+    !win32:LIBS += -lXrandr
+}
 win32:LIBS      += -luser32
 # Debian and derivatives pass --no-undefined to the linker, which
 # means that each library must explicitly link to all dependencies 
