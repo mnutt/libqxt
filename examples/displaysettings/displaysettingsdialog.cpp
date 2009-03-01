@@ -12,7 +12,9 @@ static int greatestCommonDivisor(int a, int b)
 DisplaySettingsDialog::DisplaySettingsDialog(QWidget* parent) : QDialog(parent)
 {
     ui.setupUi(this);
+    ui.letterBoxWidget->setMargin(20);
     ui.letterBoxWidget->setWidget(ui.labelBox);
+    ui.letterBoxWidget->setBackgroundColor(QColor("wheat"));
     connect(ui.buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), SLOT(apply()));
 
     fillResolutions();
@@ -109,6 +111,7 @@ void DisplaySettingsDialog::updateUi(bool init)
 
     ui.labelBox->setText(text);
     ui.labelBox->setSizeIncrement(reso);
+    ui.letterBoxWidget->resizeWidget();
 
     ui.buttonBox->button(QDialogButtonBox::Apply)->setEnabled(!init);
 }
