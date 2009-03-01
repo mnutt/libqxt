@@ -154,6 +154,7 @@ void QxtScreenUtil::setRefreshRate(int rate)
  */
 bool QxtScreenUtil::apply()
 {
+    qxt_d().init();
     return qxt_d().set(qxt_d().setReso, qxt_d().setRate);
 }
 
@@ -164,5 +165,6 @@ bool QxtScreenUtil::apply()
  */
 bool QxtScreenUtil::cancel()
 {
+    qxt_d().init();
     return qxt_d().set(qxt_d().currReso, qxt_d().currRate);
 }
