@@ -30,20 +30,6 @@
 QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), timer(), margin(0)
 {
     timer.setSingleShot(true);
-    connect(&timer, SIGNAL(timeout()), this, SLOT(resize()));
-}
-
-void QxtLetterBoxWidgetPrivate::resize()
-{
-    if (center)
-    {
-        QSize size = center->sizeIncrement();
-        size.scale(qxt_p().size(), Qt::KeepAspectRatio);
-        size -= QSize(2 * margin, 2 * margin);
-        size = QLayout::closestAcceptableSize(center, size);
-        QRect rect = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size, qxt_p().rect());
-        center->setGeometry(rect);
-    }
 }
 
 /*!
@@ -68,6 +54,7 @@ void QxtLetterBoxWidgetPrivate::resize()
 QxtLetterBoxWidget::QxtLetterBoxWidget(QWidget* parent) : QFrame(parent)
 {
     QXT_INIT_PRIVATE(QxtLetterBoxWidget);
+    connect(&qxt_d().timer, SIGNAL(timeout()), this, SLOT(resizeWidget()));
 }
 
 /*!
@@ -122,7 +109,7 @@ void QxtLetterBoxWidget::setMargin(int margin)
     if (qxt_d().margin != margin)
     {
         qxt_d().margin = margin;
-        qxt_d().resize();
+        resizeWidget();
     }
 }
 
@@ -153,7 +140,7 @@ void QxtLetterBoxWidget::setWidget(QWidget* widget)
     if (widget)
     {
         widget->setParent(this);
-        qxt_d().resize();
+        resizeWidget();
     }
 }
 
@@ -177,6 +164,22 @@ void QxtLetterBoxWidget::setResizeDelay(uint delay)
 }
 
 /*!
+    Resizes the content widget.
+ */
+void QxtLetterBoxWidget::resizeWidget()
+{
+    if (qxt_d().center)
+    {
+        QSize s = qxt_d().center->sizeIncrement();
+        s.scale(size(), Qt::KeepAspectRatio);
+        s -= QSize(2 * qxt_d().margin, 2 * qxt_d().margin);
+        s = QLayout::closestAcceptableSize(qxt_d().center, s);
+        QRect r = QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, s, rect());
+        qxt_d().center->setGeometry(r);
+    }
+}
+
+/*!
     \reimp
  */
 void QxtLetterBoxWidget::resizeEvent(QResizeEvent* event)
@@ -185,5 +188,5 @@ void QxtLetterBoxWidget::resizeEvent(QResizeEvent* event)
     if (resizeDelay() > 0)
         qxt_d().timer.start();
     else
-        qxt_d().resize();
+        resizeWidget();
 }

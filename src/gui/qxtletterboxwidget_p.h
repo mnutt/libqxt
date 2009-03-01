@@ -38,9 +38,6 @@ public:
 
     QxtLetterBoxWidgetPrivate();
 
-public Q_SLOTS:
-    void resize();
-
 public:
     QWidget* center;
     QTimer timer;
