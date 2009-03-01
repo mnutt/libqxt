@@ -145,8 +145,3 @@ QStringList QxtWindowSystem::windowTitles()
     titles += QxtWindowSystem::windowTitle(window);
     return titles;
 }
-
-bool QxtWindowSystem::setResolution(const QSize& resolution, QWidget* screen)
-{
-    return setResolution(resolution.width(), resolution.height(), screen);
-}

@@ -156,20 +156,3 @@ uint QxtWindowSystem::idleTime()
 #endif // HAVE_XSS
     return idle;
 }
-
-// http://www.opengl.org/wiki/Programming_OpenGL_in_Linux:_Changing_the_Screen_Resolution
-
-QSize QxtWindowSystem::resolution(QWidget* screen)
-{
-    return QSize();
-}
-
-bool QxtWindowSystem::setResolution(int width, int height, QWidget* screen)
-{
-    return false;
-}
-
-QList<QSize> QxtWindowSystem::availableResolutions(QWidget* screen)
-{
-    return QList<QSize>();
-}
