@@ -18,7 +18,9 @@ DisplaySettingsDialog::DisplaySettingsDialog(QWidget* parent) : QDialog(parent)
     ui.letterBoxWidget->setMargin(20);
     ui.letterBoxWidget->setWidget(ui.labelBox);
     ui.letterBoxWidget->setBackgroundColor(QColor("wheat"));
+
     connect(ui.buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), SLOT(apply()));
+    connect(ui.refreshButton, SIGNAL(clicked()), SLOT(refresh()));
 
     fillScreens();
     selectScreen(qApp->desktop()->primaryScreen());
@@ -77,6 +79,13 @@ void DisplaySettingsDialog::apply()
         ui.buttonBox->button(QDialogButtonBox::Apply)->setDisabled(true);
     else
         screen.cancel();
+}
+
+void DisplaySettingsDialog::refresh()
+{
+    screen.refresh();
+    fillScreens();
+    updateUi(true);
 }
 
 void DisplaySettingsDialog::fillScreens()
