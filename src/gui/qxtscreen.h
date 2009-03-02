@@ -31,15 +31,20 @@
 #include "qxtpimpl.h"
 
 class QxtScreenPrivate;
+QT_FORWARD_DECLARE_CLASS(QWidget)
 
 class QXT_GUI_EXPORT QxtScreen
 {
 public:
     QxtScreen(int screen = -1);
+    QxtScreen(QWidget* screen);
     ~QxtScreen();
 
-    int screen() const;
-    void setScreen(int screen);
+    int screenNumber() const;
+    void setScreenNumber(int screen);
+
+    QWidget* screen() const;
+    void setScreen(QWidget* screen);
 
     QList<QSize> availableResolutions() const;
     QList<int> availableRefreshRates(const QSize& resolution) const;
