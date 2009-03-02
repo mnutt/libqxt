@@ -35,6 +35,7 @@ class QxtScreenUtilPrivate : public QxtPrivate<QxtScreenUtil>
 {
 public:
     QxtScreenUtilPrivate();
+    void invalidate();
     void init();
     void init_sys();
     bool set(const QSize& reso, int rate);

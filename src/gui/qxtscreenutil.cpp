@@ -48,6 +48,17 @@ QxtScreenUtilPrivate::QxtScreenUtilPrivate() :
 {
 }
 
+void QxtScreenUtilPrivate::invalidate()
+{
+    currReso = QSize();
+    availResos.clear();
+
+    currRate = -1;
+    availRates.clear();
+    
+    screen = -1;
+}
+
 void QxtScreenUtilPrivate::init()
 {
     if (screen < 0)
@@ -81,6 +92,15 @@ int QxtScreenUtil::screen() const
 {
     const_cast<QxtScreenUtil*>(this)->qxt_d().init();
     return qxt_d().screen;
+}
+
+/*!
+    Sets the screen number.
+ */
+void QxtScreenUtil::setScreen(int screen)
+{
+    qxt_d().invalidate();
+    qxt_d().screen = screen;
 }
 
 /*!
