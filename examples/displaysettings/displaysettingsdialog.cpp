@@ -50,6 +50,7 @@ void DisplaySettingsDialog::apply()
     util.apply();
 
     QMessageBox messageBox(this);
+    messageBox.setWindowTitle(windowTitle());
     messageBox.setIcon(QMessageBox::Information);
     messageBox.setText(tr("Your desktop has been reconfigured. Do you want to keep these settings?"));
     messageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
