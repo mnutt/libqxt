@@ -79,6 +79,14 @@ QxtScreen::QxtScreen(int screen)
 }
 
 /*!
+    Constructs a new QxtScreen for \a screen.
+ */
+QxtScreen::QxtScreen(QWidget* screen)
+{
+    qxt_d().screen = qApp->desktop()->screenNumber(screen);
+}
+
+/*!
     Destructs the screen object.
  */
 QxtScreen::~QxtScreen()
@@ -88,7 +96,7 @@ QxtScreen::~QxtScreen()
 /*!
     Returns the screen number.
  */
-int QxtScreen::screen() const
+int QxtScreen::screenNumber() const
 {
     const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().screen;
@@ -97,10 +105,32 @@ int QxtScreen::screen() const
 /*!
     Sets the screen number.
  */
-void QxtScreen::setScreen(int screen)
+void QxtScreen::setScreenNumber(int screen)
 {
     qxt_d().invalidate();
     qxt_d().screen = screen;
+}
+
+/*!
+    Returns the screen widget.
+
+    \sa QDesktopWidget::screen()
+ */
+QWidget* QxtScreen::screen() const
+{
+    const_cast<QxtScreen*>(this)->qxt_d().init();
+    return qApp->desktop()->screen(qxt_d().screen);
+}
+
+/*!
+    Sets the screen.
+
+    \sa QDesktopWidget::screenNumber()
+ */
+void QxtScreen::setScreen(QWidget* screen)
+{
+    qxt_d().invalidate();
+    qxt_d().screen = qApp->desktop()->screenNumber(screen);
 }
 
 /*!
