@@ -1,6 +1,9 @@
 #include "displaysettingsdialog.h"
 #include <QxtScreenUtil>
+#include <QMessageBox>
 #include <QPushButton>
+#include <QEventLoop>
+#include <QTimer>
 
 static int greatestCommonDivisor(int a, int b)
 {
@@ -44,8 +47,33 @@ void DisplaySettingsDialog::apply()
         util.setRefreshRate(rate);
     }
 
-    ui.buttonBox->button(QDialogButtonBox::Apply)->setDisabled(true);
     util.apply();
+
+    QMessageBox messageBox(this);
+    messageBox.setIcon(QMessageBox::Information);
+    messageBox.setText(tr("Your desktop has been reconfigured. Do you want to keep these settings?"));
+    messageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    messageBox.setDefaultButton(QMessageBox::No);
+    messageBox.setWindowModality(Qt::WindowModal);
+    messageBox.show();
+
+    QEventLoop eventLoop;
+    connect(messageBox.button(QMessageBox::Yes), SIGNAL(clicked()), &eventLoop, SLOT(quit()));
+    connect(messageBox.button(QMessageBox::No), SIGNAL(clicked()), &eventLoop, SLOT(quit()));
+    for (int i = 15; i > 0; --i)
+    {
+        messageBox.setInformativeText(tr("Reverting in %1 seconds").arg(i));
+        QTimer::singleShot(1000, &eventLoop, SLOT(quit()));
+        eventLoop.exec();
+
+        if (messageBox.clickedButton())
+            break;
+    }
+
+    if (messageBox.clickedButton() == messageBox.button(QMessageBox::Yes))
+        ui.buttonBox->button(QDialogButtonBox::Apply)->setDisabled(true);
+    else
+        util.cancel();
 }
 
 void DisplaySettingsDialog::fillResolutions()
