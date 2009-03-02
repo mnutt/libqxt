@@ -14,6 +14,7 @@ public:
 private slots:
     void apply();
 
+    void refresh();
     void fillScreens();
     void selectScreen(int screenNumber);
     void fillResolutions();
