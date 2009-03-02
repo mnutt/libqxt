@@ -59,10 +59,11 @@ void QxtScreenUtilPrivate::init_sys()
             DWORD i = 0;
             while (::EnumDisplaySettings(displayDevice.DeviceName, i++, &devMode))
             {
-                QSize reso(devMode.dmPelsWidth, devMode.dmPelsHeight);
+                const QSize reso(devMode.dmPelsWidth, devMode.dmPelsHeight);
                 if (!availResos.contains(reso))
                     availResos += reso;
-                availRates.insertMulti(reso, devMode.dmDisplayFrequency);
+                if (!availRates.contains(reso, devMode.dmDisplayFrequency))
+                    availRates.insertMulti(reso, devMode.dmDisplayFrequency);
 
                 ::ZeroMemory(&devMode, sizeof(devMode));
                 devMode.dmSize = sizeof(devMode);
