@@ -57,6 +57,7 @@ public:
 
     bool apply();
     bool cancel();
+    void refresh();
 
 private:
     QXT_DECLARE_PRIVATE(QxtScreen);
