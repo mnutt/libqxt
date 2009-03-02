@@ -218,3 +218,12 @@ bool QxtScreen::cancel()
     qxt_d().init();
     return qxt_d().set(qxt_d().currReso, qxt_d().currRate);
 }
+
+/*!
+    Refreshes the screen information.
+ */
+void QxtScreen::refresh()
+{
+    qxt_d().invalidate();
+    qxt_d().init();
+}
