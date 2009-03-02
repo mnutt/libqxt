@@ -1,5 +1,5 @@
 #include "displaysettingsdialog.h"
-#include <QxtScreen>
+#include <QDesktopWidget>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QEventLoop>
@@ -20,19 +20,21 @@ DisplaySettingsDialog::DisplaySettingsDialog(QWidget* parent) : QDialog(parent)
     ui.letterBoxWidget->setBackgroundColor(QColor("wheat"));
     connect(ui.buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), SLOT(apply()));
 
-    fillResolutions();
+    fillScreens();
+    selectScreen(qApp->desktop()->primaryScreen());
     fillRefreshRates();
+
+    connect(ui.comboBoxScreen, SIGNAL(currentIndexChanged(int)), SLOT(selectScreen(int)));
     connect(ui.comboBoxReso, SIGNAL(currentIndexChanged(int)), SLOT(fillRefreshRates()));
 
     updateUi(true);
+    connect(ui.comboBoxScreen, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
     connect(ui.comboBoxReso, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
     connect(ui.comboBoxRate, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
 }
 
 void DisplaySettingsDialog::apply()
 {
-    QxtScreen screen;
-
     int resoIndex = ui.comboBoxReso->currentIndex();
     if (resoIndex != -1)
     {
@@ -77,10 +79,22 @@ void DisplaySettingsDialog::apply()
         screen.cancel();
 }
 
+void DisplaySettingsDialog::fillScreens()
+{
+    ui.comboBoxScreen->clear();
+    int numScreens = qApp->desktop()->numScreens();
+    for (int i = 0; i < numScreens; ++i)
+        ui.comboBoxScreen->addItem(tr("Screen %1").arg(i));
+}
+
+void DisplaySettingsDialog::selectScreen(int screenNumber)
+{
+    screen.setScreenNumber(screenNumber);
+    fillResolutions();
+}
+
 void DisplaySettingsDialog::fillResolutions()
 {
-    QxtScreen screen;
-
     ui.comboBoxReso->clear();
     const QList<QSize> resos = screen.availableResolutions();
     foreach (const QSize& reso, resos)
@@ -98,8 +112,6 @@ void DisplaySettingsDialog::fillResolutions()
 
 void DisplaySettingsDialog::fillRefreshRates()
 {
-    QxtScreen screen;
-
     const int resoIndex = ui.comboBoxReso->currentIndex();
     if (resoIndex != -1)
     {
@@ -117,8 +129,6 @@ void DisplaySettingsDialog::fillRefreshRates()
 
 void DisplaySettingsDialog::updateUi(bool init)
 {
-    QxtScreen screen;
-
     if (init)
     {
         const QSize reso = screen.resolution();

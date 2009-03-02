@@ -1,6 +1,7 @@
 #ifndef DISPLAYSETTINGSDIALOG_H
 #define DISPLAYSETTINGSDIALOG_H
 
+#include <QxtScreen>
 #include "ui_displaysettingsdialog.h"
 
 class DisplaySettingsDialog : public QDialog
@@ -13,12 +14,15 @@ public:
 private slots:
     void apply();
 
+    void fillScreens();
+    void selectScreen(int screenNumber);
     void fillResolutions();
     void fillRefreshRates();
     void updateUi(bool init = false);
 
 private:
     Ui::DisplaySettingsDialog ui;
+    QxtScreen screen;
 };
 
 #endif // DISPLAYSETTINGSDIALOG_H
