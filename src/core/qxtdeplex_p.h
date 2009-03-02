@@ -27,6 +27,9 @@
 * this is private API. it might change at any time without notice. yarly.
 *****************************************************************************/
 
+#ifndef QXTDEPLEX_P_H_INCLUDED
+#define QXTDEPLEX_P_H_INCLUDED
+
 #include "qxtdeplex.h"
 
 class QxtDeplexPrivate: public QObject, public QxtPrivate<QxtDeplex>
@@ -40,9 +43,4 @@ public Q_SLOTS:
     void extDestroyed(QObject*);
 };
 
-
-
-
-
-
-
+#endif // QXTDEPLEX_P_H_INCLUDED

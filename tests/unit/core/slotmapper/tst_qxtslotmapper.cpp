@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <QtCore>
+#include <QtCore> //krazy:exclude=qxtincludes
 #include <QxtSlotMapper>
 #include "sender.h"
 #include "receiver.h"

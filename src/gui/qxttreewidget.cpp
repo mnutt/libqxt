@@ -23,8 +23,8 @@
  **
  ****************************************************************************/
 #include "qxttreewidget.h"
-#include "qxtitemdelegate.h"
 #include "qxttreewidget_p.h"
+#include "qxtitemdelegate.h"
 #include <QHeaderView>
 
 QxtTreeWidgetPrivate::QxtTreeWidgetPrivate()

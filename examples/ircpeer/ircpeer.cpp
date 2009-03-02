@@ -68,7 +68,7 @@ QPair<QString, QList<QVariant> > IRCSerializer::deserialize(QByteArray& data) {
     QList<QVariant> params;
     int cmdNum = command.toInt();
     if(cmdNum != 0) {
-        params << QVariant::fromValue(IRCName((prefix + ":" + command).toUtf8(), "", prefix));
+        params << QVariant::fromValue(IRCName((prefix + ':' + command).toUtf8(), "", prefix));
         command = "numeric";
     } else {
         if(prefix.isEmpty())          params << QVariant::fromValue(IRCName("","",""));
@@ -107,14 +107,14 @@ QPair<QString, QList<QVariant> > IRCSerializer::deserialize(QByteArray& data) {
                 i = 2;
             }
             QByteArray ba;
-            for(; i < params.count(); i++) ba += params[i].toByteArray() + " ";
+            for(; i < params.count(); i++) ba += params[i].toByteArray() + ' ';
             newparams << ba;
             params = newparams;
         }
     } else if(command == "PRIVMSG") {
         QByteArray p2 = params[2].toByteArray();
         if(p2.size() > 0 && p2[0] == '\001') {
-            message = p2.replace("\001", "");
+            message = p2.remove('\001');
             int spacePos = message.indexOf(' ');
             if(spacePos == -1) spacePos = message.size();
             command = "CTCP-"+message.left(spacePos);
@@ -136,5 +136,5 @@ IRCName IRCName::fromName(const QByteArray& name) {
 IRCName::IRCName(QByteArray nick, QByteArray ident, QByteArray host) : nick(nick), ident(ident), host(host) {}
 
 QByteArray IRCName::assemble() const {
-    return nick + (ident.isEmpty() ? QByteArray() : "!" + ident) + (host.isEmpty() ? QByteArray() : "@" + host);
+    return nick + (ident.isEmpty() ? QByteArray() : '!' + ident) + (host.isEmpty() ? QByteArray() : '@' + host);
 }

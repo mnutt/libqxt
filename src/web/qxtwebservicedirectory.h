@@ -37,7 +37,7 @@ class QXT_WEB_EXPORT QxtWebServiceDirectory : public QxtAbstractWebService
 {
     Q_OBJECT
 public:
-    QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
+    explicit QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm, QObject* parent = 0);
 
     void addService(const QString& path, QxtAbstractWebService* service);
     void removeService(const QString& path);

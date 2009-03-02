@@ -1,7 +1,7 @@
 #include <QFile>
 #include <QDebug>
-#include <QtXml>
 #include <QxtHtmlTemplate>
+#include <QDomElement>
 #include <QStringList>
 #include <QPair>
 #include <QHash>
@@ -97,7 +97,7 @@ Class * findClassByRef(QString ref)
 
 QString refToLink( QString ref)
 {
-    QStringList e=ref.split("_");
+    QStringList e=ref.split('_');
 
     QString object=e.at(0);
     QString sub;
@@ -112,7 +112,7 @@ QString refToLink( QString ref)
     {
         object="http://doc.trolltech.com/latest/"+object;
 
-        if (sub.startsWith("1"))
+        if (sub.startsWith(QString('1')))
             sub=sub.mid(1);
     }
 
@@ -146,7 +146,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
             QDomElement e= n.toElement();
             if(e.tagName ()=="sp")
             {
-                text += " ";
+                text += ' ';
             }
             else if(e.tagName ()=="para")
             {
@@ -190,8 +190,8 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
 
                 QString c= descRTF(e);
 
-                bool close =c.contains("}");
-                bool open  =c.contains("{");
+                bool close =c.contains('}');
+                bool open  =c.contains('{');
 
                 if(close && !open)
                 {
@@ -218,7 +218,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
             else if(e.tagName ()=="ref")
             {
                 ///ignore namespaces, we don't have them
-                if(e.attribute("refid").startsWith("namespace"))
+                if(e.attribute("refid").startsWith(QString("namespace")))
                     text +=descRTF(e);
                 else
                     text += "<a class=\"reflink\" href=\""+refToLink(e.attribute("refid"))+"\">"+descRTF(e)+"</a>";
@@ -244,7 +244,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
             }
             else if(e.tagName ()=="heading")
             {
-                text += "<h"+e.attribute("level")+">"+descRTF(e)+"</h"+e.attribute("level")+">";
+                text += "<h"+e.attribute("level")+'>'+descRTF(e)+"</h"+e.attribute("level")+'>';
             }
 
             ///tables
@@ -284,7 +284,7 @@ QString descRTF(QDomElement element,bool noOuterParagraph=false)
         }
         else if (n.isText ()) 
         {
-            text += n.toText().data().replace("<","&lt;").replace(">","&gt;");
+            text += n.toText().data().replace('<',"&lt;").replace('>',"&gt;");
         }
     }
     return text;
@@ -351,7 +351,7 @@ void parseIndex(QString location)
 void parseModule(QString location,Module *m)
 {
     QDomDocument doc("doc");
-    QString filename=location+"/"+m->ref+".xml";
+    QString filename=location+'/'+m->ref+".xml";
 
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
@@ -456,7 +456,7 @@ QString printAssistantNGQHPFile()
         {
             if (cl->name==m->name) ///skip ctor
                 continue;
-            m->name.replace("<","&lt;").replace(">","&gt;");
+            m->name.replace('<',"&lt;").replace('>',"&gt;");
             t_i_i.clear();
             t_i_i["name"]=m->name;
             t_i_i["link"]=refToLink(m->ref);
@@ -465,7 +465,7 @@ QString printAssistantNGQHPFile()
         }
     }
 
-    foreach(QString file,QDir(outputDir).entryList ())
+    foreach(const QString &file, QDir(outputDir).entryList())
     {
         t_i_i_i.clear();
         t_i_i_i["name"]=file;
@@ -518,7 +518,7 @@ QString printPublicClasses()
             cr=1;
     }
 
-    foreach(QString rowstr, rowstring.values())
+    foreach(const QString &rowstr, rowstring.values())
     {
         t["unroll"]+="<tr>\r\n"+rowstr+"</tr>\r\n\r\n";
     }
@@ -548,7 +548,7 @@ QString printModules()
         t_i["iseven"]=QString::number(i%2);
         t_i["name"]=cl->name;
         t_i["link"]=cl->ref+".html";
-        t_i["desc"]=cl->brief.replace("<p>","").replace("</p>","");
+        t_i["desc"]=cl->brief.remove("<p>)").remove("</p>");
         t["unroll"]+=t_i.render();
     }
     return t.render();;
@@ -561,7 +561,7 @@ void preParseSection(QDomElement sectiondef,Class * cl)
 {
     qDebug()<<"preparsing section "<<sectiondef.attribute("kind");
 
-    if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
+    if(sectiondef.attribute("kind").startsWith(QString("private")))///skip private stuff
     {
         return;
     }
@@ -681,7 +681,7 @@ QString printAndDeletePropertyAccessors(QDomElement parr,Class * cl)
         qFatal("cannot find accessor '%s",qPrintable(parr.text()));
 
 
-    tt+=ac->type+" "+ac->name+" "+ac->signature;
+    tt+=ac->type+' '+ac->name+' '+ac->signature;
 
 
     if(ac->kind=="public-slot")
@@ -721,7 +721,7 @@ QString printAndDeletePropertyAccessors(QDomElement parr,Class * cl)
 QString printClass(QString location,Class * cl)
 {
     QDomDocument doc("doc");
-    QString filename=location+"/"+cl->ref+".xml";
+    QString filename=location+'/'+cl->ref+".xml";
 
     QFile file(filename);
 
@@ -770,7 +770,7 @@ QString printClass(QString location,Class * cl)
 
     ///description
     cl->desc=descRTF(def.firstChildElement("detaileddescription"));
-    cl->brief=def.firstChildElement("briefdescription").text().replace("<","&lt;").replace(">","&gt;");
+    cl->brief=def.firstChildElement("briefdescription").text().replace('<',"&lt;").replace('>',"&gt;");
 
 
     ///templates
@@ -822,7 +822,7 @@ QString printClass(QString location,Class * cl)
     sectiondef=def.firstChildElement("sectiondef");
     while(!sectiondef.isNull()) 
     {
-        if(sectiondef.attribute("kind").startsWith("private"))///skip private stuff
+        if(sectiondef.attribute("kind").startsWith(QString("private")))///skip private stuff
         {
             sectiondef = sectiondef.nextSiblingElement("sectiondef");
             continue;
@@ -907,7 +907,7 @@ QString printClass(QString location,Class * cl)
             ///Member Function Documentation (impl) 
             t_impl.clear();
 
-            QStringList lii=member.attribute("id").split("_");
+            QStringList lii=member.attribute("id").split('_');
             if(lii.count()>1)
                 t_impl["ref"]=lii.at(1);
             else
@@ -1019,16 +1019,16 @@ QString printModule(Module * m)
 QString printListOfMembers(QString location,Class * cl)
 {
     QDomDocument doc("doc");
-    QFile file(location+"/"+cl->ref+".xml");
+    QFile file(location+'/'+cl->ref+".xml");
     if (!file.open(QIODevice::ReadOnly))
-        qFatal("cannot open file %s",qPrintable(location+"/"+cl->ref+".xml"));
+        qFatal("cannot open file %s",qPrintable(location+'/'+cl->ref+".xml"));
     QString  errorMsg;
     int errorLine=0;
     int errorColumn=0;
 
     if (!doc.setContent(&file,&errorMsg,&errorLine,&errorColumn)) 
     {
-        qCritical("%s:%i:%i %s",qPrintable(location+"/"+cl->ref+".xml"),errorLine,errorColumn,qPrintable(errorMsg));
+        qCritical("%s:%i:%i %s",qPrintable(location+'/'+cl->ref+".xml"),errorLine,errorColumn,qPrintable(errorMsg));
         return QString("%1:%2:%3 %4").arg(location+"/index.xml").arg(errorLine)
             .arg(errorColumn).arg(errorMsg);
     }
@@ -1036,7 +1036,7 @@ QString printListOfMembers(QString location,Class * cl)
 
     QDomElement docElem = doc.documentElement();
     if(docElem.tagName ()!="doxygen")
-        qFatal("unexpected top node in %s",qPrintable(location+"/"+cl->ref+".xml"));
+        qFatal("unexpected top node in %s",qPrintable(location+'/'+cl->ref+".xml"));
     QDomElement def  = docElem.firstChildElement("compounddef");
 
 
@@ -1097,7 +1097,7 @@ void wrapToFile(QString filename,QString content,QString title)
 
 
 
-    QFile file(outputDir+"/"+filename);
+    QFile file(outputDir+'/'+filename);
     if (!file.open(QIODevice::WriteOnly))
         qFatal("cannot open output file %s",qPrintable(filename));
 
@@ -1144,7 +1144,7 @@ int main(int argc,char ** argv)
     settings.endGroup();
 
     qDebug("[cleaning output dir]");
-    foreach(QString asdasdasdasd,QDir(outputDir).entryList ())
+    foreach(const QString &asdasdasdasd, QDir(outputDir).entryList())
     {
         QFile(outputDir+QDir::separator()+asdasdasdasd).remove();
     }
@@ -1161,9 +1161,9 @@ int main(int argc,char ** argv)
     QString doxygeninput;
 
     settings.beginGroup ("doxygen");
-    foreach(QString key,settings.allKeys())
+    foreach(const QString &key, settings.allKeys())
     {
-        doxygeninput+=(key+"="+settings.value(key).toString()+"\r\n");
+        doxygeninput+=(key+'='+settings.value(key).toString()+"\r\n");
         if(key=="PROJECT_NUMBER")
             versionNr=settings.value(key).toString();
         else if(key=="PROJECT_NAME")
@@ -1259,7 +1259,7 @@ int main(int argc,char ** argv)
 
     filesIShouldCopy<<"stylesheet.css"<<"logo.png"<<"qxt.qhcp"<<"see.png"<<"note.png"<<"warning.png"<<"implicitshared.png";
 
-    foreach(QString f,filesIShouldCopy)
+    foreach(const QString &f, filesIShouldCopy)
     {
         QFile(templateDir+QDir::separator ()+f).copy (outputDir+QDir::separator ()+f);
         qDebug()<<f;

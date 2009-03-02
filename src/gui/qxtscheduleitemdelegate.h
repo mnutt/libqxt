@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef SPLITITEMDELEGATE_H
-#define SPLITITEMDELEGATE_H
+#ifndef QXTSCHEDULEITEMDELEGATE_H_INCLUDED
+#define QXTSCHEDULEITEMDELEGATE_H_INCLUDED
 
 #include <QAbstractItemDelegate>
 #include <QPainterPath>
@@ -62,4 +62,4 @@ public:
 
 };
 
-#endif
+#endif // QXTSCHEDULEITEMDELEGATE_H_INCLUDED

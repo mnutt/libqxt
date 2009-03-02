@@ -22,9 +22,13 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTNETWORK_H_INCLUDED
+#define QXTNETWORK_H_INCLUDED
+
 #include "qxtrpcpeer.h"
 #include "qxttcpconnectionmanager.h"
 
 /** \defgroup QxtNetwork QxtNetwork
     \brief    The QxtNetwork module extends QtNetwork with RPC functionality.
 */
+#endif // QXTNETWORK_H_INCLUDED

@@ -1,3 +1,6 @@
+#ifndef MAINWINDOW_H_INCLUDED
+#define MAINWINDOW_H_INCLUDED
+
 #include "ui_mainwindow.h"
 #include "contact.h"
 #include <QxtBdbHash>
@@ -15,3 +18,4 @@ private slots:
     void on_addButton_clicked();
 };
 
+#endif // MAINWINDOW_H_INCLUDED

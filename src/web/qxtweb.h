@@ -22,6 +22,9 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTWEB_H_INCLUDED
+#define QXTWEB_H_INCLUDED
+
 #include "qxtabstracthttpconnector.h"
 #include "qxtabstractwebservice.h"
 #include "qxtabstractwebsessionmanager.h"
@@ -55,3 +58,5 @@ a QxtWebPageEvent to the session manager. This is done asynchronously; there is 
 must respond to the request before the function ends, but such a response must eventually be posted or the web browser will eventually
 time out.
 */
+
+#endif // QXTWEB_H_INCLUDED

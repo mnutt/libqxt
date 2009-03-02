@@ -23,11 +23,11 @@
  **
  ****************************************************************************/
 
+#include "qxthmac.h"
 #include <QtGlobal>
 
 #if QT_VERSION >= 0x040300
 
-#include "qxthmac.h"
 
 /**
 \class QxtHmac QxtHmac

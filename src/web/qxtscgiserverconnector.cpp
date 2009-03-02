@@ -65,9 +65,9 @@ QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHtt
 /**
  * \reimp
  */
-bool QxtScgiServerConnector::listen(const QHostAddress& interface, quint16 port)
+bool QxtScgiServerConnector::listen(const QHostAddress& iface, quint16 port)
 {
-    return qxt_d().server->listen(interface, port);
+    return qxt_d().server->listen(iface, port);
 }
 
 /**
@@ -142,7 +142,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
     int i = 0;
     while ((i = buffer.indexOf('\0')) > -1)
     {
-        if (name == "")
+        if (name.isEmpty())
         {
             name = buffer.left(i);
         }
@@ -160,7 +160,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
 
     foreach(const QString& key, request_m.keys())
     {
-        if (key.startsWith("http_"))
+        if (key.startsWith(QString("http_")))
         {
             request_m.setValue(key.right(key.size() - 5), request_m.value(key));
         }
@@ -181,11 +181,11 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
 void QxtScgiServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& response_m)
 {
 
-    device->write(("Status:" + QString::number(response_m.statusCode()) + " " + response_m.reasonPhrase() + "\r\n").toAscii());
+    device->write(("Status:" + QString::number(response_m.statusCode()) + ' ' + response_m.reasonPhrase() + "\r\n").toAscii());
 
     foreach(const QString& key, response_m.keys())
     {
-        device->write((key + ":" + response_m.value(key) + "\r\n").toAscii());
+        device->write((key + ':' + response_m.value(key) + "\r\n").toAscii());
     }
     device->write("\r\n");
 }

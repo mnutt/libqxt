@@ -121,21 +121,21 @@ QString QxtMail::rfc822()
     QString e;
     foreach(const QString& r, recipients())
     {
-        e += "TO:" + r + "\n";
+        e += "TO:" + r + '\n';
     }
 
-    e += "Subject:" + subject() + "\n";
+    e += "Subject:" + subject() + '\n';
 
     foreach(const QString& r, extraHeaders())
     {
-        e += r + "\n";
+        e += r + '\n';
     }
 
     if (!sender().isEmpty())
-        e += "From:" + sender() + "\n";
+        e += "From:" + sender() + '\n';
 
 
-    e += "\n" + body() + "\n";
+    e += '\n' + body() + '\n';
 
     return e;
 }

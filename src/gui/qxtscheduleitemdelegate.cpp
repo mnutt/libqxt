@@ -109,7 +109,6 @@ void QxtScheduleItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
 
             //paint subitems if there are any
             int subItems       = index.model()->rowCount(index);
-            int subItemsHeight = 0;
             for (int items = paintedSubItems; items < subItems; items++)
             {
                 QModelIndex currSubItem = index.model()->index(items, 0, index);
@@ -199,7 +198,7 @@ void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rec
     else
         font = option.font;
 
-    QString text = startTime.toString("hh:mm") + " " + endTime.toString("hh:mm");
+    QString text = startTime.toString("hh:mm") + ' ' + endTime.toString("hh:mm");
     QFontMetrics metr(font);
     text = metr.elidedText(text, Qt::ElideRight, rect.width());
     painter->drawText(rect, Qt::AlignCenter, text);
@@ -212,7 +211,7 @@ void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rec
  * @param const QxtStyleOptionScheduleViewItem & option
  * @param const QModelIndex &index the items model index
  */
-void QxtScheduleItemDelegate::paintSubItem(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option, const QModelIndex &index) const
+void QxtScheduleItemDelegate::paintSubItem(QPainter * /*painter*/, const QRect /*rect*/, const QxtStyleOptionScheduleViewItem & /*option*/, const QModelIndex & /*index*/) const
 {
 
 }

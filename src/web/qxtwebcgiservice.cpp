@@ -196,7 +196,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     env["REQUEST_METHOD"] = event->method;
     env["PATH_INFO"] = event->url.path();
     env["PATH_TRANSLATED"] = event->url.path(); // CGI/1.1 says we should resolve this, but we have no logical interpretation
-    env["SCRIPT_NAME"] = event->originalUrl.path().replace(QRegExp(QRegExp::escape(event->url.path()) + "$"), "");
+    env["SCRIPT_NAME"] = event->originalUrl.path().remove(QRegExp(QRegExp::escape(event->url.path()) + '$'));
     env["SCRIPT_FILENAME"] = qxt_d().binary;    // CGI/1.1 doesn't define this but PHP demands it
     env.remove("REMOTE_HOST");
     env["REMOTE_ADDR"] = event->remoteAddress;
@@ -220,7 +220,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     QMultiHash<QString, QString>::const_iterator iter = event->headers.begin();
     while (iter != event->headers.end())
     {
-        QString key = "HTTP_" + iter.key().toUpper().replace("-", "_");
+        QString key = "HTTP_" + iter.key().toUpper().replace('-', '_');
         if (key != "HTTP_CONTENT_TYPE" && key != "HTTP_CONTENT_LENGTH")
             env[key] = iter.value();
         iter++;
@@ -233,7 +233,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     {
         if (!cookies.isEmpty())
             cookies += "; ";
-        cookies += iter.key() + "=" + iter.value();
+        cookies += iter.key() + '=' + iter.value();
         iter++;
     }
     if (!cookies.isEmpty())
@@ -244,16 +244,16 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     QMap<QString, QString>::iterator env_iter = env.begin();
     while (env_iter != env.end())
     {
-        p_env << env_iter.key() + "=" + env_iter.value();
+        p_env << env_iter.key() + '=' + env_iter.value();
         env_iter++;
     }
     process->setEnvironment(p_env);
 
     // Launch process
-    if (event->url.hasQuery() && event->url.encodedQuery().contains("="))
+    if (event->url.hasQuery() && event->url.encodedQuery().contains('='))
     {
         // CGI/1.1 spec says to pass the query on the command line if there's no embedded = sign
-        process->start(qxt_d().binary + " " + QUrl::fromPercentEncoding(event->url.encodedQuery()), QIODevice::ReadWrite);
+        process->start(qxt_d().binary + ' ' + QUrl::fromPercentEncoding(event->url.encodedQuery()), QIODevice::ReadWrite);
     }
     else
     {
@@ -307,7 +307,7 @@ void QxtWebCgiServicePrivate::processReadyRead()
     while (process->canReadLine())
     {
         // Read in a CGI/1.1 header line
-        line = process->readLine().replace("\r", "");
+        line = process->readLine().replace(QByteArray("\r"), ""); //krazy:exclude=doublequote_chars
         if (line == "\n")
         {
             // An otherwise-empty line indicates the end of CGI/1.1 headers and the start of content
@@ -346,7 +346,7 @@ void QxtWebCgiServicePrivate::processReadyRead()
             // Since we haven't reached the end of headers yet, parse a header
             int pos = line.indexOf(": ");
             QByteArray hdrName = line.left(pos).toLower();
-            QByteArray hdrValue = line.mid(pos + 2).replace("\n", "");
+            QByteArray hdrValue = line.mid(pos + 2).replace(QByteArray("\n"), ""); //krazy:exclude=doublequote_chars
             if (hdrName == "set-cookie")
             {
                 // Parse a new cookie and post an event to send it to the client

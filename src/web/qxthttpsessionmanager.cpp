@@ -79,11 +79,11 @@ public:
         int sessionID;
     };
 
-    QxtHttpSessionManagerPrivate() : interface(QHostAddress::Any), port(80), sessionCookieName("sessionID"), connector(0), staticService(0), autoCreateSession(true),
+    QxtHttpSessionManagerPrivate() : iface(QHostAddress::Any), port(80), sessionCookieName("sessionID"), connector(0), staticService(0), autoCreateSession(true),
                 eventLock(QMutex::Recursive), sessionLock(QMutex::Recursive) {}
     QXT_DECLARE_PUBLIC(QxtHttpSessionManager);
 
-    QHostAddress interface;
+    QHostAddress iface;
     quint16 port;
     QByteArray sessionCookieName;
     QxtAbstractHttpConnector* connector;
@@ -114,9 +114,9 @@ QxtHttpSessionManager::QxtHttpSessionManager(QObject* parent) : QxtAbstractWebSe
  * Returns the interface on which the session manager will listen for incoming connections.
  * \sa setInterface
  */
-QHostAddress QxtHttpSessionManager::interface() const
+QHostAddress QxtHttpSessionManager::listenInterface() const
     {
-        return qxt_d().interface;
+        return qxt_d().iface;
     }
 
 /**
@@ -128,9 +128,9 @@ QHostAddress QxtHttpSessionManager::interface() const
  *
  * \sa QxtAbstractHttpConnector::listen
  */
-void QxtHttpSessionManager::setInterface(const QHostAddress& interface)
+void QxtHttpSessionManager::setListenInterface(const QHostAddress& iface)
 {
-    qxt_d().interface = interface;
+    qxt_d().iface = iface;
 }
 
 /**
@@ -162,7 +162,7 @@ void QxtHttpSessionManager::setPort(quint16 port)
 bool QxtHttpSessionManager::start()
 {
     Q_ASSERT(qxt_d().connector);
-    return connector()->listen(interface(), port());
+    return connector()->listen(listenInterface(), port());
 }
 
 /**
@@ -381,7 +381,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
         if (line.first.toLower() == "cookie") continue;
         event->headers.insert(line.first, line.second);
     }
-    event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + "." + QString::number(state.httpMinorVersion));
+    event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + '.' + QString::number(state.httpMinorVersion));
     if (sessionID)
     {
         session(sessionID)->pageRequestedEvent(event);
@@ -449,7 +449,7 @@ void QxtHttpSessionManager::processEvents()
         if (e->type() == QxtWebEvent::StoreCookie)
         {
             QxtWebStoreCookieEvent* ce = static_cast<QxtWebStoreCookieEvent*>(e);
-            QString cookie = ce->name + "=" + ce->data;
+            QString cookie = ce->name + '=' + ce->data;
             if (ce->expiration.isValid())
             {
                 cookie += "; max-age=" + QString::number(QDateTime::currentDateTime().secsTo(ce->expiration))

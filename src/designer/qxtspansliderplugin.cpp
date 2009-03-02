@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtspanslider.h"
 #include "qxtspansliderplugin.h"
+#include "qxtspanslider.h"
 #include <QtPlugin>
 
 QxtSpanSliderPlugin::QxtSpanSliderPlugin(QObject* parent)

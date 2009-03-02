@@ -81,7 +81,7 @@ private:
     ///TODO: somehow notify all iterators when one deletes this. so they can be made invalid instead of undefined.
 };
 
-///FIXME: nested would be cooler but c++ has no typdefs with templates and doxygen doesnt undertsand nested templates
+///FIXME: nested would be cooler but c++ has no typdefs with templates and doxygen doesn't undertsand nested templates
 template<class T>
 class QXT_CORE_EXPORT QxtLinkedTreeIterator
 {

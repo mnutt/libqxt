@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtstars.h"
 #include "qxtstarsplugin.h"
+#include "qxtstars.h"
 #include <QtPlugin>
 
 QxtStarsPlugin::QxtStarsPlugin(QObject* parent)

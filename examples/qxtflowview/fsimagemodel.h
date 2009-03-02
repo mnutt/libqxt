@@ -1,4 +1,5 @@
-
+#ifndef FSIMAGEMODEL_H_INCLUDED
+#define FSIMAGEMODEL_H_INCLUDED
 /**
 
     warning: this model is a quick and dirty hack. 
@@ -15,7 +16,7 @@ class FsImageModel : public QAbstractItemModel
 {
 Q_OBJECT
 public:
-    FsImageModel(QString path,QObject * parent = 0);
+    explicit FsImageModel(QString path,QObject * parent = 0);
     virtual ~FsImageModel();
     virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     virtual QModelIndex parent(const QModelIndex &index) const;
@@ -31,3 +32,4 @@ private slots:
     void fileChanged ( const QString & path );
 };
 
+#endif // FSIMAGEMODEL_H_INCLUDED

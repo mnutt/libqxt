@@ -32,7 +32,7 @@
 
 read and write to the same object \n
 emits a readyRead Signal. \n
-usefull for loopback tests where QBuffer does not work.
+useful for loopback tests where QBuffer does not work.
 
 \code
 QxtFifo fifo;
@@ -70,16 +70,16 @@ constructs a new QxtFifo
 #include <QDebug>
 #include <QQueue>
 
+#include <qatomic.h>
+
 #if QT_VERSION >= 0x040400
-#include <qatomic.h>
-#include <qbasicatomic.h>
-#define QXT_EXCHANGE fetchAndStoreOrdered
-#define QXT_ADD fetchAndAddOrdered
+# include <qbasicatomic.h>
+# define QXT_EXCHANGE fetchAndStoreOrdered
+# define QXT_ADD fetchAndAddOrdered
 #else
-#include <qatomic.h>
-typedef QBasicAtomic QBasicAtomicInt;
-#define QXT_EXCHANGE exchange
-#define QXT_ADD fetchAndAdd
+  typedef QBasicAtomic QBasicAtomicInt;
+# define QXT_EXCHANGE exchange
+# define QXT_ADD fetchAndAdd
 #endif
 
 struct QxtFifoNode {

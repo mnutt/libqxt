@@ -29,7 +29,7 @@
 \brief Qt Implementation of a Unix daemon
 
 QxtDaemon will provide you with a standard UNIX daemon implementation.\n
-after sucessfull forking it will install a messageHandler wich logs all qDebug/qWarning/etc... output to /var/log/mydaemon.log \n
+after sucessful forking it will install a messageHandler which logs all qDebug/qWarning/etc... output to /var/log/mydaemon.log \n
 
 
 example usage:\n
@@ -58,7 +58,7 @@ forks the current Process \n
 you can specify weather it will write a pidfile to /var/run/mydaemon.pid or not \n
 if you specify true (the default) QxtDaemon will also try to lock the pidfile. If it can't get a lock it will assume another daemon of the same name is already running and exit \n
 be aware that after calling this function all file descriptors are invalid. QFile will not detect the change, you have to explicitly close all files before forking.\n
-return true on sucess
+return true on success
 */
 /*!
 \fn int QxtDaemon::pid();
@@ -68,7 +68,7 @@ returns the current processId
 \fn  bool QxtDaemon::changeUser(QString name);
 changes the current user of this process. \n
 do this after forking to drop root rights.\n
-returns true on sucess
+returns true on success
 */
 #include "qxtdaemon.h"
 #include <cassert>
@@ -95,12 +95,12 @@ void QxtDaemon::signalHandler(int sig)
     emit(qxt_daemon_singleton->signal(sig));
     if (sig == SIGHUP)
     {
-        qDebug("hangup signal catched");
+        qDebug("hangup signal caught");
         emit(qxt_daemon_singleton->hangup());
     }
     else if (sig == SIGTERM)
     {
-        qDebug("terminate signal catched");
+        qDebug("terminate signal caught");
         emit(qxt_daemon_singleton->terminate());
         QCoreApplication::exit(0);
     }
@@ -245,13 +245,13 @@ int QxtDaemon::pid()
 bool QxtDaemon::changeUser(QString name)
 {
 #ifdef Q_OS_UNIX
-    ///acording to the posix spec, i'm not suposed to delete it. *shrug*  weird
+    ///according to the posix spec, i'm not suposed to delete it. *shrug*  weird
     passwd *p =::getpwnam(qPrintable(name));
     if (!p)
         return false;
     return setuid(p->pw_uid) == 0;
 #else
-    return -1;
+    return false;
 #endif
 }
 

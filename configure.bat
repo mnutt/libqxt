@@ -5,6 +5,7 @@ SET PROJECT_ROOT=%CD%
 SET TESTDIR=%PROJECT_ROOT%\config.tests
 SET CONFIG_LOG=config.log
 SET LAST_FUNC_RET=0
+SET WINNT=0
 
 if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
 if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
@@ -162,8 +163,15 @@ goto top
     goto end
 
 :finish
+echo    Testing for cmd...
+cmd /C >> %PROJECT_ROOT%\%CONFIG_LOG%
+if errorlevel 1 goto testqmake
+SET WINNT=1
+
+:testqmake
 echo    Testing for qmake...
-qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto qmakeERR
 goto qmakeOK
 :qmakeERR
@@ -178,7 +186,8 @@ if "%QMAKESPEC%" == "win32-msvc2005" goto testnmake
 
 :testmingw
 echo    Testing for mingw32-make...
-call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto testnmake
 echo        Using mingw32-make. 
 SET MAKE=mingw32-make
@@ -187,7 +196,8 @@ GOTO detectTools_end_test_make
 :testnmake
 if "%QMAKESPEC%" == "win32-g++"     goto testgmake
 echo    Testing for nmake...
-nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto testgmake
 echo        Using nmake.
 SET MAKE=nmake
@@ -195,7 +205,8 @@ GOTO detectTools_end_test_make
 
 :testgmake
 echo    Testing for GNU make...
-call make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto missingmake
 echo        Using GNU make.
 SET MAKE=make
@@ -207,42 +218,52 @@ echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
-echo    Testing for optional external librarys.
+echo    Testing for optional external libraries.
 echo    If a test fails, some features will not be available.
 if "%OPENSSL%"=="0" goto detectdb
-echo    Testing for OpenSSL... 
+echo    Testing for OpenSSL...
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\openssl
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto opensslfailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto opensslfailed
 set OPENSSL=1
 echo DEFINES += HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
+echo        OpenSSL enabled.
 goto detectdb
 
 :opensslfailed
 set OPENSSL=0
 echo DEFINES -= HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
+echo        OpenSSL disabled.
 
 :detectdb
 if "%DB%"=="0" goto detectfcgi
 echo    Testing for Berkeley DB...
 echo BDB... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\db
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto dbfailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
+if "%WINNT%"=="1" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if "%WINNT%"=="0" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 if errorlevel 1 goto dbfailed
 set DB=1
 echo DEFINES += HAVE_DB >> %PROJECT_ROOT%\config.in
+echo        Berkeley DB enabled.
 goto detectfcgi
 
 :dbfailed
 set DB=0
 echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
+echo        Berkeley DB disabled.
 
 :detectfcgi
 rem if "%FCGI%"=="0" goto skipfcgitest
@@ -256,23 +277,19 @@ rem call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
 rem if errorlevel 1 goto fcgifailed
 rem set FCGI=1
 rem echo DEFINES += HAVE_FCGI >> %PROJECT_ROOT%\config.in
+rem echo        FastCGI enabled.
 rem goto alltestsok
 
 :fcgifailed
 set FCGI=0
 echo DEFINES -= HAVE_FCGI >> %PROJECT_ROOT%\config.in
+rem echo        FastCGI disabled.
 
 :skipfcgitest
 :alltestsok
 cd %PROJECT_ROOT%
 
 echo    Configuration successful.
-if "%OPENSSL%"=="1" echo        OpenSSL enabled.
-if "%OPENSSL%"=="0" echo        OpenSSL disabled.
-if "%DB%"=="1"      echo        Berkeley DB enabled.
-if "%DB%"=="0"      echo        Berkeley DB disabled.
-if "%FCGI%"=="1"    echo        FastCGI enabled.
-if "%FCGI%"=="0"    echo        FastCGI disabled.
 echo    Generating makefiles...
 copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >> %PROJECT_ROOT%\%CONFIG_LOG%
 copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >> %PROJECT_ROOT%\%CONFIG_LOG%

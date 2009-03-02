@@ -27,7 +27,6 @@
 #include "qxtcountrycombobox_p.h"
 #include "qxtcountrymodel.h"
 #include <QDebug>
-#include <QtGui>
 
 
 QxtCountryComboBoxPrivate::QxtCountryComboBoxPrivate()

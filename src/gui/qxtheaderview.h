@@ -38,7 +38,7 @@ class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
     Q_PROPERTY(bool proportionalSectionSizes READ hasProportionalSectionSizes WRITE setProportionalSectionSizes)
 
 public:
-    QxtHeaderView(Qt::Orientation orientation, QWidget* parent = 0);
+    explicit QxtHeaderView(Qt::Orientation orientation, QWidget* parent = 0);
 
     bool hasProportionalSectionSizes() const;
     void setProportionalSectionSizes(bool enabled);

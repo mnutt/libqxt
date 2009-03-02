@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>QxtBerkeley Adress Book example</string>
+   <string>QxtBerkeley Address Book example</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
