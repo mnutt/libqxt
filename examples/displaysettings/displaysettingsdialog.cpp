@@ -1,5 +1,5 @@
 #include "displaysettingsdialog.h"
-#include <QxtScreenUtil>
+#include <QxtScreen>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QEventLoop>
@@ -31,23 +31,23 @@ DisplaySettingsDialog::DisplaySettingsDialog(QWidget* parent) : QDialog(parent)
 
 void DisplaySettingsDialog::apply()
 {
-    QxtScreenUtil util;
+    QxtScreen screen;
 
     int resoIndex = ui.comboBoxReso->currentIndex();
     if (resoIndex != -1)
     {
         const QSize reso = ui.comboBoxReso->itemData(resoIndex).toSize();
-        util.setResolution(reso);
+        screen.setResolution(reso);
     }
 
     int rateIndex = ui.comboBoxRate->currentIndex();
     if (rateIndex != -1)
     {
         const int rate = ui.comboBoxRate->itemData(rateIndex).toInt();
-        util.setRefreshRate(rate);
+        screen.setRefreshRate(rate);
     }
 
-    util.apply();
+    screen.apply();
 
     QMessageBox messageBox(this);
     messageBox.setWindowTitle(windowTitle());
@@ -74,15 +74,15 @@ void DisplaySettingsDialog::apply()
     if (messageBox.clickedButton() == messageBox.button(QMessageBox::Yes))
         ui.buttonBox->button(QDialogButtonBox::Apply)->setDisabled(true);
     else
-        util.cancel();
+        screen.cancel();
 }
 
 void DisplaySettingsDialog::fillResolutions()
 {
-    QxtScreenUtil util;
+    QxtScreen screen;
 
     ui.comboBoxReso->clear();
-    const QList<QSize> resos = util.availableResolutions();
+    const QList<QSize> resos = screen.availableResolutions();
     foreach (const QSize& reso, resos)
     {
         QSize ratio = reso / greatestCommonDivisor(reso.width(), reso.height());
@@ -92,13 +92,13 @@ void DisplaySettingsDialog::fillResolutions()
         ui.comboBoxReso->addItem(text, reso);
     }
 
-    const QSize reso = util.resolution();
+    const QSize reso = screen.resolution();
     ui.comboBoxReso->setCurrentIndex(resos.indexOf(reso));
 }
 
 void DisplaySettingsDialog::fillRefreshRates()
 {
-    QxtScreenUtil util;
+    QxtScreen screen;
 
     const int resoIndex = ui.comboBoxReso->currentIndex();
     if (resoIndex != -1)
@@ -106,7 +106,7 @@ void DisplaySettingsDialog::fillRefreshRates()
         const QSize reso = ui.comboBoxReso->itemData(resoIndex).toSize();
 
         ui.comboBoxRate->clear();
-        const QList<int> rates = util.availableRefreshRates(reso);
+        const QList<int> rates = screen.availableRefreshRates(reso);
         foreach (int rate, rates)
         {
             QString text = tr("%1 Hz").arg(rate);
@@ -117,16 +117,16 @@ void DisplaySettingsDialog::fillRefreshRates()
 
 void DisplaySettingsDialog::updateUi(bool init)
 {
-    QxtScreenUtil util;
+    QxtScreen screen;
 
     if (init)
     {
-        const QSize reso = util.resolution();
-        const QList<QSize> resos = util.availableResolutions();
+        const QSize reso = screen.resolution();
+        const QList<QSize> resos = screen.availableResolutions();
         ui.comboBoxReso->setCurrentIndex(resos.indexOf(reso));
 
-        const int rate = util.refreshRate();
-        const QList<int> rates = util.availableRefreshRates(reso);
+        const int rate = screen.refreshRate();
+        const QList<int> rates = screen.availableRefreshRates(reso);
         ui.comboBoxRate->setCurrentIndex(rates.indexOf(rate));
     }
 

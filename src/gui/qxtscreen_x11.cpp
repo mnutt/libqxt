@@ -22,14 +22,14 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtscreenutil_p.h"
+#include "qxtscreen_p.h"
 
 #ifdef HAVE_XRANDR
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 #endif // HAVE_XRANDR
 
-void QxtScreenUtilPrivate::init_sys()
+void QxtScreenPrivate::init_sys()
 {
 #ifdef HAVE_XRANDR
     Display* display = XOpenDisplay(NULL);
@@ -71,7 +71,7 @@ void QxtScreenUtilPrivate::init_sys()
 #endif // HAVE_XRANDR
 }
 
-bool QxtScreenUtilPrivate::set(const QSize& reso, int rate)
+bool QxtScreenPrivate::set(const QSize& reso, int rate)
 {
     bool result = false;
 #ifdef HAVE_XRANDR

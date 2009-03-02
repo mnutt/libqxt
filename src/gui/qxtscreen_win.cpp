@@ -22,10 +22,10 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtscreenutil_p.h"
+#include "qxtscreen_p.h"
 #include <qt_windows.h>
 
-void QxtScreenUtilPrivate::init_sys()
+void QxtScreenPrivate::init_sys()
 {
     DISPLAY_DEVICE displayDevice;
     ::ZeroMemory(&displayDevice, sizeof(displayDevice));
@@ -72,7 +72,7 @@ void QxtScreenUtilPrivate::init_sys()
     }
 }
 
-bool QxtScreenUtilPrivate::set(const QSize& reso, int rate)
+bool QxtScreenPrivate::set(const QSize& reso, int rate)
 {
     bool result = false;
 

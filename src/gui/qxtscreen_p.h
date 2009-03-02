@@ -22,39 +22,38 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTSCREENUTIL_H
-#define QXTSCREENUTIL_H
+#ifndef QXTSCREEN_P_H
+#define QXTSCREEN_P_H
 
 #include <QSize>
 #include <QList>
-#include "qxtglobal.h"
+#include <QMultiHash>
 #include "qxtpimpl.h"
+#include "qxtscreen.h"
 
-class QxtScreenUtilPrivate;
-
-class QXT_GUI_EXPORT QxtScreenUtil
+class QxtScreenPrivate : public QxtPrivate<QxtScreen>
 {
 public:
-    QxtScreenUtil(int screen = -1);
-    ~QxtScreenUtil();
+    QxtScreenPrivate();
+    void invalidate();
+    void init();
+    void init_sys();
+    bool set(const QSize& reso, int rate);
 
-    int screen() const;
-    void setScreen(int screen);
-
-    QList<QSize> availableResolutions() const;
-    QList<int> availableRefreshRates(const QSize& resolution) const;
-
-    QSize resolution() const;
-    void setResolution(const QSize& resolution);
-
-    int refreshRate() const;
-    void setRefreshRate(int rate);
-
-    bool apply();
-    bool cancel();
-
-private:
-    QXT_DECLARE_PRIVATE(QxtScreenUtil);
+    QSize currReso;
+    QSize setReso;
+    QList<QSize> availResos;
+    int currRate;
+    int setRate;
+    QMultiHash<QSize, int> availRates;
+    int screen;
 };
 
-#endif // QXTSCREENUTIL_H
+inline uint qHash(const QSize& key)
+{
+    uint h1 = qHash(key.width());
+    uint h2 = qHash(key.height());
+    return ((h1 << 16) | (h1 >> 16)) ^ h2;
+}
+
+#endif // QXTSCREEN_P_H

@@ -22,22 +22,22 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtscreenutil.h"
-#include "qxtscreenutil_p.h"
+#include "qxtscreen.h"
+#include "qxtscreen_p.h"
 #include <QDesktopWidget>
 #include <QApplication>
 
 /*!
-    \class QxtScreenUtil QxtScreenUtil
+    \class QxtScreen QxtScreen
     \ingroup QxtGui
-    \brief QxtScreenUtil provides access to screen settings.
+    \brief QxtScreen provides access to screen settings.
 
-    QxtScreenUtil provides access to screen settings.
+    QxtScreen provides access to screen settings.
 
     \note Currently supported platforms are X11 and Windows.
  */
 
-QxtScreenUtilPrivate::QxtScreenUtilPrivate() :
+QxtScreenPrivate::QxtScreenPrivate() :
     currReso(),
     setReso(),
     availResos(),
@@ -48,7 +48,7 @@ QxtScreenUtilPrivate::QxtScreenUtilPrivate() :
 {
 }
 
-void QxtScreenUtilPrivate::invalidate()
+void QxtScreenPrivate::invalidate()
 {
     currReso = QSize();
     availResos.clear();
@@ -59,7 +59,7 @@ void QxtScreenUtilPrivate::invalidate()
     screen = -1;
 }
 
-void QxtScreenUtilPrivate::init()
+void QxtScreenPrivate::init()
 {
     if (screen < 0)
         screen = qApp->desktop()->primaryScreen();
@@ -69,35 +69,35 @@ void QxtScreenUtilPrivate::init()
 }
 
 /*!
-    Constructs a new QxtScreenUtil for \a screen.
+    Constructs a new QxtScreen for \a screen.
 
     \note The primary screen is used if \a screen is \c -1.
  */
-QxtScreenUtil::QxtScreenUtil(int screen)
+QxtScreen::QxtScreen(int screen)
 {
     qxt_d().screen = screen;
 }
 
 /*!
-    Destructs the screen util.
+    Destructs the screen object.
  */
-QxtScreenUtil::~QxtScreenUtil()
+QxtScreen::~QxtScreen()
 {
 }
 
 /*!
     Returns the screen number.
  */
-int QxtScreenUtil::screen() const
+int QxtScreen::screen() const
 {
-    const_cast<QxtScreenUtil*>(this)->qxt_d().init();
+    const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().screen;
 }
 
 /*!
     Sets the screen number.
  */
-void QxtScreenUtil::setScreen(int screen)
+void QxtScreen::setScreen(int screen)
 {
     qxt_d().invalidate();
     qxt_d().screen = screen;
@@ -108,9 +108,9 @@ void QxtScreenUtil::setScreen(int screen)
 
     \sa availableRefreshRates()
  */
-QList<QSize> QxtScreenUtil::availableResolutions() const
+QList<QSize> QxtScreen::availableResolutions() const
 {
-    const_cast<QxtScreenUtil*>(this)->qxt_d().init();
+    const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().availResos;
 }
 
@@ -119,18 +119,18 @@ QList<QSize> QxtScreenUtil::availableResolutions() const
 
     \sa availableResolutions()
  */
-QList<int> QxtScreenUtil::availableRefreshRates(const QSize& resolution) const
+QList<int> QxtScreen::availableRefreshRates(const QSize& resolution) const
 {
-    const_cast<QxtScreenUtil*>(this)->qxt_d().init();
+    const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().availRates.values(resolution);
 }
 
 /*!
     Returns the current resolution.
  */
-QSize QxtScreenUtil::resolution() const
+QSize QxtScreen::resolution() const
 {
-    const_cast<QxtScreenUtil*>(this)->qxt_d().init();
+    const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().currReso;
 }
 
@@ -141,7 +141,7 @@ QSize QxtScreenUtil::resolution() const
 
     \sa apply()
  */
-void QxtScreenUtil::setResolution(const QSize& resolution)
+void QxtScreen::setResolution(const QSize& resolution)
 {
     qxt_d().setReso = resolution;
 }
@@ -149,9 +149,9 @@ void QxtScreenUtil::setResolution(const QSize& resolution)
 /*!
     Returns the current refresh rate.
  */
-int QxtScreenUtil::refreshRate() const
+int QxtScreen::refreshRate() const
 {
-    const_cast<QxtScreenUtil*>(this)->qxt_d().init();
+    const_cast<QxtScreen*>(this)->qxt_d().init();
     return qxt_d().currRate;
 }
 
@@ -162,7 +162,7 @@ int QxtScreenUtil::refreshRate() const
 
     \sa apply()
  */
-void QxtScreenUtil::setRefreshRate(int rate)
+void QxtScreen::setRefreshRate(int rate)
 {
     qxt_d().setRate = rate;
 }
@@ -172,7 +172,7 @@ void QxtScreenUtil::setRefreshRate(int rate)
 
     \sa setResolution, setRate()
  */
-bool QxtScreenUtil::apply()
+bool QxtScreen::apply()
 {
     qxt_d().init();
     return qxt_d().set(qxt_d().setReso, qxt_d().setRate);
@@ -183,7 +183,7 @@ bool QxtScreenUtil::apply()
 
     \sa setResolution, setRate()
  */
-bool QxtScreenUtil::cancel()
+bool QxtScreen::cancel()
 {
     qxt_d().init();
     return qxt_d().set(qxt_d().currReso, qxt_d().currRate);
