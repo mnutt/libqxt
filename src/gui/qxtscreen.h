@@ -22,45 +22,44 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTLETTERBOXWIDGET_H
-#define QXTLETTERBOXWIDGET_H
+#ifndef QXTSCREEN_H
+#define QXTSCREEN_H
 
-#include <QFrame>
+#include <QSize>
+#include <QList>
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
 
-class QxtLetterBoxWidgetPrivate;
+class QxtScreenPrivate;
+QT_FORWARD_DECLARE_CLASS(QWidget)
 
-class QXT_GUI_EXPORT QxtLetterBoxWidget : public QFrame
+class QXT_GUI_EXPORT QxtScreen
 {
-    Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
-    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET clearBackgroundColor)
-    Q_PROPERTY(int margin READ margin WRITE setMargin)
-    Q_PROPERTY(uint resizeDelay READ resizeDelay WRITE setResizeDelay)
-
 public:
-    QxtLetterBoxWidget(QWidget* parent = 0);
-    ~QxtLetterBoxWidget();
+    QxtScreen(int screen = -1);
+    QxtScreen(QWidget* screen);
+    ~QxtScreen();
 
-    QColor backgroundColor() const;
-    void setBackgroundColor(const QColor& color);
-    void clearBackgroundColor();
+    int screenNumber() const;
+    void setScreenNumber(int screen);
 
-    int margin() const;
-    void setMargin(int margin);
+    QWidget* screen() const;
+    void setScreen(QWidget* screen);
 
-    QWidget* widget() const;
-    void setWidget(QWidget* widget);
+    QList<QSize> availableResolutions() const;
+    QList<int> availableRefreshRates(const QSize& resolution) const;
 
-    uint resizeDelay() const;
-    void setResizeDelay(uint delay);
+    QSize resolution() const;
+    void setResolution(const QSize& resolution);
 
-public slots:
-    void resizeWidget();
+    int refreshRate() const;
+    void setRefreshRate(int rate);
 
-protected:
-    void resizeEvent(QResizeEvent* event);
+    bool apply();
+    bool cancel();
+
+private:
+    QXT_DECLARE_PRIVATE(QxtScreen);
 };
 
-#endif // QXTLETTERBOXWIDGET_H
+#endif // QXTSCREEN_H

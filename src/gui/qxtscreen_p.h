@@ -22,45 +22,38 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTLETTERBOXWIDGET_H
-#define QXTLETTERBOXWIDGET_H
+#ifndef QXTSCREEN_P_H
+#define QXTSCREEN_P_H
 
-#include <QFrame>
-#include "qxtglobal.h"
+#include <QSize>
+#include <QList>
+#include <QMultiHash>
 #include "qxtpimpl.h"
+#include "qxtscreen.h"
 
-class QxtLetterBoxWidgetPrivate;
-
-class QXT_GUI_EXPORT QxtLetterBoxWidget : public QFrame
+class QxtScreenPrivate : public QxtPrivate<QxtScreen>
 {
-    Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
-    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET clearBackgroundColor)
-    Q_PROPERTY(int margin READ margin WRITE setMargin)
-    Q_PROPERTY(uint resizeDelay READ resizeDelay WRITE setResizeDelay)
-
 public:
-    QxtLetterBoxWidget(QWidget* parent = 0);
-    ~QxtLetterBoxWidget();
+    QxtScreenPrivate();
+    void invalidate();
+    void init();
+    void init_sys();
+    bool set(const QSize& reso, int rate);
 
-    QColor backgroundColor() const;
-    void setBackgroundColor(const QColor& color);
-    void clearBackgroundColor();
-
-    int margin() const;
-    void setMargin(int margin);
-
-    QWidget* widget() const;
-    void setWidget(QWidget* widget);
-
-    uint resizeDelay() const;
-    void setResizeDelay(uint delay);
-
-public slots:
-    void resizeWidget();
-
-protected:
-    void resizeEvent(QResizeEvent* event);
+    QSize currReso;
+    QSize setReso;
+    QList<QSize> availResos;
+    int currRate;
+    int setRate;
+    QMultiHash<QSize, int> availRates;
+    int screen;
 };
 
-#endif // QXTLETTERBOXWIDGET_H
+inline uint qHash(const QSize& key)
+{
+    uint h1 = qHash(key.width());
+    uint h2 = qHash(key.height());
+    return ((h1 << 16) | (h1 >> 16)) ^ h2;
+}
+
+#endif // QXTSCREEN_P_H

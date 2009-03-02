@@ -3,4 +3,4 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += berkeley ircpeer qxtflowview # country web
+SUBDIRS += berkeley displaysettings ircpeer qxtflowview # country web
