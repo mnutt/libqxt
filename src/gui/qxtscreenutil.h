@@ -39,6 +39,7 @@ public:
     ~QxtScreenUtil();
 
     int screen() const;
+    void setScreen(int screen);
 
     QList<QSize> availableResolutions() const;
     QList<int> availableRefreshRates(const QSize& resolution) const;
