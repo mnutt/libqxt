@@ -38,20 +38,22 @@ void QxtScreenPrivate::init_sys()
         devMode.dmSize = sizeof(devMode);
 
         // current resolution & rate
-        if (!currReso.isValid() || currRate < 0)
+        if (!currReso.isValid() || currRate < 0 || currDepth < 0)
         {
             if (::EnumDisplaySettings(displayDevice.DeviceName, ENUM_CURRENT_SETTINGS, &devMode))
             {
                 currReso = QSize(devMode.dmPelsWidth, devMode.dmPelsHeight);
                 currRate = devMode.dmDisplayFrequency;
+                currDepth = devMode.dmBitsPerPel;
             }
         }
 
         // available resolutions & rates
-        if (availResos.isEmpty() || availRates.isEmpty())
+        if (availResos.isEmpty() || availRates.isEmpty() || availDepths.isEmpty())
         {
             availResos.clear();
             availRates.clear();
+            availDepths.clear();
 
             ::ZeroMemory(&devMode, sizeof(devMode));
             devMode.dmSize = sizeof(devMode);
@@ -64,6 +66,8 @@ void QxtScreenPrivate::init_sys()
                     availResos += reso;
                 if (!availRates.contains(reso, devMode.dmDisplayFrequency))
                     availRates.insertMulti(reso, devMode.dmDisplayFrequency);
+                if (!availDepths.contains(reso, devMode.dmBitsPerPel))
+                    availDepths.insertMulti(reso, devMode.dmBitsPerPel);
 
                 ::ZeroMemory(&devMode, sizeof(devMode));
                 devMode.dmSize = sizeof(devMode);
@@ -72,7 +76,7 @@ void QxtScreenPrivate::init_sys()
     }
 }
 
-bool QxtScreenPrivate::set(const QSize& reso, int rate)
+bool QxtScreenPrivate::set(const QSize& reso, int rate, int depth)
 {
     bool result = false;
 
@@ -99,12 +103,11 @@ bool QxtScreenPrivate::set(const QSize& reso, int rate)
             devMode.dmFields |= DM_DISPLAYFREQUENCY;
         }
 
-        //TODO:
-        //if (depth != -1)
-        //{
-        //    devMode.dmBitsPerPel = depth;
-        //    devMode.dmFields |= DM_BITSPERPEL;;
-        //}
+        if (depth != -1)
+        {
+            devMode.dmBitsPerPel = depth;
+            devMode.dmFields |= DM_BITSPERPEL;
+        }
 
         result = ::ChangeDisplaySettingsEx(displayDevice.DeviceName, &devMode, NULL, 0, NULL) == DISP_CHANGE_SUCCESSFUL;
     }

@@ -38,7 +38,7 @@ public:
     void invalidate();
     void init();
     void init_sys();
-    bool set(const QSize& reso, int rate);
+    bool set(const QSize& reso, int rate, int depth);
 
     QSize currReso;
     QSize setReso;
@@ -46,6 +46,9 @@ public:
     int currRate;
     int setRate;
     QMultiHash<QSize, int> availRates;
+    int currDepth;
+    int setDepth;
+    QMultiHash<QSize, int> availDepths;
     int screen;
 };
 
