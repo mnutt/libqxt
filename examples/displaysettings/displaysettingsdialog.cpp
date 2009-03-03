@@ -25,14 +25,17 @@ DisplaySettingsDialog::DisplaySettingsDialog(QWidget* parent) : QDialog(parent)
     fillScreens();
     selectScreen(qApp->desktop()->primaryScreen());
     fillRefreshRates();
+    fillColorDepths();
 
     connect(ui.comboBoxScreen, SIGNAL(currentIndexChanged(int)), SLOT(selectScreen(int)));
     connect(ui.comboBoxReso, SIGNAL(currentIndexChanged(int)), SLOT(fillRefreshRates()));
+    connect(ui.comboBoxReso, SIGNAL(currentIndexChanged(int)), SLOT(fillColorDepths()));
 
     updateUi(true);
     connect(ui.comboBoxScreen, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
     connect(ui.comboBoxReso, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
     connect(ui.comboBoxRate, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
+    connect(ui.comboBoxDepth, SIGNAL(currentIndexChanged(int)), SLOT(updateUi()));
 }
 
 void DisplaySettingsDialog::apply()
@@ -49,6 +52,13 @@ void DisplaySettingsDialog::apply()
     {
         const int rate = ui.comboBoxRate->itemData(rateIndex).toInt();
         screen.setRefreshRate(rate);
+    }
+
+    int depthIndex = ui.comboBoxDepth->currentIndex();
+    if (depthIndex != -1)
+    {
+        const int depth = ui.comboBoxDepth->itemData(depthIndex).toInt();
+        screen.setColorDepth(depth);
     }
 
     screen.apply();
@@ -136,6 +146,23 @@ void DisplaySettingsDialog::fillRefreshRates()
     }
 }
 
+void DisplaySettingsDialog::fillColorDepths()
+{
+    const int resoIndex = ui.comboBoxReso->currentIndex();
+    if (resoIndex != -1)
+    {
+        const QSize reso = ui.comboBoxReso->itemData(resoIndex).toSize();
+
+        ui.comboBoxDepth->clear();
+        const QList<int> depths = screen.availableColorDepths(reso);
+        foreach (int depth, depths)
+        {
+            QString text = tr("%1 bit").arg(depth);
+            ui.comboBoxDepth->addItem(text, depth);
+        }
+    }
+}
+
 void DisplaySettingsDialog::updateUi(bool init)
 {
     if (init)
@@ -147,6 +174,15 @@ void DisplaySettingsDialog::updateUi(bool init)
         const int rate = screen.refreshRate();
         const QList<int> rates = screen.availableRefreshRates(reso);
         ui.comboBoxRate->setCurrentIndex(rates.indexOf(rate));
+
+#ifdef Q_WS_WIN
+        const int depth = screen.colorDepth();
+        const QList<int> depths = screen.availableColorDepths(reso);
+        ui.comboBoxDepth->setCurrentIndex(depths.indexOf(depth));
+#else
+        ui.labelDepth->setDisabled(true);
+        ui.comboBoxDepth->setDisabled(true);
+#endif
     }
 
     const int resoIndex = ui.comboBoxReso->currentIndex();

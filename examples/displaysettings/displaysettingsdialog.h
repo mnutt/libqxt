@@ -13,12 +13,14 @@ public:
 
 private slots:
     void apply();
-
     void refresh();
+
     void fillScreens();
     void selectScreen(int screenNumber);
     void fillResolutions();
     void fillRefreshRates();
+    void fillColorDepths();
+
     void updateUi(bool init = false);
 
 private:

@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>338</width>
-    <height>331</height>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -52,8 +52,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <zorder>labelBox</zorder>
-     <zorder>comboBoxScreen</zorder>
     </widget>
    </item>
    <item>
@@ -88,7 +86,7 @@
       <widget class="QComboBox" name="comboBoxRate" />
      </item>
      <item row="0" column="0" >
-      <widget class="QLabel" name="label" >
+      <widget class="QLabel" name="labelScreen" >
        <property name="text" >
         <string>&amp;Screen</string>
        </property>
@@ -111,6 +109,19 @@
        </item>
       </layout>
      </item>
+     <item row="3" column="1" >
+      <widget class="QComboBox" name="comboBoxDepth" />
+     </item>
+     <item row="3" column="0" >
+      <widget class="QLabel" name="labelDepth" >
+       <property name="text" >
+        <string>&amp;Depth</string>
+       </property>
+       <property name="buddy" >
+        <cstring>comboBoxDepth</cstring>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -124,6 +135,10 @@
     </widget>
    </item>
   </layout>
+  <zorder>buttonBox</zorder>
+  <zorder></zorder>
+  <zorder>letterBoxWidget</zorder>
+  <zorder></zorder>
  </widget>
  <customwidgets>
   <customwidget>
