@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>338</width>
-    <height>357</height>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -136,7 +136,6 @@
    </item>
   </layout>
   <zorder>buttonBox</zorder>
-  <zorder></zorder>
   <zorder>letterBoxWidget</zorder>
   <zorder></zorder>
  </widget>
@@ -148,6 +147,14 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>comboBoxScreen</tabstop>
+  <tabstop>comboBoxReso</tabstop>
+  <tabstop>comboBoxRate</tabstop>
+  <tabstop>comboBoxDepth</tabstop>
+  <tabstop>refreshButton</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
