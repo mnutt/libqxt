@@ -71,9 +71,12 @@ void QxtScreenPrivate::init_sys()
 #endif // HAVE_XRANDR
 }
 
-bool QxtScreenPrivate::set(const QSize& reso, int rate)
+bool QxtScreenPrivate::set(const QSize& reso, int rate, int depth)
 {
     bool result = false;
+    Q_UNUSED(reso);
+    Q_UNUSED(rate);
+    Q_UNUSED(depth);
 #ifdef HAVE_XRANDR
     Display* display = XOpenDisplay(NULL);
     Window root = RootWindow(display, screen);

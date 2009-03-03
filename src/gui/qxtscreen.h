@@ -48,12 +48,16 @@ public:
 
     QList<QSize> availableResolutions() const;
     QList<int> availableRefreshRates(const QSize& resolution) const;
+    QList<int> availableColorDepths(const QSize& resolution) const;
 
     QSize resolution() const;
     void setResolution(const QSize& resolution);
 
     int refreshRate() const;
     void setRefreshRate(int rate);
+
+    int colorDepth() const;
+    void setColorDepth(int depth);
 
     bool apply();
     bool cancel();

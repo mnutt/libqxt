@@ -44,6 +44,9 @@ QxtScreenPrivate::QxtScreenPrivate() :
     currRate(-1),
     setRate(-1),
     availRates(),
+    currDepth(-1),
+    setDepth(-1),
+    availDepths(),
     screen(-1)
 {
 }
@@ -56,6 +59,9 @@ void QxtScreenPrivate::invalidate()
     currRate = -1;
     availRates.clear();
     
+    currDepth = -1;
+    availDepths.clear();
+
     screen = -1;
 }
 
@@ -64,7 +70,9 @@ void QxtScreenPrivate::init()
     if (screen < 0)
         screen = qApp->desktop()->primaryScreen();
 
-    if (availResos.isEmpty() || !currReso.isValid() || availRates.isEmpty() || currRate < 0)
+    if (availResos.isEmpty() || !currReso.isValid() || 
+        availRates.isEmpty() || currRate < 0 || 
+        availDepths.isEmpty() || currDepth < 0)
         init_sys();
 }
 
@@ -156,6 +164,17 @@ QList<int> QxtScreen::availableRefreshRates(const QSize& resolution) const
 }
 
 /*!
+    Returns the list of available color depths for \a resolution.
+
+    \sa availableResolutions()
+ */
+QList<int> QxtScreen::availableColorDepths(const QSize& resolution) const
+{
+    const_cast<QxtScreen*>(this)->qxt_d().init();
+    return qxt_d().availDepths.values(resolution);
+}
+
+/*!
     Returns the current resolution.
  */
 QSize QxtScreen::resolution() const
@@ -198,6 +217,30 @@ void QxtScreen::setRefreshRate(int rate)
 }
 
 /*!
+    Returns the current color depth.
+
+    \note This is currently supported only on Windows.
+ */
+int QxtScreen::colorDepth() const
+{
+    const_cast<QxtScreen*>(this)->qxt_d().init();
+    return qxt_d().currDepth;
+}
+
+/*!
+    Sets the color \a depth.
+
+    \note No changes are applied until apply() is called.
+    \note This is currently supported only on Windows.
+
+    \sa apply()
+ */
+void QxtScreen::setColorDepth(int depth)
+{
+    qxt_d().setDepth = depth;
+}
+
+/*!
     Applies the resolution and refresh rate.
 
     \sa setResolution, setRate()
@@ -205,7 +248,7 @@ void QxtScreen::setRefreshRate(int rate)
 bool QxtScreen::apply()
 {
     qxt_d().init();
-    return qxt_d().set(qxt_d().setReso, qxt_d().setRate);
+    return qxt_d().set(qxt_d().setReso, qxt_d().setRate, qxt_d().setDepth);
 }
 
 /*!
@@ -216,7 +259,7 @@ bool QxtScreen::apply()
 bool QxtScreen::cancel()
 {
     qxt_d().init();
-    return qxt_d().set(qxt_d().currReso, qxt_d().currRate);
+    return qxt_d().set(qxt_d().currReso, qxt_d().currRate, qxt_d().currDepth);
 }
 
 /*!
