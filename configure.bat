@@ -5,7 +5,6 @@ SET PROJECT_ROOT=%CD%
 SET TESTDIR=%PROJECT_ROOT%\config.tests
 SET CONFIG_LOG=config.log
 SET LAST_FUNC_RET=0
-SET WINNT=0
 
 if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
 if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
@@ -163,15 +162,8 @@ goto top
     goto end
 
 :finish
-echo    Testing for cmd...
-cmd /C >> %PROJECT_ROOT%\%CONFIG_LOG%
-if errorlevel 1 goto testqmake
-SET WINNT=1
-
-:testqmake
 echo    Testing for qmake...
-if "%WINNT%"=="1" qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto qmakeERR
 goto qmakeOK
 :qmakeERR
@@ -186,8 +178,7 @@ if "%QMAKESPEC%" == "win32-msvc2005" goto testnmake
 
 :testmingw
 echo    Testing for mingw32-make...
-if "%WINNT%"=="1" call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto testnmake
 echo        Using mingw32-make. 
 SET MAKE=mingw32-make
@@ -196,8 +187,7 @@ GOTO detectTools_end_test_make
 :testnmake
 if "%QMAKESPEC%" == "win32-g++"     goto testgmake
 echo    Testing for nmake...
-if "%WINNT%"=="1" nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG%
+nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto testgmake
 echo        Using nmake.
 SET MAKE=nmake
@@ -205,8 +195,7 @@ GOTO detectTools_end_test_make
 
 :testgmake
 echo    Testing for GNU make...
-if "%WINNT%"=="1" call make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call make -v >> %PROJECT_ROOT%\%CONFIG_LOG%
+call make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto missingmake
 echo        Using GNU make.
 SET MAKE=make
@@ -224,13 +213,10 @@ if "%OPENSSL%"=="0" goto detectdb
 echo    Testing for OpenSSL...
 echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\openssl
-if "%WINNT%"=="1" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto opensslfailed
-if "%WINNT%"=="1" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-if "%WINNT%"=="1" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto opensslfailed
 set OPENSSL=1
 echo DEFINES += HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
@@ -247,13 +233,10 @@ if "%DB%"=="0" goto detectfcgi
 echo    Testing for Berkeley DB...
 echo BDB... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\db
-if "%WINNT%"=="1" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
-if "%WINNT%"=="1" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-if "%WINNT%"=="1" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if "%WINNT%"=="0" call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
 set DB=1
 echo DEFINES += HAVE_DB >> %PROJECT_ROOT%\config.in
