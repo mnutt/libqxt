@@ -114,7 +114,7 @@ QPair<QString, QList<QVariant> > IRCSerializer::deserialize(QByteArray& data) {
     } else if(command == "PRIVMSG") {
         QByteArray p2 = params[2].toByteArray();
         if(p2.size() > 0 && p2[0] == '\001') {
-            message = p2.remove('\001');
+            message = p2.replace("\001", "");
             int spacePos = message.indexOf(' ');
             if(spacePos == -1) spacePos = message.size();
             command = "CTCP-"+message.left(spacePos);

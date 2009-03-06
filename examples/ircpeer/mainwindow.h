@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H_INCLUDED
 #define MAINWINDOW_H_INCLUDED
-#include <QtMainWindow>
+#include <QtGui>
 #include <QHash>
 #include "ircpeer.h"
 #include "dialog.h"
