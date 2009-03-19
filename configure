@@ -103,7 +103,7 @@ while (( $# > 0 )); do
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-xss ............. Do not link to XScreenSaver"
         echo "-nomake <module> .... Do not compile the specified module"
-        echo "                      options: berkeley crypto designer gui network sql web"
+        echo "                      options: berkeley crypto designer gui network sql web zeroconf"
         echo "-verbose ............ shows compiler output"
         echo "-qws ................ Build for Qt/Embedded"
         echo "-coverage ........... Collect coverage information"
