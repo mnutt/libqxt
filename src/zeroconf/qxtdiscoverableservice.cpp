@@ -4,6 +4,7 @@
 #include <QList>
 #include <QPair>
 #include <QtDebug>
+#include <QtEndian>
 
 void QxtDiscoverableServicePrivate::registerServiceCallback(DNSServiceRef service, DNSServiceFlags flags,
         DNSServiceErrorType errCode, const char* name, const char* regtype, const char* domain, void* context)
@@ -109,12 +110,12 @@ bool QxtDiscoverableService::hasServiceSubType(const QString& subtype)
 
 quint16 QxtDiscoverableService::port() const
 {
-    return ntohs(qxt_d().port);
+    return qFromBigEndian(qxt_d().port);
 }
 
 void QxtDiscoverableService::setPort(quint16 port)
 {
-    qxt_d().port = htons(port);
+    qxt_d().port = qToBigEndian(port);
 }
 
 void QxtDiscoverableService::registerService(bool noAutoRename)
