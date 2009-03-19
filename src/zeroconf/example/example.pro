@@ -3,8 +3,7 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += . ..
 CONFIG += qxt
-QXT = core network
-LIBS += -framework QxtZeroconf
+QXT = core network zeroconf
 
 # Input
 HEADERS += foo.h
