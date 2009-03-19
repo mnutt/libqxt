@@ -1,3 +1,4 @@
+#include "foo.h"
 #include <qxtdiscoverableservice.h>
 #include <qxtservicebrowser.h>
 #include <QxtSignalWaiter>

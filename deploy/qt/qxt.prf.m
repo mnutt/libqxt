@@ -61,6 +61,13 @@ contains(QXT, gui) {
     QT  += gui
 }
 contains(QXT, network) {
+    INCLUDEPATH       += $${QXTinclude}/QxtZeroconf
+    macx: INCLUDEPATH += $${QXTlib}/QxtZeroconf.framework/HEADERS/
+    qtAddLibrary(QxtZeroconf)
+    QXT += core network
+    QT  += network
+}
+contains(QXT, network) {
     INCLUDEPATH       += $${QXTinclude}/QxtNetwork
     macx: INCLUDEPATH += $${QXTlib}/QxtNetwork.framework/HEADERS/
     qtAddLibrary(QxtNetwork)
