@@ -83,7 +83,15 @@ contains( QXT_BUILD, berkeley ){
     sub_berkeley.subdir = src/berkeley
     sub_berkeley.depends = sub_core
     SUBDIRS += sub_berkeley
+}
+}
 
+contains(DEFINES,HAVE_ZEROCONF){
+contains( QXT_BUILD, zeroconf ){
+    message( building zeroconf module )
+    sub_zeroconf.subdir = src/zeroconf
+    sub_zeroconf.depends = sub_network
+    SUBDIRS += sub_zeroconf
 }
 }
 
@@ -92,8 +100,8 @@ contains( QXT_BUILD, web ){
     sub_web.subdir = src/web
     sub_web.depends = sub_core sub_network
     SUBDIRS += sub_web
-
 }
+
 contains( QXT_BUILD, crypto ){
     message( building crypto module )
     sub_crypto.subdir = src/crypto
