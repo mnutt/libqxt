@@ -8,10 +8,12 @@ NO_OPENSSL=0
 NO_DB=0
 NO_FFMPEG=0
 NO_XSS=0
+NO_ZEROCONF=0
 
 if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
     QMAKE_PARAMS="-spec macx-g++"
+    NO_XSS=1
 else
     DEFAULT_LIBS="PREFIX/lib"
     QMAKE_PARAMS=""
@@ -44,6 +46,10 @@ while (( $# > 0 )); do
         if [ $2 == "gui" ]; then
             echo "QXT_LIBS -= xss" >> config.in
             NO_XSS=1
+        fi
+        if [ $2 == "zeroconf" ]; then
+            echo "QXT_LIBS -= zeroconf" >> config.in
+            NO_ZEROCONF=1
         fi
     elif [ $1 == "-prefix" ]; then
         echo "QXTINSTALLDIR = $2" >> config.in; shift
@@ -179,6 +185,10 @@ fi
 
 if [[ "$NO_XSS" == "0" ]]; then
     configtest "xss  "    XSS
+fi
+
+if [[ "$NO_ZEROCONF" == "0" ]]; then
+    configtest zeroconf ZEROCONF
 fi
 
 #configtest curses  CURSES
