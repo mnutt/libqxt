@@ -63,8 +63,8 @@ void QxtDiscoverableServicePrivate::resolveServiceCallback(DNSServiceRef service
     QxtDiscoverableService* pub = &self->qxt_p();
     if(errCode == kDNSServiceErr_NoError) {
         QxtDiscoverableServiceName name(fullname);
-        pub->setServiceName(name);
-        pub->setDomain(domain);
+        pub->setServiceName(name.serviceName());
+        pub->setDomain(name.domain());
         pub->setHost(name.host());
         self->port = port;
         self->iface = iface;

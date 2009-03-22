@@ -2,6 +2,8 @@ syntax: glob
 Makefile*
 debug/
 release/
+deploy/libs/
+qtc-gdbmacros/
 *.rej
 *.orig
 *.obj

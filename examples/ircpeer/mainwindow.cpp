@@ -115,6 +115,7 @@ void MainWindow::logMessage(IRCName nick, QByteArray channel, QByteArray message
     int index = tabWidget->indexOf(channels[channel]);
     if(index != tabWidget->currentIndex())
         tabWidget->setTabIcon(index, qApp->style()->standardIcon(QStyle::SP_ArrowRight));
+    qApp->alert(this, 250);
 }
 
 void MainWindow::send() {
