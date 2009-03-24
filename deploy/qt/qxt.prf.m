@@ -60,7 +60,7 @@ contains(QXT, gui) {
     QXT += core
     QT  += gui
 }
-contains(QXT, network) {
+contains(QXT, zeroconf) {
     INCLUDEPATH       += $${QXTinclude}/QxtZeroconf
     macx: INCLUDEPATH += $${QXTlib}/QxtZeroconf.framework/HEADERS/
     qtAddLibrary(QxtZeroconf)
