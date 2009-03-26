@@ -28,11 +28,17 @@ public:
 
     QSocketNotifier* notifier;
 
-    static void registerServiceCallback(DNSServiceRef service, DNSServiceFlags flags, DNSServiceErrorType errCode,
-                                        const char* name, const char* regtype, const char* domain, void* context);
+    static void DNSSD_API registerServiceCallback(DNSServiceRef service, DNSServiceFlags flags, DNSServiceErrorType errCode,
+                                                  const char* name, const char* regtype, const char* domain, void* context);
+#ifdef Q_OS_WIN
+    static void DNSSD_API resolveServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface,
+                                                 DNSServiceErrorType errCode, const char* fullname, const char* host, quint16 port,
+                                                 quint16 txtLen, const char* txt, void* context);
+#else
     static void resolveServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface,
                                        DNSServiceErrorType errCode, const char* fullname, const char* host, quint16 port,
                                        quint16 txtLen, const unsigned char* txt, void* context);
+#endif
 
 public Q_SLOTS:
     void socketData();

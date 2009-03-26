@@ -26,8 +26,8 @@ public:
 
     QSocketNotifier* notifier;
 
-    static void browseServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface, DNSServiceErrorType errCode,
-                                      const char* serviceName, const char* regtype, const char* replyDomain, void* context);
+    static void DNSSD_API browseServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface, DNSServiceErrorType errCode,
+                                                const char* serviceName, const char* regtype, const char* replyDomain, void* context);
 
 public Q_SLOTS:
     void socketData();
