@@ -50,9 +50,15 @@ void QxtDiscoverableServicePrivate::registerServiceCallback(DNSServiceRef servic
     }
 }
 
+#ifdef Q_OS_WIN
+void QxtDiscoverableServicePrivate::resolveServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface,
+       DNSServiceErrorType errCode, const char* fullname, const char* host, quint16 port,
+       quint16 txtLen, const char* txt, void* context)
+#else
 void QxtDiscoverableServicePrivate::resolveServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface,
         DNSServiceErrorType errCode, const char* fullname, const char* host, quint16 port, quint16 txtLen,
         const unsigned char* txt, void* context)
+#endif
 {
     Q_UNUSED(service);
     Q_UNUSED(host);
