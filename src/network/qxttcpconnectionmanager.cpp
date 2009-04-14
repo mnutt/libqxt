@@ -136,7 +136,7 @@ void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 client
         QAbstractSocket* sock = qobject_cast<QAbstractSocket*>(device);
         if (sock) sock->disconnectFromHost();
         device->close();
-        delete device;
+        device->deleteLater();
     }
 }
 
@@ -162,5 +162,11 @@ QNetworkProxy QxtTcpConnectionManager::proxy() const
 
 void QxtTcpConnectionManagerPrivate::socketDisconnected(QObject* client)
 {
+    QTcpSocket* sock = qobject_cast<QTcpSocket*>(client);
+    if (sock)
+    {
+        QObject::disconnect(sock, SIGNAL(error(QAbstractSocket::SocketError)), &mapper, SLOT(map()));
+        QObject::disconnect(sock, SIGNAL(disconnected()), &mapper, SLOT(map()));
+    }
     qxt_p().disconnect((quint64)(client));
 }
