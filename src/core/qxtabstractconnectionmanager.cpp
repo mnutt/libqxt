@@ -112,6 +112,7 @@ void QxtAbstractConnectionManager::disconnect(quint64 clientID)
         qWarning() << "QxtAbstractConnectionManager::disconnect: client ID not in use";
         return;
     }
+    qxt_d().clients.remove(clientID);
     emit disconnected(device, clientID);
     removeConnection(device, clientID);
 }
