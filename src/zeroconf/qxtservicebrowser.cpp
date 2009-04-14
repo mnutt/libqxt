@@ -3,6 +3,36 @@
 #include "qxtdiscoverableservice_p.h"
 #include <QSocketNotifier>
 
+/**
+\class QxtServiceBrowser QxtServiceBrowser
+
+\ingroup QxtZeroconf
+
+\brief Locate Zeroconf-enabled services on the network
+
+QxtServiceBrowser is a tool for locating Zeroconf-enabled services on the local network. When starting
+to browse, all existing services reachable on the local network matching the specified search parameters
+will be announced with the serviceAdded() signal. Afterward, while browsing, new services apearing on
+the network will be announced with the same signal, and services that are closed will be announced with
+the serviceRemoved() signal.
+
+Services on the network are identified by a service type and may be further disambiguated by service
+subtypes. If any service subtypes are added to the QxtServiceBrowser, only services offering the
+specified subtypes will be found. Use the properties inherited from QxtDiscoverableServiceName to
+configure the search parameters.
+
+For more information about Zeroconf, see the documentation available on www.zeroconf.org.
+
+\sa QxtDiscoverableService
+\sa QxtDiscoverableServiceName
+*/
+
+/**
+ * Constructs a QxtServiceBrowser that will search for services with the specified type.
+ * The service type may be a plain type name, which will default to searching for a UDP
+ * service, or it may be provided in the standard format specified by the Zeroconf
+ * specification.
+ */
 QxtServiceBrowser::QxtServiceBrowser(const QString& serviceType, QObject* parent)
 : QObject(parent), QxtDiscoverableServiceName(QString(), serviceType, QString())
 {
@@ -10,6 +40,10 @@ QxtServiceBrowser::QxtServiceBrowser(const QString& serviceType, QObject* parent
     qxt_zeroconf_parse_subtypes(&qxt_d(), serviceType.toUtf8());
 }
 
+/**
+ * Constructs a QxtServiceBrowser that will search for services with the specified type
+ * and socket type.
+ */
 QxtServiceBrowser::QxtServiceBrowser(const QString& serviceType, QAbstractSocket::SocketType socketType, QObject* parent)
 : QObject(parent), QxtDiscoverableServiceName(QString(), serviceType, QString(), socketType)
 {
