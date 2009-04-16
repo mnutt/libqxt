@@ -33,9 +33,10 @@ public:
 
     QxtGroupBoxPrivate();
     bool collapsive;
+    bool flat; // so we can restore it when expanding
 };
 
-QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true)
+QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true), flat(false)
 {}
 
 
@@ -132,7 +133,12 @@ void QxtGroupBox::setExpanded(bool expanded)
             if (child->isWidgetType())
                 static_cast<QWidget*>(child)->setVisible(expanded);
         }
-        setFlat(!expanded);
+        if (expanded) {
+          setFlat(qxt_d().flat);
+        } else {
+          qxt_d().flat = isFlat();
+          setFlat(true);
+        }
     }
 }
 
