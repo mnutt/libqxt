@@ -8,7 +8,6 @@ NO_OPENSSL=0
 NO_DB=0
 NO_FFMPEG=0
 NO_XSS=0
-NO_ZEROCONF=0
 
 if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
@@ -46,10 +45,6 @@ while (( $# > 0 )); do
         if [ $2 == "gui" ]; then
             echo "QXT_LIBS -= xss" >> config.in
             NO_XSS=1
-        fi
-        if [ $2 == "zeroconf" ]; then
-            echo "QXT_LIBS -= zeroconf" >> config.in
-            NO_ZEROCONF=1
         fi
     elif [ $1 == "-prefix" ]; then
         echo "QXTINSTALLDIR = $2" >> config.in; shift
@@ -109,7 +104,7 @@ while (( $# > 0 )); do
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-xss ............. Do not link to XScreenSaver"
         echo "-nomake <module> .... Do not compile the specified module"
-        echo "                      options: berkeley crypto designer gui network sql web zeroconf"
+        echo "                      options: berkeley crypto designer gui network sql web"
         echo "-verbose ............ shows compiler output"
         echo "-qws ................ Build for Qt/Embedded"
         echo "-coverage ........... Collect coverage information"
@@ -185,10 +180,6 @@ fi
 
 if [[ "$NO_XSS" == "0" ]]; then
     configtest "xss  "    XSS
-fi
-
-if [[ "$NO_ZEROCONF" == "0" ]]; then
-    configtest zeroconf ZEROCONF
 fi
 
 #configtest curses  CURSES

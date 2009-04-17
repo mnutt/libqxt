@@ -86,15 +86,6 @@ contains( QXT_BUILD, berkeley ){
 }
 }
 
-contains(DEFINES,HAVE_ZEROCONF){
-contains( QXT_BUILD, zeroconf ){
-    message( building zeroconf module )
-    sub_zeroconf.subdir = src/zeroconf
-    sub_zeroconf.depends = sub_network
-    SUBDIRS += sub_zeroconf
-}
-}
-
 contains( QXT_BUILD, web ){
     message( building web module )
     sub_web.subdir = src/web
