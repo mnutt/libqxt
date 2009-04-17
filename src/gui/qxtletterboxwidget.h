@@ -56,7 +56,7 @@ public:
     uint resizeDelay() const;
     void setResizeDelay(uint delay);
 
-public slots:
+public Q_SLOTS:
     void resizeWidget();
 
 protected:
