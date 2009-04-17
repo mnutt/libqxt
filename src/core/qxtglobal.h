@@ -28,8 +28,8 @@
 
 #include <QtGlobal>
 
-#define QXT_VERSION 0x000400
-#define QXT_VERSION_STR "0.4.0"
+#define QXT_VERSION 0x000500
+#define QXT_VERSION_STR "0.5.0"
 
 //--------------------------global macros------------------------------
 
