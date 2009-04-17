@@ -162,7 +162,7 @@ void QxtBdbTree<T>::dumpTree() const
     qDebug() << "\r\nQxtBdbTree<" << QMetaType::typeName(qMetaTypeId<T>()) << ">::dumpTree()\r\n";
     qDebug() << "Level\t  \t Value";
 
-    forever
+    Q_FOREVER
     {
         qDebug() << k.level() << "  \t->\t" << k.value();
         if (!qxt_d().get((void*)0, 0, 0, 0, DB_NEXT, cursor))
@@ -460,7 +460,7 @@ QxtBdbTreeIterator<T>    QxtBdbTreeIterator<T>::parent() const
     QxtBdbTreeIterator<T> d(*this);
     quint64 lvl = level();
 
-    forever
+    Q_FOREVER
     {
 #if DB_VERSION_MINOR > 5
 
@@ -553,7 +553,7 @@ QxtBdbTreeIterator<T> &  QxtBdbTreeIterator<T>::operator ++ ()
         return *this;
 
     quint64 before = level();
-    forever
+    Q_FOREVER
     {
 
         if (!db->get((void*)0, 0, 0, 0, DB_NEXT_DUP, dbc))
@@ -823,7 +823,7 @@ QxtBdbTreeIterator<T> QxtBdbTreeIterator<T>::erase()
 {
     Q_ASSERT(isValid());
     quint64 before = level();
-    forever
+    Q_FOREVER
     {
 
         int ret = dbc->c_del(dbc, 0);
