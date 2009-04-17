@@ -149,78 +149,90 @@ private slots:
     ///Trying to writelock the same region twice
     void ww_same()
     {
-        QFile file1("lock.file");
-        QVERIFY(file1.open(QIODevice::ReadWrite));
-        QFile file2("lock.file");
-        QVERIFY(file2.open(QIODevice::ReadWrite));
+        QFile* file1 = new QFile("lock.file");
+        QVERIFY(file1->open(QIODevice::ReadWrite));
+        QFile* file2 = new QFile("lock.file");
+        QVERIFY(file2->open(QIODevice::ReadWrite));
 
-        QxtFileLock lock1(&file1,0x10,20,QxtFileLock::WriteLock);
-        file1.moveToThread(&t1);
-        LockJob l(&lock1,true);
+        QxtFileLock* lock1 = new QxtFileLock(file1,0x10,20,QxtFileLock::WriteLock);
+        file1->moveToThread(&t1);
+        LockJob l(lock1,true);
         l.exec(&t1);
 
-        QxtFileLock lock2(&file2,0x10,20,QxtFileLock::WriteLock);
-        file2.moveToThread(&t2);
-        LockJob l2(&lock2,false);
+        QxtFileLock* lock2 = new QxtFileLock(file2,0x10,20,QxtFileLock::WriteLock);
+        file2->moveToThread(&t2);
+        LockJob l2(lock2,false);
         l2.exec(&t2);
         l2.join();
+
+        file1->deleteLater();
+        file2->deleteLater();
     }
 
 
     ///Trying to readlock the same region
     void rr_same()
     {
-        QFile file1("lock.file");
-        QVERIFY(file1.open(QIODevice::ReadWrite));
-        QFile file2("lock.file");
-        QVERIFY(file2.open(QIODevice::ReadWrite));
+        QFile* file1 = new QFile("lock.file");
+        QVERIFY(file1->open(QIODevice::ReadWrite));
+        QFile* file2 = new QFile("lock.file");
+        QVERIFY(file2->open(QIODevice::ReadWrite));
 
-        QxtFileLock lock1(&file1,0x10,20,QxtFileLock::ReadLock);
-        file1.moveToThread(&t1);
-        LockJob l1(&lock1,true);
+        QxtFileLock* lock1 = new QxtFileLock(file1,0x10,20,QxtFileLock::ReadLock);
+        file1->moveToThread(&t1);
+        LockJob l1(lock1,true);
         l1.exec(&t1);
         l1.join();
 
-        QxtFileLock lock2(&file2,0x10,20,QxtFileLock::ReadLock);
-        file2.moveToThread(&t2);
-        LockJob l2(&lock2,true);
+        QxtFileLock* lock2 = new QxtFileLock(file2,0x10,20,QxtFileLock::ReadLock);
+        file2->moveToThread(&t2);
+        LockJob l2(lock2,true);
         l2.exec(&t2);
         l2.join();
+
+        file1->deleteLater();
+        file2->deleteLater();
     }
 
     ///Trying to lock the same region with different locks
     void rw_same()
     {
 
-        QFile file1("lock.file");
-        QVERIFY(file1.open(QIODevice::ReadWrite));
-        QFile file2("lock.file");
-        QVERIFY(file2.open(QIODevice::ReadWrite));
+        QFile* file1 = new QFile("lock.file");
+        QVERIFY(file1->open(QIODevice::ReadWrite));
+        QFile* file2 = new QFile("lock.file");
+        QVERIFY(file2->open(QIODevice::ReadWrite));
 
-        QxtFileLock lock1(&file1,0x10,20,QxtFileLock::WriteLock);
-        file1.moveToThread(&t1);
-        LockJob(&lock1,true).exec(&t1);
+        QxtFileLock* lock1 = new QxtFileLock(file1,0x10,20,QxtFileLock::WriteLock);
+        file1->moveToThread(&t1);
+        LockJob(lock1,true).exec(&t1);
 
-        QxtFileLock lock2(&file2,0x10,20,QxtFileLock::ReadLock);
-        file2.moveToThread(&t2);
-        LockJob(&lock2,false).exec(&t2);
+        QxtFileLock* lock2 = new QxtFileLock(file2,0x10,20,QxtFileLock::ReadLock);
+        file2->moveToThread(&t2);
+        LockJob(lock2,false).exec(&t2);
+
+        file1->deleteLater();
+        file2->deleteLater();
     }
 
     ///Trying to writelock different regions
     void ww_different()
     {
-        QFile file1("lock.file");
-        QVERIFY(file1.open(QIODevice::ReadWrite));
-        QFile file2("lock.file");
-        QVERIFY(file2.open(QIODevice::ReadWrite));
+        QFile* file1 = new QFile("lock.file");
+        QVERIFY(file1->open(QIODevice::ReadWrite));
+        QFile* file2 = new QFile("lock.file");
+        QVERIFY(file2->open(QIODevice::ReadWrite));
 
-        QxtFileLock lock1(&file1,0x10,20,QxtFileLock::WriteLock);
-        file1.moveToThread(&t1);
-        LockJob(&lock1,true).exec(&t1);
+        QxtFileLock* lock1 = new QxtFileLock(file1,0x10,20,QxtFileLock::WriteLock);
+        file1->moveToThread(&t1);
+        LockJob(lock1,true).exec(&t1);
 
-        QxtFileLock lock2(&file2,0x10+21,20,QxtFileLock::WriteLock);
-        file2.moveToThread(&t2);
-        LockJob(&lock2,true).exec(&t2);
+        QxtFileLock* lock2 = new QxtFileLock(file2,0x10+21,20,QxtFileLock::WriteLock);
+        file2->moveToThread(&t2);
+        LockJob(lock2,true).exec(&t2);
+
+        file1->deleteLater();
+        file2->deleteLater();
     }
     void cleanupTestCase()
     {
