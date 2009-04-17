@@ -3,7 +3,7 @@
 #include <QFileInfo>
 #include <QImage>
 #include <QDebug>
-
+#include <QThread>
 
 struct FsImageModelImage
 {
@@ -80,6 +80,10 @@ QVariant FsImageModel::data(const QModelIndex & index, int role ) const
     return QVariant();
 }
 
+class Thread : public QThread
+{
+    friend class FsImageModel;
+};
 
 void FsImageModel::directoryChanged ( const QString & path )
 {
@@ -107,7 +111,7 @@ void FsImageModel::directoryChanged ( const QString & path )
             int retry=100;
             while(!img->image.load(path))
             {
-                usleep(1000);
+                Thread::usleep(1000);
                 if(--retry<0)
                 {
                     break;
