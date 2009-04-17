@@ -3,4 +3,5 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += berkeley ircpeer qxtflowview # country web
+!win32:SUBDIRS += berkeley
+SUBDIRS += ircpeer qxtflowview # country web

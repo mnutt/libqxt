@@ -3,7 +3,8 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += berkeley core crypto gui network sql web
+!win32:SUBDIRS += berkeley
+SUBDIRS += core crypto gui network sql web
 
 test.CONFIG += recursive
 QMAKE_EXTRA_TARGETS += test
