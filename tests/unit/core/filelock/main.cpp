@@ -29,8 +29,10 @@ private slots:
     {
         QxtFileLock lock1(file1,0x10,20,QxtFileLock::ReadLock);
         QVERIFY(lock1.lock());
+#ifndef Q_WS_WIN
         QxtFileLock lock2(file1,0x10,20,QxtFileLock::WriteLock);
         QVERIFY(lock2.lock());
+#endif // Q_WS_WIN
     }
 
     ///Trying to readlock the same region with DIFFERENT handles
