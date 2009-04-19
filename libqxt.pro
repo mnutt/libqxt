@@ -106,10 +106,10 @@ style.recurse -= tools/doqsy
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
-sub-examples.commands += $(QMAKE) examples/examples.pro && cd examples && $(MAKE)
+sub-examples.commands += cd examples && $(QMAKE) examples.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-examples
 
-sub-tests.commands += $(QMAKE) tests/tests.pro && cd tests && $(MAKE)
+sub-tests.commands += cd tests && $(QMAKE) tests.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-tests
 
 runtests.depends += sub-tests
