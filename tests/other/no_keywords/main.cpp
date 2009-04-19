@@ -1,13 +1,25 @@
 #include <QtGlobal>
-#ifndef Q_WS_WIN
+#if defined(Q_WS_WIN) && defined(QXT_BERKELEY_LIB)
 #include <QxtBerkeley>
-#endif // Q_WS_WIN
+#endif
+#ifdef QXT_CORE_LIB
 #include <QxtCore>
+#endif
+#ifdef QXT_CRYPTO_LIB
 #include <QxtCrypto>
+#endif
+#ifdef QXT_GUI_LIB
 #include <QxtGui>
+#endif
+#ifdef QXT_NETWORK_LIB
 #include <QxtNetwork>
+#endif
+#ifdef QXT_SQL_LIB
 #include <QxtSql>
+#endif
+#ifdef QXT_WEB_LIB
 #include <QxtWeb>
+#endif
 
 int main(int argc, char* argv[])
 {
