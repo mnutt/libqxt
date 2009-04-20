@@ -39,12 +39,14 @@ contains(QXT, berkeley) {
     macx: INCLUDEPATH += $${QXTlib}//QxtBerkeley.framework/HEADERS/
     qtAddLibrary(QxtBerkeley)
     QXT += core
+    contains(QXT_MODULES, berkeley):DEFINES += QXT_BERKELEY_LIB
 }
 contains(QXT, crypto) {
     INCLUDEPATH       += $${QXTinclude}/QxtCrypto
     macx: INCLUDEPATH += $${QXTlib}/QxtCrypto.framework/HEADERS/
     qtAddLibrary(QxtCrypto)
     QXT += core
+    contains(QXT_MODULES, crypto):DEFINES += QXT_CRYPTO_LIB
 }
 contains(QXT, web) {
     INCLUDEPATH       += $${QXTinclude}/QxtWeb
@@ -52,6 +54,7 @@ contains(QXT, web) {
     qtAddLibrary(QxtWeb)
     QXT += core network
     QT  += network
+    contains(QXT_MODULES, web):DEFINES += QXT_WEB_LIB
 }
 contains(QXT, gui) {
     INCLUDEPATH       += $${QXTinclude}/QxtGui
@@ -59,6 +62,7 @@ contains(QXT, gui) {
     qtAddLibrary(QxtGui)
     QXT += core
     QT  += gui
+    contains(QXT_MODULES, gui):DEFINES += QXT_GUI_LIB
 }
 contains(QXT, zeroconf) {
     INCLUDEPATH       += $${QXTinclude}/QxtZeroconf
@@ -73,6 +77,7 @@ contains(QXT, network) {
     qtAddLibrary(QxtNetwork)
     QXT += core
     QT  += network
+    contains(QXT_MODULES, network):DEFINES += QXT_NETWORK_LIB
 }
 contains(QXT, sql) {
     INCLUDEPATH       += $${QXTinclude}/QxtSql
@@ -80,9 +85,11 @@ contains(QXT, sql) {
     qtAddLibrary(QxtSql)
     QXT += core
     QT  += sql
+    contains(QXT_MODULES, sql):DEFINES += QXT_SQL_LIB
 }
 contains(QXT, core) {
     INCLUDEPATH       += $${QXTinclude}/QxtCore
     macx: INCLUDEPATH += $${QXTlib}/QxtCore.framework/HEADERS/
     qtAddLibrary(QxtCore)
+    contains(QXT_MODULES, core):DEFINES += QXT_CORE_LIB
 }
