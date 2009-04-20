@@ -24,7 +24,9 @@ private slots:
 	void on_qxtSpanSliderHor_spanChanged(int lower, int upper);
 	void on_qxtSpanSliderVer_lowerValueChanged(int value);
 	void on_qxtSpanSliderVer_upperValueChanged(int value);
-	void on_qxtStarsHor_valueChanged(int value);
+    void on_qxtSpanSliderVer_lowerPositionChanged(int pos);
+    void on_qxtSpanSliderVer_upperPositionChanged(int pos);
+    void on_qxtStarsHor_valueChanged(int value);
 	void on_qxtStarsVer_valueChanged(int value);
 	void on_qxtStringSpinBox_valueChanged(const QString& value);
 	void on_qxtTableWidget_itemEditingStarted(QTableWidgetItem* item);
