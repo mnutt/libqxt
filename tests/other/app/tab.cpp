@@ -68,6 +68,18 @@ void Tab::on_qxtSpanSliderVer_upperValueChanged(int value)
 	emit somethingHappened(what);
 }
 
+void Tab::on_qxtSpanSliderVer_lowerPositionChanged(int pos)
+{
+    QString what = QString("QxtSpanSlider::lowerPositionChanged(%1)").arg(pos);
+    emit somethingHappened(what);
+}
+
+void Tab::on_qxtSpanSliderVer_upperPositionChanged(int pos)
+{
+    QString what = QString("QxtSpanSlider::upperPositionChanged(%1)").arg(pos);
+    emit somethingHappened(what);
+}
+
 void Tab::on_qxtStarsHor_valueChanged(int value)
 {
 	QString what = QString("QxtStars::valueChanged(%1)").arg(value);
