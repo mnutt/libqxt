@@ -53,6 +53,7 @@
 #include "qxtlocale.h"
 #include "qxtmetaobject.h"
 #include "qxtmetatype.h"
+#include "qxtmodelserializer.h"
 #include "qxtmultisignalwaiter.h"
 #include "qxtnamespace.h"
 #include "qxtnull.h"
