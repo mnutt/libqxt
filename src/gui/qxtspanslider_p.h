@@ -63,6 +63,8 @@ public:
 
     int lower;
     int upper;
+    int lowerPos;
+    int upperPos;
     int offset;
     int position;
     SpanHandle lastPressed;
@@ -71,9 +73,11 @@ public:
     QStyle::SubControl upperPressed;
     QxtSpanSlider::HandleMovementMode movement;
     bool firstMovement;
+    bool blockTracking;
 
 public Q_SLOTS:
     void updateRange(int min, int max);
+    void movePressedHandle();
 };
 
 #endif // QXTSPANSLIDER_P_H
