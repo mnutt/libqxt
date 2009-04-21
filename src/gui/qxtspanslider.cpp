@@ -336,7 +336,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
     representation might change from lower to upper, the same key binding
     remains.
 
-    \image html qxtspanslider.png "QxtSpanSlider in Plastique style."
+    \image qxtspanslider.png "QxtSpanSlider in Plastique style."
 
     \note QxtSpanSlider inherits \b QSlider for implementation specific
     reasons. Adjusting any single handle specific properties like

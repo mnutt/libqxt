@@ -290,7 +290,7 @@ void QxtConfigDialogPrivate::setCurrentIndex(int index)
     dialog.exec();
     \endcode
 
-    \image html qxtconfigdialog.png "QxtConfigDialog with page icons on the left (QxtConfigDialog::West)."
+    \image qxtconfigdialog.png "QxtConfigDialog with page icons on the left (QxtConfigDialog::West)."
  */
 
 /*!

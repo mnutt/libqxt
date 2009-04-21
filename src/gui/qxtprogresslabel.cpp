@@ -63,7 +63,7 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
     connect(bar, SIGNAL(valueChanged(int)), label, SLOT(setValue(int)));
     \endcode
 
-    \image html qxtprogresslabel.png "QxtProgressLabel in action."
+    \image qxtprogresslabel.png "QxtProgressLabel in action."
  */
 
 /*!

@@ -45,7 +45,7 @@ struct QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
     The sample text is shown when the line edit is empty and has
     no focus.
 
-    \image html qxtlineedit.png "Two empty QxtLineEdits: non-focused and focused."
+    \image qxtlineedit.png "Two empty QxtLineEdits: non-focused and focused."
  */
 
 /*!

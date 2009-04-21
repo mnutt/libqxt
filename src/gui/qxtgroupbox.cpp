@@ -49,7 +49,7 @@ QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true), flat(false)
     its content according to the check state. QxtGroupBox shows its children
     when checked and hides its children when unchecked.
 
-    \image html qxtgroupbox.png "Two QxtGroupBoxes - an expanded and a collapsed - on top of each other."
+    \image qxtgroupbox.png "Two QxtGroupBoxes - an expanded and a collapsed - on top of each other."
  */
 
 /*!

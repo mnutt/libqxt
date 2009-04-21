@@ -43,7 +43,7 @@
 
     \sa QVariant, QMetaType::Type
 
-    \image html qxtslotmapper.png
+    \image qxtslotmapper.png
 
     Example usage:
     \code
