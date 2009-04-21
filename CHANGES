@@ -7,6 +7,9 @@ or online at http://docs.libqxt.org.
 - QxtCore
     * Added QxtModelSerializer
 
+- QxtGui
+    * Added rich text support to QxtItemDelegate
+
 - Added QxtZeroConf module
 
 0.5.0
