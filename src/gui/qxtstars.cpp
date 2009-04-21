@@ -141,7 +141,7 @@ QSize QxtStarsPrivate::getStarSize() const
     <tr><td>QPalette::Highlight</td><td>selected stars</td></tr>
     </table>
 
-    \image html qxtstars.png "QxtStars in action."
+    \image qxtstars.png "QxtStars in action."
  */
 
 /*!

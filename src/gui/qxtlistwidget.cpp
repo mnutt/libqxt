@@ -50,7 +50,7 @@ void QxtListWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
     QxtListWidget offers a few most commonly requested signals.
 
-    \image html qxtlistwidget.png "QxtListWidget in Plastique style."
+    \image qxtlistwidget.png "QxtListWidget in Plastique style."
  */
 
 /*!

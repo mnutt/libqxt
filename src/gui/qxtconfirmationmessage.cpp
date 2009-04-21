@@ -167,7 +167,7 @@ void QxtConfirmationMessagePrivate::reset()
     }
     \endcode
 
-    \image html qxtconfirmationmessage.png "QxtConfirmationMessage in action."
+    \image qxtconfirmationmessage.png "QxtConfirmationMessage in action."
 
     \note \b QCoreApplication::organizationName and \b QCoreApplication::applicationName
     are used for storing settings. In case these properties are empty, \b "QxtGui" and

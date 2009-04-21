@@ -154,7 +154,7 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role) const
     QxtCountryModel is a specialized QAbstractTableModel to display countries.
     The countries are taken from QLocale::Country.
 
-    \image html qxtcountrymodel.png "QxtCountryModel in a QTableView in Plastique style."
+    \image qxtcountrymodel.png "QxtCountryModel in a QTableView in Plastique style."
  */
 
 QxtCountryModel::QxtCountryModel(QObject* parent)

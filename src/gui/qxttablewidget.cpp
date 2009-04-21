@@ -48,7 +48,7 @@ void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
     QxtTableWidget offers a few most commonly requested signals.
 
-    \image html qxttablewidget.png "QxtTableWidget in Plastique style."
+    \image qxttablewidget.png "QxtTableWidget in Plastique style."
  */
 
 /*!
