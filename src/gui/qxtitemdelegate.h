@@ -68,6 +68,7 @@ public:
     virtual void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
 
     virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    virtual void drawDisplay(QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text) const;
     virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
 Q_SIGNALS:
