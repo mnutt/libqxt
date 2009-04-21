@@ -24,6 +24,8 @@
  ****************************************************************************/
 #include "qxtitemdelegate.h"
 #include "qxtitemdelegate_p.h"
+#include <QTextDocument>
+#include <QPixmapCache>
 #include <QApplication>
 #include <QTreeView>
 #include <QPainter>
@@ -35,7 +37,8 @@ QxtItemDelegatePrivate::QxtItemDelegatePrivate() :
         textVisible(true),
         progressFormat("%1%"),
         elide(Qt::ElideMiddle),
-        style(Qxt::NoDecoration)
+        style(Qxt::NoDecoration),
+        document(0)
 {
 }
 
@@ -212,12 +215,13 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
 /*!
     \class QxtItemDelegate QxtItemDelegate
     \ingroup QxtGui
-    \brief An extended QItemDelegate with additional signals and optional decoration.
+    \brief An extended QItemDelegate
 
-    QxtItemDelegate provides signals for starting and finishing of editing
-    and an optional decoration for top level indices in a QTreeView.
+    QxtItemDelegate provides rich text support, signals for starting
+    and finishing of editing and an optional decoration of top level
+    items in a QTreeView.
 
-    QxtItemDelegate can also draw a progress bar for indices providing
+    QxtItemDelegate can also draw a progress bar for items providing
     appropriate progress data. Just like QProgressBar, QxtItemDelegate
     can show a busy indicator. If minimum and maximum both are set to
     \b 0, a busy indicator is shown instead of a percentage of steps.
@@ -442,11 +446,51 @@ void QxtItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
 /*!
     \reimp
  */
+void QxtItemDelegate::drawDisplay(QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text) const
+{
+    if (!Qt::mightBeRichText(text))
+    {
+        QItemDelegate::drawDisplay(painter, option, rect, text);
+        return;
+    }
+
+    QString key = QString(QLatin1String("QxtItemDelegate:%1")).arg(text);
+    QPixmap pixmap;
+    if (!QPixmapCache::find(key, pixmap))
+    {
+        if (!qxt_d().document)
+            qxt_d().document = new QTextDocument(const_cast<QxtItemDelegate*>(this));
+        qxt_d().document->setHtml(text);
+        qxt_d().document->adjustSize();
+
+        pixmap = QPixmap(qxt_d().document->size().toSize());
+        pixmap.fill(Qt::transparent);
+        QPainter painter(&pixmap);
+        qxt_d().document->drawContents(&painter);
+        painter.end();
+        QPixmapCache::insert(key, pixmap);
+    }
+    painter->drawPixmap(option.rect.topLeft(), pixmap);
+}
+
+/*!
+    \reimp
+ */
 QSize QxtItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    // something slightly bigger for top level indices
+    // something slightly bigger for top level indices if decorated
     QSize size = QItemDelegate::sizeHint(option, index);
-    if (!index.parent().isValid())
+    if (!index.parent().isValid() && qxt_d().style != Qxt::NoDecoration)
         size += QSize(TOP_LEVEL_EXTENT, TOP_LEVEL_EXTENT);
+
+    const QString text = index.data(Qt::DisplayRole).toString();
+    if (Qt::mightBeRichText(text))
+    {
+        if (!qxt_d().document)
+            qxt_d().document = new QTextDocument(const_cast<QxtItemDelegate*>(this));
+        qxt_d().document->setHtml(text);
+        qxt_d().document->adjustSize();
+        size = size.expandedTo(qxt_d().document->size().toSize()); // TODO: checkbox, icon, etc.
+    }
     return  size;
 }
