@@ -227,7 +227,7 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
     on a QLabel which is then shown as a tooltip. Yet another use case
     is a tooltip with dynamically changing content.
 
-    \image html qxttooltip.png "QxtToolTip in action."
+    \image qxttooltip.png "QxtToolTip in action."
 
     \warning Added tooltip widgets remain in the memory for the lifetime
     of the application or until they are removed/deleted. Do NOT flood your

@@ -82,7 +82,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
     tabWidget->addTabActions(1, actions1);
     \endcode
 
-    \image html qxttabwidget.png "QxtTabWidget in WindowsXP style."
+    \image qxttabwidget.png "QxtTabWidget in WindowsXP style."
 
     \note http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891
  */

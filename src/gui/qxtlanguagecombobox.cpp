@@ -281,7 +281,7 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
     QxtLanguageComboBox is a specialized combo box to display spoken languages.
     The languages are taken from QLocale::Language.
 
-    \image html qxtlanguagecombobox.png "QxtLanguageComboBox in Plastique style."
+    \image qxtlanguagecombobox.png "QxtLanguageComboBox in Plastique style."
  */
 
 /*!

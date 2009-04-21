@@ -68,7 +68,7 @@
     This is a derived work of PictureFlow ( http://pictureflow.googlecode.com )
 
 
-    \image html qxtflowview.png "QxtFlowView in action."
+    \image qxtflowview.png "QxtFlowView in action."
 
 
  */

@@ -31,7 +31,7 @@
  *
  * See the list of classes.
  *
- * \image html logo.png
+ * \image qxt-logo.png
  *
  */
 
