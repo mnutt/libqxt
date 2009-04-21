@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtAbstractWebSessionManager QxtAbstractWebSessionManager
 
 \ingroup QxtWeb
@@ -44,7 +44,7 @@ clean up its internal session tracking data.
 \sa QxtAbstractWebService
 */
 
-/**
+/*!
  * \typedef typedef QxtAbstractWebService* QxtAbstractWebSessionManager::ServiceFactory(QxtAbstractWebSessionManager*, int)
  * \brief Pointer to a function that generates QxtAbstractWebService objects
  *
@@ -92,7 +92,7 @@ int QxtAbstractWebSessionManagerPrivate::getNextID()
 }
 #endif
 
-/**
+/*!
  * Creates a QxtAbstractWebSessionManager with the specified parent.
  *
  * Note that this is an abstract class and cannot be instantiated directly.
@@ -102,7 +102,7 @@ QxtAbstractWebSessionManager::QxtAbstractWebSessionManager(QObject* parent) : QO
     QXT_INIT_PRIVATE(QxtAbstractWebSessionManager);
 }
 
-/**
+/*!
  * Sets the service factory for the session manager.
  *
  * The service factory is invoked every time the session manager creates a new
@@ -118,7 +118,7 @@ void QxtAbstractWebSessionManager::setServiceFactory(ServiceFactory* factory)
     qxt_d().factory = factory;
 }
 
-/**
+/*!
  * Returns the service factory in use by the session manager.
  *
  * \sa setServiceFactory(ServiceFactory*)
@@ -128,7 +128,7 @@ QxtAbstractWebSessionManager::ServiceFactory* QxtAbstractWebSessionManager::serv
     return qxt_d().factory;
 }
 
-/**
+/*!
  * Returns the service object corresponding to the provided session ID.
  */
 QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) const
@@ -138,7 +138,7 @@ QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) cons
     return 0;
 }
 
-/**
+/*!
  * Creates a new session and returns its session ID.
  *
  * This function uses the serviceFactory() to request an instance of the web service.
@@ -155,7 +155,7 @@ int QxtAbstractWebSessionManager::createService()
     return sessionID; // you can always get the service with this
 }
 
-/**
+/*!
  * \fn virtual bool QxtAbstractWebSessionManager::start() = 0;
  * Starts the session manager.
  *
@@ -164,7 +164,7 @@ int QxtAbstractWebSessionManager::createService()
  * session manager is started.
  */
 
-/**
+/*!
  * \fn virtual void QxtAbstractWebSessionManager::postEvent(QxtWebEvent* event) = 0;
  * Adds the event to the event queue for its associated session.
  *
@@ -180,7 +180,7 @@ int QxtAbstractWebSessionManager::createService()
  * \sa QxtWebEvent
  */
 
-/**
+/*!
  * \fn virtual void QxtAbstractWebSessionManager::processEvents() = 0;
  * Processes pending events for all sessions.
  *

@@ -29,7 +29,7 @@
 #if QT_VERSION >= 0x040300
 
 
-/**
+/*!
 \class QxtHmac QxtHmac
 
 \ingroup QxtCrypto
@@ -73,7 +73,7 @@ public:
 };
 #endif
 
-/**
+/*!
  * Constructs a QxtHmac object using the specified algorithm.
  */
 QxtHmac::QxtHmac(QCryptographicHash::Algorithm algorithm)
@@ -84,7 +84,7 @@ QxtHmac::QxtHmac(QCryptographicHash::Algorithm algorithm)
     qxt_d().algorithm = algorithm;
 }
 
-/**
+/*!
  * Sets the shared secret key for the message authentication code.
  *
  * Any data that had been processed using addData() will be discarded.
@@ -107,7 +107,7 @@ void QxtHmac::setKey(QByteArray key)
     reset();
 }
 
-/**
+/*!
  * Resets the object.
  *
  * Any data that had been processed using addData() will be discarded.
@@ -120,7 +120,7 @@ void QxtHmac::reset()
     d->ihash->addData(d->ipad);
 }
 
-/**
+/*!
  * Returns the inner hash of the HMAC function.
  *
  * This hash can be stored in lieu of the shared secret on the authenticating side
@@ -133,7 +133,7 @@ QByteArray QxtHmac::innerHash() const
     return qxt_d().ihash->result();
 }
 
-/**
+/*!
  * Returns the authentication code for the message.
  */
 QByteArray QxtHmac::result()
@@ -149,7 +149,7 @@ QByteArray QxtHmac::result()
     return d->result;
 }
 
-/**
+/*!
  * Verifies the authentication code against a known inner hash.
  *
  * \sa innerHash()
@@ -164,7 +164,7 @@ bool QxtHmac::verify(const QByteArray& otherInner)
     return d->result == d->ohash->result();
 }
 
-/**
+/*!
  * Adds the provided data to the message to be authenticated.
  */
 void QxtHmac::addData(const char* data, int length)
@@ -174,7 +174,7 @@ void QxtHmac::addData(const char* data, int length)
     qxt_d().result.clear();
 }
 
-/**
+/*!
  * Adds the provided data to the message to be authenticated.
  */
 void QxtHmac::addData(const QByteArray& data)
@@ -182,7 +182,7 @@ void QxtHmac::addData(const QByteArray& data)
     addData(data.constData(), data.size());
 }
 
-/**
+/*!
  * Returns the HMAC of the provided data using the specified key and hashing algorithm.
  */
 QByteArray QxtHmac::hash(const QByteArray& key, const QByteArray& data, Algorithm algorithm)
@@ -193,7 +193,7 @@ QByteArray QxtHmac::hash(const QByteArray& key, const QByteArray& data, Algorith
     return hmac.result();
 }
 
-/**
+/*!
  * Verifies a HMAC against a known key and inner hash using the specified hashing algorithm.
  */
 bool QxtHmac::verify(const QByteArray& key, const QByteArray& hmac, const QByteArray& inner, Algorithm algorithm)

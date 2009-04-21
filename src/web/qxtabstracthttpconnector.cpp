@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtAbstractHttpConnector QxtAbstractHttpConnector
 
 \ingroup QxtWeb
@@ -88,7 +88,7 @@ public:
 };
 #endif
 
-/**
+/*!
  * Creates a QxtAbstractHttpConnector with the specified parent.
  *
  * Note that this is an abstract class and cannot be instantiated directly.
@@ -99,7 +99,7 @@ QxtAbstractHttpConnector::QxtAbstractHttpConnector(QObject* parent) : QObject(pa
     qxt_d().nextRequestID = 0;
 }
 
-/**
+/*!
  * \priv
  */
 void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager)
@@ -107,7 +107,7 @@ void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager)
     qxt_d().manager = manager;
 }
 
-/**
+/*!
  * Returns the session manager into which the connector is installed.
  *
  * \sa QxtHttpSessionManager::setConnector
@@ -117,7 +117,7 @@ QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const
     return qxt_d().manager;
 }
 
-/**
+/*!
  * \priv
  * Returns the QIODevice associated with a request ID.
  *
@@ -128,7 +128,7 @@ QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID)
     return qxt_d().getRequestConnection(requestID);
 }
 
-/**
+/*!
  * Starts managing a new connection.
  *
  * This function should be invoked by a subclass to attach incoming connections
@@ -144,7 +144,7 @@ void QxtAbstractHttpConnector::addConnection(QIODevice* device)
     QObject::connect(device, SIGNAL(destroyed()), this, SLOT(disconnected()));
 }
 
-/**
+/*!
  * \priv
  */
 void QxtAbstractHttpConnector::incomingData(QIODevice* device)
@@ -177,7 +177,7 @@ void QxtAbstractHttpConnector::incomingData(QIODevice* device)
     sessionManager()->incomingRequest(requestID, header, content);
 }
 
-/**
+/*!
  * \priv
  */
 void QxtAbstractHttpConnector::disconnected()
@@ -189,7 +189,7 @@ void QxtAbstractHttpConnector::disconnected()
     sessionManager()->disconnected(device);
 }
 
-/**
+/*!
  * \fn virtual bool QxtAbstractHttpConnector::listen(const QHostAddress& interface, quint16 port) = 0;
  * Invoked by the session manager to indicate that the connector should listen
  * for incoming connections on the specified interface and port.
@@ -201,19 +201,19 @@ void QxtAbstractHttpConnector::disconnected()
  * \sa addConnection(QIODevice*)
  */
 
-/**
+/*!
  * \fn virtual bool QxtAbstractHttpConnector::canParseRequest(const QByteArray& buffer) = 0;
  * Returns true if a complete set of request headers can be extracted from the provided buffer.
  */
 
-/**
+/*!
  * \fn virtual QHttpRequestHeader QxtAbstractHttpConnector::parseRequest(QByteArray& buffer) = 0;
  * Extracts a set of request headers from the provided buffer.
  *
  * Subclasses implementing this function must be sure to remove the parsed data from the buffer.
  */
 
-/**
+/*!
  * \fn virtual void QxtAbstractHttpConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& header) = 0;
  * Writes a set of response headers to the specified device.
  */

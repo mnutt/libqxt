@@ -81,7 +81,7 @@ namespace QxtMetaObject
                                  Qt::ConnectionType type = Qt::AutoConnection);
 };
 
-/**
+/*!
  * \relates QxtMetaObject
  * Refers to the n'th parameter of QxtBoundFunction::invoke() or of a signal connected to
  * a QxtBoundFunction.

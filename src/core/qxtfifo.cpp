@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtFifo QxtFifo
 
 \ingroup QxtCore
@@ -44,7 +44,7 @@ QxtFifo fifo;
 
 */
 
-/**
+/*!
 
 \fn  QxtFifo::QxtFifo(QObject * parent=0);
 constructs a new QxtFifo

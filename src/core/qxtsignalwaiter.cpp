@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtSignalWaiter QxtSignalWaiter
 
 \ingroup QxtCore
@@ -82,7 +82,7 @@ public:
     }
 };
 
-/**
+/*!
  * Constructs a QxtSignalWaiter that will wait for sender::signal() to be emitted.
  * QxtSignalWaiter objects are intended to be created on the stack, therefore no parent
  * parameter is accepted.
@@ -94,7 +94,7 @@ QxtSignalWaiter::QxtSignalWaiter(const QObject* sender, const char* signal) : QO
     connect(sender, signal, this, SLOT(signalCaught()));
 }
 
-/**
+/*!
  * This is an overloaded function provided for convenience. This version can be invoked without first instantiating
  * a QxtSignalWaiter object.
  */
@@ -104,7 +104,7 @@ bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec, 
     return w.wait(msec, flags);
 }
 
-/**
+/*!
  * Blocks the current function until sender::signal() is emitted. If msec is not -1, wait() will return before the
  * signal is emitted if the specified number of milliseconds have elapsed.
  * Returns true if the signal was caught, or false if the timeout elapsed.
@@ -144,7 +144,7 @@ bool QxtSignalWaiter::wait(int msec, QEventLoop::ProcessEventsFlags flags)
     return d.ready;
 }
 
-/**
+/*!
  * Indicates whether the desired signal was emitted during the last wait() call.
  */
 bool QxtSignalWaiter::hasCapturedSignal() const
@@ -152,7 +152,7 @@ bool QxtSignalWaiter::hasCapturedSignal() const
     return qxt_d().emitted;
 }
 
-/**
+/*!
  * Signals a waiting object to stop blocking because the desired signal was emitted.
  * QxtSignalWaiter::hasCapturedSignal() will return true after this slot is invoked.
  * Use this slot to allow QxtSignalWaiter to wait for the first of multiple signals.
@@ -164,7 +164,7 @@ void QxtSignalWaiter::signalCaught()
     qxt_d().stopTimer();
 }
 
-/**
+/*!
  * \reimp
  */
 void QxtSignalWaiter::timerEvent(QTimerEvent* event)
@@ -173,7 +173,7 @@ void QxtSignalWaiter::timerEvent(QTimerEvent* event)
     cancelWait();
 }
 
-/**
+/*!
  * Signals a waiting object to stop blocking because the timeout has elapsed.
  * QxtSignalWaiter::hasCapturedSignal() will return false after this slot is invoked.
  * Use this slot to allow QxtSignalWaiter to be interrupted for reasons other than

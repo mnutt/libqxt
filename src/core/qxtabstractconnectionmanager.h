@@ -44,19 +44,19 @@ public:
     QList<quint64> clients() const;
     QIODevice* client(quint64 clientID) const;
 
-    /**
+    /*!
      * Returns true if the connection manager is currently accepting connections.
      * Returns false otherwise.
      */
     virtual bool isAcceptingConnections() const = 0;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Indicates that the specified device, with the specified client ID, is ready for use.
      */
     void newConnection(QIODevice* device, quint64 clientID);
 
-    /**
+    /*!
      * Indicates that the device with the specified client ID has been disconnected.
      */
     void disconnected(QIODevice* device, quint64 clientID);
@@ -67,7 +67,7 @@ public Q_SLOTS:
 protected:
     void addConnection(QIODevice* device, quint64 clientID);
 
-    /**
+    /*!
      * Stops managing a connection. This function is invoked by disconnect().
      * Implementations should perform whatever steps are necessary to close the connection
      * and clean up any internal data structures, including deleting the QIODevice object.

@@ -42,7 +42,7 @@
 #include <QtGlobal>
 #include <QPointer>
 
-/**
+/*!
  *@author Benjamin Zeller <zbenjamin@users.sourceforge.net>
  *@desc This Model is used to tell the Header how many rows and columns the view has
  */

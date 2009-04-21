@@ -57,7 +57,7 @@
     \doqsy {implicitshared}
     \sa QxtBdbTreeIterator
 */
-/**
+/*!
 
 
 \fn QxtBdbTree<T>::QxtBdbTree()
@@ -105,7 +105,7 @@ This function assumes, the class used for Template initialisation implements the
 
 */
 
-/**
+/*!
 \fn QxtBdbTreeIterator<T>::QxtBdbTreeIterator()
 constructs an invalid QxtBdbTreeIterator
 

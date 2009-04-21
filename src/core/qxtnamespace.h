@@ -29,7 +29,7 @@
 #include <qxtglobal.h>
 
 
-/**
+/*!
     \namespace Qxt
     \ingroup QxtCore
     \brief The Qxt Namespace

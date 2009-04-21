@@ -25,7 +25,7 @@
 #include "qxtstdio_p.h"
 #include <cstdio>
 
-/**
+/*!
 \class QxtStdio QxtStdio
 
 \ingroup QxtCore

@@ -27,7 +27,7 @@
 
 
 
-/**
+/*!
 \class QxtLinkedTree QxtLinkedTree
 \ingroup QxtCore
 \brief fast Container for tree structured data

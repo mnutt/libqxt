@@ -28,7 +28,7 @@
 
 
 
-/**
+/*!
 \class QxtSqlPackageModel QxtSqlPackageModel
 
 \ingroup QxtSql
@@ -53,7 +53,7 @@ example usage:
 
 */
 
-/**
+/*!
 \fn void QxtSqlPackageModel::setQuery(QxtSqlPackage a);
 \brief set the data for the model.
 

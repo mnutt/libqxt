@@ -186,7 +186,7 @@ const QxtCommandOption* QxtCommandOptionsPrivate::findOption(const QString& name
     return 0;
 }
 
-/**
+/*!
  * Constructs a QxtCommandOptions object.
  */
 QxtCommandOptions::QxtCommandOptions()
@@ -203,7 +203,7 @@ QxtCommandOptions::QxtCommandOptions()
 #endif
 }
 
-/**
+/*!
  * Sets which prefix is used to identify options. The default value is Slash on Windows
  * and DoubleDash on all other platforms.
  *
@@ -215,7 +215,7 @@ void QxtCommandOptions::setFlagStyle(FlagStyle style)
     qxt_d().flagStyle = style;
 }
 
-/**
+/*!
  * Gets which prefix is used to identify options.
  */
 QxtCommandOptions::FlagStyle QxtCommandOptions::flagStyle() const
@@ -223,7 +223,7 @@ QxtCommandOptions::FlagStyle QxtCommandOptions::flagStyle() const
     return qxt_d().flagStyle;
 }
 
-/**
+/*!
  * Sets which value separator is used for options that accept parameters.
  * The default value is Equals on Windows and SpaceAndEquals on all other
  * platforms.
@@ -239,7 +239,7 @@ void QxtCommandOptions::setParamStyle(ParamStyle style)
     qxt_d().paramStyle = style;
 }
 
-/**
+/*!
  * Sets which value separator is used for options that accept parameters.
  */
 QxtCommandOptions::ParamStyle QxtCommandOptions::paramStyle() const
@@ -247,7 +247,7 @@ QxtCommandOptions::ParamStyle QxtCommandOptions::paramStyle() const
     return qxt_d().paramStyle;
 }
 
-/**
+/*!
  * Sets the width of the screen, in characters. This is used for word-wrapping
  * the automatically-generated help text to the size of the screen. The default
  * value is 80 characters. Pass 0 to disable word-wrapping.
@@ -257,7 +257,7 @@ void QxtCommandOptions::setScreenWidth(quint16 width)
     qxt_d().screenWidth = width;
 }
 
-/**
+/*!
  * Gets the width of the screen, in characters.
  */
 quint16 QxtCommandOptions::screenWidth() const
@@ -265,7 +265,7 @@ quint16 QxtCommandOptions::screenWidth() const
     return qxt_d().screenWidth;
 }
 
-/**
+/*!
  * Adds a section separator. Section separators are only used in generating
  * help text, and can be used to visually separate related groups of
  * options.
@@ -278,7 +278,7 @@ void QxtCommandOptions::addSection(const QString& name)
     qxt_d().options.append(option);
 }
 
-/**
+/*!
  * Adds an option to the parser.
  *
  * The name parameter defines the name that will be used by the alias(),
@@ -303,7 +303,7 @@ void QxtCommandOptions::add(const QString& name, const QString& desc, ParamTypes
     alias(name, name);
 }
 
-/**
+/*!
  * Provides an alias for an option. An alias is another name for the option that can be
  * given on the command line. Aliases cannot be used as parameters to alias(), count()
  * or value().
@@ -320,7 +320,7 @@ void QxtCommandOptions::alias(const QString& from, const QString& to)
         qWarning() << qPrintable(QString("QxtCommandOptions: ") + tr("Short options cannot have optional parameters"));
 }
 
-/**
+/*!
  * Returns the positional parameters from the command line, that is, the arguments that
  * do not begin with the option prefix.
  *
@@ -333,7 +333,7 @@ QStringList QxtCommandOptions::positional() const
     return qxt_d().positional;
 }
 
-/**
+/*!
  * Returns the options that could not be parsed.
  *
  * An argument is unrecognized if it begins with the option prefix but was never
@@ -347,7 +347,7 @@ QStringList QxtCommandOptions::unrecognized() const
     return qxt_d().unrecognized + qxt_d().missingParams;
 }
 
-/**
+/*!
  * Returns the number of times an option was passed on the command line.
  *
  * This function will only return 0 or 1 for an options that was not created with the
@@ -362,7 +362,7 @@ int QxtCommandOptions::count(const QString& name) const
     return option->values.count();
 }
 
-/**
+/*!
  * Returns the value or values for an option passed on the command line.
  *
  * If the option was not passed on the command line, this function returns a null QVariant.
@@ -383,7 +383,7 @@ QVariant QxtCommandOptions::value(const QString& name) const
     return option->values;
 }
 
-/**
+/*!
  * Returns all of the recognized options passed on the command line.
  */
 QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
@@ -413,7 +413,7 @@ QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
     return params;
 }
 
-/**
+/*!
  * This is an overloaded member function, provided for convenience.
  *
  * Process a set of command-line options. This overload accepts a number of
@@ -430,7 +430,7 @@ void QxtCommandOptions::parse(int argc, char** argv)
     parse(args);
 }
 
-/**
+/*!
  * Process a set of command-line options. This overload accepts a QStringList
  * containing the command-line options, such as the one returned by
  * QCoreApplication::arguments().
@@ -596,7 +596,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params)
     }
 }
 
-/**
+/*!
  * This is an overloaded member function, provided for convenience.
  *
  * Outputs a warning about any unrecognized options to the provided device, or
@@ -624,7 +624,7 @@ bool QxtCommandOptions::showUnrecognizedWarning(QIODevice* device) const
     }
 }
 
-/**
+/*!
  * Returns the automatically-generated warning text about any unrecognized options.
  *
  * If a QCoreApplication or a subclass of QCoreApplication has been instantiated,
@@ -641,7 +641,7 @@ QString QxtCommandOptions::getUnrecognizedWarning() const
     return usage;
 }
 
-/**
+/*!
  * This is an overloaded member function, provided for convenience.
  *
  * Outputs a warning about any unrecognized options to the provided stream.
@@ -673,7 +673,7 @@ bool QxtCommandOptions::showUnrecognizedWarning(QTextStream& stream) const
     return true;
 }
 
-/**
+/*!
  * This is an overloaded member function, provided for convenience.
  *
  * Outputs automatically-generated usage text for the accepted options to the provided
@@ -698,7 +698,7 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QIODevice* device) const
     }
 }
 
-/**
+/*!
  * Returns the automatically-generated usage text for the accepted options.
  */
 QString QxtCommandOptions::getUsage(bool showQtOptions) const
@@ -709,7 +709,7 @@ QString QxtCommandOptions::getUsage(bool showQtOptions) const
     return usage;
 }
 
-/**
+/*!
  * This is an overloaded member function, provided for convenience.
  *
  * Outputs automatically-generated usage text for the accepted options to the provided

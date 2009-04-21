@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtWebContent QxtWebContent
 
 \ingroup QxtWeb
@@ -80,7 +80,7 @@ public:
 };
 #endif
 
-/**
+/*!
  * Constructs a QxtWebContent object.
  *
  * The content provided by this constructor is the first \a contentLength bytes
@@ -94,7 +94,7 @@ QxtWebContent::QxtWebContent(int contentLength, QIODevice* device) : QIODevice(d
     qxt_d().init(contentLength, QByteArray(), device);
 }
 
-/**
+/*!
  * Constructs a QxtWebContent object.
  *
  * The content provided by this constructor is the data contained in \a start,
@@ -109,7 +109,7 @@ QxtWebContent::QxtWebContent(int contentLength, const QByteArray& start, QIODevi
     qxt_d().init(contentLength, start, device);
 }
 
-/**
+/*!
  * Constructs a QxtWebContent object with the specified parent.
  *
  * The content provided by this constructor is exactly the data contained in
@@ -121,7 +121,7 @@ QxtWebContent::QxtWebContent(const QByteArray& content, QObject* parent) : QIODe
     qxt_d().init(content.size(), content, 0);
 }
 
-/**
+/*!
  * \reimp
  */
 qint64 QxtWebContent::bytesAvailable() const
@@ -132,7 +132,7 @@ qint64 QxtWebContent::bytesAvailable() const
     return available;
 }
 
-/**
+/*!
  * \reimp
  */
 qint64 QxtWebContent::readData(char* data, qint64 maxSize)
@@ -174,7 +174,7 @@ qint64 QxtWebContent::readData(char* data, qint64 maxSize)
     }
 }
 
-/**
+/*!
  * Returns the number of bytes of content that have not yet been read.
  *
  * Note that not all of the remaining content may be immediately available for
@@ -186,7 +186,7 @@ qint64 QxtWebContent::unreadBytes() const
     return qxt_d().start.size() + qxt_d().bytesRemaining;
 }
 
-/**
+/*!
  * \reimp
  */
 qint64 QxtWebContent::writeData(const char*, qint64)
@@ -195,7 +195,7 @@ qint64 QxtWebContent::writeData(const char*, qint64)
     return -1;
 }
 
-/**
+/*!
  * \reimp
  */
 void QxtWebContent::errorReceived(QAbstractSocket::SocketError)
@@ -203,7 +203,7 @@ void QxtWebContent::errorReceived(QAbstractSocket::SocketError)
     setErrorString(qxt_d().device->errorString());
 }
 
-/**
+/*!
  * Blocks until all of the streaming data has been read from the browser.
  *
  * Note that this function will block events for the thread on which it is called.
@@ -223,7 +223,7 @@ void QxtWebContent::waitForAllContent()
     }
 }
 
-/**
+/*!
  * Discards any data not yet read.
  *
  * After invoking this function, any further data received from the browser
@@ -243,7 +243,7 @@ void QxtWebContent::ignoreRemainingContent()
 typedef QPair<QString, QString> QxtQueryItem;
 #endif
 
-/**
+/*!
  * Extracts the key/value pairs from application/x-www-form-urlencoded data,
  * such as the query string from the URL or the form data from a POST request.
  */
