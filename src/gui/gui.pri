@@ -103,25 +103,39 @@ SOURCES  += qxtscheduleheaderwidget.cpp
 SOURCES  += qxtsortfilterproxymodel.cpp
 
 !qws {
-    # QxtApplication, QxtGlobalShortcut, and QxtWindowSystem are disabled for QWS pending implementation
+    # QxtApplication, QxtGlobalShortcut, QxtScreen and
+    # QxtWindowSystem are disabled for QWS pending implementation
     HEADERS  += qxtapplication.h
     HEADERS  += qxtapplication_p.h
     HEADERS  += qxtglobalshortcut.h
     HEADERS  += qxtglobalshortcut_p.h
+    HEADERS  += qxtscreen.h
+    HEADERS  += qxtscreen_p.h
     HEADERS  += qxtwindowsystem.h
 
     SOURCES  += qxtapplication.cpp
     SOURCES  += qxtglobalshortcut.cpp
+    SOURCES  += qxtscreen.cpp
     SOURCES  += qxtwindowsystem.cpp
 
-    unix:!macx:  SOURCES += qxtapplication_x11.cpp qxtwindowsystem_x11.cpp qxtglobalshortcut_x11.cpp
-    macx {
-           SOURCES += qxtapplication_mac.cpp
-           SOURCES += qxtglobalshortcut_mac.cpp
-           SOURCES -= qxtwindowsystem.cpp
-           HEADERS -= qxtwindowsystem.h
+    unix:!macx {
+        SOURCES += qxtapplication_x11.cpp
+        SOURCES += qxtglobalshortcut_x11.cpp
+        SOURCES += qxtscreen_x11.cpp
+        SOURCES += qxtwindowsystem_x11.cpp
     }
-    win32: SOURCES += qxtapplication_win.cpp qxtwindowsystem_win.cpp qxtglobalshortcut_win.cpp
+    macx {
+        SOURCES += qxtapplication_mac.cpp
+        SOURCES += qxtglobalshortcut_mac.cpp
+        SOURCES -= qxtscreen.cpp qxtwindowsystem.cpp
+        HEADERS -= qxtscreen.h qxtwindowsystem.h
+    }
+    win32 {
+        SOURCES += qxtapplication_win.cpp
+        SOURCES += qxtglobalshortcut_win.cpp
+        SOURCES += qxtscreen_win.cpp
+        SOURCES += qxtwindowsystem_win.cpp
+    }
 }
 
 RESOURCES += resources.qrc
