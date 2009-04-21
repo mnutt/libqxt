@@ -1,0 +1,50 @@
+/****************************************************************************
+ **
+ ** Copyright (C) Qxt Foundation. Some rights reserved.
+ **
+ ** This file is part of the documentation of the Qxt library.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the Common Public License, version 1.0, as published
+ ** by IBM, and/or under the terms of the GNU Lesser General Public License,
+ ** version 2.1, as published by the Free Software Foundation.
+ **
+ ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+ ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+ ** FITNESS FOR A PARTICULAR PURPOSE.
+ **
+ ** You should have received a copy of the CPL and the LGPL along with this
+ ** file. See the LICENSE file and the cpl1.0.txt/lgpl-2.1.txt files
+ ** included with the source distribution for more information.
+ ** If you did not receive a copy of the licenses, contact the Qxt Foundation.
+ **
+ ** <http://libqxt.org>  <foundation@libqxt.org>
+ **
+ ****************************************************************************/
+
+/*!
+    \group modules
+    \title Qxt's Modules
+    \startpage index.html Qxt Reference Documentation
+    \nextpage QxtCore
+
+    Qxt consists of several modules, each of which lives in a
+    separate library:
+
+    \table 80%
+    \row \o \l{QxtCore} \o Core non-graphical classes used by other modules
+    \row \o \l{QxtGui} \o Graphical user interface (GUI) components
+    \row \o \l{QxtNetwork} \o Classes for network programming
+    \endtable
+
+    If you use \l qmake to build your projects, the QxtCore and QxtGui
+    modules are included by default. To link only against QxtCore, add
+    the following line to your \c .pro file:
+
+    \code
+    QXT = core
+    \endcode
+
+    \sa {Qxt's Classes}
+*/

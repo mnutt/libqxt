@@ -69,7 +69,22 @@
 #include "qxtwindowsystem.h"
 #include "qxtsortfilterproxymodel.h"
 
-/** \defgroup QxtGui QxtGui
-    \brief    The QxtGui module extends QtGui.
+/*!
+    \module QxtGui
+    \title QxtGui Module
+    \contentspage Qxt's Modules
+    \previouspage QxtCore
+    \nextpage QxtNetwork
+    \ingroup modules
+
+    \brief The QxtGui module extends QxtCore and QtGui.
+
+    To include the definitions of both Qxt modules' classes, use the
+    following directive:
+
+    \code
+    QXT = core gui
+    \endcode
 */
+
 #endif // QXTGUI_H_INCLUDED

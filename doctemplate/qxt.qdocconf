@@ -30,7 +30,7 @@ qhp.Qxt.subprojects.examples.indexTitle = Qxt Examples
 qhp.Qxt.subprojects.examples.selectors = fake:example
 
 headerdirs              = $QXTDIR/src
-sourcedirs              = $QXTDIR/src
+sourcedirs              = $QXTDIR/src $QXTDIR/doctemplate
 excludedirs             = $QXTDIR/src/crypto/thirdparty \
                           $QXTDIR/src/designer
 
