@@ -310,7 +310,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
 /*!
     \class QxtSpanSlider QxtSpanSlider
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A QSlider with two handles.
 
     QxtSpanSlider is a slider with two handles. QxtSpanSlider is

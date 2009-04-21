@@ -24,7 +24,7 @@
  ****************************************************************************/
 /*!
 \class QxtSharedPrivate QxtSharedPrivate
-\ingroup QxtCore
+\inmodule QxtCore
 \brief base class for shared data objects using the pimpl idom
 
 

@@ -28,7 +28,7 @@
 
 /*!
     \class QxtModelSerializer QxtModelSerializer
-    \ingroup QxtCore
+    \inmodule QxtCore
     \brief Provides serialization of QAbstractItemModel
  */
 

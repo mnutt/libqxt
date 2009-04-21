@@ -30,7 +30,7 @@
 
 /*!
     \class QxtBlowfish QxtBlowfish
-    \ingroup QxtCrypto
+    \inmodule QxtCrypto
     \brief Blowfish encryption class
 
     Usage:

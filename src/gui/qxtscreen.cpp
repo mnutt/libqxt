@@ -29,7 +29,7 @@
 
 /*!
     \class QxtScreen QxtScreen
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief QxtScreen provides access to screen settings.
 
     QxtScreen provides access to screen settings.

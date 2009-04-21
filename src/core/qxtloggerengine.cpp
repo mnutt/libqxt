@@ -27,7 +27,7 @@
 
 /*! \class QxtLoggerEngine QxtLoggerEngine
     \brief The parent class of all extended Engine Plugins.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     \section Overview
     QxtLoggerEngine is what gives the QxtLogger it's power.  While the Logger itself

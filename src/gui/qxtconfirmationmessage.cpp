@@ -150,7 +150,7 @@ void QxtConfirmationMessagePrivate::reset()
 
 /*!
     \class QxtConfirmationMessage QxtConfirmationMessage
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A confirmation message.
 
     QxtConfirmationMessage is a confirmation message with checkable

@@ -29,7 +29,7 @@
 
 /*!
     \class QxtNativeEventFilter QxtNativeEventFilter
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A native event filter to access platform specific events.
 
     QxtNativeEventFilter provides access to platform specific native events

@@ -53,7 +53,7 @@
 
 /*!
     \class QxtFlowView QxtFlowView
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An ItemView for Images with impressive Flow effects
 
     an image show widget with animation effect

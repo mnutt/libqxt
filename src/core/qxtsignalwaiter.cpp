@@ -26,7 +26,7 @@
 /*!
 \class QxtSignalWaiter QxtSignalWaiter
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Block and process events until a signal is emitted
 

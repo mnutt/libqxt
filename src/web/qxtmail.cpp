@@ -27,7 +27,7 @@
 
 /*!
         \class QxtMail QxtMail
-        \ingroup QxtWeb
+        \inmodule QxtWeb
         \brief Implicit shared contianer, reflecting a rfc822 mail
 
 

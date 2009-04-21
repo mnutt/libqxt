@@ -30,7 +30,7 @@
 
 /*!
     \class QxtSlotMapper QxtSlotMapper
-    \ingroup QxtCore
+    \inmodule QxtCore
     \brief The QxtSlotMapper class map signals with a parameter to certain slots.
 
     QxtSlotMapper is the counterpart of QSignalMapper. Where QSignalMapper maps

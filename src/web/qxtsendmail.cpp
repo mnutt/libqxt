@@ -28,7 +28,7 @@
 
 /*!
         \class QxtSendmail QxtSendmail
-        \ingroup QxtWeb
+        \inmodule QxtWeb
         \brief can send your QxtMail using the local sendmail program
 */
 

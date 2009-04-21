@@ -148,7 +148,7 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role) const
 
 /*!
     \class QxtCountryModel QxtCountryModel
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A subclass of QAbstractTableModel to display country data.
 
     QxtCountryModel is a specialized QAbstractTableModel to display countries.

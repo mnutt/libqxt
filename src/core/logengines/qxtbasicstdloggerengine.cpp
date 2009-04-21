@@ -32,7 +32,7 @@
 /*!
     \class QxtBasicSTDLoggerEngine QxtBasicSTDLoggerEngine
     \brief A basic STD logger engine.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     Example basic STD log output:
     \code

@@ -27,7 +27,7 @@
 /*!
 \class QxtWebSlotService QxtWebSlotService
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Provides a Slot based webservice
 
