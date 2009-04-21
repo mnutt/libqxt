@@ -12,7 +12,7 @@ qhp.Qxt.namespace       = org.libqxt.060
 qhp.Qxt.virtualFolder   = qdoc
 qhp.Qxt.indexTitle      = Qxt Reference Documentation
 qhp.Qxt.indexRoot       = 
-qhp.Qxt.extraFiles      = stylesheet.css doctemplate/qxt-logo.png
+qhp.Qxt.extraFiles      = stylesheet.css
 
 qhp.Qxt.filterAttributes = qxt 0.6.0 qxtrefdoc
 qhp.Qxt.customFilters.Qxt.name = Qxt 0.6.0
@@ -42,6 +42,36 @@ imagedirs               = $QXTDIR/doctemplate
 outputdir               = $QXTDIR/deploy/docs
 tagfile                 = $QXTDIR/deploy/docs/qxt.tags
 base                    = file:$QXTDIR/deploy/docs
+
+extraimages.HTML        = implicitshared.png \
+                          logo.png \
+                          note.png \
+                          qxtbasespinbox.png \
+                          qxtcheckcombobox.png \
+                          qxtconfigdialog.png \
+                          qxtconfirmationmessage.png \
+                          qxtcountrycombobox.png \
+                          qxtcountrymodel.png \
+                          qxtflowview.png \
+                          qxtgroupbox.png \
+                          qxtheaderview.png \
+                          qxtlabel.png \
+                          qxtlanguagecombobox.png \
+                          qxtlineedit.png \
+                          qxtlistwidget.png \
+                          qxt-logo.png \
+                          qxtprogresslabel.png \
+                          qxtpushbutton.png \
+                          qxtslotmapper.png \
+                          qxtspanslider.png \
+                          qxtstars.png \
+                          qxtstringspinbox.png \
+                          qxttablewidget.png \
+                          qxttabwidget.png \
+                          qxttooltip.png \
+                          qxttreewidget.png \
+                          see.png \
+                          warning.png
 
 HTML.stylesheets        = stylesheet.css
 HTML.postheader         = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" \
