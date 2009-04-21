@@ -43,11 +43,11 @@ while (( $# > 0 )); do
         echo "CONFIG += bootstrap" >> config.in; shift
     elif [ $1 == "-nomake" ]; then
         echo "QXT_BUILD -= $2" >> config.in; shift
-        if [ $2 == "gui" ]; then
+        if [ $1 == "gui" ]; then
             echo "QXT_LIBS -= xss" >> config.in
             NO_XSS=1
         fi
-        if [ $2 == "zeroconf" ]; then
+        if [ $1 == "zeroconf" ]; then
             echo "QXT_LIBS -= zeroconf" >> config.in
             NO_ZEROCONF=1
         fi
