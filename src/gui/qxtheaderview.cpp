@@ -41,7 +41,7 @@ QxtHeaderViewPrivate::QxtHeaderViewPrivate() : proportional(false)
 
 /*!
     \class QxtHeaderView QxtHeaderView
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QHeaderView with optionally proportional section sizes.
  */
 

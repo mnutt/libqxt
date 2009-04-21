@@ -30,7 +30,7 @@
 /*!
 \class QxtWebEvent QxtWebEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Base class of all QxtWeb event types
 
@@ -66,7 +66,7 @@ QxtWebEvent::~QxtWebEvent() {}
 /*!
 \class QxtWebRequestEvent QxtWebRequestEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes a request from a web browser
 
@@ -136,7 +136,7 @@ QxtWebFileUploadEvent::QxtWebFileUploadEvent(int sessionID)
 /*!
 \class QxtWebErrorEvent QxtWebErrorEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes an error condition to be sent to a web browser
 
@@ -166,7 +166,7 @@ QxtWebErrorEvent::QxtWebErrorEvent(int sessionID, int requestID, int statusCode,
 /*!
 \class QxtWebPageEvent QxtWebPageEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes a web page or other content to be sent to a web browser
 
@@ -288,7 +288,7 @@ QxtWebPageEvent::~QxtWebPageEvent()
 /*!
 \class QxtWebStoreCookieEvent QxtWebStoreCookieEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes a cookie to be sent to a web browser
 
@@ -327,7 +327,7 @@ QxtWebStoreCookieEvent::QxtWebStoreCookieEvent(int sessionID, QString name, QStr
 /*!
 \class QxtWebRemoveCookieEvent QxtWebRemoveCookieEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes a cookie to be deleted from a web browser
 
@@ -350,7 +350,7 @@ QxtWebRemoveCookieEvent::QxtWebRemoveCookieEvent(int sessionID, QString name)
 /*!
 \class QxtWebRedirectEvent QxtWebRedirectEvent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Describes a redirect event to be sent to a web browser
 

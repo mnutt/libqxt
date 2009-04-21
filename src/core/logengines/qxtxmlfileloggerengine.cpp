@@ -29,7 +29,7 @@
 /*!
     \class QxtXmlFileLoggerEngine QxtXmlFileLoggerEngine
     \brief An XML file logger engine.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     Example XML log output:
     \code

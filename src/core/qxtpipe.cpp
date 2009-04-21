@@ -30,7 +30,7 @@
 
 /*!
  * \class  QxtPipe QxtPipe
- * \ingroup QxtCore
+ * \inmodule QxtCore
  * \brief a pipeable QIODevice
  *
  * pipes can be connected to other pipes, to exchange data \n

@@ -26,7 +26,7 @@
 /*!
 \class QxtAbstractWebService QxtAbstractWebService
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Base interface for web services
 

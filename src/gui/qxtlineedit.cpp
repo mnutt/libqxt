@@ -38,7 +38,7 @@ struct QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
 
 /*!
     \class QxtLineEdit QxtLineEdit
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A line edit that is able to show a sample text.
 
     QxtLineEdit is a line edit that is able to show a sample text.

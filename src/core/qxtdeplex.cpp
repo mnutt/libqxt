@@ -27,7 +27,7 @@
 /*!
 \class QxtDeplex QxtDeplex
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief put a standard QIODevice into a QxtPipe chain
 

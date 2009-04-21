@@ -26,7 +26,7 @@
 /*!
 \class QxtJob QxtJob
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Execute a Job on a QThread. once or multiple times.
 

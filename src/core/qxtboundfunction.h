@@ -37,7 +37,7 @@
 /*!
 \class QxtBoundFunction
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Binds parameters to a function call
 

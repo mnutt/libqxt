@@ -48,7 +48,7 @@ QSize QxtDockWidgetPrivate::contentsSize() const
 
 /*!
     \class QxtDockWidget QxtDockWidget
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QDockWidget that remembers its size.
 
     QxtDockWidget fills in the gap in QDockWidget and makes the dock

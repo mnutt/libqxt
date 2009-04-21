@@ -31,7 +31,7 @@
 
 /*!
     \class QxtItemEditorCreator QxtItemEditorCreator
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QItemEditorCreator with default values for user-chosen properties.
 
     The QxtItemEditorCreator class provides the possibility to set default values for

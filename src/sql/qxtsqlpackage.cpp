@@ -34,7 +34,7 @@
 /*!
 \class QxtSqlPackage QxtSqlPackage
 
-\ingroup QxtSql
+\inmodule QxtSql
 
 \brief full serialiseable QSqlQuery storage
 

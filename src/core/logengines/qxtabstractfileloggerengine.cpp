@@ -28,7 +28,7 @@
 /*!
     \class QxtAbstractFileLoggerEngine QxtAbstractFileLoggerEngine
     \brief The base class of file logger engines.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     \sa QxtLogger
  */
