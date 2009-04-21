@@ -43,6 +43,7 @@
 #include "qxtlabel.h"
 #include "qxtlanguagecombobox.h"
 #include "qxtletterboxwidget.h"
+#include "qxtlineedit.h"
 #include "qxtlistwidget.h"
 #include "qxtlistwidgetitem.h"
 #include "qxtnativeeventfilter.h"
