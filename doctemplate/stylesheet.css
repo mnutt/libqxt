@@ -1,170 +1,131 @@
-body
-{
-    background: #ffffff;
-    color: black
-}
-pre
-{
-    font-size:0.9em;
-    padding-left: 10px;
-    padding-top:5px;
-    padding-right:5px;
-    padding-bottom:5px;
-    border: #e7e7e7 1px solid;
-    background: #f1f1f1;
-    color: black;
-}
-.code
-{
-    font-size:0.9em;
-    padding-left: 10px;
-    padding-top:5px;
-    padding-right:5px;
-    padding-bottom:5px;
-    border: #e7e7e7 1px solid;
-    background: #f1f1f1;
-    color: black;
-}
-
 h3.fn,span.fn
 {
-    margin-left: 1cm;
-    text-indent: -1cm;
+  margin-left: 1cm;
+  text-indent: -1cm;
 }
 
 a:link
 {
-    color: #6FA013;
-    text-decoration: none
+  color: #004faf;
+  text-decoration: none
 }
 
 a:visited
 {
-    color: #6FA013;
-    text-decoration: none
+  color: #672967;
+  text-decoration: none
 }
 
-br
+a.obsolete
 {
-    clear:both;
+  color: #661100;
+  text-decoration: none
 }
 
-#menu a
+a.compat
 {
-    display:inline;
-}
-.sectionlist a,.reflink
-{
-    font-weight:bold;
+  color: #661100;
+  text-decoration: none
 }
 
-#propertylist li
+a.obsolete:visited
 {
-    width:50%;
-    float:left;
+  color: #995500;
+  text-decoration: none
 }
 
-
-
-
-#classlist
+a.compat:visited
 {
-    text-align:left;
-}
-#classlist th
-{
-    background:#ddd;
+  color: #995500;
+  text-decoration: none
 }
 
-
-#modulelist
+td.postheader
 {
-    text-align:left;
-}
-#modulelist td
-{
-    padding:5px;
+  font-family: sans-serif
 }
 
-.oddeven_0
+tr.address
 {
-    background:#F0F0F0;
-}
-.oddeven_1
-{
-    background:#E4E4E4;
+  font-family: sans-serif
 }
 
-
-a.reflinkblock
+body
 {
-    font-weight:bold;
-    display:block;
-    padding:5px;
-    margin:-5px;
+  background: #ffffff;
+  color: black
 }
 
-
-
-.descimg
-{
-    border: 1px solid #ddd;
+table tr.odd {
+  background: #f0f0f0;
+  color: black;
 }
 
-
-.highlight_normal
-{
-}
-.highlight_keywordtype
-{
-    font-weight:bold;
-}
-.highlight_stringliteral
-{
-    color:darkred;
-}
-.highlight_preprocessor
-{
-    color:darkgreen;
-}
-.highlight_keyword
-{
-    font-weight:bold;
+table tr.even {
+  background: #e4e4e4;
+  color: black;
 }
 
-
-
-.simplesect
-{
-    border:1px solid #eee;
-    padding:8px;
-}
-.simplesect img
-{
-    vertical-align:middle;
+table.annotated th {
+  padding: 3px;
+  text-align: left
 }
 
-
-.member_brief
-{
-    font-size:0.8em;
+table.annotated td {
+  padding: 3px;
 }
 
-
-.member
+table tr pre
 {
-
-    padding:3px;
+  padding-top: none;
+  padding-bottom: none;
+  padding-left: none;
+  padding-right: none;
+  border: none;
+  background: none
 }
 
-
-
-table.desctable 
+tr.qt-style
 {
-    width:50%;
+  background: #96E066;
+  color: black
 }
 
-table.desctable p
+body pre
 {
-    display:inline;
+  padding: 0.2em;
+  border: #e7e7e7 1px solid;
+  background: #f1f1f1;
+  color: black
+}
+
+span.preprocessor, span.preprocessor a
+{
+  color: darkblue;
+}
+
+span.comment
+{
+  color: darkred;
+  font-style: italic
+}
+
+span.string,span.char
+{
+  color: darkgreen;
+}
+
+.title
+{
+    text-align: center
+}
+
+.subtitle
+{
+    font-size: 0.8em
+}
+
+.small-subtitle
+{
+    font-size: 0.65em
 }
