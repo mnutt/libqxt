@@ -40,6 +40,7 @@
 #include "qxttreewidgetplugin.h"
 #include "qxtflowviewplugin.h"
 #include "qxtletterboxwidgetplugin.h"
+#include "qxtlineeditplugin.h"
 
 #include <QtPlugin>
 
@@ -48,6 +49,7 @@ QList<QDesignerCustomWidgetInterface*> QxtDesignerPlugins::customWidgets() const
     QList<QDesignerCustomWidgetInterface*> plugins;
     plugins << new QxtLabelPlugin()
     << new QxtPushButtonPlugin()
+    << new QxtLineEditPlugin()
     << new QxtCheckComboBoxPlugin()
     << new QxtSpanSliderPlugin()
     << new QxtBaseSpinBoxPlugin()
