@@ -1,0 +1,240 @@
+/****************************************************************************
+ **
+ ** Copyright (C) Qxt Foundation. Some rights reserved.
+ **
+ ** This file is part of the documentation of the Qxt library.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the Common Public License, version 1.0, as published
+ ** by IBM, and/or under the terms of the GNU Lesser General Public License,
+ ** version 2.1, as published by the Free Software Foundation.
+ **
+ ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+ ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+ ** FITNESS FOR A PARTICULAR PURPOSE.
+ **
+ ** You should have received a copy of the CPL and the LGPL along with this
+ ** file. See the LICENSE file and the cpl1.0.txt/lgpl-2.1.txt files
+ ** included with the source distribution for more information.
+ ** If you did not receive a copy of the licenses, contact the Qxt Foundation.
+ **
+ ** <http://libqxt.org>  <foundation@libqxt.org>
+ **
+ ****************************************************************************/
+
+/*!
+    \page index.html
+
+    \keyword Qxt Reference Documentation
+    \title Qxt Reference Documentation
+
+    Qxt provides classes for extended needs based on the Qt Library by Trolltech
+
+    \raw HTML
+        <table cellpadding="2" cellspacing="1" border="0" width="100%" bgcolor="#e5e5e5">
+        <tr>
+        <th bgcolor="#66b036" width="33%">
+        Getting Started
+        </th>
+        <th bgcolor="#66b036" width="33%">
+        General
+        </th>
+        <th bgcolor="#66b036" width="33%">
+        Developer Resources
+        </th>
+        </tr>
+        <tr>
+        <td valign="top">
+        <ul>
+        <li><strong><a href="qt4-5-intro.html">What's New in Qt 4.5</a></strong></li>
+        <li><a href="how-to-learn-qt.html">How to Learn Qt</a></li>
+        <li><a href="installation.html">Installation</a></li>
+        <li><a href="tutorials.html">Tutorials</a>, <a href="examples.html">Examples</a> and <a href="demos.html">Demonstrations</a></li>
+        <li><a href="porting4.html">Porting from Qt 3 to Qt 4</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="http://www.qtsoftware.com/products">About Qt</a></li>
+        <li><a href="http://www.qtsoftware.com/about">About Us</a></li>
+        <li><a href="commercialeditions.html">Commercial Edition</a></li>
+        <li><a href="opensourceedition.html">Open Source Edition</a></li>
+        <li><a href="supported-platforms.html">Supported Platforms</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="http://www.qtsoftware.com/developer/faqs/">Frequently Asked Questions</a></li>
+        <li><a href="http://www.qtsoftware.com/developer/community/">Qt Community Web Sites</a></li>
+        <li><a href="http://doc.trolltech.com/qq/">Qt Quarterly</a></li>
+        <li><a href="bughowto.html">How to Report a Bug</a></li>
+        <li><a href="http://www.qtsoftware.com/developer/">Other Online Resources</a></li>
+        </ul>
+        </td>
+        </tr>
+        <tr>
+        <th bgcolor="#66b036">
+        API Reference
+        </th>
+        <th bgcolor="#66b036">
+        Core Features
+        </th>
+        <th bgcolor="#66b036">
+        Key Technologies
+        </th>
+        </tr>
+        <tr>
+        <td valign="top">
+        <ul>
+        <li><a href="modules.html">Modules</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="namespaces.html">Namespaces</a></li>
+        <li><a href="functions.html">Functions</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="signalsandslots.html">Signals and Slots</a></li>
+        <li><a href="object.html">Object Model</a></li>
+        <li><a href="layout.html">Layout Management</a></li>
+        <li><a href="qt4-mainwindow.html">Main Window Architecture</a></li>
+        <li><a href="paintsystem.html">Paint System</a></li>
+        <li><a href="graphicsview.html">Graphics View</a></li>
+        <li><a href="accessible.html">Accessibility</a></li>
+        <li><a href="containers.html">Tool and Container Classes</a></li>
+        <li><a href="richtext.html">Rich Text Processing</a></li>
+        <li><a href="i18n.html">Internationalization</a></li>
+        <li><a href="plugins-howto.html">Plugin System</a></li>
+        <li><a href="threads.html">Multithreaded Programming</a></li>
+        <li><a href="ipc.html">Inter-Process Communication (IPC)</a></li>
+        <li><a href="qtestlib-manual.html">Unit Testing Framework</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="model-view-programming.html">Model/View Programming</a></li>
+        <li><a href="stylesheet.html">Style Sheets</a></li>
+        <li><a href="qthelp.html">Help Module</a></li>
+        <li><a href="qtnetwork.html">Network Module</a></li>
+        <li><a href="qtopengl.html">OpenGL Module</a></li>
+        <li><a href="qtscript.html">Script Module</a></li>
+        <li><a href="qtsql.html">SQL Module</a></li>
+        <li><a href="qtsvg.html">SVG Module</a></li>
+        <li><a href="qtwebkit.html">WebKit Integration</a></li>
+        <li><a href="qtxml.html">XML Module</a></li>
+        <li><a href="qtxmlpatterns.html">XML Patterns: XQuery &amp; XPath</a></li>
+        <li><a href="phonon-module.html">Phonon Multimedia Framework</a></li>
+        <li><a href="qtscripttools.html">Script Tools Module</a></li>
+        <li><a href="activeqt.html">ActiveQt Framework</a></li>
+        </ul>
+        </td>
+        </tr>
+        <tr>
+        <th bgcolor="#66b036">
+        Add-ons &amp; Services
+        </th>
+        <th bgcolor="#66b036">
+        Tools
+        </th>
+        <th bgcolor="#66b036">
+        Licenses &amp; Credits
+        </th>
+        </tr>
+        <tr>
+        <td valign="top">
+        <ul>
+        <li><a href="http://www.qtsoftware.com/products/add-on-products">Qt Solutions</a></li>
+        <li><a href="http://www.qtsoftware.com/products/qt/3rdparty/">Partner Add-ons</a></li>
+        <li><a href="http://qt-apps.org">Third-Party Qt Components (qt-apps.org)</a></li>
+        <li><a href="http://www.qtsoftware.com/support/">Support</a></li>
+        <li><a href="http://www.qtsoftware.com/support/training/">Training</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="designer-manual.html">Qt Designer</a></li>
+        <li><a href="assistant-manual.html">Qt Assistant</a></li>
+        <li><a href="linguist-manual.html">Qt Linguist</a></li>
+        <li><a href="qmake-manual.html">qmake</a></li>
+        <li><a href="qttools.html">All Tools</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="gpl.html">GNU GPL</a>, <a href="lgpl.html">GNU LGPL</a></li>
+        <li><a href="3rdparty.html">Third-Party Licenses Used in Qt</a></li>
+        <li><a href="licenses.html">Other Licenses Used in Qt</a></li>
+        <li><a href="trademarks.html">Trademark Information</a></li>
+        <li><a href="credits.html">Credits</a></li>
+        </ul>
+        </td>
+        </tr>
+        </table>
+    \endraw
+*/
+
+/*!
+    \group modules
+    \title Qxt's Modules
+
+    Qxt consists of several modules, each of which lives in a
+    separate library:
+
+    \table 80%
+    \row \o \l{QxtBerkeley} \o The QxtBerkeley module provides a Qt interface to the Berkeley DB.
+    \row \o \l{QxtCore} \o The QxtCore module extends QtCore and contains core non-GUI functionality.
+    \row \o \l{QxtCrypto} \o The QxtCrypto module provides tools for encryption and hashing.
+    \row \o \l{QxtGui} \o The QxtGui module extends QxtCore and QtGui.
+    \row \o \l{QxtNetwork} \o The QxtNetwork module extends QtNetwork with RPC functionality.
+    \row \o \l{QxtSql} \o The QxtSql module extends QtSql with serializable queries.
+    \row \o \l{QxtWeb} \o The QxtWeb module provides tools for creating web services using Qt.
+    \row \o \l{QxtZeroConf} \o TODO
+    \endtable
+
+    If you use \l qmake to build your projects, the QxtCore and QxtGui
+    modules are included by default. To link only against QxtCore, add
+    the following line to your \c .pro file:
+
+    \code
+    QXT = core
+    \endcode
+
+    \sa {Qxt's Classes}, {Qxt's Namespaces}, {Qxt's Functions}
+*/
+
+/*!
+    \page classes.html
+    \title Qxt's Classes
+    \ingroup classlists
+
+    This is a list of all Qxt classes.
+
+    \generatelist classes
+
+    \sa {Qxt's Modules}, {Qxt's Namespaces}, {Qxt's Functions}
+*/
+
+/*!
+    \page namespaces.html
+    \title Qxt's Namespaces
+    \ingroup classlists
+
+    This is a list of the main namespaces in Qxt.
+
+    \generatelist{namespaces}
+
+    \sa {Qxt's Modules}, {Qxt's Classes}, {Qxt's Functions}
+*/
+
+/*!
+    \page functions.html
+    \title Qxt's Functions
+    \ingroup classlists
+
+    This is a list of all Qxt functions.
+
+    \generatelist functionindex
+
+    \sa {Qxt's Modules}, {Qxt's Classes}, {Qxt's Namespaces}
+*/
