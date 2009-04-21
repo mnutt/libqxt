@@ -29,6 +29,7 @@ qhp.Qxt.subprojects.examples.title = Tutorials and Examples
 qhp.Qxt.subprojects.examples.indexTitle = Qxt Examples
 qhp.Qxt.subprojects.examples.selectors = fake:example
 
+indexes                 = $QTDIR/doc/html/qt.index
 headerdirs              = $QXTDIR/src
 sourcedirs              = $QXTDIR/src $QXTDIR/doctemplate
 excludedirs             = $QXTDIR/src/crypto/thirdparty \
@@ -84,16 +85,12 @@ HTML.postheader         = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0
                           "<td class=\"postheader\" valign=\"center\">" \
                           "<a href=\"index.html\">" \
                           "<font color=\"#004faf\">Home</font></a>&nbsp;&middot;" \
-                          " <a href=\"namespaces.html\">" \
-                          "<font color=\"#004faf\">All&nbsp;Namespaces</font></a>&nbsp;&middot;" \
-                          " <a href=\"classes.html\">" \
-                          "<font color=\"#004faf\">All&nbsp;Classes</font></a>&nbsp;&middot;" \
-                          " <a href=\"mainclasses.html\">" \
-                          "<font color=\"#004faf\">Main&nbsp;Classes</font></a>&nbsp;&middot;" \
-                          " <a href=\"groups.html\">" \
-                          "<font color=\"#004faf\">Grouped&nbsp;Classes</font></a>&nbsp;&middot;" \
                           " <a href=\"modules.html\">" \
                           "<font color=\"#004faf\">Modules</font></a>&nbsp;&middot;" \
+                          " <a href=\"classes.html\">" \
+                          "<font color=\"#004faf\">Classes</font></a>&nbsp;&middot;" \
+                          " <a href=\"namespaces.html\">" \
+                          "<font color=\"#004faf\">Namespaces</font></a>&nbsp;&middot;" \
                           " <a href=\"functions.html\">" \
                           "<font color=\"#004faf\">Functions</font></a>" \
                           "</td>\n" \
