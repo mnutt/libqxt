@@ -31,6 +31,8 @@
 
     \brief The QxtCore module extends QtCore and contains core non-GUI functionality.
 
+    \generatelist{classesbymodule QxtCore}
+
     All other Qt modules rely on this module. To include the
     definitions of the module's classes, use the following directive:
 
@@ -47,6 +49,8 @@
 
     \brief The QxtGui module extends QxtCore and QtGui.
 
+    \generatelist{classesbymodule QxtGui}
+
     To include the definitions of both Qxt modules' classes, use the
     following directive:
 
@@ -62,6 +66,8 @@
     \ingroup modules
 
     \brief The QxtBerkeley module provides a Qt interface to the Berkeley DB.
+
+    \generatelist{classesbymodule QxtBerkeley}
 
     berkeley db is in wide use where relational databases, especially SQL, are not desired due to heavy overhead or its programming complexity. QxtBerkeley provides you an extremly easy to use interface to the fast and stable file based berkeley database. The API is designed after Qts tulip container classes.
 
@@ -91,6 +97,8 @@
     \ingroup modules
 
     \brief The QxtCrypto module provides tools for encryption and hashing.
+
+    \generatelist{classesbymodule QxtCrypto}
 */
 
 /*!
@@ -100,6 +108,8 @@
     \ingroup modules
 
     \brief The QxtNetwork module extends QtNetwork with RPC functionality.
+
+    \generatelist{classesbymodule QxtNetwork}
 */
 
 /*!
@@ -109,6 +119,8 @@
     \ingroup modules
 
     \brief The QxtSql module extends QtSql with serializable queries.
+
+    \generatelist{classesbymodule QxtSql}
 */
 
 /*!
@@ -134,6 +146,8 @@
     a QxtWebPageEvent to the session manager. This is done asynchronously; there is no requirement that the pageRequestedEvent handler
     must respond to the request before the function ends, but such a response must eventually be posted or the web browser will eventually
     time out.
+
+    \generatelist{classesbymodule QxtWeb}
 */
 
 /*!
@@ -143,4 +157,6 @@
     \ingroup modules
 
     \brief TODO
+
+    \generatelist{classesbymodule QxtZeroConf}
 */
