@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtSignalGroup QxtSignalGroup
 
 \ingroup QxtCore
@@ -100,7 +100,7 @@ protected:
     }
 };
 
-/**
+/*!
  * Constructs a QxtSignalWaiter with the specified parent.
  */
 QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent)
@@ -108,7 +108,7 @@ QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent)
     QXT_INIT_PRIVATE(QxtSignalGroup);
 }
 
-/**
+/*!
  * Returns true if at least one attached signal has been emitted since the last reset().
  */
 bool QxtSignalGroup::hasReceivedFirstSignal() const
@@ -116,7 +116,7 @@ bool QxtSignalGroup::hasReceivedFirstSignal() const
     return qxt_d().emitCount > 0;
 }
 
-/**
+/*!
  * Returns true if every attached signal has been emitted at least once since the last reset().
  */
 bool QxtSignalGroup::hasReceivedAllSignals() const
@@ -124,7 +124,7 @@ bool QxtSignalGroup::hasReceivedAllSignals() const
     return (qxt_d().emitCount + qxt_d().disconnectCount) >= qxt_d().emittedSignals.count();
 }
 
-/**
+/*!
  * Add a signal to the group.
  */
 void QxtSignalGroup::addSignal(QObject* sender, const char* sig)
@@ -141,7 +141,7 @@ void QxtSignalGroup::addSignal(QObject* sender, const char* sig)
     }
 }
 
-/**
+/*!
  * Remove a signal from the group.
  */
 void QxtSignalGroup::removeSignal(QObject* sender, const char* sig)
@@ -150,7 +150,7 @@ void QxtSignalGroup::removeSignal(QObject* sender, const char* sig)
         qxt_d().disconnectCount++;
 }
 
-/**
+/*!
  * Reset the signal tracking, that is, after calling reset() no signals are considered to have been caught.
  */
 void QxtSignalGroup::reset()
@@ -159,7 +159,7 @@ void QxtSignalGroup::reset()
     qxt_d().emitCount = 0;
 }
 
-/**
+/*!
  * Removes all signals from the group and resets the signal tracking.
  */
 void QxtSignalGroup::clear()
@@ -169,13 +169,13 @@ void QxtSignalGroup::clear()
     qxt_d().disconnectCount = 0;
 }
 
-/**
+/*!
  * \fn void QxtSignalGroup::firstSignalReceived();
  * This signal is emitted the first time a signal in the group is emitted.
  * After this signal is emitted once, you must call reset() before it can be emitted again.
  */
 
-/**
+/*!
  * \fn void QxtSignalGroup::allSignalsReceived();
  * This signal is emitted after every signal in the group has been emitted at least once.
  * After this signal is emitted once, you must call reset() before it can be emitted again.

@@ -24,7 +24,7 @@
  ****************************************************************************/
 #include "qxtdeplex_p.h"
 
-/**
+/*!
 \class QxtDeplex QxtDeplex
 
 \ingroup QxtCore
@@ -39,7 +39,7 @@ implements a normal QxtPipe with the exception that r/w operations are delegated
 \sa QxtPipe
 */
 
-/**
+/*!
 \fn QxtDeplex::QxtDeplex(QObject * parent)
 \brief creates a new QxtDeplex
 

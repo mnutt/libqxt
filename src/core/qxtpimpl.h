@@ -35,7 +35,7 @@
 ** this file shall be copyright (C) 2006-2008 by Adam Higerd.
 ****************************************************************************/
 
-/**
+/*!
 \class QxtPimpl QxtPimpl
 \ingroup QxtCore
 \brief Hide private details of a class

@@ -28,7 +28,7 @@
 
 #include <QIODevice>
 
-/**
+/*!
 \class QxtLineSocket QxtLineSocket
 
 \ingroup QxtCore

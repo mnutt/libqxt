@@ -45,17 +45,17 @@ public:
     void stopListening();
 
 Q_SIGNALS:
-    /**
+    /*!
      * This signal is emitted after a successful connection to a server.
      */
     void connectedToServer();
 
-    /**
+    /*!
      * This signal is emitted after disconnecting from a server.
      */
     void disconnectedFromServer();
 
-    /**
+    /*!
      * This signal is emitted if an error occurs on the socket connected to the server.
      */
     void serverError(QAbstractSocket::SocketError);

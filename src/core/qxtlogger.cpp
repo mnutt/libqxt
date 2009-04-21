@@ -606,7 +606,7 @@ QxtLogger::QxtLogger()
     setMinimumLevel("DEFAULT", QxtLogger::InfoLevel);
 }
 
-/***************************************************************************//**
+/***************************************************************************//*!
     Destructor.
     The Destructor for QxtLogger iterates through all the currently installed
     QxtLoggerEngines, calls their killLoggerEngine functions through QxtLoggerEngine::killLoggerEngine(),

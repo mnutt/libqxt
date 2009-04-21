@@ -32,7 +32,7 @@
 
 QT_FORWARD_DECLARE_CLASS(QPainter)
 
-/**
+/*!
     @author Benjamin Zeller <zbenjamin@users.sourceforge.net>
 */
 class QXT_GUI_EXPORT QxtScheduleItemDelegate : public QAbstractItemDelegate

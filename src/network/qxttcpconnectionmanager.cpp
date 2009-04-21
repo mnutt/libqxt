@@ -28,7 +28,7 @@
 #include <QTcpSocket>
 #include <QtDebug>
 
-/**
+/*!
  * \class QxtTcpConnectionManager QxtTcpConnectionManager
  * \ingroup QxtNetwork
  * \brief Accepts TCP connections and maintains a connection pool
@@ -48,7 +48,7 @@
  * \sa QTcpServer
  */
 
-/**
+/*!
  * Constructs a new QxtTcpConnectionManager object with the specified parent.
  */
 QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent)
@@ -78,7 +78,7 @@ void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor)
     }
 }
 
-/**
+/*!
  * Listens on the specified interface on the specified port for connections.
  * If \a address is QHostAddress::Any, listens on all interfaces.
  *
@@ -89,7 +89,7 @@ bool QxtTcpConnectionManager::listen(QHostAddress iface, int port)
     return qxt_d().listen(iface, port);
 }
 
-/**
+/*!
  * Stops listening for connections. Any connections still open will remain connected.
  */
 void QxtTcpConnectionManager::stopListening()
@@ -102,7 +102,7 @@ void QxtTcpConnectionManager::stopListening()
     qxt_d().close();
 }
 
-/**
+/*!
  * \reimp
  */
 bool QxtTcpConnectionManager::isAcceptingConnections() const
@@ -110,7 +110,7 @@ bool QxtTcpConnectionManager::isAcceptingConnections() const
     return qxt_d().isListening();
 }
 
-/**
+/*!
  * This function is called when a new TCP connection becomes available. The parameter
  * is the native socket descriptor for the connection, suitable for use in
  * QTcpSocket::setSocketDescriptor.
@@ -125,7 +125,7 @@ QIODevice* QxtTcpConnectionManager::incomingConnection(int socketDescriptor)
     return device;
 }
 
-/**
+/*!
  * \reimp
  */
 void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 clientID)
@@ -140,7 +140,7 @@ void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 client
     }
 }
 
-/**
+/*!
  * Sets an explicit network proxy for the connection manager.
  *
  * \sa QTcpServer::setProxy
@@ -150,7 +150,7 @@ void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy)
     qxt_d().setProxy(proxy);
 }
 
-/**
+/*!
  * Returns the proxy in use for the connection manager.
  *
  * \sa QTcpServer::proxy

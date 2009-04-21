@@ -27,7 +27,7 @@
 #include <QHash>
 #include <QtDebug>
 
-/**
+/*!
  * \class QxtAbstractConnectionManager QxtAbstractConnectionManager
  * \ingroup QxtCore
  * \brief Interface for classes that maintain connection pools
@@ -56,7 +56,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtAbstractConnectionManager);
 };
 
-/**
+/*!
  * Constructs a QxtAbstractConnection object with the specified parent.
  */
 QxtAbstractConnectionManager::QxtAbstractConnectionManager(QObject* parent) : QObject(parent)
@@ -64,7 +64,7 @@ QxtAbstractConnectionManager::QxtAbstractConnectionManager(QObject* parent) : QO
     QXT_INIT_PRIVATE(QxtAbstractConnectionManager);
 }
 
-/**
+/*!
  * \reimp
  */
 QxtAbstractConnectionManager::~QxtAbstractConnectionManager()
@@ -72,7 +72,7 @@ QxtAbstractConnectionManager::~QxtAbstractConnectionManager()
     // virtual for subclasses, no need for implementation
 }
 
-/**
+/*!
  * Returns the number of connected clients.
  */
 int QxtAbstractConnectionManager::clientCount() const
@@ -80,7 +80,7 @@ int QxtAbstractConnectionManager::clientCount() const
     return qxt_d().clients.count();
 }
 
-/**
+/*!
  * Returns a list of client IDs for all connected clients.
  */
 QList<quint64> QxtAbstractConnectionManager::clients() const
@@ -88,7 +88,7 @@ QList<quint64> QxtAbstractConnectionManager::clients() const
     return qxt_d().clients.keys();
 }
 
-/**
+/*!
  * Returns the QIODevice for the requested client ID.
  */
 QIODevice* QxtAbstractConnectionManager::client(quint64 clientID) const
@@ -96,7 +96,7 @@ QIODevice* QxtAbstractConnectionManager::client(quint64 clientID) const
     return qxt_d().clients.value(clientID, NULL);
 }
 
-/**
+/*!
  * Disconnects the connection with the specified client ID.
  *
  * Implementations should invoke this function when the connection should no longer be
@@ -117,7 +117,7 @@ void QxtAbstractConnectionManager::disconnect(quint64 clientID)
     removeConnection(device, clientID);
 }
 
-/**
+/*!
  * Begins managing a connection. Each device must have a unique, non-zero client ID, but
  * beyond this constraint implementations may use any convenient value. Implementations
  * should invoke this function after establishing a usable connection and performing any

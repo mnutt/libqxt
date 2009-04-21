@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtJob QxtJob
 
 \ingroup QxtCore
@@ -43,14 +43,14 @@ LockJob().exec(&thread);
 */
 
 
-/**
+/*!
 \fn  virtual void QxtJob::run()=0;
 This function is called by QxtJob. \n
 reimplemented this function to do useful work. \n
 Returning from this method will end the execution of the job. \n
 */
 
-/**
+/*!
 \fn  virtual void QxtJob::done();
 This signal is emitted, when the run() function returns.
 */
@@ -104,7 +104,7 @@ void QxtJob::join()
 {
     while (qxt_d().running.get() == true)
     {
-        /**
+        /*!
         oh yeah that sucks ass,
         but since any kind of waitcondition will just fail due to undeterminnism,
         we have no chance then polling.

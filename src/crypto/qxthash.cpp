@@ -26,7 +26,7 @@
 #include "qxthash.h"
 #include "qxthash_p.h"
 
-/**
+/*!
 \class QxtHash QxtHash
 
 \ingroup QxtCrypto
@@ -37,7 +37,7 @@
 qDebug()<<QxtHash(QxtHash::Md5,"foo").hash();
 \endcode
 */
-/**
+/*!
 \fn QxtHash::QxtHash (Algorithm algo)
 constructs a new hash with Algorithm \p algo
 */
@@ -47,7 +47,7 @@ QxtHash::QxtHash(Algorithm algo)
     qxt_d().algo = algo;
     reset();
 }
-/**
+/*!
 \fn QxtHash::QxtHash (Algorithm algo, const QByteArray & data)
 constructs a new hash with Algorithm \p algo and reads the data \p data
 */
@@ -58,7 +58,7 @@ QxtHash::QxtHash(Algorithm algo, const QByteArray & data)
     reset();
     append(data);
 }
-/**
+/*!
 \fn void QxtHash::append ( const QByteArray & dt)
 appends the data \p dt to the current data
 */
@@ -75,7 +75,7 @@ void QxtHash::append(const QByteArray & dt)
     }
 
 }
-/**
+/*!
 \fn void QxtHash::operator+= ( const QByteArray & dt)
 appends the data \p dt to the current data
 */
@@ -83,7 +83,7 @@ void  QxtHash::operator+= (const QByteArray & dt)
 {
     append(dt);
 }
-/**
+/*!
 \fn void QxtHash::reset()
 resets teh hash, deletes all data
 */
@@ -98,7 +98,7 @@ void QxtHash::reset()
         md4_init(&qxt_d().md4ctx);
     }
 }
-/**
+/*!
 \fn QByteArray QxtHash::hash()
 returns the resulting hash
 */

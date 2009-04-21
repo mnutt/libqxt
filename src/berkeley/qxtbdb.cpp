@@ -131,7 +131,7 @@ bool QxtBdb::flush()
     return (db->sync(db, 0) == 0);
 }
 
-/**
+/*!
 low level get function. \n
 serialised key and value with the given meta ids. \n
 always reads <b>and</b> writes both key and value, if given.\n
@@ -250,7 +250,7 @@ bool QxtBdb::get(void* key, int keytype, void* value, int valuetype, BerkeleyDB:
 
 
 
-/**
+/*!
 low level get function. \n
 serialised key and value with the given meta ids. \n
 doesn't write to the key. use this when doing operations that require the key to be passed. \n

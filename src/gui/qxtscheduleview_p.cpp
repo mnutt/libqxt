@@ -167,7 +167,7 @@ void QxtScheduleViewPrivate::init()
     qxt_p().updateGeometries();
 }
 
-/**
+/*!
  * @desc collects groups of concurrent items in the offset range
  */
 QList< QLinkedList<QxtScheduleInternalItem *> > QxtScheduleViewPrivate::findConcurrentItems(const int from, const int to) const
@@ -576,7 +576,7 @@ QxtScheduleView * QxtScheduleInternalItem::parentView() const
     return qobject_cast<QxtScheduleView *>(parent());
 }
 
-/**
+/*!
  * @desc returns the currently VISUAL offset (changes when a item moves)
  */
 int QxtScheduleInternalItem::visualStartTableOffset() const
@@ -592,7 +592,7 @@ int QxtScheduleInternalItem::visualStartTableOffset() const
     return offset;
 }
 
-/**
+/*!
  * @desc returns the currently VISUAL offset (changes when a item moves)
  */
 int QxtScheduleInternalItem::visualEndTableOffset() const

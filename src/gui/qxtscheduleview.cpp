@@ -41,7 +41,7 @@
 #include <QWheelEvent>
 
 
-/**
+/*!
  * @class QxtScheduleView QxtScheduleView
  * @ingroup QxtGui
  * @brief The QxtScheduleView provides an iCal like view to plan events
@@ -86,7 +86,7 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
 
 }
 
-/**
+/*!
  * @desc sets the model for QxtScheduleView
  *
  * @param model
@@ -128,7 +128,7 @@ QAbstractItemModel * QxtScheduleView::model() const
     return qxt_d().m_Model;
 }
 
-/**
+/*!
  * @desc changes the current ViewMode
  * The QxtScheduleView supports some different viewmodes. A viewmode defines how much time a column holds.
  * It is also possible to define custom viewmodes. To do that you have to set the currentView mode to Custom and
@@ -148,7 +148,7 @@ void QxtScheduleView::setViewMode(const QxtScheduleView::ViewMode mode)
     setCurrentZoomDepth(qxt_d().m_currentZoomDepth);
 }
 
-/**
+/*!
  *@desc returns the current used delegate
  */
 QxtScheduleItemDelegate* QxtScheduleView::delegate () const
@@ -156,7 +156,7 @@ QxtScheduleItemDelegate* QxtScheduleView::delegate () const
     return qxt_d().delegate;
 }
 
-/**
+/*!
  *Sets the item delegate for this view and its model to delegate. This is useful if you want complete control over the editing and display of items.
 *Any existing delegate will be removed, but not deleted. QxtScheduleView does not take ownership of delegate.
 *Passing a 0 pointer will restore the view to use the default delegate.
@@ -173,7 +173,7 @@ void QxtScheduleView::setItemDelegate (QxtScheduleItemDelegate * delegate)
     viewport()->update();
 }
 
-/**
+/*!
  * @desc returns the current ViewMode
  *
  * @return QxtScheduleView::ViewMode
@@ -184,7 +184,7 @@ QxtScheduleView::ViewMode QxtScheduleView::viewMode() const
     return (ViewMode)qxt_d().m_currentViewMode;
 }
 
-/**
+/*!
  * @desc changes the current Zoom step width
  * Changes the current Zoom step width. Zooming in QxtScheduleView means to change the amount
  * of time one cell holds. For example 5 Minutes. The zoom step width defines how many time
@@ -221,7 +221,7 @@ void QxtScheduleView::setZoomStepWidth(const int zoomWidth , const Qxt::Timeunit
     }
 }
 
-/**
+/*!
  * @desc changes the current zoom depth
  * The current zoom depth in QxtScheduleView defines how many time one cell holds in the view.
  * If the new depth does not fit in the view the next possible value is used. If no possible value can be found
@@ -299,7 +299,7 @@ void QxtScheduleView::setCurrentZoomDepth(const int depth , const Qxt::Timeunit 
     }
 }
 
-/**
+/*!
  * @desc returns the current zoom depth
  */
 int QxtScheduleView::currentZoomDepth(const Qxt::Timeunit unit)
@@ -328,7 +328,7 @@ int QxtScheduleView::currentZoomDepth(const Qxt::Timeunit unit)
     }
 }
 
-/**
+/*!
  * @desc zooms one step in
  *
  * @sa zoomOut() setCurrentZoomDepth() setZoomStepWidth()
@@ -338,7 +338,7 @@ void QxtScheduleView::zoomIn()
     setCurrentZoomDepth(qxt_d().m_currentZoomDepth - qxt_d().m_zoomStepWidth);
 }
 
-/**
+/*!
  * @desc zooms one step out
  *
  * @sa zoomIn() setCurrentZoomDepth() setZoomStepWidth()
@@ -634,7 +634,7 @@ void QxtScheduleView::wheelEvent(QWheelEvent  * e)
         QAbstractScrollArea::wheelEvent(e);
 }
 
-/**
+/*!
  * @desc returns the current row count of the view
  */
 int QxtScheduleView::rows() const
@@ -651,7 +651,7 @@ int QxtScheduleView::rows() const
 
 }
 
-/**
+/*!
  * @desc returns the current column count of the view
  */
 int QxtScheduleView::cols() const
@@ -669,7 +669,7 @@ int QxtScheduleView::cols() const
     return cols;
 }
 
-/**
+/*!
  *@desc reimplement this to support custom view modes
  *@return the time per column in seconds
  */
@@ -695,7 +695,7 @@ int QxtScheduleView::timePerColumn() const
     return timePerColumn;
 }
 
-/**
+/*!
  * @desc reimplement this to support custom view modes
  * This function has to adjust the given start and end time to the current view mode:
  * For example, the DayMode always adjust to time 0:00:00am for startTime and 11:59:59pm for endTime
@@ -731,7 +731,7 @@ QPoint QxtScheduleView::mapToViewport(const QPoint & point) const
     return point - QPoint(qxt_d().m_hHeader->offset(), qxt_d().m_vHeader->offset());
 }
 
-/**
+/*!
  * @desc raises the item belonging to index
  */
 void QxtScheduleView::raiseItem(const QModelIndex &index)
@@ -780,7 +780,7 @@ void QxtScheduleView::dataChanged(const QModelIndex & topLeft, const  QModelInde
     }
 }
 
-/**
+/*!
  * @desc triggers the view to relayout the items that are concurrent to index
  */
 void QxtScheduleView::handleItemConcurrency(const QModelIndex &index)
@@ -799,7 +799,7 @@ void QxtScheduleView::resizeEvent(QResizeEvent * /* e*/)
 
 void QxtScheduleView::rowsRemoved(const QModelIndex & parent, int start, int end)
 {
-    /**
+    /*!
      *@FIXME write correct code here
      */
     return qxt_d().reloadItemsFromModel();
@@ -875,7 +875,7 @@ void QxtScheduleView::rowsAboutToBeInserted(const QModelIndex & parent, int star
     }
 }
 
-/**
+/*!
  * @desc returns the current selected index
  */
 QModelIndex QxtScheduleView::currentIndex()
@@ -887,7 +887,7 @@ QModelIndex QxtScheduleView::currentIndex()
 
 }
 
-/**
+/*!
  * @desc sets the timerange
  * This function will set a Timerange from fromDate 00:00am to toDate 23:59pm
  */
@@ -901,7 +901,7 @@ void QxtScheduleView::setDateRange(const QDate & fromDate, const QDate & toDate)
     setTimeRange(startTime, endTime);
 }
 
-/**
+/*!
  * @desc sets the timerange
  * This function will set the passed timerange, but may adjust it to the current viewmode.
  * e.g You cannot start at 1:30am in a DayMode, this gets adjusted to 00:00am

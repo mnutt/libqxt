@@ -26,7 +26,7 @@
 #include "qxtsortfilterproxymodel.h"
 #include <QRegExp>
 
-/**
+/*!
  *@class QxtSortFilterProxyModel QxtSortFilterProxyModel is a multi column filter model
  *The QxtSortFilterProxyModel makes it possible to filter over multiple columns.
  *@code
@@ -119,7 +119,7 @@ QxtSortFilterProxyModel::QxtSortFilterProxyModel ( QObject *parent) : QSortFilte
     qxt_d().m_declaringFilter = false;
 }
 
-/**
+/*!
  *@desc tells the model you want to declare a new filter
  *If you have a lot of data in your model it can be slow to declare more than one filter,
  *because the model will always rebuild itself. If you call this member before setting the
@@ -130,7 +130,7 @@ void QxtSortFilterProxyModel::beginDeclareFilter ( )
     qxt_d().m_declaringFilter = true;
 }
 
-/**
+/*!
  *@desc stops the filter declaration and invalidates the filter 
  *\sa beginDeclareFilter ( )
  */
@@ -237,7 +237,7 @@ int QxtSortFilterProxyModel::filterRole ( const int column ) const
     return -1;
 }
 
-/**
+/*!
  * @desc returns the filter flags for the given column
  * @note if the column is not filtered it will return the default value
  */
@@ -248,7 +248,7 @@ Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
     return Qt::MatchContains;
 }
 
-/**
+/*!
  *@return true if the column is filtered
  */
 bool QxtSortFilterProxyModel::isFiltered ( const int column )

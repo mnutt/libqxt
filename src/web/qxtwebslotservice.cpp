@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 
-/**
+/*!
 \class QxtWebSlotService QxtWebSlotService
 
 \ingroup QxtWeb

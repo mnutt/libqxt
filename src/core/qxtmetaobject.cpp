@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtMetaObject QxtMetaObject
 
 \ingroup QxtCore
@@ -211,7 +211,7 @@ namespace QxtMetaObject
         return (m.count() && (m[0] >= '0' && m[0] <= '9') && m.contains('(') && m.contains(')'));
     }
 
-    /**
+    /*!
      * \relates QxtMetaObject
      * \sa QxtMetaObject::connect
      * \sa QxtBoundFunction
@@ -263,7 +263,7 @@ namespace QxtMetaObject
         return QxtMetaObject::bind(recv, invokable, QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9), QXT_ARG(10));
     }
 
-    /**
+    /*!
      * \relates QxtMetaObject
      * \sa QxtMetaObject::connect
      * \sa QxtBoundFunction
@@ -333,7 +333,7 @@ namespace QxtMetaObject
         return new QxtBoundSlot(recv, invokable, args, bindTypes);
     }
 
-    /**
+    /*!
     \relates QxtMetaObject
     \fn connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {
 

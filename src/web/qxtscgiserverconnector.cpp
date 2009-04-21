@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtScgiServerConnector QxtScgiServerConnector
 
 \ingroup QxtWeb
@@ -52,7 +52,7 @@ public:
 };
 #endif
 
-/**
+/*!
  * Creates a QxtHttpServerConnector with the given parent.
  */
 QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent)
@@ -62,7 +62,7 @@ QxtScgiServerConnector::QxtScgiServerConnector(QObject* parent) : QxtAbstractHtt
     QObject::connect(qxt_d().server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
 }
 
-/**
+/*!
  * \reimp
  */
 bool QxtScgiServerConnector::listen(const QHostAddress& iface, quint16 port)
@@ -70,7 +70,7 @@ bool QxtScgiServerConnector::listen(const QHostAddress& iface, quint16 port)
     return qxt_d().server->listen(iface, port);
 }
 
-/**
+/*!
  * \priv
  */
 void QxtScgiServerConnector::acceptConnection()
@@ -79,7 +79,7 @@ void QxtScgiServerConnector::acceptConnection()
     addConnection(socket);
 }
 
-/**
+/*!
  * \reimp
  */
 bool QxtScgiServerConnector::canParseRequest(const QByteArray& buffer)
@@ -108,7 +108,7 @@ bool QxtScgiServerConnector::canParseRequest(const QByteArray& buffer)
     return (buffer.size() > expectedsize.toInt());
 }
 
-/**
+/*!
  * \reimp
  */
 QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
@@ -175,7 +175,7 @@ QHttpRequestHeader QxtScgiServerConnector::parseRequest(QByteArray& buffer)
     return request_m;
 }
 
-/**
+/*!
  * \reimp
  */
 void QxtScgiServerConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& response_m)
