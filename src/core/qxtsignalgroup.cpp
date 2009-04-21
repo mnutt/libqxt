@@ -26,7 +26,7 @@
 /*!
 \class QxtSignalGroup QxtSignalGroup
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Groups signals together in a Boolean fashion
 

@@ -121,7 +121,7 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
 
 /*!
     \class QxtCheckComboBox QxtCheckComboBox
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QComboBox with checkable items.
 
     QxtComboBox is a specialized combo box with checkable items.

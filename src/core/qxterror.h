@@ -33,7 +33,7 @@
 /*!
 \class QxtError QxtError
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Information about Errors ocuring inside Qxt
 

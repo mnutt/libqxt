@@ -61,7 +61,7 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
 
 /*!
     \class QxtGlobalShortcut QxtGlobalShortcut
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A global shortcut aka "hotkey".
 
     A global shortcut triggers even if the application is not active. This

@@ -27,7 +27,7 @@
 
 /*!
     \class QxtTreeWidgetItem QxtTreeWidgetItem
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QTreeWidgetItem.
 
     QxtTreeWidgetItem provides means for offering check state change signals and

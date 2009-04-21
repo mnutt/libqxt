@@ -30,7 +30,7 @@
 
 /*!
     \class QxtBdbTree QxtBdbTree
-    \ingroup QxtBerkeley
+    \inmodule QxtBerkeley
     \brief template berkeley container for tree structured data
 
     the template argument must be registered with the qt meta system.\n
@@ -96,7 +96,7 @@ This function assumes, the class used for Template initialisation implements the
 
 /*!
     \class QxtBdbTreeIterator QxtBdbtree
-    \ingroup QxtBerkeley
+    \inmodule QxtBerkeley
     \brief tree iterator on QxtBdbtree
 
 

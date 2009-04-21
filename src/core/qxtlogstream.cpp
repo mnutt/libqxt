@@ -30,7 +30,7 @@
 /*!
     \class QxtLogStream QxtLogStream
     \brief A logging stream.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     \sa QxtLogger
  */

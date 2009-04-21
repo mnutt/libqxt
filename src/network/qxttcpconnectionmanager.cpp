@@ -30,7 +30,7 @@
 
 /*!
  * \class QxtTcpConnectionManager QxtTcpConnectionManager
- * \ingroup QxtNetwork
+ * \inmodule QxtNetwork
  * \brief Accepts TCP connections and maintains a connection pool
  *
  * QxtTcpConnectionManager is a standardized interface for accepting and tracking

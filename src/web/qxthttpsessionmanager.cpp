@@ -26,7 +26,7 @@
 /*!
 \class QxtHttpSessionManager QxtHttpSessionManager
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Session manager for HTTP-based protocols
 

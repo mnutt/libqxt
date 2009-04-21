@@ -26,7 +26,7 @@
 /*!
 \class QxtAbstractWebSessionManager QxtAbstractWebSessionManager
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Base class for QxtWeb session managers
 

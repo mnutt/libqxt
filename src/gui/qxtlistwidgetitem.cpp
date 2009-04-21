@@ -27,7 +27,7 @@
 
 /*!
     \class QxtListWidgetItem QxtListWidgetItem
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QListWidgetItem.
 
     QxtListWidgetItem provides means for offering check state change signals and

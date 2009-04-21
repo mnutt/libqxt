@@ -29,7 +29,7 @@
 /*!
 \class QxtHash QxtHash
 
-\ingroup QxtCrypto
+\inmodule QxtCrypto
 
 \brief Hashing funcions
 

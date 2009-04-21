@@ -26,7 +26,7 @@
 /*!
 \class QxtHttpServerConnector QxtHttpServerConnector
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief A built-in HTTP server for QxtHttpSessionManager
 

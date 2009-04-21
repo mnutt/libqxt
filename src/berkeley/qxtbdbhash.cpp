@@ -28,7 +28,7 @@
 
 /*!
     \class QxtBdbHash QxtBdbHash
-    \ingroup QxtBerkeley
+    \inmodule QxtBerkeley
     \brief template class that provides key/value access to a berkeley db file
 
     both value and key must be registered with the qt meta system.\n
@@ -148,7 +148,7 @@
 
 /*!
     \class QxtBdbHashIterator QxtBdbHash
-    \ingroup QxtBerkeley
+    \inmodule QxtBerkeley
     \brief provides a fast iterator over a QxtBdbHash
 
 

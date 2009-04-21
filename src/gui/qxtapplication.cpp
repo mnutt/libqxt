@@ -27,7 +27,7 @@
 
 /*!
     \class QxtApplication QxtApplication
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QApplication with support for native event filters.
 
     QxtApplication lets you install native event filters. This gives an
@@ -45,7 +45,7 @@
 /*!
     \def qxtApp
     \relates QxtApplication
-    \ingroup QxtGui
+    \inmodule QxtGui
 
     A global pointer referring to the unique application object. It is
     equivalent to the pointer returned by QxtApplication::instance().

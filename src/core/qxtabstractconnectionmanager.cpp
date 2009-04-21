@@ -29,7 +29,7 @@
 
 /*!
  * \class QxtAbstractConnectionManager QxtAbstractConnectionManager
- * \ingroup QxtCore
+ * \inmodule QxtCore
  * \brief Interface for classes that maintain connection pools
  *
  * QxtAbstractConnectionManager is a standardized interface for accepting and tracking

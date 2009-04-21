@@ -26,7 +26,7 @@
 /*!
 \class QxtWebServiceDirectory QxtWebServiceDirectory
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Path-based web service dispatcher
 

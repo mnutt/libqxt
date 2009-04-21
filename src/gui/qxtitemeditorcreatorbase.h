@@ -33,7 +33,7 @@
 
 /*!
     \class QxtItemEditorCreatorBase QxtItemEditorCreatorBase
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief Provides means for introducing default property values to initialize an editor with.
 
     The QxtItemEditorCreator class provides the possibility to set default property values

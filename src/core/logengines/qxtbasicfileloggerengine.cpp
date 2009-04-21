@@ -29,7 +29,7 @@
 /*!
     \class QxtBasicFileLoggerEngine QxtBasicFileLoggerEngine
     \brief A basic file logger engine.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     Example basic file log output:
     \code

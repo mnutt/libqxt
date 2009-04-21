@@ -25,7 +25,7 @@
 
 /*!
 \class QxtDaemon QxtDaemon
-\ingroup QxtCore
+\inmodule QxtCore
 \brief Qt Implementation of a Unix daemon
 
 QxtDaemon will provide you with a standard UNIX daemon implementation.\n

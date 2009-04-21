@@ -27,7 +27,7 @@
 
 /*!
     \class QxtWindowSystem QxtWindowSystem
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief QxtWindowSystem provides means for accessing native windows.
 
     \note The underlying window system might or might not allow one to alter
