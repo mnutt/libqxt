@@ -87,6 +87,24 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
 }
 
 /**
+ *@desc returns the vertial header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::verticalHeader ( ) const
+{
+    return qxt_d().m_vHeader;
+}
+
+/**
+ *@desc returns the horizontal header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::horizontalHeader ( ) const
+{
+    return qxt_d().m_hHeader;
+}
+    
+/**
  * @desc sets the model for QxtScheduleView
  *
  * @param model
