@@ -74,8 +74,24 @@
 #include "qxttypelist.h"
 #include "qxtxmlfileloggerengine.h"
 
-/** \defgroup QxtCore QxtCore
-    \brief    The QxtCore module extends QtCore and contains core non-GUI functionality.
+/*!
+    \module QxtCore
+    \title QxtCore Module
+    \contentspage Qxt's Modules
+    \previouspage Qxt's Modules
+    \nextpage QxtGui
+    \ingroup modules
+
+    \keyword QxtCore
+
+    \brief The QxtCore module extends QtCore and contains core non-GUI functionality.
+
+    All other Qt modules rely on this module. To include the
+    definitions of the module's classes, use the following directive:
+
+    \code
+    #include <QxtCore>
+    \endcode
 */
 
 #endif // QXTCORE_H_INCLUDED
