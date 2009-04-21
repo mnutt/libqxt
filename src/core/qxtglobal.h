@@ -28,8 +28,8 @@
 
 #include <QtGlobal>
 
-#define QXT_VERSION 0x000400
-#define QXT_VERSION_STR "0.4.0"
+#define QXT_VERSION 0x000600
+#define QXT_VERSION_STR "0.6.0"
 
 //--------------------------global macros------------------------------
 
@@ -83,7 +83,13 @@
 #    define QXT_BERKELEY_EXPORT Q_DECL_IMPORT
 #endif // BUILD_QXT_BERKELEY
 
-#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY
+#if defined(BUILD_QXT_ZEROCONF)
+#    define QXT_ZEROCONF_EXPORT Q_DECL_EXPORT
+#else
+#    define QXT_ZEROCONF_EXPORT Q_DECL_IMPORT
+#endif // BUILD_QXT_ZEROCONF
+
+#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_ZEROCONF
 #   define BUILD_QXT
 #endif
 

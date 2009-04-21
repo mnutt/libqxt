@@ -30,9 +30,11 @@
 #include <QStylePainter>
 #include <QStyleOptionSlider>
 
-QxtSpanSliderPrivate::QxtSpanSliderPrivate()
-        : lower(0),
+QxtSpanSliderPrivate::QxtSpanSliderPrivate() :
+        lower(0),
         upper(0),
+        lowerPos(0),
+        upperPos(0),
         offset(0),
         position(0),
         lastPressed(NoHandle),
@@ -40,7 +42,8 @@ QxtSpanSliderPrivate::QxtSpanSliderPrivate()
         lowerPressed(QStyle::SC_None),
         upperPressed(QStyle::SC_None),
         movement(QxtSpanSlider::FreeMovement),
-        firstMovement(false)
+        firstMovement(false),
+        blockTracking(false)
 {
 }
 
@@ -62,7 +65,7 @@ void QxtSpanSliderPrivate::initStyleOption(QStyleOptionSlider* option, SpanHandl
     option->upsideDown = (p->orientation() == Qt::Horizontal) ?
                          (p->invertedAppearance() != (option->direction == Qt::RightToLeft)) : (!p->invertedAppearance());
     option->direction = Qt::LeftToRight; // we use the upsideDown option instead
-    option->sliderPosition = (handle == LowerHandle ? lower : upper);
+    option->sliderPosition = (handle == LowerHandle ? lowerPos : upperPos);
     option->sliderValue = (handle == LowerHandle ? lower : upper);
     option->singleStep = p->singleStep();
     option->pageStep = p->pageStep();
@@ -175,10 +178,14 @@ void QxtSpanSliderPrivate::drawHandle(QStylePainter* painter, SpanHandle handle)
 void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, bool main)
 {
     int value = 0;
+    bool no = false;
     bool up = false;
     const int min = qxt_p().minimum();
     const int max = qxt_p().maximum();
     const SpanHandle altControl = (mainControl == LowerHandle ? UpperHandle : LowerHandle);
+
+    blockTracking = true;
+
     switch (action)
     {
     case QAbstractSlider::SliderSingleStepAdd:
@@ -209,12 +216,18 @@ void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, b
         if ((main && mainControl == UpperHandle) || (!main && altControl == UpperHandle))
             up = true;
         break;
+    case QAbstractSlider::SliderMove:
+        if ((main && mainControl == UpperHandle) || (!main && altControl == UpperHandle))
+            up = true;
+    case QAbstractSlider::SliderNoAction:
+        no = true;
+        break;
     default:
         qWarning("QxtSpanSliderPrivate::triggerAction: Unknown action");
         break;
     }
 
-    if (!up)
+    if (!no && !up)
     {
         if (movement == QxtSpanSlider::NoCrossing)
             value = qMin(value, upper);
@@ -224,14 +237,14 @@ void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, b
         if (movement == QxtSpanSlider::FreeMovement && value > upper)
         {
             swapControls();
-            qxt_p().setUpperValue(value);
+            qxt_p().setUpperPosition(value);
         }
         else
         {
-            qxt_p().setLowerValue(value);
+            qxt_p().setLowerPosition(value);
         }
     }
-    else
+    else if (!no)
     {
         if (movement == QxtSpanSlider::NoCrossing)
             value = qMax(value, lower);
@@ -241,13 +254,17 @@ void QxtSpanSliderPrivate::triggerAction(QAbstractSlider::SliderAction action, b
         if (movement == QxtSpanSlider::FreeMovement && value < lower)
         {
             swapControls();
-            qxt_p().setLowerValue(value);
+            qxt_p().setLowerPosition(value);
         }
         else
         {
-            qxt_p().setUpperValue(value);
+            qxt_p().setUpperPosition(value);
         }
     }
+
+    blockTracking = false;
+    qxt_p().setLowerValue(lowerPos);
+    qxt_p().setUpperValue(upperPos);
 }
 
 void QxtSpanSliderPrivate::swapControls()
@@ -264,6 +281,31 @@ void QxtSpanSliderPrivate::updateRange(int min, int max)
     Q_UNUSED(max);
     // setSpan() takes care of keeping span in range
     qxt_p().setSpan(lower, upper);
+}
+
+void QxtSpanSliderPrivate::movePressedHandle()
+{
+    switch (lastPressed)
+    {
+        case QxtSpanSliderPrivate::LowerHandle:
+            if (lowerPos != lower)
+            {
+                bool main = (mainControl == QxtSpanSliderPrivate::LowerHandle);
+                qDebug("QxtSpanSliderPrivate::movePressedHandle, LOWER, %d", main);
+                triggerAction(QAbstractSlider::SliderMove, main);
+            }
+            break;
+        case QxtSpanSliderPrivate::UpperHandle:
+            if (upperPos != upper)
+            {
+                bool main = (mainControl == QxtSpanSliderPrivate::UpperHandle);
+                qDebug("QxtSpanSliderPrivate::movePressedHandle, UPPER, %d", main);
+                triggerAction(QAbstractSlider::SliderMove, main);
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 /*!
@@ -362,12 +404,25 @@ void QxtSpanSliderPrivate::updateRange(int min, int max)
  */
 
 /*!
+    \fn QxtSpanSlider::lowerPositionChanged(int lower)
+
+    This signal is emitted whenever the lower position has changed.
+ */
+
+/*!
+    \fn QxtSpanSlider::upperPositionChanged(int upper)
+
+    This signal is emitted whenever the upper position has changed.
+ */
+
+/*!
     Constructs a new QxtSpanSlider with \a parent.
  */
 QxtSpanSlider::QxtSpanSlider(QWidget* parent) : QSlider(parent)
 {
     QXT_INIT_PRIVATE(QxtSpanSlider);
     connect(this, SIGNAL(rangeChanged(int, int)), &qxt_d(), SLOT(updateRange(int, int)));
+    connect(this, SIGNAL(sliderReleased()), &qxt_d(), SLOT(movePressedHandle()));
 }
 
 /*!
@@ -377,6 +432,7 @@ QxtSpanSlider::QxtSpanSlider(Qt::Orientation orientation, QWidget* parent) : QSl
 {
     QXT_INIT_PRIVATE(QxtSpanSlider);
     connect(this, SIGNAL(rangeChanged(int, int)), &qxt_d(), SLOT(updateRange(int, int)));
+    connect(this, SIGNAL(sliderReleased()), &qxt_d(), SLOT(movePressedHandle()));
 }
 
 /*!
@@ -441,15 +497,69 @@ void QxtSpanSlider::setSpan(int lower, int upper)
         if (low != qxt_d().lower)
         {
             qxt_d().lower = low;
+            qxt_d().lowerPos = low;
             emit lowerValueChanged(low);
         }
         if (upp != qxt_d().upper)
         {
             qxt_d().upper = upp;
+            qxt_d().upperPos = upp;
             emit upperValueChanged(upp);
         }
         emit spanChanged(qxt_d().lower, qxt_d().upper);
         update();
+    }
+}
+
+/*!
+    \property QxtSpanSlider::lowerPosition
+    \brief This property holds the lower position of the span
+ */
+int QxtSpanSlider::lowerPosition() const
+{
+    return qxt_d().lowerPos;
+}
+
+void QxtSpanSlider::setLowerPosition(int lower)
+{
+    if (qxt_d().lowerPos != lower)
+    {
+        qxt_d().lowerPos = lower;
+        if (!hasTracking())
+            update();
+        if (isSliderDown())
+            emit lowerPositionChanged(lower);
+        if (hasTracking() && !qxt_d().blockTracking)
+        {
+            bool main = (qxt_d().mainControl == QxtSpanSliderPrivate::LowerHandle);
+            qxt_d().triggerAction(SliderMove, main);
+        }
+    }
+}
+
+/*!
+    \property QxtSpanSlider::upperPosition
+    \brief This property holds the upper position of the span
+ */
+int QxtSpanSlider::upperPosition() const
+{
+    return qxt_d().upperPos;
+}
+
+void QxtSpanSlider::setUpperPosition(int upper)
+{
+    if (qxt_d().upperPos != upper)
+    {
+        qxt_d().upperPos = upper;
+        if (!hasTracking())
+            update();
+        if (isSliderDown())
+            emit upperPositionChanged(upper);
+        if (hasTracking() && !qxt_d().blockTracking)
+        {
+            bool main = (qxt_d().mainControl == QxtSpanSliderPrivate::UpperHandle);
+            qxt_d().triggerAction(SliderMove, main);
+        }
     }
 }
 
@@ -567,11 +677,11 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
         if (qxt_d().movement == FreeMovement && newPosition > qxt_d().upper)
         {
             qxt_d().swapControls();
-            setUpperValue(newPosition);
+            setUpperPosition(newPosition);
         }
         else
         {
-            setLowerValue(newPosition);
+            setLowerPosition(newPosition);
         }
     }
     else if (qxt_d().upperPressed == QStyle::SC_SliderHandle)
@@ -584,11 +694,11 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
         if (qxt_d().movement == FreeMovement && newPosition < qxt_d().lower)
         {
             qxt_d().swapControls();
-            setLowerValue(newPosition);
+            setLowerPosition(newPosition);
         }
         else
         {
-            setUpperValue(newPosition);
+            setUpperPosition(newPosition);
         }
     }
     event->accept();
@@ -600,6 +710,7 @@ void QxtSpanSlider::mouseMoveEvent(QMouseEvent* event)
 void QxtSpanSlider::mouseReleaseEvent(QMouseEvent* event)
 {
     QSlider::mouseReleaseEvent(event);
+    setSliderDown(false);
     qxt_d().lowerPressed = QStyle::SC_None;
     qxt_d().upperPressed = QStyle::SC_None;
     update();
@@ -620,21 +731,25 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
     painter.drawComplexControl(QStyle::CC_Slider, opt);
 
     // groove
+    opt.sliderValue = 0;
     opt.sliderPosition = 0;
     opt.subControls = QStyle::SC_SliderGroove;
     painter.drawComplexControl(QStyle::CC_Slider, opt);
 
     // handle rects
-    opt.sliderPosition = qxt_d().lower;
+    opt.sliderPosition = qxt_d().lowerPos;
     const QRect lr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
     const int lrv  = qxt_d().pick(lr.center());
-    opt.sliderPosition = qxt_d().upper;
+    opt.sliderPosition = qxt_d().upperPos;
     const QRect ur = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
     const int urv  = qxt_d().pick(ur.center());
+
+    qDebug("## PAINT %d %d", qxt_d().lowerPos, qxt_d().upperPos);
 
     // span
     const int minv = qMin(lrv, urv);
     const int maxv = qMax(lrv, urv);
+    qDebug("## PAINT minmax %d %d", minv, maxv);
     const QPoint c = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this).center();
     QRect spanRect;
     if (orientation() == Qt::Horizontal)

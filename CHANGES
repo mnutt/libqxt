@@ -1,18 +1,39 @@
-LibQxt 0.5.0 introduces new features and contains bug fixes to the 0.4.x
+LibQxt 0.6.0 introduces new features and contains bug fixes to the 0.5.x
 series. For more details, see the documentation included in this package
 or online at http://docs.libqxt.org.
+
+0.6.0
+-----
+- QxtCore
+    * Added QxtModelSerializer
+
+- QxtGui
+    * Added rich text support to QxtItemDelegate
+
+- Added QxtZeroConf module
 
 0.5.0
 -----
 
-LGPL license option has been added. 
-
+- General
+    * Added LGPL license option
+    * Run Krazy checks and fixed found issues
+    * Improved configure.bat
+    * Added missing export macros
+    * Added missing convenience headers
+    * Improved compatibility
+        - QT_FORWARD_DECLARE_CLASS
+        - Q_SLOTS, Q_SIGNALS & Q_FOREACH in headers
+        - interface
 
 - QxtCore
     * Revised QxtFifo
     * Added QxtAlgorithms
     * Added QxtSerialDevice
     * Added QxtSlotMapper
+    
+- QxtCrypto
+    * Revised QxtBlowfish
 
 - QxtGui
     * Added QxtWindowSystem::idleTime()
@@ -20,7 +41,13 @@ LGPL license option has been added.
     * Improved QxtScheduleView
     * Added QxtSortFilterProxyModel
     * Improved QxtSpanSlider
+        - Added QxtSpanSlider::HandleMovementMode
     * Improved QxtItemDelegate
+        - Added ProgressMinimumRole & ProgressMaximumRole
+        - Added support for busy indicator mode
+    * Improved QxtLetterBoxWidget
+        - Added QxtLetterBoxWidget::margin
+        - Added QxtLetterBoxWidget::resizeWidget 
 
 - QxtWeb
     * Added QxtWebCgiService

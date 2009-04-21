@@ -34,6 +34,7 @@
 
 QT_FORWARD_DECLARE_CLASS(QPainter)
 QT_FORWARD_DECLARE_CLASS(QTreeView)
+QT_FORWARD_DECLARE_CLASS(QTextDocument)
 
 class QxtItemDelegatePrivate : public QObject, public QxtPrivate<QxtItemDelegate>
 {
@@ -57,6 +58,7 @@ public:
     mutable QPersistentModelIndex currentEdited;
     mutable QMultiHash<QWidget*, QPersistentModelIndex> updatedItems;
     mutable QBasicTimer updateTimer;
+    mutable QTextDocument* document;
 
 protected:
     void timerEvent(QTimerEvent* event);

@@ -1,10 +1,11 @@
-!win32:VERSION   = 0.4
+!win32:VERSION   = 0.6
 win32: CONFIG   += dll
 # cannot use .moc/.obj with gcov ("cannot open graph file")
 !contains(CONFIG, coverage) {
     MOC_DIR          = .moc
     OBJECTS_DIR      = .obj
 }
+QMAKE_CLEAN += *.gcda *.gcno
 DESTDIR          = ../../deploy/libs/
 #TEMPLATE         = lib
 

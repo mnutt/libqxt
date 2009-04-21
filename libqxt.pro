@@ -21,12 +21,6 @@ lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
    error(LibQxt requires Qt 4.2 or newer but Qt $$[QT_VERSION] was detected.)
 }
 
-#write the paths to prf file
-unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
-
-#windows supports similar syntax
-win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${target.path} & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
-
 docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
 docs.commands = $$qxtNativeSeparators(tools/doqsy/doqsy)
@@ -42,22 +36,29 @@ INSTALLS += features docs
 SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs
 
+exists( modules.prf ) {
+    unix:system(rm -f modules.prf)
+    win32:system(del modules.prf)
+}
+
 contains( QXT_BUILD, core ){
     message( building core module )
     sub_core.subdir = src/core
     SUBDIRS += sub_core
+    system(echo QXT_MODULES+=core >> modules.prf)
 }
-
 
 contains( QXT_BUILD, gui ){
     message( building gui module )
     sub_gui.subdir = src/gui
     sub_gui.depends = sub_core
     SUBDIRS += sub_gui
+    system(echo QXT_MODULES+=gui >> modules.prf)
     contains( QXT_BUILD, designer ){
         sub_designer.subdir = src/designer
         sub_designer.depends = sub_core sub_gui
         SUBDIRS += sub_designer
+        system(echo QXT_MODULES+=designer >> modules.prf)
     }
 }
 
@@ -66,7 +67,7 @@ contains( QXT_BUILD, network ){
     sub_network.subdir = src/network
     sub_network.depends = sub_core
     SUBDIRS += sub_network
-
+    system(echo QXT_MODULES+=network >> modules.prf)
 }
 
 contains( QXT_BUILD, sql ){
@@ -74,7 +75,7 @@ contains( QXT_BUILD, sql ){
     sub_sql.subdir = src/sql
     sub_sql.depends = sub_core
     SUBDIRS += sub_sql
-
+    system(echo QXT_MODULES+=sql >> modules.prf)
 }
 
 contains(DEFINES,HAVE_DB){
@@ -83,7 +84,16 @@ contains( QXT_BUILD, berkeley ){
     sub_berkeley.subdir = src/berkeley
     sub_berkeley.depends = sub_core
     SUBDIRS += sub_berkeley
+    system(echo QXT_MODULES+=berkeley >> modules.prf)
+}
+}
 
+contains(DEFINES,HAVE_ZEROCONF){
+contains( QXT_BUILD, zeroconf ){
+    message( building zeroconf module )
+    sub_zeroconf.subdir = src/zeroconf
+    sub_zeroconf.depends = sub_network
+    SUBDIRS += sub_zeroconf
 }
 }
 
@@ -92,14 +102,22 @@ contains( QXT_BUILD, web ){
     sub_web.subdir = src/web
     sub_web.depends = sub_core sub_network
     SUBDIRS += sub_web
-
+    system(echo QXT_MODULES+=web >> modules.prf)
 }
+
 contains( QXT_BUILD, crypto ){
     message( building crypto module )
     sub_crypto.subdir = src/crypto
     sub_crypto.depends = sub_core
     SUBDIRS += sub_crypto
+    system(echo QXT_MODULES+=crypto >> modules.prf)
 }
+
+#write the paths to prf file
+unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat modules.prf; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
+
+#windows supports similar syntax
+win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${target.path} & type modules.prf & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
 
 style.CONFIG = recursive
 style.recurse = $$SUBDIRS
@@ -107,10 +125,10 @@ style.recurse -= tools/doqsy
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
-sub-examples.commands += $(QMAKE) examples/examples.pro && cd examples && $(MAKE)
+sub-examples.commands += cd examples && $(QMAKE) examples.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-examples
 
-sub-tests.commands += $(QMAKE) tests/tests.pro && cd tests && $(MAKE)
+sub-tests.commands += cd tests && $(QMAKE) tests.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-tests
 
 runtests.depends += sub-tests

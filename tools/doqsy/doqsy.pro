@@ -1,4 +1,5 @@
 TEMPLATE = app
+CONFIG -= app_bundle
 TARGET =
 DESTDIR = ./
 DEPENDPATH += .
