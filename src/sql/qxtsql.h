@@ -28,8 +28,4 @@
 #include "qxtsqlpackage.h"
 #include "qxtsqlpackagemodel.h"
 
-/** \defgroup QxtSql QxtSql
-    \brief    The QxtSql module extends QtSql with serializable queries.
-*/
-
 #endif // QXTSQL_H_INCLUDED

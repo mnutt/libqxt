@@ -25,16 +25,6 @@
 
 #include "qxtglobal.h"
 
-/*! \mainpage Qt extension library
- *
- * Qxt provides classes for extended needs based on the Qt Library by Trolltech
- *
- * See the list of classes.
- *
- * \image qxt-logo.png
- *
- */
-
 /*!
     \macro QXT_VERSION
     \relates <QxtGlobal>

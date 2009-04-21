@@ -38,25 +38,4 @@
 #include "qxtwebservicedirectory.h"
 #include "qxtwebslotservice.h"
 
-/**
-\defgroup QxtWeb QxtWeb
-\brief    The QxtWeb module provides tools for creating web services using Qt.
-
-QxtWeb provides tools for creating event-driven web services using Qt.
-
-The general usage pattern is as follows:
-
-\li Create a QxtAbstractWebSessionManager object, such as QxtHttpSessionManager, for each protocol that can interface to the service.
-\li If using QxtHttpSessionManager, select a connector plugin, such as QxtHttpServerConnector.
-\li Register a QxtAbstractWebService factory. The factory is invoked each time a new session is created and returns a service object
-    for that session. QxtWebServiceDirectory allows you to register multiple services and selects between them based on the path.
-\li Invoke QxtAbstractWebSessionManager::start() to begin accepting connections.
-
-When a new visitor connects who does not belong to a session, a new service instance is created. When a request is received, a
-QxtAbstractWebService::pageRequestedEvent() is dispatched to the service. When the service is ready to respond to the request, it posts
-a QxtWebPageEvent to the session manager. This is done asynchronously; there is no requirement that the pageRequestedEvent handler
-must respond to the request before the function ends, but such a response must eventually be posted or the web browser will eventually
-time out.
-*/
-
 #endif // QXTWEB_H_INCLUDED
