@@ -70,6 +70,7 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     qxt_d().m_endUnixTime = 0;
     qxt_d().delegate = qxt_d().defaultDelegate = new QxtScheduleItemDelegate(this);
 
+#if 0
     qxt_d().m_vHeader = new QxtScheduleHeaderWidget(Qt::Vertical, this);
     connect(qxt_d().m_vHeader, SIGNAL(geometriesChanged()), this, SLOT(updateGeometries()));
     qxt_d().m_vHeader->hide();
@@ -77,6 +78,11 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     qxt_d().m_hHeader = new QxtScheduleHeaderWidget(Qt::Horizontal, this);
     connect(qxt_d().m_hHeader, SIGNAL(geometriesChanged()), this, SLOT(updateGeometries()));
     qxt_d().m_hHeader->hide();
+#else
+    //init will take care of initializing headers
+    qxt_d().m_vHeader = 0;
+    qxt_d().m_hHeader = 0;
+#endif
 
 }
 
@@ -404,6 +410,9 @@ void QxtScheduleView::paintEvent(QPaintEvent * /*event*/)
 
 void QxtScheduleView::updateGeometries()
 {
+    if(!qxt_d().m_Model)
+        return;
+        
     this->setViewportMargins(qxt_d().m_vHeader->sizeHint().width() + 1, qxt_d().m_hHeader->sizeHint().height() + 1, 0, 0);
 
 
