@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtWebCgiService QxtWebCgiService
 
 \ingroup QxtWeb
@@ -46,7 +46,7 @@ TODO: implement timeout
 QxtCgiRequestInfo::QxtCgiRequestInfo() : sessionID(0), requestID(0), eventSent(false), terminateSent(false) {}
 QxtCgiRequestInfo::QxtCgiRequestInfo(QxtWebRequestEvent* req) : sessionID(req->sessionID), requestID(req->requestID), eventSent(false), terminateSent(false) {}
 
-/**
+/*!
  * Constructs a QxtWebCgiService object with the specified session manager and parent.
  * This service will invoke the specified binary to handle incoming requests.
  *
@@ -59,7 +59,7 @@ QxtWebCgiService::QxtWebCgiService(const QString& binary, QxtAbstractWebSessionM
     QObject::connect(&qxt_d().timeoutMapper, SIGNAL(mapped(QObject*)), &qxt_d(), SLOT(terminateProcess(QObject*)));
 }
 
-/**
+/*!
  * Returns the path to the CGI script that will be executed to handle requests.
  *
  * \sa setBinary
@@ -69,7 +69,7 @@ QString QxtWebCgiService::binary() const
     return qxt_d().binary;
 }
 
-/**
+/*!
  * Sets the path to the CGI script that will be executed to handle requests.
  *
  * \sa binary
@@ -83,7 +83,7 @@ void QxtWebCgiService::setBinary(const QString& bin)
     qxt_d().binary = bin;
 }
 
-/**
+/*!
  * Returns the maximum time a CGI script may execute, in milliseconds.
  *
  * The default value is 0, which indicates that CGI scripts will not be terminated
@@ -96,7 +96,7 @@ int QxtWebCgiService::timeout() const
     return qxt_d().timeout;
 }
 
-/**
+/*!
  * Sets the maximum time a CGI script may execute, in milliseconds.
  *
  * The timer is started when the script is launched. After the timeout elapses once,
@@ -128,7 +128,7 @@ void QxtWebCgiService::setTimeout(int time)
     qxt_d().timeout = time;
 }
 
-/**
+/*!
  * Returns whether or not to allow scripts to override the timeout.
  *
  * \sa setTimeoutOverride
@@ -139,7 +139,7 @@ bool QxtWebCgiService::timeoutOverride() const
     return qxt_d().timeoutOverride;
 }
 
-/**
+/*!
  * Sets whether or not to allow scripts to override the timeout.
  *
  * As an extension to the CGI/1.1 gateway specification, a CGI script may
@@ -155,7 +155,7 @@ void QxtWebCgiService::setTimeoutOverride(bool enable)
     qxt_d().timeoutOverride = enable;
 }
 
-/**
+/*!
  * \reimp
  */
 void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
@@ -274,7 +274,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
     }
 }
 
-/**
+/*!
  * \priv
  */
 void QxtWebCgiServicePrivate::browserReadyRead(QObject* o_content)
@@ -295,7 +295,7 @@ void QxtWebCgiServicePrivate::browserReadyRead(QObject* o_content)
     }
 }
 
-/**
+/*!
  * \priv
  */
 void QxtWebCgiServicePrivate::processReadyRead()
@@ -388,7 +388,7 @@ void QxtWebCgiServicePrivate::processReadyRead()
     }
 }
 
-/**
+/*!
  * \priv
  */
 void QxtWebCgiServicePrivate::processFinished()
@@ -410,7 +410,7 @@ void QxtWebCgiServicePrivate::processFinished()
     requests.remove(process);
 }
 
-/**
+/*!
  * \priv
  */
 void QxtWebCgiServicePrivate::terminateProcess(QObject* o_process)

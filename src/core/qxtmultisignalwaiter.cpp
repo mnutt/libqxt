@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtMultiSignalWaiter QxtMultiSignalWaiter
 
 \ingroup QxtCore
@@ -45,7 +45,7 @@ QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWait
 #include "qxtmultisignalwaiter.h"
 #include "qxtsignalwaiter.h"
 
-/**
+/*!
  * Constructs a QxtMultiSignalWaiter with the specified parent.
  */
 QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(parent)
@@ -53,7 +53,7 @@ QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(par
     /* initializers only */
 }
 
-/**
+/*!
  * \reimp
  */
 QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
@@ -61,7 +61,7 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
     /* no-op */
 }
 
-/**
+/*!
  * Blocks the current function until any of the signals in the group are emitted.
  * If msec is not -1, waitForAny() will return before a signal is emitted if the
  * specified  number of milliseconds have elapsed. Returns true if a signal was
@@ -79,7 +79,7 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
     return QxtSignalWaiter::wait(this, SIGNAL(firstSignalReceived()), msec, flags);
 }
 
-/**
+/*!
  * Blocks the current function until all of the signals in the group have been
  * emitted. If msec is not -1, waitForAll() will return before all of the signals
  * are emitted if the specified  number of milliseconds have elapsed. Returns

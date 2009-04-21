@@ -420,7 +420,7 @@ public:
 
 namespace QxtMetaObject
 {
-    /**
+    /*!
      * \relates QxtMetaObject
      * \sa QxtMetaObject::connect
      * \sa qxtFuncPtr
@@ -476,7 +476,7 @@ namespace QxtMetaObject
         return new QxtBoundCFunction<RETURN, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(0, funcPointer, args, types);
     }
 
-    /**
+    /*!
      * \relates QxtMetaObject
      * \sa QxtMetaObject::connect
      * \sa qxtFuncPtr

@@ -24,7 +24,7 @@
  ****************************************************************************/
 #include "qxtsemaphore.h"
 
-/**
+/*!
 \class QxtSemaphore QxtSemaphore
 \ingroup QxtCore
 \brief system wide semaphore (former QxtSingleInstance)

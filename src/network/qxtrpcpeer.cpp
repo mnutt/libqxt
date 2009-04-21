@@ -46,7 +46,7 @@ public:
     }
 };
 
-/**
+/*!
  * \class QxtRPCPeer QxtRPCPeer
  * \ingroup QxtNetwork
  * \brief Transmits Qt signals over a network connection
@@ -68,7 +68,7 @@ public:
  * to QxtRPCPeer, is limited to 8.
  */
 
-/**
+/*!
  * Creates a QxtRPCPeer object with the given parent.
  */
 QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent)
@@ -77,7 +77,7 @@ QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent)
     setConnectionManager(new QxtTcpConnectionManager(this));
 }
 
-/**
+/*!
  * Connects to the specified server on the selected port.
  *
  * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
@@ -87,7 +87,7 @@ void QxtRPCPeer::connect(QHostAddress addr, int port)
     qxt_d().getTcpSocket()->connectToHost(addr, port);
 }
 
-/**
+/*!
  * Connects to the specified peer or server on the selected port.
  *
  * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
@@ -97,7 +97,7 @@ void QxtRPCPeer::connect(QString addr, int port)
     qxt_d().getTcpSocket()->connectToHost(addr, port);
 }
 
-/**
+/*!
  * Listens on the specified interface on the specified port for connections.
  *
  * Attempting to listen while in Client mode or while connected in Peer mode will be ignored with a warning.  In Peer mode, only one connection
@@ -116,7 +116,7 @@ bool QxtRPCPeer::listen(QHostAddress iface, int port)
     return mgr->listen(iface, port);
 }
 
-/**
+/*!
  * Stops listening for connections. Any connections still open will remain connected.
  */
 void QxtRPCPeer::stopListening()

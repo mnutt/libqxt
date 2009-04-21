@@ -31,7 +31,7 @@
 #include <QDebug>
 #include <QVariant>
 
-/**
+/*!
 \class QxtSqlPackage QxtSqlPackage
 
 \ingroup QxtSql
@@ -45,7 +45,7 @@ for confidence the interface is similar to QSqlQuery.
 */
 
 
-/**
+/*!
 
 \fn  bool QxtSqlPackage::isValid();
 \brief determinates if the package curently points to a valid row

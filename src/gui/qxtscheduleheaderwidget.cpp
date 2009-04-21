@@ -32,7 +32,7 @@
 #include <QTime>
 
 
-/**
+/*!
  *  @internal the QxtAgendaHeaderWidget operates on a internal model , that uses the QxtScheduleView as DataSource
  *
  */

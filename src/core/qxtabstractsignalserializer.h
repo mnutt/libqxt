@@ -40,14 +40,14 @@ public:
 
     virtual ~QxtAbstractSignalSerializer() {}
 
-    /**
+    /*!
      * Serializes a signal into a form suitable for sending to an I/O device.
      */
     virtual QByteArray serialize(const QString& fn, const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(), const QVariant& p3 = QVariant(),
                                  const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
                                  const QVariant& p7 = QVariant(), const QVariant& p8 = QVariant()) const = 0;
 
-    /**
+    /*!
      * Deserializes binary data into a signal name and a list of parameters.
      * When implementing this function, be sure to remove the processed portion of the data from the reference parameter.
      * Return QxtAbstractSignalSerializer::NoOp() if the deserialized data does not invoke a signal.
@@ -55,12 +55,12 @@ public:
      */
     virtual DeserializedData deserialize(QByteArray& data) = 0;
 
-    /**
+    /*!
      * Indicates whether the data currently in the buffer can be deserialized.
      */
     virtual bool canDeserialize(const QByteArray& buffer) const = 0;
 
-    /**
+    /*!
      * Returns an object that indicates that the deserialized data does not invoke a signal.
      */
     static inline DeserializedData NoOp()
@@ -69,7 +69,7 @@ public:
         return rv;
     }
 
-    /**
+    /*!
      * Returns an object that indicates that the deserialized data indicates a fatal protocol error.
      */
     static inline DeserializedData ProtocolError()
@@ -78,7 +78,7 @@ public:
         return rv;
     }
 
-    /**
+    /*!
      * Checks to see if the provided object does not invoke a signal.
      */
     static inline bool isNoOp(const DeserializedData& value)
@@ -86,7 +86,7 @@ public:
         return value.first.isEmpty() && value.second.isEmpty();
     }
 
-    /**
+    /*!
      * Checks to see if the provided object indicates a fatal protocol error.
      */
     static inline bool isProtocolError(const DeserializedData& value)

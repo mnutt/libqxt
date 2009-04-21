@@ -25,7 +25,7 @@
 
 #include "qxtpointerlist.h"
 
-/**
+/*!
 \class QxtPointerList QxtPointerList
 
 \ingroup QxtCore
