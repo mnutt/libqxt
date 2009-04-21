@@ -26,7 +26,7 @@
 /*!
 \class QxtMultiSignalWaiter QxtMultiSignalWaiter
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Block and process events until a group of signals is emitted
 

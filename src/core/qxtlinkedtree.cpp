@@ -29,7 +29,7 @@
 
 /*!
 \class QxtLinkedTree QxtLinkedTree
-\ingroup QxtCore
+\inmodule QxtCore
 \brief fast Container for tree structured data
 
 this template class can be used to store data easily in a tree structure. \n
@@ -95,7 +95,7 @@ Be extremly carefull. It is easy to currupt your data with this!
 
 
 \class QxtLinkedTreeIterator QxtLinkedTree
-\ingroup QxtCore
+\inmodule QxtCore
 \brief fast access to an QxtLinkedTree
 
 \fn QxtLinkedTreeIterator    QxtLinkedTreeIterator::child   () const;

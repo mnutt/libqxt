@@ -26,7 +26,7 @@
 /*!
 \class QxtScgiServerConnector QxtScgiServerConnector
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief An SCGI connector for QxtHttpSessionManager
 

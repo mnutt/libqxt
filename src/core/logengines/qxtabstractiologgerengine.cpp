@@ -28,7 +28,7 @@
 /*!
     \class QxtAbstractIOLoggerEngine QxtAbstractIOLoggerEngine
     \brief The base class of IO logger engines.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     \sa QxtLogger
  */

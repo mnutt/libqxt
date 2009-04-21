@@ -148,7 +148,7 @@ public:
 
 /*!
  * \class QxtRPCService QxtRPCService
- * \ingroup QxtCore
+ * \inmodule QxtCore
  * \brief Transmits Qt signals over a QIODevice
  *
  * QxtRPCService is a tool that encapsulates Qt signals and transmits them over a QIODevice.

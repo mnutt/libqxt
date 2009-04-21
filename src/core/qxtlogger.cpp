@@ -26,7 +26,7 @@
 /*!
     \class QxtLogger QxtLogger
     \brief An easy to use, easy to extend logging tool.
-    \ingroup QxtCore
+    \inmodule QxtCore
 
     \section Overview
     QxtLogger is an easy to use, easy to extend, thread-safe  logging tool.  It was designed to be used "out of the box".

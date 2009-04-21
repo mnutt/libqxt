@@ -42,7 +42,7 @@ QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true), flat(false)
 
 /*!
     \class QxtGroupBox QxtGroupBox
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A collapsive and checkable QGroupBox.
 
     QxtGroupBox is a checkable group box automatically expanding/collapsing

@@ -28,7 +28,7 @@
 /*!
 \class QxtPointerList QxtPointerList
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief a list of pointers to QObjects, that cleans itself
 

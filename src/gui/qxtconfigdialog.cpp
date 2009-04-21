@@ -274,7 +274,7 @@ void QxtConfigDialogPrivate::setCurrentIndex(int index)
 
 /*!
     \class QxtConfigDialog QxtConfigDialog
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief A configuration dialog.
 
     QxtConfigDialog provides a convenient interface for building

@@ -60,7 +60,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 
 /*!
     \class QxtTabWidget QxtTabWidget
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QTabWidget.
 
     QxtTabWidget provides some convenience for handling tab specific context menus

@@ -26,7 +26,7 @@
 /*!
 \class QxtAbstractHttpConnector QxtAbstractHttpConnector
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief Base class for defining HTTP-based protocols for use with QxtHttpSessionManager
 

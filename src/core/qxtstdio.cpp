@@ -28,7 +28,7 @@
 /*!
 \class QxtStdio QxtStdio
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief QIODevice and QxtPipe support for stdin and stdout
 

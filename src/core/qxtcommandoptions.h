@@ -39,7 +39,7 @@ QT_FORWARD_DECLARE_CLASS(QIODevice)
 /*!
 \class QxtCommandOptions QxtCommandOptions
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Parser for command-line options
 

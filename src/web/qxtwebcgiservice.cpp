@@ -26,7 +26,7 @@
 /*!
 \class QxtWebCgiService QxtWebCgiService
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief CGI/1.1 gateway for QxtWeb
 

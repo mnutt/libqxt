@@ -26,7 +26,7 @@
 /*!
 \class QxtWebContent QxtWebContent
 
-\ingroup QxtWeb
+\inmodule QxtWeb
 
 \brief I/O device for data sent by the web browser
 

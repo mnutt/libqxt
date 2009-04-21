@@ -27,7 +27,7 @@
 
 /*!
     \class QxtTableWidgetItem QxtTableWidgetItem
-    \ingroup QxtGui
+    \inmodule QxtGui
     \brief An extended QTableWidgetItem.
 
     QxtTableWidgetItem provides means for offering check state change signals and

@@ -31,7 +31,7 @@
 /*!
 \class QxtLineSocket QxtLineSocket
 
-\ingroup QxtCore
+\inmodule QxtCore
 
 \brief Acts on a QIOdevice as baseclass for line-based protocols
 */
