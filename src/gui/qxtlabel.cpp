@@ -71,7 +71,7 @@ void QxtLabelPrivate::updateLabel()
     QxtLabel is a label which is able to show elided and rotated plain text.
     In addition, QxtLabel provides a signal for clicking.
 
-    \image html qxtlabel.png "QxtLabel in action."
+    \image qxtlabel.png "QxtLabel in action."
  */
 
 /*!

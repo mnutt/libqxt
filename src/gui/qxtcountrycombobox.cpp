@@ -67,7 +67,7 @@ void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
     QxtCountryComboBox is a specialized combo box to display countries.
     The languages are taken from QLocale::Country.
 
-    \image html qxtcountrycombobox.png "QxtCountryComboBox in Plastique style."
+    \image qxtcountrycombobox.png "QxtCountryComboBox in Plastique style."
  */
 
 /*!

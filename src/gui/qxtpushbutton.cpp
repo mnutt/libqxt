@@ -108,7 +108,7 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
     QxtPushButton is a QPushButton which can be rotated. In addition, QxtPushButton
     provides rich text support.
 
-    \image html qxtpushbutton.png "QxtPushButton in action."
+    \image qxtpushbutton.png "QxtPushButton in action."
  */
 
 /*!

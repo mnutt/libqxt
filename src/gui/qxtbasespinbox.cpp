@@ -51,7 +51,7 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
     spinBox->setUpperCase(true);
     \endcode
 
-    \image html qxtbasespinbox.png "QxtBaseSpinBox in action."
+    \image qxtbasespinbox.png "QxtBaseSpinBox in action."
 
     \note Notice that QxtBaseSpinBox is not locale-aware.
  */

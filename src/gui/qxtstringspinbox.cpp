@@ -58,7 +58,7 @@ int QxtStringSpinBoxPrivate::startsWith(const QString& start, QString& string) c
     pressing Up or Down on the keyboard to increase or decrease the value
     currently displayed. The user can also type the value in manually.
 
-    \image html qxtstringspinbox.png "QxtStringSpinBox in Cleanlooks style."
+    \image qxtstringspinbox.png "QxtStringSpinBox in Cleanlooks style."
  */
 
 /*!

@@ -65,7 +65,7 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
     QxtTreeWidget offers an optional top level item decoration
     and a few most commonly requested signals.
 
-    \image html qxttreewidget.png "QxtTreeWidget with Qxt::Menulike and Qxt::Buttonlike decoration styles, respectively."
+    \image qxttreewidget.png "QxtTreeWidget with Qxt::Menulike and Qxt::Buttonlike decoration styles, respectively."
  */
 
 /*!
