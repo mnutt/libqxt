@@ -75,6 +75,9 @@ public:
 
     void                        setViewMode(const QxtScheduleView::ViewMode mode);
     QxtScheduleView::ViewMode   viewMode() const;
+    
+    QHeaderView*                verticalHeader ( ) const;
+    QHeaderView*                horizontalHeader ( ) const;
 
     void                        setDateRange(const QDate & fromDate , const QDate & toDate);
     void                        setTimeRange(const QDateTime &fromDateTime , const QDateTime &toTime);
