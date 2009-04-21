@@ -66,8 +66,8 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     /*standart values are 15 minutes per cell and 69 rows == 1 Day*/
     qxt_d().m_currentZoomDepth = 15 * 60;
     qxt_d().m_currentViewMode  = DayView;
-    qxt_d().m_startUnixTime = 0;
-    qxt_d().m_endUnixTime = 0;
+    qxt_d().m_startUnixTime    = QDateTime(QDate::currentDate(),QTime(0, 0, 0));
+    qxt_d().m_endUnixTime      = QDateTime(QDate::currentDate().addDays(6),QTime(23, 59, 59));
     qxt_d().delegate = qxt_d().defaultDelegate = new QxtScheduleItemDelegate(this);
 
 #if 0
