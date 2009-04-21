@@ -34,7 +34,7 @@
 #include <QThread>
 #include <QtDebug>
 
-/**
+/*!
 \class QxtBoundFunction
 
 \ingroup QxtCore
@@ -81,7 +81,7 @@ class QXT_CORE_EXPORT QxtBoundFunction : public QObject
 {
     Q_OBJECT
 public:
-    /**
+    /*!
      * Invokes the bound function and returns a value.
      *
      * The template parameter should be the return type of the invoked function. This overload accepts
@@ -100,7 +100,7 @@ public:
 #endif
     }
 
-    /**
+    /*!
      * Invokes the bound function and returns a value.
      *
      * The template parameter should be the return type of the invoked function. This overload accepts
@@ -127,7 +127,7 @@ public:
         }
     }
 
-    /**
+    /*!
      * Invokes the bound function, discarding the return value.
      *
      * This overload accepts QVariant parameters and will guess the data type of each
@@ -140,7 +140,7 @@ public:
     {
         return invoke(Qt::AutoConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    /**
+    /*!
      * Invokes the bound function, discarding the return value.
      *
      * This overload accepts QVariant parameters and will guess the data type of each
@@ -153,7 +153,7 @@ public:
      */
     bool invoke(Qt::ConnectionType, QVariant p1, QXT_PROTO_9ARGS(QVariant));
 
-    /**
+    /*!
      * Invokes the bound function, discarding the return value.
      *
      * This overload accepts QGenericArgument parameters, expressed using the Q_ARG()
@@ -166,7 +166,7 @@ public:
     {
         return invoke(Qt::AutoConnection, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    /**
+    /*!
      * Invokes the bound function, discarding the return value.
      *
      * This overload accepts QGenericArgument parameters, expressed using the Q_ARG()
@@ -181,7 +181,7 @@ public:
         return invoke(type, QGenericReturnArgument(), p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
 
-    /**
+    /*!
      * Invokes the bound function and assigns the return value to a parameter passed by reference.
      *
      * Use the Q_RETURN_ARG() macro to pass a reference to an assignable object of the function's
@@ -197,7 +197,7 @@ public:
     {
         return invoke(Qt::AutoConnection, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    /**
+    /*!
      * Invokes the bound function and assigns the return value to a parameter passed by reference.
      *
      * Use the Q_RETURN_ARG() macro to pass a reference to an assignable object of the function's
@@ -213,7 +213,7 @@ public:
      */
     bool invoke(Qt::ConnectionType type, QGenericReturnArgument returnValue, QVariant p1, QXT_PROTO_9ARGS(QVariant));
 
-    /**
+    /*!
      * Invokes the bound function and assigns the return value to a parameter passed by reference.
      *
      * Use the Q_RETURN_ARG() macro to pass a reference to an assignable object of the function's
@@ -229,7 +229,7 @@ public:
     {
         return invoke(Qt::AutoConnection, returnValue, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
     }
-    /**
+    /*!
      * Invokes the bound function and assigns the return value to a parameter passed by reference.
      *
      * Use the Q_RETURN_ARG() macro to pass a reference to an assignable object of the function's
@@ -249,7 +249,7 @@ protected:
     QxtBoundFunction(QObject* parent = 0);
 #endif
 
-    /**
+    /*!
      * Performs the work of invoking the bound function.
      *
      * This function is pure virtual. The various QxtMetaObject::bind() functions return opaque subclasses

@@ -24,7 +24,7 @@
  ****************************************************************************/
 #include "qxtstdstreambufdevice.h"
 
-/**
+/*!
 \class QxtStdStreambufDevice QxtStdStreambufDevice
 
 \ingroup QxtCore
@@ -37,7 +37,7 @@
 
 */
 
-/**
+/*!
 \fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * b,QObject * parent)
 \brief creates a QxtStdStreambufDevice using a single stream buffer as in and output
 

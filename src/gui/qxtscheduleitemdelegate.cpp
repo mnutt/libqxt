@@ -45,7 +45,7 @@ QxtScheduleItemDelegate::~QxtScheduleItemDelegate()
 }
 
 
-/**
+/*!
  * @desc reimplemented for item painting
  * You should not reimplement this to change the item painting, use paintItemBody, paintItemHeader and paintSubItem instead
  * because this function uses caches to speed up painting. If you want to change the item shape only you could also reimplement
@@ -131,7 +131,7 @@ void QxtScheduleItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
     painter->restore();
 }
 
-/**
+/*!
  * @brief paints the items body reimplement this to paint a custom body
  * @param QPainter *painter the initialized painter
  * @param const QRect rect the ItemPart rect
@@ -166,7 +166,7 @@ void QxtScheduleItemDelegate::paintItemBody(QPainter *painter, const QRect rect 
     painter->drawPath(cachePath);
 }
 
-/**
+/*!
  * @brief paints the items header reimplement this to paint a custom header
  * @param QPainter *painter the initialized painter
  * @param const QRect rect the header rect
@@ -204,7 +204,7 @@ void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rec
     painter->drawText(rect, Qt::AlignCenter, text);
 }
 
-/**
+/*!
  * @brief paints a subitem, if you want custom subitem painting reimplement this member function
  * @param QPainter *painter the initialized painter
  * @param const QRect rect the subitem rect
@@ -216,7 +216,7 @@ void QxtScheduleItemDelegate::paintSubItem(QPainter * /*painter*/, const QRect /
 
 }
 
-/**
+/*!
  * @brief returns the sizeHint for subitems.
  */
 QSize QxtScheduleItemDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const

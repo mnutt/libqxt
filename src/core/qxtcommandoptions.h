@@ -36,7 +36,7 @@ class QxtCommandOptionsPrivate;
 QT_FORWARD_DECLARE_CLASS(QTextStream)
 QT_FORWARD_DECLARE_CLASS(QIODevice)
 
-/**
+/*!
 \class QxtCommandOptions QxtCommandOptions
 
 \ingroup QxtCore
@@ -106,7 +106,7 @@ class QXT_CORE_EXPORT QxtCommandOptions
     Q_DECLARE_TR_FUNCTIONS(QxtCommandOptions)
 
 public:
-    /**
+    /*!
      * \enum QxtCommandOptions::FlagStyle
      * This enum type defines which type of option prefix is used.
      * Slash is the default on Windows.
@@ -118,7 +118,7 @@ public:
         SingleDash,         /*!< One dash (UNIX-style) */
         Slash               /*!< Forward slash (Windows-style) */
     };
-    /**
+    /*!
      * \enum QxtCommandOptions::ParamStyle
      * This enum type defines what syntax is used for options that
      * require parameters. Equals is the default on Windows.
@@ -130,7 +130,7 @@ public:
         Equals = 2,         /*!< Equals sign ("/option=value") */
         SpaceAndEquals = 3  /*!< Accept either */
     };
-    /**
+    /*!
      * \enum QxtCommandOptions::ParamType
      * \flags QxtCommandOptions::ParamTypes
      * This enum type is used to specify flags that control the

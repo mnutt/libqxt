@@ -28,7 +28,7 @@
 
 #include <qxtglobal.h>
 
-/**
+/*!
 \class QxtNull QxtNull
 
 \ingroup QxtCore
@@ -40,7 +40,7 @@
 
 struct QXT_CORE_EXPORT QxtNull
 {
-    /** integer cast operator
+    /*! integer cast operator
      * In expressions, QxtNull behaves as an integer zero for compatibility with generic functions.
      */
     operator int() const

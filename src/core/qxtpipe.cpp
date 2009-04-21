@@ -28,7 +28,7 @@
 #include <QQueue>
 #include <QMutableListIterator>
 
-/**
+/*!
  * \class  QxtPipe QxtPipe
  * \ingroup QxtCore
  * \brief a pipeable QIODevice
@@ -63,7 +63,7 @@
 */
 
 
-/**
+/*!
  * Contructs a new QxtPipe.
  */
 QxtPipe::QxtPipe(QObject * parent): QIODevice(parent)
@@ -86,7 +86,7 @@ qint64 QxtPipe::bytesAvailable() const
     return qxt_d().q.count();
 }
 
-/**
+/*!
  * pipes the output of this instance to the \p other  QxtPipe using the given mode and connectiontype \n
  * connection pipes with this function can be considered thread safe \n
  *
@@ -126,7 +126,7 @@ bool  QxtPipe::connect(QxtPipe * other , QIODevice::OpenMode mode, Qt::Connectio
     return true;
 }
 
-/**
+/*!
  * cuts the connection to the \p other QxtPipe
  */
 bool QxtPipe::disconnect(QxtPipe * other)
@@ -148,7 +148,7 @@ bool QxtPipe::disconnect(QxtPipe * other)
     return e;
 }
 
-/**
+/*!
  * convinence function for QxtPipe::connect.
  * pipes the output of this instance to the \p other  QxtPipe in readwrite mode with autoconnection
  */
@@ -180,7 +180,7 @@ qint64 QxtPipe::writeData(const char * data, qint64 maxSize)
     return maxSize;
 }
 
-/**
+/*!
 call this from your subclass to write data to the pipe network.
 All write connected pipes will be invoked with receiveData
 In this case this is called from receiveData, the sender will be excluded from the receiver list.
@@ -219,7 +219,7 @@ void   QxtPipe::sendData(QByteArray data) const
     qxt_d().lastsender = 0;
 
 }
-/**
+/*!
 call this from your subclass to make data available to the QIODevice::read facility
 */
 void   QxtPipe::enqueData(QByteArray datab)
@@ -236,7 +236,7 @@ void   QxtPipe::enqueData(QByteArray datab)
         emit(readyRead());
 }
 
-/**
+/*!
 receiveData is called from any connected pipe to input data into this instance.
 reimplement this function to handle data from the pipe network.
 

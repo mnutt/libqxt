@@ -30,7 +30,7 @@
 #include <qxtglobal.h>
 #include <qxtnamespace.h>
 
-/**
+/*!
 \class QxtError QxtError
 
 \ingroup QxtCore

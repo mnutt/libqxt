@@ -85,20 +85,20 @@ public Q_SLOTS:
                     const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
                     const QVariant& p7 = QVariant(), const QVariant& p8 = QVariant());
 
-    /**
+    /*!
      * Detaches all signals and slots for the object that emitted the signal connected to detachSender().
      */
     void detachSender();
 
 Q_SIGNALS:
-    /**
+    /*!
      * This signal is emitted after a successful connection from a client.
      *
      * The given ID is used for disconnectClient(), call(), and related functions.
      */
     void clientConnected(quint64 id);
 
-    /**
+    /*!
      * This signal is emitted when a client disconnects. The given ID is no longer valid.
      */
     void clientDisconnected(quint64 id);

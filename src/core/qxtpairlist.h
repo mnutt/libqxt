@@ -26,7 +26,7 @@
 #ifndef QXTPAIRLIST_H
 #define QXTPAIRLIST_H
 
-/**
+/*!
 \class QxtPairList QxtPairList
 
 \ingroup kit
@@ -94,7 +94,7 @@ public:
     }
 
 
-    /** \brief search entries by match
+    /*! \brief search entries by match
 
     both arguments are optional, due to the use of QxtNullable
 
@@ -160,7 +160,7 @@ public:
 
 
 
-    /** \brief operate on the list directly
+    /*! \brief operate on the list directly
 
     you may use the internal list directly, but be carefull
     don't expect to work the QxPairList to work normal if you mess around with it.

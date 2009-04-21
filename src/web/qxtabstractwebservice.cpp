@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtAbstractWebService QxtAbstractWebService
 
 \ingroup QxtWeb
@@ -80,7 +80,7 @@ public:
 };
 #endif
 
-/**
+/*!
  * Creates a QxtAbstractWebService with the specified parent and session manager.
  *
  * Often, the session manager will also be the parent, but this is not a requirement.
@@ -93,7 +93,7 @@ QxtAbstractWebService::QxtAbstractWebService(QxtAbstractWebSessionManager* manag
     qxt_d().manager = manager;
 }
 
-/**
+/*!
  * Returns the session manager associated with the web service.
  */
 QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const
@@ -101,12 +101,12 @@ QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const
     return qxt_d().manager;
 }
 
-/**
+/*!
  * \fn void QxtAbstractWebService::postEvent(QxtWebEvent* event)
  * Posts an event to a web browser that has made a request to the service.
  */
 
-/**
+/*!
  * \fn virtual void QxtAbstractWebService::pageRequestedEvent(QxtWebRequestEvent* event)
  * This event handler must be reimplemented in subclasses to receive page
  * request events.

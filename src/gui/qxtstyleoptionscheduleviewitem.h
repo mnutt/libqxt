@@ -31,7 +31,7 @@
 #include <QVector>
 
 
-/**
+/*!
  @author Benjamin Zeller <zbenjamin@users.sourceforge.net>
 */
 class QxtStyleOptionScheduleViewItem : public QStyleOptionViewItem

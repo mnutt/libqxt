@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/**
+/*!
 \class QxtNullable QxtNullable
 \ingroup QxtCore
 \brief distinct null value compatible with any data type.
