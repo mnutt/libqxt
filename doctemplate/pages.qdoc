@@ -29,47 +29,32 @@
     \keyword Qxt Reference Documentation
     \title Qxt Reference Documentation
 
-    Qxt provides classes for extended needs based on the Qt Library by Trolltech
+    Qxt, an extension library for Qt, provides a suite of cross-platform utility classes to add functionality not readily available in the Qt toolkit by Nokia.
 
     \raw HTML
         <table cellpadding="2" cellspacing="1" border="0" width="100%" bgcolor="#e5e5e5">
         <tr>
-        <th bgcolor="#66b036" width="33%">
+        <th bgcolor="#66b036" width="50%">
         Getting Started
         </th>
-        <th bgcolor="#66b036" width="33%">
+        <th bgcolor="#66b036" width="50%">
         General
-        </th>
-        <th bgcolor="#66b036" width="33%">
-        Developer Resources
         </th>
         </tr>
         <tr>
         <td valign="top">
         <ul>
-        <li><strong><a href="qt4-5-intro.html">What's New in Qt 4.5</a></strong></li>
-        <li><a href="how-to-learn-qt.html">How to Learn Qt</a></li>
         <li><a href="installation.html">Installation</a></li>
-        <li><a href="tutorials.html">Tutorials</a>, <a href="examples.html">Examples</a> and <a href="demos.html">Demonstrations</a></li>
-        <li><a href="porting4.html">Porting from Qt 3 to Qt 4</a></li>
+        <li><a href="examples.html">Examples</a></li>
         </ul>
         </td>
         <td valign="top">
         <ul>
+        <li><a href="http://libqxt.org">About Qxt</a></li>
         <li><a href="http://www.qtsoftware.com/products">About Qt</a></li>
-        <li><a href="http://www.qtsoftware.com/about">About Us</a></li>
-        <li><a href="commercialeditions.html">Commercial Edition</a></li>
-        <li><a href="opensourceedition.html">Open Source Edition</a></li>
         <li><a href="supported-platforms.html">Supported Platforms</a></li>
-        </ul>
-        </td>
-        <td valign="top">
-        <ul>
-        <li><a href="http://www.qtsoftware.com/developer/faqs/">Frequently Asked Questions</a></li>
-        <li><a href="http://www.qtsoftware.com/developer/community/">Qt Community Web Sites</a></li>
-        <li><a href="http://doc.trolltech.com/qq/">Qt Quarterly</a></li>
         <li><a href="bughowto.html">How to Report a Bug</a></li>
-        <li><a href="http://www.qtsoftware.com/developer/">Other Online Resources</a></li>
+        <li><a href="contribute.html">How to Contribute</a></li>
         </ul>
         </td>
         </tr>
@@ -78,10 +63,7 @@
         API Reference
         </th>
         <th bgcolor="#66b036">
-        Core Features
-        </th>
-        <th bgcolor="#66b036">
-        Key Technologies
+        Licenses &amp; Credits
         </th>
         </tr>
         <tr>
@@ -95,77 +77,9 @@
         </td>
         <td valign="top">
         <ul>
-        <li><a href="signalsandslots.html">Signals and Slots</a></li>
-        <li><a href="object.html">Object Model</a></li>
-        <li><a href="layout.html">Layout Management</a></li>
-        <li><a href="qt4-mainwindow.html">Main Window Architecture</a></li>
-        <li><a href="paintsystem.html">Paint System</a></li>
-        <li><a href="graphicsview.html">Graphics View</a></li>
-        <li><a href="accessible.html">Accessibility</a></li>
-        <li><a href="containers.html">Tool and Container Classes</a></li>
-        <li><a href="richtext.html">Rich Text Processing</a></li>
-        <li><a href="i18n.html">Internationalization</a></li>
-        <li><a href="plugins-howto.html">Plugin System</a></li>
-        <li><a href="threads.html">Multithreaded Programming</a></li>
-        <li><a href="ipc.html">Inter-Process Communication (IPC)</a></li>
-        <li><a href="qtestlib-manual.html">Unit Testing Framework</a></li>
-        </ul>
-        </td>
-        <td valign="top">
-        <ul>
-        <li><a href="model-view-programming.html">Model/View Programming</a></li>
-        <li><a href="stylesheet.html">Style Sheets</a></li>
-        <li><a href="qthelp.html">Help Module</a></li>
-        <li><a href="qtnetwork.html">Network Module</a></li>
-        <li><a href="qtopengl.html">OpenGL Module</a></li>
-        <li><a href="qtscript.html">Script Module</a></li>
-        <li><a href="qtsql.html">SQL Module</a></li>
-        <li><a href="qtsvg.html">SVG Module</a></li>
-        <li><a href="qtwebkit.html">WebKit Integration</a></li>
-        <li><a href="qtxml.html">XML Module</a></li>
-        <li><a href="qtxmlpatterns.html">XML Patterns: XQuery &amp; XPath</a></li>
-        <li><a href="phonon-module.html">Phonon Multimedia Framework</a></li>
-        <li><a href="qtscripttools.html">Script Tools Module</a></li>
-        <li><a href="activeqt.html">ActiveQt Framework</a></li>
-        </ul>
-        </td>
-        </tr>
-        <tr>
-        <th bgcolor="#66b036">
-        Add-ons &amp; Services
-        </th>
-        <th bgcolor="#66b036">
-        Tools
-        </th>
-        <th bgcolor="#66b036">
-        Licenses &amp; Credits
-        </th>
-        </tr>
-        <tr>
-        <td valign="top">
-        <ul>
-        <li><a href="http://www.qtsoftware.com/products/add-on-products">Qt Solutions</a></li>
-        <li><a href="http://www.qtsoftware.com/products/qt/3rdparty/">Partner Add-ons</a></li>
-        <li><a href="http://qt-apps.org">Third-Party Qt Components (qt-apps.org)</a></li>
-        <li><a href="http://www.qtsoftware.com/support/">Support</a></li>
-        <li><a href="http://www.qtsoftware.com/support/training/">Training</a></li>
-        </ul>
-        </td>
-        <td valign="top">
-        <ul>
-        <li><a href="designer-manual.html">Qt Designer</a></li>
-        <li><a href="assistant-manual.html">Qt Assistant</a></li>
-        <li><a href="linguist-manual.html">Qt Linguist</a></li>
-        <li><a href="qmake-manual.html">qmake</a></li>
-        <li><a href="qttools.html">All Tools</a></li>
-        </ul>
-        </td>
-        <td valign="top">
-        <ul>
-        <li><a href="gpl.html">GNU GPL</a>, <a href="lgpl.html">GNU LGPL</a></li>
-        <li><a href="3rdparty.html">Third-Party Licenses Used in Qt</a></li>
-        <li><a href="licenses.html">Other Licenses Used in Qt</a></li>
-        <li><a href="trademarks.html">Trademark Information</a></li>
+        <li><a href="cpl.html">IBM CPL</a>, <a href="lgpl.html">GNU LGPL</a></li>
+        <li><a href="3rdparty.html">Third-Party Licenses Used in Qxt</a></li>
+        <li><a href="licenses.html">Other Licenses Used in Qxt</a></li>
         <li><a href="credits.html">Credits</a></li>
         </ul>
         </td>
