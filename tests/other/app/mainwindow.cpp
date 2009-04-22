@@ -4,7 +4,9 @@
 #include <QxtGlobalShortcut>
 #include <QxtProgressLabel>
 #include <QxtConfigDialog>
+#ifndef Q_WS_MAC
 #include <QxtWindowSystem>
+#endif
 #include <QxtApplication>
 #include <QProgressBar>
 #include <QMessageBox>
@@ -25,23 +27,25 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
 	ui.setupUi(this);
 	createProgressBar();
 	ui.tabWidget->setTabContextMenuPolicy(Qt::ActionsContextMenu);
-	
+
 	connect(ui.actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 	connect(ui.actionAddTab, SIGNAL(triggered()), this, SLOT(addTab()));
 	connect(ui.actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 	connect(ui.actionAboutQxtGui, SIGNAL(triggered()), this, SLOT(aboutQxtGui()));
 	connect(ui.actionSwitchLayoutDirection, SIGNAL(triggered()), this, SLOT(switchLayoutDirection()));
 	connect(ui.actionConfigure, SIGNAL(triggered()), this, SLOT(configure()));
-	
+
     QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(toggleVisibility()));
     if (!shortcut->setShortcut(QKeySequence("Ctrl+Shift+Alt+S")))
 		ui.labelVisibility->hide();
 
+#ifndef Q_WS_MAC
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateIdleTime()));
     timer->start(150);
     updateIdleTime();
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -88,21 +92,23 @@ void MainWindow::toggleVisibility()
 
 void MainWindow::updateIdleTime()
 {
+#ifndef Q_WS_MAC
     setWindowTitle(tr("QxtDemo - System Idle: %1ms").arg(QxtWindowSystem::idleTime()));
+#endif
 }
 
 void MainWindow::createProgressBar()
 {
 	QxtProgressLabel* label = new QxtProgressLabel(statusBar());
-	
+
 	QProgressBar* bar = new QProgressBar(statusBar());
 	bar->setMaximumWidth(label->sizeHint().width() * 2);
 	bar->setRange(0, 120);
-	
+
 #if QT_VERSION >= 0x040200
 	QTimeLine* timeLine = new QTimeLine(120000, this);
 	timeLine->setFrameRange(0, 120);
-	
+
 	connect(timeLine, SIGNAL(frameChanged(int)), bar, SLOT(setValue(int)));
 	connect(timeLine, SIGNAL(finished()), label, SLOT(restart()));
 	connect(bar, SIGNAL(valueChanged(int)), label, SLOT(setValue(int)));
