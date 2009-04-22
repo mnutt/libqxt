@@ -25,7 +25,9 @@
 #ifndef QXTGUI_H_INCLUDED
 #define QXTGUI_H_INCLUDED
 
+#if !defined(Q_WS_QWS)
 #include "qxtapplication.h"
+#endif
 #include "qxtbasespinbox.h"
 #include "qxtcheckcombobox.h"
 #include "qxtconfigdialog.h"
@@ -65,7 +67,9 @@
 #include "qxttooltip.h"
 #include "qxttreewidget.h"
 #include "qxttreewidgetitem.h"
+#if !defined(Q_WS_QWS) && !defined(Q_WS_MAC)
 #include "qxtwindowsystem.h"
+#endif
 #include "qxtsortfilterproxymodel.h"
 
 /** \defgroup QxtGui QxtGui
