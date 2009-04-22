@@ -1,5 +1,4 @@
 project                 = Qxt
-version                 = 0.6.0
 description             = Qxt Reference Documentation
 url                     = http://doc.libqxt.org/0.6.0
 language                = Cpp
@@ -101,5 +100,5 @@ HTML.footer             = "<p /><address><hr /><div align=\"center\">\n" \
                           "<td align=\"left\">Copyright &copy; 2007-2009\n" \
                           "<a href=\"mailto:foundation@libqxt.org\">Qxt Foundation</a></td>\n" \
                           "<td align=\"right\"><div align=\"right\">\n" \
-                          "<a href=\"http://libqxt.org\">Qxt</a> \\version</div></td>\n" \
+                          "<a href=\"http://libqxt.org\">Qxt</a> 0.6.0</div></td>\n" \
                           "</tr></table></div></address>"
