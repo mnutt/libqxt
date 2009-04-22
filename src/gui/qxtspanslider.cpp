@@ -291,7 +291,6 @@ void QxtSpanSliderPrivate::movePressedHandle()
             if (lowerPos != lower)
             {
                 bool main = (mainControl == QxtSpanSliderPrivate::LowerHandle);
-                qDebug("QxtSpanSliderPrivate::movePressedHandle, LOWER, %d", main);
                 triggerAction(QAbstractSlider::SliderMove, main);
             }
             break;
@@ -299,7 +298,6 @@ void QxtSpanSliderPrivate::movePressedHandle()
             if (upperPos != upper)
             {
                 bool main = (mainControl == QxtSpanSliderPrivate::UpperHandle);
-                qDebug("QxtSpanSliderPrivate::movePressedHandle, UPPER, %d", main);
                 triggerAction(QAbstractSlider::SliderMove, main);
             }
             break;
@@ -744,12 +742,9 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
     const QRect ur = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
     const int urv  = qxt_d().pick(ur.center());
 
-    qDebug("## PAINT %d %d", qxt_d().lowerPos, qxt_d().upperPos);
-
     // span
     const int minv = qMin(lrv, urv);
     const int maxv = qMax(lrv, urv);
-    qDebug("## PAINT minmax %d %d", minv, maxv);
     const QPoint c = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this).center();
     QRect spanRect;
     if (orientation() == Qt::Horizontal)
