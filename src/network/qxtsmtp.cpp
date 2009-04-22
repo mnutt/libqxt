@@ -279,9 +279,9 @@ void QxtSmtpPrivate::authLogin()
 void QxtSmtpPrivate::sendNext()
 {
     rcptNumber = 0;
+    QByteArray sender = pending.first().sender().toAscii();
+    socket->write("mail from: " + sender);
     if(extensions.contains("PIPELINING")) { // almost all do nowadays
-        QByteArray sender = pending.first().sender();
-        socket->write("mail from: " + sender);
     } else {
     }
 }
