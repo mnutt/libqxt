@@ -1,6 +1,16 @@
-LibQxt 0.5.0 introduces new features and contains bug fixes to the 0.4.x
+LibQxt 0.6.0 introduces new features and contains bug fixes to the 0.5.x
 series. For more details, see the documentation included in this package
 or online at http://docs.libqxt.org.
+
+0.6.0
+-----
+- QxtCore
+    * Added QxtModelSerializer
+
+- QxtGui
+    * Added rich text support to QxtItemDelegate
+
+- Added QxtZeroConf module
 
 0.5.0
 -----

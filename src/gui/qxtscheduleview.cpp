@@ -66,10 +66,11 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     /*standart values are 15 minutes per cell and 69 rows == 1 Day*/
     qxt_d().m_currentZoomDepth = 15 * 60;
     qxt_d().m_currentViewMode  = DayView;
-    qxt_d().m_startUnixTime = 0;
-    qxt_d().m_endUnixTime = 0;
+    qxt_d().m_startUnixTime    = QDateTime(QDate::currentDate(),QTime(0, 0, 0)).toTime_t();
+    qxt_d().m_endUnixTime      = QDateTime(QDate::currentDate().addDays(6),QTime(23, 59, 59)).toTime_t();
     qxt_d().delegate = qxt_d().defaultDelegate = new QxtScheduleItemDelegate(this);
 
+#if 0
     qxt_d().m_vHeader = new QxtScheduleHeaderWidget(Qt::Vertical, this);
     connect(qxt_d().m_vHeader, SIGNAL(geometriesChanged()), this, SLOT(updateGeometries()));
     qxt_d().m_vHeader->hide();
@@ -77,9 +78,32 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     qxt_d().m_hHeader = new QxtScheduleHeaderWidget(Qt::Horizontal, this);
     connect(qxt_d().m_hHeader, SIGNAL(geometriesChanged()), this, SLOT(updateGeometries()));
     qxt_d().m_hHeader->hide();
+#else
+    //init will take care of initializing headers
+    qxt_d().m_vHeader = 0;
+    qxt_d().m_hHeader = 0;
+#endif
 
 }
 
+/**
+ *@desc returns the vertial header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::verticalHeader ( ) const
+{
+    return qxt_d().m_vHeader;
+}
+
+/**
+ *@desc returns the horizontal header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::horizontalHeader ( ) const
+{
+    return qxt_d().m_hHeader;
+}
+    
 /**
  * @desc sets the model for QxtScheduleView
  *
@@ -404,6 +428,9 @@ void QxtScheduleView::paintEvent(QPaintEvent * /*event*/)
 
 void QxtScheduleView::updateGeometries()
 {
+    if(!qxt_d().m_Model)
+        return;
+        
     this->setViewportMargins(qxt_d().m_vHeader->sizeHint().width() + 1, qxt_d().m_hHeader->sizeHint().height() + 1, 0, 0);
 
 

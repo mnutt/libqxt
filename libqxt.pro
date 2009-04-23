@@ -113,6 +113,8 @@ contains( QXT_BUILD, crypto ){
     system(echo QXT_MODULES+=crypto >> modules.prf)
 }
 
+QMAKE_CLEAN += modules.prf
+
 #write the paths to prf file
 unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat modules.prf; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
 
