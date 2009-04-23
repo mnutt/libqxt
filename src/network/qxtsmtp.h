@@ -67,7 +67,7 @@ public:
     bool hasExtension(const QString& extension);
     QString extensionData(const QString& extension);
 
-signals:
+Q_SIGNALS:
     void connected();
     void encrypted();
     void authenticated();
