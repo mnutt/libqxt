@@ -29,6 +29,7 @@
 #include <QHash>
 #include <QString>
 #include <QList>
+#include <QPair>
 
 class QxtSmtpPrivate : public QObject, public QxtPrivate<QxtSmtp>
 {
@@ -36,6 +37,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtSmtp);
 
     enum SmtpState {
+        Disconnected,
         StartState,
         EhloSent,
         EhloGreetReceived,
@@ -48,6 +50,10 @@ public:
         AuthUsernameSent,
         AuthSent,
         Authenticated,
+        MailToSent,
+        RcptAckPending,
+        SendingBody,
+        BodySent,
         Waiting
     };
 
@@ -62,8 +68,10 @@ public:
     AuthType authType;
     QByteArray buffer, username, password;
     QHash<QString, QString> extensions;
-    QList<QxtMailMessage> pending;
-    int rcptNumber;
+    QList<QPair<int, QxtMailMessage> > pending;
+    QStringList recipients;
+    int nextID, rcptNumber, rcptAck;
+    bool mailAck;
 
 #ifndef QT_NO_OPENSSL
     QSslSocket* socket;
@@ -79,6 +87,9 @@ public:
     void authCramMD5();
     void authPlain();
     void authLogin();
+
+    void sendNextRcpt(const QByteArray& code);
+    void sendBody(const QByteArray& code);
 
 public slots:
     void connected();

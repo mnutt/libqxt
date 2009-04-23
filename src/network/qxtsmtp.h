@@ -51,7 +51,7 @@ public:
     QByteArray password() const;
     void setPassword(const QByteArray& password);
 
-    void send(const QxtMailMessage& message);
+    int send(const QxtMailMessage& message);
 
     QTcpSocket* socket() const;
     void connectToHost(const QString& hostName, quint16 port = 25);
@@ -71,7 +71,12 @@ signals:
     void connected();
     void encrypted();
     void authenticated();
-    void mailSent();
+
+    void senderRejected(int mailID, const QString& address);
+    void recipientRejected(int mailID, const QString& address);
+    void mailFailed(int mailID);
+    void mailSent(int mailID);
+
     void finished();
     void disconnected();
 
