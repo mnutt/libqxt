@@ -25,10 +25,12 @@
 #ifndef QXTNETWORK_H_INCLUDED
 #define QXTNETWORK_H_INCLUDED
 
+#include "qxtsendmail.h"
+#include "qxtmail.h"
 #include "qxtrpcpeer.h"
 #include "qxttcpconnectionmanager.h"
 
 /** \defgroup QxtNetwork QxtNetwork
-    \brief    The QxtNetwork module extends QtNetwork with RPC functionality.
+    \brief    The QxtNetwork provides additional networking tools.
 */
 #endif // QXTNETWORK_H_INCLUDED
