@@ -22,16 +22,13 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTSENDMAIL_H
-#define QXTSENDMAIL_H
+#ifndef QXTMAIL_P_H
+#define QXTMAIL_P_H
 
-#include <qxtglobal.h>
-#include "qxtmail.h"
+#include <QByteArray>
 
-class QXT_WEB_EXPORT QxtSendmail
-{
-public:
-    static bool send(QxtMail  mail);
-};
+#define QXT_MUST_QP(x) (x < char(32) || x > char(126) || x == '=' || x == '?')
+QByteArray qxt_fold_mime_header(const QString& key, const QString& value, QTextCodec* latin1,
+                                const QByteArray& prefix = QByteArray());
 
-#endif // QXTSENDMAIL_H
+#endif // QXTMAIL_P_H

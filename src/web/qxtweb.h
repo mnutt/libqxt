@@ -31,8 +31,6 @@
 #include "qxtwebcgiservice.h"
 #include "qxthtmltemplate.h"
 #include "qxthttpsessionmanager.h"
-#include "qxtmail.h"
-#include "qxtsendmail.h"
 #include "qxtwebcontent.h"
 #include "qxtwebevent.h"
 #include "qxtwebservicedirectory.h"
