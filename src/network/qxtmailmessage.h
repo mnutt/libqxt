@@ -38,6 +38,12 @@ struct QxtMailMessagePrivate;
 class QXT_NETWORK_EXPORT QxtMailMessage
 {
 public:
+    enum RecipientType {
+        To,
+        Cc,
+        Bcc
+    };
+
     QxtMailMessage();
     QxtMailMessage(const QxtMailMessage& other);
     QxtMailMessage(const QString& sender, const QString& recipient);
@@ -53,10 +59,8 @@ public:
     QString body() const;
     void setBody(const QString&);
 
-    QStringList recipients() const;
-    void setRecipient(const QString&);
-    void setRecipients(const QStringList&);
-    void addRecipient(const QString&);
+    QStringList recipients(RecipientType type = To) const;
+    void addRecipient(const QString&, RecipientType type = To);
     void removeRecipient(const QString&);
 
     QHash<QString, QString> extraHeaders() const;

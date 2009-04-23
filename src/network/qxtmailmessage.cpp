@@ -39,9 +39,10 @@ struct QxtMailMessagePrivate : public QSharedData
 {
     QxtMailMessagePrivate() {}
     QxtMailMessagePrivate(const QxtMailMessagePrivate& other)
-        : QSharedData(other), recipients(other.recipients), subject(other.subject), body(other.body),
-          sender(other.sender), extraHeaders(other.extraHeaders), attachments(other.attachments) {}
-    QStringList recipients;
+        : QSharedData(other), rcptTo(other.rcptTo), rcptCc(other.rcptCc), rcptBcc(other.rcptBcc),
+          subject(other.subject), body(other.body), sender(other.sender),
+          extraHeaders(other.extraHeaders), attachments(other.attachments) {}
+    QStringList rcptTo, rcptCc, rcptBcc;
     QString subject, body, sender;
     QHash<QString, QString> extraHeaders;
     QHash<QString, QxtMailAttachment> attachments;
@@ -62,7 +63,7 @@ QxtMailMessage::QxtMailMessage(const QString& sender, const QString& recipient)
 {
     qxt_d = new QxtMailMessagePrivate;
     setSender(sender);
-    setRecipient(recipient);
+    addRecipient(recipient);
 }
 
 QxtMailMessage::~QxtMailMessage()
@@ -106,29 +107,30 @@ void QxtMailMessage::setBody(const QString& a)
     qxt_d->body = a;
 }
 
-QStringList QxtMailMessage::recipients() const
+QStringList QxtMailMessage::recipients(QxtMailMessage::RecipientType type) const
 {
-    return qxt_d->recipients;
+    if(type == Bcc)
+        return qxt_d->rcptBcc;
+    if(type == Cc)
+        return qxt_d->rcptCc;
+    return qxt_d->rcptTo;
 }
 
-void QxtMailMessage::setRecipient(const QString& a)
+void QxtMailMessage::addRecipient(const QString& a, QxtMailMessage::RecipientType type)
 {
-    qxt_d->recipients = QStringList(a);
-}
-
-void QxtMailMessage::setRecipients(const QStringList& a)
-{
-    qxt_d->recipients = a;
-}
-
-void QxtMailMessage::addRecipient(const QString& a)
-{
-    qxt_d->recipients.append(a);
+    if(type == Bcc)
+        qxt_d->rcptBcc.append(a);
+    else if(type == Cc)
+        qxt_d->rcptCc.append(a);
+    else
+        qxt_d->rcptTo.append(a);
 }
 
 void QxtMailMessage::removeRecipient(const QString& a)
 {
-    qxt_d->recipients.removeAll(a);
+    qxt_d->rcptTo.removeAll(a);
+    qxt_d->rcptCc.removeAll(a);
+    qxt_d->rcptBcc.removeAll(a);
 }
 
 QHash<QString, QString> QxtMailMessage::extraHeaders() const
@@ -261,25 +263,18 @@ QByteArray QxtMailMessage::rfc2822() const
     bool bodyIsAscii = latin1->canEncode(body());
     bool useQuotedPrintable = false;
     QHash<QString, QxtMailAttachment> attach = attachments();
-
     QByteArray rv;
-    if(!sender().isEmpty()) {
+
+    if(!sender().isEmpty() && !hasExtraHeader("From")) {
         rv = qxt_fold_mime_header("From", sender(), latin1);
     }
 
-    bool firstLine = true;
-    foreach(const QString& r, recipients()) {
-        if(firstLine) {
-            rv += "To: ";
-            firstLine = false;
-        } else {
-            rv += ",\r\n ";
-        }
-        rv += r;
+    if(!qxt_d->rcptTo.isEmpty()) {
+        rv = qxt_fold_mime_header("To", qxt_d->rcptTo.join(", "), latin1);
     }
-    if(!firstLine) {
-        // if it's still the first line, no addresses were output
-        rv += "\r\n";
+
+    if(!qxt_d->rcptCc.isEmpty()) {
+        rv = qxt_fold_mime_header("Cc", qxt_d->rcptTo.join(", "), latin1);
     }
 
     if(!subject().isEmpty()) {

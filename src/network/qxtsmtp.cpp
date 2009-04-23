@@ -34,6 +34,8 @@
 QxtSmtp::QxtSmtp(QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtSmtp);
+    qxt_d().state = QxtSmtpPrivate::Disconnected;
+    qxt_d().nextID = 0;
 #ifndef QT_NO_OPENSSL
     qxt_d().socket = new QSslSocket(this);
     QObject::connect(socket(), SIGNAL(encrypted()), this, SIGNAL(encrypted()));
@@ -65,11 +67,13 @@ void QxtSmtp::setPassword(const QByteArray& password)
     qxt_d().password = password;
 }
 
-void QxtSmtp::send(const QxtMailMessage& message)
+int QxtSmtp::send(const QxtMailMessage& message)
 {
-    qxt_d().pending.append(message);
+    int messageID = ++qxt_d().nextID;
+    qxt_d().pending.append(qMakePair(messageID, message));
     if(qxt_d().state == QxtSmtpPrivate::Waiting)
         qxt_d().sendNext();
+    return messageID;
 }
 
 QTcpSocket* QxtSmtp::socket() const
@@ -155,6 +159,17 @@ void QxtSmtpPrivate::socketRead()
             else if(authType == AuthLogin) authLogin();
             else authCramMD5();
             break;
+        case MailToSent:
+        case RcptAckPending:
+            sendNextRcpt(code);
+            break;
+        case SendingBody:
+            sendBody(code);
+            break;
+        case BodySent:
+            emit qxt_p().mailSent(pending.first().first);
+            pending.removeFirst();
+            sendNext();
         }
     }
 }
@@ -276,12 +291,129 @@ void QxtSmtpPrivate::authLogin()
     }
 }
 
+static QByteArray qxt_extract_address(const QString& address)
+{
+    int parenDepth = 0;
+    int addrStart = -1;
+    bool inQuote = false;
+    int ct = address.length();
+
+    for(int i = 0; i < ct; i++) {
+        QChar ch = address[i];
+        if(inQuote) {
+            if(ch == '"')
+                inQuote = false;
+        } else if(addrStart != -1) {
+            if(ch == '>')
+                return address.mid(addrStart, (i - addrStart) - 1).toAscii();
+        } else if(ch == '(') {
+            parenDepth++;
+        } else if(ch == ')') {
+            parenDepth--;
+            if(parenDepth < 0) parenDepth = 0;
+        } else if(ch == '"') {
+            if(parenDepth == 0)
+                inQuote = true;
+        } else if(ch == '<') {
+            if(!inQuote && parenDepth == 0)
+                addrStart = i;
+        }
+    }
+    return address.toAscii();
+}
+
 void QxtSmtpPrivate::sendNext()
 {
-    rcptNumber = 0;
-    QByteArray sender = pending.first().sender().toAscii();
-    socket->write("mail from: " + sender);
-    if(extensions.contains("PIPELINING")) { // almost all do nowadays
-    } else {
+    if(state == Disconnected) {
+        // leave the mail in the queue if not ready to send
+        return;
     }
+
+    if(pending.isEmpty()) {
+        // if there are no additional mails to send, finish up
+        state = Waiting;
+        emit qxt_p().finished();
+        return;
+    }
+
+    const QxtMailMessage& msg = pending.first().second;
+    rcptNumber = rcptAck = mailAck = 0;
+    recipients = msg.recipients(QxtMailMessage::To) +
+                 msg.recipients(QxtMailMessage::Cc) +
+                 msg.recipients(QxtMailMessage::Bcc);
+    if(recipients.count() == 0) {
+        // can't send an e-mail with no recipients
+        emit qxt_p().mailFailed(pending.first().first);
+        pending.removeFirst();
+        sendNext();
+        return;
+    }
+    // We explicitly use lowercase keywords because for some reason gmail
+    // interprets any string starting with an uppercase R as a request
+    // to renegotiate the SSL connection.
+    socket->write("mail from:<" + qxt_extract_address(msg.sender()) + ">\r\n");
+    if(extensions.contains("PIPELINING")) { // almost all do nowadays
+        foreach(const QString& rcpt, recipients)
+            socket->write("rctp to:<" + qxt_extract_address(rcpt) + ">\r\n");
+        state = RcptAckPending;
+    } else {
+        state = MailToSent;
+    }
+}
+
+void QxtSmtpPrivate::sendNextRcpt(const QByteArray& code)
+{
+    int messageID = pending.first().first;
+    const QxtMailMessage& msg = pending.first().second;
+
+    if(code[0] != '2') {
+        // on failure, emit a warning signal
+        if(!mailAck) {
+            emit qxt_p().senderRejected(messageID, msg.sender());
+        } else {
+            emit qxt_p().recipientRejected(messageID, msg.sender());
+        }
+    } else if(!mailAck) {
+        mailAck = true;
+    } else {
+        rcptAck++;
+    }
+
+    if(rcptNumber == recipients.count()) {
+        // all recipients have been sent
+        if(rcptAck == 0) {
+            // no recipients were considered valid
+            emit qxt_p().mailFailed(messageID);
+            pending.removeFirst();
+            sendNext();
+        } else {
+            // at least one recipient was acknowledged, send mail body
+            socket->write("data\r\n");
+            state = SendingBody;
+        }
+    } else if(state != RcptAckPending) {
+        // send the next recipient unless we're only waiting on acks
+        socket->write("rcpt to:<" + qxt_extract_address(recipients[rcptNumber]) + ">\r\n");
+        rcptNumber++;
+    } else {
+        // If we're only waiting on acks, just count them        
+        rcptNumber++;
+    }
+}
+
+void QxtSmtpPrivate::sendBody(const QByteArray& code)
+{
+    int messageID = pending.first().first;
+    const QxtMailMessage& msg = pending.first().second;
+
+    if(code[0] != '3') {
+        emit qxt_p().mailFailed(messageID);
+        pending.removeFirst();
+        sendNext();
+        return;
+    }
+
+    socket->write(msg.rfc2822());
+    socket->write(".\r\n");
+    state = BodySent;
 }
