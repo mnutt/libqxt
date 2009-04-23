@@ -1,4 +1,7 @@
 syntax: glob
+*.pro.user
+*.app
+*.moc
 Makefile*
 debug/
 release/
@@ -14,7 +17,9 @@ qtc-gdbmacros/
 *.pdb
 *.lib
 moc_*.cpp
+qrc_*.cpp
 qxt.prf
+modules.prf
 .obj\*
 *.o
 *.so.*
