@@ -25,8 +25,9 @@
 #ifndef QXTNETWORK_H_INCLUDED
 #define QXTNETWORK_H_INCLUDED
 
-#include "qxtsendmail.h"
-#include "qxtmail.h"
+#include "qxtmailmessage.h"
+#include "qxtmailattachment.h"
+#include "qxtsmtp.h"
 #include "qxtrpcpeer.h"
 #include "qxttcpconnectionmanager.h"
 
