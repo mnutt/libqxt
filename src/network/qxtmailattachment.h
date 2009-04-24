@@ -49,6 +49,9 @@ public:
     void setContent(const QByteArray& content);
     void setContent(QIODevice* content);
 
+    bool deleteContent() const;
+    void setDeleteContent(bool enable);
+
     QString contentType() const;
     void setContentType(const QString& contentType);
 

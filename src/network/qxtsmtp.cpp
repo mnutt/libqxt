@@ -169,6 +169,7 @@ void QxtSmtpPrivate::socketRead()
                 state = Authenticated;
                 emit qxt_p().authenticated();
             } else {
+                state = Disconnected;
                 emit qxt_p().authenticationFailed();
                 socket->disconnect();
             }
