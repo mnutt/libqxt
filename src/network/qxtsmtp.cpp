@@ -251,7 +251,7 @@ void QxtSmtpPrivate::startTLS()
 
 void QxtSmtpPrivate::authenticate()
 {
-    if(!extensions.contains("AUTH")) {
+    if(!extensions.contains("AUTH") || username.isEmpty() || password.isEmpty()) {
         state = Authenticated;
         emit qxt_p().authenticated();
     } else {
