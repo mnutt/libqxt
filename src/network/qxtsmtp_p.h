@@ -94,6 +94,7 @@ public:
     void sendBody(const QByteArray& code);
 
 public slots:
+    void socketError(QAbstractSocket::SocketError err);
     void socketRead();
 
     void ehlo();
