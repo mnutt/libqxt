@@ -69,7 +69,9 @@ public:
 
 Q_SIGNALS:
     void connected();
+    void connectionFailed();
     void encrypted();
+    void encryptionFailed();
     void authenticated();
     void authenticationFailed();
 
