@@ -266,15 +266,15 @@ QByteArray QxtMailMessage::rfc2822() const
     QByteArray rv;
 
     if(!sender().isEmpty() && !hasExtraHeader("From")) {
-        rv = qxt_fold_mime_header("From", sender(), latin1);
+        rv += qxt_fold_mime_header("From", sender(), latin1);
     }
 
     if(!qxt_d->rcptTo.isEmpty()) {
-        rv = qxt_fold_mime_header("To", qxt_d->rcptTo.join(", "), latin1);
+        rv += qxt_fold_mime_header("To", qxt_d->rcptTo.join(", "), latin1);
     }
 
     if(!qxt_d->rcptCc.isEmpty()) {
-        rv = qxt_fold_mime_header("Cc", qxt_d->rcptTo.join(", "), latin1);
+        rv += qxt_fold_mime_header("Cc", qxt_d->rcptTo.join(", "), latin1);
     }
 
     if(!subject().isEmpty()) {
@@ -371,19 +371,29 @@ QByteArray QxtMailMessage::rfc2822() const
                     else
                         rv += line + "\r\n";
                     line = word;
+                } else if(line.isEmpty()) {
+                    line = word;
                 } else {
                     line = line + ' ' + word;
                 }
+                word = "";
             } else {
                 word += b[i];
             }
-            if(!word.isEmpty())
-                line = line + ' ' + word;
+        }
+        if(line.length() + word.length() + 1 > 78) {
             if(line == ".")
                 rv += "..\r\n";
-            else if(!line.isEmpty())
+            else
                 rv += line + "\r\n";
+            line = word;
+        } else if(!word.isEmpty()) {
+            line += ' ' + word;
         }
+        if(line == ".")
+            rv += "..\r\n";
+        else if(!line.isEmpty())
+            rv += line + "\r\n";
     } else if(useQuotedPrintable) {
         QByteArray b = body().toUtf8();
         int ct = b.length();

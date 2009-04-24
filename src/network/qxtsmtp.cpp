@@ -31,6 +31,11 @@
 #    include <QSslSocket>
 #endif
 
+QxtSmtpPrivate::QxtSmtpPrivate() : QObject(0)
+{
+    // empty ctor
+}
+
 QxtSmtp::QxtSmtp(QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtSmtp);
@@ -39,12 +44,14 @@ QxtSmtp::QxtSmtp(QObject* parent) : QObject(parent)
 #ifndef QT_NO_OPENSSL
     qxt_d().socket = new QSslSocket(this);
     QObject::connect(socket(), SIGNAL(encrypted()), this, SIGNAL(encrypted()));
+    //QObject::connect(socket(), SIGNAL(encrypted()), &qxt_d(), SLOT(ehlo()));
 #else
     qxt_d().socket = new QTcpSocket(this);
 #endif
-    QObject::connect(socket(), SIGNAL(connected()), &qxt_d(), SLOT(connected()));
+    QObject::connect(socket(), SIGNAL(connected()), this, SIGNAL(connected()));
     QObject::connect(socket(), SIGNAL(disconnected()), this, SIGNAL(disconnected()));
-    QObject::connect(&qxt_d(), SIGNAL(authenticated()), &qxt_d(), SLOT(sendNext()));
+    QObject::connect(this, SIGNAL(authenticated()), &qxt_d(), SLOT(sendNext()));
+    QObject::connect(socket(), SIGNAL(readyRead()), &qxt_d(), SLOT(socketRead()));
 }
 
 QByteArray QxtSmtp::username() const
@@ -117,16 +124,7 @@ void QxtSmtp::connectToSecureHost(const QHostAddress& address, quint16 port)
 }
 #endif
 
-void QxtSmtpPrivate::connected()
-{
-    emit qxt_p().connected();
-    if(useSecure) {
-        // don't EHLO before encryption if using connectToSecureHost
-        return;
-    }
-    ehlo();
-}
-
+#include <QtDebug>
 void QxtSmtpPrivate::socketRead()
 {
     buffer += socket->readAll();
@@ -137,10 +135,17 @@ void QxtSmtpPrivate::socketRead()
         buffer = buffer.mid(pos+2);
         QByteArray code = line.left(3);
         switch(state) {
+        case StartState:
+            if(code[0] != '2') {
+                socket->disconnect();
+            } else {
+                ehlo();
+            }
+            break;
         case HeloSent:
         case EhloSent:
         case EhloGreetReceived:
-            parseEhlo(code, (line[3] != ' '), buffer.mid(4));
+            parseEhlo(code, (line[3] != ' '), line.mid(4));
             break;
 #ifndef QT_NO_OPENSSL
         case StartTLSSent:
@@ -148,16 +153,25 @@ void QxtSmtpPrivate::socketRead()
                 socket->startClientEncryption();
                 ehlo();
             } else {
-                // emit qxt_p().encryptionFailed();
                 authenticate();
             }
             break;
 #endif
         case AuthRequestSent:
+        case AuthPromptReceived:
         case AuthUsernameSent:
             if(authType == AuthPlain) authPlain();
             else if(authType == AuthLogin) authLogin();
             else authCramMD5();
+            break;
+        case AuthSent:
+            if(code[0] == '2') {
+                state = Authenticated;
+                emit qxt_p().authenticated();
+            } else {
+                emit qxt_p().authenticationFailed();
+                socket->disconnect();
+            }
             break;
         case MailToSent:
         case RcptAckPending:
@@ -170,6 +184,7 @@ void QxtSmtpPrivate::socketRead()
             emit qxt_p().mailSent(pending.first().first);
             pending.removeFirst();
             sendNext();
+            break;
         }
     }
 }
@@ -184,11 +199,12 @@ void QxtSmtpPrivate::ehlo()
         break;
     }
     socket->write("ehlo "+address+"\r\n");
+    extensions.clear();
     state = EhloSent;
 }
 
 void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString& line) {
-    if(code == "250") {
+    if(code != "250") {
         // error!
         if(state != HeloSent) {
             // maybe let's try HELO
@@ -201,15 +217,20 @@ void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString&
             socket->disconnectFromHost();
         }
         return;
-    } else if(!cont) {
-        // greeting only, no extensions
-        state = EhloDone;
+    } else if(state != EhloGreetReceived) {
+        if(!cont) {
+            // greeting only, no extensions
+            state = EhloDone;
+        } else {
+            // greeting followed by extensions
+            state = EhloGreetReceived;
+            return;
+        }
     } else {
-        // greeting followed by extensions
-        state = EhloGreetReceived;
-        return;
+        extensions[line.section(' ', 0, 0).toUpper()] = line.section(' ', 1);
+        if(!cont)
+            state = EhloDone;
     }
-    extensions[line.section(' ', 0, 0).toUpper()] = line.section(' ', 1);
     if(state != EhloDone) return;
     if(extensions.contains("STARTTLS")) {
         startTLS();
@@ -250,7 +271,7 @@ void QxtSmtpPrivate::authenticate()
 
 void QxtSmtpPrivate::authCramMD5()
 {
-    if(state != AuthPromptReceived) {
+    if(state != AuthRequestSent) {
         socket->write("auth cram-md5\r\n");
         authType = AuthCramMD5;
         state = AuthRequestSent;
@@ -261,7 +282,7 @@ void QxtSmtpPrivate::authCramMD5()
 
 void QxtSmtpPrivate::authPlain()
 {
-    if(state != AuthPromptReceived) {
+    if(state != AuthRequestSent) {
         socket->write("auth plain\r\n");
         authType = AuthPlain;
         state = AuthRequestSent;
@@ -305,7 +326,7 @@ static QByteArray qxt_extract_address(const QString& address)
                 inQuote = false;
         } else if(addrStart != -1) {
             if(ch == '>')
-                return address.mid(addrStart, (i - addrStart) - 1).toAscii();
+                return address.mid(addrStart, (i - addrStart)).toAscii();
         } else if(ch == '(') {
             parenDepth++;
         } else if(ch == ')') {
@@ -316,7 +337,7 @@ static QByteArray qxt_extract_address(const QString& address)
                 inQuote = true;
         } else if(ch == '<') {
             if(!inQuote && parenDepth == 0)
-                addrStart = i;
+                addrStart = i+1;
         }
     }
     return address.toAscii();
@@ -353,8 +374,9 @@ void QxtSmtpPrivate::sendNext()
     // to renegotiate the SSL connection.
     socket->write("mail from:<" + qxt_extract_address(msg.sender()) + ">\r\n");
     if(extensions.contains("PIPELINING")) { // almost all do nowadays
-        foreach(const QString& rcpt, recipients)
-            socket->write("rctp to:<" + qxt_extract_address(rcpt) + ">\r\n");
+        foreach(const QString& rcpt, recipients) {
+            socket->write("rcpt to:<" + qxt_extract_address(rcpt) + ">\r\n");
+        }
         state = RcptAckPending;
     } else {
         state = MailToSent;

@@ -71,6 +71,7 @@ Q_SIGNALS:
     void connected();
     void encrypted();
     void authenticated();
+    void authenticationFailed();
 
     void senderRejected(int mailID, const QString& address);
     void recipientRejected(int mailID, const QString& address);

@@ -33,7 +33,10 @@
 
 class QxtSmtpPrivate : public QObject, public QxtPrivate<QxtSmtp>
 {
+Q_OBJECT
 public:
+    QxtSmtpPrivate();
+
     QXT_DECLARE_PUBLIC(QxtSmtp);
 
     enum SmtpState {
@@ -79,7 +82,6 @@ public:
     QTcpSocket* socket;
 #endif
 
-    void ehlo();
     void parseEhlo(const QByteArray& code, bool cont, const QString& line);
     void startTLS();
     void authenticate();
@@ -92,9 +94,9 @@ public:
     void sendBody(const QByteArray& code);
 
 public slots:
-    void connected();
     void socketRead();
 
+    void ehlo();
     void sendNext();
 };
 
