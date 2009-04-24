@@ -28,6 +28,7 @@
 
 #include "qxtloggerengine.h"
 #include "qxtabstractfileloggerengine.h"
+#include "qxtpimpl.h"
 #include <QTextStream>
 #include <QFile>
 
@@ -36,13 +37,21 @@
     The basic logger engine included with QxtLogger.
 *******************************************************************************/
 
+class QxtBasicFileLoggerEnginePrivate;
 class QXT_CORE_EXPORT QxtBasicFileLoggerEngine : public QxtAbstractFileLoggerEngine
 {
 public:
     QxtBasicFileLoggerEngine(const QString &fileName = QString());
 
+public:
+    QString dateFormat() const;
+    void setDateFormat(const QString& format);
+
 protected:
     virtual void writeToFile(const QString &level, const QVariantList &messages);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtBasicFileLoggerEngine);
 };
 
 #endif // QXTBASICFILELOGGERENGINE_H
