@@ -26,13 +26,14 @@
 #include "qxtmail_p.h"
 #include <QTextCodec>
 #include <QBuffer>
+#include <QPointer>
 #include <QtDebug>
 
 struct QxtMailAttachmentPrivate : public QSharedData
 {
     QHash<QString, QString> extraHeaders;
     QString contentType;
-    QIODevice* content;
+    QPointer<QIODevice> content;
     bool deleteContent;
 
     QxtMailAttachmentPrivate() {
@@ -44,6 +45,8 @@ struct QxtMailAttachmentPrivate : public QSharedData
     ~QxtMailAttachmentPrivate() {
         if(deleteContent && content)
             content->deleteLater();
+        deleteContent = false;
+        content = 0;
     }
 };
 
@@ -82,7 +85,6 @@ QxtMailAttachment::~QxtMailAttachment()
     // trivial destructor
 }
 
-
 QIODevice* QxtMailAttachment::content() const
 {
     return qxt_d->content;
@@ -93,7 +95,7 @@ void QxtMailAttachment::setContent(const QByteArray& content)
     if(qxt_d->deleteContent && qxt_d->content)
         qxt_d->content->deleteLater();
     qxt_d->content = new QBuffer;
-    static_cast<QBuffer*>(qxt_d->content)->setData(content);
+    static_cast<QBuffer*>(qxt_d->content.data())->setData(content);
 }
 
 void QxtMailAttachment::setContent(QIODevice* content)
@@ -101,6 +103,16 @@ void QxtMailAttachment::setContent(QIODevice* content)
     if(qxt_d->deleteContent && qxt_d->content)
         qxt_d->content->deleteLater();
     qxt_d->content = content;
+}
+
+bool QxtMailAttachment::deleteContent() const
+{
+    return qxt_d->deleteContent;
+}
+
+void QxtMailAttachment::setDeleteContent(bool enable)
+{
+    qxt_d->deleteContent = enable;
 }
 
 QString QxtMailAttachment::contentType() const
@@ -154,9 +166,13 @@ QByteArray QxtMailAttachment::mimeData()
         qWarning() << "QxtMailAttachment::mimeData(): Content not set or already output";
         return QByteArray();
     }
+    if(!c->isOpen() && !c->open(QIODevice::ReadOnly)) {
+        qWarning() << "QxtMailAttachment::mimeData(): Cannot open content for reading";
+        return QByteArray();
+    }
 
     QTextCodec* latin1 = QTextCodec::codecForName("latin1");
-    QByteArray rv = "Content-Type: " + qxt_d->contentType.toAscii() + "\r\n";
+    QByteArray rv = "Content-Type: " + qxt_d->contentType.toAscii() + "\r\nContent-Transfer-Encoding: base64\r\n";
     foreach(const QString& r, qxt_d->extraHeaders.keys()) {
         rv += qxt_fold_mime_header(r.toAscii(), extraHeader(r), latin1);
     }
