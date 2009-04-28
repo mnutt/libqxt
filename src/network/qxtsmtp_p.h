@@ -49,7 +49,6 @@ public:
         HeloSent,
         StartTLSSent,
         AuthRequestSent,
-        AuthPromptReceived,
         AuthUsernameSent,
         AuthSent,
         Authenticated,
