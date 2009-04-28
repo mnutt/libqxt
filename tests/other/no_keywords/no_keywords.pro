@@ -3,7 +3,7 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG += qxt no_keywords
-QXT = berkeley core crypto gui network sql web
+QXT = berkeley core gui network sql web
 
 # Input
 SOURCES += main.cpp

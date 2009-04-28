@@ -86,7 +86,7 @@ public:
     void startTLS();
     void authenticate();
 
-    void authCramMD5();
+    void authCramMD5(const QByteArray& challenge = QByteArray());
     void authPlain();
     void authLogin();
 

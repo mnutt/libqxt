@@ -5,9 +5,6 @@
 #ifdef QXT_CORE_LIB
 #include <QxtCore>
 #endif
-#ifdef QXT_CRYPTO_LIB
-#include <QxtCrypto>
-#endif
 #ifdef QXT_GUI_LIB
 #include <QxtGui>
 #endif
