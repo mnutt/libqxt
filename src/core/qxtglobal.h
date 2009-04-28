@@ -71,12 +71,6 @@
 #    define QXT_WEB_EXPORT Q_DECL_IMPORT
 #endif // BUILD_QXT_WEB
 
-#if defined(BUILD_QXT_CRYPTO)
-#    define QXT_CRYPTO_EXPORT Q_DECL_EXPORT
-#else
-#    define QXT_CRYPTO_EXPORT Q_DECL_IMPORT
-#endif // BUILD_QXT_CRYPTO
-
 #if defined(BUILD_QXT_BERKELEY)
 #    define QXT_BERKELEY_EXPORT Q_DECL_EXPORT
 #else
@@ -89,7 +83,7 @@
 #    define QXT_ZEROCONF_EXPORT Q_DECL_IMPORT
 #endif // BUILD_QXT_ZEROCONF
 
-#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_CRYPTO || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_ZEROCONF
+#if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_ZEROCONF
 #   define BUILD_QXT
 #endif
 

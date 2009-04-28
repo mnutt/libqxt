@@ -15,10 +15,6 @@ contains(QXT, berkeley) {
     qxtAddTestModule(berkeley, QxtBerkeley)
     QXT += core
 }
-contains(QXT, crypto) {
-    qxtAddTestModule(crypto, QxtCrypto)
-    QXT += core
-}
 contains(QXT, web) {
     qxtAddTestModule(web, QxtWeb)
     QXT += core network

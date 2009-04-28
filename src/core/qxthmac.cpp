@@ -32,7 +32,7 @@
 /**
 \class QxtHmac QxtHmac
 
-\ingroup QxtCrypto
+\ingroup QxtCore
 
 \brief Calculates keyed-Hash Message Authentication Codes
 
