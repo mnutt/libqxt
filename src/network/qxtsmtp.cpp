@@ -143,7 +143,6 @@ void QxtSmtpPrivate::socketRead()
         int pos = buffer.indexOf("\r\n");
         if(pos < 0) return;
         QByteArray line = buffer.left(pos);
-        qDebug() << line;
         buffer = buffer.mid(pos+2);
         QByteArray code = line.left(3);
         switch(state) {
@@ -170,7 +169,6 @@ void QxtSmtpPrivate::socketRead()
             break;
 #endif
         case AuthRequestSent:
-        case AuthPromptReceived:
         case AuthUsernameSent:
             if(authType == AuthPlain) authPlain();
             else if(authType == AuthLogin) authLogin();
@@ -216,7 +214,8 @@ void QxtSmtpPrivate::ehlo()
     state = EhloSent;
 }
 
-void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString& line) {
+void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString& line)
+{
     if(code != "250") {
         // error!
         if(state != HeloSent) {
@@ -264,13 +263,11 @@ void QxtSmtpPrivate::startTLS()
 
 void QxtSmtpPrivate::authenticate()
 {
-    qDebug() << "RAWR";
     if(!extensions.contains("AUTH") || username.isEmpty() || password.isEmpty()) {
         state = Authenticated;
         emit qxt_p().authenticated();
     } else {
         QStringList auth = extensions["AUTH"].toUpper().split(' ', QString::SkipEmptyParts);
-        qDebug() << auth;
         if(auth.contains("CRAM-MD5")) {
             authCramMD5();
         } else if(auth.contains("PLAIN")) {
@@ -286,7 +283,6 @@ void QxtSmtpPrivate::authenticate()
 
 void QxtSmtpPrivate::authCramMD5(const QByteArray& challenge)
 {
-    qDebug() << "authCramMD5";
     if(state != AuthRequestSent) {
         socket->write("auth cram-md5\r\n");
         authType = AuthCramMD5;
@@ -294,10 +290,8 @@ void QxtSmtpPrivate::authCramMD5(const QByteArray& challenge)
     } else {
         QxtHmac hmac(QCryptographicHash::Md5);
         hmac.setKey(password);
-        hmac.addData(challenge);
+        hmac.addData(QByteArray::fromBase64(challenge));
         QByteArray response = username + ' ' + hmac.result().toHex();
-        qDebug() << challenge;
-        qDebug() << response;
         socket->write(response.toBase64() + "\r\n");
         state = AuthSent;
     }
@@ -322,9 +316,9 @@ void QxtSmtpPrivate::authPlain()
 
 void QxtSmtpPrivate::authLogin()
 {
-    if(state != AuthPromptReceived && state != AuthUsernameSent) {
-        socket->write("auth cram-md5\r\n");
-        authType = AuthCramMD5;
+    if(state != AuthRequestSent && state != AuthUsernameSent) {
+        socket->write("auth login\r\n");
+        authType = AuthLogin;
         state = AuthRequestSent;
     } else if(state == AuthRequestSent) {
         socket->write(username.toBase64() + "\r\n");
