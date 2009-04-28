@@ -126,6 +126,16 @@ void QxtSmtp::connectToSecureHost(const QHostAddress& address, quint16 port)
 }
 #endif
 
+bool QxtSmtp::hasExtension(const QString& extension)
+{
+    return qxt_d().extensions.contains(extension);
+}
+
+QString QxtSmtp::extensionData(const QString& extension)
+{
+    return qxt_d().extensions[extension];
+}
+
 void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
 {
     if(err == QAbstractSocket::SslHandshakeFailedError) {
@@ -135,7 +145,6 @@ void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
     }
 }
 
-#include <QtDebug>
 void QxtSmtpPrivate::socketRead()
 {
     buffer += socket->readAll();
