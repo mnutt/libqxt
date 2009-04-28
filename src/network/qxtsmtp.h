@@ -43,6 +43,21 @@ class QXT_NETWORK_EXPORT QxtSmtp : public QObject
 {
 Q_OBJECT
 public:
+    enum SmtpError {
+        NoError,
+        NoRecipients,
+        CommandUnrecognized = 500,
+        SyntaxError,
+        CommandNotImplemented,
+        BadSequence,
+        ParameterNotImplemented,
+        MailboxUnavailable = 550,
+        UserNotLocal,
+        MessageTooLarge,
+        InvalidMailboxName,
+        TransactionFailed
+    };
+
     QxtSmtp(QObject* parent = 0);
 
     QByteArray username() const;
@@ -52,6 +67,7 @@ public:
     void setPassword(const QByteArray& password);
 
     int send(const QxtMailMessage& message);
+    int pendingMessages() const;
 
     QTcpSocket* socket() const;
     void connectToHost(const QString& hostName, quint16 port = 25);
@@ -77,7 +93,7 @@ Q_SIGNALS:
 
     void senderRejected(int mailID, const QString& address);
     void recipientRejected(int mailID, const QString& address);
-    void mailFailed(int mailID);
+    void mailFailed(int mailID, int errorCode);
     void mailSent(int mailID);
 
     void finished();
