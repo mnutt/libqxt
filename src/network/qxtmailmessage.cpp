@@ -361,8 +361,10 @@ QByteArray QxtMailMessage::rfc2822() const
                     rv += "..\r\n";
                 else
                     rv += line + "\r\n";
-                if(b[i+1] == '\n' || b[i+1] == '\r')
+                if((b[i+1] == '\n' || b[i+1] == '\r') && b[i] != b[i+1]) {
+                    // If we're looking at a CRLF pair, skip the second half
                     i++;
+                }
                 line = "";
             } else if(b[i] == ' ') {
                 if(line.length() + word.length() + 1 > 78) {

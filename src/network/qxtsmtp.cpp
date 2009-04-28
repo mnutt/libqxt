@@ -85,6 +85,11 @@ int QxtSmtp::send(const QxtMailMessage& message)
     return messageID;
 }
 
+int QxtSmtp::pendingMessages() const
+{
+    return qxt_d().pending.count();
+}
+
 QTcpSocket* QxtSmtp::socket() const
 {
     return qxt_d().socket;
@@ -201,7 +206,10 @@ void QxtSmtpPrivate::socketRead()
             sendBody(code);
             break;
         case BodySent:
-            emit qxt_p().mailSent(pending.first().first);
+            if(code[0] != '2')
+                emit qxt_p().mailFailed(pending.first().first, code.toInt());
+            else
+                emit qxt_p().mailSent(pending.first().first);
             pending.removeFirst();
             sendNext();
             break;
@@ -390,7 +398,7 @@ void QxtSmtpPrivate::sendNext()
                  msg.recipients(QxtMailMessage::Bcc);
     if(recipients.count() == 0) {
         // can't send an e-mail with no recipients
-        emit qxt_p().mailFailed(pending.first().first);
+        emit qxt_p().mailFailed(pending.first().first, QxtSmtp::NoRecipients);
         pending.removeFirst();
         sendNext();
         return;
@@ -431,7 +439,7 @@ void QxtSmtpPrivate::sendNextRcpt(const QByteArray& code)
         // all recipients have been sent
         if(rcptAck == 0) {
             // no recipients were considered valid
-            emit qxt_p().mailFailed(messageID);
+            emit qxt_p().mailFailed(messageID, code.toInt());
             pending.removeFirst();
             sendNext();
         } else {
@@ -455,7 +463,7 @@ void QxtSmtpPrivate::sendBody(const QByteArray& code)
     const QxtMailMessage& msg = pending.first().second;
 
     if(code[0] != '3') {
-        emit qxt_p().mailFailed(messageID);
+        emit qxt_p().mailFailed(messageID, code.toInt());
         pending.removeFirst();
         sendNext();
         return;
