@@ -130,6 +130,9 @@ void QxtServiceBrowserPrivate::socketData()
 void QxtServiceBrowserPrivate::browseServiceCallback(DNSServiceRef service, DNSServiceFlags flags, quint32 iface,
         DNSServiceErrorType errCode, const char* serviceName, const char* regtype, const char* replyDomain, void* context)
 {
+    Q_UNUSED(service);
+    Q_UNUSED(iface);
+    Q_UNUSED(regtype);
     QxtServiceBrowserPrivate* self = reinterpret_cast<QxtServiceBrowserPrivate*>(context);
     if(errCode == kDNSServiceErr_NoError) {
         if(flags & kDNSServiceFlagsAdd)

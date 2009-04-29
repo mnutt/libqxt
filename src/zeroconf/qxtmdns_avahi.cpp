@@ -8,9 +8,9 @@
 
 QxtMDNS::QxtMDNS(int id, QObject* parent)
 		: QObject(parent),
+		info(id),
 		client(NULL),
 		recordbrowser(NULL),
-		info(id),
 		sent(false)
 {
 }
@@ -59,6 +59,14 @@ void QxtMDNS::avahiClientCallback(AvahiClient *s, AvahiClientState state, void *
 
 void QxtMDNS::avahiRecordBrowserCallback(AvahiRecordBrowser *b, AvahiIfIndex interface, AvahiProtocol protocol, AvahiBrowserEvent event, const char *name, uint16_t clazz, uint16_t type, const void *rdata, size_t size, AvahiLookupResultFlags flags, void *userdata)
 {
+	///@TODO Support IPv6
+	Q_UNUSED(interface);
+	Q_UNUSED(protocol);
+	Q_UNUSED(name);
+	Q_UNUSED(clazz);
+	Q_UNUSED(type);
+	Q_UNUSED(size);
+	Q_UNUSED(flags);
 	QxtMDNS* md = static_cast<QxtMDNS*>(userdata);
 	md->recordbrowser = b;
 // 	qDebug() << "Return thing" << md->name << name << size;
