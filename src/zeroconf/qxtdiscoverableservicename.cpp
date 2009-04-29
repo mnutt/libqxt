@@ -4,8 +4,6 @@
 #include <QMutexLocker>
 #include <QPointer>
 
-///@TODO Remove this define and let the build system handle it instead.
-#define USE_AVAHI
 
 #ifdef USE_AVAHI
 #include <qxtmdns_avahi.h>
@@ -35,8 +33,8 @@ QHash<int, QPointer<QxtMDNS> > QxtDiscoverableServiceNamePrivate::lookups;
 
 QxtDiscoverableServiceName::QxtDiscoverableServiceName()
 {
-	QXT_INIT_PRIVATE(QxtDiscoverableServiceName);
-	qxt_d().socketType = QAbstractSocket::UnknownSocketType;
+    QXT_INIT_PRIVATE(QxtDiscoverableServiceName);
+    qxt_d().socketType = QAbstractSocket::UnknownSocketType;
 }
 
 QxtDiscoverableServiceName::QxtDiscoverableServiceName(const QByteArray& domainName)

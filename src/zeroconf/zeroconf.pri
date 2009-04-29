@@ -8,7 +8,8 @@ SOURCES += qxtdiscoverableservice.cpp
 SOURCES += qxtservicebrowser.cpp
 SOURCES += qxtdiscoverableservicename.cpp
 
-unix {
+unix:!macx {
+DEFINES += USE_AVAHI
 SOURCES += qxtmdns_avahi.cpp
 HEADERS += qxtmdns_avahi.h
 }
