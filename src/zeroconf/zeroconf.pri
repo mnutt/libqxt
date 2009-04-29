@@ -8,3 +8,11 @@ SOURCES += qxtdiscoverableservice.cpp
 SOURCES += qxtservicebrowser.cpp
 SOURCES += qxtdiscoverableservicename.cpp
 
+unix {
+SOURCES += qxtmdns_avahi.cpp
+HEADERS += qxtmdns_avahi.h
+}
+!unix {
+SOURCES += qxtmdns_bonjour.cpp
+HEADERS += qxtmdns_bonjour.h
+}
