@@ -2,6 +2,12 @@
 #include <qxtmetaobject.h>
 #include <QDebug>
 
+QxtMDNS::QxtMDNS(int id, QObject * parent)
+		: QObject(parent),
+		info(id)
+{
+}
+
 void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 {
 	name = n;
@@ -32,7 +38,9 @@ void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 void QxtMDNS::DNSServiceQueryRecordCallback(DNSServiceRef DNSServiceRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen, const void *rdata, uint32_t ttl, void *context)
 {
 	QxtMDNS* md = static_cast<QxtMDNS*>(context);
-	QMetaObject::invokeMethod(md->receiver, qPrintable(md->name), Q_ARG(QString, QString(fullname)));
+	QHostInfo info(md->info.lookupId());
+	info.setAddresses(QList<QHostAddress>() << QHostAddress(ip));
+	QMetaObject::invokeMethod(md->receiver, md->member, Q_ARG(QHostInfo, info));
 }
 
 void QxtMDNS::socketData()

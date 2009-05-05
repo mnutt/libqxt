@@ -12,8 +12,7 @@ unix:!macx {
 DEFINES += USE_AVAHI
 SOURCES += qxtmdns_avahi.cpp
 HEADERS += qxtmdns_avahi.h
-}
-!unix {
+} else {
 SOURCES += qxtmdns_bonjour.cpp
 HEADERS += qxtmdns_bonjour.h
 }

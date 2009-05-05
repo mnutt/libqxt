@@ -6,6 +6,10 @@
 #include <dns_sd.h>
 #include <QSocketNotifier>
 
+///@TODO Finish and test implementation of Bonjour mDNS, and remove the following warning.
+// Sadly I can't test this because this part of the avahi Bonjour compatibility layer is broken on Ubuntu Linux version 8.04... -chrisinajar
+#warning The Bonjour implementation is in no way tested, and is not fully implemented either. Try again later.
+
 class QxtMDNS : public QObject
 {
 	Q_OBJECT
@@ -24,6 +28,7 @@ public:
 	const char* member;
 	DNSServiceRef* ref;
 	QSocketNotifier* notifier;
+	int id;
 public Q_SLOTS:
 	void socketData();
 
