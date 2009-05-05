@@ -23,6 +23,9 @@
  **
  ****************************************************************************/
 #include "qxtwindowsystem.h"
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0500
+#endif
 #include <qt_windows.h>
 #include <qglobal.h> // QT_WA
 

@@ -428,7 +428,8 @@ void QxtScheduleView::paintEvent(QPaintEvent * /*event*/)
 
 void QxtScheduleView::updateGeometries()
 {
-    if(!qxt_d().m_Model)
+	//check if we are already initialized
+    if(!qxt_d().m_Model || !qxt_d().m_vHeader || !qxt_d().m_hHeader)
         return;
         
     this->setViewportMargins(qxt_d().m_vHeader->sizeHint().width() + 1, qxt_d().m_hHeader->sizeHint().height() + 1, 0, 0);

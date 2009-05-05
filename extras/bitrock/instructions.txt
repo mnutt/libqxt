@@ -1,0 +1,34 @@
+from	BitRock Sales <sales@bitrock.com>
+to	J-P Nurmi <jpnurmi@gmail.com>
+date	Thu, Jan 31, 2008 at 12:45 PM
+subject	RE: BitRock InstallBuilder for Qt
+
+Hi J-P,
+
+Thank you for your interest in BitRock InstallBuilder. We are happy to
+provide you with a free license. I am attaching the license, "license.xml"
+to this email. First, you need to download the latest version of
+InstallBuilder for Qt (Professional edition) from:
+
+http://www.bitrock.com/download_installbuilderqt_download.html
+
+Then, to register the product, you can either copy the file to the BitRock
+InstallBuilder installation directory or, from the main application menu,
+select 'License', then 'Register license' and follow the on-screen
+instructions.
+
+We hope you and your users enjoy BitRock InstallBuilder, and we wish you the
+best of luck with your projects. We are attaching an "Installers by BitRock"
+icon. Posting it and/or a link to bitrock.com in your download or project
+page would be greatly appreciated, although it is not required. We will keep
+you informed of InstallBuilder's new features and functionality by sending
+you a monthly newsletter. If for any reason you prefer to not receive this,
+simply send us an email requesting to be taken off our list.
+
+Please do not hesitate to contact us with feature suggestions or any issues
+you may find. We love to hear from our users and your feedback helps us
+improve our software.
+
+Best Regards,
+
+Erica
