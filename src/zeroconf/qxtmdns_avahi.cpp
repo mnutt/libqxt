@@ -3,8 +3,8 @@
 #include <QDebug>
 #include <QNetworkInterface>
 #include <QNetworkAddressEntry>
+#include <QtEndian>
 #include <avahi-common/error.h>
-#include <arpa/inet.h>
 
 QxtMDNS::QxtMDNS(int id, QObject* parent)
 		: QObject(parent),
@@ -75,7 +75,7 @@ void QxtMDNS::avahiRecordBrowserCallback(AvahiRecordBrowser *b, AvahiIfIndex int
 		case AVAHI_BROWSER_NEW:
 		{
 			//Found an entry!
-			uint32_t ip = htonl(*static_cast<const uint32_t*>(rdata));
+			uint32_t ip = qFromBigEndian(*static_cast<const uint32_t*>(rdata));
 			if (md->sent)
 			{
 				QHostInfo info(md->info.lookupId());
@@ -90,7 +90,7 @@ void QxtMDNS::avahiRecordBrowserCallback(AvahiRecordBrowser *b, AvahiIfIndex int
 		}
 		case AVAHI_BROWSER_REMOVE:
 		{
-			uint32_t ip = htonl(*static_cast<const uint32_t*>(rdata));
+			uint32_t ip = qFromBigEndian(*static_cast<const uint32_t*>(rdata));
 			md->addresses.removeAll(QHostAddress(ip));
 			break;
 		}

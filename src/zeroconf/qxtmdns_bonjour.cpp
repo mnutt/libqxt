@@ -1,6 +1,7 @@
 #include "qxtmdns_bonjour.h"
 #include <qxtmetaobject.h>
 #include <QDebug>
+#include <QtEndian>
 
 QxtMDNS::QxtMDNS(int id, QObject * parent)
 		: QObject(parent),
@@ -39,6 +40,7 @@ void QxtMDNS::DNSServiceQueryRecordCallback(DNSServiceRef DNSServiceRef, DNSServ
 {
 	QxtMDNS* md = static_cast<QxtMDNS*>(context);
 	QHostInfo info(md->info.lookupId());
+	uint32_t ip = qFromBigEndian(*static_cast<const uint32_t*>(rdata));
 	info.setAddresses(QList<QHostAddress>() << QHostAddress(ip));
 	QMetaObject::invokeMethod(md->receiver, md->member, Q_ARG(QHostInfo, info));
 }
