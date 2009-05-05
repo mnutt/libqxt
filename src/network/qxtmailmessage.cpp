@@ -26,6 +26,7 @@
 #include "qxtmail_p.h"
 #include <QTextCodec>
 #include <QUuid>
+#include <QDir>
 #include <QtDebug>
 
 /**
@@ -422,7 +423,7 @@ QByteArray QxtMailMessage::rfc2822() const
     if(attach.count()) {
         foreach(const QString& filename, attach.keys()) {
             rv += "--" + qxt_d->boundary + "\r\n";
-            rv += qxt_fold_mime_header("Content-Disposition", filename, latin1, "attachment; filename=");
+            rv += qxt_fold_mime_header("Content-Disposition", QDir(filename).dirName(), latin1, "attachment; filename=");
             rv += attach[filename].mimeData();
         }
         rv += "--" + qxt_d->boundary + "--\r\n";
