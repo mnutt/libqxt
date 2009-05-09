@@ -181,12 +181,12 @@ void QxtFlowView::setPictureRole(int a)
 
 
 
-int QxtFlowView::picureColumn()
+int QxtFlowView::pictureColumn()
 {
     return d->piccolumn;
 }
 
-void QxtFlowView::setPicureColumn(int a)
+void QxtFlowView::setPictureColumn(int a)
 {
     d->piccolumn = a;
     d->reset();
