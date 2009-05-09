@@ -64,7 +64,7 @@ class QXT_GUI_EXPORT QxtFlowView : public QWidget
     Q_PROPERTY(QSize slideSize READ slideSize WRITE setSlideSize)
     Q_PROPERTY(QModelIndex currentIndex READ currentIndex WRITE setCurrentIndex)
     Q_PROPERTY(int pictureRole READ pictureRole WRITE setPictureRole)
-    Q_PROPERTY(int picureColumn READ picureColumn WRITE setPicureColumn)
+    Q_PROPERTY(int pictureColumn READ pictureColumn WRITE setPictureColumn)
     Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex)
 
 #if 0
@@ -135,9 +135,9 @@ public:
     void setPictureRole(int);
 
     /*!Returns the column currently used for the image.*/
-    int picureColumn();
+    int pictureColumn();
     /*!Sets the column to use for the image. the default is 0*/
-    void setPicureColumn(int);
+    void setPictureColumn(int);
 
 #if 0
     int textRole();
