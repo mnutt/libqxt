@@ -112,6 +112,16 @@ void QxtSmtp::disconnectFromHost()
     socket()->disconnectFromHost();
 }
 
+bool QxtSmtp::startTlsDisabled() const
+{
+    return qxt_d().disableStartTLS;
+}
+
+void QxtSmtp::setStartTlsDisabled(bool disable)
+{
+    qxt_d().disableStartTLS = disable;
+}
+
 #ifndef QT_NO_OPENSSL
 QSslSocket* QxtSmtp::sslSocket() const
 {
@@ -261,7 +271,7 @@ void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString&
             state = EhloDone;
     }
     if(state != EhloDone) return;
-    if(extensions.contains("STARTTLS")) {
+    if(extensions.contains("STARTTLS") && !disableStartTLS) {
         startTLS();
     } else {
         authenticate();

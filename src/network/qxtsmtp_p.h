@@ -65,7 +65,7 @@ public:
         AuthCramMD5
     };
 
-    bool useSecure;
+    bool useSecure, disableStartTLS;
     int state;
     AuthType authType;
     QByteArray buffer, username, password;
