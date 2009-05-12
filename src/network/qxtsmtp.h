@@ -74,6 +74,9 @@ public:
     void connectToHost(const QHostAddress& address, quint16 port = 25);
     void disconnectFromHost();
 
+    bool startTlsDisabled() const;
+    void setStartTlsDisabled(bool disable);
+
 #ifndef QT_NO_OPENSSL
     QSslSocket* sslSocket() const;
     void connectToSecureHost(const QString& hostName, quint16 port = 465);
