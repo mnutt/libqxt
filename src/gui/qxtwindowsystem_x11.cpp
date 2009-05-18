@@ -145,7 +145,7 @@ QRect QxtWindowSystem::windowGeometry(WId window)
 
 uint QxtWindowSystem::idleTime()
 {
-    uint idle = -1;
+    uint idle = 0;
 #ifdef HAVE_XSS
     XScreenSaverInfo* info = XScreenSaverAllocInfo();
     const int screen = QX11Info::appScreen();
