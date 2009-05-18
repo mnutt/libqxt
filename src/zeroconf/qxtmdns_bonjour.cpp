@@ -27,7 +27,9 @@ void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 
 	if (err != kDNSServiceErr_NoError)
 	{
-		qCritical() << "PHIAL";
+		QHostInfo info(info.lookupId());
+		info.setErrorString("Failed to initialize the Bonjour request.");
+		QMetaObject::invokeMethod(receiver, member, Q_ARG(QHostInfo, info));
 	}
 	else
 	{
