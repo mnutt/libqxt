@@ -22,34 +22,63 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTCONFIGDIALOG_P_H
-#define QXTCONFIGDIALOG_P_H
+#ifndef QXTCONFIGWIDGET_P_H
+#define QXTCONFIGWIDGET_P_H
 
 #include "qxtpimpl.h"
 #include "qxtconfigwidget.h"
-#include "qxtconfigdialog.h"
+#include <QItemDelegate>
+#include <QTableWidget>
 
-
+QT_FORWARD_DECLARE_CLASS(QSplitter)
+QT_FORWARD_DECLARE_CLASS(QStackedWidget)
 QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
-QT_FORWARD_DECLARE_CLASS(QWidget)
-QT_FORWARD_DECLARE_CLASS(QxtConfigWidget)
-QT_FORWARD_DECLARE_CLASS(QVBoxLayout)
 
+class QxtConfigTableWidget : public QTableWidget
+{
+public:
+    QxtConfigTableWidget(QWidget* parent = 0);
+    QStyleOptionViewItem viewOptions() const;
+    QSize sizeHint() const;
 
-class QxtConfigDialogPrivate : public QObject, public QxtPrivate<QxtConfigDialog>
+    bool hasHoverEffect() const;
+    void setHoverEffect(bool enabled);
+};
+
+class QxtConfigDelegate : public QItemDelegate
+{
+public:
+    QxtConfigDelegate(QObject* parent = 0);
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    bool hover;
+};
+
+class QxtConfigWidgetPrivate : public QObject, public QxtPrivate<QxtConfigWidget>
 {
     Q_OBJECT
+
 public:
-    QXT_DECLARE_PUBLIC(QxtConfigDialog);
-	
-    void init( QxtConfigWidget::IconPosition pos );
+    QXT_DECLARE_PUBLIC(QxtConfigWidget);
+
+    void init(QxtConfigWidget::IconPosition position = QxtConfigWidget::West);
+    void initTable();
+    void relayout();
+    QTableWidgetItem* item(int index) const;
+
+    QSplitter* splitter;
+    QStackedWidget* stack;
 #if QT_VERSION >= 0x040200
     QDialogButtonBox* buttons;
 #else // QT_VERSION >= 0x040200
     QWidget* buttons;
 #endif // QT_VERSION
-    QxtConfigWidget* configWidget;
-	QVBoxLayout*     layout;
+    QxtConfigTableWidget* table;
+    QxtConfigWidget::IconPosition pos;
+
+public Q_SLOTS:
+    void setCurrentIndex(int row, int column);
+    void setCurrentIndex(int index);
 };
 
-#endif // QXTCONFIGDIALOG_P_H
+#endif // QXTCONFIGWIDGET_P_H
