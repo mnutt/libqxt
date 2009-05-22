@@ -22,24 +22,22 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTCONFIGDIALOG_H
-#define QXTCONFIGDIALOG_H
+#ifndef QXTCONFIGWIDGET_H
+#define QXTCONFIGWIDGET_H
 
 #include <QDialog>
-#include <QIcon>
 #include "qxtglobal.h"
 #include "qxtpimpl.h"
-#include "qxtconfigwidget.h"
 
 QT_FORWARD_DECLARE_CLASS(QTableWidget)
 QT_FORWARD_DECLARE_CLASS(QStackedWidget)
 QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
+class QxtConfigWidgetPrivate;
 
-class QxtConfigDialogPrivate;
-class QXT_GUI_EXPORT QxtConfigDialog : public QDialog
+class QXT_GUI_EXPORT QxtConfigWidget : public QWidget
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtConfigDialog);
+    QXT_DECLARE_PRIVATE(QxtConfigWidget);
     Q_PROPERTY(int count READ count)
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex)
     Q_PROPERTY(bool hoverEffect READ hasHoverEffect WRITE setHoverEffect)
@@ -48,12 +46,12 @@ class QXT_GUI_EXPORT QxtConfigDialog : public QDialog
     Q_ENUMS(IconPosition)
 
 public:
-    explicit QxtConfigDialog(QWidget* parent = 0, Qt::WindowFlags flags = 0);
-    explicit QxtConfigDialog(QxtConfigWidget::IconPosition position, QWidget* parent = 0, Qt::WindowFlags flags = 0);
-    virtual ~QxtConfigDialog();
+    enum IconPosition { North, West, East };
 
-    QDialogButtonBox* dialogButtonBox() const;
-    void setDialogButtonBox(QDialogButtonBox* buttonBox);
+    explicit QxtConfigWidget(QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    explicit QxtConfigWidget(QxtConfigWidget::IconPosition position, QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    virtual ~QxtConfigWidget();
+
 
     bool hasHoverEffect() const;
     void setHoverEffect(bool enabled);
@@ -102,6 +100,13 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void currentIndexChanged(int index);
+
+protected:
+    QTableWidget* tableWidget() const;
+    QStackedWidget* stackedWidget() const;
+
+    virtual void cleanupPage(int index);
+    virtual void initializePage(int index);
 };
 
-#endif // QXTCONFIGDIALOG_H
+#endif // QXTCONFIGWIDGET_H

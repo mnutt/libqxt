@@ -22,107 +22,23 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#include "qxtconfigdialog.h"
 #include "qxtconfigdialog_p.h"
+#include "qxtconfigdialog.h"
+#include "qxtconfigwidget.h"
 #if QT_VERSION >= 0x040200
 #include <QDialogButtonBox>
 #else // QT_VERSION >= 0x040200
 #include <QHBoxLayout>
 #include <QPushButton>
 #endif // QT_VERSION
-#include <QStackedWidget>
 #include <QApplication>
-#include <QTableWidget>
-#include <QHeaderView>
 #include <QVBoxLayout>
-#include <QSplitter>
-#include <QPainter>
 
-QxtConfigTableWidget::QxtConfigTableWidget(QWidget* parent) : QTableWidget(parent)
-{
-    int pm = style()->pixelMetric(QStyle::PM_LargeIconSize);
-    setIconSize(QSize(pm, pm));
-    setItemDelegate(new QxtConfigDelegate(this));
-    viewport()->setAttribute(Qt::WA_Hover, true);
-}
 
-QStyleOptionViewItem QxtConfigTableWidget::viewOptions() const
-{
-    QStyleOptionViewItem option = QTableWidget::viewOptions();
-    option.displayAlignment = Qt::AlignHCenter | Qt::AlignTop;
-    option.decorationAlignment = Qt::AlignHCenter | Qt::AlignTop;
-    option.decorationPosition = QStyleOptionViewItem::Top;
-    option.showDecorationSelected = false;
-    return option;
-}
-
-QSize QxtConfigTableWidget::sizeHint() const
-{
-    return QSize(sizeHintForColumn(0), sizeHintForRow(0));
-}
-
-bool QxtConfigTableWidget::hasHoverEffect() const
-{
-    return static_cast<QxtConfigDelegate*>(itemDelegate())->hover;
-}
-
-void QxtConfigTableWidget::setHoverEffect(bool enabled)
-{
-    static_cast<QxtConfigDelegate*>(itemDelegate())->hover = enabled;
-}
-
-QxtConfigDelegate::QxtConfigDelegate(QObject* parent)
-        : QItemDelegate(parent), hover(true)
-{
-}
-
-void QxtConfigDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    QStyleOptionViewItem opt = option;
-    if (hover)
-    {
-        QPalette::ColorGroup cg = (option.state & QStyle::State_Enabled) ? QPalette::Normal : QPalette::Disabled;
-        if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
-            cg = QPalette::Inactive;
-
-        if (option.state & QStyle::State_Selected)
-            painter->fillRect(opt.rect, option.palette.brush(cg, QPalette::Highlight));
-        else if ((option.state & QStyle::State_MouseOver) && (option.state & QStyle::State_Enabled))
-        {
-            QColor color = option.palette.color(cg, QPalette::Highlight).light();
-            if (color == option.palette.color(cg, QPalette::Base))
-                color = option.palette.color(cg, QPalette::AlternateBase);
-            painter->fillRect(opt.rect, color);
-        }
-        else
-            painter->fillRect(opt.rect, option.palette.brush(cg, QPalette::Base));
-
-        opt.showDecorationSelected = false;
-        opt.state &= ~QStyle::State_HasFocus;
-        opt.state &= ~QStyle::State_Selected;
-    }
-    QItemDelegate::paint(painter, opt, index);
-}
-
-QSize QxtConfigDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    int margin = qApp->style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
-    int textWidth = option.fontMetrics.width(index.data().toString());
-    int width = qMax(textWidth, option.decorationSize.width()) + 2 * margin;
-    int height = option.fontMetrics.height() + option.decorationSize.height() + margin;
-    return QSize(width, height);
-}
-
-void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
+void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
 {
     QxtConfigDialog* p = &qxt_p();
-    splitter = new QSplitter(p);
-    stack = new QStackedWidget(p);
-    table = new QxtConfigTableWidget(p);
-    pos = position;
-    QObject::connect(table, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(setCurrentIndex(int, int)));
-    QObject::connect(stack, SIGNAL(currentChanged(int)), p, SIGNAL(currentIndexChanged(int)));
-
+	configWidget = new QxtConfigWidget(pos);
 #if QT_VERSION >= 0x040200
     buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, p);
     QObject::connect(buttons, SIGNAL(accepted()), p, SLOT(accept()));
@@ -138,138 +54,9 @@ void QxtConfigDialogPrivate::init(QxtConfigDialog::IconPosition position)
     layout->addWidget(okButton);
     layout->addWidget(cancelButton);
 #endif
-    QVBoxLayout* layout = new QVBoxLayout(p);
-    layout->addWidget(splitter);
+    layout = new QVBoxLayout(p);
+    layout->addWidget(configWidget);
     layout->addWidget(buttons);
-    initTable();
-    relayout();
-}
-
-void QxtConfigDialogPrivate::initTable()
-{
-    table->horizontalHeader()->hide();
-    table->verticalHeader()->hide();
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table->setTabKeyNavigation(true);
-    table->setAcceptDrops(false);
-    table->setDragEnabled(false);
-    table->setShowGrid(false);
-    table->setSelectionMode(QAbstractItemView::SingleSelection);
-}
-
-void QxtConfigDialogPrivate::relayout()
-{
-    if (pos == QxtConfigDialog::North)
-    {
-        splitter->setOrientation(Qt::Vertical);
-        table->setRowCount(1);
-        table->setColumnCount(0);
-        table->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-        table->verticalHeader()->setResizeMode(QHeaderView::Stretch);
-        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    }
-    else
-    {
-        splitter->setOrientation(Qt::Horizontal);
-        table->setRowCount(0);
-        table->setColumnCount(1);
-        table->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-        table->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        table->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    }
-
-    // clear
-    for (int i = splitter->count() - 1; i >= 0; --i)
-    {
-        splitter->widget(i)->setParent(0);
-    }
-
-    // relayout
-    switch (pos)
-    {
-    case QxtConfigDialog::North:
-        // +-----------+
-        // |   Icons   |
-        // +-----------|
-        // |   Stack   |
-        // +-----------|
-        // |  Buttons  |
-        // +-----------+
-        splitter->addWidget(table);
-        splitter->addWidget(stack);
-        break;
-
-    case QxtConfigDialog::West:
-        // +---+-------+
-        // | I |       |
-        // | c |       |
-        // | o | Stack |
-        // | n |       |
-        // | s |       |
-        // +---+-------+
-        // |  Buttons  |
-        // +-----------+
-        splitter->addWidget(table);
-        splitter->addWidget(stack);
-        break;
-
-    case QxtConfigDialog::East:
-        // +-------+---+
-        // |       | I |
-        // |       | c |
-        // | Stack | o |
-        // |       | n |
-        // |       | s |
-        // +-------+---+
-        // |  Buttons  |
-        // +-----------+
-        splitter->addWidget(stack);
-        splitter->addWidget(table);
-        break;
-
-    default:
-        qWarning("QxtConfigDialogPrivate::relayout(): unknown position");
-        break;
-    }
-
-    if (pos == QxtConfigDialog::East)
-    {
-        splitter->setStretchFactor(0, 10);
-        splitter->setStretchFactor(1, 1);
-    }
-    else
-    {
-        splitter->setStretchFactor(0, 1);
-        splitter->setStretchFactor(1, 10);
-    }
-}
-
-QTableWidgetItem* QxtConfigDialogPrivate::item(int index) const
-{
-    return pos == QxtConfigDialog::North ? table->item(0, index) : table->item(index, 0);
-}
-
-void QxtConfigDialogPrivate::setCurrentIndex(int row, int column)
-{
-    if (pos == QxtConfigDialog::North)
-        setCurrentIndex(column);
-    else
-        setCurrentIndex(row);
-}
-
-void QxtConfigDialogPrivate::setCurrentIndex(int index)
-{
-    int previousIndex = stack->currentIndex();
-    if (previousIndex != -1 && previousIndex != index)
-        qxt_p().cleanupPage(previousIndex);
-
-    stack->setCurrentIndex(index);
-    table->setCurrentItem(item(index));
-
-    if (index != -1)
-        qxt_p().initializePage(index);
 }
 
 /*!
@@ -334,13 +121,13 @@ QxtConfigDialog::QxtConfigDialog(QWidget* parent, Qt::WindowFlags flags)
         : QDialog(parent, flags)
 {
     QXT_INIT_PRIVATE(QxtConfigDialog);
-    qxt_d().init();
+    qxt_d().init(QxtConfigWidget::West);
 }
 
 /*!
     Constructs a new QxtConfigDialog with icon \a position, \a parent and \a flags.
  */
-QxtConfigDialog::QxtConfigDialog(QxtConfigDialog::IconPosition position, QWidget* parent, Qt::WindowFlags flags)
+QxtConfigDialog::QxtConfigDialog(QxtConfigWidget::IconPosition position, QWidget* parent, Qt::WindowFlags flags)
         : QDialog(parent, flags)
 {
     QXT_INIT_PRIVATE(QxtConfigDialog);
@@ -382,9 +169,10 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
         if (qxt_d().buttons && qxt_d().buttons->parent() == this)
         {
             delete qxt_d().buttons;
+			qxt_d().buttons = NULL;
         }
         qxt_d().buttons = buttonBox;
-        qxt_d().relayout();
+		qxt_d().layout->addWidget(qxt_d().buttons);
     }
 }
 #endif // QT_VERSION
@@ -403,30 +191,26 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
  */
 bool QxtConfigDialog::hasHoverEffect() const
 {
-    return qxt_d().table->hasHoverEffect();
+    return qxt_d().configWidget->hasHoverEffect();
 }
 
 void QxtConfigDialog::setHoverEffect(bool enabled)
 {
-    qxt_d().table->setHoverEffect(enabled);
+    qxt_d().configWidget->setHoverEffect(enabled);
 }
 
 /*!
     \property QxtConfigDialog::iconPosition
     \brief This property holds the position of page icons
  */
-QxtConfigDialog::IconPosition QxtConfigDialog::iconPosition() const
+QxtConfigWidget::IconPosition QxtConfigDialog::iconPosition() const
 {
-    return qxt_d().pos;
+    return qxt_d().configWidget->iconPosition();
 }
 
-void QxtConfigDialog::setIconPosition(QxtConfigDialog::IconPosition position)
+void QxtConfigDialog::setIconPosition(QxtConfigWidget::IconPosition position)
 {
-    if (qxt_d().pos != position)
-    {
-        qxt_d().pos = position;
-        qxt_d().relayout();
-    }
+	qxt_d().configWidget->setIconPosition(position);
 }
 
 /*!
@@ -435,12 +219,12 @@ void QxtConfigDialog::setIconPosition(QxtConfigDialog::IconPosition position)
  */
 QSize QxtConfigDialog::iconSize() const
 {
-    return qxt_d().table->iconSize();
+    return qxt_d().configWidget->iconSize();
 }
 
 void QxtConfigDialog::setIconSize(const QSize& size)
 {
-    qxt_d().table->setIconSize(size);
+    qxt_d().configWidget->setIconSize(size);
 }
 
 /*!
@@ -456,7 +240,7 @@ void QxtConfigDialog::setIconSize(const QSize& size)
 */
 int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& title)
 {
-    return insertPage(-1, page, icon, title);
+    return qxt_d().configWidget->insertPage(-1, page, icon, title);
 }
 
 /*!
@@ -472,32 +256,7 @@ int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& ti
 */
 int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, const QString& title)
 {
-    if (!page)
-    {
-        qWarning("QxtConfigDialog::insertPage(): Attempt to insert null page");
-        return -1;
-    }
-
-    index = qxt_d().stack->insertWidget(index, page);
-    const QString label = !title.isEmpty() ? title : page->windowTitle();
-    if (label.isEmpty())
-        qWarning("QxtConfigDialog::insertPage(): Inserting a page with an empty title");
-    QTableWidgetItem* item = new QTableWidgetItem(icon, label);
-    item->setToolTip(label);
-    if (qxt_d().pos == QxtConfigDialog::North)
-    {
-        qxt_d().table->model()->insertColumn(index);
-        qxt_d().table->setItem(0, index, item);
-        qxt_d().table->resizeRowToContents(0);
-    }
-    else
-    {
-        qxt_d().table->model()->insertRow(index);
-        qxt_d().table->setItem(index, 0, item);
-        qxt_d().table->resizeColumnToContents(0);
-    }
-    qxt_d().table->updateGeometry();
-    return index;
+    return qxt_d().configWidget->insertPage(index, page, icon, title);
 }
 
 /*!
@@ -507,17 +266,7 @@ int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, con
 */
 QWidget* QxtConfigDialog::takePage(int index)
 {
-    if (QWidget* page = qxt_d().stack->widget(index))
-    {
-        qxt_d().stack->removeWidget(page);
-        delete qxt_d().item(index);
-        return page;
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::removePage(): Unknown index");
-        return 0;
-    }
+	return qxt_d().configWidget->takePage(index);
 }
 
 /*!
@@ -526,7 +275,7 @@ QWidget* QxtConfigDialog::takePage(int index)
 */
 int QxtConfigDialog::count() const
 {
-    return qxt_d().stack->count();
+    return qxt_d().configWidget->count();
 }
 
 /*!
@@ -535,12 +284,12 @@ int QxtConfigDialog::count() const
 */
 int QxtConfigDialog::currentIndex() const
 {
-    return qxt_d().stack->currentIndex();
+    return qxt_d().configWidget->currentIndex();
 }
 
 void QxtConfigDialog::setCurrentIndex(int index)
 {
-    qxt_d().setCurrentIndex(index);
+    qxt_d().configWidget->setCurrentIndex(index);
 }
 
 /*!
@@ -550,7 +299,7 @@ void QxtConfigDialog::setCurrentIndex(int index)
 */
 QWidget* QxtConfigDialog::currentPage() const
 {
-    return qxt_d().stack->currentWidget();
+    return qxt_d().configWidget->currentPage();
 }
 
 /*!
@@ -560,7 +309,7 @@ QWidget* QxtConfigDialog::currentPage() const
 */
 void QxtConfigDialog::setCurrentPage(QWidget* page)
 {
-    qxt_d().setCurrentIndex(qxt_d().stack->indexOf(page));
+    qxt_d().configWidget->setCurrentPage(page);
 }
 
 /*!
@@ -568,7 +317,7 @@ void QxtConfigDialog::setCurrentPage(QWidget* page)
 */
 int QxtConfigDialog::indexOf(QWidget* page) const
 {
-    return qxt_d().stack->indexOf(page);
+    return qxt_d().configWidget->indexOf(page);
 }
 
 /*!
@@ -576,7 +325,7 @@ int QxtConfigDialog::indexOf(QWidget* page) const
 */
 QWidget* QxtConfigDialog::page(int index) const
 {
-    return qxt_d().stack->widget(index);
+    return qxt_d().configWidget->page(index);
 }
 
 /*!
@@ -586,8 +335,7 @@ QWidget* QxtConfigDialog::page(int index) const
 */
 bool QxtConfigDialog::isPageEnabled(int index) const
 {
-    const QWidget* widget = page(index);
-    return widget && widget->isEnabled();
+    return qxt_d().configWidget->isPageEnabled(index);
 }
 
 /*!
@@ -598,20 +346,7 @@ bool QxtConfigDialog::isPageEnabled(int index) const
 */
 void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 {
-    QWidget* page = qxt_d().stack->widget(index);
-    QTableWidgetItem* item = qxt_d().item(index);
-    if (page && item)
-    {
-        page->setEnabled(enabled);
-        if (enabled)
-            item->setFlags(item->flags() | Qt::ItemIsEnabled);
-        else
-            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::setPageEnabled(): Unknown index");
-    }
+    qxt_d().configWidget->setPageEnabled(index,enabled);
 }
 
 /*!
@@ -621,9 +356,7 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 */
 bool QxtConfigDialog::isPageHidden(int index) const
 {
-    if (qxt_d().pos == QxtConfigDialog::North)
-        return qxt_d().table->isColumnHidden(index);
-    return qxt_d().table->isRowHidden(index);
+    return qxt_d().configWidget->isPageHidden(index);
 }
 
 /*!
@@ -634,10 +367,7 @@ bool QxtConfigDialog::isPageHidden(int index) const
 */
 void QxtConfigDialog::setPageHidden(int index, bool hidden)
 {
-    if (qxt_d().pos == QxtConfigDialog::North)
-        qxt_d().table->setColumnHidden(index, hidden);
-    else
-        qxt_d().table->setRowHidden(index, hidden);
+	qxt_d().configWidget->setPageHidden(index,hidden);
 }
 
 /*!
@@ -647,8 +377,7 @@ void QxtConfigDialog::setPageHidden(int index, bool hidden)
 */
 QIcon QxtConfigDialog::pageIcon(int index) const
 {
-    const QTableWidgetItem* item = qxt_d().item(index);
-    return (item ? item->icon() : QIcon());
+	return qxt_d().configWidget->pageIcon(index);
 }
 
 /*!
@@ -658,15 +387,7 @@ QIcon QxtConfigDialog::pageIcon(int index) const
 */
 void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 {
-    QTableWidgetItem* item = qxt_d().item(index);
-    if (item)
-    {
-        item->setIcon(icon);
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::setPageIcon(): Unknown index");
-    }
+	qxt_d().configWidget->setPageIcon(index,icon);
 }
 
 /*!
@@ -676,8 +397,7 @@ void QxtConfigDialog::setPageIcon(int index, const QIcon& icon)
 */
 QString QxtConfigDialog::pageTitle(int index) const
 {
-    const QTableWidgetItem* item = qxt_d().item(index);
-    return (item ? item->text() : QString());
+	return qxt_d().configWidget->pageTitle(index);
 }
 
 /*!
@@ -687,15 +407,7 @@ QString QxtConfigDialog::pageTitle(int index) const
 */
 void QxtConfigDialog::setPageTitle(int index, const QString& title)
 {
-    QTableWidgetItem* item = qxt_d().item(index);
-    if (item)
-    {
-        item->setText(title);
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::setPageTitle(): Unknown index");
-    }
+	qxt_d().configWidget->setPageTitle(index,title);
 }
 
 /*!
@@ -705,8 +417,7 @@ void QxtConfigDialog::setPageTitle(int index, const QString& title)
 */
 QString QxtConfigDialog::pageToolTip(int index) const
 {
-    const QTableWidgetItem* item = qxt_d().item(index);
-    return (item ? item->toolTip() : QString());
+	return qxt_d().configWidget->pageToolTip(index);
 }
 
 /*!
@@ -716,15 +427,7 @@ QString QxtConfigDialog::pageToolTip(int index) const
 */
 void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 {
-    QTableWidgetItem* item = qxt_d().item(index);
-    if (item)
-    {
-        item->setToolTip(tooltip);
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::setPageToolTip(): Unknown index");
-    }
+	qxt_d().configWidget->setPageToolTip(index,tooltip);
 }
 
 /*!
@@ -734,8 +437,7 @@ void QxtConfigDialog::setPageToolTip(int index, const QString& tooltip)
 */
 QString QxtConfigDialog::pageWhatsThis(int index) const
 {
-    const QTableWidgetItem* item = qxt_d().item(index);
-    return (item ? item->whatsThis() : QString());
+	return qxt_d().configWidget->pageWhatsThis(index);
 }
 
 /*!
@@ -745,15 +447,7 @@ QString QxtConfigDialog::pageWhatsThis(int index) const
 */
 void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 {
-    QTableWidgetItem* item = qxt_d().item(index);
-    if (item)
-    {
-        item->setWhatsThis(whatsthis);
-    }
-    else
-    {
-        qWarning("QxtConfigDialog::setPageWhatsThis(): Unknown index");
-    }
+	qxt_d().configWidget->setPageWhatsThis(index,whatsthis);
 }
 
 /*!
@@ -766,11 +460,7 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
  */
 void QxtConfigDialog::accept()
 {
-    Q_ASSERT(qxt_d().stack);
-    for (int i = 0; i < qxt_d().stack->count(); ++i)
-    {
-        QMetaObject::invokeMethod(qxt_d().stack->widget(i), "accept");
-    }
+	qxt_d().configWidget->accept();
     QDialog::accept();
 }
 
@@ -784,60 +474,6 @@ void QxtConfigDialog::accept()
  */
 void QxtConfigDialog::reject()
 {
-    Q_ASSERT(qxt_d().stack);
-    for (int i = 0; i < qxt_d().stack->count(); ++i)
-    {
-        QMetaObject::invokeMethod(qxt_d().stack->widget(i), "reject");
-    }
+	qxt_d().configWidget->reject();
     QDialog::reject();
-}
-
-/*!
-    Returns the internal table widget used for showing page icons.
-
-    \sa stackedWidget()
-*/
-QTableWidget* QxtConfigDialog::tableWidget() const
-{
-    return qxt_d().table;
-}
-
-/*!
-    Returns the internal stacked widget used for stacking pages.
-
-    \sa tableWidget()
-*/
-QStackedWidget* QxtConfigDialog::stackedWidget() const
-{
-    return qxt_d().stack;
-}
-
-/*!
-    This virtual function is called to clean up previous
-    page at \a index before switching to a new page.
-
-    \note The default implementation calls SLOT(cleanup()) of
-    the corresponding page provided that such slot exists.
-
-    \sa initializePage()
-*/
-void QxtConfigDialog::cleanupPage(int index)
-{
-    Q_ASSERT(qxt_d().stack);
-    QMetaObject::invokeMethod(qxt_d().stack->widget(index), "cleanup");
-}
-
-/*!
-    This virtual function is called to initialize page at
-    \a index before switching to it.
-
-    \note The default implementation calls SLOT(initialize()) of
-    the corresponding page provided that such slot exists.
-
-    \sa cleanupPage()
-*/
-void QxtConfigDialog::initializePage(int index)
-{
-    Q_ASSERT(qxt_d().stack);
-    QMetaObject::invokeMethod(qxt_d().stack->widget(index), "initialize");
 }
