@@ -27,6 +27,7 @@
 
 #include "qxtpimpl.h"
 #include "qxtglobalshortcut.h"
+#include <QAbstractEventDispatcher>
 #include <QKeySequence>
 #include <QHash>
 
@@ -35,6 +36,7 @@ class QxtGlobalShortcutPrivate : public QxtPrivate<QxtGlobalShortcut>
 public:
     QXT_DECLARE_PUBLIC(QxtGlobalShortcut);
     QxtGlobalShortcutPrivate();
+    ~QxtGlobalShortcutPrivate();
 
     bool enabled;
     Qt::Key key;
@@ -43,6 +45,8 @@ public:
     bool setShortcut(const QKeySequence& shortcut);
     bool unsetShortcut();
     
+    static int ref;
+    static QAbstractEventDispatcher::EventFilter prevEventFilter;
     static bool eventFilter(void* message);
 
 private:

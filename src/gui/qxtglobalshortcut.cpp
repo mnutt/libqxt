@@ -27,10 +27,20 @@
 #include <QAbstractEventDispatcher>
 #include <QtDebug>
 
+int QxtGlobalShortcutPrivate::ref = 0;
+QAbstractEventDispatcher::EventFilter QxtGlobalShortcutPrivate::prevEventFilter = 0;
 QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
 {
+    if (!ref++)
+        prevEventFilter = QAbstractEventDispatcher::instance()->setEventFilter(eventFilter);
+}
+
+QxtGlobalShortcutPrivate::~QxtGlobalShortcutPrivate()
+{
+    if (!--ref)
+        QAbstractEventDispatcher::instance()->setEventFilter(prevEventFilter);
 }
 
 bool QxtGlobalShortcutPrivate::setShortcut(const QKeySequence& shortcut)
@@ -96,8 +106,6 @@ QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
 {
     Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
-    // TODO: store the previous event filter
-    QAbstractEventDispatcher::instance()->setEventFilter(QxtGlobalShortcutPrivate::eventFilter);
 }
 
 /*!
@@ -108,8 +116,6 @@ QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* pare
 {
     Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
-    // TODO: store the previous event filter
-    QAbstractEventDispatcher::instance()->setEventFilter(QxtGlobalShortcutPrivate::eventFilter);
     setShortcut(shortcut);
 }
 
