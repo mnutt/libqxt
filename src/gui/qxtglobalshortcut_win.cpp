@@ -24,7 +24,6 @@
  ****************************************************************************/
 #include "qxtglobalshortcut_p.h"
 #include <qt_windows.h>
-#include <QWidget>
 
 bool QxtGlobalShortcutPrivate::eventFilter(void* message)
 {
