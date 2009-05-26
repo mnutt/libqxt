@@ -71,6 +71,8 @@ bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativ
     int keyboard = GrabModeAsync;
     // no way to check for success
     XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard);
+    // allow numlock
+    XGrabKey(display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer, keyboard);
     return true;
 }
 
@@ -80,5 +82,6 @@ bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nat
     Window window = QX11Info::appRootWindow();
     // no way to check for success
     XUngrabKey(display, nativeKey, nativeMods, window);
+    XUngrabKey(display, nativeKey, nativeMods | Mod2Mask, window);
     return true;
 }
