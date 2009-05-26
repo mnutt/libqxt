@@ -39,9 +39,7 @@ public:
     bool enabled;
     Qt::Key key;
     Qt::KeyboardModifiers mods;
-#ifdef Q_WS_WIN
-    QWidget* widget;
-#endif // Q_WS_WIN
+
     bool setShortcut(const QKeySequence& shortcut);
     bool unsetShortcut();
     

@@ -30,9 +30,6 @@
 QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
 
 QxtGlobalShortcutPrivate::QxtGlobalShortcutPrivate() : enabled(true), key(Qt::Key(0)), mods(Qt::NoModifier)
-#ifdef Q_WS_WIN
-        , widget(0)
-#endif // Q_WS_WIN
 {
 }
 
