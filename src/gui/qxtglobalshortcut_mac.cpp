@@ -42,8 +42,10 @@ OSStatus qxt_mac_handle_hot_key(EventHandlerCallRef nextHandler, EventRef event,
     return noErr;
 }
 
-bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventRef event)
+bool QxtGlobalShortcutPrivate::eventFilter(void* message)
+//bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventRef event)
 {
+    EventRef event = (EventRef) message;
     if (GetEventClass(event) == kEventClassKeyboard && GetEventKind(event) == kEventHotKeyPressed)
     {
         EventHotKeyID keyID;
@@ -54,7 +56,7 @@ bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventR
     return false;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers)
 {
     quint32 native = 0;
     if (modifiers & Qt::ShiftModifier)
@@ -70,7 +72,7 @@ quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifier
     return native;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key) const
+quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
 {
     UTF16Char ch;
     // Constants found in NSEvent.h from AppKit.framework
