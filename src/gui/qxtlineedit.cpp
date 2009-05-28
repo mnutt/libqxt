@@ -31,8 +31,9 @@
 #define vMargin 1
 #define hMargin 2
 
-struct QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
+class QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
 {
+public:
     QString sampleText;
 };
 
