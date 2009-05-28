@@ -62,14 +62,13 @@ QxtSingleShotTimer::QxtSingleShotTimer(int msec, QObject* receiver, const char* 
     timerId = startTimer(msec);
 }
 
-#define QXT_ARG(i) ((i<count)?QGenericArgument(args.at(i).typeName(), args.at(i).constData()):QGenericArgument())
+#define QXT_ARG(i) QGenericArgument(args.at(i).typeName(), args.at(i).constData())
 void QxtSingleShotTimer::timerEvent(QTimerEvent* event)
 {
     if (event->timerId() == timerId)
     {
-        const int count = args.count();
         QMetaObject::invokeMethod(receiver, QxtMetaObject::methodName(member),
-                                  QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4),
+                                  QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4),
                                   QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9));
         deleteLater();
     }
@@ -92,7 +91,7 @@ QxtTimer::~QxtTimer()
 /*!
     Adds mapping from connected signals with \a parameter to \a receiver's \a member.
  */
-void QxtTimer::singleShot(int msec, QObject* receiver, const char* member,
+void QxtTimer::singleShot(int msec, QObject* receiver, const char* member, const QVariant& arg0,
                           const QVariant& arg1, const QVariant& arg2, const QVariant& arg3,
                           const QVariant& arg4, const QVariant& arg5, const QVariant& arg6,
                           const QVariant& arg7, const QVariant& arg8, const QVariant& arg9)
@@ -100,7 +99,7 @@ void QxtTimer::singleShot(int msec, QObject* receiver, const char* member,
     if (receiver && member)
     {
         QVariantList args;
-        args << arg1 << arg2 << arg3 << arg4 << arg5 << arg6 << arg7 << arg8 << arg9;
+        args << arg0 << arg1 << arg2 << arg3 << arg4 << arg5 << arg6 << arg7 << arg8 << arg9;
         (void) new QxtSingleShotTimer(msec, receiver, member, args);
     }
 }

@@ -36,11 +36,12 @@ public:
     virtual ~QxtTimer();
 
     using QTimer::singleShot;
-    static void singleShot(int msec, QObject* receiver, const char* member, const QVariant& arg1,
-                           const QVariant& arg2 = QVariant(), const QVariant& arg3 = QVariant(),
-                           const QVariant& arg4 = QVariant(), const QVariant& arg5 = QVariant(),
-                           const QVariant& arg6 = QVariant(), const QVariant& arg7 = QVariant(),
-                           const QVariant& arg8 = QVariant(), const QVariant& arg9 = QVariant());
+    static void singleShot(int msec, QObject* receiver, const char* member, const QVariant& arg0,
+                           const QVariant& arg1 = QVariant(), const QVariant& arg2 = QVariant(), 
+                           const QVariant& arg3 = QVariant(), const QVariant& arg4 = QVariant(), 
+                           const QVariant& arg5 = QVariant(), const QVariant& arg6 = QVariant(), 
+                           const QVariant& arg7 = QVariant(), const QVariant& arg8 = QVariant(), 
+                           const QVariant& arg9 = QVariant());
 };
 
 #endif // QXTTIMER_H
