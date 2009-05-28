@@ -87,7 +87,14 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     still if some other application is active or if the application is for
     example minimized to the system tray.
 
-    \note QxtGlobalShortcut requires QxtApplication.
+    Example usage:
+    \code
+    QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(window);
+    connect(shortcut, SIGNAL(activated()), window, SLOT(toggleVisibility()));
+    shortcut->setShortcut(QKeySequence("Ctrl+Shift+F12"));
+    \endcode
+
+    \note Since Qxt 0.6 QxtGlobalShortcut no more requires QxtApplication.
  */
 
 /*!
@@ -104,7 +111,6 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
 QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
         : QObject(parent)
 {
-    Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
 }
 
@@ -114,7 +120,6 @@ QxtGlobalShortcut::QxtGlobalShortcut(QObject* parent)
 QxtGlobalShortcut::QxtGlobalShortcut(const QKeySequence& shortcut, QObject* parent)
         : QObject(parent)
 {
-    Q_ASSERT(qxtApp);
     QXT_INIT_PRIVATE(QxtGlobalShortcut);
     setShortcut(shortcut);
 }
