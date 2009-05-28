@@ -89,7 +89,11 @@ QxtTimer::~QxtTimer()
 }
 
 /*!
-    Adds mapping from connected signals with \a parameter to \a receiver's \a member.
+    This static function calls a slot with given parameters after a given time interval.
+
+    It is very convenient to use this function because you do not need to bother with a timerEvent or create a local QTimer object.
+
+    The \a receiver is the receiving object and the \a member is the slot. The time interval is \a msec milliseconds.
  */
 void QxtTimer::singleShot(int msec, QObject* receiver, const char* member, const QVariant& arg0,
                           const QVariant& arg1, const QVariant& arg2, const QVariant& arg3,
