@@ -27,7 +27,6 @@
 
 #include <QHeaderView>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtHeaderViewPrivate;
 

@@ -26,7 +26,6 @@
 #define QXTSLOTMAPPER_H
 
 #include <QObject>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 class QxtSlotMapperPrivate;

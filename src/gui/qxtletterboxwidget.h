@@ -27,7 +27,6 @@
 
 #include <QFrame>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtLetterBoxWidgetPrivate;
 

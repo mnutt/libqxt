@@ -26,7 +26,6 @@
 #ifndef QXTJOB_H
 #define QXTJOB_H
 
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 #include <QObject>

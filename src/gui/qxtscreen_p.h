@@ -28,7 +28,6 @@
 #include <QSize>
 #include <QList>
 #include <QMultiHash>
-#include "qxtpimpl.h"
 #include "qxtscreen.h"
 
 class QxtScreenPrivate : public QxtPrivate<QxtScreen>

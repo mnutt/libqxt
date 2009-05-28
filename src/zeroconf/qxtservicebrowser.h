@@ -2,7 +2,6 @@
 #define QXTSERVICEBROWSER_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QObject>
 #include <QAbstractSocket>
 #include "qxtdiscoverableservicename.h"

@@ -25,7 +25,6 @@
 #ifndef QXTDEPLEX_H
 #define QXTDEPLEX_H
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include "qxtpipe.h"
 
 class QxtDeplexPrivate;

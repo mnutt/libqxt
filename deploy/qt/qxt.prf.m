@@ -41,13 +41,6 @@ contains(QXT, berkeley) {
     QXT += core
     contains(QXT_MODULES, berkeley):DEFINES += QXT_BERKELEY_LIB
 }
-contains(QXT, crypto) {
-    INCLUDEPATH       += $${QXTinclude}/QxtCrypto
-    macx: INCLUDEPATH += $${QXTlib}/QxtCrypto.framework/HEADERS/
-    qtAddLibrary(QxtCrypto)
-    QXT += core
-    contains(QXT_MODULES, crypto):DEFINES += QXT_CRYPTO_LIB
-}
 contains(QXT, web) {
     INCLUDEPATH       += $${QXTinclude}/QxtWeb
     macx: INCLUDEPATH += $${QXTlib}/QxtWeb.framework/HEADERS/

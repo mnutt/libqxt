@@ -1,5 +1,4 @@
 !win32:VERSION   = 0.6
-win32: CONFIG   += dll
 # cannot use .moc/.obj with gcov ("cannot open graph file")
 !contains(CONFIG, coverage) {
     MOC_DIR          = .moc

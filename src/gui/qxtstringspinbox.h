@@ -27,7 +27,6 @@
 
 #include <QSpinBox>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtStringSpinBoxPrivate;
 

@@ -2,7 +2,6 @@
 #define FOO_H
 
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 #include <QObject>
 #include <QFlags>
 #include <QStringList>

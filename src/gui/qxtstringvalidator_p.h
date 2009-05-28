@@ -25,7 +25,6 @@
 #ifndef QXTSTRINGVALIDATOR_P_H_INCLUDED
 #define QXTSTRINGVALIDATOR_P_H_INCLUDED
 
-#include <qxtpimpl.h>
 #include <QStringList>
 #include <QModelIndex>
 #include <QPointer>

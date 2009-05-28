@@ -27,7 +27,6 @@
 #define QXTWEBCGISERVICE_H
 
 #include <QObject>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 #include "qxtabstractwebsessionmanager.h"
 #include "qxtabstractwebservice.h"

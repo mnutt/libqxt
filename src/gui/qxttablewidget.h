@@ -26,7 +26,6 @@
 #define QXTTABLEWIDGET_H
 
 #include <QTableWidget>
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 #include "qxttablewidgetitem.h"
 

@@ -105,14 +105,6 @@ contains( QXT_BUILD, web ){
     system(echo QXT_MODULES+=web >> modules.prf)
 }
 
-contains( QXT_BUILD, crypto ){
-    message( building crypto module )
-    sub_crypto.subdir = src/crypto
-    sub_crypto.depends = sub_core
-    SUBDIRS += sub_crypto
-    system(echo QXT_MODULES+=crypto >> modules.prf)
-}
-
 QMAKE_CLEAN += modules.prf
 
 #write the paths to prf file
@@ -146,14 +138,14 @@ QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
 cov_capture.CONFIG += recursive
 cov_capture.recurse = $$SUBDIRS
 cov_capture.recurse -= tools/doqsy sub_designer
-cov_capture.recurse -= sub_sql sub_crypto # TODO: write unit tests for these!
+cov_capture.recurse -= sub_sql # TODO: write unit tests for these!
 cov_capture.recurse_target = capture
 QMAKE_EXTRA_UNIX_TARGETS += cov_capture
 
 cov_genhtml.CONFIG += recursive
 cov_genhtml.recurse = $$SUBDIRS
 cov_genhtml.recurse -= tools/doqsy sub_designer
-cov_genhtml.recurse -= sub_sql sub_crypto # TODO: write unit tests for these!
+cov_genhtml.recurse -= sub_sql # TODO: write unit tests for these!
 cov_genhtml.recurse_target = genhtml
 QMAKE_EXTRA_UNIX_TARGETS += cov_genhtml
 

@@ -22,11 +22,43 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTCRYPTO_H_INCLUDED
-#define QXTCRYPTO_H_INCLUDED
 
-#include "qxtblowfish.h"
-#include "qxthash.h"
-#include "qxthmac.h"
+#ifndef QXTHMAC_H
+#define QXTHMAC_H
 
-#endif // QXTCRYPTO_H_INCLUDED
+#include <QtGlobal>
+
+#if QT_VERSION < 0x040300
+#   warning QxtHmac requires Qt 4.3.0 or greater
+#else
+
+#include <QCryptographicHash>
+#include "qxtglobal.h"
+
+class QxtHmacPrivate;
+class QXT_CORE_EXPORT QxtHmac
+{
+public:
+    typedef QCryptographicHash::Algorithm Algorithm;
+
+    QxtHmac(QCryptographicHash::Algorithm algorithm);
+
+    void setKey(QByteArray key);
+    void reset();
+
+    void addData(const char* data, int length);
+    void addData(const QByteArray& data);
+
+    QByteArray innerHash() const;
+    QByteArray result();
+    bool verify(const QByteArray& otherInner);
+
+    static QByteArray hash(const QByteArray& key, const QByteArray& data, Algorithm algorithm);
+    static bool verify(const QByteArray& key, const QByteArray& hmac, const QByteArray& inner, Algorithm algorithm);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtHmac)
+};
+
+#endif
+#endif

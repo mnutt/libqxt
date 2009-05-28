@@ -27,7 +27,6 @@
 #define QXTCRUMBVIEW_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QAbstractItemView>
 
 QT_FORWARD_DECLARE_CLASS(QListView)

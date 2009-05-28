@@ -165,6 +165,8 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
     setModel(new QxtCheckComboModel(this));
     connect(this, SIGNAL(activated(int)), &qxt_d(), SLOT(toggleCheckState(int)));
     connect(model(), SIGNAL(checkStateChanged()), &qxt_d(), SLOT(updateCheckedItems()));
+    connect(model(), SIGNAL(rowsInserted(const QModelIndex &, int, int)), &qxt_d(), SLOT(updateCheckedItems()));
+    connect(model(), SIGNAL(rowsRemoved(const QModelIndex &, int, int)), &qxt_d(), SLOT(updateCheckedItems()));
 
     // read-only contents
     QLineEdit* lineEdit = new QLineEdit(this);

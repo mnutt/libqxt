@@ -26,7 +26,6 @@
 #ifndef QXTFIFO_H
 #define QXTFIFO_H
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QIODevice>
 
 class QxtFifoPrivate;

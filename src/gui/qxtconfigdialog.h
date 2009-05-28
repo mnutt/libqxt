@@ -26,14 +26,15 @@
 #define QXTCONFIGDIALOG_H
 
 #include <QDialog>
+#include <QIcon>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
+#include "qxtconfigwidget.h"
 
 QT_FORWARD_DECLARE_CLASS(QTableWidget)
 QT_FORWARD_DECLARE_CLASS(QStackedWidget)
 QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
-class QxtConfigDialogPrivate;
 
+class QxtConfigDialogPrivate;
 class QXT_GUI_EXPORT QxtConfigDialog : public QDialog
 {
     Q_OBJECT
@@ -41,15 +42,13 @@ class QXT_GUI_EXPORT QxtConfigDialog : public QDialog
     Q_PROPERTY(int count READ count)
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex)
     Q_PROPERTY(bool hoverEffect READ hasHoverEffect WRITE setHoverEffect)
-    Q_PROPERTY(QxtConfigDialog::IconPosition iconPosition READ iconPosition WRITE setIconPosition)
+    Q_PROPERTY(QxtConfigWidget::IconPosition iconPosition READ iconPosition WRITE setIconPosition)
     Q_PROPERTY(QSize iconSize READ iconSize WRITE setIconSize)
     Q_ENUMS(IconPosition)
 
 public:
-    enum IconPosition { North, West, East };
-
     explicit QxtConfigDialog(QWidget* parent = 0, Qt::WindowFlags flags = 0);
-    explicit QxtConfigDialog(QxtConfigDialog::IconPosition position, QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    explicit QxtConfigDialog(QxtConfigWidget::IconPosition position, QWidget* parent = 0, Qt::WindowFlags flags = 0);
     virtual ~QxtConfigDialog();
 
     QDialogButtonBox* dialogButtonBox() const;
@@ -58,8 +57,8 @@ public:
     bool hasHoverEffect() const;
     void setHoverEffect(bool enabled);
 
-    QxtConfigDialog::IconPosition iconPosition() const;
-    void setIconPosition(QxtConfigDialog::IconPosition position);
+    QxtConfigWidget::IconPosition iconPosition() const;
+    void setIconPosition(QxtConfigWidget::IconPosition position);
 
     QSize iconSize() const;
     void setIconSize(const QSize& size);
@@ -102,13 +101,6 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void currentIndexChanged(int index);
-
-protected:
-    QTableWidget* tableWidget() const;
-    QStackedWidget* stackedWidget() const;
-
-    virtual void cleanupPage(int index);
-    virtual void initializePage(int index);
 };
 
 #endif // QXTCONFIGDIALOG_H

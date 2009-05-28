@@ -44,6 +44,7 @@
 #include "qxtfifo.h"
 #include "qxtfilelock.h"
 #include "qxtglobal.h"
+#include "qxthmac.h"
 #include "qxtjob.h"
 #include "qxtlinesocket.h"
 #include "qxtlinkedtree.h"
@@ -71,6 +72,7 @@
 #include "qxtslotmapper.h"
 #include "qxtstdio.h"
 #include "qxtstdstreambufdevice.h"
+#include "qxttimer.h"
 #include "qxttypelist.h"
 #include "qxtxmlfileloggerengine.h"
 

@@ -27,7 +27,6 @@
 #ifndef QXTSIGNALWAITER_H
 #define QXTSIGNALWAITER_H
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 
 #include <QObject>
 #include <QEventLoop>

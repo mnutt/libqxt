@@ -26,7 +26,6 @@
 #define QXTLINESOCKET_H
 
 #include <QObject>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 QT_FORWARD_DECLARE_CLASS(QIODevice)
