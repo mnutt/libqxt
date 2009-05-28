@@ -26,7 +26,6 @@
 #define QXTTABWIDGET_P_H
 
 #include "qxttabwidget.h"
-#include "qxtpimpl.h"
 
 typedef QList<QAction*> Actions;
 

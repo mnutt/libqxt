@@ -25,7 +25,6 @@
 #ifndef QXTMODELSERIALIZER_H
 #define QXTMODELSERIALIZER_H
 
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 #include <QModelIndex>
 

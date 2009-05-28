@@ -25,7 +25,6 @@
 #ifndef QXTITEMDELEGATE_P_H
 #define QXTITEMDELEGATE_P_H
 
-#include "qxtpimpl.h"
 #include "qxtitemdelegate.h"
 #include <QPersistentModelIndex>
 #include <QBasicTimer>

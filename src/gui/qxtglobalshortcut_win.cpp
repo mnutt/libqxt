@@ -24,21 +24,20 @@
  ****************************************************************************/
 #include "qxtglobalshortcut_p.h"
 #include <qt_windows.h>
-#include <QWidget>
 
-bool QxtGlobalShortcutPrivate::winEventFilter(MSG* msg, long* result)
+bool QxtGlobalShortcutPrivate::eventFilter(void* message)
 {
-    Q_UNUSED(result);
+    MSG* msg = static_cast<MSG*>(message);
     if (msg->message == WM_HOTKEY)
     {
-        quint32 keycode = HIWORD(msg->lParam);
-        quint32 modifiers = LOWORD(msg->lParam);
+        const quint32 keycode = HIWORD(msg->lParam);
+        const quint32 modifiers = LOWORD(msg->lParam);
         activateShortcut(keycode, modifiers);
     }
     return false;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers)
 {
     // MOD_ALT, MOD_CONTROL, (MOD_KEYUP), MOD_SHIFT, MOD_WIN
     quint32 native = 0;
@@ -56,7 +55,7 @@ quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifier
     return native;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key) const
+quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
 {
     switch (key)
     {
@@ -206,17 +205,10 @@ quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key) const
 
 bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativeMods)
 {
-    widget = qApp->topLevelWidgets().value(0);
-    if (widget)
-        return RegisterHotKey(widget->winId(), nativeMods ^ nativeKey, nativeMods, nativeKey);
-    return false;
+    return RegisterHotKey(0, nativeMods ^ nativeKey, nativeMods, nativeKey);
 }
 
 bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nativeMods)
 {
-    bool res = false;
-    if (widget)
-        res = UnregisterHotKey(widget->winId(), nativeMods ^ nativeKey);
-    widget = 0;
-    return res;
+    return UnregisterHotKey(0, nativeMods ^ nativeKey);
 }

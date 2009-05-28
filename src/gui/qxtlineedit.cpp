@@ -31,8 +31,9 @@
 #define vMargin 1
 #define hMargin 2
 
-struct QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
+class QxtLineEditPrivate : public QxtPrivate<QxtLineEdit>
 {
+public:
     QString sampleText;
 };
 
@@ -102,11 +103,15 @@ void QxtLineEdit::paintEvent(QPaintEvent* event)
         QStyleOptionFrameV2 option;
         initStyleOption(&option);
 
-        int left, top, right, bottom;
-        getTextMargins(&left, &top, &right, &bottom);
 
         QRect r = style()->subElementRect(QStyle::SE_LineEditContents, &option, this);
-        r.adjust(left + hMargin, top + vMargin, -(right + hMargin), -(bottom + vMargin));
+#if QT_VERSION >= 0x040500
+        // TODO: sort out prior Qt 4.5
+        int left, top, right, bottom;
+        getTextMargins(&left, &top, &right, &bottom);
+        r.adjust(left, top, -right, -bottom);
+#endif // QT_VERSION >= 0x040500
+        r.adjust(hMargin, vMargin, -hMargin, -vMargin);
 
         QPainter painter(this);
         QPalette pal = palette();

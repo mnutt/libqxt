@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtCrypto module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,33 +22,13 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-
-#ifndef QxtHash_H_GUARD
-#define QxtHash_H_GUARD
+#ifndef QXTMAIL_P_H
+#define QXTMAIL_P_H
 
 #include <QByteArray>
-#include <qxtglobal.h>
-#include "qxtpimpl.h"
 
-class QxtHashPrivate;
-class QXT_CRYPTO_EXPORT QxtHash
-{
-    QXT_DECLARE_PRIVATE(QxtHash);
-public:
-    enum Algorithm
-    {
-        Md5,
-        Md4
-    };
-    QxtHash(Algorithm);
-    QxtHash(Algorithm, const QByteArray &);
+#define QXT_MUST_QP(x) (x < char(32) || x > char(126) || x == '=' || x == '?')
+QByteArray qxt_fold_mime_header(const QString& key, const QString& value, QTextCodec* latin1,
+                                const QByteArray& prefix = QByteArray());
 
-    void append(const QByteArray &);
-    void operator+= (const QByteArray &);
-
-    void reset();
-
-    QByteArray hash();
-};
-
-#endif
+#endif // QXTMAIL_P_H

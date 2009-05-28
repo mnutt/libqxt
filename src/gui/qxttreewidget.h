@@ -29,7 +29,6 @@
 #include "qxttreewidgetitem.h"
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtTreeWidgetPrivate;
 

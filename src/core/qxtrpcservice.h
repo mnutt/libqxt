@@ -31,7 +31,6 @@
 #include <QVariant>
 #include <QPair>
 #include <QString>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 QT_FORWARD_DECLARE_CLASS(QIODevice)

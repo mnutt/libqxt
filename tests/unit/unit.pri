@@ -1,4 +1,5 @@
 CONFIG += qtestlib
+CONFIG -= app_bundle
 
 INCLUDEPATH     += ../../../../deploy/include/
 unix:!macx:LIBS += -Wl,-rpath,../../../../deploy/libs
@@ -12,10 +13,6 @@ defineTest(qxtAddTestModule) {
 }
 contains(QXT, berkeley) {
     qxtAddTestModule(berkeley, QxtBerkeley)
-    QXT += core
-}
-contains(QXT, crypto) {
-    qxtAddTestModule(crypto, QxtCrypto)
     QXT += core
 }
 contains(QXT, web) {
@@ -47,8 +44,7 @@ DEPENDPATH  += $$INCLUDEPATH
 test.depends = first
 !isEmpty(DESTDIR):test.commands += cd $(DESTDIR) &&
 unix {
-    macx:test.commands += ./$(TARGET).app/Contents/MacOS/$(TARGET)
-    else:test.commands += ./$(TARGET)
+    test.commands += ./$(TARGET)
 } else:win32 {
     DESTDIR = ./
     test.CONFIG += recursive

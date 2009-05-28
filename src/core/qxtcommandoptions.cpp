@@ -306,7 +306,7 @@ void QxtCommandOptions::add(const QString& name, const QString& desc, ParamTypes
 /*!
  * Provides an alias for an option. An alias is another name for the option that can be
  * given on the command line. Aliases cannot be used as parameters to alias(), count()
- * or value().
+ * or value() nor can single-letter aliases be created for options with an optional value.
  *
  * The from parameter must be a name has previously been added with the add() method.
  */
@@ -316,7 +316,7 @@ void QxtCommandOptions::alias(const QString& from, const QString& to)
     if (!option) return; // findOption outputs the warning
     option->names.append(to);
     qxt_d().lookup[to] = option;
-    if (option->paramType & Optional && qxt_d().flagStyle == DoubleDash && to.length() == 1)
+    if (option->paramType & ValueOptional && qxt_d().flagStyle == DoubleDash && to.length() == 1)
         qWarning() << qPrintable(QString("QxtCommandOptions: ") + tr("Short options cannot have optional parameters"));
 }
 
@@ -350,7 +350,7 @@ QStringList QxtCommandOptions::unrecognized() const
 /*!
  * Returns the number of times an option was passed on the command line.
  *
- * This function will only return 0 or 1 for an options that was not created with the
+ * This function will only return 0 or 1 for options that were not created with the
  * QxtCommandOptions::AllowMultiple flag set.
  */
 int QxtCommandOptions::count(const QString& name) const
@@ -369,7 +369,9 @@ int QxtCommandOptions::count(const QString& name) const
  * If the option was created with the QxtCommandOptions::AllowMultiple flag, and the option
  * was passed more than once, this function returns a QStringList containing the values.
  * Otherwise, this function returns the last (or only) value given to the option on the
- * command line.
+ * command line.  When an option allowing an optional value is provided on the command
+ * line and for which no value is provided, an empty but non-null QString will be returned
+ * in the QVariant.
  */
 QVariant QxtCommandOptions::value(const QString& name) const
 {
@@ -389,7 +391,7 @@ QVariant QxtCommandOptions::value(const QString& name) const
 QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
 {
     if (!qxt_d().parsed)
-        qWarning() << qPrintable(QString("QxtCommandOptions: ") + tr("unrecognized() called before parse()"));
+        qWarning() << qPrintable(QString("QxtCommandOptions: ") + tr("parameters() called before parse()"));
     QMultiHash<QString, QVariant> params;
     int ct;
     foreach(const QxtCommandOption& option, qxt_d().options)
@@ -399,7 +401,7 @@ QMultiHash<QString, QVariant> QxtCommandOptions::parameters() const
         {
             continue;
         }
-        else if (!(option.paramType & (Optional | Required)))
+        else if (!(option.paramType & (ValueOptional | ValueRequired)))
         {
             // Valueless options are really a true/false flag
             params.insert(option.canonicalName, true);
@@ -526,7 +528,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params)
                         }
                         else
                         {
-                            if (option->paramType & QxtCommandOptions::Required)
+                            if (option->paramType & QxtCommandOptions::ValueRequired)
                             {
                                 // Check for required parameters
                                 // Short options can't have optional parameters
@@ -573,7 +575,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params)
                 }
                 else
                 {
-                    if (option->paramType & QxtCommandOptions::Required && !hasEquals)
+                    if (option->paramType & QxtCommandOptions::ValueRequired && !hasEquals)
                     {
                         // Check for parameters
                         if (pos >= params.count())
@@ -584,6 +586,21 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params)
                         value = params[pos];
                         pos++;
                     }
+                    else if ((paramStyle & QxtCommandOptions::Space)
+                            && (option->paramType & QxtCommandOptions::ValueOptional)
+                            && !hasEquals) 
+                    {
+                        if (pos < params.count())
+                        {
+                            if (!((flagStyle == QxtCommandOptions::Slash && params.at(pos)[0] == '/') ||
+                                (flagStyle != QxtCommandOptions::Slash && params.at(pos)[0] == '-')))
+                            {
+                                value = params[pos];
+                                pos++;
+                            }
+                        }
+                    }
+
                     setOption(option, value);
                 }
             }
@@ -742,9 +759,9 @@ void QxtCommandOptions::showUsage(bool showQtOptions, QTextStream& stream) const
             else
                 name += '-';
             name += n;
-            if (option.paramType & (Optional | Required))
+            if (option.paramType & (ValueOptional | ValueRequired))
             {
-                if (option.paramType & Optional)
+                if (option.paramType & ValueOptional)
                     name += "[=x]";
                 else if (qxt_d().paramStyle == SpaceAndEquals)
                     name += "[=]x";

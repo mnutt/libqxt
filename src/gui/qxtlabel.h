@@ -28,7 +28,6 @@
 #include <QFrame>
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtLabelPrivate;
 

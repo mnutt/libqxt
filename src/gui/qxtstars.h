@@ -27,7 +27,6 @@
 
 #include <QAbstractSlider>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtStarsPrivate;
 

@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtCrypto module of the Qxt library.
+ ** This file is part of the QxtCore module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,44 +22,26 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTTIMER_H
+#define QXTTIMER_H
 
-#ifndef QXTHMAC_H
-#define QXTHMAC_H
+#include <QTimer>
+#include <QVariant>
+#include <qxtglobal.h>
 
-#include <QtGlobal>
-
-#if QT_VERSION < 0x040300
-#   warning QxtHmac requires Qt 4.3.0 or greater
-#else
-
-#include <QCryptographicHash>
-#include "qxtpimpl.h"
-#include "qxtglobal.h"
-
-class QxtHmacPrivate;
-class QXT_CRYPTO_EXPORT QxtHmac
+class QXT_CORE_EXPORT QxtTimer : public QTimer
 {
 public:
-    typedef QCryptographicHash::Algorithm Algorithm;
+    explicit QxtTimer(QObject* parent = 0);
+    virtual ~QxtTimer();
 
-    QxtHmac(QCryptographicHash::Algorithm algorithm);
-
-    void setKey(QByteArray key);
-    void reset();
-
-    void addData(const char* data, int length);
-    void addData(const QByteArray& data);
-
-    QByteArray innerHash() const;
-    QByteArray result();
-    bool verify(const QByteArray& otherInner);
-
-    static QByteArray hash(const QByteArray& key, const QByteArray& data, Algorithm algorithm);
-    static bool verify(const QByteArray& key, const QByteArray& hmac, const QByteArray& inner, Algorithm algorithm);
-
-private:
-    QXT_DECLARE_PRIVATE(QxtHmac)
+    using QTimer::singleShot;
+    static void singleShot(int msec, QObject* receiver, const char* member, const QVariant& arg0,
+                           const QVariant& arg1 = QVariant(), const QVariant& arg2 = QVariant(), 
+                           const QVariant& arg3 = QVariant(), const QVariant& arg4 = QVariant(), 
+                           const QVariant& arg5 = QVariant(), const QVariant& arg6 = QVariant(), 
+                           const QVariant& arg7 = QVariant(), const QVariant& arg8 = QVariant(), 
+                           const QVariant& arg9 = QVariant());
 };
 
-#endif
-#endif
+#endif // QXTTIMER_H

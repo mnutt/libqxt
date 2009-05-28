@@ -25,7 +25,6 @@
 #ifndef QXTSEMAPHORE_H
 #define QXTSEMAPHORE_H
 
-#include <qxtpimpl.h>
 #include <QString>
 #include <qxtglobal.h>
 

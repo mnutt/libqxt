@@ -27,7 +27,6 @@
 
 #include <QLabel>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtProgressLabelPrivate;
 

@@ -134,7 +134,13 @@ public:
 
 #endif // QXT_DOXYGEN_RUN
 
-template <typename PVT>
+class QxtSharedPrivateDestructor
+{
+public:
+    virtual ~QxtSharedPrivateDestructor() {}
+};
+
+template <typename PVT = QxtSharedPrivateDestructor>
 class /*QXT_CORE_EXPORT*/ QxtSharedPrivate
 {
 public:

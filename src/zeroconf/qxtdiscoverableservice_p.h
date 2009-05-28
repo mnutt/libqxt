@@ -22,7 +22,7 @@ public:
 
     DNSServiceRef service;
     QStringList serviceSubTypes;
-    int port;
+    quint16 port;
     int iface;
     QString txtRecord;
 

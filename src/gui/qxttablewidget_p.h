@@ -25,7 +25,6 @@
 #ifndef QXTTABLEWIDGET_P_H
 #define QXTTABLEWIDGET_P_H
 
-#include "qxtpimpl.h"
 #include "qxttablewidget.h"
 
 class QxtItemDelegate;

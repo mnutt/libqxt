@@ -27,7 +27,6 @@
 #define QXTLOGGER_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QObject>
 #include <QVariant>
 #include <QString>

@@ -25,7 +25,6 @@
 #ifndef QXTLETTERBOXWIDGET_P_H
 #define QXTLETTERBOXWIDGET_P_H
 
-#include "qxtpimpl.h"
 #include "qxtletterboxwidget.h"
 #include <QTimer>
 

@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 #include "qxtbasicfileloggerengine.h"
-#include <QTime>
+#include <QDateTime>
 
 /*!
     \class QxtBasicFileLoggerEngine QxtBasicFileLoggerEngine
@@ -41,12 +41,39 @@
     \sa QxtLogger
  */
 
+class QxtBasicFileLoggerEnginePrivate : public QxtPrivate<QxtBasicFileLoggerEngine>
+{
+public:
+    QXT_DECLARE_PUBLIC(QxtBasicFileLoggerEngine);
+    QString dateFormat;
+};
+
 /*!
     Constructs a basic file logger engine with file name.
 */
 QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
         : QxtAbstractFileLoggerEngine(fileName, QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered)
 {
+    QXT_INIT_PRIVATE(QxtBasicFileLoggerEngine);
+    qxt_d().dateFormat = "hh:mm:ss.zzz";
+}
+
+/*!
+    Returns the date format in use by this logger engine.
+    \sa QDateTime::toString
+ */
+QString QxtBasicFileLoggerEngine::dateFormat() const
+{
+    return qxt_d().dateFormat;
+}
+
+/*!
+    Sets the date format used by this logger engine.
+    \sa QDateTime::toString
+ */
+void QxtBasicFileLoggerEngine::setDateFormat(const QString& format)
+{
+    qxt_d().dateFormat = format;
 }
 
 /*!
@@ -55,7 +82,7 @@ QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
 void QxtBasicFileLoggerEngine::writeToFile(const QString &level, const QVariantList &messages)
 {
     if (messages.isEmpty()) return;
-    QString header = '[' + QTime::currentTime().toString("hh:mm:ss.zzz") + "] [" + level + "] ";
+    QString header = '[' + QDateTime::currentDateTime().toString(qxt_d().dateFormat) + "] [" + level + "] ";
     QString padding;
     QIODevice* file = device();
     Q_ASSERT(file);

@@ -28,7 +28,6 @@
 #include <QListView>
 #include <QStandardItemModel>
 #include "qxtcheckcombobox.h"
-#include "qxtpimpl.h"
 
 class QxtCheckComboModel : public QStandardItemModel
 {

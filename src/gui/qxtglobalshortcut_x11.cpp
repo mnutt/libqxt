@@ -26,17 +26,20 @@
 #include <QX11Info>
 #include <X11/Xlib.h>
 
-bool QxtGlobalShortcutPrivate::x11EventFilter(XEvent* event)
+bool QxtGlobalShortcutPrivate::eventFilter(void* message)
 {
+    XEvent* event = static_cast<XEvent*>(message);
     if (event->type == KeyPress)
     {
         XKeyEvent* key = (XKeyEvent*) event;
-        activateShortcut(key->keycode, key->state);
+        activateShortcut(key->keycode, 
+            // Mod1Mask == Alt, Mod4Mask == Meta
+            key->state & (ShiftMask | ControlMask | Mod1Mask | Mod4Mask));
     }
     return false;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers) const
+quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers)
 {
     // ShiftMask, LockMask, ControlMask, Mod1Mask, Mod2Mask, Mod3Mask, Mod4Mask, and Mod5Mask
     quint32 native = 0;
@@ -53,7 +56,7 @@ quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifier
     return native;
 }
 
-quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key) const
+quint32 QxtGlobalShortcutPrivate::nativeKeycode(Qt::Key key)
 {
     Display* display = QX11Info::display();
     return XKeysymToKeycode(display, XStringToKeysym(QKeySequence(key).toString().toLatin1().data()));
@@ -66,12 +69,19 @@ bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativ
     Bool owner = True;
     int pointer = GrabModeAsync;
     int keyboard = GrabModeAsync;
-    return XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard) == GrabSuccess;
+    // no way to check for success
+    XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard);
+    // allow numlock
+    XGrabKey(display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer, keyboard);
+    return true;
 }
 
 bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nativeMods)
 {
     Display* display = QX11Info::display();
     Window window = QX11Info::appRootWindow();
-    return XUngrabKey(display, nativeKey, nativeMods, window);
+    // no way to check for success
+    XUngrabKey(display, nativeKey, nativeMods, window);
+    XUngrabKey(display, nativeKey, nativeMods | Mod2Mask, window);
+    return true;
 }

@@ -27,7 +27,6 @@
 #define QXTCOUNTRYMODEL_H
 #include <QAbstractTableModel>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtCountryModelPrivate;
 

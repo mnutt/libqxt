@@ -28,7 +28,6 @@
 
 #include <QObject>
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 
 QT_FORWARD_DECLARE_CLASS(QIODevice)
 

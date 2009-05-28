@@ -27,7 +27,6 @@
 #define QXTLANGUAGECOMBOBOX_P_H
 
 #include "qxtlanguagecombobox.h"
-#include "qxtpimpl.h"
 #include <QComboBox>
 
 class QxtLanguageComboBoxPrivate : public QObject, public QxtPrivate<QxtLanguageComboBox>

@@ -15,7 +15,6 @@ echo #depends.pri > %PROJECT_ROOT%\depends.pri
 shift
 set QMAKEBIN=qmake
 set MSVCMODE=
-set OPENSSL=1
 set FCGI=1
 set DB=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
@@ -37,7 +36,6 @@ if "%0" == "-bindir"     goto bindir
 if "%0" == "-static"     goto static
 if "%0" == "-debug"      goto debug
 if "%0" == "-release"    goto release
-if "%0" == "-no-openssl" goto noopenssl
 if "%0" == "-no-db"      goto nodb
 if "%0" == "-msvc"       goto msvc
 if "%0" == "/help"       goto help
@@ -66,7 +64,6 @@ echo LIBS += -l"%1" >> %PROJECT_ROOT%\depends.pri
 goto bottom2
 
 :nomake
-if "%1"=="openssl" set OPENSSL=0
 if "%1"=="fcgi" set FCGI=0
 if "%1"=="db" set DB=0
 echo QXT_BUILD -= %1 >> %PROJECT_ROOT%\config.in
@@ -106,11 +103,6 @@ echo CONFIG -= debug >> %PROJECT_ROOT%\config.in
 echo CONFIG += release >> %PROJECT_ROOT%\config.in
 goto bottom
 
-:noopenssl
-set OPENSSL=0
-echo DEFINES -= HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
-goto bottom
-
 :nodb
 set DB=0
 echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
@@ -130,7 +122,7 @@ goto top
     echo Usage: configure [-prefix (dir)] [-libdir (dir)] [-docdir (dir)]
     echo        [-bindir (dir)] [-headerdir (dir)] [-qmake-bin (path)]
     echo        [-static] [-debug] [-release] [-no-stability-unknown]
-    echo        [-no-openssl] [-nomake (module)] [-msvc]
+    echo        [-nomake (module)] [-msvc]
     echo.
     echo Installation options:
     echo.
@@ -152,10 +144,9 @@ goto top
     echo -static ............. Compile Qxt as a static library
     echo -debug .............. Build Qxt with debugging symbols
     echo -release ............ Build Qxt without debugging support
-    echo -no-openssl ......... Do not link to OpenSSL
     echo -no-db .............. Do not link to Berkeley DB
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: berkeley crypto designer gui network sql web
+    echo                       options: berkeley designer gui network sql web
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %PROJECT_ROOT%\config.in
@@ -209,24 +200,6 @@ goto end
 :detectTools_end_test_make
 echo    Testing for optional external libraries.
 echo    If a test fails, some features will not be available.
-if "%OPENSSL%"=="0" goto detectdb
-echo    Testing for OpenSSL...
-echo OpenSSL... >> %PROJECT_ROOT%\%CONFIG_LOG%
-cd %TESTDIR%\openssl
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if errorlevel 1 goto opensslfailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-if errorlevel 1 goto opensslfailed
-set OPENSSL=1
-echo DEFINES += HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
-echo        OpenSSL enabled.
-goto detectdb
-
-:opensslfailed
-set OPENSSL=0
-echo DEFINES -= HAVE_OPENSSL >> %PROJECT_ROOT%\config.in
-echo        OpenSSL disabled.
 
 :detectdb
 if "%DB%"=="0" goto detectfcgi

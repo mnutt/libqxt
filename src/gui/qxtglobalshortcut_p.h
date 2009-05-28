@@ -25,42 +25,38 @@
 #ifndef QXTGLOBALSHORTCUT_P_H
 #define QXTGLOBALSHORTCUT_P_H
 
-#include "qxtpimpl.h"
 #include "qxtglobalshortcut.h"
-#include "qxtnativeeventfilter.h"
+#include <QAbstractEventDispatcher>
 #include <QKeySequence>
+#include <QHash>
 
-class QxtGlobalShortcutPrivate : public QxtPrivate<QxtGlobalShortcut>, public QxtNativeEventFilter
+class QxtGlobalShortcutPrivate : public QxtPrivate<QxtGlobalShortcut>
 {
 public:
     QXT_DECLARE_PUBLIC(QxtGlobalShortcut);
     QxtGlobalShortcutPrivate();
+    ~QxtGlobalShortcutPrivate();
 
     bool enabled;
     Qt::Key key;
     Qt::KeyboardModifiers mods;
-#ifdef Q_WS_WIN
-    QWidget* widget;
-#endif // Q_WS_WIN
-    //bool setShortcut(Qt::Key keycode, Qt::KeyboardModifiers modifiers);
+
     bool setShortcut(const QKeySequence& shortcut);
     bool unsetShortcut();
-
-#if defined(Q_WS_X11)
-    bool x11EventFilter(XEvent* event);
-#elif defined(Q_WS_WIN)
-    bool winEventFilter(MSG* msg, long* result);
-#elif defined(Q_WS_MAC)
-    bool macEventFilter(EventHandlerCallRef caller, EventRef event);
-#endif
+    
+    static int ref;
+    static QAbstractEventDispatcher::EventFilter prevEventFilter;
+    static bool eventFilter(void* message);
 
 private:
-    quint32 nativeKeycode(Qt::Key keycode) const;
-    quint32 nativeModifiers(Qt::KeyboardModifiers modifiers) const;
+    static quint32 nativeKeycode(Qt::Key keycode);
+    static quint32 nativeModifiers(Qt::KeyboardModifiers modifiers);
 
-    bool registerShortcut(quint32 nativeKey, quint32 nativeMods);
-    bool unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
-    void activateShortcut(quint32 nativeKey, quint32 nativeMods);
+    static bool registerShortcut(quint32 nativeKey, quint32 nativeMods);
+    static bool unregisterShortcut(quint32 nativeKey, quint32 nativeMods);
+    static void activateShortcut(quint32 nativeKey, quint32 nativeMods);
+
+    static QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> shortcuts;
 };
 
 #endif // QXTGLOBALSHORTCUT_P_H

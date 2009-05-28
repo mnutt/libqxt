@@ -61,7 +61,6 @@ void QxtDiscoverableServicePrivate::resolveServiceCallback(DNSServiceRef service
 #endif
 {
     Q_UNUSED(service);
-    Q_UNUSED(host);
     Q_UNUSED(txtLen);
     Q_UNUSED(txt);
     Q_UNUSED(flags);
@@ -71,9 +70,9 @@ void QxtDiscoverableServicePrivate::resolveServiceCallback(DNSServiceRef service
         QxtDiscoverableServiceName name(fullname);
         pub->setServiceName(name.serviceName());
         pub->setDomain(name.domain());
-        pub->setHost(name.host());
-        self->port = port;
-        self->iface = iface;
+	pub->setHost(host);
+	pub->setPort(qFromBigEndian(port));
+	self->iface = iface;
         emit pub->resolved(fullname);
     } else {
         self->state = QxtDiscoverableService::Unknown;

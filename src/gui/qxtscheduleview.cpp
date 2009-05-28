@@ -66,8 +66,8 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
     /*standart values are 15 minutes per cell and 69 rows == 1 Day*/
     qxt_d().m_currentZoomDepth = 15 * 60;
     qxt_d().m_currentViewMode  = DayView;
-    qxt_d().m_startUnixTime    = QDateTime(QDate::currentDate(),QTime(0, 0, 0));
-    qxt_d().m_endUnixTime      = QDateTime(QDate::currentDate().addDays(6),QTime(23, 59, 59));
+    qxt_d().m_startUnixTime    = QDateTime(QDate::currentDate(),QTime(0, 0, 0)).toTime_t();
+    qxt_d().m_endUnixTime      = QDateTime(QDate::currentDate().addDays(6),QTime(23, 59, 59)).toTime_t();
     qxt_d().delegate = qxt_d().defaultDelegate = new QxtScheduleItemDelegate(this);
 
 #if 0
@@ -87,6 +87,24 @@ QxtScheduleView::QxtScheduleView(QWidget *parent)
 }
 
 /*!
+ *@desc returns the vertial header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::verticalHeader ( ) const
+{
+    return qxt_d().m_vHeader;
+}
+
+/**
+ *@desc returns the horizontal header
+ *@note can be NULL if the view has not called init() already (FIXME)
+ */
+QHeaderView* QxtScheduleView::horizontalHeader ( ) const
+{
+    return qxt_d().m_hHeader;
+}
+    
+/**
  * @desc sets the model for QxtScheduleView
  *
  * @param model
@@ -410,7 +428,8 @@ void QxtScheduleView::paintEvent(QPaintEvent * /*event*/)
 
 void QxtScheduleView::updateGeometries()
 {
-    if(!qxt_d().m_Model)
+	//check if we are already initialized
+    if(!qxt_d().m_Model || !qxt_d().m_vHeader || !qxt_d().m_hHeader)
         return;
         
     this->setViewportMargins(qxt_d().m_vHeader->sizeHint().width() + 1, qxt_d().m_hHeader->sizeHint().height() + 1, 0, 0);
