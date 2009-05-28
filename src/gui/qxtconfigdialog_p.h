@@ -25,7 +25,6 @@
 #ifndef QXTCONFIGDIALOG_P_H
 #define QXTCONFIGDIALOG_P_H
 
-#include "qxtpimpl.h"
 #include "qxtconfigwidget.h"
 #include "qxtconfigdialog.h"
 

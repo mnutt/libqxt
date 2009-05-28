@@ -25,7 +25,6 @@
 #ifndef QXTMAILATTACHMENT_H
 #define QXTMAILATTACHMENT_H
 
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 
 #include <QStringList>

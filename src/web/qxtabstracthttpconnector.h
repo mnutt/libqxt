@@ -27,7 +27,6 @@
 #define QXTABSTRACTHTTPCONNECTOR_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QObject>
 #include <QHostAddress>
 #include <QHttpHeader>

@@ -28,7 +28,6 @@
 
 #include "qxtloggerengine.h"
 #include "qxtabstractfileloggerengine.h"
-#include "qxtpimpl.h"
 #include <QTextStream>
 #include <QFile>
 

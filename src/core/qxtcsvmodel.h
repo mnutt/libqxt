@@ -32,7 +32,6 @@
 #include <QString>
 #include <QStringList>
 #include <QModelIndex>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 class QxtCsvModelPrivate;

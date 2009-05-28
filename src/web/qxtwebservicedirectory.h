@@ -27,7 +27,6 @@
 #define QXTWEBSERVICEDIRECTORY_H
 
 #include <qxtabstractwebservice.h>
-#include <qxtpimpl.h>
 #include <QString>
 class QxtAbstractWebSessionManager;
 class QxtWebEvent;

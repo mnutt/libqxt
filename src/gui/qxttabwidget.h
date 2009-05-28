@@ -28,7 +28,6 @@
 #include <QTabWidget>
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtTabBar;
 class QxtTabWidgetPrivate;

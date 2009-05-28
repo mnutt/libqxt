@@ -28,7 +28,6 @@
 #include <QSettings>
 #include <QMessageBox>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtConfirmationMessagePrivate;
 

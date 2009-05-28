@@ -29,7 +29,6 @@
 #include <QFile>
 #include <QObject>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 #ifdef Q_OS_WIN
 #include <windows.h>

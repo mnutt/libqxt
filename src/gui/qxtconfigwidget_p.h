@@ -25,7 +25,6 @@
 #ifndef QXTCONFIGWIDGET_P_H
 #define QXTCONFIGWIDGET_P_H
 
-#include "qxtpimpl.h"
 #include "qxtconfigwidget.h"
 #include <QItemDelegate>
 #include <QTableWidget>

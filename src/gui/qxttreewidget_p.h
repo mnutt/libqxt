@@ -26,7 +26,6 @@
 #define QXTTREEWIDGET_P_H
 
 #include "qxttreewidget.h"
-#include "qxtpimpl.h"
 
 class QxtItemDelegate;
 

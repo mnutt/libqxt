@@ -27,7 +27,6 @@
 
 #include <QLineEdit>
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 
 class QxtLineEditPrivate;
 

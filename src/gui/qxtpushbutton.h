@@ -28,7 +28,6 @@
 #include <QPushButton>
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtPushButtonPrivate;
 

@@ -27,7 +27,6 @@
 
 #include <QVariant>
 
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 #include <qxtjob.h>
 

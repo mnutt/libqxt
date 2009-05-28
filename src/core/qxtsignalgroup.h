@@ -26,7 +26,6 @@
 #ifndef QXTSIGNALGROUP_H
 #define QXTSIGNALGROUP_H
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 #include <QObject>
 
 class QxtSignalGroupPrivate;

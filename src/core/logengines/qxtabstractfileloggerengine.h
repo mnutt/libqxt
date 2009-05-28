@@ -28,7 +28,6 @@
 
 #include "qxtabstractiologgerengine.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtAbstractFileLoggerEnginePrivate;
 

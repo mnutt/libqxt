@@ -28,7 +28,6 @@
 #include <QSize>
 #include <QList>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtScreenPrivate;
 QT_FORWARD_DECLARE_CLASS(QWidget)

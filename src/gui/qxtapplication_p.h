@@ -26,7 +26,6 @@
 #define QXTAPPLICATION_P_H
 
 #include <QList>
-#include "qxtpimpl.h"
 #include "qxtapplication.h"
 
 class QxtNativeEventFilter;

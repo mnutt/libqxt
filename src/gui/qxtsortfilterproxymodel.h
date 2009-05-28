@@ -31,7 +31,6 @@
 #include <QVariant>
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtSortFilterProxyModelPrivate;
 

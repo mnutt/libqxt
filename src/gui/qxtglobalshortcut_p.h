@@ -25,7 +25,6 @@
 #ifndef QXTGLOBALSHORTCUT_P_H
 #define QXTGLOBALSHORTCUT_P_H
 
-#include "qxtpimpl.h"
 #include "qxtglobalshortcut.h"
 #include <QAbstractEventDispatcher>
 #include <QKeySequence>

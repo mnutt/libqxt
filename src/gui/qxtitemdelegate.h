@@ -28,7 +28,6 @@
 #include <QItemDelegate>
 #include "qxtglobal.h"
 #include "qxtnamespace.h"
-#include "qxtpimpl.h"
 
 class QxtItemDelegatePrivate;
 

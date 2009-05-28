@@ -26,7 +26,6 @@
 #ifndef QXTPIPE_H
 #define QXTPIPE_H
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 #include <QIODevice>
 #include <QQueue>

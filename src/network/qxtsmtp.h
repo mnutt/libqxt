@@ -30,7 +30,6 @@
 #include <QString>
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include "qxtmailmessage.h"
 
 class QTcpSocket;

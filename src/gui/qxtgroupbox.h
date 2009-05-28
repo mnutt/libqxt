@@ -27,7 +27,6 @@
 
 #include <QGroupBox>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtGroupBoxPrivate;
 

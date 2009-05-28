@@ -31,7 +31,6 @@
 #include <QIODevice>
 #include <QFile>
 #include "qxtlogger.h"
-#include "qxtpimpl.h"
 
 class QxtLoggerEnginePrivate;
 
