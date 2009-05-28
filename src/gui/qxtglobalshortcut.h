@@ -26,7 +26,6 @@
 #define QXTGLOBALSHORTCUT_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QObject>
 #include <QKeySequence>
 class QxtGlobalShortcutPrivate;

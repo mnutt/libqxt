@@ -26,7 +26,6 @@
 #ifndef QXTCOMMANDOPTIONS_H
 #define QXTCOMMANDOPTIONS_H
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 #include <QStringList>
 #include <QVariant>
 #include <QCoreApplication>     // for Q_DECLARE_TR_FUNCTIONS

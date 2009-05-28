@@ -27,7 +27,6 @@
 #define QXTTCPCONNECTIONMANAGER_H
 
 #include <qxtabstractconnectionmanager.h>
-#include <qxtpimpl.h>
 #include <QObject>
 #include <QNetworkProxy>
 QT_FORWARD_DECLARE_CLASS(QIODevice)

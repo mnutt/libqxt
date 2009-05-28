@@ -28,7 +28,6 @@
 #include <QComboBox>
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtCheckComboBoxPrivate;
 

@@ -46,7 +46,6 @@
 #include <QPainterPath>
 #include <QTimer>
 #include "qxtnamespace.h"
-#include "qxtpimpl.h"
 #include "qxtscheduleitemdelegate.h"
 
 class QxtScheduleView;

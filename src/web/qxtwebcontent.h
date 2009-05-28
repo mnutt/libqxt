@@ -29,7 +29,6 @@
 #include <QAbstractSocket>
 #include <QByteArray>
 #include <QHash>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 
 class QxtWebContentPrivate;

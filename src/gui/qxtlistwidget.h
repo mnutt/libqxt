@@ -26,7 +26,6 @@
 #define QXTLISTWIDGET_H
 
 #include <QListWidget>
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 #include "qxtlistwidgetitem.h"
 

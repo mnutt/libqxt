@@ -27,7 +27,6 @@
 #define QXTABSTRACTWEBSESSIONMANAGER_H
 
 #include <QObject>
-#include <qxtpimpl.h>
 #include <qxtglobal.h>
 class QxtAbstractWebService;
 class QxtWebEvent;

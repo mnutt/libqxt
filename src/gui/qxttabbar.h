@@ -28,7 +28,6 @@
 #include <QTabBar>
 #include "qxtnamespace.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtTabBarPrivate;
 class QXT_GUI_EXPORT QxtTabBar : public QTabBar

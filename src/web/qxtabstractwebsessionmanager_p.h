@@ -30,7 +30,6 @@
 #include <QPointer>
 #include <QHash>
 #include <QQueue>
-#include <qxtpimpl.h>
 #include "qxtabstractwebsessionmanager.h"
 
 #ifndef QXT_DOXYGEN_RUN

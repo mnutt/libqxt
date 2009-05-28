@@ -2,7 +2,6 @@
 #define QXTDISCOVERABLESERVICENAME_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QString>
 #include <QByteArray>
 #include <QAbstractSocket>

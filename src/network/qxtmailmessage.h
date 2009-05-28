@@ -25,7 +25,6 @@
 #ifndef QXTMAILMESSAGE_H
 #define QXTMAILMESSAGE_H
 
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 #include "qxtmailattachment.h"
 

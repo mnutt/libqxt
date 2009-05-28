@@ -26,7 +26,6 @@
 #ifndef QXTFILELOCK_P_H
 #define QXTFILELOCK_P_H
 
-#include "qxtpimpl.h"
 #include <QMutex>
 #include <QMutexLocker>
 #include <QLinkedList>

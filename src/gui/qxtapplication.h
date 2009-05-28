@@ -27,7 +27,6 @@
 
 #include <QApplication>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtApplicationPrivate;
 class QxtNativeEventFilter;

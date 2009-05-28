@@ -28,7 +28,6 @@
 
 #include "qxtloggerengine.h"
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 QT_FORWARD_DECLARE_CLASS(QTextStream)
 class QxtBasicSTDLoggerEnginePrivate;

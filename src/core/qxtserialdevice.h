@@ -26,7 +26,6 @@
 #define QXTSERIALDEVICE_H
 
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include <QIODevice>
 
 class QxtSerialDevicePrivate;

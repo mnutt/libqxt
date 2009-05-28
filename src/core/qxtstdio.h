@@ -26,7 +26,6 @@
 #define QXTSTDIO_H
 
 #include <qxtglobal.h>
-#include <qxtpimpl.h>
 #include <qxtpipe.h>
 
 class QxtStdioPrivate;

@@ -27,7 +27,6 @@
 
 #include <QDockWidget>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtDockWidgetPrivate;
 

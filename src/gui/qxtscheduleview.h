@@ -32,7 +32,6 @@
 #include <QHeaderView>
 #include <QRect>
 
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 #include "qxtnamespace.h"
 

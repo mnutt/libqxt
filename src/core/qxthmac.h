@@ -33,7 +33,6 @@
 #else
 
 #include <QCryptographicHash>
-#include "qxtpimpl.h"
 #include "qxtglobal.h"
 
 class QxtHmacPrivate;

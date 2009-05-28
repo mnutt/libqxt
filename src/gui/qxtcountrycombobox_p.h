@@ -27,7 +27,6 @@
 #define QXTCOUNTRYCOMBOBOX_P_H
 
 #include "qxtcountrycombobox.h"
-#include "qxtpimpl.h"
 #include <QComboBox>
 
 class QxtCountryComboBoxPrivate : public QObject, public QxtPrivate<QxtCountryComboBox>

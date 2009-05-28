@@ -28,7 +28,6 @@
 #include <QDialog>
 #include <QIcon>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 #include "qxtconfigwidget.h"
 
 QT_FORWARD_DECLARE_CLASS(QTableWidget)

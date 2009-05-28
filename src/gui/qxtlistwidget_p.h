@@ -25,7 +25,6 @@
 #ifndef QXTLISTWIDGET_P_H
 #define QXTLISTWIDGET_P_H
 
-#include "qxtpimpl.h"
 #include "qxtlistwidget.h"
 
 class QxtItemDelegate;

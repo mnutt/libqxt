@@ -27,7 +27,6 @@
 
 #include <QDialog>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 QT_FORWARD_DECLARE_CLASS(QTableWidget)
 QT_FORWARD_DECLARE_CLASS(QStackedWidget)

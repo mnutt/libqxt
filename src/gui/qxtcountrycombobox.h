@@ -29,7 +29,6 @@
 #include <QComboBox>
 #include <QLocale>
 #include "qxtglobal.h"
-#include "qxtpimpl.h"
 
 class QxtCountryComboBoxPrivate;
 
