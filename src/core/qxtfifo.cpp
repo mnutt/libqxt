@@ -30,8 +30,8 @@
 
 \brief Simple Loopback QIODevice
 
-read and write to the same object \n
-emits a readyRead Signal. \n
+read and write to the same object
+emits a readyRead Signal.
 useful for loopback tests where QBuffer does not work.
 
 \code

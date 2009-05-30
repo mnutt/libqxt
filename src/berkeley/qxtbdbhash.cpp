@@ -31,7 +31,7 @@
     \inmodule QxtBerkeley
     \brief template class that provides key/value access to a berkeley db file
 
-    both value and key must be registered with the qt meta system.\n
+    both value and key must be registered with the qt meta system.
     You may not touch the file while a QxtBdbHash instance is running on it.
 
     examples usage:
@@ -71,7 +71,8 @@
 
     opens the specified file.
 
-    returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
+    returns true on success and false on failure.
+    \bold {Note:} a sanity check is performed before opening the file.
 */
 
 /*!

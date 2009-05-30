@@ -35,8 +35,8 @@
 */
 
 /*!
-execute \p slot from \p precv  on  \p thread  detached \n
-returns a QFuture which offers the functions required to get the result.\n
+execute \p slot from \p precv  on  \p thread  detached
+returns a QFuture which offers the functions required to get the result.
 \code
     QxtFuture f= QxtSlotJob::detach(&thread,&q,SLOT(exec(QString)),Q_ARG(QString, "select NOW();"));
 \endcode
@@ -81,7 +81,7 @@ QxtSlotJob::QxtSlotJob(QObject* recv, const char* slot,
     connect(this, SIGNAL(done()), this, SLOT(pdone()));
 }
 /*!
-asks for the result of the execution. \n
+asks for the result of the execution.
 This calls QxtJob::join()  means it will _block_  the current thread untill the Slot has finished execution
 */
 QVariant QxtSlotJob::result()
@@ -90,7 +90,7 @@ QVariant QxtSlotJob::result()
     return qxt_d().r;
 }
 /*!
-execute this job on \p thread \n
+execute this job on \p thread
 \warning keep your hands of the Object you passed until you called result() or join()
 */
 QxtFuture QxtSlotJob::exec(QThread *thread)
@@ -151,7 +151,7 @@ QxtFuture::~QxtFuture()
     delete waiter;
 }
 /*!
-asks for the result of the execution. \n
+asks for the result of the execution.
 This calls QxtJob::join()  means it will _block_  the current thread untill the Slot has finished execution
 */
 QVariant QxtFuture::joinedResult()
@@ -162,9 +162,9 @@ QVariant QxtFuture::joinedResult()
 
 
 /*!
-asks for the result of the execution. \n
+asks for the result of the execution.
 waits until the done() signal occurred
-or  return a QVariant() if the timout ocures earlier \n
+or  return a QVariant() if the timout ocures earlier
 This uses QxtSignalWaiter so it will _not_ block your current thread.
 \warning this function is not reentrant. You have been warned
 

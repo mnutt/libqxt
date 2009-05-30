@@ -30,7 +30,7 @@
 
 \brief provides extensions to QMetaObject
 
-including QxtMetaObject::bind \n
+including QxtMetaObject::bind
 
 */
 #include "qxtmetaobject.h"
@@ -337,7 +337,7 @@ namespace QxtMetaObject
     \relates QxtMetaObject
     \fn connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type) {
 
-    connects a signal to a QxtBoundFunction \n
+    connects a signal to a QxtBoundFunction
      */
     bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot, Qt::ConnectionType type)
     {

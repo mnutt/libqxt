@@ -28,11 +28,11 @@
 \inmodule QxtCore
 \brief Qt Implementation of a Unix daemon
 
-QxtDaemon will provide you with a standard UNIX daemon implementation.\n
-after sucessful forking it will install a messageHandler which logs all qDebug/qWarning/etc... output to /var/log/mydaemon.log \n
+QxtDaemon will provide you with a standard UNIX daemon implementation.
+after sucessful forking it will install a messageHandler which logs all qDebug/qWarning/etc... output to /var/log/mydaemon.log
 
 
-example usage:\n
+example usage:
 \code
 int main(int argc, char ** argv)
     {
@@ -49,15 +49,15 @@ int main(int argc, char ** argv)
 
 /*!
 \fn QxtDaemon::QxtDaemon(QString applicationName=QCoreApplication::applicationName());
-constructs a new QxtDaemon \n
+constructs a new QxtDaemon
 the applicationName is used as a base for log and pid files
 */
 /*!
 \fn bool QxtDaemon::daemonize(bool pidfile=true);
-forks the current Process \n
-you can specify weather it will write a pidfile to /var/run/mydaemon.pid or not \n
-if you specify true (the default) QxtDaemon will also try to lock the pidfile. If it can't get a lock it will assume another daemon of the same name is already running and exit \n
-be aware that after calling this function all file descriptors are invalid. QFile will not detect the change, you have to explicitly close all files before forking.\n
+forks the current Process
+you can specify weather it will write a pidfile to /var/run/mydaemon.pid or not
+if you specify true (the default) QxtDaemon will also try to lock the pidfile. If it can't get a lock it will assume another daemon of the same name is already running and exit
+be aware that after calling this function all file descriptors are invalid. QFile will not detect the change, you have to explicitly close all files before forking.
 return true on success
 */
 /*!
@@ -66,8 +66,8 @@ returns the current processId
 */
 /*!
 \fn  bool QxtDaemon::changeUser(QString name);
-changes the current user of this process. \n
-do this after forking to drop root rights.\n
+changes the current user of this process.
+do this after forking to drop root rights.
 returns true on success
 */
 #include "qxtdaemon.h"

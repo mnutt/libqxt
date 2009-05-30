@@ -33,9 +33,9 @@
  * \inmodule QxtCore
  * \brief a pipeable QIODevice
  *
- * pipes can be connected to other pipes, to exchange data \n
- * The default implementation uses a buffer. \n
- * Reimplement to make your custom class able to be connected into a pipe chain. \n
+ * pipes can be connected to other pipes, to exchange data
+ * The default implementation uses a buffer.
+ * Reimplement to make your custom class able to be connected into a pipe chain.
  *
  * Example usage:
  * \code
@@ -87,8 +87,8 @@ qint64 QxtPipe::bytesAvailable() const
 }
 
 /*!
- * pipes the output of this instance to the \p other  QxtPipe using the given mode and connectiontype \n
- * connection pipes with this function can be considered thread safe \n
+ * pipes the output of this instance to the \p other  QxtPipe using the given mode and connectiontype
+ * connection pipes with this function can be considered thread safe
  *
  * Example usage:
  * \code

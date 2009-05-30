@@ -32,7 +32,7 @@
 
 \brief QIODevice and QxtPipe support for stdin and stdout
 
-including readyRead() signal.\n
+including readyRead() signal.
 perfect as a counter part for QProcess or debug output into a QxtPipe chain
 
 

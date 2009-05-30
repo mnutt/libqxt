@@ -30,7 +30,7 @@
 
 \brief Execute a Job on a QThread. once or multiple times.
 
-QxtJob allows easily starting jobs on different threads.\n
+QxtJob allows easily starting jobs on different threads.
 exec() will ask for the QThread to run the job on.
 The Qthread needs an event loop. since version 4.4, QThread has
 a non pure run function with a default event loop, allowing easy deployment of jobs.
@@ -45,9 +45,9 @@ LockJob().exec(&thread);
 
 /*!
 \fn  virtual void QxtJob::run()=0;
-This function is called by QxtJob. \n
-reimplemented this function to do useful work. \n
-Returning from this method will end the execution of the job. \n
+This function is called by QxtJob.
+reimplemented this function to do useful work.
+Returning from this method will end the execution of the job.
 */
 
 /*!
@@ -77,7 +77,7 @@ QxtJob::QxtJob()
     connect(&qxt_d(), SIGNAL(done()), this, SIGNAL(done()));
 }
 /*!
-execute the Job on \p onthread \n
+execute the Job on \p onthread
 */
 void QxtJob::exec(QThread * onthread)
 {
@@ -88,16 +88,16 @@ void QxtJob::exec(QThread * onthread)
     emit(subseed());
 }
 /*!
-\warning The destructor joins.\n Means it blocks until the job is finished
+\warning The destructor joins. Means it blocks until the job is finished
 */
 QxtJob::~QxtJob()
 {
     join();
 }
 /*!
-block until the Job finished \n
-Note that the current thread will be blocked. \n
-If you use this, you better be damn sure you actually want a thread.\n
+block until the Job finished
+Note that the current thread will be blocked.
+If you use this, you better be damn sure you actually want a thread.
 Maybe you actualy want to use QxtSignalWaiter.
 */
 void QxtJob::join()
