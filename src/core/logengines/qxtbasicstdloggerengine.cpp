@@ -134,7 +134,7 @@ QTextStream* QxtBasicSTDLoggerEngine::stdOutStream() const
 }
 
 /*!
-    \reimp
+    Enables or disables log \a level.
  */
 void QxtBasicSTDLoggerEngine::setLogLevelEnabled(QxtLogger::LogLevels level, bool enable)
 {
