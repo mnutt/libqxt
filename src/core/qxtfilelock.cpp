@@ -64,8 +64,8 @@
 */
 
 /*!
- * \enum QxtFileLock::mode
- * \brief The Mode of the lock
+ * \enum QxtFileLock::Mode
+ * \brief The mode of the lock
  *
  * \value ReadLock A non blocking read lock
  * \value WriteLock A non blocking write lock
