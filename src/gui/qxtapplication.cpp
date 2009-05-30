@@ -26,7 +26,7 @@
 #include "qxtapplication_p.h"
 
 /*!
-    \class QxtApplication QxtApplication
+    \class QxtApplication
     \inmodule QxtGui
     \brief An extended QApplication with support for native event filters.
 

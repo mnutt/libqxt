@@ -29,7 +29,7 @@
 #include <QVariant>
 
 /*!
-    \class QxtSlotMapper QxtSlotMapper
+    \class QxtSlotMapper
     \inmodule QxtCore
     \brief The QxtSlotMapper class map signals with a parameter to certain slots.
 

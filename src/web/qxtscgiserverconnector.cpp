@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtScgiServerConnector QxtScgiServerConnector
+\class QxtScgiServerConnector
 
 \inmodule QxtWeb
 

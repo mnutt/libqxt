@@ -48,7 +48,7 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
 {}
 
 /*!
-    \class QxtProgressLabel QxtProgressLabel
+    \class QxtProgressLabel
     \inmodule QxtGui
     \brief A label showing progress related time values.
 

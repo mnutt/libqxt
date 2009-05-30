@@ -25,7 +25,7 @@
 
 #include "qxtloggerengine.h"
 
-/*! \class QxtLoggerEngine QxtLoggerEngine
+/*! \class QxtLoggerEngine
     \brief The parent class of all extended Engine Plugins.
     \inmodule QxtCore
 

@@ -26,7 +26,7 @@
 #include <QStringList>
 
 /*!
-    \class QxtWindowSystem QxtWindowSystem
+    \class QxtWindowSystem
     \inmodule QxtGui
     \brief QxtWindowSystem provides means for accessing native windows.
 

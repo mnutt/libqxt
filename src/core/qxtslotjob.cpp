@@ -25,7 +25,7 @@
 #include "qxtslotjob_p.h"
 
 /*!
-\class QxtSlotJob QxtSlotJob
+\class QxtSlotJob
 
 \inmodule QxtCore
 
@@ -122,7 +122,7 @@ void QxtSlotJob::pdone()
 
 
 /*!
-\class QxtFuture QxtFuture
+\class QxtFuture
 
 \inmodule QxtCore
 

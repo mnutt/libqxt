@@ -25,7 +25,7 @@
 
 
 /*!
-\class QxtWebSlotService QxtWebSlotService
+\class QxtWebSlotService
 
 \inmodule QxtWeb
 

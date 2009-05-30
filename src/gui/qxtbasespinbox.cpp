@@ -39,7 +39,7 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
 }
 
 /*!
-    \class QxtBaseSpinBox QxtBaseSpinBox
+    \class QxtBaseSpinBox
     \inmodule QxtGui
     \brief A spin box with support for numbers in base between 2 and 36.
 

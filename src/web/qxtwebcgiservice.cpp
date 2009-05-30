@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtWebCgiService QxtWebCgiService
+\class QxtWebCgiService
 
 \inmodule QxtWeb
 

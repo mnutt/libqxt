@@ -27,7 +27,7 @@
 #include <QTime>
 
 /*!
-    \class QxtXmlFileLoggerEngine QxtXmlFileLoggerEngine
+    \class QxtXmlFileLoggerEngine
     \brief An XML file logger engine.
     \inmodule QxtCore
 

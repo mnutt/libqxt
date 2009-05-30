@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtMetaObject QxtMetaObject
+\class QxtMetaObject
 
 \inmodule QxtCore
 

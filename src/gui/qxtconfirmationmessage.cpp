@@ -149,7 +149,7 @@ void QxtConfirmationMessagePrivate::reset()
 }
 
 /*!
-    \class QxtConfirmationMessage QxtConfirmationMessage
+    \class QxtConfirmationMessage
     \inmodule QxtGui
     \brief A confirmation message.
 

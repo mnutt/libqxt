@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtSignalGroup QxtSignalGroup
+\class QxtSignalGroup
 
 \inmodule QxtCore
 

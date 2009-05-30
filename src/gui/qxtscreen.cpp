@@ -28,7 +28,7 @@
 #include <QApplication>
 
 /*!
-    \class QxtScreen QxtScreen
+    \class QxtScreen
     \inmodule QxtGui
     \brief QxtScreen provides access to screen settings.
 

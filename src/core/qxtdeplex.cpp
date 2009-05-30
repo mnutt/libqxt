@@ -25,7 +25,7 @@
 #include "qxtdeplex_p.h"
 
 /*!
-\class QxtDeplex QxtDeplex
+\class QxtDeplex
 
 \inmodule QxtCore
 

@@ -29,7 +29,7 @@
 
 
 /*!
-\class QxtSqlPackageModel QxtSqlPackageModel
+\class QxtSqlPackageModel
 
 \inmodule QxtSql
 

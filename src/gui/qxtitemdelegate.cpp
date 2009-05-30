@@ -213,7 +213,7 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
 }
 
 /*!
-    \class QxtItemDelegate QxtItemDelegate
+    \class QxtItemDelegate
     \inmodule QxtGui
     \brief An extended QItemDelegate
 

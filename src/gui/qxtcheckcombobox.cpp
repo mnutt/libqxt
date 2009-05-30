@@ -120,7 +120,7 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
 }
 
 /*!
-    \class QxtCheckComboBox QxtCheckComboBox
+    \class QxtCheckComboBox
     \inmodule QxtGui
     \brief An extended QComboBox with checkable items.
 

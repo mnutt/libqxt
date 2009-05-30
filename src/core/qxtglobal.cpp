@@ -72,7 +72,7 @@ const char* qxtVersion()
 }
 
 /**
-\class QxtPimpl QxtPimpl
+\class QxtPimpl
 \ingroup QxtCore
 \brief Hide private details of a class
 

@@ -28,7 +28,7 @@
 
 
 /*!
-\class QxtLinkedTree QxtLinkedTree
+\class QxtLinkedTree
 \inmodule QxtCore
 \brief fast Container for tree structured data
 
@@ -94,7 +94,7 @@ Be extremly carefull. It is easy to currupt your data with this!
 
 
 
-\class QxtLinkedTreeIterator QxtLinkedTree
+\class QxtLinkedTreeIterator
 \inmodule QxtCore
 \brief fast access to an QxtLinkedTree
 

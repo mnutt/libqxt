@@ -7,7 +7,7 @@
 #include <QtEndian>
 
 /**
-\class QxtDiscoverableService QxtDiscoverableService
+\class QxtDiscoverableService
 
 \ingroup QxtZeroconf
 

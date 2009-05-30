@@ -27,7 +27,7 @@
 #include <QDateTime>
 
 /*!
-    \class QxtBasicFileLoggerEngine QxtBasicFileLoggerEngine
+    \class QxtBasicFileLoggerEngine
     \brief A basic file logger engine.
     \inmodule QxtCore
 

@@ -25,7 +25,7 @@
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
 /*!
- * \class QxtFileLock QxtFileLock
+ * \class QxtFileLock
  * \inmodule QxtCore
  * \brief The QxtFileLock class provides a crossplattform way to lock a QFile.
  *

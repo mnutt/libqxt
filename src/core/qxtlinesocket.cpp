@@ -29,7 +29,7 @@
 #include <QIODevice>
 
 /*!
-\class QxtLineSocket QxtLineSocket
+\class QxtLineSocket
 
 \inmodule QxtCore
 

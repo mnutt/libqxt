@@ -28,7 +28,7 @@
 #include <QBuffer>
 
 /*!
-\class QxtWebEvent QxtWebEvent
+\class QxtWebEvent
 
 \inmodule QxtWeb
 
@@ -64,7 +64,7 @@ QxtWebEvent::~QxtWebEvent() {}
  */
 
 /*!
-\class QxtWebRequestEvent QxtWebRequestEvent
+\class QxtWebRequestEvent
 
 \inmodule QxtWeb
 
@@ -134,7 +134,7 @@ QxtWebFileUploadEvent::QxtWebFileUploadEvent(int sessionID)
 */
 
 /*!
-\class QxtWebErrorEvent QxtWebErrorEvent
+\class QxtWebErrorEvent
 
 \inmodule QxtWeb
 
@@ -164,7 +164,7 @@ QxtWebErrorEvent::QxtWebErrorEvent(int sessionID, int requestID, int statusCode,
 }
 
 /*!
-\class QxtWebPageEvent QxtWebPageEvent
+\class QxtWebPageEvent
 
 \inmodule QxtWeb
 
@@ -286,7 +286,7 @@ QxtWebPageEvent::~QxtWebPageEvent()
  */
 
 /*!
-\class QxtWebStoreCookieEvent QxtWebStoreCookieEvent
+\class QxtWebStoreCookieEvent
 
 \inmodule QxtWeb
 
@@ -325,7 +325,7 @@ QxtWebStoreCookieEvent::QxtWebStoreCookieEvent(int sessionID, QString name, QStr
  */
 
 /*!
-\class QxtWebRemoveCookieEvent QxtWebRemoveCookieEvent
+\class QxtWebRemoveCookieEvent
 
 \inmodule QxtWeb
 
@@ -348,7 +348,7 @@ QxtWebRemoveCookieEvent::QxtWebRemoveCookieEvent(int sessionID, QString name)
  */
 
 /*!
-\class QxtWebRedirectEvent QxtWebRedirectEvent
+\class QxtWebRedirectEvent
 
 \inmodule QxtWeb
 

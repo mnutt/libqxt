@@ -60,7 +60,7 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
 }
 
 /*!
-    \class QxtConfigDialog QxtConfigDialog
+    \class QxtConfigDialog
     \inmodule QxtGui
     \brief A configuration dialog.
 

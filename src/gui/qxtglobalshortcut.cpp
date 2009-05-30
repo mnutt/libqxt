@@ -78,7 +78,7 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
 }
 
 /*!
-    \class QxtGlobalShortcut QxtGlobalShortcut
+    \class QxtGlobalShortcut
     \inmodule QxtGui
     \brief A global shortcut aka "hotkey".
 

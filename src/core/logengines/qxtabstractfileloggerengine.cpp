@@ -26,7 +26,7 @@
 #include "qxtabstractfileloggerengine.h"
 
 /*!
-    \class QxtAbstractFileLoggerEngine QxtAbstractFileLoggerEngine
+    \class QxtAbstractFileLoggerEngine
     \brief The base class of file logger engines.
     \inmodule QxtCore
 

@@ -147,7 +147,7 @@ public:
 };
 
 /*!
- * \class QxtRPCService QxtRPCService
+ * \class QxtRPCService
  * \inmodule QxtCore
  * \brief Transmits Qt signals over a QIODevice
  *

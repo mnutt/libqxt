@@ -41,7 +41,7 @@ QxtGroupBoxPrivate::QxtGroupBoxPrivate() : collapsive(true), flat(false)
 
 
 /*!
-    \class QxtGroupBox QxtGroupBox
+    \class QxtGroupBox
     \inmodule QxtGui
     \brief A collapsive and checkable QGroupBox.
 

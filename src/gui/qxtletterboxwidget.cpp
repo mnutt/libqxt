@@ -33,7 +33,7 @@ QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), timer(), mar
 }
 
 /*!
-    \class QxtLetterBoxWidget QxtLetterBoxWidget
+    \class QxtLetterBoxWidget
     \inmodule QxtGui
     \brief A letter box widget.
 

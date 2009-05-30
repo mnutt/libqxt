@@ -47,7 +47,7 @@ QSize QxtDockWidgetPrivate::contentsSize() const
 }
 
 /*!
-    \class QxtDockWidget QxtDockWidget
+    \class QxtDockWidget
     \inmodule QxtGui
     \brief An extended QDockWidget that remembers its size.
 

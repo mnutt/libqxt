@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtAbstractHttpConnector QxtAbstractHttpConnector
+\class QxtAbstractHttpConnector
 
 \inmodule QxtWeb
 

@@ -30,7 +30,7 @@
 #define QXT_REQUIRED_LEVELS (QxtLogger::WarningLevel | QxtLogger::ErrorLevel | QxtLogger::CriticalLevel | QxtLogger::FatalLevel)
 
 /*!
-    \class QxtBasicSTDLoggerEngine QxtBasicSTDLoggerEngine
+    \class QxtBasicSTDLoggerEngine
     \brief A basic STD logger engine.
     \inmodule QxtCore
 
