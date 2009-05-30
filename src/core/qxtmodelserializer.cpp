@@ -26,8 +26,8 @@
 #include <QAbstractItemModel>
 #include <QDataStream>
 
-/*!
-    \class QxtModelSerializer QxtModelSerializer
+/*
+    \class QxtModelSerializer
     \inmodule QxtCore
     \brief Provides serialization of QAbstractItemModel
  */
