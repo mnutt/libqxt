@@ -62,14 +62,13 @@ QxtSingleShotTimer::QxtSingleShotTimer(int msec, QObject* receiver, const char* 
     timerId = startTimer(msec);
 }
 
-#define QXT_ARG(i) QGenericArgument(args.at(i).typeName(), args.at(i).constData())
 void QxtSingleShotTimer::timerEvent(QTimerEvent* event)
 {
     if (event->timerId() == timerId)
     {
-        QMetaObject::invokeMethod(receiver, QxtMetaObject::methodName(member),
-                                  QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4),
-                                  QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9));
+        QxtMetaObject::invokeMethod(receiver, member, args.at(0), args.at(1),
+                                    args.at(2), args.at(3), args.at(4), args.at(5), 
+                                    args.at(6), args.at(7), args.at(8), args.at(9));
         deleteLater();
     }
 }
