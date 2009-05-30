@@ -37,47 +37,47 @@ default Constructor
 /*!
 \fn QxtCsvModel::QxtCsvModel(QIODevice *file, QObject *parent=0, bool withHeader = false, QChar separator= ',')
 constructs a QxtCsvModel from a QIODevice as source
-\p withHeader specifies if the data on the device contains a header or not.
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+\a withHeader specifies if the data on the device contains a header or not.
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 /*!
 \fn QxtCsvModel::QxtCsvModel(const QString filename, QObject *parent = 0, bool withHeader = false, QChar separator = ',')
 constructs a QxtCsvModel from a filename as source
-\p withHeader specifies if the data in the file contains a header or not.
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+\a withHeader specifies if the data in the file contains a header or not.
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 /*!
 \fn  void QxtCsvModel::setSource(QIODevice *file, bool withHeader = false, QChar separator = ',');
-reads the cvs data from \p file
-\p withHeader specifies if the data on the device contains a header or not.
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+reads the cvs data from \a file
+\a withHeader specifies if the data on the device contains a header or not.
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 
 /*!
 \fn    void QxtCsvModel::setSource(const QString filename, bool withHeader = false, QChar separator = ',');
-reads the cvs data from \p filename
-\p withHeader specifies if the data in the file contains a header or not.
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+reads the cvs data from \a filename
+\a withHeader specifies if the data in the file contains a header or not.
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 
 
 /*!
 \fn   void QxtCsvModel::toCSV(QIODevice *file, bool withHeader = false, QChar separator = ',');
-writes the cvs data to \p file
-\p withHeader specifies if to write the header or not
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+writes the cvs data to \a file
+\a withHeader specifies if to write the header or not
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 
 /*!
 \fn    void QxtCsvModel::toCSV(const QString filename, bool withHeader = false, QChar separator = ',');
-writes the cvs data to \p filename
-\p withHeader specifies if to write the header or not
-\p separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
+writes the cvs data to \a filename
+\a withHeader specifies if to write the header or not
+\a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 

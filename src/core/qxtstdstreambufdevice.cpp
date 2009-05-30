@@ -43,7 +43,7 @@
 
 
 \fn QxtStdStreambufDevice::QxtStdStreambufDevice(std::streambuf * r,std::streambuf * w,QObject * parent)
-\brief creates a QxtStdStreambufDevice using \p r to read and \p w to write
+\brief creates a QxtStdStreambufDevice using \a r to read and \a w to write
 
 
 \fn bool QxtStdStreambufDevice::isSequential() const

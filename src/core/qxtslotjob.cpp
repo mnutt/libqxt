@@ -35,13 +35,13 @@
 */
 
 /*!
-execute \p slot from \p precv  on  \p thread  detached
+execute \a slot from \a precv  on  \a thread  detached
 returns a QFuture which offers the functions required to get the result.
 \code
     QxtFuture f= QxtSlotJob::detach(&thread,&q,SLOT(exec(QString)),Q_ARG(QString, "select NOW();"));
 \endcode
 
-\warning keep your hands of \p recv until you called QFuture::result();
+\warning keep your hands of \a recv until you called QFuture::result();
 */
 QxtFuture QxtSlotJob::detach(QThread * thread, QObject* recv, const char* slot,
                              QGenericArgument p1,
@@ -60,7 +60,7 @@ QxtFuture QxtSlotJob::detach(QThread * thread, QObject* recv, const char* slot,
     return p->exec(thread);
 }
 /*!
-Construct a new Job Object that will run \p slot from \p precv with the specified arguments
+Construct a new Job Object that will run \a slot from \a precv with the specified arguments
 */
 QxtSlotJob::QxtSlotJob(QObject* recv, const char* slot,
                        QGenericArgument p1,
@@ -90,7 +90,7 @@ QVariant QxtSlotJob::result()
     return qxt_d().r;
 }
 /*!
-execute this job on \p thread
+execute this job on \a thread
 \warning keep your hands of the Object you passed until you called result() or join()
 */
 QxtFuture QxtSlotJob::exec(QThread *thread)
