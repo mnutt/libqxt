@@ -249,7 +249,7 @@ Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
 }
 
 /*!
- *@return true if the column is filtered
+ *Returns true if the column is filtered
  */
 bool QxtSortFilterProxyModel::isFiltered ( const int column )
 {

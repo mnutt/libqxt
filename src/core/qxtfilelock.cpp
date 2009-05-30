@@ -64,28 +64,28 @@
 */
 
 /*!
- * @enum QxtFileLock::mode
- * @brief The Mode of the lock
+ * \enum QxtFileLock::mode
+ * \brief The Mode of the lock
  */
 
 /*!
- * @var QxtFileLock::mode QxtFileLock::ReadLock
- * @brief A non blocking read lock
+ * \value QxtFileLock::mode QxtFileLock::ReadLock
+ * \brief A non blocking read lock
  */
 
 /*!
- * @var QxtFileLock::mode QxtFileLock::WriteLock
- * @brief A non blocking write lock
+ * \value QxtFileLock::mode QxtFileLock::WriteLock
+ * \brief A non blocking write lock
  */
 
 /*!
- * @var QxtFileLock::mode QxtFileLock::ReadLockWait
- * @brief A  blocking read lock. The lock() function will block until the lock is created.
+ * \value QxtFileLock::mode QxtFileLock::ReadLockWait
+ * \brief A  blocking read lock. The lock() function will block until the lock is created.
  */
 
 /*!
- * @var QxtFileLock::mode QxtFileLock::WriteLockWait
- * @brief A blocking write lock. The lock() function will block until the lock is created.
+ * \value QxtFileLock::mode QxtFileLock::WriteLockWait
+ * \brief A blocking write lock. The lock() function will block until the lock is created.
  */
 
 QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait), isLocked(false)
@@ -94,10 +94,10 @@ QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLo
 
 /*!
  * Contructs a new QxtFileLock. The lock is not activated.
- * @param file the file that should be locked
- * @param offset the offset where the lock starts
- * @param length the length of the lock
- * @param mode the lockmode
+ * \a file the file that should be locked
+ * \a offset the offset where the lock starts
+ * \a length the length of the lock
+ * \a mode the lockmode
  */
 QxtFileLock::QxtFileLock(QFile *file, const off_t offset, const off_t length, const QxtFileLock::Mode mode) : QObject(file)
 {
@@ -114,7 +114,7 @@ QxtFileLock::~QxtFileLock()
 }
 
 /*!
- *@return the offset of the lock
+ *Returns the offset of the lock
  */
 off_t QxtFileLock::offset() const
 {
@@ -122,7 +122,7 @@ off_t QxtFileLock::offset() const
 }
 
 /*!
- * @return true if the lock is active otherwise it returns false
+ * Returns true if the lock is active otherwise it returns false
  */
 bool QxtFileLock::isActive() const
 {
@@ -130,7 +130,7 @@ bool QxtFileLock::isActive() const
 }
 
 /*!
- * @return the length of the lock
+ * Returns the length of the lock
  */
 off_t QxtFileLock::length() const
 {
@@ -146,7 +146,7 @@ QFile * QxtFileLock::file() const
 }
 
 /*!
- * @return the mode of the lock
+ * Returns the mode of the lock
  */
 QxtFileLock::Mode QxtFileLock::mode() const
 {
