@@ -66,26 +66,11 @@
 /*!
  * \enum QxtFileLock::mode
  * \brief The Mode of the lock
- */
-
-/*!
- * \value QxtFileLock::mode QxtFileLock::ReadLock
- * \brief A non blocking read lock
- */
-
-/*!
- * \value QxtFileLock::mode QxtFileLock::WriteLock
- * \brief A non blocking write lock
- */
-
-/*!
- * \value QxtFileLock::mode QxtFileLock::ReadLockWait
- * \brief A  blocking read lock. The lock() function will block until the lock is created.
- */
-
-/*!
- * \value QxtFileLock::mode QxtFileLock::WriteLockWait
- * \brief A blocking write lock. The lock() function will block until the lock is created.
+ *
+ * \value ReadLock A non blocking read lock
+ * \value WriteLock A non blocking write lock
+ * \value ReadLockWait A  blocking read lock. The lock() function will block until the lock is created.
+ * \value WriteLockWait A blocking write lock. The lock() function will block until the lock is created.
  */
 
 QxtFileLockPrivate::QxtFileLockPrivate()  : offset(0), length(0), mode(QxtFileLock::WriteLockWait), isLocked(false)
