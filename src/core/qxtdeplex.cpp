@@ -56,7 +56,6 @@ implements a normal QxtPipe with the exception that r/w operations are delegated
 
 
 \fn virtual void   QxtDeplex::receiveData (QByteArray data, const QxtPipe * sender )
-\reimp
 
 */
 
