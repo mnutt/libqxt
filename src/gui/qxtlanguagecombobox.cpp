@@ -293,7 +293,7 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
  */
 
 /*!
-    \fn QxtLanguageComboBox::currentLanguageChanged(const QLocale::Language& language)
+    \fn QxtLanguageComboBox::currentLanguageChanged(QLocale::Language language)
 
     This signal is emitted whenever the current selected language has been changed.
  */

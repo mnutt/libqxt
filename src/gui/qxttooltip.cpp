@@ -236,7 +236,7 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
  */
 
 /*!
-    \reimp
+    \internal
  */
 QxtToolTip::QxtToolTip()
 {
