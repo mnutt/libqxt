@@ -54,7 +54,7 @@
 
 
 
-    \todo {implicitshared}
+    TODO: {implicitshared}
     \sa QxtBdbTreeIterator
 */
 /*!
@@ -101,7 +101,7 @@ This function assumes, the class used for Template initialisation implements the
     \brief tree iterator on QxtBdbtree
 
 
-    \todo {implicitshared}
+    TODO: {implicitshared}
     \sa QxtBdbTree
 
 */

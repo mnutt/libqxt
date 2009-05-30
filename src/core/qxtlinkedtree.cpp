@@ -56,7 +56,7 @@ QxtLinkedTreeIterator<int> it= tree.fromVoid(root);
 \endcode
 
 
-\todo {implicitshared}
+TODO: {implicitshared}
 
 \fn QxtLinkedTree::QxtLinkedTree();
 constructs a QxtLinkedTree with a default constructed root node.
