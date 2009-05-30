@@ -48,7 +48,7 @@ Q_SIGNALS:
 private:
     QXT_DECLARE_PRIVATE(QxtJob);
 Q_SIGNALS:
-    ///\priv
+    ///\internal
     void subseed();
 };
 

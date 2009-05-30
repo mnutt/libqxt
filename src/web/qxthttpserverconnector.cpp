@@ -75,7 +75,7 @@ bool QxtHttpServerConnector::listen(const QHostAddress& iface, quint16 port)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpServerConnector::acceptConnection()
 {
