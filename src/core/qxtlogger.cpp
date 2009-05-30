@@ -42,14 +42,16 @@
     QxtLogger is designed to work "out of the box".  The Logger itself is a singleton object that manages all of the logging
     that is requested.  It provides 8 methods to actually log content; they are listed from the most logically verbose to the
     most logically important:
-        \li trace()
-        \li debug()
-        \li info()
-        \li warning()
-        \li error()
-        \li critical()
-        \li fatal()
-        \li write()
+        \list
+        \o trace()
+        \o debug()
+        \o info()
+        \o warning()
+        \o error()
+        \o critical()
+        \o fatal()
+        \o write()
+        \endlist
 
     These named members only have meaning to the person who uses them.  For example, you could call qxtLog->trace() from
     many parts of a complicated, massively recursive function to trace it's output; use qxtLog->info() to log that
@@ -574,10 +576,10 @@ void QxtLoggerMessageHandler(QtMsgType type, const char *msg)
 /*! \short Installs QxtLogger as Qt's message handler.
     This will make Qt macros use QxtLogger instead of the default
     mechanism:
-        \li qDebug()
-        \li qWarning()
-        \li qCritical()
-        \li qFatal() will call abort() and terminate your application.
+        \o qDebug()
+        \o qWarning()
+        \o qCritical()
+        \o qFatal() will call abort() and terminate your application.
 */
 void QxtLogger::installAsMessageHandler()
 {
