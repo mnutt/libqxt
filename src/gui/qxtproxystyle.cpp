@@ -212,7 +212,7 @@ QSize QxtProxyStyle::sizeFromContents(ContentsType type, const QStyleOption* opt
 }
 
 /*!
-    \reimp
+    TODO: not virtual
  */
 QIcon QxtProxyStyle::standardIcon(StandardPixmap standardIcon, const QStyleOption* option, const QWidget* widget) const
 {
