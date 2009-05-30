@@ -168,7 +168,7 @@ QxtCountryModel::~QxtCountryModel()
 }
 
 /*!
-    \fn QxtCountryModel::rowCount(const QModelIndex& parent)
+    \fn QxtCountryModel::rowCount(const QModelIndex& parent) const
 
     Returns the number of rows in the model.
  */
@@ -178,7 +178,7 @@ int QxtCountryModel::rowCount(const QModelIndex& parent) const
 }
 
 /*!
-    \fn QxtCountryModel::columnCount(const QModelIndex& parent)
+    \fn QxtCountryModel::columnCount(const QModelIndex& parent) const
 
     Returns the number of columns in the model.
  */
@@ -188,7 +188,7 @@ int QxtCountryModel::columnCount(const QModelIndex& parent) const
 }
 
 /*!
-    \fn QxtCountryModel::data(const QModelIndex& index, int role)
+    \fn QxtCountryModel::data(const QModelIndex& index, int role) const
 
     Returns the data for the given \a index for a sepcific role.
  */
@@ -198,7 +198,7 @@ QVariant QxtCountryModel::data(const QModelIndex& index, int role) const
 }
 
 /*!
-    \fn QxtCountryModel::headerData(int section, Qt::Orientation orientation, int role)
+    \fn QxtCountryModel::headerData(int section, Qt::Orientation orientation, int role) const
 
     Returns the column or row name for the given \a section for a sepcific role.
  */
