@@ -361,26 +361,10 @@ void QxtSpanSliderPrivate::movePressedHandle()
     \enum QxtSpanSlider::HandleMovementMode
 
     This enum describes the available handle movement modes.
- */
 
-/*!
-    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::FreeMovement
-
-    The handles can be moved freely.
- */
-
-/*!
-    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoCrossing
-
-    The handles cannot cross, but they can still overlap each other.
-    The lower and upper values can be the same.
- */
-
-/*!
-    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoOverlapping
-
-    The handles cannot overlap each other. The lower and upper values
-    cannot be the same.
+    \value QFreeMovement The handles can be moved freely.
+    \value NoCrossing The handles cannot cross, but they can still overlap each other. The lower and upper values can be the same.
+    \value NoOverlapping The handles cannot overlap each other. The lower and upper values cannot be the same.
  */
 
 /*!
