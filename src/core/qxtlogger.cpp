@@ -697,7 +697,7 @@ QxtLogger::LogLevel QxtLogger::stringToLogLevel(const QString& level)
     qxtLog->enableLogLevels(QxtLogger::AllLevels);
     qxtLog->write("Hi there!");
     \endcode
-    \param levels   A bitmask of LogLevels
+    \a levels   A bitmask of LogLevels
 */
 void QxtLogger::enableLogLevels(LogLevels levels)
 {
@@ -733,8 +733,8 @@ QxtLogStream QxtLogger::stream(LogLevel level)
     qxtLog->write("You can see me through your 'test' logger now!");
     \endcode
 
-    \param engineName The name of a QxtLoggerEngine.
-    \param levels   A LogLevel or LogLevels to enable.
+    \a engineName The name of a QxtLoggerEngine.
+    \a levels   A LogLevel or LogLevels to enable.
     \sa addLoggerEngine()
 *******************************************************************************/
 void QxtLogger::enableLogLevels(const QString &engineName, LogLevels levels)
@@ -773,7 +773,7 @@ void QxtLogger::enableAllLogLevels()
 }
 
 /*! \brief Enables a named engine if it is currently disabled.
-    \param engineName the name of a QxtLoggerEngine.
+    \a engineName the name of a QxtLoggerEngine.
     */
 void QxtLogger::enableLoggerEngine(const QString &engineName)
 {
@@ -791,7 +791,7 @@ void QxtLogger::enableLoggerEngine(const QString &engineName)
 /*! \brief Unflags the given LogLevels across all Engines.
     Disables the given LogLevel across all QxtLoggersEngines.  Note that some
 
-    \param levels A LogLevel or LogLevels to disable.
+    \a levels A LogLevel or LogLevels to disable.
 */
 void QxtLogger::disableLogLevels(LogLevels levels)
 {
@@ -809,7 +809,7 @@ void QxtLogger::disableLogLevels(LogLevels levels)
 /*! \brief Disables the named Engine.
     Disables the the named QxtLoggerEngine if it exists.
 
-    \param engineName The name of a log Engine to disable.
+    \a engineName The name of a log Engine to disable.
 */
 void QxtLogger::disableLoggerEngine(const QString &engineName)
 {
@@ -825,7 +825,7 @@ void QxtLogger::disableLoggerEngine(const QString &engineName)
 }
 
 /*! \brief Sets the minimumlog level for all Engines, as well as the levels above it.
-    \param level The single LogLevel to set as minimum.
+    \a level The single LogLevel to set as minimum.
 */
 void QxtLogger::setMinimumLevel(LogLevel level)
 {
@@ -840,8 +840,8 @@ void QxtLogger::setMinimumLevel(LogLevel level)
 }
 
 /*! \brief Sets the minimumlog level for the named Engine, as well as the levels above it.
-    \param engineName The name of a QxtLoggerEngine.
-    \param level The single LogLevel to set as minimum.
+    \a engineName The name of a QxtLoggerEngine.
+    \a level The single LogLevel to set as minimum.
 */
 void QxtLogger::setMinimumLevel(const QString &engineName, LogLevel level)
 {
@@ -858,7 +858,7 @@ void QxtLogger::setMinimumLevel(const QString &engineName, LogLevel level)
 /*! \brief Calls QxtLoggerEngine::initLoggerEngine() for the named Engine.
     Some QxtLoggerEngine plugins might require additional initialization.  Check the documentation
     for your plugin.  Most basic plugins will not require special tasks.
-    \param engineName The name of a QxtLoggerEngine.
+    \a engineName The name of a QxtLoggerEngine.
 */
 void QxtLogger::initLoggerEngine(const QString &engineName)
 {
@@ -875,7 +875,7 @@ void QxtLogger::initLoggerEngine(const QString &engineName)
 /*! \brief Calls QxtLoggerEngine::killLoggerEngine() for the named Engine.
     Some QxtLoggerEngine plugins might require special cleanup before destruction.
     Check the documentation for your plugin.  Most basic plugins will not require this.
-    \param engineName The name of a QxtLoggerEngine.
+    \a engineName The name of a QxtLoggerEngine.
 */
 void QxtLogger::killLoggerEngine(const QString &engineName)
 {
@@ -889,8 +889,8 @@ void QxtLogger::killLoggerEngine(const QString &engineName)
     }
 }
 /*! \brief Checks if the named Engine has the given LogLevel enabled.
-    \param engineName  The name of a QxtLoggerEngine to query
-    \param level           A LogLevel or LogLevels to disable.
+    \a engineName  The name of a QxtLoggerEngine to query
+    \a level           A LogLevel or LogLevels to disable.
     \ret                   Returns true or false.
 */
 bool QxtLogger::isLogLevelEnabled(const QString &engineName, LogLevel level) const
@@ -904,8 +904,8 @@ bool QxtLogger::isLogLevelEnabled(const QString &engineName, LogLevel level) con
 }
 
 /*! \brief Disables the given LogLevel across the named QxtLoggersEngines.
-    \param engineName The name of a QxtLoggerEngine.
-    \param level   A LogLevel or LogLevels to disable.
+    \a engineName The name of a QxtLoggerEngine.
+    \a level   A LogLevel or LogLevels to disable.
 */
 void QxtLogger::disableLogLevels(const QString &engineName, LogLevels levels)
 {
@@ -920,7 +920,7 @@ void QxtLogger::disableLogLevels(const QString &engineName, LogLevels levels)
 }
 
 /*! \brief Disables all log levels for the named Engine.
-    \param engineName The name of an Engine.
+    \a engineName The name of an Engine.
 */
 void QxtLogger::disableAllLogLevels(const QString &engineName)
 {
@@ -985,8 +985,8 @@ void QxtLogger::addLoggerEngine(const QString &engineName, QLibrary *engineLib)
     \code
     qxtLog->addLogger("my lib", "libQxtSomeKindOfLoggerEngine");
     \endcode
-    \param engineName The name to give this QxtLoggerEngine.
-    \param libName The name of the library to load.
+    \a engineName The name to give this QxtLoggerEngine.
+    \a libName The name of the library to load.
 
 void QxtLogger::addLoggerEngine(const QString &engineName, const QString &libName)
 {
