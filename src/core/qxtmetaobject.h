@@ -79,6 +79,20 @@ namespace QxtMetaObject
     QXT_CORE_EXPORT QxtBoundFunction* bind(QObject* recv, const char* invokable, QVariant p1, QXT_PROTO_9ARGS(QVariant));
     QXT_CORE_EXPORT bool connect(QObject* sender, const char* signal, QxtBoundFunction* slot,
                                  Qt::ConnectionType type = Qt::AutoConnection);
+
+    QXT_CORE_EXPORT bool invokeMethod(QObject* object, const char* member,
+                           const QVariant& arg0 = QVariant(), const QVariant& arg1 = QVariant(),
+                           const QVariant& arg2 = QVariant(), const QVariant& arg3 = QVariant(),
+                           const QVariant& arg4 = QVariant(), const QVariant& arg5 = QVariant(),
+                           const QVariant& arg6 = QVariant(), const QVariant& arg7 = QVariant(),
+                           const QVariant& arg8 = QVariant(), const QVariant& arg9 = QVariant());
+
+    QXT_CORE_EXPORT bool invokeMethod(QObject* object, const char* member, Qt::ConnectionType type,
+                           const QVariant& arg0 = QVariant(), const QVariant& arg1 = QVariant(),
+                           const QVariant& arg2 = QVariant(), const QVariant& arg3 = QVariant(),
+                           const QVariant& arg4 = QVariant(), const QVariant& arg5 = QVariant(),
+                           const QVariant& arg6 = QVariant(), const QVariant& arg7 = QVariant(),
+                           const QVariant& arg8 = QVariant(), const QVariant& arg9 = QVariant());
 };
 
 /**
