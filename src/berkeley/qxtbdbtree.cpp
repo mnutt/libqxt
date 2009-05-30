@@ -138,7 +138,7 @@ If you want to be 100% sure value() will return valid data, while using multiple
 \fn QxtBdbTreeIterator<T>::operator T() const
 \sa value()
 
-\fn T QxtBdbTreeIterator<T>::value()
+\fn T QxtBdbTreeIterator<T>::value() const
 returns the value, the iterator is currently pointing to.
 It is an error to call value() when isValid() returns false.
 In case an database error ocures,like the item been deleted, value() will return a default constructed T
