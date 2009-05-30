@@ -65,7 +65,7 @@
     }
     \endcode
 
-    \bold {Note:} Currently supported platforms are \b X11 and \b Windows.
+    \bold {Note:} Currently supported platforms are \bold X11 and \bold Windows.
  */
 
 /*!

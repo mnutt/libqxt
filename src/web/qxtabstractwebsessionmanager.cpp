@@ -48,7 +48,7 @@ clean up its internal session tracking data.
  * \typedef typedef QxtAbstractWebService* QxtAbstractWebSessionManager::ServiceFactory(QxtAbstractWebSessionManager*, int)
  * \brief Pointer to a function that generates QxtAbstractWebService objects
  *
- * \b TYPEDEF: The ServiceFactory type represents a pointer to a function that takes two
+ * \bold TYPEDEF: The ServiceFactory type represents a pointer to a function that takes two
  * parameters -- a QxtAbstractWebSessionManager* pointer and an int session ID.
  * The function must return a QxtAbstractWebService* pointer.
  *

@@ -252,7 +252,7 @@ QxtTabBar::~QxtTabBar() {}
     \property QxtTabBar::tabMovementMode
     \brief This property holds how tabs can be moved.
 
-    The default value of this property is \b QxtTabBar::NoMovement.
+    The default value of this property is \bold QxtTabBar::NoMovement.
 
     \sa tabMoved()
  */

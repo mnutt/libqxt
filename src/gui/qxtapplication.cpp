@@ -39,7 +39,7 @@
 
     Returns a pointer to the instance of the application object.
 
-    A convenience macro \b qxtApp is also available.
+    A convenience macro \bold qxtApp is also available.
  */
 
 /*!
@@ -98,8 +98,8 @@ QxtApplication::~QxtApplication()
     A native event filter is an object that receives all native events before they reach
     the application object. The filter can either stop the native event or forward it to
     the application object. The filter receives native events via its platform specific
-    native event filter function. The native event filter function must return \b true
-    if the event should be filtered, (i.e. stopped); otherwise it must return \b false.
+    native event filter function. The native event filter function must return \bold true
+    if the event should be filtered, (i.e. stopped); otherwise it must return \bold false.
 
     If multiple native event filters are installed, the filter that was installed last
     is activated first.

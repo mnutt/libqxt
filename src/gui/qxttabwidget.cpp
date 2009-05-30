@@ -115,9 +115,9 @@ QxtTabWidget::~QxtTabWidget()
     \brief This property holds whether the tab bar is shown always
     regardless of how many tabs there are.
 
-    The default value of this property is \b true.
+    The default value of this property is \bold true.
 
-    Set this property to \b false if you want to show
+    Set this property to \bold false if you want to show
     the tab bar only in case there are more than one tabs.
  */
 bool QxtTabWidget::alwaysShowTabBar() const
@@ -135,7 +135,7 @@ void QxtTabWidget::setAlwaysShowTabBar(bool always)
     \property QxtTabBar::tabMovementMode
     \brief This property holds how tabs can be moved.
 
-    The default value of this property is \b QxtTabBar::NoMovement.
+    The default value of this property is \bold QxtTabBar::NoMovement.
 
     \sa tabMoved()
  */
@@ -153,11 +153,11 @@ void QxtTabWidget::setTabMovementMode(TabMovementMode mode)
     \property QxtTabWidget::tabContextMenuPolicy
     \brief This property holds how the tab specific context menus are handled.
 
-    The default value of this property is \b Qt::DefaultContextMenu,
+    The default value of this property is \bold Qt::DefaultContextMenu,
     which means that the tabContextMenuEvent() handler is called.
-    Other values are \b Qt::NoContextMenu, \b Qt::PreventContextMenu
-    (since Qt 4.2), \b Qt::ActionsContextMenu, and \b Qt::CustomContextMenu.
-    With \b Qt::CustomContextMenu, the signal tabContextMenuRequested() is
+    Other values are \bold Qt::NoContextMenu, \bold Qt::PreventContextMenu
+    (since Qt 4.2), \bold Qt::ActionsContextMenu, and \bold Qt::CustomContextMenu.
+    With \bold Qt::CustomContextMenu, the signal tabContextMenuRequested() is
     emitted.
 
     \sa tabContextMenuEvent(), tabContextMenuRequested(), tabActions()
@@ -370,7 +370,7 @@ QList<QAction*> QxtTabWidget::tabActions(int index) const
 }
 
 /*!
-    Returns the animation of the tab at \a index or \b 0
+    Returns the animation of the tab at \a index or \bold 0
     if no animation has been set.
 
     \sa setTabAnimation()
@@ -403,7 +403,7 @@ void QxtTabWidget::setTabAnimation(int index, QMovie* animation, bool start)
 /*!
     This is an overloaded member function, provided for convenience.
 
-    The QMovie animation is constructed as \b this as parent.
+    The QMovie animation is constructed as \bold this as parent.
 
     \sa setTabAnimation()
  */
@@ -506,8 +506,8 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
     This event handler, for event \a event, can be reimplemented in a
     subclass to receive context menu events for the tab at \a index.
 
-    The handler is called when \b tabContextMenuPolicy is
-    \b Qt::DefaultContextMenu.
+    The handler is called when \bold tabContextMenuPolicy is
+    \bold Qt::DefaultContextMenu.
 
     The default implementation ignores the context menu event.
 

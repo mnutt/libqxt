@@ -169,9 +169,9 @@ void QxtConfirmationMessagePrivate::reset()
 
     \image qxtconfirmationmessage.png "QxtConfirmationMessage in action."
 
-    \bold {Note:} \b QCoreApplication::organizationName and \b QCoreApplication::applicationName
-    are used for storing settings. In case these properties are empty, \b "QxtGui" and
-    \b "QxtConfirmationMessage" are used, respectively.
+    \bold {Note:} \bold QCoreApplication::organizationName and \bold QCoreApplication::applicationName
+    are used for storing settings. In case these properties are empty, \bold "QxtGui" and
+    \bold "QxtConfirmationMessage" are used, respectively.
 
     \bold {Note:} Requires Qt 4.2 or newer.
  */
@@ -317,7 +317,7 @@ void QxtConfirmationMessage::setOverrideSettingsOrganization(const QString& orga
     option is stored even if the message box is rejected
     (eg. user presses Cancel).
 
-    The default value is \b false.
+    The default value is \bold false.
  */
 bool QxtConfirmationMessage::rememberOnReject() const
 {
@@ -332,7 +332,7 @@ void QxtConfirmationMessage::setRememberOnReject(bool remember)
 /*!
     \return The format used for storing settings.
 
-    The default value is \b QSettings::NativeFormat.
+    The default value is \bold QSettings::NativeFormat.
  */
 QSettings::Format QxtConfirmationMessage::settingsFormat()
 {
@@ -350,7 +350,7 @@ void QxtConfirmationMessage::setSettingsFormat(QSettings::Format format)
 /*!
     \return The scope used for storing settings.
 
-    The default value is \b QSettings::UserScope.
+    The default value is \bold QSettings::UserScope.
  */
 QSettings::Scope QxtConfirmationMessage::settingsScope()
 {
@@ -389,12 +389,12 @@ void QxtConfirmationMessage::setSettingsPath(const QString& path)
     confirmation message was earlierly accepted.
 
     A confirmation message is identified by the combination of title,
-    \b QMessageBox::text and optional \b QMessageBox::informativeText.
+    \bold QMessageBox::text and optional \bold QMessageBox::informativeText.
 
-    A clicked button with role \b QDialogButtonBox::AcceptRole or
-    \b QDialogButtonBox::YesRole is considered as "accepted".
+    A clicked button with role \bold QDialogButtonBox::AcceptRole or
+    \bold QDialogButtonBox::YesRole is considered as "accepted".
 
-    \warning This function does not reimplement but shadows \b QMessageBox::exec().
+    \warning This function does not reimplement but shadows \bold QMessageBox::exec().
 
     \sa QWidget::windowTitle, QMessageBox::text, QMessageBox::informativeText
  */
