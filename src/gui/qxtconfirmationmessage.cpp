@@ -330,7 +330,7 @@ void QxtConfirmationMessage::setRememberOnReject(bool remember)
 }
 
 /*!
-    \return The format used for storing settings.
+    Returns The format used for storing settings.
 
     The default value is \bold QSettings::NativeFormat.
  */
@@ -348,7 +348,7 @@ void QxtConfirmationMessage::setSettingsFormat(QSettings::Format format)
 }
 
 /*!
-    \return The scope used for storing settings.
+    Returns The scope used for storing settings.
 
     The default value is \bold QSettings::UserScope.
  */
@@ -366,7 +366,7 @@ void QxtConfirmationMessage::setSettingsScope(QSettings::Scope scope)
 }
 
 /*!
-    \return The path used for storing settings.
+    Returns The path used for storing settings.
 
     The default value is an empty string.
  */
