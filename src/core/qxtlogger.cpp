@@ -576,10 +576,12 @@ void QxtLoggerMessageHandler(QtMsgType type, const char *msg)
 /*! \brief Installs QxtLogger as Qt's message handler.
     This will make Qt macros use QxtLogger instead of the default
     mechanism:
+        \list
         \o qDebug()
         \o qWarning()
         \o qCritical()
         \o qFatal() will call abort() and terminate your application.
+        \endlist
 */
 void QxtLogger::installAsMessageHandler()
 {
