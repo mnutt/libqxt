@@ -123,11 +123,13 @@
 
     The general usage pattern is as follows:
 
-    \li Create a QxtAbstractWebSessionManager object, such as QxtHttpSessionManager, for each protocol that can interface to the service.
-    \li If using QxtHttpSessionManager, select a connector plugin, such as QxtHttpServerConnector.
-    \li Register a QxtAbstractWebService factory. The factory is invoked each time a new session is created and returns a service object
+    \list
+    \o Create a QxtAbstractWebSessionManager object, such as QxtHttpSessionManager, for each protocol that can interface to the service.
+    \o If using QxtHttpSessionManager, select a connector plugin, such as QxtHttpServerConnector.
+    \o Register a QxtAbstractWebService factory. The factory is invoked each time a new session is created and returns a service object
         for that session. QxtWebServiceDirectory allows you to register multiple services and selects between them based on the path.
-    \li Invoke QxtAbstractWebSessionManager::start() to begin accepting connections.
+    \o Invoke QxtAbstractWebSessionManager::start() to begin accepting connections.
+    \endlist
 
     When a new visitor connects who does not belong to a session, a new service instance is created. When a request is received, a
     QxtAbstractWebService::pageRequestedEvent() is dispatched to the service. When the service is ready to respond to the request, it posts
