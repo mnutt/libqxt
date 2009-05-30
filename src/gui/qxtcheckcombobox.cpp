@@ -134,20 +134,10 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
     \enum QxtCheckComboBox::CheckMode
 
     This enum describes the check mode.
-
     \sa QxtCheckComboBox::checkMode
- */
 
-/*!
-    \value QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckIndicator
-
-    The check state changes only via the check indicator (like in item views).
- */
-
-/*!
-    \value QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckWholeItem
-
-    The check state changes via the whole item (like with a combo box).
+    \value CheckIndicator The check state changes only via the check indicator (like in item views).
+    \value CheckWholeItem The check state changes via the whole item (like with a combo box).
  */
 
 /*!

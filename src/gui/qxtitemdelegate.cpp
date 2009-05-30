@@ -247,26 +247,10 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
     \enum QxtItemDelegate::Role
 
     This enum defines custom roles used by QxtItemDelegate.
- */
 
-/*!
-    \value QxtItemDelegate::Role QxtItemDelegate::ProgressValueRole
-
-    The progress value.
- */
-
-/*!
-    \value QxtItemDelegate::Role QxtItemDelegate::ProgressMinimumRole
-
-    The minimum progress value. The default value \bold 0 is used
-    if no value is provided for ProgressMinimumRole.
- */
-
-/*!
-    \value QxtItemDelegate::Role QxtItemDelegate::ProgressMaximumRole
-
-    The maximum progress value. The default value \bold 100 is used
-    if no value is provided for ProgressMaximumRole.
+    \value ProgressValueRole The progress value.
+    \value ProgressMinimumRole The minimum progress value. The default value \bold 0 is used if no value is provided for ProgressMinimumRole.
+    \value ProgressMaximumRole The maximum progress value. The default value \bold 100 is used if no value is provided for ProgressMaximumRole.
  */
 
 /*!
