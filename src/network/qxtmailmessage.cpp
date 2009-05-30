@@ -33,7 +33,7 @@
  * \class QxtMailMessage QxtMailMessage
  * \ingroup QxtWeb
  * \brief Encapsulates an e-mail according to RFC 2822 and related specifications
- * \todo {implicitshared}
+ * TODO: {implicitshared}
  */
 
 struct QxtMailMessagePrivate : public QSharedData

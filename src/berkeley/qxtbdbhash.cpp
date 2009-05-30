@@ -49,7 +49,7 @@
     Calling open() multiple times is undefined.
     An Iterator may only be used from one thread at once, but you can have multiple iterators.
 
-    \todo {implicitshared}
+    TODO: {implicitshared}
     \sa QxtBdbHashIterator
 */
 
@@ -156,7 +156,7 @@
     \sa QxtBdbHash
 
 
-    \todo {implicitshared}
+    TODO: {implicitshared}
 */
 
 /*!
