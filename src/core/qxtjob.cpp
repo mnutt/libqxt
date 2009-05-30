@@ -23,7 +23,7 @@
  **
  ****************************************************************************/
 
-/*!
+/*
 \class QxtJob
 
 \inmodule QxtCore
@@ -43,15 +43,15 @@ LockJob().exec(&thread);
 */
 
 
-/*!
-\fn  virtual void QxtJob::run()=0;
+/*
+\fn  void QxtJob::run()
 This function is called by QxtJob.
 reimplemented this function to do useful work.
 Returning from this method will end the execution of the job.
 */
 
-/*!
-\fn  virtual void QxtJob::done();
+/*
+\fn  void QxtJob::done()
 This signal is emitted, when the run() function returns.
 */
 

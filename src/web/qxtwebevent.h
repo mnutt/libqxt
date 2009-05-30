@@ -103,11 +103,13 @@ public:
     virtual ~QxtWebPageEvent();
 
     QPointer<QIODevice> dataSource;          // data is read from this device and written to the client
-    bool chunked, streaming;
+    bool chunked;
+    bool streaming;
 
     const int requestID;
     int status;
-    QByteArray statusMessage, contentType;
+    QByteArray statusMessage;
+    QByteArray contentType;
 
 private:
     friend class QxtWebRedirectEvent;
