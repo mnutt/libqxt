@@ -44,24 +44,6 @@ QxtFifo fifo;
 
 */
 
-/*!
-
-\fn  QxtFifo::QxtFifo(QObject * parent=0);
-constructs a new QxtFifo
-
-\fn  virtual bool QxtFifo::isSequential () const;
-\reimp
-
-\fn virtual qint64 QxtFifo::bytesAvailable () const;
-\reimp
-
-\fn     virtual qint64 QxtFifo::readData ( char * data, qint64 maxSize );
-\reimp
-
-\fn     virtual qint64 QxtFifo::writeData ( const char * data, qint64 maxSize );
-\reimp
-
-*/
 
 
 #include "qxtfifo.h"
@@ -103,12 +85,18 @@ public:
     QBasicAtomicInt available;
 };
 
+/*!
+constructs a new QxtFifo
+*/
 QxtFifo::QxtFifo(QObject *parent) : QIODevice(parent)
 {
     QXT_INIT_PRIVATE(QxtFifo);
     setOpenMode(QIODevice::ReadWrite);
 }
 
+/*!
+\reimp
+*/
 qint64 QxtFifo::readData ( char * data, qint64 maxSize )
 {
     int bytes = qxt_d().available, step;
@@ -138,6 +126,9 @@ qint64 QxtFifo::readData ( char * data, qint64 maxSize )
     return written;
 }
 
+/*!
+\reimp
+*/
 qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
 {
     if(maxSize > 0) {
@@ -152,16 +143,24 @@ qint64 QxtFifo::writeData ( const char * data, qint64 maxSize )
     return maxSize;
 }
 
+/*!
+\reimp
+*/
 bool QxtFifo::isSequential () const
 {
     return true;
 }
 
+/*!
+\reimp
+*/
 qint64 QxtFifo::bytesAvailable () const
 {
     return qxt_d().available;
 }
 
+/*!
+*/
 void QxtFifo::clear()
 {
     qxt_d().available.QXT_EXCHANGE(0);
