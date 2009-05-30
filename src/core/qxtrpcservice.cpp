@@ -517,7 +517,7 @@ bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QStr
  *
  * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
  *
- * \Note When acting like a server, the first parameter of the slot must be <b>quint64 id</b>. The parameters of the incoming
+ * \bold {Note:} When acting like a server, the first parameter of the slot must be <b>quint64 id</b>. The parameters of the incoming
  * signal follow. For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(quint64, QString)) on
  * the server.
  */
