@@ -44,7 +44,7 @@
 /*!
  * @class QxtScheduleView QxtScheduleView
  * @inmodule QxtGui
- * @brief The QxtScheduleView provides an iCal like view to plan events
+ * \brief The QxtScheduleView provides an iCal like view to plan events
  *
  * QxtScheduleView is a item based View,inspired by iCal, that makes it possible to visualize event planning.<br/>
    It's  time based and can show the events in different modes:<br/>
@@ -107,7 +107,7 @@ QHeaderView* QxtScheduleView::horizontalHeader ( ) const
 /**
  * @desc sets the model for QxtScheduleView
  *
- * @param model
+ * \a model
  */
 void QxtScheduleView::setModel(QAbstractItemModel *model)
 {
@@ -152,7 +152,7 @@ QAbstractItemModel * QxtScheduleView::model() const
  * It is also possible to define custom viewmodes. To do that you have to set the currentView mode to Custom and
  * reimplement timePerColumn
  *
- * @param  QxtScheduleView::ViewMode mode the new ViewMode
+ * \a  QxtScheduleView::ViewMode mode the new ViewMode
  *
  * @sa timePerColumn()
  * @sa viewMode()
@@ -194,7 +194,7 @@ void QxtScheduleView::setItemDelegate (QxtScheduleItemDelegate * delegate)
 /*!
  * @desc returns the current ViewMode
  *
- * @return QxtScheduleView::ViewMode
+ * Returns QxtScheduleView::ViewMode
  * @sa setViewMode()
  */
 QxtScheduleView::ViewMode QxtScheduleView::viewMode() const
@@ -208,8 +208,8 @@ QxtScheduleView::ViewMode QxtScheduleView::viewMode() const
  * of time one cell holds. For example 5 Minutes. The zoom step width defines how many time
  * is added / removed from the cell when zooming the view.
  *
- * @param int zoomWidth the new zoom step width
- * @param Qxt::Timeunit unit the unit of the new step width (Minutes , Seconds , Hours)
+ * \a int zoomWidth the new zoom step width
+ * \a Qxt::Timeunit unit the unit of the new step width (Minutes , Seconds , Hours)
  *
  * @sa zoomIn() zoomOut() setCurrentZoomDepth()
  */
@@ -246,8 +246,8 @@ void QxtScheduleView::setZoomStepWidth(const int zoomWidth , const Qxt::Timeunit
  * nothing changes.
  * Normally this is used only to initialize the view, later you want to use zoomIn and zoomOut
  *
- * @param int depth
- * @param Qxt::Timeunit unit
+ * \a int depth
+ * \a Qxt::Timeunit unit
  *
  * @sa zoomIn() zoomOut() setCurrentZoomDepth()
  */
@@ -690,7 +690,7 @@ int QxtScheduleView::cols() const
 
 /*!
  *@desc reimplement this to support custom view modes
- *@return the time per column in seconds
+ *Returns the time per column in seconds
  */
 int QxtScheduleView::timePerColumn() const
 {

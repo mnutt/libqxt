@@ -132,12 +132,12 @@ void QxtScheduleItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
 }
 
 /*!
- * @brief paints the items body reimplement this to paint a custom body
- * @param QPainter *painter the initialized painter
- * @param const QRect rect the ItemPart rect
- * @param const QxtStyleOptionScheduleViewItem & option
- * @param const ItemPart part this indicates what part of the item gets painted, remember items can be splitted in parts
- * @param const QModelIndex &index the items model index
+ * \brief paints the items body reimplement this to paint a custom body
+ * \a QPainter *painter the initialized painter
+ * \a const QRect rect the ItemPart rect
+ * \a const QxtStyleOptionScheduleViewItem & option
+ * \a const ItemPart part this indicates what part of the item gets painted, remember items can be splitted in parts
+ * \a const QModelIndex &index the items model index
  */
 void QxtScheduleItemDelegate::paintItemBody(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option , const ItemPart part, const QModelIndex & index) const
 {
@@ -167,11 +167,11 @@ void QxtScheduleItemDelegate::paintItemBody(QPainter *painter, const QRect rect 
 }
 
 /*!
- * @brief paints the items header reimplement this to paint a custom header
- * @param QPainter *painter the initialized painter
- * @param const QRect rect the header rect
- * @param const QxtStyleOptionScheduleViewItem & option
- * @param const QModelIndex &index the items model index
+ * \brief paints the items header reimplement this to paint a custom header
+ * \a QPainter *painter the initialized painter
+ * \a const QRect rect the header rect
+ * \a const QxtStyleOptionScheduleViewItem & option
+ * \a const QModelIndex &index the items model index
  */
 void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rect , const QxtStyleOptionScheduleViewItem & option, const QModelIndex &index) const
 {
@@ -205,11 +205,11 @@ void QxtScheduleItemDelegate::paintItemHeader(QPainter *painter, const QRect rec
 }
 
 /*!
- * @brief paints a subitem, if you want custom subitem painting reimplement this member function
- * @param QPainter *painter the initialized painter
- * @param const QRect rect the subitem rect
- * @param const QxtStyleOptionScheduleViewItem & option
- * @param const QModelIndex &index the items model index
+ * \brief paints a subitem, if you want custom subitem painting reimplement this member function
+ * \a QPainter *painter the initialized painter
+ * \a const QRect rect the subitem rect
+ * \a const QxtStyleOptionScheduleViewItem & option
+ * \a const QModelIndex &index the items model index
  */
 void QxtScheduleItemDelegate::paintSubItem(QPainter * /*painter*/, const QRect /*rect*/, const QxtStyleOptionScheduleViewItem & /*option*/, const QModelIndex & /*index*/) const
 {
@@ -217,7 +217,7 @@ void QxtScheduleItemDelegate::paintSubItem(QPainter * /*painter*/, const QRect /
 }
 
 /*!
- * @brief returns the sizeHint for subitems.
+ * \brief returns the sizeHint for subitems.
  */
 QSize QxtScheduleItemDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
