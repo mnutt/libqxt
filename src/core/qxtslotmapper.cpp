@@ -167,9 +167,6 @@ bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
     return false;
 }
 
-/*!
-    \reimp
-*/
 int QxtSlotMapper::qt_metacall(QMetaObject::Call call, int id, void** arguments)
 {
     id = QObject::qt_metacall(call, id, arguments);
