@@ -42,7 +42,6 @@
     QxtLogger is designed to work "out of the box".  The Logger itself is a singleton object that manages all of the logging
     that is requested.  It provides 8 methods to actually log content; they are listed from the most logically verbose to the
     most logically important:
-        \list
         \o trace()
         \o debug()
         \o info()
@@ -51,7 +50,6 @@
         \o critical()
         \o fatal()
         \o write()
-        \endlist
 
     These named members only have meaning to the person who uses them.  For example, you could call qxtLog->trace() from
     many parts of a complicated, massively recursive function to trace it's output; use qxtLog->info() to log that
@@ -180,7 +178,7 @@ void QxtLoggerPrivate::setQxtLoggerEngineMinimumLevel(QxtLoggerEngine *eng, QxtL
     (QxtLogger::WriteLevel    < level) ? eng->disableLogLevels(QxtLogger::WriteLevel)    : eng->enableLogLevels(QxtLogger::WriteLevel);
 }
 
-/*! \short Returns the named Engine.
+/*! \brief Returns the named Engine.
  */
 QxtLoggerEngine *QxtLogger::engine(const QString &engineName)
 {
@@ -188,7 +186,7 @@ QxtLoggerEngine *QxtLogger::engine(const QString &engineName)
     else return qxt_d().map_logEngineMap.value(engineName);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the InfoLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the InfoLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->info() << "informational message";
@@ -199,7 +197,7 @@ QxtLogStream QxtLogger::info()
     return stream(QxtLogger::InfoLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the TraceLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the TraceLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->trace() << "detailed trace message";
@@ -210,7 +208,7 @@ QxtLogStream QxtLogger::trace()
     return stream(QxtLogger::TraceLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the ErrorLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the ErrorLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->error() << "error message";
@@ -221,7 +219,7 @@ QxtLogStream QxtLogger::error()
     return stream(QxtLogger::ErrorLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the WarningLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the WarningLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->warning() << "warning message";
@@ -232,7 +230,7 @@ QxtLogStream QxtLogger::warning()
     return stream(QxtLogger::WarningLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the DebugLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the DebugLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->debug() << "debugging log message";
@@ -243,7 +241,7 @@ QxtLogStream QxtLogger::debug()
     return stream(QxtLogger::DebugLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the CriticalLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the CriticalLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->critical() << "critical error message";
@@ -254,7 +252,7 @@ QxtLogStream QxtLogger::critical()
     return stream(QxtLogger::CriticalLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the FatalLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the FatalLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->fatal() << "fatal error message";
@@ -265,7 +263,7 @@ QxtLogStream QxtLogger::fatal()
     return stream(QxtLogger::FatalLevel);
 }
 
-/*! \short Opens a stream to write a message to all Engines with the WriteLevel set.
+/*! \brief Opens a stream to write a message to all Engines with the WriteLevel set.
     The parameterless logging functions return a QxtLogStream for use similar to qDebug().
     \code
     qxtLog->write() << "log message";
@@ -277,7 +275,7 @@ QxtLogStream QxtLogger::write()
 }
 
 
-/*! \short Writes a message to all Engines with the InfoLevel set.
+/*! \brief Writes a message to all Engines with the InfoLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -301,7 +299,7 @@ void QxtLogger::info(const QVariant &message, const QVariant &msg1, const QVaria
 }
 
 
-/*! \short Writes a message to all Engines with the TraceLevel set.
+/*! \brief Writes a message to all Engines with the TraceLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -324,7 +322,7 @@ void QxtLogger::trace(const QVariant &message, const QVariant &msg1 , const QVar
     trace(args);
 }
 
-/*! \short Writes a message to all Engines with the WarningLevel set.
+/*! \brief Writes a message to all Engines with the WarningLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -347,7 +345,7 @@ void QxtLogger::warning(const QVariant &message, const QVariant &msg1 , const QV
     warning(args);
 }
 
-/*! \short Writes a message to all Engines with the ErrorLevel set.
+/*! \brief Writes a message to all Engines with the ErrorLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -370,7 +368,7 @@ void QxtLogger::error(const QVariant &message, const QVariant &msg1 , const QVar
     error(args);
 }
 
-/*! \short Writes a message to all Engines with the DebugLevel set.
+/*! \brief Writes a message to all Engines with the DebugLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -393,7 +391,7 @@ void QxtLogger::debug(const QVariant &message, const QVariant &msg1 , const QVar
     debug(args);
 }
 
-/*! \short Writes a message to all Engines with the WriteLevel set.
+/*! \brief Writes a message to all Engines with the WriteLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -416,7 +414,7 @@ void QxtLogger::write(const QVariant &message, const QVariant &msg1 , const QVar
     write(args);
 }
 
-/*! \short Writes a message to all Engines with the CriticalLevel set.
+/*! \brief Writes a message to all Engines with the CriticalLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -439,7 +437,7 @@ void QxtLogger::critical(const QVariant &message, const QVariant &msg1 , const Q
     critical(args);
 }
 
-/*! \short Writes a message to all Engines with the FatalLevel set.
+/*! \brief Writes a message to all Engines with the FatalLevel set.
     The 10-parameter logging functions are designed to be used with Qt's Signals and Slots, since moc
     currently only accepts functions with up to 10 parameters.  They can take any value that
     QVariant can take as an argument.
@@ -462,7 +460,7 @@ void QxtLogger::fatal(const QVariant &message, const QVariant &msg1 , const QVar
     fatal(args);
 }
 
-/*! \short Writes a message to all Engines with the InfoLevel set.
+/*! \brief Writes a message to all Engines with the InfoLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -471,7 +469,7 @@ void QxtLogger::info(const QList<QVariant> &args)
     log(QxtLogger::InfoLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the TraceLevel set.
+/*! \brief Writes a message to all Engines with the TraceLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -480,7 +478,7 @@ void QxtLogger::trace(const QList<QVariant> &args)
     log(QxtLogger::TraceLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the WarningLevel set.
+/*! \brief Writes a message to all Engines with the WarningLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -489,7 +487,7 @@ void QxtLogger::warning(const QList<QVariant> &args)
     log(QxtLogger::WarningLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the ErrorLevel set.
+/*! \brief Writes a message to all Engines with the ErrorLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -498,7 +496,7 @@ void QxtLogger::error(const QList<QVariant> &args)
     log(QxtLogger::ErrorLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the DebugLevel set.
+/*! \brief Writes a message to all Engines with the DebugLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -507,7 +505,7 @@ void QxtLogger::debug(const QList<QVariant> &args)
     log(QxtLogger::DebugLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the CriticalLevel set.
+/*! \brief Writes a message to all Engines with the CriticalLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -516,7 +514,7 @@ void QxtLogger::critical(const QList<QVariant> &args)
     log(QxtLogger::CriticalLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the FatalLevel set.
+/*! \brief Writes a message to all Engines with the FatalLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -525,7 +523,7 @@ void QxtLogger::fatal(const QList<QVariant> &args)
     log(QxtLogger::FatalLevel, args);
 }
 
-/*! \short Writes a message to all Engines with the WriteLevel set.
+/*! \brief Writes a message to all Engines with the WriteLevel set.
     The 1-parameter logging messages can take any number of arguments in the
     form of a QList<QVariant>, or QList<QVariant>.
 */
@@ -573,7 +571,7 @@ void QxtLoggerMessageHandler(QtMsgType type, const char *msg)
     }
 }
 
-/*! \short Installs QxtLogger as Qt's message handler.
+/*! \brief Installs QxtLogger as Qt's message handler.
     This will make Qt macros use QxtLogger instead of the default
     mechanism:
         \o qDebug()
@@ -587,7 +585,7 @@ void QxtLogger::installAsMessageHandler()
     qInstallMsgHandler(QxtLoggerMessageHandler);
 }
 
-/*! \short Tells Qt to use it's own message handling again.
+/*! \brief Tells Qt to use it's own message handling again.
 */
 void QxtLogger::removeAsMessageHandler()
 {
@@ -619,7 +617,7 @@ QxtLogger::~QxtLogger()
     // implicit destruction only
 }
 
-/*! \short Returns a pointer to the instance of the Logger.
+/*! \brief Returns a pointer to the instance of the Logger.
     QxtLogger is implemented as a singleton, a single object, that
     manages all of the logging done in an application.  The easiest way
     to use it is by calling the qxtLog macro:
@@ -645,7 +643,7 @@ QxtLogger *QxtLogger::getInstance()
     return &objectInstance;
 }
 
-/*! \short Returns a QString of the given LogLevel.
+/*! \brief Returns a QString of the given LogLevel.
     This function is provided for convenience.
     */
 QString QxtLogger::logLevelToString(LogLevel level)
@@ -675,7 +673,7 @@ QString QxtLogger::logLevelToString(LogLevel level)
     }
 }
 
-/*! \short Returns a LogLevel for the given string, or QxtLogger::NoLevels if invalid.
+/*! \brief Returns a LogLevel for the given string, or QxtLogger::NoLevels if invalid.
     This function is provided for convenience.
 */
 QxtLogger::LogLevel QxtLogger::stringToLogLevel(const QString& level)
@@ -692,7 +690,7 @@ QxtLogger::LogLevel QxtLogger::stringToLogLevel(const QString& level)
     else return QxtLogger::NoLevels;
 }
 
-/*! \short Enables the given LogLevels across all Engines.
+/*! \brief Enables the given LogLevels across all Engines.
     \code
     qxtLog->enableLogLevels(QxtLogger::NoLevels);
     qxtLog->write("I don't do anything!");
@@ -715,7 +713,7 @@ void QxtLogger::enableLogLevels(LogLevels levels)
     }
 }
 
-/*! \short Returns a reference to a refcounted stream.
+/*! \brief Returns a reference to a refcounted stream.
     This is still in its early phases and is in dire need of testing and debugging.
     \code
     QxtLogger::stream(QxtLogger::WriteLevel) << "This should write stuff" << 1.5 << QString();
@@ -726,7 +724,7 @@ QxtLogStream QxtLogger::stream(LogLevel level)
     return QxtLogStream(this, level, QList<QVariant>());
 }
 
-/*! \short Enables the given LogLevels on a named Engine.
+/*! \brief Enables the given LogLevels on a named Engine.
     This will use the given engine name to tell a loaded QxtLoggerEngine
     what LogLevels it should enable.
     \code
@@ -750,7 +748,7 @@ void QxtLogger::enableLogLevels(const QString &engineName, LogLevels levels)
         }
     }
 }
-/*! \short Turns on all log levels for a named engine.
+/*! \brief Turns on all log levels for a named engine.
     This is a function provided for convenience, and is equivalent to
     calling:
     \code
@@ -762,7 +760,7 @@ void QxtLogger::enableAllLogLevels(const QString &engineName)
     enableLogLevels(engineName, QxtLogger::AllLevels);
 }
 
-/*! \short Turns on all log levels for all engines.
+/*! \brief Turns on all log levels for all engines.
     This is a function provided for convenience, and is equivalent to
     calling:
     \code
@@ -774,7 +772,7 @@ void QxtLogger::enableAllLogLevels()
     enableLogLevels(QxtLogger::AllLevels);
 }
 
-/*! \short Enables a named engine if it is currently disabled.
+/*! \brief Enables a named engine if it is currently disabled.
     \param engineName the name of a QxtLoggerEngine.
     */
 void QxtLogger::enableLoggerEngine(const QString &engineName)
@@ -790,7 +788,7 @@ void QxtLogger::enableLoggerEngine(const QString &engineName)
     }
 }
 
-/*! \short Unflags the given LogLevels across all Engines.
+/*! \brief Unflags the given LogLevels across all Engines.
     Disables the given LogLevel across all QxtLoggersEngines.  Note that some
 
     \param levels A LogLevel or LogLevels to disable.
@@ -808,7 +806,7 @@ void QxtLogger::disableLogLevels(LogLevels levels)
     }
 }
 
-/*! \short Disables the named Engine.
+/*! \brief Disables the named Engine.
     Disables the the named QxtLoggerEngine if it exists.
 
     \param engineName The name of a log Engine to disable.
@@ -826,7 +824,7 @@ void QxtLogger::disableLoggerEngine(const QString &engineName)
     }
 }
 
-/*! \short Sets the minimumlog level for all Engines, as well as the levels above it.
+/*! \brief Sets the minimumlog level for all Engines, as well as the levels above it.
     \param level The single LogLevel to set as minimum.
 */
 void QxtLogger::setMinimumLevel(LogLevel level)
@@ -841,7 +839,7 @@ void QxtLogger::setMinimumLevel(LogLevel level)
     }
 }
 
-/*! \short Sets the minimumlog level for the named Engine, as well as the levels above it.
+/*! \brief Sets the minimumlog level for the named Engine, as well as the levels above it.
     \param engineName The name of a QxtLoggerEngine.
     \param level The single LogLevel to set as minimum.
 */
@@ -857,7 +855,7 @@ void QxtLogger::setMinimumLevel(const QString &engineName, LogLevel level)
     }
 }
 
-/*! \short Calls QxtLoggerEngine::initLoggerEngine() for the named Engine.
+/*! \brief Calls QxtLoggerEngine::initLoggerEngine() for the named Engine.
     Some QxtLoggerEngine plugins might require additional initialization.  Check the documentation
     for your plugin.  Most basic plugins will not require special tasks.
     \param engineName The name of a QxtLoggerEngine.
@@ -874,7 +872,7 @@ void QxtLogger::initLoggerEngine(const QString &engineName)
     }
 }
 
-/*! \short Calls QxtLoggerEngine::killLoggerEngine() for the named Engine.
+/*! \brief Calls QxtLoggerEngine::killLoggerEngine() for the named Engine.
     Some QxtLoggerEngine plugins might require special cleanup before destruction.
     Check the documentation for your plugin.  Most basic plugins will not require this.
     \param engineName The name of a QxtLoggerEngine.
@@ -890,7 +888,7 @@ void QxtLogger::killLoggerEngine(const QString &engineName)
         }
     }
 }
-/*! \short Checks if the named Engine has the given LogLevel enabled.
+/*! \brief Checks if the named Engine has the given LogLevel enabled.
     \param engineName  The name of a QxtLoggerEngine to query
     \param level           A LogLevel or LogLevels to disable.
     \ret                   Returns true or false.
@@ -905,7 +903,7 @@ bool QxtLogger::isLogLevelEnabled(const QString &engineName, LogLevel level) con
     else return false;
 }
 
-/*! \short Disables the given LogLevel across the named QxtLoggersEngines.
+/*! \brief Disables the given LogLevel across the named QxtLoggersEngines.
     \param engineName The name of a QxtLoggerEngine.
     \param level   A LogLevel or LogLevels to disable.
 */
@@ -921,7 +919,7 @@ void QxtLogger::disableLogLevels(const QString &engineName, LogLevels levels)
     }
 }
 
-/*! \short Disables all log levels for the named Engine.
+/*! \brief Disables all log levels for the named Engine.
     \param engineName The name of an Engine.
 */
 void QxtLogger::disableAllLogLevels(const QString &engineName)
@@ -929,14 +927,14 @@ void QxtLogger::disableAllLogLevels(const QString &engineName)
     disableLogLevels(engineName, QxtLogger::AllLevels);
 }
 
-/*! \short Disables all log levels for all named Engines.
+/*! \brief Disables all log levels for all named Engines.
 */
 void QxtLogger::disableAllLogLevels()
 {
     disableLogLevels(QxtLogger::AllLevels);
 }
 
-/*! \short Gives QxtLogger an already-instantiated QxtLoggerEngine to use.
+/*! \brief Gives QxtLogger an already-instantiated QxtLoggerEngine to use.
     addLoggerEngine inserts a subclass of QxtLoggerEngine for QxtLogger
         to manage.  QxtLogger takes ownership of the engine and will
         manage memory on its own.
@@ -960,7 +958,7 @@ void QxtLogger::addLoggerEngine(const QString &engineName, QxtLoggerEngine *engi
 }
 
 /*
-\short Gives QxtLogger an already-instantiated QLibrary.
+\brief Gives QxtLogger an already-instantiated QLibrary.
     This is an overloaded functionand not the preferred method of adding Engines.
     It is useful to load plugins that are not in the applications Path.
     \code
@@ -983,7 +981,7 @@ void QxtLogger::addLoggerEngine(const QString &engineName, QLibrary *engineLib)
     }
 }
 
-\short Loads an Engine from a plugin in the current path.
+\brief Loads an Engine from a plugin in the current path.
     \code
     qxtLog->addLogger("my lib", "libQxtSomeKindOfLoggerEngine");
     \endcode
@@ -997,7 +995,7 @@ void QxtLogger::addLoggerEngine(const QString &engineName, const QString &libNam
         addLoggerEngine(engineName, &engineLib);
 }
 */
-/*! \short Remove the named Engine from use.
+/*! \brief Remove the named Engine from use.
 */
 void QxtLogger::removeLoggerEngine(const QString &engineName)
 {
@@ -1008,7 +1006,7 @@ void QxtLogger::removeLoggerEngine(const QString &engineName)
     delete eng;
 }
 
-/*! \short Remove the Engine from use.
+/*! \brief Remove the Engine from use.
  */
 void QxtLogger::removeLoggerEngine(QxtLoggerEngine *engine)
 {
@@ -1019,7 +1017,7 @@ void QxtLogger::removeLoggerEngine(QxtLoggerEngine *engine)
     }
 }
 
-/*! \short Take the named Engine.
+/*! \brief Take the named Engine.
  */
 QxtLoggerEngine *QxtLogger::takeLoggerEngine(const QString &engineName)
 {
@@ -1030,7 +1028,7 @@ QxtLoggerEngine *QxtLogger::takeLoggerEngine(const QString &engineName)
     return eng;
 }
 
-/*! \short Retuns a QStringList containing the names of all loaded Engines being managed by QxtLogger.
+/*! \brief Retuns a QStringList containing the names of all loaded Engines being managed by QxtLogger.
     \ret QStringList engine names.
 */
 QStringList QxtLogger::allLoggerEngines() const
@@ -1039,7 +1037,7 @@ QStringList QxtLogger::allLoggerEngines() const
     return qxt_d().map_logEngineMap.keys();
 }
 
-/*! \short Retuns a QStringList containing the names of all loaded Engines that are currently enabled.
+/*! \brief Retuns a QStringList containing the names of all loaded Engines that are currently enabled.
     Returns QStringList engine names.
 */
 QStringList QxtLogger::allEnabledLoggerEngines() const
@@ -1054,7 +1052,7 @@ QStringList QxtLogger::allEnabledLoggerEngines() const
     return result;
 }
 
-/*! \short Retuns a QStringList containing the names of all loaded Engines that have currently certain log level enabled.
+/*! \brief Retuns a QStringList containing the names of all loaded Engines that have currently certain log level enabled.
     Returns QStringList engine names.
  */
 QStringList QxtLogger::allEnabledLoggerEngines(LogLevel level) const
@@ -1073,7 +1071,7 @@ QStringList QxtLogger::allEnabledLoggerEngines(LogLevel level) const
     return result;
 }
 
-/*! \short Retuns a QStringList containing the names of all loaded Engines that are currently disabled.
+/*! \brief Retuns a QStringList containing the names of all loaded Engines that are currently disabled.
     Returns QStringList engine names.
 */
 QStringList QxtLogger::allDisabledLoggerEngines() const
@@ -1088,7 +1086,7 @@ QStringList QxtLogger::allDisabledLoggerEngines() const
     return result;
 }
 
-/*! \short Checks if the given string names a currently loaded Engine.
+/*! \brief Checks if the given string names a currently loaded Engine.
     Returns True or false.
 */
 bool QxtLogger::isLoggerEngine(const QString &engineName) const
@@ -1097,7 +1095,7 @@ bool QxtLogger::isLoggerEngine(const QString &engineName) const
     return qxt_d().map_logEngineMap.contains(engineName);
 }
 
-/*! \short Checks if the named engine is currently enabled.
+/*! \brief Checks if the named engine is currently enabled.
     Returns True or false
 */
 bool QxtLogger::isLoggerEngineEnabled(const QString &engineName) const
