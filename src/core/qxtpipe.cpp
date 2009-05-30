@@ -87,7 +87,7 @@ qint64 QxtPipe::bytesAvailable() const
 }
 
 /*!
- * pipes the output of this instance to the \p other  QxtPipe using the given mode and connectiontype
+ * pipes the output of this instance to the \a other  QxtPipe using the given mode and connectiontype
  * connection pipes with this function can be considered thread safe
  *
  * Example usage:
@@ -127,7 +127,7 @@ bool  QxtPipe::connect(QxtPipe * other , QIODevice::OpenMode mode, Qt::Connectio
 }
 
 /*!
- * cuts the connection to the \p other QxtPipe
+ * cuts the connection to the \a other QxtPipe
  */
 bool QxtPipe::disconnect(QxtPipe * other)
 {
@@ -150,7 +150,7 @@ bool QxtPipe::disconnect(QxtPipe * other)
 
 /*!
  * convinence function for QxtPipe::connect.
- * pipes the output of this instance to the \p other  QxtPipe in readwrite mode with autoconnection
+ * pipes the output of this instance to the \a other  QxtPipe in readwrite mode with autoconnection
  */
 QxtPipe & QxtPipe::operator | (QxtPipe & target)
 {

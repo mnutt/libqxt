@@ -204,7 +204,7 @@ namespace QxtMetaObject
 
     \fn bool isSignalOrSlot(const char* method)
 
-    checks if \p method contains parentheses and begins with 1 or 2 */
+    checks if \a method contains parentheses and begins with 1 or 2 */
     bool isSignalOrSlot(const char* method)
     {
         QByteArray m(method);

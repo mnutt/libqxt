@@ -77,7 +77,7 @@ QxtJob::QxtJob()
     connect(&qxt_d(), SIGNAL(done()), this, SIGNAL(done()));
 }
 /*!
-execute the Job on \p onthread
+execute the Job on \a onthread
 */
 void QxtJob::exec(QThread * onthread)
 {
