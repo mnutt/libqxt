@@ -36,7 +36,7 @@
         QxtLogger::getInstance()->debug("Hi!"); // without using the macro
         qxtLog->debug("Hi!"); // using the macro
     \endcode
-    \see getInstance()
+    \sa getInstance()
 
     \section1 Usage
     QxtLogger is designed to work "out of the box".  The Logger itself is a singleton object that manages all of the logging
@@ -549,8 +549,8 @@ void QxtLogger::log(LogLevel level, const QList<QVariant>& args)
     Message Handler for qdebug, qerror, qwarning, etc...
     When QxtLogger is enabled as a message handler for Qt, this function
     redirects message calls like qdebug, qwarning, qfatal.
-    \see QxtLogger::installAsMessageHandler
-    \see QxtLogger::removeAsMessageHandler
+    \sa QxtLogger::installAsMessageHandler
+    \sa QxtLogger::removeAsMessageHandler
 *******************************************************************************/
 void QxtLoggerMessageHandler(QtMsgType type, const char *msg)
 {
@@ -735,7 +735,7 @@ QxtLogStream QxtLogger::stream(LogLevel level)
 
     \param engineName The name of a QxtLoggerEngine.
     \param levels   A LogLevel or LogLevels to enable.
-    \see addLoggerEngine()
+    \sa addLoggerEngine()
 *******************************************************************************/
 void QxtLogger::enableLogLevels(const QString &engineName, LogLevels levels)
 {
@@ -945,7 +945,7 @@ void QxtLogger::disableAllLogLevels()
     ...
     qxtLog->addLoggerEngine("my engine", new MyLoggerEngine);
     \endcode
-    \see QxtLoggerEngine
+    \sa QxtLoggerEngine
 */
 void QxtLogger::addLoggerEngine(const QString &engineName, QxtLoggerEngine *engine)
 {
