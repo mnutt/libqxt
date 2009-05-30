@@ -29,7 +29,7 @@
     \brief The parent class of all extended Engine Plugins.
     \inmodule QxtCore
 
-    \section Overview
+    \section1 Overview
     QxtLoggerEngine is what gives the QxtLogger it's power.  While the Logger itself
     manages memory, logic, and log levels, it is the various Engine Plugins that
     do the actual work of logging the data.
