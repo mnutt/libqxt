@@ -1038,7 +1038,7 @@ QStringList QxtLogger::allLoggerEngines() const
 }
 
 /*! \short Retuns a QStringList containing the names of all loaded Engines that are currently enabled.
-    \return QStringList engine names.
+    Returns QStringList engine names.
 */
 QStringList QxtLogger::allEnabledLoggerEngines() const
 {
@@ -1053,7 +1053,7 @@ QStringList QxtLogger::allEnabledLoggerEngines() const
 }
 
 /*! \short Retuns a QStringList containing the names of all loaded Engines that have currently certain log level enabled.
-    \return QStringList engine names.
+    Returns QStringList engine names.
  */
 QStringList QxtLogger::allEnabledLoggerEngines(LogLevel level) const
 {
@@ -1072,7 +1072,7 @@ QStringList QxtLogger::allEnabledLoggerEngines(LogLevel level) const
 }
 
 /*! \short Retuns a QStringList containing the names of all loaded Engines that are currently disabled.
-    \return QStringList engine names.
+    Returns QStringList engine names.
 */
 QStringList QxtLogger::allDisabledLoggerEngines() const
 {
@@ -1087,7 +1087,7 @@ QStringList QxtLogger::allDisabledLoggerEngines() const
 }
 
 /*! \short Checks if the given string names a currently loaded Engine.
-    \return True or false.
+    Returns True or false.
 */
 bool QxtLogger::isLoggerEngine(const QString &engineName) const
 {
@@ -1096,7 +1096,7 @@ bool QxtLogger::isLoggerEngine(const QString &engineName) const
 }
 
 /*! \short Checks if the named engine is currently enabled.
-    \return True or false
+    Returns True or false
 */
 bool QxtLogger::isLoggerEngineEnabled(const QString &engineName) const
 {
