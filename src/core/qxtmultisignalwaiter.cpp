@@ -54,7 +54,7 @@ QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(par
 }
 
 /*!
- * \reimp
+ * Destructs the multi signal waiter.
  */
 QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
 {
