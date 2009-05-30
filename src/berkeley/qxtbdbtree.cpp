@@ -54,7 +54,7 @@
 
 
 
-    \doqsy {implicitshared}
+    \todo {implicitshared}
     \sa QxtBdbTreeIterator
 */
 /*!
@@ -101,7 +101,7 @@ This function assumes, the class used for Template initialisation implements the
     \brief tree iterator on QxtBdbtree
 
 
-    \doqsy {implicitshared}
+    \todo {implicitshared}
     \sa QxtBdbTree
 
 */
