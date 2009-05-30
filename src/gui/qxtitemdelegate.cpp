@@ -250,20 +250,20 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
  */
 
 /*!
-    \var QxtItemDelegate::Role QxtItemDelegate::ProgressValueRole
+    \value QxtItemDelegate::Role QxtItemDelegate::ProgressValueRole
 
     The progress value.
  */
 
 /*!
-    \var QxtItemDelegate::Role QxtItemDelegate::ProgressMinimumRole
+    \value QxtItemDelegate::Role QxtItemDelegate::ProgressMinimumRole
 
     The minimum progress value. The default value \bold 0 is used
     if no value is provided for ProgressMinimumRole.
  */
 
 /*!
-    \var QxtItemDelegate::Role QxtItemDelegate::ProgressMaximumRole
+    \value QxtItemDelegate::Role QxtItemDelegate::ProgressMaximumRole
 
     The maximum progress value. The default value \bold 100 is used
     if no value is provided for ProgressMaximumRole.

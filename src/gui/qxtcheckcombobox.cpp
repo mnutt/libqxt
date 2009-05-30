@@ -139,13 +139,13 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
  */
 
 /*!
-    \var QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckIndicator
+    \value QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckIndicator
 
     The check state changes only via the check indicator (like in item views).
  */
 
 /*!
-    \var QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckWholeItem
+    \value QxtCheckComboBox::CheckMode QxtCheckComboBox::CheckWholeItem
 
     The check state changes via the whole item (like with a combo box).
  */
