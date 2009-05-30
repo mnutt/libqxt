@@ -171,7 +171,7 @@ void QxtWebServiceDirectory::pageRequestedEvent(QxtWebRequestEvent* event)
     }
 }
 
-/*!
+/*
  * \reimp unimplemented
  */
 /*
