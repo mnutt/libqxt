@@ -36,7 +36,7 @@ upon in a simple AND or OR fashion. More complex Boolean relationships can be wr
 together multiple QxtSignalGroup objects and waiting for all or any of these groups to emit one of
 their signals.
 
-\bug
+\bold {Note:}
 QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWaiter.
 
 \sa QxtSignalWaiter
