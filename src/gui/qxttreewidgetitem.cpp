@@ -77,7 +77,7 @@ QxtTreeWidgetItem::~QxtTreeWidgetItem()
 {}
 
 /*!
-    Returns \b true if the \a flag is set, otherwise \b false.
+    Returns \bold true if the \a flag is set, otherwise \bold false.
 
     \sa setFlag(), QTreeWidgetItem::flags(), Qt::ItemFlag
  */
@@ -87,7 +87,7 @@ bool QxtTreeWidgetItem::testFlag(Qt::ItemFlag flag) const
 }
 
 /*!
-    If \a enabled is \b true, the item \a flag is enabled; otherwise, it is disabled.
+    If \a enabled is \bold true, the item \a flag is enabled; otherwise, it is disabled.
 
     \sa testFlag(), QTreeWidgetItem::setFlags(), Qt::ItemFlag
  */

@@ -314,7 +314,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
     QxtSpanSlider is a slider with two handles. QxtSpanSlider is
     handy for letting user to choose an span between min/max.
 
-    The span color is calculated based on \b QPalette::Highlight.
+    The span color is calculated based on \bold QPalette::Highlight.
 
     The keys are bound according to the following table:
     <table>
@@ -336,23 +336,23 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     \image qxtspanslider.png "QxtSpanSlider in Plastique style."
 
-    \bold {Note:} QxtSpanSlider inherits \b QSlider for implementation specific
+    \bold {Note:} QxtSpanSlider inherits \bold QSlider for implementation specific
     reasons. Adjusting any single handle specific properties like
     <ul>
-    <li>\b QAbstractSlider::sliderPosition</li>
-    <li>\b QAbstractSlider::value</li>
+    <li>\bold QAbstractSlider::sliderPosition</li>
+    <li>\bold QAbstractSlider::value</li>
     </ul>
     has no effect. However, all slider specific properties like
     <ul>
-    <li>\b QAbstractSlider::invertedAppearance</li>
-    <li>\b QAbstractSlider::invertedControls</li>
-    <li>\b QAbstractSlider::minimum</li>
-    <li>\b QAbstractSlider::maximum</li>
-    <li>\b QAbstractSlider::orientation</li>
-    <li>\b QAbstractSlider::pageStep</li>
-    <li>\b QAbstractSlider::singleStep</li>
-    <li>\b QSlider::tickInterval</li>
-    <li>\b QSlider::tickPosition</li>
+    <li>\bold QAbstractSlider::invertedAppearance</li>
+    <li>\bold QAbstractSlider::invertedControls</li>
+    <li>\bold QAbstractSlider::minimum</li>
+    <li>\bold QAbstractSlider::maximum</li>
+    <li>\bold QAbstractSlider::orientation</li>
+    <li>\bold QAbstractSlider::pageStep</li>
+    <li>\bold QAbstractSlider::singleStep</li>
+    <li>\bold QSlider::tickInterval</li>
+    <li>\bold QSlider::tickPosition</li>
     </ul>
     are taken into consideration.
  */

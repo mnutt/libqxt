@@ -59,7 +59,7 @@ QxtTableWidgetItem::~QxtTableWidgetItem()
 {}
 
 /*!
-    Returns \b true if the \a flag is set, otherwise \b false.
+    Returns \bold true if the \a flag is set, otherwise \bold false.
 
     \sa setFlag(), QTableWidgetItem::flags(), Qt::ItemFlag
  */
@@ -69,7 +69,7 @@ bool QxtTableWidgetItem::testFlag(Qt::ItemFlag flag) const
 }
 
 /*!
-    If \a enabled is \b true, the item \a flag is enabled; otherwise, it is disabled.
+    If \a enabled is \bold true, the item \a flag is enabled; otherwise, it is disabled.
 
     \sa testFlag(), QTableWidgetItem::setFlags(), Qt::ItemFlag
  */

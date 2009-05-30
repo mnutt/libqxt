@@ -39,7 +39,7 @@ QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), timer(), mar
 
     QxtLetterBoxWidget preserves the aspect ratio of its content widget.
 
-    Use \b QWidget::sizeIncrement to define the aspect ratio:
+    Use \bold QWidget::sizeIncrement to define the aspect ratio:
     \code
     QxtLetterBoxWidget letterBox;
     widget->setSizeIncrement(16, 9);
@@ -69,10 +69,10 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
     \brief This property holds the background color
 
     This property is provided for convenience.
-    This property corresponds to \b QPalette::Window.
+    This property corresponds to \bold QPalette::Window.
 
     \bold {Note:} Setting or clearing the property also sets the property
-    \b QWidget::autoFillBackground as \b true or \b false, respectively.
+    \bold QWidget::autoFillBackground as \bold true or \bold false, respectively.
  */
 QColor QxtLetterBoxWidget::backgroundColor() const
 {
@@ -97,7 +97,7 @@ void QxtLetterBoxWidget::clearBackgroundColor()
     \property QxtLetterBoxWidget::margin
     \brief This property holds the margin
 
-    The default value is \b 0.
+    The default value is \bold 0.
  */
 int QxtLetterBoxWidget::margin() const
 {
@@ -148,7 +148,7 @@ void QxtLetterBoxWidget::setWidget(QWidget* widget)
     \property QxtLetterBoxWidget::resizeDelay
     \brief This property holds the delay of resize
 
-    The default value is \b 0 which means immediate resize.
+    The default value is \bold 0 which means immediate resize.
 
     Using a short resize delay might be useful if the
     widget is complex and resizing it is expensive.

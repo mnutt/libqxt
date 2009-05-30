@@ -165,7 +165,7 @@ bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 
     A disabled shortcut does not get activated.
 
-    The default value is \b true.
+    The default value is \bold true.
 
     \sa setDisabled()
  */

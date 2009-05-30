@@ -80,7 +80,7 @@ void QxtLabelPrivate::updateLabel()
     This signal is emitted whenever the label has been clicked.
 
     \bold {Note:} A combination of mouse button press and release in shorter
-    time than \b QApplication::doubleClickInterval is considered
+    time than \bold QApplication::doubleClickInterval is considered
     as a click.
 
     \sa QApplication::doubleClickInterval
@@ -134,7 +134,7 @@ void QxtLabel::setText(const QString& text)
     \brief This property holds the alignment of the text
 
     The text is aligned according to this property.
-    The default value is \b Qt::AlignCenter.
+    The default value is \bold Qt::AlignCenter.
 
     \sa text, Qt::Alignment
  */
@@ -157,7 +157,7 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
     \brief This property holds the elide mode of the text
 
     The text is elided according to this property.
-    The default value is \b Qt::ElideMiddle.
+    The default value is \bold Qt::ElideMiddle.
 
     \sa text, Qt::TextElideMode
  */
@@ -180,7 +180,7 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
     \brief This property holds the rotation of the label
 
     The label is rotated according to this property.
-    The default value is \b Qxt::NoRotation.
+    The default value is \bold Qxt::NoRotation.
 
     \sa Qxt::Rotation
  */

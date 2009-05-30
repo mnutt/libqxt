@@ -143,7 +143,7 @@ QxtConfigDialog::~QxtConfigDialog()
 /*!
     Returns the dialog button box.
 
-    The default buttons are \b QDialogButtonBox::Ok and \b QDialogButtonBox::Cancel.
+    The default buttons are \bold QDialogButtonBox::Ok and \bold QDialogButtonBox::Cancel.
 
     \bold {Note:} QDialogButtonBox is available in Qt 4.2 or newer.
 
@@ -181,12 +181,12 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
     \property QxtConfigDialog::hoverEffect
     \brief This property holds whether a hover effect is shown for page icons
 
-    The default value is \b true.
+    The default value is \bold true.
 
-    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \b QPalette::Highlight
-    (whereas selected icons are highlighted with \b QPalette::Highlight). In case lightened
-    \b QPalette::Highlight ends up same as \b QPalette::Base, \b QPalette::AlternateBase is used
-    as a fallback color for the hover effect. This usually happens when \b QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \bold QPalette::Highlight
+    (whereas selected icons are highlighted with \bold QPalette::Highlight). In case lightened
+    \bold QPalette::Highlight ends up same as \bold QPalette::Base, \bold QPalette::AlternateBase is used
+    as a fallback color for the hover effect. This usually happens when \bold QPalette::Highlight
     already is a light color (eg. light gray).
  */
 bool QxtConfigDialog::hasHoverEffect() const
@@ -230,7 +230,7 @@ void QxtConfigDialog::setIconSize(const QSize& size)
 /*!
     Adds a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \b QWidget::windowTitle is used.
+    In case \a title is an empty string, \bold QWidget::windowTitle is used.
 
     Returns the index of added page.
 
@@ -246,7 +246,7 @@ int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& ti
 /*!
     Inserts a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \b QWidget::windowTitle is used.
+    In case \a title is an empty string, \bold QWidget::windowTitle is used.
 
     Returns the index of inserted page.
 
@@ -313,7 +313,7 @@ void QxtConfigDialog::setCurrentPage(QWidget* page)
 }
 
 /*!
-    Returns the index of \a page or \b -1 if the page is unknown.
+    Returns the index of \a page or \bold -1 if the page is unknown.
 */
 int QxtConfigDialog::indexOf(QWidget* page) const
 {
@@ -321,7 +321,7 @@ int QxtConfigDialog::indexOf(QWidget* page) const
 }
 
 /*!
-    Returns the page at \a index or \b 0 if the \a index is out of range.
+    Returns the page at \a index or \bold 0 if the \a index is out of range.
 */
 QWidget* QxtConfigDialog::page(int index) const
 {
@@ -329,7 +329,7 @@ QWidget* QxtConfigDialog::page(int index) const
 }
 
 /*!
-    Returns \b true if the page at \a index is enabled; otherwise \b false.
+    Returns \bold true if the page at \a index is enabled; otherwise \bold false.
 
     \sa setPageEnabled(), QWidget::isEnabled()
 */
@@ -350,7 +350,7 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 }
 
 /*!
-    Returns \b true if the page at \a index is hidden; otherwise \b false.
+    Returns \bold true if the page at \a index is hidden; otherwise \bold false.
 
     \sa setPageHidden(), QWidget::isVisible()
 */

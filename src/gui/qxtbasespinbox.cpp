@@ -63,7 +63,7 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
  */
 
 /*!
-    Constructs a new QxtBaseSpinBox with \a parent. Base defaults to \b 10.
+    Constructs a new QxtBaseSpinBox with \a parent. Base defaults to \bold 10.
  */
 QxtBaseSpinBox::QxtBaseSpinBox(QWidget* parent) : QSpinBox(parent)
 {
@@ -153,7 +153,7 @@ QValidator::State QxtBaseSpinBox::validate(QString& input, int& pos) const
 
     The base must be between 2 and 36.
 
-    The default value is \b 10.
+    The default value is \bold 10.
  */
 int QxtBaseSpinBox::base() const
 {
@@ -180,7 +180,7 @@ void QxtBaseSpinBox::setBase(int base)
 
     Naturally, this applies to only bases which can contain letters.
 
-    The default value is \b false.
+    The default value is \bold false.
  */
 bool QxtBaseSpinBox::isUpperCase() const
 {

@@ -76,7 +76,7 @@
 
     Filters X11 events if this object has been installed as a native event filter.
     In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \b true; otherwise return \b false.
+    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
 
     \sa QxtApplication::installNativeEventFilter()
  */
@@ -86,7 +86,7 @@
 
     Filters Windows events if this object has been installed as a native event filter.
     In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \b true; otherwise return \b false.
+    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
 
     \sa QxtApplication::installNativeEventFilter()
  */
@@ -96,7 +96,7 @@
 
     Filters Mac events if this object has been installed as a native event filter.
     In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \b true; otherwise return \b false.
+    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
 
     \sa QxtApplication::installNativeEventFilter()
  */
