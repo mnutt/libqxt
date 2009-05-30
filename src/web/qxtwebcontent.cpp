@@ -196,7 +196,7 @@ qint64 QxtWebContent::writeData(const char*, qint64)
 }
 
 /*!
- * \reimp
+ * \internal
  */
 void QxtWebContent::errorReceived(QAbstractSocket::SocketError)
 {
