@@ -84,7 +84,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 
     \image qxttabwidget.png "QxtTabWidget in WindowsXP style."
 
-    \note http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891
+    \bold {Note:} http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891
  */
 
 /*!
@@ -214,7 +214,7 @@ QAction* QxtTabWidget::addTabAction(int index, const QIcon& icon, const QString&
     the newly created action to the list of actions of the tab at
     \a index, and returns it.
 
-    \note In order to make it possible for the shortcut to work even
+    \bold {Note:} In order to make it possible for the shortcut to work even
     when the context menu is not open, the action must be added to
     a visible widget. The corresponding tab is a good alternative.
 
@@ -267,7 +267,7 @@ void QxtTabWidget::addTabActions(int index, QList<QAction*> actions)
 /*!
     Clears the list of actions of the tab at \a index.
 
-    \note Only actions owned by the tab widget are deleted.
+    \bold {Note:} Only actions owned by the tab widget are deleted.
 
     \sa removeTabAction(), addTabAction()
  */
@@ -336,7 +336,7 @@ void QxtTabWidget::insertTabActions(int index, QAction* before, QList<QAction*> 
     Removes the action \a action from the list of actions of the
     tab at \a index.
 
-    \note The removed action is not deleted.
+    \bold {Note:} The removed action is not deleted.
 
     \sa insertTabAction(), tabActions(), insertTabAction()
  */

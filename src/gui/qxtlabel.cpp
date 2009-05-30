@@ -79,7 +79,7 @@ void QxtLabelPrivate::updateLabel()
 
     This signal is emitted whenever the label has been clicked.
 
-    \note A combination of mouse button press and release in shorter
+    \bold {Note:} A combination of mouse button press and release in shorter
     time than \b QApplication::doubleClickInterval is considered
     as a click.
 

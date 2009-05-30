@@ -89,7 +89,7 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
 
     This signal is emitted whenever the check state of \a item has changed.
 
-    \note Use QxtTreeWidgetItem in order to enable this feature.
+    \bold {Note:} Use QxtTreeWidgetItem in order to enable this feature.
 
     \sa QxtTreeWidgetItem, QTreeWidgetItem::checkState()
  */
@@ -123,7 +123,7 @@ QxtTreeWidget::~QxtTreeWidget()
     Top level items are decorated according to this property.
     The default value is \b Qxt::NoDecoration.
 
-    \note Setting the property to anything else than \b Qxt::NoDecoration
+    \bold {Note:} Setting the property to anything else than \b Qxt::NoDecoration
     hides the header and sets \b QTreeView::rootIsDecorated to \b false
     (to avoid multiple branch indicators).
 
@@ -156,7 +156,7 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
     The text of a decorated top level item is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
-    \note The property has effect only for decorated top level items.
+    \bold {Note:} The property has effect only for decorated top level items.
 
     \sa decorationStyle, Qt::TextElideMode
  */

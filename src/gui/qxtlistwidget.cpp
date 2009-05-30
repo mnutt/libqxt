@@ -74,7 +74,7 @@ void QxtListWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
     This signal is emitted whenever the check state of \a item has changed.
 
-    \note Use QxtListWidgetItem in order to enable this feature.
+    \bold {Note:} Use QxtListWidgetItem in order to enable this feature.
 
     \sa QxtListWidgetItem, QListWidgetItem::checkState()
  */

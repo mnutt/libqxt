@@ -169,11 +169,11 @@ void QxtConfirmationMessagePrivate::reset()
 
     \image qxtconfirmationmessage.png "QxtConfirmationMessage in action."
 
-    \note \b QCoreApplication::organizationName and \b QCoreApplication::applicationName
+    \bold {Note:} \b QCoreApplication::organizationName and \b QCoreApplication::applicationName
     are used for storing settings. In case these properties are empty, \b "QxtGui" and
     \b "QxtConfirmationMessage" are used, respectively.
 
-    \note Requires Qt 4.2 or newer.
+    \bold {Note:} Requires Qt 4.2 or newer.
  */
 
 /*!

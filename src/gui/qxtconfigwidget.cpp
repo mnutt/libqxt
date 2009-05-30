@@ -326,7 +326,7 @@ QxtConfigWidget::~QxtConfigWidget()
 
     The default value is \b true.
 
-    \note Hovered (but not selected) icons are highlighted with lightened \b QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \b QPalette::Highlight
     (whereas selected icons are highlighted with \b QPalette::Highlight). In case lightened
     \b QPalette::Highlight ends up same as \b QPalette::Base, \b QPalette::AlternateBase is used
     as a fallback color for the hover effect. This usually happens when \b QPalette::Highlight
@@ -434,7 +434,7 @@ int QxtConfigWidget::insertPage(int index, QWidget* page, const QIcon& icon, con
 /*!
    Removes the page at \a index and returns it.
 
-   \note Does not delete the page widget.
+   \bold {Note:} Does not delete the page widget.
 */
 QWidget* QxtConfigWidget::takePage(int index)
 {
@@ -688,7 +688,7 @@ void QxtConfigWidget::setPageWhatsThis(int index, const QString& whatsthis)
 }
 
 /*!
-    \note The default implementation calls SLOT(accept()) of
+    \bold {Note:} The default implementation calls SLOT(accept()) of
     each page page provided that such slot exists.
 
     \sa reject()
@@ -704,7 +704,7 @@ void QxtConfigWidget::accept()
 
 /*!
 
-    \note The default implementation calls SLOT(reject()) of
+    \bold {Note:} The default implementation calls SLOT(reject()) of
     each page provided that such slot exists.
 
     \sa accept()
@@ -742,7 +742,7 @@ QStackedWidget* QxtConfigWidget::stackedWidget() const
     This virtual function is called to clean up previous
     page at \a index before switching to a new page.
 
-    \note The default implementation calls SLOT(cleanup()) of
+    \bold {Note:} The default implementation calls SLOT(cleanup()) of
     the corresponding page provided that such slot exists.
 
     \sa initializePage()
@@ -757,7 +757,7 @@ void QxtConfigWidget::cleanupPage(int index)
     This virtual function is called to initialize page at
     \a index before switching to it.
 
-    \note The default implementation calls SLOT(initialize()) of
+    \bold {Note:} The default implementation calls SLOT(initialize()) of
     the corresponding page provided that such slot exists.
 
     \sa cleanupPage()

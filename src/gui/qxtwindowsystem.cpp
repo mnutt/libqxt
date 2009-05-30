@@ -30,7 +30,7 @@
     \inmodule QxtGui
     \brief QxtWindowSystem provides means for accessing native windows.
 
-    \note The underlying window system might or might not allow one to alter
+    \bold {Note:} The underlying window system might or might not allow one to alter
     states of windows belonging to other processes.
 
     \warning QxtWindowSystem is portable in principle, but be careful while
@@ -65,7 +65,7 @@
     }
     \endcode
 
-    \note Currently supported platforms are \b X11 and \b Windows.
+    \bold {Note:} Currently supported platforms are \b X11 and \b Windows.
  */
 
 /*!

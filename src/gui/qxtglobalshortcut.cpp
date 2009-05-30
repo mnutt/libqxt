@@ -94,7 +94,7 @@ void QxtGlobalShortcutPrivate::activateShortcut(quint32 nativeKey, quint32 nativ
     shortcut->setShortcut(QKeySequence("Ctrl+Shift+F12"));
     \endcode
 
-    \note Since Qxt 0.6 QxtGlobalShortcut no more requires QxtApplication.
+    \bold {Note:} Since Qxt 0.6 QxtGlobalShortcut no more requires QxtApplication.
  */
 
 /*!
@@ -137,7 +137,7 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
     \property QxtGlobalShortcut::shortcut
     \brief This property holds the shortcut key sequence
 
-    \note Notice that corresponding key press and release events are not
+    \bold {Note:} Notice that corresponding key press and release events are not
     delivered for registered global shortcuts even if they are disabled.
     Also, comma separated key sequences are not supported.
     Only the first part is used:

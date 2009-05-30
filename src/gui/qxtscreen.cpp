@@ -34,7 +34,7 @@
 
     QxtScreen provides access to screen settings.
 
-    \note Currently supported platforms are X11 and Windows.
+    \bold {Note:} Currently supported platforms are X11 and Windows.
  */
 
 QxtScreenPrivate::QxtScreenPrivate() :
@@ -79,7 +79,7 @@ void QxtScreenPrivate::init()
 /*!
     Constructs a new QxtScreen for \a screen.
 
-    \note The primary screen is used if \a screen is \c -1.
+    \bold {Note:} The primary screen is used if \a screen is \c -1.
  */
 QxtScreen::QxtScreen(int screen)
 {
@@ -186,7 +186,7 @@ QSize QxtScreen::resolution() const
 /*!
     Sets the \a resolution.
 
-    \note No changes are applied until apply() is called.
+    \bold {Note:} No changes are applied until apply() is called.
 
     \sa apply()
  */
@@ -207,7 +207,7 @@ int QxtScreen::refreshRate() const
 /*!
     Sets the refresh \a rate.
 
-    \note No changes are applied until apply() is called.
+    \bold {Note:} No changes are applied until apply() is called.
 
     \sa apply()
  */
@@ -219,7 +219,7 @@ void QxtScreen::setRefreshRate(int rate)
 /*!
     Returns the current color depth.
 
-    \note This is currently supported only on Windows.
+    \bold {Note:} This is currently supported only on Windows.
  */
 int QxtScreen::colorDepth() const
 {
@@ -230,8 +230,8 @@ int QxtScreen::colorDepth() const
 /*!
     Sets the color \a depth.
 
-    \note No changes are applied until apply() is called.
-    \note This is currently supported only on Windows.
+    \bold {Note:} No changes are applied until apply() is called.
+    \bold {Note:} This is currently supported only on Windows.
 
     \sa apply()
  */

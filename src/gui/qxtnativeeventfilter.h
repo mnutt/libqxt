@@ -35,7 +35,7 @@
     QxtNativeEventFilter provides access to platform specific native events
     without the need of subclassing QApplication.
 
-    \note QxtNativeEventFilter requires QxtApplication.
+    \bold {Note:} QxtNativeEventFilter requires QxtApplication.
 
     Example usage:
     \code
