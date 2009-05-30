@@ -47,7 +47,7 @@ public:
 };
 
 /*!
- * \class QxtRPCPeer QxtRPCPeer
+ * \class QxtRPCPeer
  * \inmodule QxtNetwork
  * \brief Transmits Qt signals over a network connection
  *

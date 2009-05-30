@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtWebServiceDirectory QxtWebServiceDirectory
+\class QxtWebServiceDirectory
 
 \inmodule QxtWeb
 

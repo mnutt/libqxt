@@ -26,7 +26,7 @@
 #include "qxtlistwidget.h"
 
 /*!
-    \class QxtListWidgetItem QxtListWidgetItem
+    \class QxtListWidgetItem
     \inmodule QxtGui
     \brief An extended QListWidgetItem.
 

@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtJob QxtJob
+\class QxtJob
 
 \inmodule QxtCore
 

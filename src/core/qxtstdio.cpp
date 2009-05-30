@@ -26,7 +26,7 @@
 #include <cstdio>
 
 /*!
-\class QxtStdio QxtStdio
+\class QxtStdio
 
 \inmodule QxtCore
 

@@ -274,7 +274,7 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
 }
 
 /*!
-    \class QxtLanguageComboBox QxtLanguageComboBox
+    \class QxtLanguageComboBox
     \inmodule QxtGui
     \brief An extended QComboBox to display langauges.
 

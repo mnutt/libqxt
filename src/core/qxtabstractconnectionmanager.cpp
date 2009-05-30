@@ -28,7 +28,7 @@
 #include <QtDebug>
 
 /*!
- * \class QxtAbstractConnectionManager QxtAbstractConnectionManager
+ * \class QxtAbstractConnectionManager
  * \inmodule QxtCore
  * \brief Interface for classes that maintain connection pools
  *

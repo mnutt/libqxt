@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-    \class QxtLogger QxtLogger
+    \class QxtLogger
     \brief An easy to use, easy to extend logging tool.
     \inmodule QxtCore
 

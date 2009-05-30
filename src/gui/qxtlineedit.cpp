@@ -38,7 +38,7 @@ public:
 };
 
 /*!
-    \class QxtLineEdit QxtLineEdit
+    \class QxtLineEdit
     \inmodule QxtGui
     \brief A line edit that is able to show a sample text.
 

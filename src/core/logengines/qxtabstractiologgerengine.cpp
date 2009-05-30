@@ -26,7 +26,7 @@
 #include "qxtabstractiologgerengine.h"
 
 /*!
-    \class QxtAbstractIOLoggerEngine QxtAbstractIOLoggerEngine
+    \class QxtAbstractIOLoggerEngine
     \brief The base class of IO logger engines.
     \inmodule QxtCore
 

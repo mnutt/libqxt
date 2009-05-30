@@ -125,7 +125,7 @@ QSize QxtStarsPrivate::getStarSize() const
 }
 
 /*!
-    \class QxtStars QxtStars
+    \class QxtStars
     \inmodule QxtGui
     \brief A stars assessment widget.
 

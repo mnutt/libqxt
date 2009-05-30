@@ -30,7 +30,7 @@
 
 
 /*!
-\class QxtHmac QxtHmac
+\class QxtHmac
 
 \inmodule QxtCore
 

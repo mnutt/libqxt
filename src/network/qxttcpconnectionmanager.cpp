@@ -29,7 +29,7 @@
 #include <QtDebug>
 
 /*!
- * \class QxtTcpConnectionManager QxtTcpConnectionManager
+ * \class QxtTcpConnectionManager
  * \inmodule QxtNetwork
  * \brief Accepts TCP connections and maintains a connection pool
  *

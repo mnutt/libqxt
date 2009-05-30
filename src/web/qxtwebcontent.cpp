@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtWebContent QxtWebContent
+\class QxtWebContent
 
 \inmodule QxtWeb
 

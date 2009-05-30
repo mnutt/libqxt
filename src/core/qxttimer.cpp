@@ -28,7 +28,7 @@
 #include <QPointer>
 
 /*!
-    \class QxtTimer QxtTimer
+    \class QxtTimer
     \ingroup QxtCore
     \brief The QxtTimer class extends QTimer.
 

@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-        \class QxtHtmlTemplate QxtHtmlTemplate
+        \class QxtHtmlTemplate
         \inmodule QxtWeb
         \brief Basic Html Template Engine
 

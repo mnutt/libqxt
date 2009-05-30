@@ -32,7 +32,7 @@
 #include <QVariant>
 
 /*!
-\class QxtSqlPackage QxtSqlPackage
+\class QxtSqlPackage
 
 \inmodule QxtSql
 

@@ -28,7 +28,7 @@
 #include <QDebug>
 
 /*!
-    \class QxtLocale QxtLocale
+    \class QxtLocale
     \inmodule QxtCore
     \brief This class has some additional data and functionality, missing in QLocale.
 

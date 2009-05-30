@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtAbstractWebService QxtAbstractWebService
+\class QxtAbstractWebService
 
 \inmodule QxtWeb
 

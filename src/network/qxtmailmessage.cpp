@@ -30,7 +30,7 @@
 #include <QtDebug>
 
 /**
- * \class QxtMailMessage QxtMailMessage
+ * \class QxtMailMessage
  * \ingroup QxtWeb
  * \brief Encapsulates an e-mail according to RFC 2822 and related specifications
  * TODO: {implicitshared}

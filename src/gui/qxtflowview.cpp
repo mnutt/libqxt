@@ -52,7 +52,7 @@
 
 
 /*!
-    \class QxtFlowView QxtFlowView
+    \class QxtFlowView
     \inmodule QxtGui
     \brief An ItemView for Images with impressive Flow effects
 

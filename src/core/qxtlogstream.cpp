@@ -28,7 +28,7 @@
 #include "qxtlogger.h"
 
 /*!
-    \class QxtLogStream QxtLogStream
+    \class QxtLogStream
     \brief A logging stream.
     \inmodule QxtCore
 

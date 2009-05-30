@@ -26,7 +26,7 @@
 #include "qxttablewidget.h"
 
 /*!
-    \class QxtTableWidgetItem QxtTableWidgetItem
+    \class QxtTableWidgetItem
     \inmodule QxtGui
     \brief An extended QTableWidgetItem.
 

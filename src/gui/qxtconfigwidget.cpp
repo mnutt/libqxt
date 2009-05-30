@@ -250,7 +250,7 @@ void QxtConfigWidgetPrivate::setCurrentIndex(int index)
 }
 
 /*!
-    \class QxtConfigWidget QxtConfigWidget
+    \class QxtConfigWidget
     \ingroup QxtGui
     \brief A configuration widget.
 

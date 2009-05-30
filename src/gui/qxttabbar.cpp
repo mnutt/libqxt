@@ -216,7 +216,7 @@ void QxtTabBarPrivate::restoreTab(int index, const Tab& tab)
 }
 
 /*!
-    \class QxtTabBar QxtTabBar
+    \class QxtTabBar
     \inmodule QxtGui
     \brief An extended QTabBar.
 

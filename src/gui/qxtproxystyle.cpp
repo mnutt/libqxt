@@ -26,7 +26,7 @@
 #include <QStyleFactory>
 
 /*!
-    \class QxtProxyStyle QxtProxyStyle
+    \class QxtProxyStyle
     \inmodule QxtGui
     \brief A proxy style.
 

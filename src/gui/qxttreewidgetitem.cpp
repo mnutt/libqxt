@@ -26,7 +26,7 @@
 #include "qxttreewidget.h"
 
 /*!
-    \class QxtTreeWidgetItem QxtTreeWidgetItem
+    \class QxtTreeWidgetItem
     \inmodule QxtGui
     \brief An extended QTreeWidgetItem.
 

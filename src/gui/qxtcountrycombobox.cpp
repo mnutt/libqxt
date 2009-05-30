@@ -60,7 +60,7 @@ void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
 }
 
 /*!
-    \class QxtCountryComboBox QxtCountryComboBox
+    \class QxtCountryComboBox
     \inmodule QxtGui
     \brief An extended QComboBox to display countries.
 

@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtMultiSignalWaiter QxtMultiSignalWaiter
+\class QxtMultiSignalWaiter
 
 \inmodule QxtCore
 

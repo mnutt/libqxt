@@ -59,7 +59,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 }
 
 /*!
-    \class QxtTabWidget QxtTabWidget
+    \class QxtTabWidget
     \inmodule QxtGui
     \brief An extended QTabWidget.
 

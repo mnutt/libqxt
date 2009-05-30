@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtFifo QxtFifo
+\class QxtFifo
 
 \inmodule QxtCore
 

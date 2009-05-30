@@ -26,7 +26,7 @@
 #include "qxtpointerlist.h"
 
 /*!
-\class QxtPointerList QxtPointerList
+\class QxtPointerList
 
 \inmodule QxtCore
 

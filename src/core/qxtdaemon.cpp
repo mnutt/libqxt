@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtDaemon QxtDaemon
+\class QxtDaemon
 \inmodule QxtCore
 \brief Qt Implementation of a Unix daemon
 

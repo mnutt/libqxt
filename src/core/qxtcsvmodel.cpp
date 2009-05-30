@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtCsvModel QxtCsvModel
+\class QxtCsvModel
 \inmodule QxtCore
 \brief Provides a QAbstractTableModel for CSV Files
  */

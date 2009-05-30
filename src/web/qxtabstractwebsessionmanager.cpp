@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 /*!
-\class QxtAbstractWebSessionManager QxtAbstractWebSessionManager
+\class QxtAbstractWebSessionManager
 
 \inmodule QxtWeb
 

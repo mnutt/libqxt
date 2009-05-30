@@ -25,7 +25,7 @@
 #include "qxtstdstreambufdevice.h"
 
 /*!
-\class QxtStdStreambufDevice QxtStdStreambufDevice
+\class QxtStdStreambufDevice
 
 \inmodule QxtCore
 

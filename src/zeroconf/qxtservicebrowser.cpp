@@ -4,7 +4,7 @@
 #include <QSocketNotifier>
 
 /**
-\class QxtServiceBrowser QxtServiceBrowser
+\class QxtServiceBrowser
 
 \ingroup QxtZeroconf
 
