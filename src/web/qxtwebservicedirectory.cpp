@@ -131,7 +131,7 @@ QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) cons
 }
 
 /*!
- * \priv
+ * \internal
  * Returns the first path segment from the URL in the event object.
  * (i.e. "a" from "/a/b/c") This also removes the path segment from the
  * event object. (in the previous example, the event's URL is now "/b/c")

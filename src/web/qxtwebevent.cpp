@@ -208,7 +208,7 @@ QxtWebPageEvent::QxtWebPageEvent(int sessionID, int requestID, QByteArray source
 }
 
 /*!
- * \priv
+ * \internal
  */
 QxtWebPageEvent::QxtWebPageEvent(QxtWebEvent::EventType typeOverride, int sessionID, int requestID, QByteArray source)
         : QxtWebEvent(typeOverride, sessionID), chunked(false), streaming(false), requestID(requestID),

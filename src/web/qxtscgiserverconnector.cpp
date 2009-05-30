@@ -71,7 +71,7 @@ bool QxtScgiServerConnector::listen(const QHostAddress& iface, quint16 port)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtScgiServerConnector::acceptConnection()
 {

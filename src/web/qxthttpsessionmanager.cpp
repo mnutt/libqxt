@@ -397,7 +397,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::disconnected(QIODevice* device)
 {
@@ -546,7 +546,7 @@ void QxtHttpSessionManager::processEvents()
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::chunkReadyRead(int requestID, QObject* dataSourceObject)
 {
@@ -561,7 +561,7 @@ void QxtHttpSessionManager::chunkReadyRead(int requestID, QObject* dataSourceObj
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::sendNextChunk(int requestID, QObject* dataSourceObject)
 {
@@ -590,7 +590,7 @@ void QxtHttpSessionManager::sendNextChunk(int requestID, QObject* dataSourceObje
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::sendEmptyChunk(int requestID, QObject* dataSource)
 {
@@ -614,7 +614,7 @@ void QxtHttpSessionManager::sendEmptyChunk(int requestID, QObject* dataSource)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::closeConnection(int requestID)
 {
@@ -629,7 +629,7 @@ void QxtHttpSessionManager::closeConnection(int requestID)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::blockReadyRead(int requestID, QObject* dataSourceObject)
 {
@@ -645,7 +645,7 @@ void QxtHttpSessionManager::blockReadyRead(int requestID, QObject* dataSourceObj
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtHttpSessionManager::sendNextBlock(int requestID, QObject* dataSourceObject)
 {

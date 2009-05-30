@@ -275,7 +275,7 @@ void QxtWebCgiService::pageRequestedEvent(QxtWebRequestEvent* event)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtWebCgiServicePrivate::browserReadyRead(QObject* o_content)
 {
@@ -296,7 +296,7 @@ void QxtWebCgiServicePrivate::browserReadyRead(QObject* o_content)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtWebCgiServicePrivate::processReadyRead()
 {
@@ -389,7 +389,7 @@ void QxtWebCgiServicePrivate::processReadyRead()
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtWebCgiServicePrivate::processFinished()
 {
@@ -411,7 +411,7 @@ void QxtWebCgiServicePrivate::processFinished()
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtWebCgiServicePrivate::terminateProcess(QObject* o_process)
 {

@@ -100,7 +100,7 @@ QxtAbstractHttpConnector::QxtAbstractHttpConnector(QObject* parent) : QObject(pa
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtAbstractHttpConnector::setSessionManager(QxtHttpSessionManager* manager)
 {
@@ -118,7 +118,7 @@ QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const
 }
 
 /*!
- * \priv
+ * \internal
  * Returns the QIODevice associated with a request ID.
  *
  * The request ID is generated internally and used by the session manager.
@@ -145,7 +145,7 @@ void QxtAbstractHttpConnector::addConnection(QIODevice* device)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtAbstractHttpConnector::incomingData(QIODevice* device)
 {
@@ -178,7 +178,7 @@ void QxtAbstractHttpConnector::incomingData(QIODevice* device)
 }
 
 /*!
- * \priv
+ * \internal
  */
 void QxtAbstractHttpConnector::disconnected()
 {
