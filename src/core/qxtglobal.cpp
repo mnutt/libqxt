@@ -84,7 +84,7 @@ means moving implementation details into a private class. The PIMPL, or
 d-pointer, idiom is a common method of implementing this separation. QxtPimpl
 offers a convenient way to connect the public and private sides of your class.
 
-\section start Getting Started
+\section1 start Getting Started
 Before you declare the public class, you need to make a forward declaration
 of the private class. The private class must have the same name as the public
 class, followed by the word Private. For example, a class named MyTest would
@@ -134,7 +134,7 @@ public:
 };
 \endcode
 
-\section cross Accessing Private Members
+\section1 cross Accessing Private Members
 Use the qxt_d() function (actually a function-like object) from functions in
 the public class to access the private class. Similarly, functions in the
 private class can invoke functions in the public class by using the qxt_p()

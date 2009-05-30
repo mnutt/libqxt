@@ -46,7 +46,7 @@
     concept and only a portion of features are supported yet. Both -
     style sheets and proxy styles - have their pros and cons.
 
-    \section usage Usage
+    \section1 usage Usage
 
     Implement the custom behaviour in a subclass of QxtProxyStyle:
     \code

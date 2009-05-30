@@ -28,7 +28,7 @@
     \brief An easy to use, easy to extend logging tool.
     \inmodule QxtCore
 
-    \section Overview
+    \section1 Overview
     QxtLogger is an easy to use, easy to extend, thread-safe  logging tool.  It was designed to be used "out of the box".
     \code
         #include <QxtLogger>
@@ -38,7 +38,7 @@
     \endcode
     \see getInstance()
 
-    \section Usage
+    \section1 Usage
     QxtLogger is designed to work "out of the box".  The Logger itself is a singleton object that manages all of the logging
     that is requested.  It provides 8 methods to actually log content; they are listed from the most logically verbose to the
     most logically important:
@@ -73,7 +73,7 @@
     can give you a lot of data if you need it.  But if you only want to see warnings and errors, qxtLog->setMinimumLogLevel(WarningLevel) might
     be more useful.
 
-    \section Extending
+    \section1 Extending
     The functionality of QxtLogger can be extended by creating plugins derived from QxtLoggerEngine.  Logger Engines
     are the little workers that actually take the raw data, format it, and spit it out into meaningful forms.
 */
