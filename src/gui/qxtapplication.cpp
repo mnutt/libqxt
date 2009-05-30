@@ -43,7 +43,7 @@
  */
 
 /*!
-    \def qxtApp
+    \macro qxtApp
     \relates QxtApplication
     \inmodule QxtGui
 
