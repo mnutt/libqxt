@@ -127,7 +127,7 @@ QxtTreeWidget::~QxtTreeWidget()
     hides the header and sets \bold QTreeView::rootIsDecorated to \bold false
     (to avoid multiple branch indicators).
 
-    \sa Qxt::DecorationStyle QTreeView::rootIsDecorated
+    \sa Qxt::DecorationStyle, QTreeView::rootIsDecorated
  */
 Qxt::DecorationStyle QxtTreeWidget::decorationStyle() const
 {

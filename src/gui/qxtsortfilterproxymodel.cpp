@@ -132,7 +132,7 @@ void QxtSortFilterProxyModel::beginDeclareFilter ( )
 
 /*!
  *@desc stops the filter declaration and invalidates the filter 
- *\sa beginDeclareFilter ( )
+ *\sa beginDeclareFilter()
  */
 void QxtSortFilterProxyModel::endDeclareFilter ( )
 {
