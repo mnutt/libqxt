@@ -42,6 +42,7 @@
     QxtLogger is designed to work "out of the box".  The Logger itself is a singleton object that manages all of the logging
     that is requested.  It provides 8 methods to actually log content; they are listed from the most logically verbose to the
     most logically important:
+        \list
         \o trace()
         \o debug()
         \o info()
@@ -50,6 +51,7 @@
         \o critical()
         \o fatal()
         \o write()
+        \endlist
 
     These named members only have meaning to the person who uses them.  For example, you could call qxtLog->trace() from
     many parts of a complicated, massively recursive function to trace it's output; use qxtLog->info() to log that
