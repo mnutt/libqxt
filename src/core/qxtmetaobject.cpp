@@ -353,7 +353,10 @@ namespace QxtMetaObject
     }
 
     /*!
+        \relates QxtMetaObject
         This overload always invokes the member using the connection type Qt::AutoConnection.
+
+        \sa QMetaObject::invokeMethod()
      */
     bool invokeMethod(QObject* object, const char* member, const QVariant& arg0,
                       const QVariant& arg1, const QVariant& arg2, const QVariant& arg3,
@@ -365,6 +368,8 @@ namespace QxtMetaObject
     }
 
     /*!
+        \relates QxtMetaObject
+
         Invokes the \a member (a signal or a slot name) on the \a object.
         Returns \c true if the member could be invoked. Returns \c false
         if there is no such member or the parameters did not match.
