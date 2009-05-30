@@ -268,19 +268,19 @@ void QxtConfigWidgetPrivate::setCurrentIndex(int index)
  */
 
 /*!
-    \var QxtConfigWidget::IconPosition QxtConfigWidget::North
+    \value QxtConfigWidget::IconPosition QxtConfigWidget::North
 
     The icons are located above the pages.
  */
 
 /*!
-    \var QxtConfigWidget::IconPosition QxtConfigWidget::West
+    \value QxtConfigWidget::IconPosition QxtConfigWidget::West
 
     The icons are located to the left of the pages.
  */
 
 /*!
-    \var QxtConfigWidget::IconPosition QxtConfigWidget::East
+    \value QxtConfigWidget::IconPosition QxtConfigWidget::East
 
     The icons are located to the right of the pages.
  */

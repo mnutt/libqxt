@@ -89,19 +89,19 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
  */
 
 /*!
-    \var QxtConfigDialog::IconPosition QxtConfigDialog::North
+    \value QxtConfigDialog::IconPosition QxtConfigDialog::North
 
     The icons are located above the pages.
  */
 
 /*!
-    \var QxtConfigDialog::IconPosition QxtConfigDialog::West
+    \value QxtConfigDialog::IconPosition QxtConfigDialog::West
 
     The icons are located to the left of the pages.
  */
 
 /*!
-    \var QxtConfigDialog::IconPosition QxtConfigDialog::East
+    \value QxtConfigDialog::IconPosition QxtConfigDialog::East
 
     The icons are located to the right of the pages.
  */

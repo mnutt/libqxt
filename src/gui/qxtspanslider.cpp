@@ -364,20 +364,20 @@ void QxtSpanSliderPrivate::movePressedHandle()
  */
 
 /*!
-    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::FreeMovement
+    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::FreeMovement
 
     The handles can be moved freely.
  */
 
 /*!
-    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoCrossing
+    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoCrossing
 
     The handles cannot cross, but they can still overlap each other.
     The lower and upper values can be the same.
  */
 
 /*!
-    \var QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoOverlapping
+    \value QxtSpanSlider::HandleMovementMode QxtSpanSlider::NoOverlapping
 
     The handles cannot overlap each other. The lower and upper values
     cannot be the same.
