@@ -291,10 +291,10 @@ QxtItemDelegate::~QxtItemDelegate()
     Top level indices are decorated according to this property.
     The default value is \b Qxt::NoDecoration.
 
-    \note The property has effect only in case the delegate is installed
+    \bold {Note:} The property has effect only in case the delegate is installed
     on a QTreeView. The view must be the parent of the delegate.
 
-    \note Set \b QTreeView::rootIsDecorated to \b false to avoid
+    \bold {Note:} Set \b QTreeView::rootIsDecorated to \b false to avoid
     multiple branch indicators.
 
     \sa Qxt::DecorationStyle, QTreeView::rootIsDecorated
@@ -316,7 +316,7 @@ void QxtItemDelegate::setDecorationStyle(Qxt::DecorationStyle style)
     The text of a decorated top level index is elided according to this property.
     The default value is \b Qt::ElideMiddle.
 
-    \note The property has effect only for decorated top level indices.
+    \bold {Note:} The property has effect only for decorated top level indices.
 
     \sa decorationStyle, Qt::TextElideMode
  */
@@ -337,10 +337,10 @@ void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
     The progress text is formatted according to this property.
     The default value is \b "%1%".
 
-    \note Progress bar is rendered for indices providing valid
+    \bold {Note:} Progress bar is rendered for indices providing valid
     numerical data for \b ProgressValueRole.
 
- \note \b \%1 is replaced by the progress percent.
+ \bold {Note:} \b \%1 is replaced by the progress percent.
 
     \sa progressTextVisible, Role
  */
@@ -360,7 +360,7 @@ void QxtItemDelegate::setProgressTextFormat(const QString& format)
 
     The default value is \b true.
 
-    \note Progress bar is rendered for indices providing valid
+    \bold {Note:} Progress bar is rendered for indices providing valid
     numerical data for \b ProgressValueRole.
 
     \sa progressTextFormat, QxtItemDelegate::Role

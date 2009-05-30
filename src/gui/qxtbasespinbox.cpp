@@ -53,7 +53,7 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
 
     \image qxtbasespinbox.png "QxtBaseSpinBox in action."
 
-    \note Notice that QxtBaseSpinBox is not locale-aware.
+    \bold {Note:} Notice that QxtBaseSpinBox is not locale-aware.
  */
 
 /*!

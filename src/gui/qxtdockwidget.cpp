@@ -54,7 +54,7 @@ QSize QxtDockWidgetPrivate::contentsSize() const
     QxtDockWidget fills in the gap in QDockWidget and makes the dock
     widget to remember its size while toggling visibility off and on.
 
-    \note 146752 - QDockWidget should remember its size when hidden/shown.<br>
+    \bold {Note:} 146752 - QDockWidget should remember its size when hidden/shown.<br>
     http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=146752
  */
 

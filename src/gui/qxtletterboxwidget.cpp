@@ -71,7 +71,7 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
     This property is provided for convenience.
     This property corresponds to \b QPalette::Window.
 
-    \note Setting or clearing the property also sets the property
+    \bold {Note:} Setting or clearing the property also sets the property
     \b QWidget::autoFillBackground as \b true or \b false, respectively.
  */
 QColor QxtLetterBoxWidget::backgroundColor() const
@@ -127,7 +127,7 @@ QWidget* QxtLetterBoxWidget::widget() const
 /*!
     Sets the given widget to be the letter box's widget.
 
-    \note QxtLetterBox takes ownership of the widget pointer
+    \bold {Note:} QxtLetterBox takes ownership of the widget pointer
     and deletes it at the appropriate time.
 
     \sa widget()

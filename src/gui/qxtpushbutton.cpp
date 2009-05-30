@@ -130,7 +130,7 @@ QxtPushButton::QxtPushButton(const QString& text, QWidget* parent) : QPushButton
 /*!
     Constructs a new QxtPushButton with \a icon, \a text and \a parent.
 
-    \note An icon is not rendered when using rich text.
+    \bold {Note:} An icon is not rendered when using rich text.
  */
 QxtPushButton::QxtPushButton(const QIcon& icon, const QString& text, QWidget* parent) : QPushButton(icon, text, parent)
 {
@@ -200,7 +200,7 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
 
     The default format is \b Qt::PlainText.
 
-    \note Rich text requires Qt 4.2 or newer.
+    \bold {Note:} Rich text requires Qt 4.2 or newer.
 
     \sa Qt::TextFormat
  */

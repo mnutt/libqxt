@@ -336,7 +336,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     \image qxtspanslider.png "QxtSpanSlider in Plastique style."
 
-    \note QxtSpanSlider inherits \b QSlider for implementation specific
+    \bold {Note:} QxtSpanSlider inherits \b QSlider for implementation specific
     reasons. Adjusting any single handle specific properties like
     <ul>
     <li>\b QAbstractSlider::sliderPosition</li>

@@ -145,7 +145,7 @@ QxtConfigDialog::~QxtConfigDialog()
 
     The default buttons are \b QDialogButtonBox::Ok and \b QDialogButtonBox::Cancel.
 
-    \note QDialogButtonBox is available in Qt 4.2 or newer.
+    \bold {Note:} QDialogButtonBox is available in Qt 4.2 or newer.
 
     \sa setDialogButtonBox()
 */
@@ -183,7 +183,7 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
 
     The default value is \b true.
 
-    \note Hovered (but not selected) icons are highlighted with lightened \b QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \b QPalette::Highlight
     (whereas selected icons are highlighted with \b QPalette::Highlight). In case lightened
     \b QPalette::Highlight ends up same as \b QPalette::Base, \b QPalette::AlternateBase is used
     as a fallback color for the hover effect. This usually happens when \b QPalette::Highlight
@@ -262,7 +262,7 @@ int QxtConfigDialog::insertPage(int index, QWidget* page, const QIcon& icon, con
 /*!
    Removes the page at \a index and returns it.
 
-   \note Does not delete the page widget.
+   \bold {Note:} Does not delete the page widget.
 */
 QWidget* QxtConfigDialog::takePage(int index)
 {
@@ -453,7 +453,7 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 /*!
     Reimplemented from QDialog.
 
-    \note The default implementation calls SLOT(accept()) of
+    \bold {Note:} The default implementation calls SLOT(accept()) of
     each page page provided that such slot exists.
 
     \sa reject()
@@ -467,7 +467,7 @@ void QxtConfigDialog::accept()
 /*!
     Reimplemented from QDialog.
 
-    \note The default implementation calls SLOT(reject()) of
+    \bold {Note:} The default implementation calls SLOT(reject()) of
     each page provided that such slot exists.
 
     \sa accept()

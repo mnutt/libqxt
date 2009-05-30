@@ -40,7 +40,7 @@ perfect as a counter part for QProcess or debug output into a QxtPipe chain
 \sa QxtPipe
 
 
-\note when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
+\bold {Note:} when using this class, the buffers for stdin/stdout will be disabled, and NOT reenabled on destruction
 
 */
 

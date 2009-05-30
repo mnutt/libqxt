@@ -176,7 +176,7 @@ void QxtProgressLabel::setUpdateInterval(int msecs)
 /*!
     Sets the current value to \a value.
 
-    \note Calling this slot by hand has no effect.
+    \bold {Note:} Calling this slot by hand has no effect.
     Connect this slot to \b QProgressBar::valueChange().
  */
 void QxtProgressLabel::setValue(int value)

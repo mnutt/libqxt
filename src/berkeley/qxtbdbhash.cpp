@@ -118,7 +118,7 @@
     \fn     bool QxtBdbHash::insert(KEY k, VAL v);
 
     inserts a record with the specified key/value combination. replaces any record with the same key.
-    \note when working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
+    \bold {Note:} when working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
 */
 
 /*!

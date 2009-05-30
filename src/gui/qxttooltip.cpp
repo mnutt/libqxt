@@ -218,7 +218,7 @@ QPoint QxtToolTipPrivate::calculatePos(int scr, const QPoint& eventPos) const
 
     QxtToolTip provides means for showing any arbitrary widget as a tooltip.
 
-    \note The rich text support of QToolTip already makes it possible to
+    \bold {Note:} The rich text support of QToolTip already makes it possible to
     show heavily customized tooltips with lists, tables, embedded images
     and such. However, for example dynamically created images like
     thumbnails cause problems. Basically the only way is to dump the
