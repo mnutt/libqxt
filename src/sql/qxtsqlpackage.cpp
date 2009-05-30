@@ -39,8 +39,8 @@
 \brief full serialiseable QSqlQuery storage
 
 
-Sometimes you want to send sql results over network or store them into files. \n
-QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed. \n
+Sometimes you want to send sql results over network or store them into files.
+QxtSqlPackage can provide you a storage that is still valid after the actual QSqlQuery has been destroyed.
 for confidence the interface is similar to QSqlQuery.
 */
 
@@ -57,7 +57,7 @@ for confidence the interface is similar to QSqlQuery.
 \fn bool QxtSqlPackage::next();
 \brief point to next entry
 
-returns false if there is no next entry.\n
+returns false if there is no next entry.
 provided for easy porting from QSqlQuery.
 
 \code

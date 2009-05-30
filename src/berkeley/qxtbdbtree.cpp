@@ -33,7 +33,7 @@
     \inmodule QxtBerkeley
     \brief template berkeley container for tree structured data
 
-    the template argument must be registered with the qt meta system.\n
+    the template argument must be registered with the qt meta system.
     You may not touch the file while a QxtBdbTree instance is running on it.
 
     examples usage:
@@ -71,7 +71,8 @@ Constructs a QxtBdbTree, and opens the file specified as its database.
 \fn bool QxtBdbTree<T>::open  (QString file)
 opens the specified file.
 
-returns true on success and false on failure. \n Note that a sanity check is performed before opening the file.
+returns true on success and false on failure.
+\bold {Note:} a sanity check is performed before opening the file.
 
 \fn void QxtBdbTree<T>::clear()
 Erase all records. This does not delete the unerlieing file.
