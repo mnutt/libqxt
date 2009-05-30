@@ -81,18 +81,6 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
  */
 
 /*!
-    \enum IconPosition::IconPosition
-
-    This enum describes the page icon position.
-
-    \sa QxtCheckComboBox::iconPosition
-
-    \value North The icons are located above the pages.
-    \value West The icons are located to the left of the pages.
-    \value East The icons are located to the right of the pages.
- */
-
-/*!
     \fn QxtConfigDialog::currentIndexChanged(int index)
 
     This signal is emitted whenever the current page \a index changes.
