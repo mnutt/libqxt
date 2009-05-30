@@ -29,7 +29,7 @@
 #if QT_VERSION >= 0x040300
 
 
-/*!
+/*
 \class QxtHmac
 
 \inmodule QxtCore
