@@ -57,7 +57,7 @@ public:
 };
 
 /*!
- * Constructs a QxtAbstractConnection object with the specified parent.
+ * Constructs a QxtAbstractConnectionManager object with the specified parent.
  */
 QxtAbstractConnectionManager::QxtAbstractConnectionManager(QObject* parent) : QObject(parent)
 {
@@ -65,7 +65,7 @@ QxtAbstractConnectionManager::QxtAbstractConnectionManager(QObject* parent) : QO
 }
 
 /*!
- * \reimp
+ * Destructs the connection manager.
  */
 QxtAbstractConnectionManager::~QxtAbstractConnectionManager()
 {
