@@ -47,7 +47,7 @@ void MyObject::myFunction() {
 }
 \endcode
 
-\bug
+\bold {Note:}
 QxtSignalWaiter is not reentrant. In particular, only one QxtSignalWaiter object per thread can be safely waiting at a
 time. If a second QxtSignalWaiter is used while the first is waiting, the first will not return until the second has
 timed out or successfully caught its signal.
