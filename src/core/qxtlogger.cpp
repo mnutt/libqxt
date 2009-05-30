@@ -891,7 +891,7 @@ void QxtLogger::killLoggerEngine(const QString &engineName)
 /*! \brief Checks if the named Engine has the given LogLevel enabled.
     \a engineName  The name of a QxtLoggerEngine to query
     \a level           A LogLevel or LogLevels to disable.
-    \ret                   Returns true or false.
+    Returns true or false.
 */
 bool QxtLogger::isLogLevelEnabled(const QString &engineName, LogLevel level) const
 {
@@ -1029,7 +1029,7 @@ QxtLoggerEngine *QxtLogger::takeLoggerEngine(const QString &engineName)
 }
 
 /*! \brief Retuns a QStringList containing the names of all loaded Engines being managed by QxtLogger.
-    \ret QStringList engine names.
+    Returns QStringList engine names.
 */
 QStringList QxtLogger::allLoggerEngines() const
 {
