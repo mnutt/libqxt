@@ -103,7 +103,7 @@ QStyleOptionButton QxtPushButtonPrivate::getStyleOption() const
 /*!
     \class QxtPushButton
     \inmodule QxtGui
-    \brief An extended QPushButton with rotation and rich text support.
+    \brief The QxtPushButton widget is an extended QPushButton with rotation and rich text support.
 
     QxtPushButton is a QPushButton which can be rotated. In addition, QxtPushButton
     provides rich text support.

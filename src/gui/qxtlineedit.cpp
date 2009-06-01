@@ -40,7 +40,7 @@ public:
 /*!
     \class QxtLineEdit
     \inmodule QxtGui
-    \brief A line edit that is able to show a sample text.
+    \brief The QxtLineEdit widget is a line edit that is able to show a sample text.
 
     QxtLineEdit is a line edit that is able to show a sample text.
     The sample text is shown when the line edit is empty and has

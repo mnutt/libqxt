@@ -28,7 +28,7 @@
 /*!
     \class QxtTableWidgetItem
     \inmodule QxtGui
-    \brief An extended QTableWidgetItem.
+    \brief The QxtTableWidgetItem class is an extended QTableWidgetItem.
 
     QxtTableWidgetItem provides means for offering check state change signals and
     convenience methods for testing and setting flags.

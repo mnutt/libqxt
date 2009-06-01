@@ -44,7 +44,7 @@ void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
 /*!
     \class QxtTableWidget
     \inmodule QxtGui
-    \brief An extended QTableWidget with additional signals.
+    \brief The QxtTableWidget class is an extended QTableWidget with additional signals.
 
     QxtTableWidget offers a few most commonly requested signals.
 

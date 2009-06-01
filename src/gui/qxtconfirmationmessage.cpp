@@ -151,7 +151,7 @@ void QxtConfirmationMessagePrivate::reset()
 /*!
     \class QxtConfirmationMessage
     \inmodule QxtGui
-    \brief A confirmation message.
+    \brief The QxtConfirmationMessage class provides a confirmation message.
 
     QxtConfirmationMessage is a confirmation message with checkable
     <b>"Do not show again."</b> option. A checked and accepted confirmation

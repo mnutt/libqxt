@@ -35,7 +35,7 @@ QxtLetterBoxWidgetPrivate::QxtLetterBoxWidgetPrivate() : center(0), timer(), mar
 /*!
     \class QxtLetterBoxWidget
     \inmodule QxtGui
-    \brief A letter box widget.
+    \brief The QxtLetterBoxWidget widget is a letter box widget.
 
     QxtLetterBoxWidget preserves the aspect ratio of its content widget.
 

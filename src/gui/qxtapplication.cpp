@@ -28,7 +28,7 @@
 /*!
     \class QxtApplication
     \inmodule QxtGui
-    \brief An extended QApplication with support for native event filters.
+    \brief The QxtApplication class is an extended QApplication with support for native event filters.
 
     QxtApplication lets you install native event filters. This gives an
     easy and straightforward access to platform specific native events.

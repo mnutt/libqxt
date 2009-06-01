@@ -122,7 +122,7 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
 /*!
     \class QxtCheckComboBox
     \inmodule QxtGui
-    \brief An extended QComboBox with checkable items.
+    \brief The QxtCheckComboBox widget is an extended QComboBox with checkable items.
 
     QxtComboBox is a specialized combo box with checkable items.
     Checked items are collected together in the line edit.

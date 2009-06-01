@@ -51,7 +51,7 @@ int QxtStringSpinBoxPrivate::startsWith(const QString& start, QString& string) c
 /*!
     \class QxtStringSpinBox
     \inmodule QxtGui
-    \brief A spin box with string items.
+    \brief The QxtStringSpinBox widget is a spin box with string items.
 
     QxtStringSpinBox is spin box that takes strings. QxtStringSpinBox allows
     the user to choose a value by clicking the up and down buttons or by

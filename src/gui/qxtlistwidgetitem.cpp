@@ -28,7 +28,7 @@
 /*!
     \class QxtListWidgetItem
     \inmodule QxtGui
-    \brief An extended QListWidgetItem.
+    \brief The QxtListWidgetItem class is an extended QListWidgetItem.
 
     QxtListWidgetItem provides means for offering check state change signals and
     convenience methods for testing and setting flags.
