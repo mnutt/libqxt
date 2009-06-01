@@ -9,7 +9,7 @@
 /**
 \class QxtDiscoverableService
 
-\ingroup QxtZeroconf
+\inmodule QxtZeroconf
 
 \brief Register a service that can be discovered with Zeroconf, or resolve such a service
 
