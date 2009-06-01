@@ -1,0 +1,91 @@
+/****************************************************************************
+ **
+ ** Copyright (C) Qxt Foundation. Some rights reserved.
+ **
+ ** This file is part of the documentation of the Qxt library.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the Common Public License, version 1.0, as published
+ ** by IBM, and/or under the terms of the GNU Lesser General Public License,
+ ** version 2.1, as published by the Free Software Foundation.
+ **
+ ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+ ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+ ** FITNESS FOR A PARTICULAR PURPOSE.
+ **
+ ** You should have received a copy of the CPL and the LGPL along with this
+ ** file. See the LICENSE file and the cpl1.0.txt/lgpl-2.1.txt files
+ ** included with the source distribution for more information.
+ ** If you did not receive a copy of the licenses, contact the Qxt Foundation.
+ **
+ ** <http://libqxt.org>  <foundation@libqxt.org>
+ **
+ ****************************************************************************/
+
+/*!
+    \namespace Qxt
+    \inmodule QxtCore
+    \brief The Qxt namespace contains miscellaneous identifiers
+    used throughout the Qxt library.
+*/
+
+/*!
+	\enum Qxt::Rotation
+	This enum describes the rotation.
+	
+	\value NoRotation       No rotation.
+    \value UpsideDown       Upside down (180 degrees).
+    \value Clockwise        Clockwise (90 degrees).
+    \value CounterClockwise CounterClockwise (-90 degrees).
+*/
+
+/*!
+	\enum Qxt::DecorationStyle
+	This enum describes the decoration style.
+
+    \value NoDecoration No decoration.
+    \value Buttonlike   A style like in Qt Designer's Widget Box.
+    \value Menulike     A menu alike style.
+*/
+
+/*!
+	\enum Qxt::ErrorCode
+	The error Code dropped by QxtError
+
+    \value NoError                 Everything fine.
+    \value UnknownError            An unknown error.
+    \value LogicalError            Something happened that makes no sense (e.g. you tryed to compare apples and bananas).
+    \value Bug                     That should not happen. please report any ocurence of it.
+    \value UnexpectedEndOfFunction Suddenly the function returned where it should not. please report this behaiviour.
+    \value NotImplemented          The feature you requested has not been implemented for this situation. this could also mean you are trying to compare apples and bananas.
+    \value CodecError              Something went wrong with some codec. Please check if your codec is supported.
+    \value NotInitialised          Somone tryed to call a function of an object that needs to be start() ed  or something like it.
+    \value EndOfFile               The end of the Input has been reached. There is no more data.
+    \value FileIOError             File Input/Output Error.
+    \value FormatError             The Format of the input is corupted or not supported.
+    \value DeviceError             The Device of the Computer reported failure or we are not able to comunicate with it.
+    \value SDLError                SDL reported an error.
+    \value InsufficientMemory      Not enough memory to perform the action.
+    \value SeeErrorString          The Error has no definition here, but the Error String should tell you more. This is mostly used for third party errors.
+    \value UnexpectedNullParameter NULL was passed where it shouldn't.
+    \value ClientTimeout           The Client didn't answer within the expected time rang.
+    \value SocketIOError           Socket Input/Output Error.
+    \value ParserError             Unable to parse the requested string or file.
+    \value HeaderTooLong           The Header that was passed for parsing was too long.
+    \value Auth                    Authentication failed.
+    \value Overflow                Overflow protection triggered.
+*/
+
+/*!
+	\enum Qxt::QxtItemDataRole
+	Data roles for qxt models/views
+	
+    \value ItemStartTimeRole The starttime of a item in timebased views.
+    \value ItemDurationRole  The duration of a item in timebased views.
+    \value UserRole          The first role that can be used for application-specific purposes.
+*/
+
+/*!
+	\enum Qxt::Timeunit
+*/
