@@ -30,7 +30,7 @@
 
 \inmodule QxtCore
 
-\brief QIODevice and QxtPipe support for stdin and stdout
+\brief The QxtStdio class provides QIODevice and QxtPipe support for stdin and stdout
 
 including readyRead() signal.
 perfect as a counter part for QProcess or debug output into a QxtPipe chain

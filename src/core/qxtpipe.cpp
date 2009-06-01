@@ -29,9 +29,9 @@
 #include <QMutableListIterator>
 
 /*!
- * \class  QxtPipe QxtPipe
+ * \class  QxtPipe
  * \inmodule QxtCore
- * \brief a pipeable QIODevice
+ * \brief The QxtPipe class provides a pipeable QIODevice
  *
  * pipes can be connected to other pipes, to exchange data
  * The default implementation uses a buffer.

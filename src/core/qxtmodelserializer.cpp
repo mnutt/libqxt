@@ -29,7 +29,7 @@
 /*
     \class QxtModelSerializer
     \inmodule QxtCore
-    \brief Provides serialization of QAbstractItemModel
+    \brief The QxtModelSerializer class provides serialization of QAbstractItemModel
  */
 
 struct QxtModelItem

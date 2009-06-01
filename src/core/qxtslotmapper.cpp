@@ -31,7 +31,7 @@
 /*!
     \class QxtSlotMapper
     \inmodule QxtCore
-    \brief The QxtSlotMapper class map signals with a parameter to certain slots.
+    \brief The QxtSlotMapper class maps signals with a parameter to certain slots.
 
     QxtSlotMapper is the counterpart of QSignalMapper. Where QSignalMapper maps
     a parameterless signal into one that has a parameter based on the sender, 

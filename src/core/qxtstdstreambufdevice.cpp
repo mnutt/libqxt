@@ -29,7 +29,7 @@
 
 \inmodule QxtCore
 
-\brief QIODevice support for std::streambuf
+\brief The QxtStdStreambufDevice class provides QIODevice support for std::streambuf
 
 \warning does NOT emit the readyRead() signal
 

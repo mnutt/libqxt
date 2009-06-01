@@ -29,7 +29,7 @@
 
 \inmodule QxtCore
 
-\brief put a standard QIODevice into a QxtPipe chain
+\brief The QxtDeplex class puts a standard QIODevice into a QxtPipe chain
 
 
 

@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief Block and process events until a group of signals is emitted
+\brief The QxtMultiSignalWaiter class blocks and processes events until a group of signals is emitted
 
 Code written in a synchronous style will sometimes need to block until any of several conditions are met,
 or until all of a set of conditions are met. This class allows a group of signals to be defined and waited

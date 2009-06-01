@@ -30,7 +30,7 @@
 
 \inmodule QxtCore
 
-\brief a list of pointers to QObjects, that cleans itself
+\brief The QxtPointerList class manages a list of pointers to QObjects, that cleans itself
 
 
 when you add a QObject* to this list, it will be removed from the list when the QObject is deleted.

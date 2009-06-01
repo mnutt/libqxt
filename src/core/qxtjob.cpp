@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief Execute a Job on a QThread. once or multiple times.
+\brief The QxtJob class executes a job on a QThread. Once or multiple times.
 
 QxtJob allows easily starting jobs on different threads.
 exec() will ask for the QThread to run the job on.

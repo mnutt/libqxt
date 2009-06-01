@@ -28,7 +28,7 @@
 
 /*!
     \class QxtBasicFileLoggerEngine
-    \brief A basic file logger engine.
+    \brief The QxtBasicFileLoggerEngine class provides a basic file logger engine.
     \inmodule QxtCore
 
     Example basic file log output:

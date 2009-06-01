@@ -26,7 +26,7 @@
 /*!
 \class QxtDaemon
 \inmodule QxtCore
-\brief Qt Implementation of a Unix daemon
+\brief The QxtDaemon class is a Qt-based Implementation of a Unix daemon
 
 QxtDaemon will provide you with a standard UNIX daemon implementation.
 after sucessful forking it will install a messageHandler which logs all qDebug/qWarning/etc... output to /var/log/mydaemon.log

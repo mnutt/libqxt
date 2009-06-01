@@ -25,7 +25,7 @@
 
 /*!
     \class QxtLogger
-    \brief An easy to use, easy to extend logging tool.
+    \brief The QxtLogger class is an easy to use, easy to extend logging tool.
     \inmodule QxtCore
 
     \section1 Overview

@@ -28,7 +28,7 @@
 
 /*!
     \class QxtXmlFileLoggerEngine
-    \brief An XML file logger engine.
+    \brief The QxtXmlFileLoggerEngine class provides an XML file logger engine.
     \inmodule QxtCore
 
     Example XML log output:

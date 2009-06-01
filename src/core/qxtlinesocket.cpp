@@ -33,7 +33,7 @@
 
 \inmodule QxtCore
 
-\brief Acts on a QIOdevice as baseclass for line-based protocols
+\brief The QxtLineSocket class acts on a QIODevice as baseclass for line-based protocols
 */
 
 

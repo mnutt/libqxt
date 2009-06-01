@@ -29,7 +29,7 @@
 
 \inmodule QxtCore
 
-\brief Execute an arbitrary Slot on a QThread.
+\brief The QxtSlotJob class executes an arbitrary slot on a QThread.
 
 \warning It is essential to understand that the QObject you pass is not safe to use untill done();  is emitted or result() or join() is called.
 */
@@ -126,7 +126,7 @@ void QxtSlotJob::pdone()
 
 \inmodule QxtCore
 
-\brief Reference to a future result of a QxtSlotJob
+\brief The QxtFuture class provides a reference to a future result of a QxtSlotJob
 
 */
 

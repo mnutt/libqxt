@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief provides extensions to QMetaObject
+\brief The QxtMetaObject namespace provides extensions to QMetaObject
 
 including QxtMetaObject::bind
 

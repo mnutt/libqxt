@@ -29,7 +29,7 @@
 
 /*!
     \class QxtLogStream
-    \brief A logging stream.
+    \brief The QxtLogStream class provides a logging stream.
     \inmodule QxtCore
 
     \sa QxtLogger

@@ -27,7 +27,7 @@
 /*!
 \class QxtSemaphore
 \inmodule QxtCore
-\brief system wide semaphore (former QxtSingleInstance)
+\brief The QxtSemaphore class provides a system wide semaphore (former QxtSingleInstance)
 
 
 \code
