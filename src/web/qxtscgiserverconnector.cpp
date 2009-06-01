@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief An SCGI connector for QxtHttpSessionManager
+\brief The QxtScgiServerConnector class provides an SCGI connector for QxtHttpSessionManager
 
 
 QxtScgiServerConnector implements the SCGI protocoll supported by almost all modern web servers.

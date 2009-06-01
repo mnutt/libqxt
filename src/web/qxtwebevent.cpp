@@ -32,7 +32,7 @@
 
 \inmodule QxtWeb
 
-\brief Base class of all QxtWeb event types
+\brief The QxtWebEvent class is a base class of all QxtWeb event types
 
 QxtWebEvent is the base class for all QxtWeb event classes. Event objects
 contain event parameters.
@@ -68,7 +68,7 @@ QxtWebEvent::~QxtWebEvent() {}
 
 \inmodule QxtWeb
 
-\brief Describes a request from a web browser
+\brief The QxtWebRequestEvent class describes a request from a web browser
 
 The QxtWebRequestEvent class contains information about a request from a web
 browser.
@@ -138,7 +138,7 @@ QxtWebFileUploadEvent::QxtWebFileUploadEvent(int sessionID)
 
 \inmodule QxtWeb
 
-\brief Describes an error condition to be sent to a web browser
+\brief The QxtWebErrorEvent class describes an error condition to be sent to a web browser
 
 The QxtWebErrorEvent class contains information about an error that will be
 sent to a web browser.
@@ -168,7 +168,7 @@ QxtWebErrorEvent::QxtWebErrorEvent(int sessionID, int requestID, int statusCode,
 
 \inmodule QxtWeb
 
-\brief Describes a web page or other content to be sent to a web browser
+\brief The QxtWebPageEvent class describes a web page or other content to be sent to a web browser
 
 The QxtWebPageEvent class contains information about a web page or other similar
 content that will be sent to a web browser.
@@ -290,7 +290,7 @@ QxtWebPageEvent::~QxtWebPageEvent()
 
 \inmodule QxtWeb
 
-\brief Describes a cookie to be sent to a web browser
+\brief The QxtWebStoreCookieEvent class describes a cookie to be sent to a web browser
 
 The QxtWebStoreCookieEvent class instructs the session manager to store
 a cookie on the web browser.
@@ -329,7 +329,7 @@ QxtWebStoreCookieEvent::QxtWebStoreCookieEvent(int sessionID, QString name, QStr
 
 \inmodule QxtWeb
 
-\brief Describes a cookie to be deleted from a web browser
+\brief The QxtWebRemoveCookieEvent class describes a cookie to be deleted from a web browser
 
 The QxtWebStoreCookieEvent class instructs the session manager to remove
 a cookie stored on the web browser.
@@ -352,7 +352,7 @@ QxtWebRemoveCookieEvent::QxtWebRemoveCookieEvent(int sessionID, QString name)
 
 \inmodule QxtWeb
 
-\brief Describes a redirect event to be sent to a web browser
+\brief The QxtWebRedirectEvent class describes a redirect event to be sent to a web browser
 
 The QxtWebRedirectEvent class instructs the web browser to load a page found at
 another location.

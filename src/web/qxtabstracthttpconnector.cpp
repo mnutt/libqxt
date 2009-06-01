@@ -28,7 +28,8 @@
 
 \inmodule QxtWeb
 
-\brief Base class for defining HTTP-based protocols for use with QxtHttpSessionManager
+\brief The QxtAbstractHttpConnector class is a base class for defining 
+HTTP-based protocols for use with QxtHttpSessionManager
 
 QxtHttpSessionManager does the work of managing sessions and state for the
 otherwise stateless HTTP protocol, but it relies on QxtAbstractHttpConnector

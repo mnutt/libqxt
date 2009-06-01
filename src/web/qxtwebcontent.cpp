@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief I/O device for data sent by the web browser
+\brief The QxtWebContent class provides and I/O device for data sent by the web browser
 
 QxtWebContent is a read-only QIODevice subclass that encapsulates data sent
 from the web browser, for instance in a POST or PUT request.

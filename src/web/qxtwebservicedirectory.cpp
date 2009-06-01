@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief Path-based web service dispatcher
+\brief The QxtWebServiceDirectory class provides Path-based web service dispatcher
 
 QxtWebServiceDirectory allows multiple services to be associated with a single
 session. Selection between services is determined by the first path component
