@@ -35,6 +35,7 @@ class QXT_GUI_EXPORT QxtTabBar : public QTabBar
     Q_OBJECT
     QXT_DECLARE_PRIVATE(QxtTabBar)
     Q_PROPERTY(TabMovementMode tabMovementMode READ tabMovementMode WRITE setTabMovementMode)
+    Q_ENUMS(TabMovementMode)
 
 public:
     explicit QxtTabBar(QWidget* parent = 0);
