@@ -6,7 +6,7 @@
 /**
 \class QxtServiceBrowser
 
-\ingroup QxtZeroconf
+\inmodule QxtZeroconf
 
 \brief Locate Zeroconf-enabled services on the network
 

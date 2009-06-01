@@ -29,7 +29,7 @@
 
 /*!
     \class QxtTimer
-    \ingroup QxtCore
+    \inmodule QxtCore
     \brief The QxtTimer class extends QTimer.
 
     QxtTimer extends QTimer with capability to call a slot after with given
