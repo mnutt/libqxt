@@ -145,12 +145,6 @@ QSize QxtStarsPrivate::getStarSize() const
  */
 
 /*!
-    \fn QxtStars::valueChanged(int value)
-
-    This signal is emitted whenever the value has been changed.
- */
-
-/*!
     Constructs a new QxtStars with \a parent.
  */
 QxtStars::QxtStars(QWidget* parent) : QAbstractSlider(parent)
