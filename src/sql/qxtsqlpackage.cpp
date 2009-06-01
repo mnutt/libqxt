@@ -36,7 +36,7 @@
 
 \inmodule QxtSql
 
-\brief full serialiseable QSqlQuery storage
+\brief The QxtSqlPackage class provides a full serializable QSqlQuery storage
 
 
 Sometimes you want to send sql results over network or store them into files.

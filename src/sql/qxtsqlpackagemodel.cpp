@@ -33,7 +33,7 @@
 
 \inmodule QxtSql
 
-\brief  provides a read-only data model for QxtSqlPackage result..
+\brief The QxtSqlPackageModel class provides a read-only data model for QxtSqlPackage result..
 
 example usage:
 \code
