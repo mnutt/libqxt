@@ -31,7 +31,7 @@
 /*!
     \class QxtBdbTree QxtBdbTree
     \inmodule QxtBerkeley
-    \brief template berkeley container for tree structured data
+    \brief The QxtBdbTree class is a template berkeley container for tree structured data
 
     the template argument must be registered with the qt meta system.
     You may not touch the file while a QxtBdbTree instance is running on it.
@@ -98,7 +98,7 @@ This function assumes, the class used for Template initialisation implements the
 /*!
     \class QxtBdbTreeIterator QxtBdbtree
     \inmodule QxtBerkeley
-    \brief tree iterator on QxtBdbtree
+    \brief The QxtBdbTreeIterator class provides a tree iterator on QxtBdbtree
 
 
     TODO: {implicitshared}
