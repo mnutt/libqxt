@@ -49,7 +49,7 @@ public:
 /*!
  * \class QxtRPCPeer
  * \inmodule QxtNetwork
- * \brief Transmits Qt signals over a network connection
+ * \brief The QxtRPCPeer class transmits Qt signals over a network connection
  *
  * QxtRPCPeer is a tool that encapsulates Qt signals and transmits them over a network connection.
  * The signal is subsequently re-emitted on the receiving end of the connection.

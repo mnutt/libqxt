@@ -32,7 +32,7 @@
 /**
  * \class QxtMailMessage
  * \inmodule QxtWeb
- * \brief Encapsulates an e-mail according to RFC 2822 and related specifications
+ * \brief The QxtMailMessage class encapsulates an e-mail according to RFC 2822 and related specifications
  * TODO: {implicitshared}
  */
 
