@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief Base class for QxtWeb session managers
+\brief The QxtAbstractWebSessionManager class is a base class for QxtWeb session managers
 
 QxtAbstractWebSessionManager is the base class for all QxtWeb session managers.
 

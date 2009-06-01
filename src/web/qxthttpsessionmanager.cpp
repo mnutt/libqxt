@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief Session manager for HTTP-based protocols
+\brief The QxtHttpSessionManager class provides a session manager for HTTP-based protocols
 
 QxtHttpSessionManager is a QxtWeb session manager that adds session management
 support to the normally stateless HTTP model.

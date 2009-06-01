@@ -29,7 +29,7 @@
 
 \inmodule QxtWeb
 
-\brief Provides a Slot based webservice
+\brief The QxtWebSlotService class provides a Slot based webservice
 
 Implements the behaviour of the old QxtWebController from qxt 0.3.<br>
 path names are resolved to slot names.

@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief CGI/1.1 gateway for QxtWeb
+\brief The QxtWebCgiService class provides a CGI/1.1 gateway for QxtWeb
 
 TODO: write docs
 TODO: implement timeout

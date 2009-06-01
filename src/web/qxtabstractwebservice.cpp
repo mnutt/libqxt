@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief Base interface for web services
+\brief The QxtAbstractWebService class is a base interface for web services
 
 QxtAbstractWebService provides a common interface for all web service classes.
 It uses an event-driven design instead of the more traditional request-response

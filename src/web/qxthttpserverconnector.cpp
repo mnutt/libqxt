@@ -28,7 +28,7 @@
 
 \inmodule QxtWeb
 
-\brief A built-in HTTP server for QxtHttpSessionManager
+\brief The QxtHttpServerConnector class provides a built-in HTTP server for QxtHttpSessionManager
 
 QxtHttpSessionManager does the work of managing sessions and state for the
 otherwise stateless HTTP protocol, but it relies on QxtAbstractHttpConnector

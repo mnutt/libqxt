@@ -26,7 +26,7 @@
 /*!
         \class QxtHtmlTemplate
         \inmodule QxtWeb
-        \brief Basic Html Template Engine
+        \brief The QxtHtmlTemplate class provides a basic HTML template engine
 
         open a file containing html code and php style variables.
         use the square bracket operators to assign content for a variable
