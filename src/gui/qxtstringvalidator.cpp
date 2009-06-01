@@ -235,7 +235,7 @@ QAbstractItemModel * QxtStringValidator::lookupModel() const
 
 /*!
     Returns Qt::CaseSensitive if the QxtStringValidator is matched case sensitively; otherwise returns Qt::CaseInsensitive.
-    \sa setCaseSensitivity().
+    \sa setCaseSensitivity()
 */
 Qt::CaseSensitivity QxtStringValidator::caseSensitivity() const
 {
@@ -246,7 +246,7 @@ Qt::CaseSensitivity QxtStringValidator::caseSensitivity() const
     Sets case sensitive matching to cs.
     If cs is Qt::CaseSensitive, inp matches input but not INPUT.
     The default is Qt::CaseSensitive.
-    \sa caseSensitivity().
+    \sa caseSensitivity()
 */
 void QxtStringValidator::setCaseSensitivity(Qt::CaseSensitivity caseSensitivity)
 {
