@@ -30,7 +30,7 @@
 /*!
  * \class QxtAbstractConnectionManager
  * \inmodule QxtCore
- * \brief Interface for classes that maintain connection pools
+ * \brief The QxtAbstractConnectionManager class is an interface for classes that maintain connection pools
  *
  * QxtAbstractConnectionManager is a standardized interface for accepting and tracking
  * incoming connections.

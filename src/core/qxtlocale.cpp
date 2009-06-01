@@ -30,7 +30,7 @@
 /*!
     \class QxtLocale
     \inmodule QxtCore
-    \brief This class has some additional data and functionality, missing in QLocale.
+    \brief The QxtLocale class has some additional data and functionality, missing in QLocale.
 
     QxtLocale defines currencies and continents. Methods are available to
     gather various mappings and information.

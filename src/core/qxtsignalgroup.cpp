@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief Groups signals together in a Boolean fashion
+\brief The QxtSignalGroup class groups signals together in a Boolean fashion
 
 When carrying out multiple tasks in parallel, it can be useful to know when any or all of the tasks
 have emitted a signal. This class allows a group of signals to be defined and re-signalled in a

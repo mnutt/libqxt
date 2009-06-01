@@ -31,7 +31,7 @@
 
 /*!
     \class QxtBasicSTDLoggerEngine
-    \brief A basic STD logger engine.
+    \brief The QxtBasicSTDLoggerEngine class provides a basic STD logger engine.
     \inmodule QxtCore
 
     Example basic STD log output:

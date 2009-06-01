@@ -34,7 +34,7 @@
 
 \inmodule QxtCore
 
-\brief Calculates keyed-Hash Message Authentication Codes
+\brief The QxtHmac class calculates keyed-Hash Message Authentication Codes
 
 HMAC is a well-known algorithm for generating a message authentication code (MAC) that can be used to verify the
 integrity and authenticity of a message.

@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief Simple Loopback QIODevice
+\brief The QxtFifo class provides a simple loopback QIODevice.
 
 read and write to the same object
 emits a readyRead Signal.

@@ -28,7 +28,7 @@
 
 \inmodule QxtCore
 
-\brief Block and process events until a signal is emitted
+\brief The QxtSignalWaiter class blocks and processes events until a signal is emitted
 
 In many cases, writing code that assumes certain actions are synchronous is considerably simpler than breaking your function into
 multiple blocks and using signals and slots to connect them all. Using this class, QSignalWaiter::wait will block until a certain
