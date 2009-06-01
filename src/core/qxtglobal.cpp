@@ -26,8 +26,17 @@
 #include "qxtglobal.h"
 
 /*!
+    \headerfile <QxtGlobal>
+    \title Global Qxt Declarations
+    \inmodule QxtCore
+
+    \brief The <QxtGlobal> header provides basic declarations and
+    is included by all other Qxt headers.
+ */
+
+/*!
     \macro QXT_VERSION
-    \relates QxtGlobal
+    \relates <QxtGlobal>
 
     This macro expands a numeric value of the form 0xMMNNPP (MM =
     major, NN = minor, PP = patch) that specifies Qxt's version
@@ -47,7 +56,7 @@
 
 /*!
     \macro QXT_VERSION_STR
-    \relates QxtGlobal
+    \relates <QxtGlobal>
 
     This macro expands to a string that specifies Qxt's version number
     (for example, "0.4.0"). This is the version against which the
@@ -57,7 +66,7 @@
  */
 
 /*!
-    \relates QxtGlobal
+    \relates <QxtGlobal>
 
     Returns the version number of Qxt at run-time as a string (for
     example, "0.4.0"). This may be a different version than the

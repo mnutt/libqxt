@@ -27,9 +27,9 @@
 #include <QRegExp>
 
 /*!
- *@class QxtSortFilterProxyModel QxtSortFilterProxyModel is a multi column filter model
+ *\class QxtSortFilterProxyModel QxtSortFilterProxyModel is a multi column filter model
  *The QxtSortFilterProxyModel makes it possible to filter over multiple columns.
- *@code
+ *\code
  *QxtSortFilterProxyModel * filterModel = new QxtSortFilterProxyModel(parent);
  *filterModel->setSourceModel(sourceModel);
  *filterModel->beginDeclareFilter();
@@ -38,7 +38,7 @@
  *filterModel->removeFilter(2);
  *filterModel->setFilter(5,QVariant(1234),Qt::DisplayRole,Qt::MatchExactly);
  *filterModel->endDeclateFilter();
- *@endcode
+ *\endcode
  *Now the model will filter column 1 and 5, to be accepted by the filtermodel a row needs to pass all filters
  */
 
@@ -120,7 +120,7 @@ QxtSortFilterProxyModel::QxtSortFilterProxyModel ( QObject *parent) : QSortFilte
 }
 
 /*!
- *@desc tells the model you want to declare a new filter
+ *\brief tells the model you want to declare a new filter
  *If you have a lot of data in your model it can be slow to declare more than one filter,
  *because the model will always rebuild itself. If you call this member before setting the
  *new filters the model will invalidate its contents not before you call \sa endDeclareFilter()
@@ -131,7 +131,7 @@ void QxtSortFilterProxyModel::beginDeclareFilter ( )
 }
 
 /*!
- *@desc stops the filter declaration and invalidates the filter 
+ *\brief stops the filter declaration and invalidates the filter 
  *\sa beginDeclareFilter()
  */
 void QxtSortFilterProxyModel::endDeclareFilter ( )
@@ -238,8 +238,8 @@ int QxtSortFilterProxyModel::filterRole ( const int column ) const
 }
 
 /*!
- * @desc returns the filter flags for the given column
- * @note if the column is not filtered it will return the default value
+ * \brief returns the filter flags for the given column
+ * \bold {Note:} if the column is not filtered it will return the default value
  */
 Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
 {
