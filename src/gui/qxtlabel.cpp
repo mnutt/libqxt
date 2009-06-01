@@ -66,7 +66,7 @@ void QxtLabelPrivate::updateLabel()
 /*!
     \class QxtLabel
     \inmodule QxtGui
-    \brief A label which is able to show elided and rotated plain text.
+    \brief The QxtLabel widget is a label which is able to show elided and rotated plain text.
 
     QxtLabel is a label which is able to show elided and rotated plain text.
     In addition, QxtLabel provides a signal for clicking.

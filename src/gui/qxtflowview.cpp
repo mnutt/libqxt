@@ -54,7 +54,7 @@
 /*!
     \class QxtFlowView
     \inmodule QxtGui
-    \brief An ItemView for Images with impressive Flow effects
+    \brief The QxtFlowView widget is an item view for images with impressive flow effects
 
     an image show widget with animation effect
     like Apple's CoverFlow (in iTunes and iPod). Images are arranged in form

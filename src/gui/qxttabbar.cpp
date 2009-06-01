@@ -218,7 +218,7 @@ void QxtTabBarPrivate::restoreTab(int index, const Tab& tab)
 /*!
     \class QxtTabBar
     \inmodule QxtGui
-    \brief An extended QTabBar.
+    \brief The QxtTabBar class is an extended QTabBar.
 
     QxtTabBar provides tabs that can be moved. QxtTabWidget uses QxtTabBar internally
     and thus its tabs are also optionally movable.

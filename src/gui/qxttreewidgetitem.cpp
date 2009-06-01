@@ -28,7 +28,7 @@
 /*!
     \class QxtTreeWidgetItem
     \inmodule QxtGui
-    \brief An extended QTreeWidgetItem.
+    \brief The QxtTreeWidgetItem class is an extended QTreeWidgetItem.
 
     QxtTreeWidgetItem provides means for offering check state change signals and
     convenience methods for testing and setting flags.

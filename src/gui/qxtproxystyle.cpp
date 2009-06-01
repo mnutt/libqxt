@@ -28,7 +28,7 @@
 /*!
     \class QxtProxyStyle
     \inmodule QxtGui
-    \brief A proxy style.
+    \brief The QxtProxyStyle class provides a proxy style.
 
     A technique called "proxy style" is a common way for creating
     cross-platform custom styles. Developers often want to do slight

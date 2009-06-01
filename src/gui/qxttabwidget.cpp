@@ -61,7 +61,7 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 /*!
     \class QxtTabWidget
     \inmodule QxtGui
-    \brief An extended QTabWidget.
+    \brief The QxtTabWidget class is an extended QTabWidget.
 
     QxtTabWidget provides some convenience for handling tab specific context menus
     and animations.

@@ -215,7 +215,7 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
 /*!
     \class QxtItemDelegate
     \inmodule QxtGui
-    \brief An extended QItemDelegate
+    \brief The QxtItemDelegate class is an extended QItemDelegate
 
     QxtItemDelegate provides rich text support, signals for starting
     and finishing of editing and an optional decoration of top level

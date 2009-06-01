@@ -309,7 +309,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
 /*!
     \class QxtSpanSlider
     \inmodule QxtGui
-    \brief A QSlider with two handles.
+    \brief The QxtSpanSlider widget is a QSlider with two handles.
 
     QxtSpanSlider is a slider with two handles. QxtSpanSlider is
     handy for letting user to choose an span between min/max.

@@ -127,7 +127,7 @@ QSize QxtStarsPrivate::getStarSize() const
 /*!
     \class QxtStars
     \inmodule QxtGui
-    \brief A stars assessment widget.
+    \brief The QxtStars widget is a stars assessment widget.
 
     QxtStars is an optionally interactive stars assessment widget.
 

@@ -252,7 +252,7 @@ void QxtConfigWidgetPrivate::setCurrentIndex(int index)
 /*!
     \class QxtConfigWidget
     \inmodule QxtGui
-    \brief A configuration widget.
+    \brief The QxtConfigWidget class provides a configuration widget.
 
     QxtConfigWidget provides a convenient interface for building
     common configuration views. QxtConfigWidget consists of a

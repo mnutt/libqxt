@@ -62,7 +62,7 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
 /*!
     \class QxtConfigDialog
     \inmodule QxtGui
-    \brief A configuration dialog.
+    \brief The QxtConfigDialog class provides a configuration dialog.
 
     QxtConfigDialog provides a convenient interface for building
     common configuration dialogs. QxtConfigDialog consists of a

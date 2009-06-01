@@ -44,7 +44,7 @@
 /*!
  * @class QxtScheduleView QxtScheduleView
  * @inmodule QxtGui
- * \brief The QxtScheduleView provides an iCal like view to plan events
+ * \brief The QxtScheduleView class provides an iCal like view to plan events
  *
  * QxtScheduleView is a item based View,inspired by iCal, that makes it possible to visualize event planning.<br/>
    It's  time based and can show the events in different modes:<br/>

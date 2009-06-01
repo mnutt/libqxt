@@ -46,7 +46,7 @@ void QxtListWidgetPrivate::informFinishEditing(const QModelIndex& index)
 /*!
     \class QxtListWidget
     \inmodule QxtGui
-    \brief An extended QListWidget with additional signals.
+    \brief The QxtListWidget class is an extended QListWidget with additional signals.
 
     QxtListWidget offers a few most commonly requested signals.
 
