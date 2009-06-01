@@ -76,7 +76,7 @@
 */
 
 /*!
-    \fn void QxtBdbHash::clear
+    \fn void QxtBdbHash::clear()
 
     Erase all records. This does not delete the unerlieing file.
 
@@ -104,38 +104,38 @@
 
 
 
-    \fn bool QxtBdbHash::contains ( const KEY & key ) const;
+    \fn bool QxtBdbHash::contains ( const KEY & key ) const
 
     returns true if there is a record for the specified key.
 */
 
 /*!
-    \fn bool QxtBdbHash::remove ( const KEY & key );
+    \fn bool QxtBdbHash::remove ( const KEY & key )
 
     removes all records with the specified key. returns true on success and false on failure.
 */
 
 /*!
-    \fn     bool QxtBdbHash::insert(KEY k, VAL v);
+    \fn     bool QxtBdbHash::insert(KEY k, VAL v)
 
     inserts a record with the specified key/value combination. replaces any record with the same key.
     \bold {Note:} when working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
 */
 
 /*!
-    \fn     const VAL QxtBdbHash::value (  const KEY & key  ) const;
+    \fn     const VAL QxtBdbHash::value (  const KEY & key  ) const
 
     returns the value associated with the specified key, or a default contructed value, if no such key exists.
 */
 
 /*!
-    \fn   const VAL QxtBdbHash::operator[] ( const KEY & key ) const;
+    \fn   const VAL QxtBdbHash::operator[] ( const KEY & key ) const
 
     same as value();
 */
 
 /*!
-    \fn    bool QxtBdbHash::flush();
+    \fn    bool QxtBdbHash::flush()
 
     flushes the unerlieing DB file. all changes are synced to disk.
 */
