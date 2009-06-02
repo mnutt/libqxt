@@ -24,7 +24,22 @@ lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
 docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
 #docs.commands = $$qxtNativeSeparators(tools/doqsy/doqsy)
-docs.commands = QXTDIR=$$PWD $$(QTDIR)$$qxtNativeSeparators(/tools/qdoc3/qdoc3) doctemplate/qxt.qdocconf
+
+win32:!win32-g++ {
+    unixstyle = false
+} else :win32-g++:isEmpty(QMAKE_SH) {
+    unixstyle = false
+} else {
+    unixstyle = true
+}
+
+$$unixstyle {
+    QDOC = QXTDIR=$$PWD $$(QTDIR)/tools/qdoc3/qdoc3
+} else {
+    QDOC = set QXTDIR=$$PWD && $$(QTDIR)/tools/qdoc3/qdoc3.exe
+    QDOC = $$replace(QDOC, "/", "\\\\")
+}
+docs.commands = $$QDOC -DQXT_DOXYGEN_RUN doctemplate/qxt.qdocconf
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf
