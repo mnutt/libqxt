@@ -34,10 +34,10 @@ win32:!win32-g++ {
 }
 
 $$unixstyle {
-    QDOC = QXTDIR=$$PWD $$(QTDIR)/tools/qdoc3/qdoc3
+    QDOC = QXTDIR=$$PWD qdoc3
 } else {
-    QDOC = set QXTDIR=$$PWD && $$(QTDIR)/tools/qdoc3/qdoc3.exe
-    QDOC = $$replace(QDOC, "/", "\\\\")
+    QDOC = set QXTDIR=$$PWD&& qdoc3.exe
+    QDOC = $$replace(QDOC, "/", "\\")
 }
 docs.commands = $$QDOC -DQXT_DOXYGEN_RUN doctemplate/qxt.qdocconf
 
