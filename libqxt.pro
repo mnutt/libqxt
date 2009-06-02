@@ -23,7 +23,8 @@ lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
 
 docs.files = deploy/docs/*
 #docs.commands = assistant -addContentFile $${docs.path}/index.dcf
-docs.commands = $$qxtNativeSeparators(tools/doqsy/doqsy)
+#docs.commands = $$qxtNativeSeparators(tools/doqsy/doqsy)
+docs.commands = QXTDIR=$$PWD $$(QTDIR)$$qxtNativeSeparators(/tools/qdoc3/qdoc3) doctemplate/qxt.qdocconf
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf
@@ -32,8 +33,6 @@ docs.path = $${QXTINSTALLDIR}/docs
 docs.CONFIG = no_default_install
 
 INSTALLS += features docs
-
-SUBDIRS += tools/doqsy
 QMAKE_EXTRA_TARGETS += docs
 
 exists( modules.prf ) {
@@ -115,7 +114,6 @@ win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} &
 
 style.CONFIG = recursive
 style.recurse = $$SUBDIRS
-style.recurse -= tools/doqsy
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
@@ -131,20 +129,20 @@ QMAKE_EXTRA_TARGETS += runtests
 
 cov_zerocounters.CONFIG += recursive
 cov_zerocounters.recurse = $$SUBDIRS
-cov_zerocounters.recurse -= tools/doqsy sub_designer
+cov_zerocounters.recurse -= sub_designer
 cov_zerocounters.recurse_target = zerocounters
 QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
 
 cov_capture.CONFIG += recursive
 cov_capture.recurse = $$SUBDIRS
-cov_capture.recurse -= tools/doqsy sub_designer
+cov_capture.recurse -= sub_designer
 cov_capture.recurse -= sub_sql # TODO: write unit tests for these!
 cov_capture.recurse_target = capture
 QMAKE_EXTRA_UNIX_TARGETS += cov_capture
 
 cov_genhtml.CONFIG += recursive
 cov_genhtml.recurse = $$SUBDIRS
-cov_genhtml.recurse -= tools/doqsy sub_designer
+cov_genhtml.recurse -= sub_designer
 cov_genhtml.recurse -= sub_sql # TODO: write unit tests for these!
 cov_genhtml.recurse_target = genhtml
 QMAKE_EXTRA_UNIX_TARGETS += cov_genhtml
