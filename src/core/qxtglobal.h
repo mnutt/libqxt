@@ -119,7 +119,6 @@ QXT_CORE_EXPORT const char* qxtVersion();
 #define QXT_D(PUB) PUB##Private& d = qxt_d()
 #define QXT_P(PUB) PUB& p = qxt_p()
 
-#ifndef QXT_DOXYGEN_RUN
 template <typename PUB>
 class QxtPrivate
 {
@@ -174,6 +173,5 @@ public:
 private:
     QxtPrivate<PUB>* pvt;
 };
-#endif // QXT_DOXYGEN_RUN
 
 #endif // QXT_GLOBAL
