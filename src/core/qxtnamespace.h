@@ -28,7 +28,7 @@
 
 #include <qxtglobal.h>
 
-#if defined BUILD_QXT | defined Q_MOC_RUN
+#if (defined BUILD_QXT | defined Q_MOC_RUN) && !defined(QXT_DOXYGEN_RUN)
 #include <QObject>
 
 class QXT_CORE_EXPORT Qxt  : public QObject
