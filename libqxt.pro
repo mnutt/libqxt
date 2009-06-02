@@ -39,7 +39,7 @@ $$unixstyle {
     QDOC = set QXTDIR=$$PWD&& qdoc3.exe
     QDOC = $$replace(QDOC, "/", "\\")
 }
-docs.commands = $$QDOC -DQXT_DOXYGEN_RUN doctemplate/qxt.qdocconf
+docs.commands = ($$QDOC -DQXT_DOXYGEN_RUN doctemplate/qxt.qdocconf)
 
 features.path = $$[QT_INSTALL_DATA]/mkspecs/features
 features.files = deploy/qt/qxt.prf
