@@ -42,14 +42,14 @@ class QXT_GUI_EXPORT QxtLanguageComboBox : public QComboBox
 #endif
     Q_PROPERTY(DisplayMode displayMode READ displayMode WRITE setDisplayMode)
     Q_PROPERTY(QString translationPath READ translationPath WRITE setTranslationPath)
-
+    Q_ENUMS(DisplayMode)
+    
 public:
     explicit QxtLanguageComboBox(QWidget* parent = 0);
     virtual ~QxtLanguageComboBox();
 
     enum DisplayMode
     {AllLanguages, AvailableTranslations};
-    Q_ENUMS(DisplayMode);
 
     DisplayMode displayMode() const;
     QString translationPath() const;

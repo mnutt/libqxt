@@ -289,19 +289,22 @@ void QxtLanguageComboBoxPrivate::setCurrentLanguage(QLocale::Language language)
 
     This enum describes the displayed languages.
 
+    \value AllLanguages          Show all languages.
+    \value AvailableTranslations Show translated languages.
+
     \sa QxtLanguageComboBox::displayMode
  */
 
 /*!
     \fn QxtLanguageComboBox::currentLanguageChanged(QLocale::Language language)
 
-    This signal is emitted whenever the current selected language has been changed.
+    This signal is emitted whenever the current selected \a language has been changed.
  */
 
 /*!
     \fn QxtLanguageComboBox::currentLanguageNameChanged(const QString& name)
 
-    This signal is emitted whenever the current selected language has been changed.
+    This signal is emitted whenever the of the current selected language with \a name has been changed.
  */
 
 
