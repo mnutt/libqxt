@@ -34,8 +34,7 @@ class QxtLabelPrivate;
 class QXT_GUI_EXPORT QxtLabel : public QFrame
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLabel);
-    Q_PROPERTY(QString text READ text WRITE setText)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(Qt::Alignment alignment READ alignment WRITE setAlignment)
     Q_PROPERTY(Qt::TextElideMode elideMode READ elideMode WRITE setElideMode)
     Q_PROPERTY(Qxt::Rotation rotation READ rotation WRITE setRotation)
@@ -71,6 +70,9 @@ protected:
     virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void paintEvent(QPaintEvent* event);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtLabel);
 };
 
 #endif // QXTLABEL_H
