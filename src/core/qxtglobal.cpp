@@ -95,7 +95,7 @@ means moving implementation details into a private class. The PIMPL, or
 d-pointer, idiom is a common method of implementing this separation. QxtPimpl
 offers a convenient way to connect the public and private sides of your class.
 
-\section1 start Getting Started
+\section1 Getting Started
 Before you declare the public class, you need to make a forward declaration
 of the private class. The private class must have the same name as the public
 class, followed by the word Private. For example, a class named MyTest would
@@ -104,7 +104,7 @@ declare the private class with:
 class MyTestPrivate;
 \endcode
 
-\section1 pub The Public Class
+\section1 The Public Class
 Generally, you shouldn't keep any data members in the public class without a
 good reason. Functions that are part of the public interface should be declared
 in the public class, and functions that need to be available to subclasses (for
