@@ -26,22 +26,6 @@
 #include "qxtsortfilterproxymodel.h"
 #include <QRegExp>
 
-/*!
- *\class QxtSortFilterProxyModel QxtSortFilterProxyModel is a multi column filter model
- *The QxtSortFilterProxyModel makes it possible to filter over multiple columns.
- *\code
- *QxtSortFilterProxyModel * filterModel = new QxtSortFilterProxyModel(parent);
- *filterModel->setSourceModel(sourceModel);
- *filterModel->beginDeclareFilter();
- *filterModel->setFilter(1,QVariant("SomeStringValue"),Qt::DisplayRole,Qt::MatchExactly);
- * //remove some old filter
- *filterModel->removeFilter(2);
- *filterModel->setFilter(5,QVariant(1234),Qt::DisplayRole,Qt::MatchExactly);
- *filterModel->endDeclateFilter();
- *\endcode
- *Now the model will filter column 1 and 5, to be accepted by the filtermodel a row needs to pass all filters
- */
-
 class QxtModelFilterPrivate
 {
     public:
@@ -112,18 +96,45 @@ bool QxtModelFilterPrivate::acceptsValue ( const QVariant & value )
     return false;
 }
 
+/*!
+    \class QxtSortFilterProxyModel
+    \inmodule QxtGui
+    \brief The QxtSortFilterProxyModel class is a multi column filter model.
+    
+    The QxtSortFilterProxyModel makes it possible to filter over multiple columns.
 
+    \code
+    QxtSortFilterProxyModel * filterModel = new QxtSortFilterProxyModel(parent);
+    filterModel->setSourceModel(sourceModel);
+    filterModel->beginDeclareFilter();
+    filterModel->setFilter(1,QVariant("SomeStringValue"),Qt::DisplayRole,Qt::MatchExactly);
+    //remove some old filter
+    filterModel->removeFilter(2);
+    filterModel->setFilter(5,QVariant(1234),Qt::DisplayRole,Qt::MatchExactly);
+    filterModel->endDeclateFilter();
+    \endcode
+
+    Now the model will filter column 1 and 5, to be accepted by the filtermodel a row needs to pass all filters
+*/
+
+/*!
+    Constructs a new QxtSortFilterProxyModel with \a parent.
+ */
 QxtSortFilterProxyModel::QxtSortFilterProxyModel ( QObject *parent) : QSortFilterProxyModel(parent)
 {
     QXT_INIT_PRIVATE(QxtSortFilterProxyModel);
     qxt_d().m_declaringFilter = false;
 }
 
+
 /*!
- *\brief tells the model you want to declare a new filter
- *If you have a lot of data in your model it can be slow to declare more than one filter,
- *because the model will always rebuild itself. If you call this member before setting the
- *new filters the model will invalidate its contents not before you call \sa endDeclareFilter()
+    \brief tells the model you want to declare a new filter
+
+    If you have a lot of data in your model it can be slow to declare more than one filter,
+    because the model will always rebuild itself. If you call this member before setting the
+    new filters the model will invalidate its contents not before you call
+    
+    \sa endDeclareFilter()
  */
 void QxtSortFilterProxyModel::beginDeclareFilter ( )
 {
@@ -131,8 +142,9 @@ void QxtSortFilterProxyModel::beginDeclareFilter ( )
 }
 
 /*!
- *\brief stops the filter declaration and invalidates the filter 
- *\sa beginDeclareFilter()
+    \brief stops the filter declaration and invalidates the filter 
+
+    \sa beginDeclareFilter()
  */
 void QxtSortFilterProxyModel::endDeclareFilter ( )
 {
@@ -142,6 +154,9 @@ void QxtSortFilterProxyModel::endDeclareFilter ( )
     }
 }
 
+/*!
+    \reimp
+ */
 bool QxtSortFilterProxyModel::filterAcceptsRow ( int source_row, const QModelIndex &source_parent ) const
 {
     QList<int> filterColumns = qxt_d().filters.keys();
@@ -169,6 +184,9 @@ bool QxtSortFilterProxyModel::filterAcceptsRow ( int source_row, const QModelInd
     return true;
 }
 
+/*!
+    \brief TODO
+ */
 void QxtSortFilterProxyModel::setFilter ( const int column, const QVariant &value, const int role, Qt::MatchFlags flags )
 {
     if(qxt_d().filters.contains(column))
@@ -180,6 +198,9 @@ void QxtSortFilterProxyModel::setFilter ( const int column, const QVariant &valu
         invalidateFilter();
 }
 
+/*!
+    \brief TODO
+ */
 void QxtSortFilterProxyModel::removeFilter ( const int column )
 {
     if(qxt_d().filters.contains(column)){
@@ -190,6 +211,9 @@ void QxtSortFilterProxyModel::removeFilter ( const int column )
     }
 }
 
+/*!
+    \brief TODO
+ */
 void QxtSortFilterProxyModel::setFilterValue ( const int column , const QVariant &value )
 {
     if(qxt_d().filters.contains(column))
@@ -201,6 +225,9 @@ void QxtSortFilterProxyModel::setFilterValue ( const int column , const QVariant
         invalidateFilter();
 }
 
+/*!
+    \brief TODO
+ */
 void QxtSortFilterProxyModel::setFilterRole ( const int column , const int role )
 {
     if(qxt_d().filters.contains(column))
@@ -212,6 +239,9 @@ void QxtSortFilterProxyModel::setFilterRole ( const int column , const int role 
         invalidateFilter();
 }
 
+/*!
+    \brief TODO
+ */
 void QxtSortFilterProxyModel::setFilterFlags ( const int column , const Qt::MatchFlags flags )
 {
     if(qxt_d().filters.contains(column))
@@ -223,6 +253,9 @@ void QxtSortFilterProxyModel::setFilterFlags ( const int column , const Qt::Matc
         invalidateFilter();
 }
 
+/*!
+    \brief TODO
+ */
 QVariant QxtSortFilterProxyModel::filterValue ( const int column ) const
 {
     if(qxt_d().filters.contains(column))
@@ -230,6 +263,9 @@ QVariant QxtSortFilterProxyModel::filterValue ( const int column ) const
     return QVariant();
 }
 
+/*!
+    \brief TODO
+ */
 int QxtSortFilterProxyModel::filterRole ( const int column ) const
 {
     if(qxt_d().filters.contains(column))
@@ -238,8 +274,9 @@ int QxtSortFilterProxyModel::filterRole ( const int column ) const
 }
 
 /*!
- * \brief returns the filter flags for the given column
- * \bold {Note:} if the column is not filtered it will return the default value
+    \brief returns the filter flags for the given column
+
+    \bold {Note:} if the column is not filtered it will return the default value
  */
 Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
 {
@@ -249,10 +286,9 @@ Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
 }
 
 /*!
- *Returns true if the column is filtered
+    Returns true if the column is filtered
  */
 bool QxtSortFilterProxyModel::isFiltered ( const int column )
 {
     return qxt_d().filters.contains(column);
 }
-

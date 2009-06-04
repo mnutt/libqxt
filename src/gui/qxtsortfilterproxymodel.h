@@ -22,8 +22,8 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTSORTFILTERPROXYMODEL_H_INCLUDED
-#define QXTSORTFILTERPROXYMODEL_H_INCLUDED
+#ifndef QXTSORTFILTERPROXYMODEL_H
+#define QXTSORTFILTERPROXYMODEL_H
 
 #include <QSortFilterProxyModel>
 #include <QRegExp>
@@ -37,23 +37,29 @@ class QxtSortFilterProxyModelPrivate;
 class QXT_GUI_EXPORT QxtSortFilterProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
+
+public:
+    QxtSortFilterProxyModel( QObject *parent = 0 );
+
+    void beginDeclareFilter( );
+    void endDeclareFilter( );
+    void setFilter( const int column, const QVariant &value, const int role = Qt::DisplayRole, Qt::MatchFlags flags = Qt::MatchContains );
+    void setFilterValue( const int column, const QVariant &value );
+    void setFilterRole( const int column, const int role = Qt::DisplayRole );
+    void setFilterFlags( const int column, const Qt::MatchFlags flags = Qt::MatchContains );
+    void removeFilter( const int column );
+
+    QVariant filterValue( const int column ) const;
+    int filterRole( const int column ) const;
+    Qt::MatchFlags filterFlags( const int column ) const;
+
+    bool isFiltered( const int column );
+
+protected:
+    virtual bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const;
+
+private:
     QXT_DECLARE_PRIVATE(QxtSortFilterProxyModel);
-
-    public:
-        QxtSortFilterProxyModel                         ( QObject *parent = 0 );
-        virtual bool                filterAcceptsRow    ( int source_row, const QModelIndex &source_parent ) const;
-        void                        beginDeclareFilter  ( );
-        void                        endDeclareFilter    ( );
-        void                        setFilter           ( const int column , const QVariant &value, const int role = Qt::DisplayRole, Qt::MatchFlags flags = Qt::MatchContains);
-        void                        setFilterValue      ( const int column , const QVariant &value );
-        void                        setFilterRole       ( const int column , const int role = Qt::DisplayRole );
-        void                        setFilterFlags      ( const int column , const Qt::MatchFlags flags = Qt::MatchContains );
-        void                        removeFilter        ( const int column );
-
-        QVariant                    filterValue         ( const int column ) const;
-        int                         filterRole          ( const int column ) const;
-        Qt::MatchFlags              filterFlags         ( const int column ) const;
-
-        bool                        isFiltered          ( const int column );
 };
-#endif
+
+#endif // QXTSORTFILTERPROXYMODEL_H
