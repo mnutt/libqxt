@@ -73,13 +73,13 @@ void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
 /*!
     \fn QxtCountryComboBox::currentCountryChanged(QLocale::Country country)
 
-    This signal is emitted whenever the current selected country has been changed.
+    This signal is emitted whenever the current \a country has been changed.
  */
 
 /*!
     \fn QxtCountryComboBox::currentCountryNameChanged(const QString& name)
 
-    This signal is emitted whenever the current selected country has been changed.
+    This signal is emitted whenever the current country \a name has been changed.
  */
 
 /*!
@@ -110,7 +110,7 @@ void QxtCountryComboBox::paintEvent(QPaintEvent *e)
 }
 #endif
 /*!
-    Destructs the combo box.
+    Destructs the country combo box.
  */
 QxtCountryComboBox::~QxtCountryComboBox()
 {
@@ -118,7 +118,7 @@ QxtCountryComboBox::~QxtCountryComboBox()
 
 /*!
     \property QxtCountryComboBox::currentCountry
-    \brief the current selected language.
+    \brief the current country.
  */
 QLocale::Country QxtCountryComboBox::currentCountry() const
 {
@@ -127,7 +127,7 @@ QLocale::Country QxtCountryComboBox::currentCountry() const
 
 /*!
     \property QxtCountryComboBox::currentCountryName
-    \brief the name of the current selected language.
+    \brief the name of the current country.
  */
 QString QxtCountryComboBox::currentCountryName() const
 {
