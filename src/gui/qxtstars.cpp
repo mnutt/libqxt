@@ -134,12 +134,12 @@ QSize QxtStarsPrivate::getStarSize() const
     By default, orientation is Qt::Horizonal and range is from \c 0 to \c 5.
 
     The stars are rendered accoring to palette with the following color roles:
-    <table>
-    <tr><td><b>ColorRole</b></td><td><b>Element</b></td></tr>
-    <tr><td>QPalette::Text</td><td>outlines</td></tr>
-    <tr><td>QPalette::Base</td><td>unselected stars</td></tr>
-    <tr><td>QPalette::Highlight</td><td>selected stars</td></tr>
-    </table>
+    \table
+    \header \i ColorRole \i Element
+    \row \i QPalette::Text \i outlines
+    \row \i QPalette::Base \i unselected stars
+    \row \i QPalette::Highlight \i selected stars
+    \endtable
 
     \image qxtstars.png "QxtStars in action."
  */
