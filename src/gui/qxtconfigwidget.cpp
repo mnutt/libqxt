@@ -312,10 +312,10 @@ QxtConfigWidget::~QxtConfigWidget()
 
     The default value is \c true.
 
-    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \l QPalette::Highlight
-    (whereas selected icons are highlighted with \l QPalette::Highlight). In case lightened
-    \l QPalette::Highlight ends up same as \l QPalette::Base, \l QPalette::AlternateBase is used
-    as a fallback color for the hover effect. This usually happens when \l QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened QPalette::Highlight
+    (whereas selected icons are highlighted with QPalette::Highlight). In case lightened
+    QPalette::Highlight ends up same as QPalette::Base, QPalette::AlternateBase is used
+    as a fallback color for the hover effect. This usually happens when QPalette::Highlight
     already is a light color (eg. light gray).
  */
 bool QxtConfigWidget::hasHoverEffect() const
@@ -363,7 +363,7 @@ void QxtConfigWidget::setIconSize(const QSize& size)
 /*!
     Adds a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
+    In case \a title is an empty string, QWidget::windowTitle of \a page is used.
 
     Returns the index of added page.
 
@@ -379,7 +379,7 @@ int QxtConfigWidget::addPage(QWidget* page, const QIcon& icon, const QString& ti
 /*!
     Inserts a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
+    In case \a title is an empty string, QWidget::windowTitle of \a page is used.
 
     Returns the index of inserted page.
 
