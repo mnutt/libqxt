@@ -30,6 +30,7 @@
 
 class QXT_GUI_EXPORT QxtProxyStyle : public QStyle
 {
+    Q_OBJECT
 public:
     explicit QxtProxyStyle(const QString& baseStyle);
     virtual ~QxtProxyStyle();
@@ -48,7 +49,6 @@ public:
     virtual void polish(QApplication* app);
     virtual void polish(QPalette& pal);
     virtual QSize sizeFromContents(ContentsType type, const QStyleOption* option, const QSize& contentsSize, const QWidget* widget = 0) const;
-    virtual QIcon standardIcon(StandardPixmap standardIcon, const QStyleOption* option = 0, const QWidget* widget = 0) const;
     virtual QPalette standardPalette() const;
     virtual QPixmap standardPixmap(StandardPixmap standardPixmap, const QStyleOption* option = 0, const QWidget* widget = 0) const;
     virtual int styleHint(StyleHint hint, const QStyleOption* option = 0, const QWidget* widget = 0, QStyleHintReturn* returnData = 0) const;
@@ -56,6 +56,9 @@ public:
     virtual QRect subElementRect(SubElement element, const QStyleOption* option, const QWidget* widget = 0) const;
     virtual void unpolish(QWidget* widget);
     virtual void unpolish(QApplication* app);
+
+protected Q_SLOTS:
+    QIcon standardIconImplementation(StandardPixmap standardIcon, const QStyleOption* option = 0, const QWidget* widget = 0) const;
 
 private:
     QStyle* style;
