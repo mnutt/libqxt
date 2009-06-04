@@ -37,16 +37,17 @@
     style (eg. QPlastiqueStyle, QWindowsXPStyle, or QMacStyle) and
     to retain the native look on all supported platforms.
 
-    The subject has been discussed in Qt Quarterly 9:
-    http://doc.trolltech.com/qq/qq09-q-and-a.html#style (just notice
-    that there are a few noteworthy spelling mistakes in the article).
+    The subject has been discussed in \l
+    {http://doc.trolltech.com/qq/qq09-q-and-a.html#style}
+    {Qt Quarterly 9} (just notice that there are a few noteworthy
+    spelling mistakes in the article).
 
     Proxy styles are becoming obsolete thanks to style sheets
     introduced in Qt 4.2. However, style sheets still is a new
     concept and only a portion of features are supported yet. Both -
     style sheets and proxy styles - have their pros and cons.
 
-    \section1 usage Usage
+    \section1 Usage
 
     Implement the custom behaviour in a subclass of QxtProxyStyle:
     \code
@@ -212,14 +213,6 @@ QSize QxtProxyStyle::sizeFromContents(ContentsType type, const QStyleOption* opt
 }
 
 /*!
-    TODO: not virtual
- */
-QIcon QxtProxyStyle::standardIcon(StandardPixmap standardIcon, const QStyleOption* option, const QWidget* widget) const
-{
-    return style->standardIcon(standardIcon, option, widget);
-}
-
-/*!
     \reimp
  */
 QPalette QxtProxyStyle::standardPalette() const
@@ -273,4 +266,18 @@ void QxtProxyStyle::unpolish(QWidget* widget)
 void QxtProxyStyle::unpolish(QApplication* app)
 {
     style->unpolish(app);
+}
+
+/*!
+    \reimp
+ */
+QIcon QxtProxyStyle::standardIconImplementation(StandardPixmap standardIcon, const QStyleOption* option, const QWidget* widget) const
+{
+    QIcon result;
+    QMetaObject::invokeMethod(style, "standardIconImplementation", Qt::DirectConnection,
+                              Q_RETURN_ARG(QIcon, result),
+                              Q_ARG(StandardPixmap, standardIcon),
+                              Q_ARG(const QStyleOption*, option),
+                              Q_ARG(const QWidget*, widget));
+    return result;
 }
