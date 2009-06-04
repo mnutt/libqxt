@@ -96,14 +96,14 @@
     separate library:
 
     \table 80%
-    \row \i \l{QxtBerkeley} \i The QxtBerkeley module provides a Qt interface to the Berkeley DB.
-    \row \i \l{QxtCore} \i The QxtCore module extends QtCore and contains core non-GUI functionality.
-    \row \i \l{QxtCrypto} \i The QxtCrypto module provides tools for encryption and hashing.
-    \row \i \l{QxtGui} \i The QxtGui module extends QxtCore and QtGui.
-    \row \i \l{QxtNetwork} \i The QxtNetwork module extends QtNetwork with RPC functionality.
-    \row \i \l{QxtSql} \i The QxtSql module extends QtSql with serializable queries.
-    \row \i \l{QxtWeb} \i The QxtWeb module provides tools for creating web services using Qt.
-    \row \i \l{QxtZeroConf} \i TODO
+    \row \o \l{QxtBerkeley} \o The QxtBerkeley module provides a Qt interface to the Berkeley DB.
+    \row \o \l{QxtCore} \o The QxtCore module extends QtCore and contains core non-GUI functionality.
+    \row \o \l{QxtCrypto} \o The QxtCrypto module provides tools for encryption and hashing.
+    \row \o \l{QxtGui} \o The QxtGui module extends QxtCore and QtGui.
+    \row \o \l{QxtNetwork} \o The QxtNetwork module extends QtNetwork with RPC functionality.
+    \row \o \l{QxtSql} \o The QxtSql module extends QtSql with serializable queries.
+    \row \o \l{QxtWeb} \o The QxtWeb module provides tools for creating web services using Qt.
+    \row \o \l{QxtZeroConf} \o TODO
     \endtable
 
     If you use \l qmake to build your projects, the QxtCore and QxtGui
