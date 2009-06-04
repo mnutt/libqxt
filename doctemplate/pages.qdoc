@@ -98,7 +98,6 @@
     \table 80%
     \row \o \l{QxtBerkeley} \o The QxtBerkeley module provides a Qt interface to the Berkeley DB.
     \row \o \l{QxtCore} \o The QxtCore module extends QtCore and contains core non-GUI functionality.
-    \row \o \l{QxtCrypto} \o The QxtCrypto module provides tools for encryption and hashing.
     \row \o \l{QxtGui} \o The QxtGui module extends QxtCore and QtGui.
     \row \o \l{QxtNetwork} \o The QxtNetwork module extends QtNetwork with RPC functionality.
     \row \o \l{QxtSql} \o The QxtSql module extends QtSql with serializable queries.
