@@ -36,25 +36,44 @@
     \sa QxtListWidget
  */
 
-
+/*!
+    Constructs a new QxtListWidgetItem with \a parent and \a type.
+ */
 QxtListWidgetItem::QxtListWidgetItem(QListWidget* parent, int type)
         : QListWidgetItem(parent, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtListWidgetItem with \a text, \a parent and \a type.
+ */
 QxtListWidgetItem::QxtListWidgetItem(const QString& text, QListWidget* parent, int type)
         : QListWidgetItem(text, parent, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtListWidgetItem with \a icon, \a text, \a parent and \a type.
+ */
 QxtListWidgetItem::QxtListWidgetItem(const QIcon& icon, const QString& text, QListWidget* parent, int type)
         : QListWidgetItem(icon, text, parent, type)
-{}
+{
+}
 
+/*!
+    Constructs a copy of \a other.
+ */
 QxtListWidgetItem::QxtListWidgetItem(const QxtListWidgetItem& other)
         : QListWidgetItem(other)
-{}
+{
+}
 
+/*!
+    Destructs the list widget item.
+ */
 QxtListWidgetItem::~QxtListWidgetItem()
-{}
+{
+}
 
 /*!
     Returns \c true if the \a flag is set, otherwise \c false.
