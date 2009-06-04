@@ -135,7 +135,7 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
 
 /*!
     \property QxtGlobalShortcut::shortcut
-    \brief This property holds the shortcut key sequence
+    \brief the shortcut key sequence
 
     \bold {Note:} Notice that corresponding key press and release events are not
     delivered for registered global shortcuts even if they are disabled.
@@ -161,7 +161,7 @@ bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
 
 /*!
     \property QxtGlobalShortcut::enabled
-    \brief This property holds whether the shortcut is enabled
+    \brief whether the shortcut is enabled
 
     A disabled shortcut does not get activated.
 

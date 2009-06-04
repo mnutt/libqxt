@@ -270,7 +270,7 @@ QxtItemDelegate::~QxtItemDelegate()
 
 /*!
     \property QxtItemDelegate::decorationStyle
-    \brief This property holds the top level index decoration style
+    \brief the top level index decoration style
 
     Top level indices are decorated according to this property.
     The default value is \bold Qxt::NoDecoration.
@@ -295,7 +295,7 @@ void QxtItemDelegate::setDecorationStyle(Qxt::DecorationStyle style)
 
 /*!
     \property QxtItemDelegate::elideMode
-    \brief This property holds the text elide mode
+    \brief the text elide mode
 
     The text of a decorated top level index is elided according to this property.
     The default value is \bold Qt::ElideMiddle.
@@ -316,7 +316,7 @@ void QxtItemDelegate::setElideMode(Qt::TextElideMode mode)
 
 /*!
     \property QxtItemDelegate::progressTextFormat
-    \brief This property holds the format of optional progress text
+    \brief the format of optional progress text
 
     The progress text is formatted according to this property.
     The default value is \bold "%1%".
@@ -340,7 +340,7 @@ void QxtItemDelegate::setProgressTextFormat(const QString& format)
 
 /*!
     \property QxtItemDelegate::progressTextVisible
-    \brief This property holds whether progress text is visible
+    \brief whether progress text is visible
 
     The default value is \bold true.
 

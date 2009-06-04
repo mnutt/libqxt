@@ -85,7 +85,7 @@ QxtGroupBox::~QxtGroupBox()
 
 /*!
     \property QxtGroupBox::collapsive
-    \brief This property holds whether the group box is collapsive
+    \brief whether the group box is collapsive
  */
 bool QxtGroupBox::isCollapsive() const
 {

@@ -306,7 +306,7 @@ QxtConfigWidget::~QxtConfigWidget()
 
 /*!
     \property QxtConfigWidget::hoverEffect
-    \brief This property holds whether a hover effect is shown for page icons
+    \brief whether a hover effect is shown for page icons
 
     The default value is \bold true.
 
@@ -328,7 +328,7 @@ void QxtConfigWidget::setHoverEffect(bool enabled)
 
 /*!
     \property QxtConfigWidget::iconPosition
-    \brief This property holds the position of page icons
+    \brief the position of page icons
  */
 QxtConfigWidget::IconPosition QxtConfigWidget::iconPosition() const
 {
@@ -346,7 +346,7 @@ void QxtConfigWidget::setIconPosition(QxtConfigWidget::IconPosition position)
 
 /*!
     \property QxtConfigWidget::iconSize
-    \brief This property holds the size of page icons
+    \brief the size of page icons
  */
 QSize QxtConfigWidget::iconSize() const
 {
@@ -437,7 +437,7 @@ QWidget* QxtConfigWidget::takePage(int index)
 
 /*!
     \property QxtConfigWidget::count
-    \brief This property holds the number of pages
+    \brief the number of pages
 */
 int QxtConfigWidget::count() const
 {
@@ -446,7 +446,7 @@ int QxtConfigWidget::count() const
 
 /*!
     \property QxtConfigWidget::currentIndex
-    \brief This property holds the index of current page
+    \brief the index of current page
 */
 int QxtConfigWidget::currentIndex() const
 {
