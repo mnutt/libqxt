@@ -127,6 +127,15 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
     QxtComboBox is a specialized combo box with checkable items.
     Checked items are collected together in the line edit.
 
+    \code
+    QxtCheckComboBox* comboBox = new QxtCheckComboBox(this);
+    comboBox->addItems(...);
+    comboBox->setItemCheckState(2, Qt::Checked);
+    comboBox->setItemCheckState(4, Qt::Checked);
+    // OR
+    comboBox->setCheckedItems(QStringList() << "dolor" << "amet");
+    \endcode
+
     \image qxtcheckcombobox.png "QxtCheckComboBox in Plastique style."
  */
 
@@ -185,7 +194,7 @@ Qt::CheckState QxtCheckComboBox::itemCheckState(int index) const
 }
 
 /*!
-    Sets the check state of the item at \a index to \a state.
+    Sets the check \a state of the item at \a index.
  */
 void QxtCheckComboBox::setItemCheckState(int index, Qt::CheckState state)
 {
