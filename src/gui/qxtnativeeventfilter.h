@@ -27,80 +27,6 @@
 
 #include "qxtapplication.h"
 
-/*!
-    \class QxtNativeEventFilter QxtNativeEventFilter
-    \inmodule QxtGui
-    \brief A native event filter to access platform specific events.
-
-    QxtNativeEventFilter provides access to platform specific native events
-    without the need of subclassing QApplication.
-
-    \bold {Note:} QxtNativeEventFilter requires QxtApplication.
-
-    Example usage:
-    \code
-    qxtApp->installNativeEventFilter(myObject);
-
-    class MyObject : public QxtNativeEventFilter {
-        public:
-            ...
-
-            bool x11EventFilter(XEvent* event) {
-                if (event->type == ...) {
-                    ...
-                }
-                return false;
-            }
-
-            bool winEventFilter(MSG* msg, long* result) {
-                if (msg->message == ...) {
-                    ...
-                }
-                return false;
-            }
-
-            bool macEventFilter(EventHandlerCallRef caller, EventRef event) {
-                if (GetEventClass(event) == ...) {
-                    ...
-                }
-                return false;
-            }
-    };
-    \endcode
-
-    \sa QxtApplication::installNativeEventFilter()
- */
-
-/*!
-    \fn QxtNativeEventFilter::x11EventFilter(XEvent* event)
-
-    Filters X11 events if this object has been installed as a native event filter.
-    In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
-
-    \sa QxtApplication::installNativeEventFilter()
- */
-
-/*!
-    \fn QxtNativeEventFilter::winEventFilter(MSG* msg, long* result)
-
-    Filters Windows events if this object has been installed as a native event filter.
-    In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
-
-    \sa QxtApplication::installNativeEventFilter()
- */
-
-/*!
-    \fn QxtNativeEventFilter::macEventFilter(EventHandlerCallRef caller, EventRef event)
-
-    Filters Mac events if this object has been installed as a native event filter.
-    In your reimplementation of this function, if you want to filter the event out,
-    i.e. stop it being handled further, return \bold true; otherwise return \bold false.
-
-    \sa QxtApplication::installNativeEventFilter()
- */
-
 class QxtNativeEventFilter
 {
 public:
@@ -109,22 +35,24 @@ public:
         qxtApp->removeNativeEventFilter(this);
     }
 
-#if defined(Q_WS_X11)
+#if defined(Q_WS_X11) || defined(QXT_DOXYGEN_RUN)
     virtual bool x11EventFilter(XEvent*)
     {
         return false;
     }
-#elif defined(Q_WS_WIN)
+#endif // Q_WS_X11
+#if defined(Q_WS_WIN) || defined(QXT_DOXYGEN_RUN)
     virtual bool winEventFilter(MSG*, long*)
     {
         return false;
     }
-#elif defined(Q_WS_MAC)
+#endif // Q_WS_WIN
+#if defined(Q_WS_MAC) || defined(QXT_DOXYGEN_RUN)
     virtual bool macEventFilter(EventHandlerCallRef, EventRef)
     {
         return false;
     }
-#endif // Q_WS_*
+#endif // Q_WS_MAC
 };
 
 #endif // QXTNATIVEEVENTFILTER_H

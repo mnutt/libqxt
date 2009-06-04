@@ -32,6 +32,8 @@
 
     QxtApplication lets you install native event filters. This gives an
     easy and straightforward access to platform specific native events.
+
+    \sa QxtNativeEventFilter
  */
 
 /*!
@@ -39,7 +41,7 @@
 
     Returns a pointer to the instance of the application object.
 
-    A convenience macro \bold qxtApp is also available.
+    A convenience macro \l qxtApp is also available.
  */
 
 /*!
@@ -54,7 +56,7 @@
 */
 
 /*!
-    Constructs a new QxtApplication.
+    Constructs a new QxtApplication with \a argc and \a argv.
 
     \sa QApplication::QApplication()
  */
@@ -64,7 +66,7 @@ QxtApplication::QxtApplication(int& argc, char** argv)
 }
 
 /*!
-    Constructs a new QxtApplication.
+    Constructs a new QxtApplication with \a argc, \a argv and \a GUIenabled.
 
     \sa QApplication::QApplication()
  */
@@ -74,7 +76,7 @@ QxtApplication::QxtApplication(int& argc, char** argv, bool GUIenabled)
 }
 
 /*!
-    Constructs a new QxtApplication.
+    Constructs a new QxtApplication with \a argc, \a argv and \a type.
 
     \sa QApplication::QApplication()
  */
