@@ -118,7 +118,7 @@ QxtTreeWidget::~QxtTreeWidget()
 
 /*!
     \property QxtTreeWidget::decorationStyle
-    \brief This property holds the top level item decoration style
+    \brief the top level item decoration style
 
     Top level items are decorated according to this property.
     The default value is \bold Qxt::NoDecoration.
@@ -151,7 +151,7 @@ void QxtTreeWidget::setDecorationStyle(Qxt::DecorationStyle style)
 
 /*!
     \property QxtTreeWidget::elideMode
-    \brief This property holds the text elide mode
+    \brief the text elide mode
 
     The text of a decorated top level item is elided according to this property.
     The default value is \bold Qt::ElideMiddle.

@@ -118,7 +118,7 @@ QxtCountryComboBox::~QxtCountryComboBox()
 
 /*!
     \property QxtCountryComboBox::currentCountry
-    \brief This property holds the current selected language.
+    \brief the current selected language.
  */
 QLocale::Country QxtCountryComboBox::currentCountry() const
 {
@@ -127,7 +127,7 @@ QLocale::Country QxtCountryComboBox::currentCountry() const
 
 /*!
     \property QxtCountryComboBox::currentCountryName
-    \brief This property holds the name of the current selected language.
+    \brief the name of the current selected language.
  */
 QString QxtCountryComboBox::currentCountryName() const
 {

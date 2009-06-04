@@ -329,7 +329,7 @@ QxtLanguageComboBox::~QxtLanguageComboBox()
 
 /*!
     \property QxtLanguageComboBox::currentLanguage
-    \brief This property holds the current selected language.
+    \brief the current selected language.
  */
 QLocale::Language QxtLanguageComboBox::currentLanguage() const
 {
@@ -338,7 +338,7 @@ QLocale::Language QxtLanguageComboBox::currentLanguage() const
 
 /*!
     \property QxtLanguageComboBox::currentLanguageName
-    \brief This property holds the name of the current selected language.
+    \brief the name of the current selected language.
  */
 QString QxtLanguageComboBox::currentLanguageName() const
 {
@@ -352,7 +352,7 @@ void QxtLanguageComboBox::setCurrentLanguage(QLocale::Language language)
 
 /*!
     \property QxtLanguageComboBox::displayMode
-    \brief This property holds the display mode of the widget.
+    \brief the display mode of the widget.
  */
 void QxtLanguageComboBox::setDisplayMode(DisplayMode mode)
 {
@@ -366,7 +366,7 @@ QxtLanguageComboBox::DisplayMode QxtLanguageComboBox::displayMode() const
 
 /*!
     \property QxtLanguageComboBox::translationPath
-    \brief This property holds the path to the translation files.
+    \brief the path to the translation files.
  */
 void QxtLanguageComboBox::setTranslationPath(const QString& path)
 {

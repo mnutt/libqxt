@@ -129,7 +129,7 @@ QxtLabel::~QxtLabel()
 
 /*!
     \property QxtLabel::text
-    \brief This property holds the text of the label
+    \brief the text of the label
  */
 QString QxtLabel::text() const
 {
@@ -148,7 +148,7 @@ void QxtLabel::setText(const QString& text)
 
 /*!
     \property QxtLabel::alignment
-    \brief This property holds the alignment of the text
+    \brief the alignment of the text
 
     The text is aligned according to this property.
     The default value is \l Qt::AlignCenter.
@@ -171,7 +171,7 @@ void QxtLabel::setAlignment(Qt::Alignment alignment)
 
 /*!
     \property QxtLabel::elideMode
-    \brief This property holds the elide mode of the text
+    \brief the elide mode of the text
 
     The text is elided according to this property.
     The default value is \l Qt::ElideMiddle.
@@ -194,7 +194,7 @@ void QxtLabel::setElideMode(Qt::TextElideMode mode)
 
 /*!
     \property QxtLabel::rotation
-    \brief This property holds the rotation of the label
+    \brief the rotation of the label
 
     The label is rotated according to this property.
     The default value is \l Qxt::NoRotation.

@@ -77,7 +77,7 @@ QxtStringSpinBox::~QxtStringSpinBox()
 
 /*!
     \property QxtStringSpinBox::strings
-    \brief This property holds the string items of the spin box.
+    \brief the string items of the spin box.
  */
 const QStringList& QxtStringSpinBox::strings() const
 {
