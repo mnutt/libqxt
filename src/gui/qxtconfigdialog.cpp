@@ -25,35 +25,17 @@
 #include "qxtconfigdialog_p.h"
 #include "qxtconfigdialog.h"
 #include "qxtconfigwidget.h"
-#if QT_VERSION >= 0x040200
 #include <QDialogButtonBox>
-#else // QT_VERSION >= 0x040200
-#include <QHBoxLayout>
-#include <QPushButton>
-#endif // QT_VERSION
 #include <QApplication>
 #include <QVBoxLayout>
-
 
 void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
 {
     QxtConfigDialog* p = &qxt_p();
 	configWidget = new QxtConfigWidget(pos);
-#if QT_VERSION >= 0x040200
     buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, p);
     QObject::connect(buttons, SIGNAL(accepted()), p, SLOT(accept()));
     QObject::connect(buttons, SIGNAL(rejected()), p, SLOT(reject()));
-#else // QT_VERSION >= 0x040200
-    buttons = new QWidget(p);
-    QHBoxLayout* layout = new QHBoxLayout(buttons);
-    QPushButton* okButton = new QPushButton(QxtConfigDialog::tr("&OK"));
-    QPushButton* cancelButton = new QPushButton(QxtConfigDialog::tr("&Cancel"));
-    QObject::connect(okButton, SIGNAL(clicked()), p, SLOT(accept()));
-    QObject::connect(cancelButton, SIGNAL(clicked()), p, SLOT(reject()));
-    layout->addStretch();
-    layout->addWidget(okButton);
-    layout->addWidget(cancelButton);
-#endif
     layout = new QVBoxLayout(p);
     layout->addWidget(configWidget);
     layout->addWidget(buttons);
@@ -78,6 +60,8 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
     \endcode
 
     \image qxtconfigdialog.png "QxtConfigDialog with page icons on the left (QxtConfigDialog::West)."
+
+    \sa QxtConfigWidget
  */
 
 /*!
@@ -117,25 +101,20 @@ QxtConfigDialog::~QxtConfigDialog()
 /*!
     Returns the dialog button box.
 
-    The default buttons are \bold QDialogButtonBox::Ok and \bold QDialogButtonBox::Cancel.
-
-    \bold {Note:} QDialogButtonBox is available in Qt 4.2 or newer.
+    The default buttons are \l QDialogButtonBox::Ok and \l QDialogButtonBox::Cancel.
 
     \sa setDialogButtonBox()
 */
-#if QT_VERSION >= 0x040200
 QDialogButtonBox* QxtConfigDialog::dialogButtonBox() const
 {
     return qxt_d().buttons;
 }
-#endif // QT_VERSION
 
 /*!
     Sets the dialog \a buttonBox.
 
     \sa dialogButtonBox()
 */
-#if QT_VERSION >= 0x040200
 void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
 {
     if (qxt_d().buttons != buttonBox)
@@ -149,18 +128,17 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
 		qxt_d().layout->addWidget(qxt_d().buttons);
     }
 }
-#endif // QT_VERSION
 
 /*!
     \property QxtConfigDialog::hoverEffect
     \brief whether a hover effect is shown for page icons
 
-    The default value is \bold true.
+    The default value is \l true.
 
-    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \bold QPalette::Highlight
-    (whereas selected icons are highlighted with \bold QPalette::Highlight). In case lightened
-    \bold QPalette::Highlight ends up same as \bold QPalette::Base, \bold QPalette::AlternateBase is used
-    as a fallback color for the hover effect. This usually happens when \bold QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \l QPalette::Highlight
+    (whereas selected icons are highlighted with \l QPalette::Highlight). In case lightened
+    \l QPalette::Highlight ends up same as \l QPalette::Base, \l QPalette::AlternateBase is used
+    as a fallback color for the hover effect. This usually happens when \l QPalette::Highlight
     already is a light color (eg. light gray).
  */
 bool QxtConfigDialog::hasHoverEffect() const
@@ -204,7 +182,7 @@ void QxtConfigDialog::setIconSize(const QSize& size)
 /*!
     Adds a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \bold QWidget::windowTitle is used.
+    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
 
     Returns the index of added page.
 
@@ -220,7 +198,7 @@ int QxtConfigDialog::addPage(QWidget* page, const QIcon& icon, const QString& ti
 /*!
     Inserts a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \bold QWidget::windowTitle is used.
+    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
 
     Returns the index of inserted page.
 
@@ -287,7 +265,7 @@ void QxtConfigDialog::setCurrentPage(QWidget* page)
 }
 
 /*!
-    Returns the index of \a page or \bold -1 if the page is unknown.
+    Returns the index of \a page or \c -1 if the page is unknown.
 */
 int QxtConfigDialog::indexOf(QWidget* page) const
 {
@@ -295,7 +273,7 @@ int QxtConfigDialog::indexOf(QWidget* page) const
 }
 
 /*!
-    Returns the page at \a index or \bold 0 if the \a index is out of range.
+    Returns the page at \a index or \c 0 if the \a index is out of range.
 */
 QWidget* QxtConfigDialog::page(int index) const
 {
@@ -303,9 +281,9 @@ QWidget* QxtConfigDialog::page(int index) const
 }
 
 /*!
-    Returns \bold true if the page at \a index is enabled; otherwise \bold false.
+    Returns \c true if the page at \a index is enabled; otherwise \c false.
 
-    \sa setPageEnabled(), QWidget::isEnabled()
+    \sa setPageEnabled()
 */
 bool QxtConfigDialog::isPageEnabled(int index) const
 {
@@ -316,7 +294,7 @@ bool QxtConfigDialog::isPageEnabled(int index) const
     Sets the page at \a index \a enabled. The corresponding
     page icon is also \a enabled.
 
-    \sa isPageEnabled(), QWidget::setEnabled()
+    \sa isPageEnabled()
 */
 void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 {
@@ -324,9 +302,9 @@ void QxtConfigDialog::setPageEnabled(int index, bool enabled)
 }
 
 /*!
-    Returns \bold true if the page at \a index is hidden; otherwise \bold false.
+    Returns \c true if the page at \a index is hidden; otherwise \c false.
 
-    \sa setPageHidden(), QWidget::isVisible()
+    \sa setPageHidden()
 */
 bool QxtConfigDialog::isPageHidden(int index) const
 {
@@ -337,7 +315,7 @@ bool QxtConfigDialog::isPageHidden(int index) const
     Sets the page at \a index \a hidden. The corresponding
     page icon is also \a hidden.
 
-    \sa isPageHidden(), QWidget::setVisible()
+    \sa isPageHidden()
 */
 void QxtConfigDialog::setPageHidden(int index, bool hidden)
 {
@@ -425,8 +403,6 @@ void QxtConfigDialog::setPageWhatsThis(int index, const QString& whatsthis)
 }
 
 /*!
-    Reimplemented from QDialog.
-
     \bold {Note:} The default implementation calls SLOT(accept()) of
     each page page provided that such slot exists.
 
@@ -439,8 +415,6 @@ void QxtConfigDialog::accept()
 }
 
 /*!
-    Reimplemented from QDialog.
-
     \bold {Note:} The default implementation calls SLOT(reject()) of
     each page provided that such slot exists.
 

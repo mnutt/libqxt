@@ -257,6 +257,8 @@ void QxtConfigWidgetPrivate::setCurrentIndex(int index)
     QxtConfigWidget provides a convenient interface for building
     common configuration views. QxtConfigWidget consists of a
     list of icons and a stack of pages.
+
+    \sa QxtConfigDialog
  */
 
 /*!
@@ -308,12 +310,12 @@ QxtConfigWidget::~QxtConfigWidget()
     \property QxtConfigWidget::hoverEffect
     \brief whether a hover effect is shown for page icons
 
-    The default value is \bold true.
+    The default value is \c true.
 
-    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \bold QPalette::Highlight
-    (whereas selected icons are highlighted with \bold QPalette::Highlight). In case lightened
-    \bold QPalette::Highlight ends up same as \bold QPalette::Base, \bold QPalette::AlternateBase is used
-    as a fallback color for the hover effect. This usually happens when \bold QPalette::Highlight
+    \bold {Note:} Hovered (but not selected) icons are highlighted with lightened \l QPalette::Highlight
+    (whereas selected icons are highlighted with \l QPalette::Highlight). In case lightened
+    \l QPalette::Highlight ends up same as \l QPalette::Base, \l QPalette::AlternateBase is used
+    as a fallback color for the hover effect. This usually happens when \l QPalette::Highlight
     already is a light color (eg. light gray).
  */
 bool QxtConfigWidget::hasHoverEffect() const
@@ -361,7 +363,7 @@ void QxtConfigWidget::setIconSize(const QSize& size)
 /*!
     Adds a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \bold QWidget::windowTitle is used.
+    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
 
     Returns the index of added page.
 
@@ -377,7 +379,7 @@ int QxtConfigWidget::addPage(QWidget* page, const QIcon& icon, const QString& ti
 /*!
     Inserts a \a page with \a icon and \a title.
 
-    In case \a title is an empty string, \bold QWidget::windowTitle is used.
+    In case \a title is an empty string, \l QWidget::windowTitle of \a page is used.
 
     Returns the index of inserted page.
 
@@ -479,7 +481,7 @@ void QxtConfigWidget::setCurrentPage(QWidget* page)
 }
 
 /*!
-    Returns the index of \a page or \bold -1 if the page is unknown.
+    Returns the index of \a page or \c -1 if the page is unknown.
 */
 int QxtConfigWidget::indexOf(QWidget* page) const
 {
@@ -487,7 +489,7 @@ int QxtConfigWidget::indexOf(QWidget* page) const
 }
 
 /*!
-    Returns the page at \a index or \bold 0 if the \a index is out of range.
+    Returns the page at \a index or \c 0 if the \a index is out of range.
 */
 QWidget* QxtConfigWidget::page(int index) const
 {
@@ -495,9 +497,9 @@ QWidget* QxtConfigWidget::page(int index) const
 }
 
 /*!
-    Returns \bold true if the page at \a index is enabled; otherwise \bold false.
+    Returns \c true if the page at \a index is enabled; otherwise \c false.
 
-    \sa setPageEnabled(), QWidget::isEnabled()
+    \sa setPageEnabled()
 */
 bool QxtConfigWidget::isPageEnabled(int index) const
 {
@@ -509,7 +511,7 @@ bool QxtConfigWidget::isPageEnabled(int index) const
     Sets the page at \a index \a enabled. The corresponding
     page icon is also \a enabled.
 
-    \sa isPageEnabled(), QWidget::setEnabled()
+    \sa isPageEnabled()
 */
 void QxtConfigWidget::setPageEnabled(int index, bool enabled)
 {
@@ -530,9 +532,9 @@ void QxtConfigWidget::setPageEnabled(int index, bool enabled)
 }
 
 /*!
-    Returns \bold true if the page at \a index is hidden; otherwise \bold false.
+    Returns \c true if the page at \a index is hidden; otherwise \c false.
 
-    \sa setPageHidden(), QWidget::isVisible()
+    \sa setPageHidden()
 */
 bool QxtConfigWidget::isPageHidden(int index) const
 {
@@ -545,7 +547,7 @@ bool QxtConfigWidget::isPageHidden(int index) const
     Sets the page at \a index \a hidden. The corresponding
     page icon is also \a hidden.
 
-    \sa isPageHidden(), QWidget::setVisible()
+    \sa isPageHidden()
 */
 void QxtConfigWidget::setPageHidden(int index, bool hidden)
 {
