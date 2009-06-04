@@ -346,7 +346,7 @@ int QxtToolTip::margin()
 /*!
     Sets the margin of the tooltip.
 
-    The default value is \bold QStyle::PM_ToolTipLabelFrameWidth.
+    The default value is QStyle::PM_ToolTipLabelFrameWidth.
 
     \sa margin()
 */
@@ -368,7 +368,7 @@ qreal QxtToolTip::opacity()
 /*!
     Sets the opacity level of the tooltip.
 
-    The default value is \bold QStyle::SH_ToolTipLabel_Opacity.
+    The default value is QStyle::SH_ToolTipLabel_Opacity.
 
     \sa QWidget::setWindowOpacity()
 */

@@ -157,7 +157,7 @@ QxtPushButton::~QxtPushButton()
     \brief the rotation of the button
 
     The button is rotated according to this property.
-    The default value is \bold Qxt::NoRotation.
+    The default value is Qxt::NoRotation.
 
     \sa Qxt::Rotation
  */
@@ -196,9 +196,9 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
     \property QxtPushButton::textFormat
     \brief the text format of the button
 
-    Supported formats are \bold Qt::PlainText, \bold Qt::RichText and \bold Qt::AutoText.
+    Supported formats are Qt::PlainText, Qt::RichText and Qt::AutoText.
 
-    The default format is \bold Qt::PlainText.
+    The default format is Qt::PlainText.
 
     \bold {Note:} Rich text requires Qt 4.2 or newer.
 

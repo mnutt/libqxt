@@ -56,7 +56,7 @@ void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
 
     This signal is emitted after the editing of \a item has been started.
 
-    \bold {Note:} The \a item can be \bold 0 if no item has been set to the corresponding cell.
+    \bold {Note:} The \a item can be \c 0 if no item has been set to the corresponding cell.
 
     \sa itemEditingFinished(), QTableWidget::setItem()
  */
