@@ -85,15 +85,6 @@
 */
 
 /*!
-    \module QxtCrypto
-    \title QxtCrypto Module
-    \keyword QxtCrypto
-    \ingroup modules
-
-    \brief The QxtCrypto module provides tools for encryption and hashing.
-*/
-
-/*!
     \module QxtNetwork
     \title QxtNetwork Module
     \keyword QxtNetwork
