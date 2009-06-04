@@ -28,11 +28,7 @@
 #include "qxtlocale.h"
 #include <QIcon>
 #include <QLocale>
-#include <QDebug>
 #include <QApplication>
-#if QT_VERSION >= 0x040300
-#include <QMetaEnum>
-#endif
 
 class QxtCountry;
 typedef QList<QxtCountry> QxtCountryList;
@@ -100,16 +96,6 @@ QxtCountryModelPrivate::QxtCountryModelPrivate()
 {
 }
 
-int QxtCountryModelPrivate::rowCount(const QModelIndex&) const
-{
-    return QxtCountry::loadCountries().size();
-}
-
-int QxtCountryModelPrivate::columnCount(const QModelIndex&) const
-{
-    return 8;
-}
-
 QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid())
@@ -157,40 +143,40 @@ QVariant QxtCountryModelPrivate::data(const QModelIndex& index, int role) const
     \image qxtcountrymodel.png "QxtCountryModel in a QTableView in Plastique style."
  */
 
+/*!
+    Constructs a new QxtCountryModel with \a parent.
+ */
 QxtCountryModel::QxtCountryModel(QObject* parent)
         : QAbstractTableModel(parent)
 {
     QXT_INIT_PRIVATE(QxtCountryModel);
 }
 
+/*!
+    Destructs the country model.
+ */
 QxtCountryModel::~QxtCountryModel()
 {
 }
 
 /*!
-    \fn QxtCountryModel::rowCount(const QModelIndex& parent) const
-
-    Returns the number of rows in the model.
+    Returns the number of countries in the model.
  */
 int QxtCountryModel::rowCount(const QModelIndex& parent) const
 {
-    return qxt_d().rowCount(parent);
+    return parent.isValid() ? 0 : QxtCountry::loadCountries().size();
 }
 
 /*!
-    \fn QxtCountryModel::columnCount(const QModelIndex& parent) const
-
     Returns the number of columns in the model.
  */
 int QxtCountryModel::columnCount(const QModelIndex& parent) const
 {
-    return qxt_d().columnCount(parent);
+    return parent.isValid() ? 0 : 8;
 }
 
 /*!
-    \fn QxtCountryModel::data(const QModelIndex& index, int role) const
-
-    Returns the data for the given \a index for a sepcific role.
+    Returns the data for the given \a index for a specific \a role.
  */
 QVariant QxtCountryModel::data(const QModelIndex& index, int role) const
 {
@@ -198,9 +184,7 @@ QVariant QxtCountryModel::data(const QModelIndex& index, int role) const
 }
 
 /*!
-    \fn QxtCountryModel::headerData(int section, Qt::Orientation orientation, int role) const
-
-    Returns the column or row name for the given \a section for a sepcific role.
+    Returns the column or row name for the given \a section in \a orientation for a sepcific \a role.
  */
 QVariant QxtCountryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
@@ -229,4 +213,3 @@ QVariant QxtCountryModel::headerData(int section, Qt::Orientation orientation, i
 
     return QAbstractTableModel::headerData(section, orientation, role);
 }
-

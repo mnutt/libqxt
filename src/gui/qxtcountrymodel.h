@@ -33,8 +33,6 @@ class QxtCountryModelPrivate;
 class QXT_GUI_EXPORT QxtCountryModel : public QAbstractTableModel
 {
     Q_OBJECT
-public:
-    QXT_DECLARE_PRIVATE(QxtCountryModel);
 
 public:
     explicit QxtCountryModel(QObject* parent = 0);
@@ -44,6 +42,9 @@ public:
     int columnCount(const QModelIndex&) const;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+private:
+    QXT_DECLARE_PRIVATE(QxtCountryModel);
 };
 
 #endif  //QXTCOUNTRYMODEL_H

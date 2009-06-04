@@ -36,8 +36,6 @@ public:
 public:
     explicit QxtCountryModelPrivate();
 
-    int rowCount(const QModelIndex&) const;
-    int columnCount(const QModelIndex&) const;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 };
 
