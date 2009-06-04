@@ -27,16 +27,6 @@
 #include <QDesktopWidget>
 #include <QApplication>
 
-/*!
-    \class QxtScreen
-    \inmodule QxtGui
-    \brief The QxtScreen class provides access to screen settings.
-
-    QxtScreen provides access to screen settings.
-
-    \bold {Note:} Currently supported platforms are X11 and Windows.
- */
-
 QxtScreenPrivate::QxtScreenPrivate() :
     currReso(),
     setReso(),
@@ -75,6 +65,16 @@ void QxtScreenPrivate::init()
         availDepths.isEmpty() || currDepth < 0)
         init_sys();
 }
+
+/*!
+    \class QxtScreen
+    \inmodule QxtGui
+    \brief The QxtScreen class provides access to screen settings.
+
+    QxtScreen provides access to screen settings.
+
+    \bold {Note:} Currently supported platforms are X11 and Windows.
+ */
 
 /*!
     Constructs a new QxtScreen for \a screen.
