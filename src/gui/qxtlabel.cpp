@@ -28,9 +28,6 @@
 #include <QPainter>
 #include <QFontMetrics>
 #include <QApplication>
-#if QT_VERSION < 0x040200
-#include <QAbstractItemDelegate>
-#endif // QT_VERSION
 
 static const int Vertical_Mask = 0x02;
 
@@ -256,10 +253,8 @@ QSize QxtLabel::minimumSizeHint() const
 {
     switch (qxt_d().mode)
     {
-#if QT_VERSION >= 0x040200
     case Qt::ElideNone:
         return sizeHint();
-#endif // QT_VERSION
     default:
     {
         const QFontMetrics& fm = fontMetrics();
@@ -306,11 +301,7 @@ void QxtLabel::paintEvent(QPaintEvent* event)
         r = QRect(r.topLeft(), s);
     }
 
-#if QT_VERSION < 0x040200
-    const QString elidedText = QAbstractItemDelegate::elidedText(fontMetrics(), r.width(), qxt_d().mode, qxt_d().text);
-#else // QT_VERSION >= 0x040200
     const QString elidedText = fontMetrics().elidedText(qxt_d().text, qxt_d().mode, r.width());
-#endif // QT_VERSION
     p.drawText(r, qxt_d().align, elidedText);
 }
 
