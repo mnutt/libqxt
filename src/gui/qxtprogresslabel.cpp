@@ -100,11 +100,11 @@ QxtProgressLabel::~QxtProgressLabel()
     The default value is an empty string which defaults to \bold "ETA: %r".
 
     The following variables may be used in the format string:
-    <table>
-    <tr><td><b>Variable</b></td><td><b>Output</b></td></tr>
-    <tr><td>\%e</td><td>elapsed time</td></tr>
-    <tr><td>\%r</td><td>remaining time</td></tr>
-    </table>
+    \table
+    \header \i Variable \i Output
+    \row \i \%e \i elapsed time
+    \row \i \%r \i remaining time
+    \endtable
 
     \sa timeFormat
  */
