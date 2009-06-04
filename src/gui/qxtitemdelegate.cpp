@@ -217,9 +217,8 @@ void QxtItemDelegatePrivate::closeEditor(QWidget* editor)
     \inmodule QxtGui
     \brief The QxtItemDelegate class is an extended QItemDelegate
 
-    QxtItemDelegate provides rich text support, signals for starting
-    and finishing of editing and an optional decoration of top level
-    items in a QTreeView.
+    QxtItemDelegate provides signals for starting and finishing of
+    editing and an optional decoration of top level items in a QTreeView.
 
     QxtItemDelegate can also draw a progress bar for items providing
     appropriate progress data. Just like QProgressBar, QxtItemDelegate
