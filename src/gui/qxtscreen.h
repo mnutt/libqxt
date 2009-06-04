@@ -29,8 +29,8 @@
 #include <QList>
 #include "qxtglobal.h"
 
-class QxtScreenPrivate;
 QT_FORWARD_DECLARE_CLASS(QWidget)
+class QxtScreenPrivate;
 
 class QXT_GUI_EXPORT QxtScreen
 {
