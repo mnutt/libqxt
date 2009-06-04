@@ -133,7 +133,7 @@ bool QxtCheckComboModel::setData(const QModelIndex& index, const QVariant& value
 /*!
     \fn QxtCheckComboBox::checkedItemsChanged(const QStringList& items)
 
-    This signal is emitted whenever the checked items have been changed.
+    This signal is emitted whenever the checked \a items have been changed.
  */
 
 /*!
