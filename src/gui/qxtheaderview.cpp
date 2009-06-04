@@ -57,7 +57,7 @@ QxtHeaderView::QxtHeaderView(Qt::Orientation orientation, QWidget* parent)
 
 /*!
     \property QxtHeaderView::proportionalSectionSizes
-    \brief This property holds whether section sizes are proportional.
+    \brief whether section sizes are proportional.
 
     The default value is \bold true.
 

@@ -164,7 +164,7 @@ QxtStars::~QxtStars()
 
 /*!
     \property QxtStars::readOnly
-    \brief This property holds whether stars are adjustable
+    \brief whether stars are adjustable
 
     In read-only mode, the user is not able to change the value.
     The default value is \bold false.
@@ -188,7 +188,7 @@ void QxtStars::setReadOnly(bool readOnly)
 
 /*!
     \property QxtStars::starSize
-    \brief This property holds the size of star icons
+    \brief the size of star icons
 
     The default value is \bold QStyle::PM_SmallIconSize.
  */

@@ -426,7 +426,7 @@ QxtSpanSlider::~QxtSpanSlider()
 
 /*!
     \property QxtSpanSlider::handleMovementMode
-    \brief This property holds the handle movement mode
+    \brief the handle movement mode
  */
 QxtSpanSlider::HandleMovementMode QxtSpanSlider::handleMovementMode() const
 {
@@ -440,7 +440,7 @@ void QxtSpanSlider::setHandleMovementMode(QxtSpanSlider::HandleMovementMode mode
 
 /*!
     \property QxtSpanSlider::lowerValue
-    \brief This property holds the lower value of the span
+    \brief the lower value of the span
  */
 int QxtSpanSlider::lowerValue() const
 {
@@ -454,7 +454,7 @@ void QxtSpanSlider::setLowerValue(int lower)
 
 /*!
     \property QxtSpanSlider::upperValue
-    \brief This property holds the upper value of the span
+    \brief the upper value of the span
  */
 int QxtSpanSlider::upperValue() const
 {
@@ -495,7 +495,7 @@ void QxtSpanSlider::setSpan(int lower, int upper)
 
 /*!
     \property QxtSpanSlider::lowerPosition
-    \brief This property holds the lower position of the span
+    \brief the lower position of the span
  */
 int QxtSpanSlider::lowerPosition() const
 {
@@ -521,7 +521,7 @@ void QxtSpanSlider::setLowerPosition(int lower)
 
 /*!
     \property QxtSpanSlider::upperPosition
-    \brief This property holds the upper position of the span
+    \brief the upper position of the span
  */
 int QxtSpanSlider::upperPosition() const
 {

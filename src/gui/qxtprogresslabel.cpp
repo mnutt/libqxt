@@ -94,7 +94,7 @@ QxtProgressLabel::~QxtProgressLabel()
 
 /*!
     \property QxtProgressLabel::contentFormat
-    \brief This property holds the content format of the progress label
+    \brief the content format of the progress label
 
     The content of the label is formatted according to this property.
     The default value is an empty string which defaults to \bold "ETA: %r".
@@ -124,7 +124,7 @@ void QxtProgressLabel::setContentFormat(const QString& format)
 
 /*!
     \property QxtProgressLabel::timeFormat
-    \brief This property holds the time format of the progress label
+    \brief the time format of the progress label
 
     Time values are formatted according to this property.
     The default value is an empty string which defaults to \bold "mm:ss".
@@ -147,7 +147,7 @@ void QxtProgressLabel::setTimeFormat(const QString& format)
 
 /*!
     \property QxtProgressLabel::updateInterval
-    \brief This property holds the update interval of the progress label
+    \brief the update interval of the progress label
 
     The content of the progress label is updated according to this interval.
     A negative interval makes the content to update only during value changes.

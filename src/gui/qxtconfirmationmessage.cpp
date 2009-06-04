@@ -238,7 +238,7 @@ QMessageBox::StandardButton QxtConfirmationMessage::confirm(QWidget* parent,
 
 /*!
     \property QxtConfirmationMessage::confirmationText
-    \brief This property holds the confirmation text
+    \brief the confirmation text
 
     The default value is <b>"Do not show again."</b>
  */
@@ -254,7 +254,7 @@ void QxtConfirmationMessage::setConfirmationText(const QString& confirmation)
 
 /*!
     \property QxtConfirmationMessage::overrideSettingsApplication
-    \brief This property holds the override application name used for settings
+    \brief the override application name used for settings
 
     QCoreApplication::applicationName is used when no overrideSettingsApplication
     has been set. The application name falls back to "QxtConfirmationMessage"
@@ -274,7 +274,7 @@ void QxtConfirmationMessage::setOverrideSettingsApplication(const QString& appli
 
 /*!
     \property QxtConfirmationMessage::overrideSettingsKey
-    \brief This property holds the override key used for settings
+    \brief the override key used for settings
 
     When no overrideSettingsKey has been set, the key is calculated with
     qChecksum() based on title, text and confirmation message.
@@ -293,7 +293,7 @@ void QxtConfirmationMessage::setOverrideSettingsKey(const QString& key)
 
 /*!
     \property QxtConfirmationMessage::overrideSettingsOrganization
-    \brief This property holds the override organization name used for settings
+    \brief the override organization name used for settings
 
     QCoreApplication::organizationName is used when no overrideSettingsOrganization
     has been set. The organization name falls back to "QxtGui" when no
@@ -313,7 +313,7 @@ void QxtConfirmationMessage::setOverrideSettingsOrganization(const QString& orga
 
 /*!
     \property QxtConfirmationMessage::rememberOnReject
-    \brief This property holds whether <b>"Do not show again"</b>
+    \brief whether <b>"Do not show again"</b>
     option is stored even if the message box is rejected
     (eg. user presses Cancel).
 

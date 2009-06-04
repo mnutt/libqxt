@@ -150,7 +150,7 @@ QValidator::State QxtBaseSpinBox::validate(QString& input, int& pos) const
 
 /*!
     \property QxtBaseSpinBox::base
-    \brief This property holds the number base.
+    \brief the number base.
 
     The base must be between \c 2 and \c 36.
 
@@ -177,7 +177,7 @@ void QxtBaseSpinBox::setBase(int base)
 
 /*!
     \property QxtBaseSpinBox::upperCase
-    \brief This property holds whether letters are shown in upper case.
+    \brief whether letters are shown in upper case.
 
     Naturally, this applies to only bases which can contain letters.
 

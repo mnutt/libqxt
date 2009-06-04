@@ -153,7 +153,7 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
 
 /*!
     \property QxtConfigDialog::hoverEffect
-    \brief This property holds whether a hover effect is shown for page icons
+    \brief whether a hover effect is shown for page icons
 
     The default value is \bold true.
 
@@ -175,7 +175,7 @@ void QxtConfigDialog::setHoverEffect(bool enabled)
 
 /*!
     \property QxtConfigDialog::iconPosition
-    \brief This property holds the position of page icons
+    \brief the position of page icons
  */
 QxtConfigWidget::IconPosition QxtConfigDialog::iconPosition() const
 {
@@ -189,7 +189,7 @@ void QxtConfigDialog::setIconPosition(QxtConfigWidget::IconPosition position)
 
 /*!
     \property QxtConfigDialog::iconSize
-    \brief This property holds the size of page icons
+    \brief the size of page icons
  */
 QSize QxtConfigDialog::iconSize() const
 {
@@ -245,7 +245,7 @@ QWidget* QxtConfigDialog::takePage(int index)
 
 /*!
     \property QxtConfigDialog::count
-    \brief This property holds the number of pages
+    \brief the number of pages
 */
 int QxtConfigDialog::count() const
 {
@@ -254,7 +254,7 @@ int QxtConfigDialog::count() const
 
 /*!
     \property QxtConfigDialog::currentIndex
-    \brief This property holds the index of current page
+    \brief the index of current page
 */
 int QxtConfigDialog::currentIndex() const
 {
