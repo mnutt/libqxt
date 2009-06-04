@@ -54,7 +54,7 @@ QxtProgressLabelPrivate::QxtProgressLabelPrivate()
 
     QxtProgressLabel is a label widget able to show elapsed and remaining
     time of a progress. Usage is as simple as connecting signal
-    \bold QProgressBar::valueChanged() to slot QxtProgressLabel::setValue().
+    QProgressBar::valueChanged() to slot QxtProgressLabel::setValue().
 
     Example usage:
     \code
@@ -151,7 +151,7 @@ void QxtProgressLabel::setTimeFormat(const QString& format)
 
     The content of the progress label is updated according to this interval.
     A negative interval makes the content to update only during value changes.
-    The default value is \bold -1.
+    The default value is \c -1.
  */
 int QxtProgressLabel::updateInterval() const
 {
@@ -177,7 +177,7 @@ void QxtProgressLabel::setUpdateInterval(int msecs)
     Sets the current value to \a value.
 
     \bold {Note:} Calling this slot by hand has no effect.
-    Connect this slot to \bold QProgressBar::valueChange().
+    Connect this slot to QProgressBar::valueChange().
  */
 void QxtProgressLabel::setValue(int value)
 {

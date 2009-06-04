@@ -100,8 +100,8 @@ QxtApplication::~QxtApplication()
     A native event filter is an object that receives all native events before they reach
     the application object. The filter can either stop the native event or forward it to
     the application object. The filter receives native events via its platform specific
-    native event filter function. The native event filter function must return \bold true
-    if the event should be filtered, (i.e. stopped); otherwise it must return \bold false.
+    native event filter function. The native event filter function must return \c true
+    if the event should be filtered, (i.e. stopped); otherwise it must return \c false.
 
     If multiple native event filters are installed, the filter that was installed last
     is activated first.
