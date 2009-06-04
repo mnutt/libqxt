@@ -41,7 +41,8 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
 /*!
     \class QxtBaseSpinBox
     \inmodule QxtGui
-    \brief The QxtBaseSpinBox widget is a spin box with support for numbers in base between 2 and 36.
+    \brief The QxtBaseSpinBox widget is a spin box with support for numbers
+    in base between \c 2 and \c 36.
 
     Example spinbox for hexadecimal input:
     \code
@@ -59,11 +60,11 @@ QxtBaseSpinBoxPrivate::QxtBaseSpinBoxPrivate() : base(10), upper(false)
 /*!
     \fn QxtBaseSpinBox::baseChanged(int base)
 
-    This signal is emitted whenever the number base has changed.
+    This signal is emitted whenever the number \a base has changed.
  */
 
 /*!
-    Constructs a new QxtBaseSpinBox with \a parent. Base defaults to \bold 10.
+    Constructs a new QxtBaseSpinBox with \a parent. Base defaults to \c 10.
  */
 QxtBaseSpinBox::QxtBaseSpinBox(QWidget* parent) : QSpinBox(parent)
 {
@@ -151,9 +152,9 @@ QValidator::State QxtBaseSpinBox::validate(QString& input, int& pos) const
     \property QxtBaseSpinBox::base
     \brief This property holds the number base.
 
-    The base must be between 2 and 36.
+    The base must be between \c 2 and \c 36.
 
-    The default value is \bold 10.
+    The default value is \c 10.
  */
 int QxtBaseSpinBox::base() const
 {
@@ -180,7 +181,7 @@ void QxtBaseSpinBox::setBase(int base)
 
     Naturally, this applies to only bases which can contain letters.
 
-    The default value is \bold false.
+    The default value is \c false.
  */
 bool QxtBaseSpinBox::isUpperCase() const
 {
