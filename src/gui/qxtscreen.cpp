@@ -111,7 +111,7 @@ int QxtScreen::screenNumber() const
 }
 
 /*!
-    Sets the screen number.
+    Sets the \a screen number.
  */
 void QxtScreen::setScreenNumber(int screen)
 {
@@ -131,7 +131,7 @@ QWidget* QxtScreen::screen() const
 }
 
 /*!
-    Sets the screen.
+    Sets the \a screen.
 
     \sa QDesktopWidget::screenNumber()
  */
