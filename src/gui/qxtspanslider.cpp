@@ -317,17 +317,17 @@ void QxtSpanSliderPrivate::movePressedHandle()
     The span color is calculated based on QPalette::Highlight.
 
     The keys are bound according to the following table:
-    <table>
-    <tr><td><b>Orientation</b></td><td><b>Key</b></td><td><b>Handle</b></td></tr>
-    <tr><td>Qt::Horizontal</td><td>Qt::Key_Left</td><td>lower</td></tr>
-    <tr><td>Qt::Horizontal</td><td>Qt::Key_Right</td><td>lower</td></tr>
-    <tr><td>Qt::Horizontal</td><td>Qt::Key_Up</td><td>upper</td></tr>
-    <tr><td>Qt::Horizontal</td><td>Qt::Key_Down</td><td>upper</td></tr>
-    <tr><td>Qt::Vertical</td><td>Qt::Key_Up</td><td>lower</td></tr>
-    <tr><td>Qt::Vertical</td><td>Qt::Key_Down</td><td>lower</td></tr>
-    <tr><td>Qt::Vertical</td><td>Qt::Key_Left</td><td>upper</td></tr>
-    <tr><td>Qt::Vertical</td><td>Qt::Key_Right</td><td>upper</td></tr>
-    </table>
+    \table
+    \row \i Orientation    \i Key           \i Handle
+    \row \i Qt::Horizontal \i Qt::Key_Left  \i lower
+    \row \i Qt::Horizontal \i Qt::Key_Right \i lower
+    \row \i Qt::Horizontal \i Qt::Key_Up    \i upper
+    \row \i Qt::Horizontal \i Qt::Key_Down  \i upper
+    \row \i Qt::Vertical   \i Qt::Key_Up    \i lower
+    \row \i Qt::Vertical   \i Qt::Key_Down  \i lower
+    \row \i Qt::Vertical   \i Qt::Key_Left  \i upper
+    \row \i Qt::Vertical   \i Qt::Key_Right \i upper
+    \endtable
 
     Keys are bound by the time the slider is created. A key is bound
     to same handle for the lifetime of the slider. So even if the handle
