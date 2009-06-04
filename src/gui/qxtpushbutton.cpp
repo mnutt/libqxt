@@ -200,8 +200,6 @@ void QxtPushButton::setRotation(Qxt::Rotation rotation)
 
     The default format is Qt::PlainText.
 
-    \bold {Note:} Rich text requires Qt 4.2 or newer.
-
     \sa Qt::TextFormat
  */
 Qt::TextFormat QxtPushButton::textFormat() const
