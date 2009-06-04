@@ -59,10 +59,10 @@ QxtHeaderView::QxtHeaderView(Qt::Orientation orientation, QWidget* parent)
     \property QxtHeaderView::proportionalSectionSizes
     \brief whether section sizes are proportional.
 
-    The default value is \bold true.
+    The default value is \c true.
 
     \bold {Note:} Enabling proportional sections sizes sets resize mode
-    \bold QHeaderView::Fixed, which means that the user cannot resize
+    QHeaderView::Fixed, which means that the user cannot resize
     sections.
  */
 bool QxtHeaderView::hasProportionalSectionSizes() const
