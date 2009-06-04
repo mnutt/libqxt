@@ -72,7 +72,7 @@ QxtLineEdit::~QxtLineEdit()
 
 /*!
     \property QxtLineEdit::sampleText
-    \brief This property holds the sample text of the line edit
+    \brief the sample text of the line edit
 
     The sample text is shown when the line edit is empty and has
     no focus.

@@ -66,7 +66,7 @@ QxtLetterBoxWidget::~QxtLetterBoxWidget()
 
 /*!
     \property QxtLetterBoxWidget::backgroundColor
-    \brief This property holds the background color
+    \brief the background color
 
     This property is provided for convenience.
     This property corresponds to \bold QPalette::Window.
@@ -95,7 +95,7 @@ void QxtLetterBoxWidget::clearBackgroundColor()
 
 /*!
     \property QxtLetterBoxWidget::margin
-    \brief This property holds the margin
+    \brief the margin
 
     The default value is \bold 0.
  */
@@ -146,7 +146,7 @@ void QxtLetterBoxWidget::setWidget(QWidget* widget)
 
 /*!
     \property QxtLetterBoxWidget::resizeDelay
-    \brief This property holds the delay of resize
+    \brief the delay of resize
 
     The default value is \bold 0 which means immediate resize.
 

@@ -112,7 +112,7 @@ QxtTabWidget::~QxtTabWidget()
 
 /*!
     \property QxtTabWidget::alwaysShowTabBar
-    \brief This property holds whether the tab bar is shown always
+    \brief whether the tab bar is shown always
     regardless of how many tabs there are.
 
     The default value of this property is \bold true.
@@ -133,7 +133,7 @@ void QxtTabWidget::setAlwaysShowTabBar(bool always)
 
 /*!
     \property QxtTabBar::tabMovementMode
-    \brief This property holds how tabs can be moved.
+    \brief how tabs can be moved.
 
     The default value of this property is \bold QxtTabBar::NoMovement.
 
@@ -151,7 +151,7 @@ void QxtTabWidget::setTabMovementMode(TabMovementMode mode)
 
 /*!
     \property QxtTabWidget::tabContextMenuPolicy
-    \brief This property holds how the tab specific context menus are handled.
+    \brief how the tab specific context menus are handled.
 
     The default value of this property is \bold Qt::DefaultContextMenu,
     which means that the tabContextMenuEvent() handler is called.

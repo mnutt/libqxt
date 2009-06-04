@@ -194,7 +194,7 @@ void QxtCheckComboBox::setItemCheckState(int index, Qt::CheckState state)
 
 /*!
     \property QxtCheckComboBox::checkedItems
-    \brief This property holds the checked items.
+    \brief the checked items.
  */
 QStringList QxtCheckComboBox::checkedItems() const
 {
@@ -222,7 +222,7 @@ void QxtCheckComboBox::setCheckedItems(const QStringList& items)
 
 /*!
     \property QxtCheckComboBox::defaultText
-    \brief This property holds the default text.
+    \brief the default text.
 
     The default text is shown when there are no checked items.
     The default value is an empty string.
@@ -243,7 +243,7 @@ void QxtCheckComboBox::setDefaultText(const QString& text)
 
 /*!
     \property QxtCheckComboBox::separator
-    \brief This property holds the default separator.
+    \brief the default separator.
 
     The checked items are joined together with the separator string.
     The default value is a comma (",").
