@@ -338,22 +338,22 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     \bold {Note:} QxtSpanSlider inherits QSlider for implementation specific
     reasons. Adjusting any single handle specific properties like
-    <ul>
-    <li>QAbstractSlider::sliderPosition</li>
-    <li>QAbstractSlider::value</li>
-    </ul>
+    \list
+    \o QAbstractSlider::sliderPosition
+    \o QAbstractSlider::value
+    \endlist
     has no effect. However, all slider specific properties like
-    <ul>
-    <li>QAbstractSlider::invertedAppearance</li>
-    <li>QAbstractSlider::invertedControls</li>
-    <li>QAbstractSlider::minimum</li>
-    <li>QAbstractSlider::maximum</li>
-    <li>QAbstractSlider::orientation</li>
-    <li>QAbstractSlider::pageStep</li>
-    <li>QAbstractSlider::singleStep</li>
-    <li>QSlider::tickInterval</li>
-    <li>QSlider::tickPosition</li>
-    </ul>
+    \list
+    \o QAbstractSlider::invertedAppearance
+    \o QAbstractSlider::invertedControls
+    \o QAbstractSlider::minimum
+    \o QAbstractSlider::maximum
+    \o QAbstractSlider::orientation
+    \o QAbstractSlider::pageStep
+    \o QAbstractSlider::singleStep
+    \o QSlider::tickInterval
+    \o QSlider::tickPosition
+    \endlist
     are taken into consideration.
  */
 
