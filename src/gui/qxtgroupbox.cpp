@@ -86,6 +86,8 @@ QxtGroupBox::~QxtGroupBox()
 /*!
     \property QxtGroupBox::collapsive
     \brief whether the group box is collapsive
+
+    The default value is \c true.
  */
 bool QxtGroupBox::isCollapsive() const
 {
