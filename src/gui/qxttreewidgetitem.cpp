@@ -36,45 +36,84 @@
     \sa QxtTreeWidget
  */
 
-
+/*!
+    Constructs a new QxtTreeWidgetItem with \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(int type)
         : QTreeWidgetItem(type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a strings and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(const QStringList& strings, int type)
         : QTreeWidgetItem(strings, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidget* parent, int type)
         : QTreeWidgetItem(parent, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent, \a strings and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidget* parent, const QStringList& strings, int type)
         : QTreeWidgetItem(parent, strings, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent, \a preceding and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidget* parent, QTreeWidgetItem* preceding, int type)
         : QTreeWidgetItem(parent, preceding, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidgetItem* parent, int type)
         : QTreeWidgetItem(parent, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent, \a strings and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidgetItem* parent, const QStringList& strings, int type)
         : QTreeWidgetItem(parent, strings, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTreeWidgetItem with \a parent, preceding and \a type.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidgetItem* parent, QTreeWidgetItem* preceding, int type)
         : QTreeWidgetItem(parent, preceding, type)
-{}
+{
+}
 
+/*!
+    Constructs a copy of \a other.
+ */
 QxtTreeWidgetItem::QxtTreeWidgetItem(const QxtTreeWidgetItem& other)
         : QTreeWidgetItem(other)
-{}
+{
+}
 
+/*!
+    Destructs the tree widget item.
+ */
 QxtTreeWidgetItem::~QxtTreeWidgetItem()
-{}
+{
+}
 
 /*!
     Returns \c true if the \a flag is set, otherwise \c false.
