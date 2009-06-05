@@ -56,7 +56,7 @@ QxtTableWidgetItem::QxtTableWidgetItem(const QString& text, int type)
     Constructs a new QxtTableWidgetItem with \a icon, \a text and \a type.
  */
 QxtTableWidgetItem::QxtTableWidgetItem(const QIcon& icon, const QString& text, int type)
-        : QTableWidgetItem(text, type)
+        : QTableWidgetItem(icon, text, type)
 {
 }
 
