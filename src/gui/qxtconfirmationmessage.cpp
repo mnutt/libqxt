@@ -338,7 +338,7 @@ QSettings::Format QxtConfirmationMessage::settingsFormat()
 }
 
 /*!
-    Sets the format used for storing settings.
+    Sets the \a format used for storing settings.
  */
 void QxtConfirmationMessage::setSettingsFormat(QSettings::Format format)
 {
@@ -356,7 +356,7 @@ QSettings::Scope QxtConfirmationMessage::settingsScope()
 }
 
 /*!
-    Sets the scope used for storing settings.
+    Sets the \a scope used for storing settings.
  */
 void QxtConfirmationMessage::setSettingsScope(QSettings::Scope scope)
 {
@@ -364,7 +364,7 @@ void QxtConfirmationMessage::setSettingsScope(QSettings::Scope scope)
 }
 
 /*!
-    Returns The path used for storing settings.
+    Returns the path used for storing settings.
 
     The default value is an empty string.
  */
@@ -374,7 +374,7 @@ QString QxtConfirmationMessage::settingsPath()
 }
 
 /*!
-    Sets the path used for storing settings.
+    Sets the \a path used for storing settings.
  */
 void QxtConfirmationMessage::setSettingsPath(const QString& path)
 {

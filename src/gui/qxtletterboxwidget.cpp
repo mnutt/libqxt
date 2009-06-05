@@ -125,7 +125,7 @@ QWidget* QxtLetterBoxWidget::widget() const
 }
 
 /*!
-    Sets the given widget to be the letter box's widget.
+    Sets the given \a widget to be the letter box's widget.
 
     \bold {Note:} QxtLetterBox takes ownership of the widget pointer
     and deletes it at the appropriate time.

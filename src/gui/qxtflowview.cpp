@@ -345,7 +345,7 @@ void QxtFlowView::showNext()
         d->animator->target = qMin(center + 2, d->state->slideImages.count() - 1);
 }
 
-/*! Go to specified slide using animation effect. */
+/*! Go to specified slide at \a index using animation effect. */
 void QxtFlowView::showSlide(QModelIndex index)
 {
     int r = d->modelmap.indexOf(index);

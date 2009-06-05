@@ -160,7 +160,7 @@ QxtCountryModel::~QxtCountryModel()
 }
 
 /*!
-    Returns the number of countries in the model.
+    Returns the number of countries for \a parent in the model.
  */
 int QxtCountryModel::rowCount(const QModelIndex& parent) const
 {
@@ -168,7 +168,7 @@ int QxtCountryModel::rowCount(const QModelIndex& parent) const
 }
 
 /*!
-    Returns the number of columns in the model.
+    Returns the number of columns \a parent in the model.
  */
 int QxtCountryModel::columnCount(const QModelIndex& parent) const
 {

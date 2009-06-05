@@ -257,7 +257,12 @@ QxtTabBar::QxtTabBar(QWidget* parent)
     QXT_INIT_PRIVATE(QxtTabBar);
 }
 
-QxtTabBar::~QxtTabBar() {}
+/*!
+    Destructs the tab bar.
+ */
+QxtTabBar::~QxtTabBar()
+{
+}
 
 /*!
     \property QxtTabBar::tabMovementMode
@@ -267,7 +272,6 @@ QxtTabBar::~QxtTabBar() {}
 
     \sa tabMoved()
  */
-
 QxtTabBar::TabMovementMode QxtTabBar::tabMovementMode() const
 {
     return qxt_d().mode;

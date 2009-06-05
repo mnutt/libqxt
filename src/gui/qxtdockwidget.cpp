@@ -69,7 +69,7 @@ QxtDockWidget::QxtDockWidget(const QString& title, QWidget* parent, Qt::WindowFl
 }
 
 /*!
-    Constructs a new QxtDockWidget with \a title, \a parent and \a flags.
+    Constructs a new QxtDockWidget with \a parent and \a flags.
  */
 QxtDockWidget::QxtDockWidget(QWidget* parent, Qt::WindowFlags flags)
         : QDockWidget(parent, flags)
