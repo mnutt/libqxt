@@ -318,15 +318,15 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     The keys are bound according to the following table:
     \table
-    \header \i Orientation    \i Key           \i Handle
-    \row    \i Qt::Horizontal \i Qt::Key_Left  \i lower
-    \row    \i Qt::Horizontal \i Qt::Key_Right \i lower
-    \row    \i Qt::Horizontal \i Qt::Key_Up    \i upper
-    \row    \i Qt::Horizontal \i Qt::Key_Down  \i upper
-    \row    \i Qt::Vertical   \i Qt::Key_Up    \i lower
-    \row    \i Qt::Vertical   \i Qt::Key_Down  \i lower
-    \row    \i Qt::Vertical   \i Qt::Key_Left  \i upper
-    \row    \i Qt::Vertical   \i Qt::Key_Right \i upper
+    \header \o Orientation    \o Key           \o Handle
+    \row    \o Qt::Horizontal \o Qt::Key_Left  \o lower
+    \row    \o Qt::Horizontal \o Qt::Key_Right \o lower
+    \row    \o Qt::Horizontal \o Qt::Key_Up    \o upper
+    \row    \o Qt::Horizontal \o Qt::Key_Down  \o upper
+    \row    \o Qt::Vertical   \o Qt::Key_Up    \o lower
+    \row    \o Qt::Vertical   \o Qt::Key_Down  \o lower
+    \row    \o Qt::Vertical   \o Qt::Key_Left  \o upper
+    \row    \o Qt::Vertical   \o Qt::Key_Right \o upper
     \endtable
 
     Keys are bound by the time the slider is created. A key is bound

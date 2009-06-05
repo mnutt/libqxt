@@ -101,9 +101,9 @@ QxtProgressLabel::~QxtProgressLabel()
 
     The following variables may be used in the format string:
     \table
-    \header \i Variable \i Output
-    \row \i \%e \i elapsed time
-    \row \i \%r \i remaining time
+    \header \o Variable \o Output
+    \row \o \%e \o elapsed time
+    \row \o \%r \o remaining time
     \endtable
 
     \sa timeFormat
