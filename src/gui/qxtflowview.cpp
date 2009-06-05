@@ -47,38 +47,45 @@
  ** THE SOFTWARE.
  ****************************************************************************/
 
-
-
-
+#include "qxtflowview_p.h"
+#include <QWheelEvent>
 
 /*!
     \class QxtFlowView
     \inmodule QxtGui
     \brief The QxtFlowView widget is an item view for images with impressive flow effects
 
-    an image show widget with animation effect
-    like Apple's CoverFlow (in iTunes and iPod). Images are arranged in form
-    of slides, one main slide is shown at the center with few slides on
-    the left and right sides of the center slide. When the next or previous
-    slide is brought to the front, the whole slides flow to the right or
-    the right with smooth animation effect; until the new slide is finally
-    placed at the center.
-    <br>
-    <br>
-    This is a derived work of PictureFlow ( http://pictureflow.googlecode.com )
-
+    A widget for showin images with animation effects, like Apple's Cover
+    Flow (in iTunes and iPod). Images are arranged in form of slides, one
+    main slide is shown at the center with few slides on the left and right
+    sides of the center slide. When the next or previous slide is brought
+    to the front, the whole slides flow to the left or to the right with
+    smooth animation effect; until the new slide is finally placed at the
+    center.
 
     \image qxtflowview.png "QxtFlowView in action."
 
-
+    This is a derived work of \l{http://pictureflow.googlecode.com}{PictureFlow}
  */
 
+/*!
+    \enum QxtFlowView::ReflectionEffect
+    \brief This enum describes available reflection effects.
 
-#include "qxtflowview_p.h"
-#include <QWheelEvent>
+    \value NoReflection No reflection
+    \value PlainReflection Plain reflection
+    \value BlurredReflection Blurred reflection
+ */
 
+/*!
+    \fn QxtFlowView::currentIndexChanged(QModelIndex index)
 
+    This signal is emitted whenever the current \a index has changed.
+ */
 
+/*!
+    Constructs a new QxtFlowView with \a parent.
+ */
 QxtFlowView::QxtFlowView(QWidget* parent): QWidget(parent)
 {
     d = new QxtFlowViewPrivate;
@@ -111,6 +118,9 @@ QxtFlowView::QxtFlowView(QWidget* parent): QWidget(parent)
     setAttribute(Qt::WA_NoSystemBackground, true);
 }
 
+/*!
+    Destructs the flow view.
+ */
 QxtFlowView::~QxtFlowView()
 {
     delete d->renderer;
@@ -119,17 +129,31 @@ QxtFlowView::~QxtFlowView()
     delete d;
 }
 
+/*!
+    Sets the \a model.
+
+    \bold {Note:} The view does not take ownership of the model unless it is the
+    model's parent object because it may be shared between many different views.
+ */
 void QxtFlowView::setModel(QAbstractItemModel * model)
 {
     d->setModel(model);
 }
 
+/*!
+    Returns the model.
+ */
 QAbstractItemModel * QxtFlowView::model()
 {
     return d->model;
 }
 
+/*!
+    \property QxtFlowView::backgroundColor
+    \brief the background color
 
+    The default value is black.
+ */
 QColor QxtFlowView::backgroundColor() const
 {
     return QColor(d->state->backgroundColor);
@@ -141,6 +165,14 @@ void QxtFlowView::setBackgroundColor(const QColor& c)
     triggerRender();
 }
 
+/*!
+    \property QxtFlowView::slideSize
+    \brief the slide size
+
+    The slide dimensions are in pixels.
+
+    The default value is 150x200.
+ */
 QSize QxtFlowView::slideSize() const
 {
     return QSize(d->state->slideWidth, d->state->slideHeight);
@@ -154,6 +186,12 @@ void QxtFlowView::setSlideSize(QSize size)
     triggerRender();
 }
 
+/*!
+    \property QxtFlowView::reflectionEffect
+    \brief the reflection effect
+
+    The default value is PlainReflection.
+ */
 QxtFlowView::ReflectionEffect QxtFlowView::reflectionEffect() const
 {
     return d->state->reflectionEffect;
@@ -165,7 +203,12 @@ void QxtFlowView::setReflectionEffect(ReflectionEffect effect)
     d->reset();
 }
 
+/*!
+    \property QxtFlowView::pictureRole
+    \brief the picture role
 
+    The default value is Qt::DecorationRole.
+ */
 int QxtFlowView::pictureRole()
 {
     return d->picrole;
@@ -177,10 +220,12 @@ void QxtFlowView::setPictureRole(int a)
     d->reset();
 }
 
+/*!
+    \property QxtFlowView::pictureColumn
+    \brief the picture column
 
-
-
-
+    The default value is \c 0.
+ */
 int QxtFlowView::pictureColumn()
 {
     return d->piccolumn;
@@ -216,7 +261,12 @@ void QxtFlowView::setTextColumn(int a)
 }
 #endif
 
+/*!
+    \property QxtFlowView::rootIndex
+    \brief the root index
 
+    The root index is the parent index to the view's toplevel items. The root can be invalid.
+ */
 QModelIndex QxtFlowView::rootIndex() const
 {
     return d->rootindex;
@@ -227,8 +277,15 @@ void QxtFlowView::setRootIndex(QModelIndex index)
     d->rootindex = index;
 }
 
+/*!
+    \property QxtFlowView::currentIndex
+    \brief the current index
 
+    The slide of the current index is shown in the middle of the viewport.
 
+    \bold {Note:} No animation effect will be produced.
+    \sa showSlide()
+ */
 QModelIndex QxtFlowView::currentIndex() const
 {
     if (!d->model)
@@ -241,19 +298,20 @@ void QxtFlowView::setCurrentIndex(QModelIndex index)
     d->setCurrentIndex(index);
 }
 
-
+/*! Rerender the widget. Normally this function will be automatically invoked whenever necessary, e.g. during the transition animation. */
 void QxtFlowView::render()
 {
     d->renderer->dirty = true;
     update();
 }
 
+/*! Schedules a rendering update. Unlike render(), this function does not cause immediate rendering.*/
 void QxtFlowView::triggerRender()
 {
     d->triggerRender();
 }
 
-
+/*! Shows previous slide using animation effect. */
 void QxtFlowView::showPrevious()
 {
     int step = d->animator->step;
@@ -270,6 +328,7 @@ void QxtFlowView::showPrevious()
         d->animator->target = qMax(0, center - 2);
 }
 
+/*! Shows next slide using animation effect. */
 void QxtFlowView::showNext()
 {
     int step = d->animator->step;
@@ -286,6 +345,7 @@ void QxtFlowView::showNext()
         d->animator->target = qMin(center + 2, d->state->slideImages.count() - 1);
 }
 
+/*! Go to specified slide using animation effect. */
 void QxtFlowView::showSlide(QModelIndex index)
 {
     int r = d->modelmap.indexOf(index);
@@ -295,6 +355,7 @@ void QxtFlowView::showSlide(QModelIndex index)
     d->showSlide(r);
 }
 
+/*! \reimp */
 void QxtFlowView::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Left)
@@ -320,13 +381,13 @@ void QxtFlowView::keyPressEvent(QKeyEvent* event)
     event->ignore();
 }
 
+/*! \reimp */
 void QxtFlowView::mousePressEvent(QMouseEvent* event)
 {
     d->lastgrabpos = event->pos();
 }
 
-
-
+/*! \reimp */
 void QxtFlowView::mouseMoveEvent(QMouseEvent * event)
 {
     int i = (event->pos() - d->lastgrabpos).x() / (d->state->slideWidth / 4);
@@ -343,27 +404,28 @@ void QxtFlowView::mouseMoveEvent(QMouseEvent * event)
 
 }
 
+/*! \reimp */
 void QxtFlowView::mouseReleaseEvent(QMouseEvent* event)
 {
     Q_UNUSED(event);
 
 }
 
-
+/*! \reimp */
 void QxtFlowView::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     d->renderer->paint();
 }
 
+/*! \reimp */
 void QxtFlowView::resizeEvent(QResizeEvent* event)
 {
     triggerRender();
     QWidget::resizeEvent(event);
 }
 
-
-
+/*! \reimp */
 void QxtFlowView::wheelEvent(QWheelEvent * event)
 {
 
@@ -397,9 +459,7 @@ void QxtFlowView::wheelEvent(QWheelEvent * event)
 
 }
 
-
-
-
+/*! \internal */
 void QxtFlowView::updateAnimation()
 {
     int old_center = d->state->centerIndex;
