@@ -377,7 +377,7 @@ int QxtConfigWidget::addPage(QWidget* page, const QIcon& icon, const QString& ti
 }
 
 /*!
-    Inserts a \a page with \a icon and \a title.
+    Inserts a \a page with \a icon and \a title at \a index.
 
     In case \a title is an empty string, QWidget::windowTitle of \a page is used.
 
