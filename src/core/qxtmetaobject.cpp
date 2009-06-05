@@ -363,9 +363,9 @@ namespace QxtMetaObject
                       const QVariant& arg3, const QVariant& arg4, const QVariant& arg5,
                       const QVariant& arg6, const QVariant& arg7, const QVariant& arg8, const QVariant& arg9)
     {
-        #define QXT_ARG(i) QGenericArgument(arg ## i.typeName(), arg ## i.constData())
+        #define QXT_MO_ARG(i) QGenericArgument(arg ## i.typeName(), arg ## i.constData())
         return QMetaObject::invokeMethod(object, methodName(member), type,
-                                         QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4),
-                                         QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9));
+                                         QXT_MO_ARG(0), QXT_MO_ARG(1), QXT_MO_ARG(2), QXT_MO_ARG(3), QXT_MO_ARG(4),
+                                         QXT_MO_ARG(5), QXT_MO_ARG(6), QXT_MO_ARG(7), QXT_MO_ARG(8), QXT_MO_ARG(9));
     }
 }
