@@ -27,7 +27,7 @@
 
 
 /*!
-    \class QxtBdbHash QxtBdbHash
+    \class QxtBdbHash
     \inmodule QxtBerkeley
     \brief The QxtBdbHash class is a template class that provides key/value access to a berkeley db file
 
@@ -147,7 +147,7 @@
 
 
 /*!
-    \class QxtBdbHashIterator QxtBdbHash
+    \class QxtBdbHashIterator
     \inmodule QxtBerkeley
     \brief The QxtBdbHashIterator class provides a fast iterator over a QxtBdbHash
 
