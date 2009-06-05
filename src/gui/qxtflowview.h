@@ -66,6 +66,8 @@ class QXT_GUI_EXPORT QxtFlowView : public QWidget
     Q_PROPERTY(int pictureRole READ pictureRole WRITE setPictureRole)
     Q_PROPERTY(int pictureColumn READ pictureColumn WRITE setPictureColumn)
     Q_PROPERTY(QModelIndex rootIndex READ rootIndex WRITE setRootIndex)
+    Q_PROPERTY(ReflectionEffect reflectionEffect READ reflectionEffect WRITE setReflectionEffect)
+    Q_ENUMS(ReflectionEffect)
 
 #if 0
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole)
@@ -82,61 +84,30 @@ public:
         BlurredReflection
     };
 
-    /*!Creates a new PictureFlow widget.*/
     QxtFlowView(QWidget* parent = 0);
-
-    /*!Destroys the widget.*/
     ~QxtFlowView();
 
-    /*!
-    Sets the model for the view to present.
-    <br>
-    Note: The view does not take ownership of the model unless it is the model's parent object because it may be shared between many different views.
-    */
     void setModel(QAbstractItemModel * model);
-
-    /*!Returns the model that this view is presenting.*/
     QAbstractItemModel * model();
 
-    /*!Returns the background color.*/
     QColor backgroundColor() const;
-
-    /*!Sets the background color. By default it is black.*/
     void setBackgroundColor(const QColor& c);
 
-    /*!Returns the dimension of each slide (in pixels).*/
     QSize slideSize() const;
-
-    /*!Sets the dimension of each slide (in pixels).*/
     void setSlideSize(QSize size);
 
-    /*!Returns the index of slide currently shown in the middle of the viewport.*/
     QModelIndex currentIndex() const;
 
-
-    //!Returns the model index of the model's root item. The root item is the parent item to the view's toplevel items. The root can be invalid. \n \sa setRootIndex();
     QModelIndex rootIndex() const;
-
-
-    //!Sets the root item to the item at the given index.\n \sa rootIndex();
     void setRootIndex(QModelIndex index);
 
-
-    /*!Returns the effect applied to the reflection.*/
     ReflectionEffect reflectionEffect() const;
-
-    /*!Sets the effect applied to the reflection. The default is PlainReflection.*/
     void setReflectionEffect(ReflectionEffect effect);
 
-
-    /*!Returns the role currently used for the image.*/
     int pictureRole();
-    /*!Sets the role to use for the image. the default is Qt::DecorationRole*/
     void setPictureRole(int);
 
-    /*!Returns the column currently used for the image.*/
     int pictureColumn();
-    /*!Sets the column to use for the image. the default is 0*/
     void setPictureColumn(int);
 
 #if 0
@@ -147,24 +118,14 @@ public:
 #endif
 
 public Q_SLOTS:
-
-    /*! Sets slide to be shown in the middle of the viewport. No animation
-        effect will be produced, unlike using showSlide. */
     void setCurrentIndex(QModelIndex index);
 
-    /*! Shows previous slide using animation effect. */
     void showPrevious();
-
-    /*! Shows next slide using animation effect. */
     void showNext();
 
-    /*! Go to specified slide using animation effect. */
     void showSlide(QModelIndex index);
 
-    /*! Rerender the widget. Normally this function will be automatically invoked whenever necessary, e.g. during the transition animation. */
     void render();
-
-    /*! Schedules a rendering update. Unlike render(), this function does not cause immediate rendering.*/
     void triggerRender();
 
 Q_SIGNALS:
@@ -178,6 +139,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent* event);
     virtual void resizeEvent(QResizeEvent* event);
     virtual void wheelEvent(QWheelEvent * event);
+
 private Q_SLOTS:
     void updateAnimation();
 
@@ -186,4 +148,3 @@ private:
 };
 
 #endif // PICTUREFLOW_H
-

@@ -318,15 +318,15 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     The keys are bound according to the following table:
     \table
-    \row \i Orientation    \i Key           \i Handle
-    \row \i Qt::Horizontal \i Qt::Key_Left  \i lower
-    \row \i Qt::Horizontal \i Qt::Key_Right \i lower
-    \row \i Qt::Horizontal \i Qt::Key_Up    \i upper
-    \row \i Qt::Horizontal \i Qt::Key_Down  \i upper
-    \row \i Qt::Vertical   \i Qt::Key_Up    \i lower
-    \row \i Qt::Vertical   \i Qt::Key_Down  \i lower
-    \row \i Qt::Vertical   \i Qt::Key_Left  \i upper
-    \row \i Qt::Vertical   \i Qt::Key_Right \i upper
+    \header \i Orientation    \i Key           \i Handle
+    \row    \i Qt::Horizontal \i Qt::Key_Left  \i lower
+    \row    \i Qt::Horizontal \i Qt::Key_Right \i lower
+    \row    \i Qt::Horizontal \i Qt::Key_Up    \i upper
+    \row    \i Qt::Horizontal \i Qt::Key_Down  \i upper
+    \row    \i Qt::Vertical   \i Qt::Key_Up    \i lower
+    \row    \i Qt::Vertical   \i Qt::Key_Down  \i lower
+    \row    \i Qt::Vertical   \i Qt::Key_Left  \i upper
+    \row    \i Qt::Vertical   \i Qt::Key_Right \i upper
     \endtable
 
     Keys are bound by the time the slider is created. A key is bound
@@ -362,7 +362,7 @@ void QxtSpanSliderPrivate::movePressedHandle()
 
     This enum describes the available handle movement modes.
 
-    \value QFreeMovement The handles can be moved freely.
+    \value FreeMovement The handles can be moved freely.
     \value NoCrossing The handles cannot cross, but they can still overlap each other. The lower and upper values can be the same.
     \value NoOverlapping The handles cannot overlap each other. The lower and upper values cannot be the same.
  */
@@ -370,31 +370,32 @@ void QxtSpanSliderPrivate::movePressedHandle()
 /*!
     \fn QxtSpanSlider::lowerValueChanged(int lower)
 
-    This signal is emitted whenever the lower value has changed.
+    This signal is emitted whenever the \a lower value has changed.
  */
 
 /*!
     \fn QxtSpanSlider::upperValueChanged(int upper)
 
-    This signal is emitted whenever the upper value has changed.
+    This signal is emitted whenever the \a upper value has changed.
  */
 
 /*!
     \fn QxtSpanSlider::spanChanged(int lower, int upper)
 
-    This signal is emitted whenever the span has changed.
+    This signal is emitted whenever both the \a lower and the \a upper
+    values have changed ie. the span has changed.
  */
 
 /*!
     \fn QxtSpanSlider::lowerPositionChanged(int lower)
 
-    This signal is emitted whenever the lower position has changed.
+    This signal is emitted whenever the \a lower position has changed.
  */
 
 /*!
     \fn QxtSpanSlider::upperPositionChanged(int upper)
 
-    This signal is emitted whenever the upper position has changed.
+    This signal is emitted whenever the \a upper position has changed.
  */
 
 /*!
@@ -418,7 +419,7 @@ QxtSpanSlider::QxtSpanSlider(Qt::Orientation orientation, QWidget* parent) : QSl
 }
 
 /*!
-    Destructs the slider.
+    Destructs the span slider.
  */
 QxtSpanSlider::~QxtSpanSlider()
 {
@@ -468,7 +469,6 @@ void QxtSpanSlider::setUpperValue(int upper)
 
 /*!
     Sets the span from \a lower to \a upper.
-    \sa upperValue, lowerValue
  */
 void QxtSpanSlider::setSpan(int lower, int upper)
 {
