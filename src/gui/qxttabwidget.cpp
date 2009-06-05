@@ -146,7 +146,7 @@ void QxtTabWidget::setAlwaysShowTabBar(bool always)
 
     The default value of this property is QxtTabWidget::NoMovement.
 
-    \sa tabMoved()
+    \sa QxtTabBar::tabMoved()
  */
 QxtTabWidget::TabMovementMode QxtTabWidget::tabMovementMode() const
 {
@@ -412,7 +412,8 @@ void QxtTabWidget::setTabAnimation(int index, QMovie* animation, bool start)
 /*!
     This is an overloaded member function, provided for convenience.
 
-    The QMovie animation is constructed as \c this as parent.
+    The QMovie animation is constructed from \a fileName with \c this as parent.
+    The animation is started if \a start is \c true.
 
     \sa setTabAnimation()
  */
