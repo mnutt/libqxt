@@ -69,7 +69,7 @@ QxtSqlPackageModel::QxtSqlPackageModel(QObject * parent) : QAbstractTableModel(p
 
 void QxtSqlPackageModel::setQuery(QxtSqlPackage package)
 {
-    pack = a;
+    pack = package;
 }
 
 /*!
