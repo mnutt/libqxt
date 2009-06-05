@@ -51,7 +51,7 @@
 /*!
     \fn QxtLocale::currencyToCode(Currency currency)
 
-    This static method returns the 3-letter code for the given currency.
+    This static method returns the 3-letter code for the given \a currency.
  */
 QString QxtLocale::currencyToCode(Currency currency)
 {
@@ -67,7 +67,7 @@ QString QxtLocale::currencyToCode(Currency currency)
 /*!
     \fn QxtLocale::countryToISO2Letter(QLocale::Country country)
 
-    This static method returns the 2-letter ISO 3166 code for the given country.
+    This static method returns the 2-letter ISO 3166 code for the given \a country.
  */
 QString QxtLocale::countryToISO2Letter(QLocale::Country country)
 {
@@ -85,7 +85,7 @@ QString QxtLocale::countryToISO2Letter(QLocale::Country country)
 /*!
     \fn QxtLocale::countryToISO3Letter(QLocale::Country country)
 
-    This static method returns the 3-letter ISO 3166 code for the given country.
+    This static method returns the 3-letter ISO 3166 code for the given \a country.
  */
 QString QxtLocale::countryToISO3Letter(QLocale::Country country)
 {
@@ -104,7 +104,7 @@ QString QxtLocale::countryToISO3Letter(QLocale::Country country)
 /*!
     \fn QxtLocale::currencyToName(Currency currency)
 
-    This static method returns the translated name for given currency.
+    This static method returns the translated name for given \a currency.
  */
 QString QxtLocale::currencyToName(Currency currency)
 {
@@ -114,7 +114,7 @@ QString QxtLocale::currencyToName(Currency currency)
 /*!
     \fn QxtLocale::currencyForCountry(QLocale::Country country)
 
-    This static method returns the currency for the given country.
+    This static method returns the currency for the given \a country.
  */
 QxtLocale::Currency QxtLocale::currencyForCountry(QLocale::Country country)
 {
@@ -124,7 +124,7 @@ QxtLocale::Currency QxtLocale::currencyForCountry(QLocale::Country country)
 /*!
     \fn QxtLocale::currencyToSymbol(Currency currency)
 
-    This static method returns the symbol for the given currency.
+    This static method returns the symbol for the given \a currency.
  */
 QString QxtLocale::currencyToSymbol(Currency currency)
 {
@@ -136,13 +136,16 @@ QString QxtLocale::currencyToSymbol(Currency currency)
 /*!
     \fn QxtLocale::continentToName(Continent continent)
 
-    This static method returns the translated name for the given continent.
+    This static method returns the translated name for the given \a continent.
  */
 QString QxtLocale::continentToName(Continent continent)
 {
     return QCoreApplication::instance()->translate("QxtLocale", continent_names[continent]);
 }
 
+/*!
+    This static method returns the continent for the given \a country.
+ */
 QxtLocale::Continent QxtLocale::continentForCountry(QLocale::Country country)
 {
     return continent_for_country_list[country];
