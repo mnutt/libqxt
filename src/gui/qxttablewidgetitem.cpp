@@ -36,27 +36,44 @@
     \sa QxtTableWidget
  */
 
-
+/*!
+    Constructs a new QxtTableWidgetItem with \a type.
+ */
 QxtTableWidgetItem::QxtTableWidgetItem(int type)
         : QTableWidgetItem(type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTableWidgetItem with \a text and \a type.
+ */
 QxtTableWidgetItem::QxtTableWidgetItem(const QString& text, int type)
         : QTableWidgetItem(text, type)
-{}
+{
+}
 
+/*!
+    Constructs a new QxtTableWidgetItem with \a icon, \a text and \a type.
+ */
 QxtTableWidgetItem::QxtTableWidgetItem(const QIcon& icon, const QString& text, int type)
         : QTableWidgetItem(text, type)
 {
-    setIcon(icon); // for 4.1 compatibility
 }
 
+/*!
+    Constructs a copy of \a other.
+ */
 QxtTableWidgetItem::QxtTableWidgetItem(const QTableWidgetItem& other)
         : QTableWidgetItem(other)
-{}
+{
+}
 
+/*!
+    Destructs the table widget item.
+ */
 QxtTableWidgetItem::~QxtTableWidgetItem()
-{}
+{
+}
 
 /*!
     Returns \c true if the \a flag is set, otherwise \c false.
