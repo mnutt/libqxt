@@ -36,7 +36,7 @@
     \warning QxtWindowSystem is portable in principle, but be careful while
     using it since you are probably about to do something non-portable.
 
-    <P>Advanced example usage:
+    \section2 Advanced example usage:
     \code
     class NativeWindow : public QWidget {
         public:
