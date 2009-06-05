@@ -81,7 +81,7 @@
  */
 
 /*!
-    Constructs a new QxtProxyStyle for \a style.
+    Constructs a new QxtProxyStyle for \a baseStyle.
     See QStyleFactory::keys() for supported styles.
 
     \sa QStyleFactory::keys()
