@@ -54,41 +54,44 @@ example usage:
 */
 
 /*!
-\fn void QxtSqlPackageModel::setQuery(QxtSqlPackage a);
-\brief set the data for the model.
+\fn void QxtSqlPackageModel::setQuery(QxtSqlPackage package)
+\brief set the \a package for the model.
 
 \warning do this before any access.
-
 */
 
-
-
-
-
+/*!
+    Creates a QxtSqlPackageModel with \a parent.
+ */
 QxtSqlPackageModel::QxtSqlPackageModel(QObject * parent) : QAbstractTableModel(parent)
-{}
-
-
-void QxtSqlPackageModel::setQuery(QxtSqlPackage a)
 {
-    pack = a;
-
 }
 
+void QxtSqlPackageModel::setQuery(QxtSqlPackage package)
+{
+    pack = a;
+}
 
+/*!
+    \reimp
+ */
 int QxtSqlPackageModel::rowCount(const QModelIndex &) const
 {
     return pack.count();
 }
 
-
+/*!
+    \reimp
+ */
 int QxtSqlPackageModel::columnCount(const QModelIndex &) const
 {
     QxtSqlPackage p = pack;
     return p.hash(0).count();
 }
 
-
+/*!
+    \reimp
+ */
 QVariant QxtSqlPackageModel::data(const QModelIndex  & index, int role) const
 {
     if (role != Qt::DisplayRole)
@@ -104,7 +107,9 @@ QVariant QxtSqlPackageModel::data(const QModelIndex  & index, int role) const
 
 }
 
-
+/*!
+    \reimp
+ */
 QVariant QxtSqlPackageModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 
@@ -121,4 +126,3 @@ QVariant QxtSqlPackageModel::headerData(int section, Qt::Orientation orientation
     return QAbstractItemModel::headerData(section, orientation, role);
 
 }
-
