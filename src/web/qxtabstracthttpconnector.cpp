@@ -90,7 +90,7 @@ public:
 #endif
 
 /*!
- * Creates a QxtAbstractHttpConnector with the specified parent.
+ * Creates a QxtAbstractHttpConnector with the specified \a parent.
  *
  * Note that this is an abstract class and cannot be instantiated directly.
  */
@@ -120,7 +120,7 @@ QxtHttpSessionManager* QxtAbstractHttpConnector::sessionManager() const
 
 /*!
  * \internal
- * Returns the QIODevice associated with a request ID.
+ * Returns the QIODevice associated with a \a requestID.
  *
  * The request ID is generated internally and used by the session manager.
  */
@@ -130,7 +130,7 @@ QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID)
 }
 
 /*!
- * Starts managing a new connection.
+ * Starts managing a new connection from \a device.
  *
  * This function should be invoked by a subclass to attach incoming connections
  * to the session manager.
@@ -191,9 +191,9 @@ void QxtAbstractHttpConnector::disconnected()
 }
 
 /*!
- * \fn virtual bool QxtAbstractHttpConnector::listen(const QHostAddress& interface, quint16 port) = 0;
+ * \fn virtual bool QxtAbstractHttpConnector::listen(const QHostAddress& interface, quint16 port)
  * Invoked by the session manager to indicate that the connector should listen
- * for incoming connections on the specified interface and port.
+ * for incoming connections on the specified \a interface and \a port.
  *
  * If the interface is QHostAddress::Any, the server will listen on all network interfaces.
  *
@@ -203,18 +203,18 @@ void QxtAbstractHttpConnector::disconnected()
  */
 
 /*!
- * \fn virtual bool QxtAbstractHttpConnector::canParseRequest(const QByteArray& buffer) = 0;
- * Returns true if a complete set of request headers can be extracted from the provided buffer.
+ * \fn virtual bool QxtAbstractHttpConnector::canParseRequest(const QByteArray& buffer)
+ * Returns true if a complete set of request headers can be extracted from the provided \a buffer.
  */
 
 /*!
- * \fn virtual QHttpRequestHeader QxtAbstractHttpConnector::parseRequest(QByteArray& buffer) = 0;
- * Extracts a set of request headers from the provided buffer.
+ * \fn virtual QHttpRequestHeader QxtAbstractHttpConnector::parseRequest(QByteArray& buffer)
+ * Extracts a set of request headers from the provided \a buffer.
  *
  * Subclasses implementing this function must be sure to remove the parsed data from the buffer.
  */
 
 /*!
- * \fn virtual void QxtAbstractHttpConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& header) = 0;
- * Writes a set of response headers to the specified device.
+ * \fn virtual void QxtAbstractHttpConnector::writeHeaders(QIODevice* device, const QHttpResponseHeader& header)
+ * Writes a the response \a header to the specified \a device.
  */

@@ -57,9 +57,11 @@
 
 /*!
         \fn QxtHtmlTemplate::open(const QString& filename)
-        Returns true on success and false on failure.
-        note that it will also return false for an empty html file.
+        Opens \a filename. Returns \c true on success and \c false on failure.
+        Note that it will also return false for an empty html file.
+ */
 
+/*!
         \fn QString QxtHtmlTemplate::render() const
         Uses the variables you set and renders the opened file.
         returns an empty string on failure.

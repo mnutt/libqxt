@@ -47,8 +47,8 @@ QxtCgiRequestInfo::QxtCgiRequestInfo() : sessionID(0), requestID(0), eventSent(f
 QxtCgiRequestInfo::QxtCgiRequestInfo(QxtWebRequestEvent* req) : sessionID(req->sessionID), requestID(req->requestID), eventSent(false), terminateSent(false) {}
 
 /*!
- * Constructs a QxtWebCgiService object with the specified session manager and parent.
- * This service will invoke the specified binary to handle incoming requests.
+ * Constructs a QxtWebCgiService object with the specified session \a manager and \a parent.
+ * This service will invoke the specified \a binary to handle incoming requests.
  *
  * Often, the session manager will also be the parent, but this is not a requirement.
  */
@@ -62,7 +62,7 @@ QxtWebCgiService::QxtWebCgiService(const QString& binary, QxtAbstractWebSessionM
 /*!
  * Returns the path to the CGI script that will be executed to handle requests.
  *
- * \sa setBinary
+ * \sa setBinary()
  */
 QString QxtWebCgiService::binary() const
 {
@@ -70,9 +70,9 @@ QString QxtWebCgiService::binary() const
 }
 
 /*!
- * Sets the path to the CGI script that will be executed to handle requests.
+ * Sets the path to the CGI script \a bin that will be executed to handle requests.
  *
- * \sa binary
+ * \sa binary()
  */
 void QxtWebCgiService::setBinary(const QString& bin)
 {
@@ -89,7 +89,7 @@ void QxtWebCgiService::setBinary(const QString& bin)
  * The default value is 0, which indicates that CGI scripts will not be terminated
  * due to long running times.
  *
- * \sa setTimeout
+ * \sa setTimeout()
  */
 int QxtWebCgiService::timeout() const
 {
@@ -97,7 +97,7 @@ int QxtWebCgiService::timeout() const
 }
 
 /*!
- * Sets the maximum time a CGI script may execute, in milliseconds.
+ * Sets the maximum \a time a CGI script may execute, in milliseconds.
  *
  * The timer is started when the script is launched. After the timeout elapses once,
  * the script will be asked to stop, as QProcess::terminate(). (That is, the script
@@ -112,16 +112,12 @@ int QxtWebCgiService::timeout() const
  * CAUTION: Keep in mind that the timeout applies to the real running time of the
  * script, not processor time used. A script that initiates a lengthy download 
  * may be interrupted while transferring data to the web browser. To avoid this
- * behavior, see the \a timeoutOverride property to allow the script to request
+ * behavior, see the timeoutOverride property to allow the script to request
  * an extended timeout, or use a different QxtAbstractWebService object for
  * serving streaming content or large files.
  *
  *
- * \sa timeout
- * \sa timeoutOverride
- * \sa setTimeoutOverride
- * \sa QProcess::terminate
- * \sa QProcess::kill
+ * \sa timeout(), timeoutOverride(), setTimeoutOverride(), QProcess::terminate(), QProcess::kill()
  */
 void QxtWebCgiService::setTimeout(int time)
 {
@@ -131,8 +127,7 @@ void QxtWebCgiService::setTimeout(int time)
 /*!
  * Returns whether or not to allow scripts to override the timeout.
  *
- * \sa setTimeoutOverride
- * \sa setTimeout
+ * \sa setTimeoutOverride(), setTimeout()
  */
 bool QxtWebCgiService::timeoutOverride() const
 {
@@ -141,14 +136,14 @@ bool QxtWebCgiService::timeoutOverride() const
 
 /*!
  * Sets whether or not to allow scripts to override the timeout.
+ * Scripts are allowed to override if \a enable is \c true.
  *
  * As an extension to the CGI/1.1 gateway specification, a CGI script may
  * output a "X-QxtWeb-Timeout" header to change the termination timeout
  * on a per-script basis. Only enable this option if you trust the scripts
  * being executed.
  *
- * \sa timeoutOverride
- * \sa setTimeout
+ * \sa timeoutOverride(), setTimeout()
  */
 void QxtWebCgiService::setTimeoutOverride(bool enable)
 {
