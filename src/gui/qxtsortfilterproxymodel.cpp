@@ -185,7 +185,7 @@ bool QxtSortFilterProxyModel::filterAcceptsRow ( int source_row, const QModelInd
 }
 
 /*!
-    \brief TODO
+    \brief Sets the filter with \a value, \a role and \a flags to the given \a column
  */
 void QxtSortFilterProxyModel::setFilter ( const int column, const QVariant &value, const int role, Qt::MatchFlags flags )
 {
@@ -199,7 +199,7 @@ void QxtSortFilterProxyModel::setFilter ( const int column, const QVariant &valu
 }
 
 /*!
-    \brief TODO
+    \brief Removes the filter from the given \a column
  */
 void QxtSortFilterProxyModel::removeFilter ( const int column )
 {
@@ -212,7 +212,7 @@ void QxtSortFilterProxyModel::removeFilter ( const int column )
 }
 
 /*!
-    \brief TODO
+    \brief Sets the filter \a value for the given \a column
  */
 void QxtSortFilterProxyModel::setFilterValue ( const int column , const QVariant &value )
 {
@@ -226,7 +226,7 @@ void QxtSortFilterProxyModel::setFilterValue ( const int column , const QVariant
 }
 
 /*!
-    \brief TODO
+    \brief Sets the filter \a role for the given \a column
  */
 void QxtSortFilterProxyModel::setFilterRole ( const int column , const int role )
 {
@@ -240,7 +240,7 @@ void QxtSortFilterProxyModel::setFilterRole ( const int column , const int role 
 }
 
 /*!
-    \brief TODO
+    \brief Sets the filter \a flags for the given \a column
  */
 void QxtSortFilterProxyModel::setFilterFlags ( const int column , const Qt::MatchFlags flags )
 {
@@ -254,7 +254,9 @@ void QxtSortFilterProxyModel::setFilterFlags ( const int column , const Qt::Matc
 }
 
 /*!
-    \brief TODO
+    \brief Returns the filter value for the given \a column
+
+    \bold {Note:} if the column is not filtered it will return a null variant
  */
 QVariant QxtSortFilterProxyModel::filterValue ( const int column ) const
 {
@@ -264,8 +266,10 @@ QVariant QxtSortFilterProxyModel::filterValue ( const int column ) const
 }
 
 /*!
-    \brief TODO
- */
+    \brief Returns the filter role for the given \a column
+
+    \bold {Note:} if the column is not filtered it will return \c -1    
+*/
 int QxtSortFilterProxyModel::filterRole ( const int column ) const
 {
     if(qxt_d().filters.contains(column))
@@ -274,7 +278,7 @@ int QxtSortFilterProxyModel::filterRole ( const int column ) const
 }
 
 /*!
-    \brief returns the filter flags for the given column
+    \brief returns the filter flags for the given \a column
 
     \bold {Note:} if the column is not filtered it will return the default value
  */
@@ -286,7 +290,7 @@ Qt::MatchFlags QxtSortFilterProxyModel::filterFlags ( const int column ) const
 }
 
 /*!
-    Returns true if the column is filtered
+    Returns true if the \a column is filtered
  */
 bool QxtSortFilterProxyModel::isFiltered ( const int column )
 {

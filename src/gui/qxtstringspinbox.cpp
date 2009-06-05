@@ -62,7 +62,7 @@ int QxtStringSpinBoxPrivate::startsWith(const QString& start, QString& string) c
  */
 
 /*!
-    Constructs a new QxtStringSpinBox with \a parent.
+    Constructs a new QxtStringSpinBox with \a pParent.
  */
 QxtStringSpinBox::QxtStringSpinBox(QWidget* pParent) : QSpinBox(pParent)
 {

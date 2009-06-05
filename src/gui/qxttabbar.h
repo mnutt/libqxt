@@ -33,7 +33,6 @@ class QxtTabBarPrivate;
 class QXT_GUI_EXPORT QxtTabBar : public QTabBar
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtTabBar)
     Q_PROPERTY(TabMovementMode tabMovementMode READ tabMovementMode WRITE setTabMovementMode)
     Q_ENUMS(TabMovementMode)
 
@@ -61,6 +60,9 @@ protected:
 
 Q_SIGNALS:
     void tabMoved(int fromIndex, int toIndex);
+
+private:
+    QXT_DECLARE_PRIVATE(QxtTabBar);
 };
 
 #endif // QXTTABBAR_H

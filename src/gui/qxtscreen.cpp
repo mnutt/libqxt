@@ -243,7 +243,9 @@ void QxtScreen::setColorDepth(int depth)
 /*!
     Applies the resolution and refresh rate.
 
-    \sa setResolution, setRate()
+    Returns \c true if succeeds, \c false otherwise.
+
+    \sa setResolution(), setRefreshRate()
  */
 bool QxtScreen::apply()
 {
@@ -254,7 +256,9 @@ bool QxtScreen::apply()
 /*!
     Reverts the resolution and refresh rate.
 
-    \sa setResolution, setRate()
+    Returns \c true if succeeds, \c false otherwise.
+
+    \sa setResolution(), setRefreshRate()
  */
 bool QxtScreen::cancel()
 {
