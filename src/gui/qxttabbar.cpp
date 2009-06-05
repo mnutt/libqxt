@@ -226,9 +226,18 @@ void QxtTabBarPrivate::restoreTab(int index, const Tab& tab)
     Example usage:
     \code
     QxtTabBar* tabBar = new QxtTabBar(tabWidget);
-    tabBar->setMovableTabs(true); // tabs are movable now
+    tabBar->setTabMovementMode(QxtTabBar::InPlaceMovement);
     \endcode
  */
+
+/*!
+    \enum QxtTabBar::TabMovementMode
+    \brief This enum describes different tab movement ways
+
+    \value NoMovement No tab movement
+    \value InPlaceMovement Move tabs in place
+    \value DragDropMovement Move tabs by drag'n'drop
+*/
 
 /*!
     \fn QxtTabBar::tabMoved(int fromIndex, int toIndex)
@@ -341,6 +350,9 @@ void QxtTabBar::dragEnterEvent(QDragEnterEvent* event)
         QTabBar::dragEnterEvent(event);
 }
 
+/*!
+    \reimp
+ */
 void QxtTabBar::dragMoveEvent(QDragMoveEvent* event)
 {
     // only accept if it's a tab movement request
