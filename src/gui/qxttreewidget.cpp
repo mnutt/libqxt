@@ -66,6 +66,8 @@ void QxtTreeWidgetPrivate::expandCollapse(QTreeWidgetItem* item)
     and a few most commonly requested signals.
 
     \image qxttreewidget.png "QxtTreeWidget with Qxt::Menulike and Qxt::Buttonlike decoration styles, respectively."
+
+    \sa QxtTreeWidgetItem
  */
 
 /*!
