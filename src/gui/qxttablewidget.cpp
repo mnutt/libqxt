@@ -27,7 +27,8 @@
 #include "qxtitemdelegate.h"
 
 QxtTableWidgetPrivate::QxtTableWidgetPrivate()
-{}
+{
+}
 
 void QxtTableWidgetPrivate::informStartEditing(const QModelIndex& index)
 {
@@ -49,6 +50,8 @@ void QxtTableWidgetPrivate::informFinishEditing(const QModelIndex& index)
     QxtTableWidget offers a few most commonly requested signals.
 
     \image qxttablewidget.png "QxtTableWidget in Plastique style."
+
+    \sa QxtTableWidgetItem
  */
 
 /*!
