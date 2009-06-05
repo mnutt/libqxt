@@ -29,9 +29,9 @@
 /*!
     \class QxtBdbHash
     \inmodule QxtBerkeley
-    \brief The QxtBdbHash class is a template class that provides key/value access to a berkeley db file
+    \brief The QxtBdbHash class is a template class that provides key/value access to a berkeley db file.
 
-    both value and key must be registered with the qt meta system.
+    Both value and key must be registered with the qt meta system.
     You may not touch the file while a QxtBdbHash instance is running on it.
 
     examples usage:
@@ -42,12 +42,12 @@
     \endcode
 
 
-    There is an extensive example in /examples/berkeley/adressbook
+    There is an extensive example in /examples/berkeley/adressbook.
 
 
     All functions of this class are thread safe.
     Calling open() multiple times is undefined.
-    An Iterator may only be used from one thread at once, but you can have multiple iterators.
+    An iterator may only be used from one thread at once, but you can have multiple iterators.
 
     TODO: {implicitshared}
     \sa QxtBdbHashIterator
@@ -62,81 +62,81 @@
 /*!
     \fn void QxtBdbHash::QxtBdbHash(QString file)
 
-    Constructs a QxtBdbHash, and opens the file specified as its database.
+    Constructs a QxtBdbHash, and opens the \a file specified as its database.
 */
 
 
 /*!
     \fn bool QxtBdbHash::open(QString file)
 
-    opens the specified file.
+    Opens the specified \a file.
 
-    returns true on success and false on failure.
-    \bold {Note:} a sanity check is performed before opening the file.
+    Returns \c true on success and \c false on failure.
+    \bold {Note:} A sanity check is performed before opening the file.
 */
 
 /*!
     \fn void QxtBdbHash::clear()
 
-    Erase all records. This does not delete the unerlieing file.
-/*
+    Erase all records. This does not delete the underlying file.
+*/
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHash::begin()
 
-    return an iterator to the first key,value pair
+    Returns an iterator to the first key,value pair.
     \sa QxtBdbHashIterator
 */
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHash::end()
 
-    return an iterator to the last key,value pair
+    Return an iterator to the last key,value pair
     \sa QxtBdbHashIterator
 */
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHash::find ( const KEY & key )
 
-    return an iterator to the position of the pair identified by \a key
+    Returns an iterator to the position of the pair identified by \a key
     \sa QxtBdbHashIterator
 */
 
 /*!
     \fn bool QxtBdbHash::contains ( const KEY & key ) const
 
-    returns true if there is a record for the specified key.
+    Returns \c true if there is a record for the specified \a key.
 */
 
 /*!
     \fn bool QxtBdbHash::remove ( const KEY & key )
 
-    removes all records with the specified key. returns true on success and false on failure.
+    Removes all records with the specified \a key. Returns \c true on success and \c false on failure.
 */
 
 /*!
-    \fn     bool QxtBdbHash::insert(KEY k, VAL v)
+    \fn bool QxtBdbHash::insert( KEY key, VAL value )
 
-    inserts a record with the specified key/value combination. replaces any record with the same key.
-    \bold {Note:} when working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
+    Inserts a record with the specified \a key / \a value combination. Replaces any record with the same key.
+    \bold {Note:} When working with iterators, keep in mind that inserting pairs, works reverse to the iteration.
 */
 
 /*!
-    \fn     const VAL QxtBdbHash::value (  const KEY & key  ) const
+    \fn const VAL QxtBdbHash::value( const KEY & key ) const
 
-    returns the value associated with the specified key, or a default contructed value, if no such key exists.
+    Returns the value associated with the specified \a key, or a default contructed value, if no such key exists.
 */
 
 /*!
-    \fn   const VAL QxtBdbHash::operator[] ( const KEY & key ) const
+    \fn const VAL QxtBdbHash::operator[] ( const KEY & key ) const
 
-    same as value();
+    Same as value()
 */
 
 /*!
-    \fn    bool QxtBdbHash::flush()
+    \fn bool QxtBdbHash::flush()
 
-    flushes the unerlieing DB file. all changes are synced to disk.
+    Flushes the underlying DB file. All changes are synced to disk.
 */
 
 
@@ -167,50 +167,50 @@
 /*!
     \fn QxtBdbHashIterator<KEY,VAL>::QxtBdbHashIterator(const QxtBdbHashIterator<KEY,VAL> & other)
 
-    copy Constructor
+    Copy constructor
 */
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> & QxtBdbHashIterator<KEY,VAL>::operator= ( const QxtBdbHashIterator<KEY,VAL> & other )
 
-    copy assign
+    Assignment operator
 */
 
 /*!
     \fn bool QxtBdbHashIterator<KEY,VAL>::isValid() const
 
-    return true if the iterator is valid.
+    Returns \c true if the iterator is valid.
     Invalid iterators are unusable and accessing any function will fail.
 */
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL>::operator KEY() const
 
-    conversation operator to the current value.
+    Convertion operator to the current value.
 
     \sa key()
 */
 
 /*!
-    \fn KEY     QxtBdbHashIterator<KEY,VAL>::key() const
+    \fn KEY QxtBdbHashIterator<KEY,VAL>::key() const
 
-    returns the current key.
+    Returns the current key.
 
     \sa value()
 */
 
 /*!
-    \fn VAL   QxtBdbHashIterator<KEY,VAL>::value() const
+    \fn VAL QxtBdbHashIterator<KEY,VAL>::value() const
 
-    returns the current value.
+    Returns the current value.
 
     \sa key()
 */
 
 /*!
-    \fn QxtBdbHashIterator<KEY,VAL>    QxtBdbHashIterator<KEY,VAL>::operator + ( int j ) const
+    \fn QxtBdbHashIterator<KEY,VAL> QxtBdbHashIterator<KEY,VAL>::operator + ( int j ) const
 
-    Returns an iterator to the item at j positions forward from this iterator.
+    Returns an iterator to the item at \a j positions forward from this iterator.
 */
 
 /*!
@@ -228,13 +228,13 @@
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator += ( int j )
 
-    Advances the iterator by j items.
+    Advances the iterator by \a j items.
 */
 
 /*!
     \fn QxtBdbHashIterator<KEY,VAL>    QxtBdbHashIterator<KEY,VAL>::operator - ( int j ) const
 
-    Returns an iterator to the item at j positions backward from this iterator.
+    Returns an iterator to the item at \a j positions backward from this iterator.
 */
 
 /*!
@@ -252,7 +252,7 @@
 /*!
     \fn QxtBdbHashIterator<KEY,VAL> &  QxtBdbHashIterator<KEY,VAL>::operator -= ( int j )
 
-    Makes the iterator go back by j items.
+    Makes the iterator go back by \a j items.
 */
 
 /*!
@@ -261,29 +261,4 @@
     Removes the (key, value) pair associated with the iterator from the hash, and returns an iterator to the next item in the hash.
 
     This instance is invalid then, and cannot be used further.
-
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
