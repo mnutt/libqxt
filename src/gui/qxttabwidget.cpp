@@ -84,8 +84,17 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 
     \image qxttabwidget.png "QxtTabWidget in WindowsXP style."
 
-    \bold {Note:} http://www.trolltech.com/developer/task-tracker/index_html?method=entry&amp;id=137891
+    \sa QxtTabBar
  */
+
+/*!
+    \enum QxtTabWidget::TabMovementMode
+    \brief This enum describes different tab movement ways
+
+    \value NoMovement No tab movement
+    \value InPlaceMovement Move tabs in place
+    \value DragDropMovement Move tabs by drag'n'drop
+*/
 
 /*!
     \fn QxtTabWidget::tabContextMenuRequested(int index, const QPoint& globalPos)
@@ -132,10 +141,10 @@ void QxtTabWidget::setAlwaysShowTabBar(bool always)
 }
 
 /*!
-    \property QxtTabBar::tabMovementMode
+    \property QxtTabWidget::tabMovementMode
     \brief how tabs can be moved.
 
-    The default value of this property is QxtTabBar::NoMovement.
+    The default value of this property is QxtTabWidget::NoMovement.
 
     \sa tabMoved()
  */
@@ -425,6 +434,11 @@ QMovie* QxtTabWidget::takeTabAnimation(int index)
     return animation;
 }
 
+/*!
+    Returns the tab bar.
+
+    \sa QxtTabBar
+ */
 QxtTabBar* QxtTabWidget::tabBar() const
 {
     return qobject_cast<QxtTabBar*>(QTabWidget::tabBar());

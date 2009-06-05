@@ -228,6 +228,8 @@ void QxtTabBarPrivate::restoreTab(int index, const Tab& tab)
     QxtTabBar* tabBar = new QxtTabBar(tabWidget);
     tabBar->setTabMovementMode(QxtTabBar::InPlaceMovement);
     \endcode
+
+    \sa QxtTabWidget
  */
 
 /*!
