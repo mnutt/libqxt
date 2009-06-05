@@ -32,6 +32,7 @@
 class QXT_CORE_EXPORT QxtLocale
 {
     Q_GADGET
+    Q_ENUMS(Currency Continent)
 public:
 
     enum Currency
@@ -206,7 +207,6 @@ public:
         Zloty = 167,
         LastCurrency = Zloty
     };
-    Q_ENUMS(Currency);
 
     enum Continent
     {
@@ -220,8 +220,6 @@ public:
         Antarctica = 7,
         LastContinent = Antarctica
     };
-
-    Q_ENUMS(Continent);
 
     static QString countryToISO2Letter(QLocale::Country country);
     static QString countryToISO3Letter(QLocale::Country country);
