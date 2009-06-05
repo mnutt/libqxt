@@ -131,7 +131,7 @@ QSize QxtStarsPrivate::getStarSize() const
 
     QxtStars is an optionally interactive stars assessment widget.
 
-    By default, orientation is Qt::Horizonal and range is from \c 0 to \c 5.
+    By default, orientation is Qt::Horizontal and range is from \c 0 to \c 5.
 
     The stars are rendered accoring to palette with the following color roles:
     \table
