@@ -59,9 +59,19 @@
  * \bold {Note:} QxtFileLock lives in the same thread as the passed QFile
  * \warning due to a refactoring issues of QFile this class will not work with Qt from 4.3 on. This will be fixed in 4.3.2
  * \warning not part of 0.2.4
-
-
 */
+
+/*!
+ * \fn bool QxtFileLock::lock()
+ * \brief Locks the file
+ * Returns \c true if succeeds, \c false otherwise.
+ */
+
+/*!
+ * \fn bool QxtFileLock::unlock()
+ * \brief Unlocks the file.
+ * Returns \c true if succeeds, \c false otherwise.
+ */
 
 /*!
  * \enum QxtFileLock::Mode
@@ -93,13 +103,16 @@ QxtFileLock::QxtFileLock(QFile *file, const off_t offset, const off_t length, co
     qxt_d().mode = mode;
 }
 
+/*!
+ * Destructs the file lock.
+ */
 QxtFileLock::~QxtFileLock()
 {
     unlock();
 }
 
 /*!
- *Returns the offset of the lock
+ * Returns the offset of the lock
  */
 off_t QxtFileLock::offset() const
 {
@@ -107,7 +120,7 @@ off_t QxtFileLock::offset() const
 }
 
 /*!
- * Returns true if the lock is active otherwise it returns false
+ * Returns \c true if the lock is active otherwise it returns \c false
  */
 bool QxtFileLock::isActive() const
 {
@@ -123,7 +136,7 @@ off_t QxtFileLock::length() const
 }
 
 /*!
- * the file the lock is created on
+ * Returns the file the lock is created on.
  */
 QFile * QxtFileLock::file() const
 {
