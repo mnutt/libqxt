@@ -334,4 +334,38 @@ namespace QxtMetaObject
         return QMetaObject::connect(sender, methodID, slot, QObject::staticMetaObject.methodCount(), (int)(type));
     }
 
+    /*!
+        \relates QxtMetaObject
+        This overload always invokes the member using the connection type Qt::AutoConnection.
+
+        \sa QMetaObject::invokeMethod()
+     */
+    bool invokeMethod(QObject* object, const char* member, const QVariant& arg0,
+                      const QVariant& arg1, const QVariant& arg2, const QVariant& arg3,
+                      const QVariant& arg4, const QVariant& arg5, const QVariant& arg6,
+                      const QVariant& arg7, const QVariant& arg8, const QVariant& arg9)
+    {
+        return invokeMethod(object, member, Qt::AutoConnection,
+                            arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    }
+
+    /*!
+        \relates QxtMetaObject
+
+        Invokes the \a member (a signal or a slot name) on the \a object.
+        Returns \c true if the member could be invoked. Returns \c false
+        if there is no such member or the parameters did not match.
+
+        \sa QMetaObject::invokeMethod()
+     */
+    bool invokeMethod(QObject* object, const char* member, Qt::ConnectionType type,
+                      const QVariant& arg0, const QVariant& arg1, const QVariant& arg2,
+                      const QVariant& arg3, const QVariant& arg4, const QVariant& arg5,
+                      const QVariant& arg6, const QVariant& arg7, const QVariant& arg8, const QVariant& arg9)
+    {
+        #define QXT_ARG(i) QGenericArgument(arg ## i.typeName(), arg ## i.constData())
+        return QMetaObject::invokeMethod(object, methodName(member), type,
+                                         QXT_ARG(0), QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4),
+                                         QXT_ARG(5), QXT_ARG(6), QXT_ARG(7), QXT_ARG(8), QXT_ARG(9));
+    }
 }
