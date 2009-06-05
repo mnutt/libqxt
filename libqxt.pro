@@ -21,16 +21,6 @@ lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
    error(LibQxt requires Qt 4.2 or newer but Qt $$[QT_VERSION] was detected.)
 }
 
-win32 {
-    QT_WINCONFIG = release/
-    CONFIG(debug, debug|release) {
-        QT_WINCONFIG = debug/
-    }
-}
-
-DOCS_GENERATION_DEFINES = -DQXT_DOXYGEN_RUN
-ADP_DOCS_QDOCCONF_FILE = $$PWD/doc/src/qxt.qdocconf
-
 win32:!win32-g++ {
     unixstyle = false
 } else :win32-g++:isEmpty(QMAKE_SH) {
@@ -40,20 +30,17 @@ win32:!win32-g++ {
 }
 
 $$unixstyle {
-    QDOC = QXTDIR=$$PWD $$PWD/tools/3rdparty/qdoc3/$${QT_WINCONFIG}qdoc3 $$DOCS_GENERATION_DEFINES
+    QDOC = QXTDIR=$$PWD $$PWD/tools/3rdparty/qdoc3/qdoc3
 } else {
-    QDOC = set QXTDIR=$$PWD&& $$PWD/tools/3rdparty/qdoc3/$${QT_WINCONFIG}qdoc3.exe $$DOCS_GENERATION_DEFINES
+    QDOC = set QXTDIR=$$PWD&& $$PWD/tools/3rdparty/qdoc3/qdoc3.exe
     QDOC = $$replace(QDOC, "/", "\\\\")
 }
 
 SUBDIRS += tools/3rdparty/qdoc3
 
-# Build rules:
-adp_docs.commands = ($$QDOC $$ADP_DOCS_QDOCCONF_FILE)
+adp_docs.commands = ($$QDOC -DQXT_DOXYGEN_RUN $$PWD/doc/src/qxt.qdocconf)
 adp_docs.depends += sub-tools-3rdparty-qdoc3
-
 docs.depends = adp_docs
-
 QMAKE_EXTRA_TARGETS += qdoc adp_docs docs
 
 docs.files = doc/html/*

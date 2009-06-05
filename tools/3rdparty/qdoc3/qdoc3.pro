@@ -8,6 +8,7 @@ build_all:!build_pass {
     CONFIG -= build_all
     CONFIG += release
 }
+DESTDIR = ./
 mac:CONFIG -= app_bundle
 HEADERS += apigenerator.h \
            archiveextractor.h \
