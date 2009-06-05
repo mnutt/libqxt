@@ -135,10 +135,10 @@ QSize QxtStarsPrivate::getStarSize() const
 
     The stars are rendered accoring to palette with the following color roles:
     \table
-    \header \i ColorRole \i Element
-    \row \i QPalette::Text \i outlines
-    \row \i QPalette::Base \i unselected stars
-    \row \i QPalette::Highlight \i selected stars
+    \header \o ColorRole \o Element
+    \row \o QPalette::Text \o outlines
+    \row \o QPalette::Base \o unselected stars
+    \row \o QPalette::Highlight \o selected stars
     \endtable
 
     \image qxtstars.png "QxtStars in action."
