@@ -46,15 +46,17 @@ for confidence the interface is similar to QSqlQuery.
 
 
 /*!
-
-\fn  bool QxtSqlPackage::isValid();
+\fn  bool QxtSqlPackage::isValid()
 \brief determinates if the package curently points to a valid row
+*/
 
-
-\fn int QxtSqlPackage::at();
+/*!
+\fn int QxtSqlPackage::at()
 \brief curent pointer position
+*/
 
-\fn bool QxtSqlPackage::next();
+/*!
+\fn bool QxtSqlPackage::next()
 \brief point to next entry
 
 returns false if there is no next entry.
@@ -65,67 +67,82 @@ while (query.next())
     {
     }
 \endcode
+*/
 
-
+/*!
 \fn bool QxtSqlPackage::last();
 \brief point to last entry in storage
+*/
 
-
+/*!
 \fn bool QxtSqlPackage::first();
 \brief point to first entry in storage
+*/
 
-
-
-
+/*!
 \fn QString QxtSqlPackage::value(const QString& key);
-\brief return a column in curent row
-in contrast to QSqlQuery you have to provide the name of the key.
+\brief return a column in current row
+in contrast to QSqlQuery you have to provide the name of the \a key.
 
 the entry is returned as QString becouse in most cases you need QString anyway, and converting to needed data type is easy.
 \code
 QString name = query.value("name");
 \endcode
+*/
 
-
+/*!
 \fn void QxtSqlPackage::insert(QSqlQuery query);
 
-\brief read from QSqlQuery
+\brief read from \a query
 
 read out a QSqlQuery and store the result. you may close the query after reading, the data will stay.
 
 \code
 QxSqlPackage::insert(QSqlQuery::exec("select name,foo,bar from table;"));
 \endcode
-
-
-\fn int QxtSqlPackage::count() const;
-\brief Returns the number of rows stored
-
-\fn QByteArray QxtSqlPackage::data() const;
-\brief serialise Data
-
-\fn void QxtSqlPackage::setData(const QByteArray& data);
-\brief deserialise data
-
-\fn QHash<QString,QString> QxtSqlPackage::hash(int index);
-\brief return a specific row as Hash
-
-\fn QHash<QString,QString> QxtSqlPackage::hash();
-\brief return the curent row as Hash
-
-\fn QxtSqlPackage& QxtSqlPackage::operator= (const QxtSqlPackage& other);
-\brief copy
-
 */
 
+/*!
+\fn int QxtSqlPackage::count() const;
+\brief Returns the number of rows stored
+*/
 
+/*!
+\fn QByteArray QxtSqlPackage::data() const;
+\brief Returns serialised data
+*/
 
+/*!
+\fn void QxtSqlPackage::setData(const QByteArray& data);
+\brief Deserialise \a data
+*/
 
+/*!
+\fn QHash<QString,QString> QxtSqlPackage::hash(int index);
+\brief return a specific \a index as Hash
+*/
+
+/*!
+\fn QHash<QString,QString> QxtSqlPackage::hash();
+\brief return the curent row as Hash
+*/
+
+/*!
+\fn QxtSqlPackage& QxtSqlPackage::operator= (const QxtSqlPackage& other);
+\brief copy \a other
+*/
+
+/*!
+Constructs a QxtSqlPackage with \a parent.
+*/
 QxtSqlPackage::QxtSqlPackage(QObject *parent) : QObject(parent)
 {
     record = -1;
 }
 
+/*!
+Constructs a copy of \a other with \a parent.
+*/
 QxtSqlPackage::QxtSqlPackage(const QxtSqlPackage & other, QObject *parent) : QObject(parent)
 {
     record = -1;
@@ -133,6 +150,9 @@ QxtSqlPackage::QxtSqlPackage(const QxtSqlPackage & other, QObject *parent) : QOb
     setData(other.data());
 }
 
+/*!
+Returns \c true if the package is valid, \c false otherwise.
+*/
 bool QxtSqlPackage::isValid()
 {
     if ((record >= 0) && (record < map.count()))
@@ -188,8 +208,6 @@ QString QxtSqlPackage::value(const QString& key)
     return map.at(record).value(key);
 }
 
-
-
 void QxtSqlPackage::insert(QSqlQuery query)
 {
     map.clear();
@@ -226,12 +244,10 @@ void QxtSqlPackage::insert(QSqlQuery query)
     while (query.next());
 }
 
-
 int QxtSqlPackage::count() const
 {
     return map.count();
 }
-
 
 QByteArray QxtSqlPackage::data() const
 {
@@ -267,6 +283,7 @@ void QxtSqlPackage::setData(const QByteArray& data)
         map.append(hash);
     }
 }
+
 
 QHash<QString, QString> QxtSqlPackage::hash(int index)
 {
