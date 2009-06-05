@@ -133,7 +133,7 @@ void QxtConfigDialog::setDialogButtonBox(QDialogButtonBox* buttonBox)
     \property QxtConfigDialog::hoverEffect
     \brief whether a hover effect is shown for page icons
 
-    The default value is \l true.
+    The default value is \c true.
 
     \bold {Note:} Hovered (but not selected) icons are highlighted with lightened QPalette::Highlight
     (whereas selected icons are highlighted with QPalette::Highlight). In case lightened
