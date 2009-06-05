@@ -57,7 +57,7 @@ public:
 #endif
 
 /*!
- * Creates a QxtHttpServerConnector with the given parent.
+ * Creates a QxtHttpServerConnector with the given \a parent.
  */
 QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent)
 {

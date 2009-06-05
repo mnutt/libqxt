@@ -81,7 +81,7 @@ public:
 #endif
 
 /*!
- * Creates a QxtAbstractWebService with the specified parent and session manager.
+ * Creates a QxtAbstractWebService with the specified \a parent and session \a manager.
  *
  * Often, the session manager will also be the parent, but this is not a requirement.
  *
@@ -103,12 +103,12 @@ QxtAbstractWebSessionManager* QxtAbstractWebService::sessionManager() const
 
 /*!
  * \fn void QxtAbstractWebService::postEvent(QxtWebEvent* event)
- * Posts an event to a web browser that has made a request to the service.
+ * Posts an \a event to a web browser that has made a request to the service.
  */
 
 /*!
  * \fn virtual void QxtAbstractWebService::pageRequestedEvent(QxtWebRequestEvent* event)
- * This event handler must be reimplemented in subclasses to receive page
+ * This \a event handler must be reimplemented in subclasses to receive page
  * request events.
  *
  * Every page request event received MUST be responded to with a QxtWebPageEvent

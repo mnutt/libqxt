@@ -76,7 +76,7 @@ void QxtWebServiceDirectoryPrivate::serviceDestroyed()
 #endif
 
 /*!
- * Constructs a QxtWebServiceDirectory object with the specified session manager and parent.
+ * Constructs a QxtWebServiceDirectory object with the specified session manager \a sm and \a parent.
  *
  * Often, the session manager will also be the parent, but this is not a requirement.
  */
@@ -86,9 +86,8 @@ QxtWebServiceDirectory::QxtWebServiceDirectory(QxtAbstractWebSessionManager* sm,
 }
 
 /*!
- * Adds a service to the directory at the given path.
- * \sa removeService
- * \sa service
+ * Adds a \a service to the directory at the given \a path.
+ * \sa removeService(), service()
  */
 void QxtWebServiceDirectory::addService(const QString& path, QxtAbstractWebService* service)
 {
@@ -104,7 +103,7 @@ void QxtWebServiceDirectory::addService(const QString& path, QxtAbstractWebServi
 }
 
 /*!
- * Removes the service at the given path.
+ * Removes the service at the given \a path.
  *
  * Note that the service object is not destroyed.
  */
@@ -121,7 +120,7 @@ void QxtWebServiceDirectory::removeService(const QString& path)
 }
 
 /*!
- * Returns the service at the given path.
+ * Returns the service at the given \a path.
  */
 QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) const
 {
@@ -132,7 +131,7 @@ QxtAbstractWebService* QxtWebServiceDirectory::service(const QString& path) cons
 
 /*!
  * \internal
- * Returns the first path segment from the URL in the event object.
+ * Returns the first path segment from the URL in the \a event object.
  * (i.e. "a" from "/a/b/c") This also removes the path segment from the
  * event object. (in the previous example, the event's URL is now "/b/c")
  */
@@ -188,7 +187,7 @@ void QxtWebServiceDirectory::functionInvokedEvent(QxtWebRequestEvent* event) {
 */
 
 /*!
- * This event handler is called whenever the URL requests a service that has
+ * This \a event handler is called whenever the URL requests a service with \a name that has
  * not been added to the directory.
  *
  * The default implementation returns a 404 "Service not known" error.
@@ -200,7 +199,7 @@ void QxtWebServiceDirectory::unknownServiceRequested(QxtWebRequestEvent* event, 
 }
 
 /*!
- * This event handler is called whenever the URL does not contain a path, that
+ * This \a event handler is called whenever the URL does not contain a path, that
  * is, the URL is "/" or empty.
  *
  * The default implementation redirects to the service specified by
@@ -221,8 +220,7 @@ void QxtWebServiceDirectory::indexRequested(QxtWebRequestEvent* event)
 
 /*!
  * Returns the path that will be used by default by the indexRequested event.
- * \sa indexRequested
- * \sa setDefaultRedirect
+ * \sa indexRequested(), setDefaultRedirect()
  */
 QString QxtWebServiceDirectory::defaultRedirect() const
 {
@@ -230,9 +228,8 @@ QString QxtWebServiceDirectory::defaultRedirect() const
 }
 
 /*!
- * Sets the path that will be used by default by the indexRequested event.
- * \sa indexRequested
- * \sa defaultRedirect
+ * Sets the \a path that will be used by default by the indexRequested event.
+ * \sa indexRequested(), defaultRedirect()
  */
 void QxtWebServiceDirectory::setDefaultRedirect(const QString& path)
 {

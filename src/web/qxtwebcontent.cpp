@@ -84,9 +84,9 @@ public:
  * Constructs a QxtWebContent object.
  *
  * The content provided by this constructor is the first \a contentLength bytes
- * read from the provided device.
+ * read from the provided \a device.
  *
- * The QxtWebContent object is parented to the device.
+ * The QxtWebContent object is parented to the \a device.
  */
 QxtWebContent::QxtWebContent(int contentLength, QIODevice* device) : QIODevice(device)
 {
@@ -98,10 +98,10 @@ QxtWebContent::QxtWebContent(int contentLength, QIODevice* device) : QIODevice(d
  * Constructs a QxtWebContent object.
  *
  * The content provided by this constructor is the data contained in \a start,
- * followed by enough data read from the provided device to fill the desired
+ * followed by enough data read from the provided \a device to fill the desired
  * \a contentLength.
  *
- * The QxtWebContent object is parented to the device.
+ * The QxtWebContent object is parented to the \a device.
  */
 QxtWebContent::QxtWebContent(int contentLength, const QByteArray& start, QIODevice* device) : QIODevice(device)
 {
@@ -110,7 +110,7 @@ QxtWebContent::QxtWebContent(int contentLength, const QByteArray& start, QIODevi
 }
 
 /*!
- * Constructs a QxtWebContent object with the specified parent.
+ * Constructs a QxtWebContent object with the specified \a parent.
  *
  * The content provided by this constructor is exactly the data contained in
  * \a content.
@@ -244,7 +244,7 @@ typedef QPair<QString, QString> QxtQueryItem;
 #endif
 
 /*!
- * Extracts the key/value pairs from application/x-www-form-urlencoded data,
+ * Extracts the key/value pairs from application/x-www-form-urlencoded \a data,
  * such as the query string from the URL or the form data from a POST request.
  */
 QHash<QString, QString> QxtWebContent::parseUrlEncodedQuery(const QString& data)

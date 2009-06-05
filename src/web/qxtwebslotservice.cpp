@@ -56,18 +56,19 @@ will output<br>
 \sa QxtAbstractWebService
 */
 
-
-
-
 #include "qxtwebslotservice.h"
 #include "qxtwebevent.h"
 
-
-
+/*!
+    Constructs a new QxtWebSlotService with \a sm and \a parent.
+ */
 QxtWebSlotService::QxtWebSlotService(QxtAbstractWebSessionManager* sm, QObject* parent): QxtAbstractWebService(sm, parent)
 {
 }
-/// returns the current absolute url of this service depending on the request
+
+/*!
+    Returns the current absolute url of this service depending on the request \a event.
+ */
 QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
 
 {
@@ -87,9 +88,9 @@ QUrl QxtWebSlotService::self(QxtWebRequestEvent* event)
     return r;
 }
 
-
-///\reimp
-
+/*!
+    \reimp
+ */
 void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 {
     QList<QString> args = event->url.path().split('/');
@@ -217,11 +218,11 @@ void QxtWebSlotService::pageRequestedEvent(QxtWebRequestEvent* event)
 
 
 }
-///\reimp
+
+/*!
+    \reimp
+ */
 void QxtWebSlotService::functionInvokedEvent(QxtWebRequestEvent* event)
 {
     postEvent(new QxtWebErrorEvent(event->sessionID, event->requestID, 500, "<h1>Not supported</h1>"));
 }
-
-
-

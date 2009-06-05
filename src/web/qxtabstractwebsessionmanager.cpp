@@ -93,7 +93,7 @@ int QxtAbstractWebSessionManagerPrivate::getNextID()
 #endif
 
 /*!
- * Creates a QxtAbstractWebSessionManager with the specified parent.
+ * Creates a QxtAbstractWebSessionManager with the specified \a parent.
  *
  * Note that this is an abstract class and cannot be instantiated directly.
  */
@@ -103,7 +103,7 @@ QxtAbstractWebSessionManager::QxtAbstractWebSessionManager(QObject* parent) : QO
 }
 
 /*!
- * Sets the service factory for the session manager.
+ * Sets the service \a factory for the session manager.
  *
  * The service factory is invoked every time the session manager creates a new
  * session. Usually, an application providing web services will instantiate one
@@ -129,7 +129,7 @@ QxtAbstractWebSessionManager::ServiceFactory* QxtAbstractWebSessionManager::serv
 }
 
 /*!
- * Returns the service object corresponding to the provided session ID.
+ * Returns the service object corresponding to the provided \a sessionID.
  */
 QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) const
 {
@@ -156,7 +156,7 @@ int QxtAbstractWebSessionManager::createService()
 }
 
 /*!
- * \fn virtual bool QxtAbstractWebSessionManager::start() = 0;
+ * \fn virtual bool QxtAbstractWebSessionManager::start()
  * Starts the session manager.
  *
  * Session managers should not create sessions before start() is invoked.
@@ -165,7 +165,7 @@ int QxtAbstractWebSessionManager::createService()
  */
 
 /*!
- * \fn virtual void QxtAbstractWebSessionManager::postEvent(QxtWebEvent* event) = 0;
+ * \fn virtual void QxtAbstractWebSessionManager::postEvent(QxtWebEvent* event)
  * Adds the event to the event queue for its associated session.
  *
  * Since different protocols may require different event processing behavior,
@@ -181,7 +181,7 @@ int QxtAbstractWebSessionManager::createService()
  */
 
 /*!
- * \fn virtual void QxtAbstractWebSessionManager::processEvents() = 0;
+ * \fn virtual void QxtAbstractWebSessionManager::processEvents()
  * Processes pending events for all sessions.
  *
  * Since different protocols may require different event processing behavior,
