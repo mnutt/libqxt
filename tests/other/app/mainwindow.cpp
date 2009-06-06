@@ -16,10 +16,8 @@
 #include <QDirModel>
 #include <QTimer>
 #include <QLabel>
-#if QT_VERSION >= 0x040200
 #include <QCalendarWidget>
 #include <QTimeLine>
-#endif // QT_VERSION
 
 MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
@@ -54,12 +52,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
-#if QT_VERSION >= 0x040200
 	static const QString title("QxtConfirmationMessage");
 	static const QString text(tr("Are you sure you want to quit?"));
 	if (QxtConfirmationMessage::confirm(this, title, text) == QMessageBox::No)
 		event->ignore();
-#endif // QT_VERSION
 }
 
 void MainWindow::aboutQxtGui()
@@ -105,7 +101,6 @@ void MainWindow::createProgressBar()
 	bar->setMaximumWidth(label->sizeHint().width() * 2);
 	bar->setRange(0, 120);
 
-#if QT_VERSION >= 0x040200
 	QTimeLine* timeLine = new QTimeLine(120000, this);
 	timeLine->setFrameRange(0, 120);
 
@@ -113,7 +108,6 @@ void MainWindow::createProgressBar()
 	connect(timeLine, SIGNAL(finished()), label, SLOT(restart()));
 	connect(bar, SIGNAL(valueChanged(int)), label, SLOT(setValue(int)));
 	timeLine->start();
-#endif // QT_VERSION
 
     statusBar()->addPermanentWidget(new QLabel(tr("Dummy Progress:"), this));
 	statusBar()->addPermanentWidget(bar);
@@ -131,9 +125,7 @@ void MainWindow::configure()
 		page3->addItem(QString::number(i));
 	dialog.addPage(page2, QIcon(":tree.png"), "A directory tree");
 	dialog.addPage(page3, QIcon(":list.png"), "Some kind of list");
-#if QT_VERSION >= 0x040200
 	QCalendarWidget* page1 = new QCalendarWidget(&dialog);
 	dialog.addPage(page1, QIcon(":calendar.png"), "Calendar");
-#endif
 	dialog.exec();
 }

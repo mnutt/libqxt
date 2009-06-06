@@ -45,7 +45,6 @@ public:
     explicit QxtConfirmationMessage(QWidget* parent = 0);
     virtual ~QxtConfirmationMessage();
 
-#if QT_VERSION >= 0x040200
     QxtConfirmationMessage(QMessageBox::Icon icon,
                            const QString& title, const QString& text, const QString& confirmation = QString(),
                            QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget* parent = 0,
@@ -55,7 +54,6 @@ public:
             const QString& title, const QString& text, const QString& confirmation = QString(),
             QMessageBox::StandardButtons buttons = QMessageBox::Yes | QMessageBox::No,
             QMessageBox::StandardButton defaultButton = QMessageBox::NoButton);
-#endif
 
     QString confirmationText() const;
     void setConfirmationText(const QString& confirmation);

@@ -49,20 +49,17 @@ public:
 
 QxtPushButtonPrivate::QxtPushButtonPrivate() :
         rot(Qxt::NoRotation), format(Qt::PlainText), doc(0)
-{}
+{
+}
 
 bool QxtPushButtonPrivate::isRichText() const
 {
-#if QT_VERSION >= 0x040200
     bool rich = (format == Qt::RichText) || (format == Qt::AutoText && Qt::mightBeRichText(qxt_p().text()));
     if (rich && !doc)
     {
         doc = new QTextDocument(const_cast<QxtPushButton*>(&qxt_p()));
         doc->setUndoRedoEnabled(false);
     }
-#else // QT_VERSION < 0x040200
-    bool rich = false;
-#endif // QT_VERSION
     return rich;
 }
 
@@ -295,7 +292,6 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
     const QStyleOptionButton option = qxt_d().getStyleOption();
     painter.drawControl(QStyle::CE_PushButton, option);
 
-#if QT_VERSION >= 0x040200
     if (qxt_d().isRichText())
     {
         int dx = 0;
@@ -326,5 +322,4 @@ void QxtPushButton::paintEvent(QPaintEvent* event)
         }
         qxt_d().doc->drawContents(&painter, area);
     }
-#endif // QT_VERSION
 }

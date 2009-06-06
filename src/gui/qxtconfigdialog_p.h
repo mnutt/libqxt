@@ -42,11 +42,7 @@ public:
     QXT_DECLARE_PUBLIC(QxtConfigDialog);
 	
     void init( QxtConfigWidget::IconPosition pos );
-#if QT_VERSION >= 0x040200
     QDialogButtonBox* buttons;
-#else // QT_VERSION >= 0x040200
-    QWidget* buttons;
-#endif // QT_VERSION
     QxtConfigWidget* configWidget;
 	QVBoxLayout*     layout;
 };

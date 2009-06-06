@@ -487,11 +487,9 @@ void QxtTabWidget::contextMenuEvent(QContextMenuEvent* event)
         event->ignore();
         break;
 
-#if QT_VERSION >= 0x040200
     case Qt::PreventContextMenu:
         event->accept();
         break;
-#endif // QT_VERSION
 
     case Qt::ActionsContextMenu:
         if (index != -1 && qxt_d().actions.at(index).count())
