@@ -154,11 +154,7 @@ void QxtSpanSliderPrivate::drawSpan(QStylePainter* painter, const QRect& rect) c
         setupPainter(painter, opt.orientation, groove.left(), groove.center().y(), groove.right(), groove.center().y());
 
     // draw groove
-#if QT_VERSION >= 0x040200
     painter->drawRect(rect.intersected(groove));
-#else // QT_VERSION < 0x040200
-    painter->drawRect(rect.intersect(groove));
-#endif // QT_VERSION
 }
 
 void QxtSpanSliderPrivate::drawHandle(QStylePainter* painter, SpanHandle handle) const

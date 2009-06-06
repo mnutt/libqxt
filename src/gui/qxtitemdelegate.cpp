@@ -78,11 +78,7 @@ void QxtItemDelegatePrivate::paintButton(QPainter* painter, const QStyleOptionVi
 
     // draw the text
     QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
-#if QT_VERSION < 0x040200
-    QString text = QItemDelegate::elidedText(option.fontMetrics, textrect.width(), elide, index.data().toString());
-#else // QT_VERSION >= 0x040200
     QString text = option.fontMetrics.elidedText(index.data().toString(), elide, textrect.width());
-#endif // QT_VERSION
     view->style()->drawItemText(painter, textrect, Qt::AlignCenter, option.palette, view->isEnabled(), text);
 }
 

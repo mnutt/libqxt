@@ -172,8 +172,6 @@ void QxtConfigWidgetPrivate::relayout()
         // +-----------|
         // |   Stack   |
         // +-----------|
-        // |  Buttons  |
-        // +-----------+
         splitter->addWidget(table);
         splitter->addWidget(stack);
         break;
@@ -186,8 +184,6 @@ void QxtConfigWidgetPrivate::relayout()
         // | n |       |
         // | s |       |
         // +---+-------+
-        // |  Buttons  |
-        // +-----------+
         splitter->addWidget(table);
         splitter->addWidget(stack);
         break;
@@ -200,8 +196,6 @@ void QxtConfigWidgetPrivate::relayout()
         // |       | n |
         // |       | s |
         // +-------+---+
-        // |  Buttons  |
-        // +-----------+
         splitter->addWidget(stack);
         splitter->addWidget(table);
         break;
@@ -303,8 +297,8 @@ QxtConfigWidget::QxtConfigWidget(QxtConfigWidget::IconPosition position, QWidget
     Destructs the config widget.
  */
 QxtConfigWidget::~QxtConfigWidget()
-{}
-
+{
+}
 
 /*!
     \property QxtConfigWidget::hoverEffect

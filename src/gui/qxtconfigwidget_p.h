@@ -67,11 +67,6 @@ public:
 
     QSplitter* splitter;
     QStackedWidget* stack;
-#if QT_VERSION >= 0x040200
-    QDialogButtonBox* buttons;
-#else // QT_VERSION >= 0x040200
-    QWidget* buttons;
-#endif // QT_VERSION
     QxtConfigTableWidget* table;
     QxtConfigWidget::IconPosition pos;
 

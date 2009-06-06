@@ -100,39 +100,24 @@ void Tab::on_qxtStringSpinBox_valueChanged(const QString& value)
 
 void Tab::on_qxtTableWidget_itemEditingStarted(QTableWidgetItem* item)
 {
-#if QT_VERSION >= 0x040200
 	int row = item->row();
 	int col = item->column();
-#else // QT_VERSION < 0x040200
-	int row = item->tableWidget()->row(item);
-	int col = item->tableWidget()->column(item);
-#endif // QT_VERSION
 	QString what = QString("QxtTableWidget::itemEditingStarted(%1,%2)").arg(row).arg(col);
 	emit somethingHappened(what);
 }
 
 void Tab::on_qxtTableWidget_itemEditingFinished(QTableWidgetItem* item)
 {
-#if QT_VERSION >= 0x040200
 	int row = item->row();
 	int col = item->column();
-#else // QT_VERSION < 0x040200
-	int row = item->tableWidget()->row(item);
-	int col = item->tableWidget()->column(item);
-#endif // QT_VERSION
 	QString what = QString("QxtTableWidget::itemEditingFinished(%1,%2)").arg(row).arg(col);
 	emit somethingHappened(what);
 }
 
 void Tab::on_qxtTableWidget_itemCheckStateChanged(QxtTableWidgetItem* item)
 {
-#if QT_VERSION >= 0x040200
 	int row = item->row();
 	int col = item->column();
-#else // QT_VERSION < 0x040200
-	int row = item->tableWidget()->row(item);
-	int col = item->tableWidget()->column(item);
-#endif // QT_VERSION
 	QString what = QString("QxtTableWidget::itemCheckStateChanged(%1, %2, %3)").arg(row).arg(col);
 	what = what.arg(item->checkState() == Qt::Unchecked ? "Qt::Unchecked" : "Qt::Checked");
 	emit somethingHappened(what);
@@ -160,9 +145,7 @@ void Tab::on_qxtTreeWidget_itemCheckStateChanged(QxtTreeWidgetItem* item)
 void Tab::fillItemViews()
 {
 	ui.qxtTreeWidget->header()->hide();
-#if QT_VERSION >= 0x040200
 	ui.qxtTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
-#endif
 	QxtTreeWidgetItem* treeItem = new QxtTreeWidgetItem(ui.qxtTreeWidget, QStringList() << tr("Phasellus"));
 	treeItem = new QxtTreeWidgetItem(treeItem, QStringList() << tr("Faucibus"));
 	treeItem->setFlag(Qt::ItemIsUserCheckable);
