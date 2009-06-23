@@ -5,8 +5,7 @@ HelperClass.cpp
 TEMPLATE = app
 CONFIG += warn_on \
 	  thread \
-          qt \
-	  debug
+          qt
 TARGET = ../bin/qxtfilelock
 
 QT -= gui
