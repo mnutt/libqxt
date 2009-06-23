@@ -5,6 +5,7 @@ SET PROJECT_ROOT=%CD%
 SET TESTDIR=%PROJECT_ROOT%\config.tests
 SET CONFIG_LOG=config.log
 SET LAST_FUNC_RET=0
+SET STATIC=0
 
 if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
 if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
@@ -93,6 +94,7 @@ echo bin.path = %1 >> %PROJECT_ROOT%\config.in
 goto bottom2
 
 :static
+set STATIC=1
 echo CONFIG += static staticlib >> %PROJECT_ROOT%\config.in
 goto bottom    
 
@@ -277,6 +279,10 @@ echo    Generating makefiles...
 copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >> %PROJECT_ROOT%\%CONFIG_LOG%
 copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >> %PROJECT_ROOT%\%CONFIG_LOG%
 del %PROJECT_ROOT%\config.in >> %PROJECT_ROOT%\%CONFIG_LOG%
+echo #define QXT_SHARED > %PROJECT_ROOT%\src\core\qxtconfig.h
+if "%STATIC%"=="0" goto skipstatic
+echo #define QXT_STATIC > %PROJECT_ROOT%\src\core\qxtconfig.h
+:skipstatic
 %QMAKE% %MSVCMODE% -recursive
 if errorlevel 1 goto mainqmakeERR
 
