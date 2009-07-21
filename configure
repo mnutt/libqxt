@@ -10,10 +10,12 @@ NO_XSS=0
 NO_ZEROCONF=0
 
 if uname -a | grep -iq Darwin; then
+    QXT_MAC=1
     DEFAULT_LIBS="/Library/Frameworks"
     QMAKE_PARAMS="-spec macx-g++"
     NO_XSS=1
 else
+    QXT_MAC=0
     DEFAULT_LIBS="PREFIX/lib"
     QMAKE_PARAMS=""
 fi
@@ -78,6 +80,10 @@ while (( $# > 0 )); do
         echo "CONFIG += qws" >> config.in
     elif [ $1 == "-coverage" ]; then
         echo "CONFIG += coverage" >> config.in
+    elif [ $1 == "-universal" ]; then
+        echo "CONFIG += x86 ppc" >> config.in
+    elif [ $1 == "-sdk" ]; then
+        echo "QMAKE_MAC_SDK=$2" >> config.in; shift
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
@@ -101,13 +107,19 @@ while (( $# > 0 )); do
         echo "-static ............. Compile Qxt as a static library"
         echo "-debug .............. Build Qxt with debugging symbols"
         echo "-release ............ Build Qxt without debugging support"
+        if [[ "$QXT_MAC" != "1" ]]; then
+            echo "-qws ................ Build for Qt/Embedded"
+            echo "-no-xss ............. Do not link to XScreenSaver"
+        fi
         echo "-no-db .............. Do not link to Berkeley DB"
-        echo "-no-xss ............. Do not link to XScreenSaver"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: berkeley designer gui network sql web zeroconf"
         echo "-verbose ............ shows compiler output"
-        echo "-qws ................ Build for Qt/Embedded"
         echo "-coverage ........... Collect coverage information"
+        if [[ "$QXT_MAC" == "1" ]]; then
+            echo "-universal .......... Build universal binaries"
+            echo "-sdk <path> ......... Use a different Mac SDK"
+        fi
 
         rm config.in
         exit
