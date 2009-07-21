@@ -246,7 +246,11 @@ QRegion QxtCrumbView::visualRegionForSelection(const QItemSelection& selection) 
 }
 
 void QxtCrumbView::enterTree(const QModelIndex& index) {
-    if(!model() || !model()->hasChildren(index)) return;
+    if(!model()) return;
+    if(!model()->hasChildren(index)) {
+        emit activated(index);
+        return;
+    }
     if(index == qxt_d().view->rootIndex()) {
         // do nothing but reload the view
     } else if(index.parent() != qxt_d().view->rootIndex()) {
