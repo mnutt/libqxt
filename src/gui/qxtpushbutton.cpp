@@ -241,15 +241,7 @@ QSize QxtPushButton::sizeHint() const
  */
 QSize QxtPushButton::minimumSizeHint() const
 {
-    QSize size;
-    if (qxt_d().isRichText())
-        size = qxt_d().doc->documentLayout()->documentSize().toSize();
-    else
-        size = QPushButton::minimumSizeHint();
-
-    if (qxt_d().rot & Vertical_Mask)
-        size.transpose();
-    return size;
+    return sizeHint();
 }
 
 /*!
