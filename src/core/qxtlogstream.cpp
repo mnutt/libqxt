@@ -46,7 +46,7 @@ QxtLogStreamPrivate::~QxtLogStreamPrivate()
 }
 
 /*!
-    Constructor.
+    Constructs a new QxtLogStream with log \a level and \a data, owned by \a owner.
  */
 QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QList<QVariant> &data) : d(new QxtLogStreamPrivate(owner, level, data))
 {
@@ -54,7 +54,7 @@ QxtLogStream::QxtLogStream(QxtLogger *owner, QxtLogger::LogLevel level, const QL
 }
 
 /*!
-    Copy constructor.
+    Constructs a copy of \a other.
  */
 QxtLogStream::QxtLogStream(const QxtLogStream &other)
 {
@@ -72,7 +72,7 @@ QxtLogStream::~QxtLogStream()
 }
 
 /*!
-    Stream operator.
+    Appends \a value.
  */
 QxtLogStream& QxtLogStream::operator<< (const QVariant &value)
 {

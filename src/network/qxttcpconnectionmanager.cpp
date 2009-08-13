@@ -49,7 +49,7 @@
  */
 
 /*!
- * Constructs a new QxtTcpConnectionManager object with the specified parent.
+ * Constructs a new QxtTcpConnectionManager object with the specified \a parent.
  */
 QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent)
 {
@@ -79,10 +79,10 @@ void QxtTcpConnectionManagerPrivate::incomingConnection(int socketDescriptor)
 }
 
 /*!
- * Listens on the specified interface on the specified port for connections.
- * If \a address is QHostAddress::Any, listens on all interfaces.
+ * Listens on the specified interface \a iface on the specified \a port for connections.
+ * If \a iface is QHostAddress::Any, listens on all interfaces.
  *
- * Returns true on success; otherwise returns false.
+ * Returns \c true on success; otherwise returns \c false.
  */
 bool QxtTcpConnectionManager::listen(QHostAddress iface, int port)
 {
@@ -112,7 +112,7 @@ bool QxtTcpConnectionManager::isAcceptingConnections() const
 
 /*!
  * This function is called when a new TCP connection becomes available. The parameter
- * is the native socket descriptor for the connection, suitable for use in
+ * is the native \a socketDescriptor for the connection, suitable for use in
  * QTcpSocket::setSocketDescriptor.
  *
  * The default implementation returns a new QTcpSocket with the specified descriptor.
@@ -141,9 +141,9 @@ void QxtTcpConnectionManager::removeConnection(QIODevice* device, quint64 client
 }
 
 /*!
- * Sets an explicit network proxy for the connection manager.
+ * Sets an explicit network \a proxy for the connection manager.
  *
- * \sa QTcpServer::setProxy
+ * \sa QTcpServer::setProxy()
  */
 void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy)
 {
@@ -153,7 +153,7 @@ void QxtTcpConnectionManager::setProxy(const QNetworkProxy& proxy)
 /*!
  * Returns the proxy in use for the connection manager.
  *
- * \sa QTcpServer::proxy
+ * \sa QTcpServer::proxy()
  */
 QNetworkProxy QxtTcpConnectionManager::proxy() const
 {

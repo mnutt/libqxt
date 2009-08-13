@@ -101,7 +101,7 @@ protected:
 };
 
 /*!
- * Constructs a QxtSignalWaiter with the specified parent.
+ * Constructs a QxtSignalWaiter with the specified \a parent.
  */
 QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent)
 {
@@ -109,7 +109,7 @@ QxtSignalGroup::QxtSignalGroup(QObject* parent) : QObject(parent)
 }
 
 /*!
- * Returns true if at least one attached signal has been emitted since the last reset().
+ * Returns \c true if at least one attached signal has been emitted since the last reset().
  */
 bool QxtSignalGroup::hasReceivedFirstSignal() const
 {
@@ -117,7 +117,7 @@ bool QxtSignalGroup::hasReceivedFirstSignal() const
 }
 
 /*!
- * Returns true if every attached signal has been emitted at least once since the last reset().
+ * Returns \c true if every attached signal has been emitted at least once since the last reset().
  */
 bool QxtSignalGroup::hasReceivedAllSignals() const
 {
@@ -125,7 +125,7 @@ bool QxtSignalGroup::hasReceivedAllSignals() const
 }
 
 /*!
- * Add a signal to the group.
+ * Add a signal from \a sender with signature \a sig to the group.
  */
 void QxtSignalGroup::addSignal(QObject* sender, const char* sig)
 {
@@ -142,7 +142,7 @@ void QxtSignalGroup::addSignal(QObject* sender, const char* sig)
 }
 
 /*!
- * Remove a signal from the group.
+ * Remove a signal from \a sender with signature \a sig from the group.
  */
 void QxtSignalGroup::removeSignal(QObject* sender, const char* sig)
 {

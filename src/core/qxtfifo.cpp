@@ -86,7 +86,7 @@ public:
 };
 
 /*!
-constructs a new QxtFifo
+Constructs a new QxtFifo with \a parent.
 */
 QxtFifo::QxtFifo(QObject *parent) : QIODevice(parent)
 {

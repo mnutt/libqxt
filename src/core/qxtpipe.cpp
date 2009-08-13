@@ -64,7 +64,7 @@
 
 
 /*!
- * Contructs a new QxtPipe.
+ * Contructs a new QxtPipe with \a parent.
  */
 QxtPipe::QxtPipe(QObject * parent): QIODevice(parent)
 {
@@ -74,38 +74,37 @@ QxtPipe::QxtPipe(QObject * parent): QIODevice(parent)
 }
 
 
-/**\reimp*/
+/*!\reimp*/
 bool QxtPipe::isSequential() const
 {
     return true;
 }
 
-/**\reimp*/
+/*!\reimp*/
 qint64 QxtPipe::bytesAvailable() const
 {
     return qxt_d().q.count();
 }
 
 /*!
- * pipes the output of this instance to the \a other  QxtPipe using the given mode and connectiontype
- * connection pipes with this function can be considered thread safe
- *
- * Example usage:
- * \code
-    QxtPipe p1;
-    QxtPipe p2;
-    p1.connect(&p2,QIODevice::ReadOnly);
+   Pipes the output of this instance to the \a other  QxtPipe using the given \a mode and \a connectionType.
+   Returns \c true if succeeds. Connection pipes with this function can be considered thread safe.
 
-    //this data will go nowhere. p2 is connected to p1, but not p2 to p1.
-    p1.write("hello");
+   Example usage:
+   \code
+   QxtPipe p1;
+   QxtPipe p2;
+   p1.connect(&p2,QIODevice::ReadOnly);
 
-    //while this data will end up in p1
-    p2.write("world");
+   //this data will go nowhere. p2 is connected to p1, but not p2 to p1.
+   p1.write("hello");
 
-    qDebug()<<p1.readAll();
+   //while this data will end up in p1
+   p2.write("world");
 
- * \endcode
+   qDebug()<<p1.readAll();
 
+   \endcode
  */
 bool  QxtPipe::connect(QxtPipe * other , QIODevice::OpenMode mode, Qt::ConnectionType connectionType)
 {
@@ -127,7 +126,7 @@ bool  QxtPipe::connect(QxtPipe * other , QIODevice::OpenMode mode, Qt::Connectio
 }
 
 /*!
- * cuts the connection to the \a other QxtPipe
+ * Cuts the connection to the \a other QxtPipe and returns \c true if succeeds.
  */
 bool QxtPipe::disconnect(QxtPipe * other)
 {
@@ -149,8 +148,8 @@ bool QxtPipe::disconnect(QxtPipe * other)
 }
 
 /*!
- * convinence function for QxtPipe::connect.
- * pipes the output of this instance to the \a other  QxtPipe in readwrite mode with autoconnection
+ * Convenience function for QxtPipe::connect().
+ * Pipes the output of this instance to the \a target QxtPipe in readwrite mode with auto connection.
  */
 QxtPipe & QxtPipe::operator | (QxtPipe & target)
 {
@@ -158,7 +157,7 @@ QxtPipe & QxtPipe::operator | (QxtPipe & target)
     return *this;
 }
 
-/**\reimp*/
+/*!\reimp*/
 qint64 QxtPipe::readData(char * data, qint64 maxSize)
 {
     QQueue<char> * q = &qxt_d().q;
@@ -173,7 +172,7 @@ qint64 QxtPipe::readData(char * data, qint64 maxSize)
     return i;
 }
 
-/**\reimp*/
+/*!\reimp*/
 qint64 QxtPipe::writeData(const char * data, qint64 maxSize)
 {
     sendData(QByteArray(data, maxSize));
@@ -181,7 +180,7 @@ qint64 QxtPipe::writeData(const char * data, qint64 maxSize)
 }
 
 /*!
-call this from your subclass to write data to the pipe network.
+Call this from your subclass to write \a data to the pipe network.
 All write connected pipes will be invoked with receiveData
 In this case this is called from receiveData, the sender will be excluded from the receiver list.
 */
@@ -220,7 +219,7 @@ void   QxtPipe::sendData(QByteArray data) const
 
 }
 /*!
-call this from your subclass to make data available to the QIODevice::read facility
+Call this from your subclass to make \a datab available to the QIODevice::read facility
 */
 void   QxtPipe::enqueData(QByteArray datab)
 {
@@ -237,10 +236,10 @@ void   QxtPipe::enqueData(QByteArray datab)
 }
 
 /*!
-receiveData is called from any connected pipe to input data into this instance.
-reimplement this function to handle data from the pipe network.
+This function is called from any connected pipe to input \a datab from \a sender into this instance.
+Reimplement this function to handle data from the pipe network.
 
-The default implementation calls enqueData and sendData
+The default implementation calls enqueData() and sendData().
 */
 void QxtPipe::receiveData(QByteArray datab , const QxtPipe * sender)
 {

@@ -94,7 +94,7 @@ QxtLoggerEngine::~QxtLoggerEngine()
 /*!
     \fn virtual void QxtLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QList<QVariant>& messages) = 0
 
-    Writes a formatted message.
+    Writes formatted \a messages with given \a level.
 
     This function is called by QxtLogger. Reimplement this function when creating a subclass of QxtLoggerEngine.
  */
@@ -124,7 +124,7 @@ void QxtLoggerEngine::disableLogging()
 }
 
 /*!
-    Sets logging enabled or disabled.
+    Sets logging enabled if \a enable is \c true, or disabled otherwise.
  */
 void QxtLoggerEngine::setLoggingEnabled(bool enable)
 {
@@ -132,7 +132,7 @@ void QxtLoggerEngine::setLoggingEnabled(bool enable)
 }
 
 /*!
-    Sets log levels enabled or disables.
+    Sets log \a levels enabled if \a enable is \c true, or disabled otherwise.
  */
 void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enable)
 {
@@ -147,7 +147,7 @@ void QxtLoggerEngine::setLogLevelsEnabled(QxtLogger::LogLevels levels, bool enab
 }
 
 /*!
-    Enables log levels.
+    Enables log \a levels.
  */
 void QxtLoggerEngine::enableLogLevels(QxtLogger::LogLevels levels)
 {
@@ -155,7 +155,7 @@ void QxtLoggerEngine::enableLogLevels(QxtLogger::LogLevels levels)
 }
 
 /*!
-    Disables log levels.
+    Disables log \a levels.
  */
 void QxtLoggerEngine::disableLogLevels(QxtLogger::LogLevels levels)
 {
@@ -163,7 +163,7 @@ void QxtLoggerEngine::disableLogLevels(QxtLogger::LogLevels levels)
 }
 
 /*!
-    Returns \c true if log level is enabled and \c false otherwise.
+    Returns \c true if log \a level is enabled and \c false otherwise.
  */
 bool QxtLoggerEngine::isLogLevelEnabled(QxtLogger::LogLevel level) const
 {

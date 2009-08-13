@@ -69,7 +69,7 @@ public:
  */
 
 /*!
- * Creates a QxtRPCPeer object with the given parent.
+ * Creates a QxtRPCPeer object with the given \a parent.
  */
 QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent)
 {
@@ -78,9 +78,9 @@ QxtRPCPeer::QxtRPCPeer(QObject* parent) : QxtRPCService(parent)
 }
 
 /*!
- * Connects to the specified server on the selected port.
+ * Connects to the specified server \a addr on the selected \a port.
  *
- * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
+ * When the connection is complete, the connectedToServer() signal will be emitted.  If an error occurs, the serverError() signal will be emitted.
  */
 void QxtRPCPeer::connect(QHostAddress addr, int port)
 {
@@ -88,9 +88,9 @@ void QxtRPCPeer::connect(QHostAddress addr, int port)
 }
 
 /*!
- * Connects to the specified peer or server on the selected port.
+ * Connects to the specified peer or server \a addr on the selected \a port.
  *
- * When the connection is complete, the \a connectedToServer() signal will be emitted.  If an error occurs, the \a serverError() signal will be emitted.
+ * When the connection is complete, the connectedToServer() signal will be emitted.  If an error occurs, the serverError() signal will be emitted.
  */
 void QxtRPCPeer::connect(QString addr, int port)
 {
@@ -98,12 +98,12 @@ void QxtRPCPeer::connect(QString addr, int port)
 }
 
 /*!
- * Listens on the specified interface on the specified port for connections.
+ * Listens on the specified interface \a iface on the specified \a port for connections.
  *
  * Attempting to listen while in Client mode or while connected in Peer mode will be ignored with a warning.  In Peer mode, only one connection
- * can be active at a time. Additional incoming connections while connected to a peer will be dropped. When a peer connects, the \a peerConnected()
+ * can be active at a time. Additional incoming connections while connected to a peer will be dropped. When a peer connects, the peerConnected()
  * signal will be emitted. In Server mode, multiple connections can be active at a time. Each client that connects will be provided a unique ID,
- * included in the \a clientConnected() signal that will be emitted.
+ * included in the clientConnected() signal that will be emitted. Returns \c true if succeeds, \c false otherwise.
  */
 bool QxtRPCPeer::listen(QHostAddress iface, int port)
 {

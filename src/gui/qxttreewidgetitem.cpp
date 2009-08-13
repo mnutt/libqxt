@@ -93,7 +93,7 @@ QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidgetItem* parent, const QStringList&
 }
 
 /*!
-    Constructs a new QxtTreeWidgetItem with \a parent, preceding and \a type.
+    Constructs a new QxtTreeWidgetItem with \a parent, \a preceding and \a type.
  */
 QxtTreeWidgetItem::QxtTreeWidgetItem(QTreeWidgetItem* parent, QTreeWidgetItem* preceding, int type)
         : QTreeWidgetItem(parent, preceding, type)

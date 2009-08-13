@@ -57,7 +57,7 @@ public:
 };
 
 /*!
- * Constructs a QxtAbstractConnectionManager object with the specified parent.
+ * Constructs a QxtAbstractConnectionManager object with the specified \a parent.
  */
 QxtAbstractConnectionManager::QxtAbstractConnectionManager(QObject* parent) : QObject(parent)
 {
@@ -89,7 +89,7 @@ QList<quint64> QxtAbstractConnectionManager::clients() const
 }
 
 /*!
- * Returns the QIODevice for the requested client ID.
+ * Returns the QIODevice for the requested \a clientID.
  */
 QIODevice* QxtAbstractConnectionManager::client(quint64 clientID) const
 {
@@ -97,7 +97,7 @@ QIODevice* QxtAbstractConnectionManager::client(quint64 clientID) const
 }
 
 /*!
- * Disconnects the connection with the specified client ID.
+ * Disconnects the connection with the specified \a clientID.
  *
  * Implementations should invoke this function when the connection should no longer be
  * used; for instance, when the QIODevice object is destroyed or the connection has been
@@ -118,7 +118,7 @@ void QxtAbstractConnectionManager::disconnect(quint64 clientID)
 }
 
 /*!
- * Begins managing a connection. Each device must have a unique, non-zero client ID, but
+ * Begins managing a connection. Each \a device must have a unique, non-zero \a clientID, but
  * beyond this constraint implementations may use any convenient value. Implementations
  * should invoke this function after establishing a usable connection and performing any
  * desired initial negotiation.

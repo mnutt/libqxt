@@ -43,7 +43,7 @@ public:
 };
 
 /*!
-    Constructs a QxtAbstractFileLoggerEngine with file name.
+    Constructs a QxtAbstractFileLoggerEngine with \a fileName and open \a mode.
  */
 QxtAbstractFileLoggerEngine::QxtAbstractFileLoggerEngine(const QString &fileName, QIODevice::OpenMode mode)
         : QxtAbstractIOLoggerEngine(0)
@@ -141,7 +141,7 @@ void QxtAbstractFileLoggerEngine::writeFormatted(QxtLogger::LogLevel level, cons
 }
 
 /*!
-    Sets the log file name.
+    Sets the log \a fileName.
  */
 void QxtAbstractFileLoggerEngine::setLogFileName(const QString &fileName)
 {
@@ -160,7 +160,7 @@ QString QxtAbstractFileLoggerEngine::logFileName() const
 /*!
     \fn virtual void QxtAbstractFileLoggerEngine::writeToFile( const QString &level, const QVariantList &messages ) = 0
 
-    Writes to file.
+    Writes \a messages to file with given \a level.
 
     This function is called by QxtAbstractFileLoggerEngine. Reimplement this function when creating a subclass of QxtAbstractFileLoggerEngine.
  */

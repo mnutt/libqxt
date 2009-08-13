@@ -49,7 +49,7 @@ public:
 };
 
 /*!
-    Constructs a basic file logger engine with file name.
+    Constructs a basic file logger engine with \a fileName.
 */
 QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
         : QxtAbstractFileLoggerEngine(fileName, QIODevice::ReadWrite | QIODevice::Append | QIODevice::Unbuffered)
@@ -60,7 +60,7 @@ QxtBasicFileLoggerEngine::QxtBasicFileLoggerEngine(const QString &fileName)
 
 /*!
     Returns the date format in use by this logger engine.
-    \sa QDateTime::toString
+    \sa QDateTime::toString()
  */
 QString QxtBasicFileLoggerEngine::dateFormat() const
 {
@@ -68,8 +68,8 @@ QString QxtBasicFileLoggerEngine::dateFormat() const
 }
 
 /*!
-    Sets the date format used by this logger engine.
-    \sa QDateTime::toString
+    Sets the date \a format used by this logger engine.
+    \sa QDateTime::toString()
  */
 void QxtBasicFileLoggerEngine::setDateFormat(const QString& format)
 {

@@ -46,7 +46,7 @@ QxtMultiSignalWaiter is subject to the same reentrancy problems as QxtSignalWait
 #include "qxtsignalwaiter.h"
 
 /*!
- * Constructs a QxtMultiSignalWaiter with the specified parent.
+ * Constructs a QxtMultiSignalWaiter with the specified \a parent.
  */
 QxtMultiSignalWaiter::QxtMultiSignalWaiter(QObject* parent) : QxtSignalGroup(parent)
 {
@@ -63,15 +63,14 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
 
 /*!
  * Blocks the current function until any of the signals in the group are emitted.
- * If msec is not -1, waitForAny() will return before a signal is emitted if the
- * specified  number of milliseconds have elapsed. Returns true if a signal was
- * caught, or false if the timeout elapsed.
+ * If \a msec is not \c -1, waitForAny() will return before a signal is emitted if the
+ * specified  number of milliseconds have elapsed. Returns \c true if a signal was
+ * caught, or \c false if the timeout elapsed.
  * Note that waitForAny() may continue to block after a signal is emitted or the
  * timeout elapses; the function only guarantees that it will not return BEFORE
  * one of these conditions has occurred. This function is not reentrant.
  *
- * \sa QxtSignalGroup::addSignal
- * \sa QxtSignalGroup::firstSignalEmitted
+ * \sa QxtSignalGroup::addSignal(), QxtSignalGroup::firstSignalReceived()
  */
 bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags flags)
 {
@@ -81,15 +80,14 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
 
 /*!
  * Blocks the current function until all of the signals in the group have been
- * emitted. If msec is not -1, waitForAll() will return before all of the signals
+ * emitted. If \a msec is not \c -1, waitForAll() will return before all of the signals
  * are emitted if the specified  number of milliseconds have elapsed. Returns
- * true if each signal was caught at least once, or false if the timeout elapsed.
+ * \c true if each signal was caught at least once, or \c false if the timeout elapsed.
  * Note that waitForAll() may continue to block after the last signal is emitted
  * or the timeout elapses; the function only guarantees that it will not return
  * BEFORE one of these conditions has occurred. This function is not reentrant.
  *
- * \sa QxtSignalGroup::addSignal
- * \sa QxtSignalGroup::allSignalsEmitted
+ * \sa QxtSignalGroup::addSignal(), QxtSignalGroup::allSignalsReceived()
  */
 bool QxtMultiSignalWaiter::waitForAll(int msec, QEventLoop::ProcessEventsFlags flags)
 {

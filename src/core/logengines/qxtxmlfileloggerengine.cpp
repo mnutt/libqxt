@@ -63,7 +63,7 @@ QxtXmlFileLoggerEnginePrivate::QxtXmlFileLoggerEnginePrivate()
 }
 
 /*!
-    Constructs an XML file logger engine with file name.
+    Constructs an XML file logger engine with \a fileName.
 */
 QxtXmlFileLoggerEngine::QxtXmlFileLoggerEngine(const QString& fileName)
         : QxtAbstractFileLoggerEngine(fileName, QIODevice::ReadWrite | QIODevice::Unbuffered)
@@ -141,7 +141,7 @@ void QxtXmlFileLoggerEngine::writeToFile(const QString &level, const QVariantLis
 }
 
 /*!
-    Replaces reserved characters with corresponding entities.
+    Replaces reserved characters from \a raw with corresponding entities.
  */
 QString QxtXmlFileLoggerEngine::toXmlSafeString(const QString &raw)
 {

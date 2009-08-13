@@ -52,6 +52,8 @@ parameters describing the particular event.
     \value StoreCookie A store cookie event.
     \value RemoveCookie A remove cookie event.
     \value Redirect A redirect event.
+*/
+
 /*!
  * Constructs a QxtWebEvent of the specified \a type for the specified \a sessionID.
  */
