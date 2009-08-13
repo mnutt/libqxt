@@ -9,7 +9,7 @@ win32:include(features/win32/qxtbuild.prf)
 macx:include(features/macx/qxtbuild.prf)
 
 TEMPLATE = subdirs
-DESTDIR  = deploy/libs
+DESTDIR  = lib
 
 #check Qt version
 QT_VERSION = $$[QT_VERSION]
@@ -47,8 +47,8 @@ docs.files = doc/html/*
 docs.path = $${QXTINSTALLDIR}/doc
 docs.CONFIG = no_default_install
 
-features.path = $$[QT_INSTALL_DATA]/mkspecs/features
-features.files = deploy/qt/qxt.prf
+features.path = $$[QMAKE_MKSPECS]/features
+features.files = features/qxt.prf
 
 INSTALLS += features
 
@@ -124,10 +124,10 @@ contains( QXT_BUILD, web ){
 QMAKE_CLEAN += modules.prf
 
 #write the paths to prf file
-unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat modules.prf; cat deploy/qt/qxt.prf.m) > deploy/qt/qxt.prf)
+unix:system((echo QXTbase=$${QXTINSTALLDIR}; echo QXTinclude=$${include.path}; echo QXTbin=$${bin.path}; echo QXTlib=$${target.path}; cat modules.prf; cat features/qxt.prf.m) > features/qxt.prf)
 
 #windows supports similar syntax
-win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${target.path} & type modules.prf & type deploy\qt\qxt.prf.m) > deploy\qt\qxt.prf)
+win32:system((echo QXTbase=$${QXTINSTALLDIR}& echo QXTinclude=$${include.path} & echo QXTbin=$${bin.path} & echo QXTlib=$${target.path} & type modules.prf & type features\qxt.prf.m) > features\qxt.prf)
 
 style.CONFIG = recursive
 style.recurse = $$SUBDIRS

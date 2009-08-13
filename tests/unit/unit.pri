@@ -1,14 +1,14 @@
 CONFIG += qtestlib
 CONFIG -= app_bundle
 
-INCLUDEPATH     += ../../../../deploy/include/
-unix:!macx:LIBS += -Wl,-rpath,../../../../deploy/libs
-macx:LIBS       += -F../../../../deploy/libs
-LIBS            += -L../../../../deploy/libs
+INCLUDEPATH     += ../../../../include/
+unix:!macx:LIBS += -Wl,-rpath,../../../../lib
+macx:LIBS       += -F../../../../lib
+LIBS            += -L../../../../lib
 
 defineTest(qxtAddTestModule) {
     INCLUDEPATH       += ../../../../src/$$1
-    INCLUDEPATH       += ../../../../deploy/include/$$2
+    INCLUDEPATH       += ../../../../include/$$2
     qtAddLibrary($$2)
 }
 contains(QXT, berkeley) {
