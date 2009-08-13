@@ -5,7 +5,7 @@
     OBJECTS_DIR      = .obj
 }
 QMAKE_CLEAN += *.gcda *.gcno
-DESTDIR          = ../../deploy/libs/
+DESTDIR          = ../../lib/
 #TEMPLATE         = lib
 
 incs.path      = $${include.path}/$${CLEAN_TARGET}/
@@ -14,13 +14,13 @@ contains(CONVENIENCE, $${CLEAN_TARGET}){
     for(header,HEADERS){
         incs.files += $$header
     }
-    incs.files += ../../deploy/include/$${CLEAN_TARGET}/*
+    incs.files += ../../include/$${CLEAN_TARGET}/*
 }
 
-LIBS += -L../../deploy/libs/
+LIBS += -L../../lib/
 
 INSTALLS = target incs
-include(../../deploy/qt/qxt.prf)
+include(../../features/qxt.prf)
 
 defineReplace(qxtNativeSeparators) {
    local_path_variable = $$1

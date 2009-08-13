@@ -116,16 +116,16 @@ FunctionEnd
 
 Section Docs SecDocs
   SetOutPath "$INSTDIR\doc\libqxt"
-  File /r /x .svn "..\..\deploy\docs\*"
+  File /r /x .svn "..\..\doc\html\*"
 SectionEnd
 
 Section QxtBerkeley SecQxtBerkeley
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtBerkeley.dll"
-  File "..\..\deploy\libs\QxtBerkeley.lib"
+  File "..\..\lib\QxtBerkeley.dll"
+  File "..\..\lib\QxtBerkeley.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtBerkeley"
-  File /r /x .svn "..\..\deploy\include\QxtBerkeley\*"
+  File /r /x .svn "..\..\include\QxtBerkeley\*"
   File /r /x .svn "..\..\src\berkeley\*.h"
 SectionEnd
 
@@ -134,11 +134,11 @@ Section QxtCore SecQxtCore
   SectionIn RO ; Mandatory section (appears disabled)
   
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtCore.dll"
-  File "..\..\deploy\libs\QxtCore.lib"
+  File "..\..\lib\QxtCore.dll"
+  File "..\..\lib\QxtCore.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtCore"
-  File /r /x .svn "..\..\deploy\include\QxtCore\*"
+  File /r /x .svn "..\..\include\QxtCore\*"
   File /r /x .svn "..\..\src\core\*.h"
   
   ;Store installation folder
@@ -157,21 +157,21 @@ SectionEnd
 
 Section QxtCrypto SecQxtCrypto
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtCrypto.dll"
-  File "..\..\deploy\libs\QxtCrypto.lib"
+  File "..\..\lib\QxtCrypto.dll"
+  File "..\..\lib\QxtCrypto.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtCrypto"
-  File /r /x .svn "..\..\deploy\include\QxtCrypto\*"
+  File /r /x .svn "..\..\include\QxtCrypto\*"
   File /r /x .svn /x thirdparty "..\..\src\crypto\*.h"
 SectionEnd
 
 Section QxtGui SecQxtGui
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtGui.dll"
-  File "..\..\deploy\libs\QxtGui.lib"
+  File "..\..\lib\QxtGui.dll"
+  File "..\..\lib\QxtGui.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtGui"
-  File /r /x .svn "..\..\deploy\include\QxtGui\*"
+  File /r /x .svn "..\..\include\QxtGui\*"
   File /r /x .svn "..\..\src\gui\*.h"
 SectionEnd
 
@@ -180,31 +180,31 @@ SectionEnd
 
 Section QxtNetwork SecQxtNetwork
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtNetwork.dll"
-  File "..\..\deploy\libs\QxtNetwork.lib"
+  File "..\..\lib\QxtNetwork.dll"
+  File "..\..\lib\QxtNetwork.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtNetwork"
-  File /r /x .svn "..\..\deploy\include\QxtNetwork\*"
+  File /r /x .svn "..\..\include\QxtNetwork\*"
   File /r /x .svn "..\..\src\network\*.h"
 SectionEnd
 
 Section QxtSql SecQxtSql
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtSql.dll"
-  File "..\..\deploy\libs\QxtSql.lib"
+  File "..\..\lib\QxtSql.dll"
+  File "..\..\lib\QxtSql.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtSql"
-  File /r /x .svn "..\..\deploy\include\QxtSql\*"
+  File /r /x .svn "..\..\include\QxtSql\*"
   File /r /x .svn "..\..\src\sql\*.h"
 SectionEnd
 
 Section QxtWeb SecQxtWeb
   SetOutPath "$INSTDIR\lib"
-  File "..\..\deploy\libs\QxtWeb.dll"
-  File "..\..\deploy\libs\QxtWeb.lib"
+  File "..\..\lib\QxtWeb.dll"
+  File "..\..\lib\QxtWeb.lib"
   
   SetOutPath "$INSTDIR\include\Qxt\QxtWeb"
-  File /r /x .svn "..\..\deploy\include\QxtWeb\*"
+  File /r /x .svn "..\..\include\QxtWeb\*"
   File /r /x .svn "..\..\src\web\*.h"
 SectionEnd
 
