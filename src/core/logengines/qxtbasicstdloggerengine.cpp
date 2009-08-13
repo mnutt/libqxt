@@ -134,7 +134,7 @@ QTextStream* QxtBasicSTDLoggerEngine::stdOutStream() const
 }
 
 /*!
-    Enables or disables log \a level.
+    Enables \a level if \a enable is \c true, disables otherwise.
  */
 void QxtBasicSTDLoggerEngine::setLogLevelEnabled(QxtLogger::LogLevels level, bool enable)
 {
@@ -177,7 +177,7 @@ void QxtBasicSTDLoggerEngine::writeFormatted(QxtLogger::LogLevel level, const QL
 }
 
 /*!
-    A helper function that actually writes to stderr.
+    A helper function that actually writes \a msgs to stderr with given \a level.
 
     This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
  */
@@ -204,7 +204,7 @@ void QxtBasicSTDLoggerEngine::writeToStdErr(const QString &level, const QList<QV
 }
 
 /*!
-    A helper function that actually writes to stdout.
+    A helper function that actually writes \a msgs to stdout with given \a level.
 
     This function is called by QxtBasicSTDLoggerEngine. Reimplement this function when creating a subclass of QxtBasicSTDLoggerEngine.
  */

@@ -72,9 +72,15 @@
 #include <QFile>
 #include <QStringList>
 
+/*!
+    Constructs a new QxtHtmlTemplate.
+ */
 QxtHtmlTemplate::QxtHtmlTemplate() : QMap<QString, QString>()
 {}
 
+/*!
+    Loads data \a d.
+ */
 void QxtHtmlTemplate::load(const QString& d)
 {
     data = d;

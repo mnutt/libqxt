@@ -49,7 +49,7 @@ QxtAbstractIOLoggerEnginePrivate::QxtAbstractIOLoggerEnginePrivate()
 }
 
 /*!
-    Constructs a QxtAbstractIOLoggerEngine with device.
+    Constructs a QxtAbstractIOLoggerEngine with \a device.
  */
 QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine(QIODevice *device)
 {
@@ -58,7 +58,7 @@ QxtAbstractIOLoggerEngine::QxtAbstractIOLoggerEngine(QIODevice *device)
 }
 
 /*!
-    Sets the IO device.
+    Sets the IO \a device.
  */
 void QxtAbstractIOLoggerEngine::setDevice(QIODevice *device)
 {

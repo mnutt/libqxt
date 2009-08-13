@@ -45,10 +45,10 @@ class QxtSingleShotTimer : public QObject
 {
 public:
     QxtSingleShotTimer(int msec, QObject* receiver, const char* member, const QVariantList& args);
-    
+
 protected:
     void timerEvent(QTimerEvent* event);
-    
+
 private:
     QPointer<QObject> receiver;
     const char* member;
@@ -91,6 +91,8 @@ QxtTimer::~QxtTimer()
     This static function calls a slot with given parameters after a given time interval.
 
     It is very convenient to use this function because you do not need to bother with a timerEvent or create a local QTimer object.
+
+    You can pass up to ten arguments (\a arg0, \a arg1, \a arg2, \a arg3, \a arg4, \a arg5, \a arg6, \a arg7, \a arg8 and \a arg9).
 
     The \a receiver is the receiving object and the \a member is the slot. The time interval is \a msec milliseconds.
  */

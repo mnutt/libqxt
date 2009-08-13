@@ -274,7 +274,7 @@ void QxtRPCServicePrivate::dispatchFromClient(quint64 id, const QString& fn, con
 }
 
 /*!
- * Creates a QxtRPCService object with the given parent.
+ * Creates a QxtRPCService object with the given \a parent.
  */
 QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent)
 {
@@ -283,7 +283,7 @@ QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent)
 }
 
 /*!
- * Creates a QxtRPCService object with the given parent and connects it to the specified I/O device.
+ * Creates a QxtRPCService object with the given \a parent and connects it to the specified I/O \a device.
  *
  * The I/O device must already be opened for reading and writing.
  */
@@ -303,11 +303,11 @@ QxtRPCService::~QxtRPCService()
 }
 
 /*!
- * Returns true if the connection manager is accepting connections or if any clients
+ * Returns \c true if the connection manager is accepting connections or if any clients
  * are currently connected. It is possible for both isServer() and isClient() to
- * return false if the connection manager is not accepting connections, no clients
+ * return \c false if the connection manager is not accepting connections, no clients
  * are connected, and no QIODevice is set for a server.
- * \sa isClient
+ * \sa isClient()
  */
 bool QxtRPCService::isServer() const
 {
@@ -315,11 +315,11 @@ bool QxtRPCService::isServer() const
 }
 
 /*!
- * Returns true if the QxtRPCService is currently communicating with a server. It
- * is possible for both isServer() and isClient() to return false if the connection
+ * Returns \c true if the QxtRPCService is currently communicating with a server. It
+ * is possible for both isServer() and isClient() to return \c false if the connection
  * manager is not accepting connections, no clients are connected, and no QIODevice
  * is set for a server.
- * \sa isServer
+ * \sa isServer()
  */
 bool QxtRPCService::isClient() const
 {
@@ -327,7 +327,7 @@ bool QxtRPCService::isClient() const
 }
 
 /*!
- * Disconnects a client using the attached connection manager.
+ * Disconnects a client with \a id using the attached connection manager.
  *
  * If connected to a server, this function is ignored with a warning.
  */
@@ -354,8 +354,8 @@ void QxtRPCService::disconnectClient(quint64 id)
  *
  * If not connected to a server, for instance if acting as a server, this function is
  * ignored with a warning.
- * \sa device
- * \sa takeDevice
+ * \sa device()
+ * \sa takeDevice()
  */
 void QxtRPCService::disconnectServer()
 {
@@ -402,8 +402,8 @@ QList<quint64> QxtRPCService::clients() const
 /*!
  * When operating as a client, returns the QIODevice connected to the server.
  * When operating as a server, or if not connected to a server, returns NULL.
- * \sa setDevice
- * \sa takeDevice
+ * \sa setDevice()
+ * \sa takeDevice()
  */
 QIODevice* QxtRPCService::device() const
 {
@@ -411,7 +411,7 @@ QIODevice* QxtRPCService::device() const
 }
 
 /*!
- * Begins communicating with a server through the provided QIODevice.
+ * Begins communicating with a server through the provided QIODevice \a dev.
  * If called while acting as a server, this function is ignored with a warning.
  * If called while another device is set, the original QIODevice is deleted.
  * The provided device will be reparented to the QxtRPCService.
@@ -420,7 +420,7 @@ QIODevice* QxtRPCService::device() const
  * provide signals when this device is disconnected or has low-level errors.
  * Connect to the QIODevice subclass's signals directly if you need this
  * information.
- * \sa device
+ * \sa device()
  */
 void QxtRPCService::setDevice(QIODevice* dev)
 {
@@ -436,7 +436,7 @@ void QxtRPCService::setDevice(QIODevice* dev)
  * the server. After this function is called, the QxtRPCService will no longer
  * be connected and device() will return NULL.
  * When operating as a server, or if not connected to a server, returns NULL.
- * \sa device
+ * \sa device()
  */
 QIODevice* QxtRPCService::takeDevice()
 {
@@ -452,7 +452,7 @@ QIODevice* QxtRPCService::takeDevice()
 
 /*!
  * Returns the signal serializer used to encode signals before transmission.
- * \sa setSerializer
+ * \sa setSerializer()
  */
 QxtAbstractSignalSerializer* QxtRPCService::serializer() const
 {
@@ -460,9 +460,9 @@ QxtAbstractSignalSerializer* QxtRPCService::serializer() const
 }
 
 /*!
- * Sets the signal serializer used to encode signals before transmission.
+ * Sets the signal \a serializer used to encode signals before transmission.
  * The existing serializer will be deleted.
- * \sa serializer
+ * \sa serializer()
  */
 void QxtRPCService::setSerializer(QxtAbstractSignalSerializer* serializer)
 {
@@ -472,7 +472,7 @@ void QxtRPCService::setSerializer(QxtAbstractSignalSerializer* serializer)
 
 /*!
  * Returns the connection manager used to accept incoming connections.
- * \sa setConnectionManager
+ * \sa setConnectionManager()
  */
 QxtAbstractConnectionManager* QxtRPCService::connectionManager() const
 {
@@ -480,10 +480,10 @@ QxtAbstractConnectionManager* QxtRPCService::connectionManager() const
 }
 
 /*!
- * Sets the connection manager used to accept incoming connections.
+ * Sets the connection \a manager used to accept incoming connections.
  * The existing manager will be deleted and the provided manager will
  * be reparented to the QxtRPCService.
- * \sa connectionManager
+ * \sa connectionManager()
  */
 void QxtRPCService::setConnectionManager(QxtAbstractConnectionManager* manager)
 {
@@ -498,11 +498,11 @@ void QxtRPCService::setConnectionManager(QxtAbstractConnectionManager* manager)
 /*!
  * Attaches the given signal.
  *
- * When the attached signal is emitted, it will be transmitted to all connected servers, clients, or peers.
- * If an optional rpcFunction is provided, it will be used in place of the name of the transmitted signal.
+ * When the attached \a signal is emitted by \a sender, it will be transmitted to all connected servers, clients, or peers.
+ * If an optional \a rpcFunction is provided, it will be used in place of the name of the transmitted signal.
  * Use the SIGNAL() macro to specify the signal, just as you would for QObject::connect().
  *
- * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
+ * Like QObject::connect(), attachSignal() returns \c false if the connection cannot be established.
  */
 bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QString& rpcFunction)
 {
@@ -512,10 +512,10 @@ bool QxtRPCService::attachSignal(QObject* sender, const char* signal, const QStr
 /*!
  * Attaches the given slot.
  *
- * When a signal with the name given by rpcFunction is received from the network, the attached slot is executed.
+ * When a signal with the name given by \a rpcFunction is received from the network, the attached \a slot is executed.
  * Use the SLOT() macro to specify the slot, just as you would for QObject::connect().
  *
- * Like QObject::connect(), attachSignal returns false if the connection cannot be established.
+ * Like QObject::connect(), attachSlot() returns \c false if the connection cannot be established.
  *
  * \bold {Note:} When acting like a server, the first parameter of the slot must be <b>quint64 id</b>. The parameters of the incoming
  * signal follow. For example, SIGNAL(mySignal(QString)) from the client connects to SLOT(mySlot(quint64, QString)) on
@@ -560,7 +560,7 @@ bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const 
 }
 
 /*!
- * Detaches all signals and slots for the given object.
+ * Detaches all signals and slots for the given object \a obj.
  */
 void QxtRPCService::detachObject(QObject* obj)
 {
@@ -569,7 +569,7 @@ void QxtRPCService::detachObject(QObject* obj)
 }
 
 /*!
- * Detaches all signals for the given object.
+ * Detaches all signals for the given object \a obj.
  */
 void QxtRPCService::detachSignals(QObject* obj)
 {
@@ -577,7 +577,7 @@ void QxtRPCService::detachSignals(QObject* obj)
 }
 
 /*!
- * Detaches all slots for the given object.
+* Detaches all slots for the given object \a obj.
  */
 void QxtRPCService::detachSlots(QObject* obj)
 {
@@ -592,7 +592,7 @@ void QxtRPCService::detachSlots(QObject* obj)
 }
 
 /*!
- * Sends the signal fn with the given parameter list to the server, or to all connected clients.
+ * Sends the signal \a fn with the given parameter list to the server, or to all connected clients.
  *
  * The receiver is not obligated to act upon the signal. If no clients are connected, and if not
  * communicating with a server, this function does nothing.
@@ -615,7 +615,7 @@ void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, con
 }
 
 /*!
- * Sends the signal with the given parameter list to the provided list of clients.
+ * Sends the signal \a fn with the given parameter list to the provided list of clients.
  *
  * The receivers are not obligated to act upon the signal. If no client is connected with a provided ID, the ID
  * is ignored with a warning. If acting as a client, this function does nothing.
@@ -637,7 +637,7 @@ void QxtRPCService::call(QList<quint64> ids, QString fn, const QVariant& p1, con
 }
 
 /*!
- * Sends the signal fn with the given parameter list to the specified client.
+ * Sends the signal \a fn with the given parameter list to the specified client.
  *
  * The receiver is not obligated to act upon the signal. If no client with the given ID is connected, the call
  * will be ignored with a warning. If acting as a client, this function does nothing.
@@ -649,7 +649,7 @@ void QxtRPCService::call(quint64 id, QString fn, const QVariant& p1, const QVari
 }
 
 /*!
- * Sends the signal fn with the given parameter list to all connected clients except for the client specified.
+ * Sends the signal \a fn with the given parameter list to all connected clients except for the client specified.
  *
  * The receiver is not obligated to act upon the signal. This function is useful for rebroadcasting a signal from one client
  * to all other connected clients. If acting as a client, this function does nothing.

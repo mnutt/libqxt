@@ -142,7 +142,8 @@ void QxtSlotMapper::removeMapping(const QVariant& parameter, QObject* receiver, 
 }
 
 /*!
-    Connects to \a sender's \a signal.
+    Connects to \a sender's \a signal. Returns \c true if the connection
+    succeeds and \c false otherwise.
 */
 bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
 {
@@ -159,7 +160,7 @@ bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
         if (index != -1)
             typeName.truncate(index);
         typeName = QMetaObject::normalizedType(typeName);
-        
+
         int type = QMetaType::type(typeName);
         int methods = metaObject()->methodCount();
         return QMetaObject::connect(sender, signalId, this, methods + type);
@@ -167,6 +168,9 @@ bool QxtSlotMapper::connect(const QObject* sender, const char* signal)
     return false;
 }
 
+/*!
+    \internal
+ */
 int QxtSlotMapper::qt_metacall(QMetaObject::Call call, int id, void** arguments)
 {
     id = QObject::qt_metacall(call, id, arguments);

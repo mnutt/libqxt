@@ -78,14 +78,23 @@
 */
 
 /*!
-	\enum Qxt::QxtItemDataRole
-	Data roles for qxt models/views
-	
+    \enum Qxt::QxtItemDataRole
+    Data roles for qxt models/views
+
     \value ItemStartTimeRole The starttime of a item in timebased views.
     \value ItemDurationRole  The duration of a item in timebased views.
     \value UserRole          The first role that can be used for application-specific purposes.
 */
 
 /*!
-	\enum Qxt::Timeunit
+    \enum Qxt::Timeunit
+    Time units
+
+    \value Second   A second
+    \value Minute   A minute
+    \value Hour     An hour
+    \value Day      A day
+    \value Week     A week
+    \value Month    A month
+    \value Year     A year
 */

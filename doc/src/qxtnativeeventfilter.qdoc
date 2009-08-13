@@ -70,7 +70,7 @@
 
 /*!
     \fn QxtNativeEventFilter::~QxtNativeEventFilter()
-    
+
     Destructs the native event filter. The native event filter is
     automatically removed from the application.
 
@@ -81,6 +81,8 @@
     \fn QxtNativeEventFilter::x11EventFilter(XEvent* event)
 
     Filters X11 events if this object has been installed as a native event filter.
+    The events are passed in the \a event parameter.
+
     In your reimplementation of this function, if you want to filter the event out,
     i.e. stop it being handled further, return \c true; otherwise return \c false.
 
@@ -91,6 +93,9 @@
     \fn QxtNativeEventFilter::winEventFilter(MSG* msg, long* result)
 
     Filters Windows events if this object has been installed as a native event filter.
+    The window messages are passed in the \a msg parameter and the return value of
+    the window procedure can be set to the \a result parameter.
+
     In your reimplementation of this function, if you want to filter the event out,
     i.e. stop it being handled further, return \c true; otherwise return \c false.
 
@@ -101,8 +106,31 @@
     \fn QxtNativeEventFilter::macEventFilter(EventHandlerCallRef caller, EventRef event)
 
     Filters Mac events if this object has been installed as a native event filter.
+    The events are passed in the \a event parameter with the \a caller parameter.
+
     In your reimplementation of this function, if you want to filter the event out,
     i.e. stop it being handled further, return \c true; otherwise return \c false.
 
     \sa QxtApplication::installNativeEventFilter()
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -83,9 +83,9 @@ public:
 };
 
 /*!
- * Constructs a QxtSignalWaiter that will wait for sender::signal() to be emitted.
- * QxtSignalWaiter objects are intended to be created on the stack, therefore no parent
- * parameter is accepted.
+ * Constructs a QxtSignalWaiter that will wait for \a signal from \a sender ie. sender::signal()
+ * to be emitted. QxtSignalWaiter objects are intended to be created on the stack, therefore no
+ * parent parameter is accepted.
  */
 QxtSignalWaiter::QxtSignalWaiter(const QObject* sender, const char* signal) : QObject(0)
 {
@@ -96,7 +96,8 @@ QxtSignalWaiter::QxtSignalWaiter(const QObject* sender, const char* signal) : QO
 
 /*!
  * This is an overloaded function provided for convenience. This version can be invoked without first instantiating
- * a QxtSignalWaiter object.
+ * a QxtSignalWaiter object. Waits for \a signal from \a sender to be emitted within \a msec while processing events
+ * according to \a flags. Returns \c true if the signal was caught, or \c false if the timeout elapsed.
  */
 bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec, QEventLoop::ProcessEventsFlags flags)
 {
@@ -107,7 +108,7 @@ bool QxtSignalWaiter::wait(const QObject* sender, const char* signal, int msec, 
 /*!
  * Blocks the current function until sender::signal() is emitted. If msec is not -1, wait() will return before the
  * signal is emitted if the specified number of milliseconds have elapsed.
- * Returns true if the signal was caught, or false if the timeout elapsed.
+ * Returns \c true if the signal was caught, or \c false if the timeout elapsed.
  * Note that wait() may continue to block after the signal is emitted or the timeout elapses; the function only
  * guarantees that it will not return BEFORE one of these conditions has occurred. This function is not reentrant.
  */
@@ -145,7 +146,7 @@ bool QxtSignalWaiter::wait(int msec, QEventLoop::ProcessEventsFlags flags)
 }
 
 /*!
- * Indicates whether the desired signal was emitted during the last wait() call.
+ * Returns \c true if the desired signal was emitted during the last wait() call.
  */
 bool QxtSignalWaiter::hasCapturedSignal() const
 {

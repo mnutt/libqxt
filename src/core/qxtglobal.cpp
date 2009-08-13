@@ -215,7 +215,7 @@ void MyTestPrivate::doQuux() {
  */
 
 /*!
- * \fn const QxtPrivate<PUB>& PUB::qxt_d()
+ * \fn const QxtPrivate<PUB>& PUB::qxt_d() const
  * \relates <QxtPimpl>
  * Returns a const reference to the private class.
  *
@@ -232,7 +232,7 @@ void MyTestPrivate::doQuux() {
  */
 
 /*!
- * \fn const PUB& QxtPrivate::qxt_p()
+ * \fn const PUB& QxtPrivate::qxt_p() const
  * \relates <QxtPimpl>
  * Returns a const reference to the public class.
  *
