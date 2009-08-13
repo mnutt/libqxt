@@ -5,8 +5,12 @@ the documentation included in this package or online at http://doc.libqxt.org.
 -----
 
 - Bug fixes
+    * #3 [Vista/Qt 4.5.0] - static build issue
     * #9 QxtCheckComboBox display is inconsistent
     * #10 qxtwindowsystem_win.cpp(105) : error C2065: 'LASTINPUTINFO': undeclared identifier
+    * #16 Static lib linkage problem in Qt Creator
+    * #17 QxtPushButton::minimumSizeHint returns wrong value
+    * Fixed QxtGlobalShortcut to allow NumLock on X11
 
 0.5.0
 -----
