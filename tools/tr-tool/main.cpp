@@ -12,28 +12,29 @@ QString capitalize(const QString& str);
 
 static const char* qxt_header =
 "/****************************************************************************\n"
-"**\n"
-"** Copyright (C) Qxt Foundation. Some rights reserved.\n"
-"**\n"
-"** This file is part of the QxtDesigner module of the Qxt library\n"
-"**\n"
-"** This library is free software; you can redistribute it and/or modify it\n"
-"** under the terms of the Common Public License, version 1.0, as published by\n"
-"** IBM.\n"
-"**\n"
-"** This file is provided \"AS IS\", without WARRANTIES OR CONDITIONS OF ANY\n"
-"** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY\n"
-"** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR\n"
-"** FITNESS FOR A PARTICULAR PURPOSE.\n"
-"**\n"
-"** You should have received a copy of the CPL along with this file.\n"
-"** See the LICENSE file and the cpl1.0.txt file included with the source\n"
-"** distribution for more information. If you did not receive a copy of the\n"
-"** license, contact the Qxt Foundation.\n"
-"**\n"
-"** <http://libqxt.org>  <foundation@libqxt.org>\n"
-"**\n"
-"****************************************************************************/\n";
+" **\n"
+" ** Copyright (C) Qxt Foundation. Some rights reserved.\n"
+" **\n"
+" ** This file is part of the QxtCore module of the Qxt library.\n"
+" **\n"
+" ** This library is free software; you can redistribute it and/or modify it\n"
+" ** under the terms of the Common Public License, version 1.0, as published\n"
+" ** by IBM, and/or under the terms of the GNU Lesser General Public License,\n"
+" ** version 2.1, as published by the Free Software Foundation.\n"
+" **\n"
+" ** This file is provided \"AS IS\", without WARRANTIES OR CONDITIONS OF ANY\n"
+" ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY\n"
+" ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR\n"
+" ** FITNESS FOR A PARTICULAR PURPOSE.\n"
+" **\n"
+" ** You should have received a copy of the CPL and the LGPL along with this\n"
+" ** file. See the LICENSE file and the cpl1.0.txt/lgpl-2.1.txt files\n"
+" ** included with the source distribution for more information.\n"
+" ** If you did not receive a copy of the licenses, contact the Qxt Foundation.\n"
+" **\n"
+" ** <http://libqxt.org>  <foundation@libqxt.org>\n"
+" **\n"
+" ****************************************************************************/\n";
 
 struct CCYInfo
 {
@@ -95,7 +96,7 @@ CCYInfoList load()
 
        QStringList cells = line.split('\t');
 //       qDebug() << cells;
-       ret.push_back(CCYInfo(cells[0].remove('"').trimmed(), cells[1].remove('"').trimmed(), cells[2].remove('"', "").trimmed()));
+       ret.push_back(CCYInfo(cells[0].remove('"').trimmed(), cells[1].remove('"').trimmed(), cells[2].remove('"').trimmed()));
     }
   }
 
@@ -157,7 +158,7 @@ CurrencySymbolMap loadSymbols()
        for (int i = 0; i < hexs.size(); i++)
          hexs[i] = "0x" + hexs[i].trimmed();
 
-       ret[cells[0].trimmed()] = QString::number(hexs.size())+ ',' + hexs.join(',');
+       ret[cells[0].trimmed()] = QString::number(hexs.size())+ "," + hexs.join(",");
 //       qDebug() << cells;
 //       ret.push_back(CCYInfo(cells[0].replace("\"", "").trimmed(), cells[1].replace("\"", "").trimmed(), cells[2].replace("\"", "").trimmed()));
     }
