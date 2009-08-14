@@ -85,15 +85,6 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
  */
 
 /*!
-    \enum QxtTabWidget::TabMovementMode
-    \brief This enum describes different tab movement ways
-
-    \value NoMovement No tab movement
-    \value InPlaceMovement Move tabs in place
-    \value DragDropMovement Move tabs by drag'n'drop
-*/
-
-/*!
     \fn QxtTabWidget::tabContextMenuRequested(int index, const QPoint& globalPos)
 
     This signal is emitted whenever the context menu is requested over
