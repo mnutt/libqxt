@@ -24,7 +24,6 @@
  ****************************************************************************/
 #include "qxttabwidget.h"
 #include "qxttabwidget_p.h"
-#include "qxttabbar.h"
 #include <QContextMenuEvent>
 #include <QApplication>
 #include <QTabBar>
@@ -83,8 +82,6 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
     \endcode
 
     \image qxttabwidget.png "QxtTabWidget in WindowsXP style."
-
-    \sa QxtTabBar
  */
 
 /*!
@@ -109,7 +106,6 @@ void QxtTabWidgetPrivate::setMovieFrame(int frame)
 QxtTabWidget::QxtTabWidget(QWidget* parent) : QTabWidget(parent)
 {
     QXT_INIT_PRIVATE(QxtTabWidget);
-    QTabWidget::setTabBar(new QxtTabBar);
 }
 
 /*!
@@ -138,24 +134,6 @@ void QxtTabWidget::setAlwaysShowTabBar(bool always)
 {
     qxt_d().always = always;
     tabBar()->setVisible(always || count() > 1);
-}
-
-/*!
-    \property QxtTabWidget::tabMovementMode
-    \brief how tabs can be moved.
-
-    The default value of this property is QxtTabWidget::NoMovement.
-
-    \sa QxtTabBar::tabMoved()
- */
-QxtTabWidget::TabMovementMode QxtTabWidget::tabMovementMode() const
-{
-    return TabMovementMode(tabBar()->tabMovementMode());
-}
-
-void QxtTabWidget::setTabMovementMode(TabMovementMode mode)
-{
-    tabBar()->setTabMovementMode(QxtTabBar::TabMovementMode(mode));
 }
 
 /*!
@@ -433,16 +411,6 @@ QMovie* QxtTabWidget::takeTabAnimation(int index)
     QMovie* animation = qxt_d().animations.at(index);
     qxt_d().animations[index] = 0;
     return animation;
-}
-
-/*!
-    Returns the tab bar.
-
-    \sa QxtTabBar
- */
-QxtTabBar* QxtTabWidget::tabBar() const
-{
-    return qobject_cast<QxtTabBar*>(QTabWidget::tabBar());
 }
 
 /*!
