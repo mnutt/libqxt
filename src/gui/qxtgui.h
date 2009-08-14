@@ -61,7 +61,6 @@
 #include "qxtstringspinbox.h"
 #include "qxtstringvalidator.h"
 #include "qxtstyleoptionscheduleviewitem.h"
-#include "qxttabbar.h"
 #include "qxttablewidget.h"
 #include "qxttablewidgetitem.h"
 #include "qxttabwidget.h"
