@@ -11,6 +11,7 @@ the documentation included in this package or online at http://doc.libqxt.org.
     * #16 Static lib linkage problem in Qt Creator
     * #17 QxtPushButton::minimumSizeHint returns wrong value
     * Fixed QxtGlobalShortcut to allow NumLock on X11
+    * Fixed compilation problems with the GCC-4.4.X series
 
 0.5.0
 -----
