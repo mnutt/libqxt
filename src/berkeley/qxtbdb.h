@@ -39,7 +39,7 @@ This is private API. it might change at any time without warning.
 #include <QString>
 #include <qxtglobal.h>
 #include <cstdlib>
-
+#include <cstdio>
 
 
 ///its impossible to forward anyway,
