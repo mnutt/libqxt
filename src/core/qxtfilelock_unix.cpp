@@ -22,8 +22,6 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef WIN32
-
 #include "qxtfilelock.h"
 #include "qxtfilelock_p.h"
 
@@ -263,5 +261,3 @@ bool QxtFileLock::lock()
     }
     return false;
 }
-#endif
-
