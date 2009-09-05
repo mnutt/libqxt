@@ -17,9 +17,12 @@ public:
     virtual ~QxtServiceBrowser();
 
     bool isBrowsing() const;
+
+public slots:
     void browse(/* int iface */);
     void stopBrowsing();
 
+pubilc:
     QStringList serviceSubTypes() const;
     void setServiceSubTypes(const QStringList& subtypes);
     void addServiceSubType(const QString& subtype);
