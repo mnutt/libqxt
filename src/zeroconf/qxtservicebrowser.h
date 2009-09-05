@@ -22,7 +22,7 @@ public slots:
     void browse(/* int iface */);
     void stopBrowsing();
 
-pubilc:
+public:
     QStringList serviceSubTypes() const;
     void setServiceSubTypes(const QStringList& subtypes);
     void addServiceSubType(const QString& subtype);
