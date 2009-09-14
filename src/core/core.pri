@@ -4,6 +4,7 @@ HEADERS  += qxtalgorithms.h
 HEADERS  += qxtboundcfunction.h
 HEADERS  += qxtboundfunction.h
 HEADERS  += qxtboundfunctionbase.h
+HEADERS  += qxtconfig.h
 HEADERS  += qxtcore.h
 HEADERS  += qxtcommandoptions.h
 HEADERS  += qxtcsvmodel.h
