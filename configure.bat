@@ -17,6 +17,7 @@ set QMAKEBIN=qmake
 set MSVCMODE=
 set FCGI=1
 set DB=1
+set ZEROCONF=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
 echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
 echo CONFIG += release >> %PROJECT_ROOT%\config.in
@@ -66,6 +67,7 @@ goto bottom2
 :nomake
 if "%1"=="fcgi" set FCGI=0
 if "%1"=="db" set DB=0
+if "%1"=="zeroconf" set ZEROCONF=0
 echo QXT_BUILD -= %1 >> %PROJECT_ROOT%\config.in
 goto bottom2
 
@@ -108,6 +110,11 @@ set DB=0
 echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
 goto bottom
 
+:nozeroconf
+set ZEROCONF=0
+echo DEFINES -= HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+goto bottom
+
 :msvc
 set MSVCMODE=-tp vc
 goto bottom
@@ -146,7 +153,7 @@ goto top
     echo -release ............ Build Qxt without debugging support
     echo -no-db .............. Do not link to Berkeley DB
     echo -nomake (module) .... Do not compile the specified module
-    echo                       options: berkeley designer gui network sql web
+    echo                       options: berkeley designer gui network sql web zeroconf
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %PROJECT_ROOT%\config.in
@@ -202,7 +209,7 @@ echo    Testing for optional external libraries.
 echo    If a test fails, some features will not be available.
 
 :detectdb
-if "%DB%"=="0" goto detectfcgi
+if "%DB%"=="0" goto detectzeroconf
 echo    Testing for Berkeley DB...
 echo BDB... >> %PROJECT_ROOT%\%CONFIG_LOG%
 cd %TESTDIR%\db
@@ -214,12 +221,32 @@ if errorlevel 1 goto dbfailed
 set DB=1
 echo DEFINES += HAVE_DB >> %PROJECT_ROOT%\config.in
 echo        Berkeley DB enabled.
-goto detectfcgi
+goto detectzeroconf
 
 :dbfailed
 set DB=0
 echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
 echo        Berkeley DB disabled.
+
+:detectzeroconf
+if "%ZEROCONF%"=="0" goto detectfcgi
+echo    Testing for Zero Conf...
+echo ZEROCONF... >> %PROJECT_ROOT%\%CONFIG_LOG%
+cd %TESTDIR%\zeroconf
+%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if errorlevel 1 goto zeroconffailed
+call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+if errorlevel 1 goto zeroconffailed
+set ZEROCONF=1
+echo DEFINES += HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+echo        Zero Conf enabled.
+goto detectfcgi
+
+:zeroconffailed
+set ZEROCONF=0
+echo DEFINES -= HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+echo        Zero Conf disabled.
 
 :detectfcgi
 rem if "%FCGI%"=="0" goto skipfcgitest
