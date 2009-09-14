@@ -27,6 +27,9 @@
 #define QXTGLOBAL_H
 
 #include <QtGlobal>
+#ifdef Q_OS_WIN
+#include <qxtconfig.h>
+#endif
 
 #define QXT_VERSION 0x000600
 #define QXT_VERSION_STR "0.6.0"
@@ -41,47 +44,85 @@
 
 #define QXT_DLLEXPORT DO_NOT_USE_THIS_ANYMORE
 
-#if defined(BUILD_QXT_CORE)
-#    define QXT_CORE_EXPORT Q_DECL_EXPORT
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_CORE)
+#        define QXT_CORE_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_CORE_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_CORE_EXPORT Q_DECL_IMPORT
+#    define QXT_CORE_EXPORT
 #endif // BUILD_QXT_CORE
-
-#if defined(BUILD_QXT_GUI)
-#    define QXT_GUI_EXPORT Q_DECL_EXPORT
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_GUI)
+#        define QXT_GUI_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_GUI_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_GUI_EXPORT Q_DECL_IMPORT
+#    define QXT_GUI_EXPORT
 #endif // BUILD_QXT_GUI
-
-#if defined(BUILD_QXT_NETWORK)
-#    define QXT_NETWORK_EXPORT Q_DECL_EXPORT
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_NETWORK)
+#        define QXT_NETWORK_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_NETWORK_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_NETWORK_EXPORT Q_DECL_IMPORT
+#    define QXT_NETWORK_EXPORT
 #endif // BUILD_QXT_NETWORK
-
-#if defined(BUILD_QXT_SQL)
-#    define QXT_SQL_EXPORT Q_DECL_EXPORT
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_SQL)
+#        define QXT_SQL_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_SQL_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_SQL_EXPORT Q_DECL_IMPORT
+#    define QXT_SQL_EXPORT
 #endif // BUILD_QXT_SQL
-
-#if defined(BUILD_QXT_WEB)
-#    define QXT_WEB_EXPORT Q_DECL_EXPORT
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_WEB)
+#        define QXT_WEB_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_WEB_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_WEB_EXPORT Q_DECL_IMPORT
+#    define QXT_WEB_EXPORT
 #endif // BUILD_QXT_WEB
-
-#if defined(BUILD_QXT_BERKELEY)
-#    define QXT_BERKELEY_EXPORT Q_DECL_EXPORT
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_CRYPTO)
+#        define QXT_CRYPTO_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_CRYPTO_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_BERKELEY_EXPORT Q_DECL_IMPORT
+#    define QXT_CRYPTO_EXPORT
+#endif // BUILD_QXT_CRYPTO
+ 
+#if defined(QXT_SHARED)
+#    if defined(BUILD_QXT_BERKELEY)
+#        define QXT_BERKELEY_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_BERKELEY_EXPORT Q_DECL_IMPORT
+#    endif
+#else
+#    define QXT_BERKELEY_EXPORT
 #endif // BUILD_QXT_BERKELEY
 
 #if defined(BUILD_QXT_ZEROCONF)
-#    define QXT_ZEROCONF_EXPORT Q_DECL_EXPORT
+#    if defined(BUILD_QXT_BERKELEY)
+#        define QXT_ZEROCONF_EXPORT Q_DECL_EXPORT
+#    else
+#        define QXT_ZEROCONF_EXPORT Q_DECL_IMPORT
+#    endif
 #else
-#    define QXT_ZEROCONF_EXPORT Q_DECL_IMPORT
-#endif // BUILD_QXT_ZEROCONF
+#    define QXT_ZEROCONF_EXPORT
+#endif // QXT_ZEROCONF_EXPORT
 
 #if defined BUILD_QXT_CORE || defined BUILD_QXT_GUI || defined BUILD_QXT_MEDIA || defined  BUILD_QXT_SQL || defined BUILD_QXT_NETWORK || defined BUILD_QXT_KIT || defined BUILD_QXT_WEB || defined BUILD_QXT_BERKELEY || defined BUILD_QXT_ZEROCONF
 #   define BUILD_QXT
