@@ -8,7 +8,9 @@
 
 ///@TODO Finish and test implementation of Bonjour mDNS, and remove the following warning.
 // Sadly I can't test this because this part of the avahi Bonjour compatibility layer is broken on Ubuntu Linux version 8.04... -chrisinajar
+#ifndef Q_CC_MSVC
 #warning The Bonjour implementation is in no way tested, and is not fully implemented either. Try again later.
+#endif
 
 class QxtMDNS : public QObject
 {
@@ -19,7 +21,7 @@ public:
 	void doLookup(QString name, QObject * receiver, const char * member);
 	void cancelLookup();
 
-	static void DNSServiceQueryRecordCallback(DNSServiceRef DNSServiceRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen, const void *rdata, uint32_t ttl, void *context);
+	static void DNSSD_API DNSServiceQueryRecordCallback(DNSServiceRef DNSServiceRef, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen, const void *rdata, uint32_t ttl, void *context);
 
 	QHostInfo info;
 	QList<QHostAddress> addresses;
