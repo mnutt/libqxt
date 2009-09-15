@@ -27,7 +27,7 @@
 #include "qxtcrumbview_p.h"
 #include <QApplication>
 #include <QPaintEvent>
-#include <QListView>
+#include <QTreeView>
 #include <QToolButton>
 #include <QBoxLayout>
 #include <QModelIndex>
@@ -39,11 +39,14 @@
 #include <QtAlgorithms>
 #include <QtDebug>
 
-// This class exists only to grant access to QListView's protected members
-class QxtCrumbViewList : public QListView {
+// This class exists only to grant access to QTreeView's protected members
+class QxtCrumbViewList : public QTreeView {
 friend class QxtCrumbView;
 public:
-    QxtCrumbViewList(QWidget* parent) : QListView(parent) {}
+    QxtCrumbViewList(QWidget* parent) : QTreeView(parent) {
+        setHeaderHidden(true);
+        setRootIsDecorated(false);
+    }
 };
 
 class QxtCrumbViewDelegate : public QAbstractItemDelegate {
@@ -288,6 +291,6 @@ void QxtCrumbView::setItemDelegate(QAbstractItemDelegate* delegate) {
     qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
 }
 
-QListView* QxtCrumbView::listView() const {
+QAbstractItemView* QxtCrumbView::itemView() const {
     return qxt_d().view;
 }
