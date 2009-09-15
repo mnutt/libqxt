@@ -44,7 +44,7 @@ public:
 
     void setItemDelegate(QAbstractItemDelegate* delegate);
 
-    QListView* listView() const;
+    QAbstractItemView* itemView() const;
 
 public slots:
     virtual void reset();
