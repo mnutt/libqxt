@@ -34,7 +34,6 @@
 #include "qxtconfirmationmessage.h"
 #include "qxtcountrycombobox.h"
 #include "qxtcountrymodel.h"
-#include "qxtdockwidget.h"
 #include "qxtflowview.h"
 #include "qxtglobalshortcut.h"
 #include "qxtgroupbox.h"

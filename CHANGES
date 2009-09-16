@@ -9,7 +9,8 @@ or online at http://docs.libqxt.org.
 
 - QxtGui
     * Added rich text support to QxtItemDelegate
-    * Removed QxtTabWidget::TabMovementMode & QxtTabBar
+    * Removed obsolete QxtTabWidget::TabMovementMode & QxtTabBar
+    * Removed obsolete QxtDockWidget
 
 - Added QxtZeroConf module
 
