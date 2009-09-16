@@ -23,11 +23,9 @@
  **
  ****************************************************************************/
 #include "qxtwindowsystem.h"
+#include <QLibrary>
 #include <QX11Info>
 #include <X11/Xutil.h>
-#ifdef HAVE_XSS
-#include <X11/extensions/scrnsaver.h>
-#endif // HAVE_XSS
 
 static void qxt_getWindowProperty(Window wid, Atom prop, int maxlen, Window** data, int* count)
 {
@@ -143,16 +141,42 @@ QRect QxtWindowSystem::windowGeometry(WId window)
     return rect;
 }
 
+typedef struct {
+    Window  window;     /* screen saver window - may not exist */
+    int     state;      /* ScreenSaverOff, ScreenSaverOn, ScreenSaverDisabled*/
+    int     kind;       /* ScreenSaverBlanked, ...Internal, ...External */
+    unsigned long    til_or_since;   /* time til or since screen saver */
+    unsigned long    idle;      /* total time since last user input */
+    unsigned long   eventMask; /* currently selected events for this client */
+} XScreenSaverInfo;
+
+typedef XScreenSaverInfo* (*XScreenSaverAllocInfo)();
+typedef Status (*XScreenSaverQueryInfo)(Display* display, Drawable* drawable, XScreenSaverInfo* info);
+
+static XScreenSaverAllocInfo _xScreenSaverAllocInfo = 0;
+static XScreenSaverQueryInfo _xScreenSaverQueryInfo = 0;
+
 uint QxtWindowSystem::idleTime()
 {
+    static bool xssResolved = false;
+    if (!xssResolved) {
+        QLibrary xssLib(QLatin1String("Xss"), 1);
+        if (xssLib.load()) {
+            _xScreenSaverAllocInfo = (XScreenSaverAllocInfo) xssLib.resolve("XScreenSaverAllocInfo");
+            _xScreenSaverQueryInfo = (XScreenSaverQueryInfo) xssLib.resolve("XScreenSaverQueryInfo");
+            xssResolved = true;
+        }
+    }
+
     uint idle = 0;
-#ifdef HAVE_XSS
-    XScreenSaverInfo* info = XScreenSaverAllocInfo();
-    const int screen = QX11Info::appScreen();
-    Qt::HANDLE rootWindow = QX11Info::appRootWindow(screen);
-    XScreenSaverQueryInfo(QX11Info::display(), rootWindow, info);
-    idle = info->idle;
-    XFree(info);
-#endif // HAVE_XSS
+    if (xssResolved)
+    {
+        XScreenSaverInfo* info = _xScreenSaverAllocInfo();
+        const int screen = QX11Info::appScreen();
+        Qt::HANDLE rootWindow = QX11Info::appRootWindow(screen);
+        _xScreenSaverQueryInfo(QX11Info::display(), (Drawable*) rootWindow, info);
+        idle = info->idle;
+        XFree(info);
+    }
     return idle;
 }
