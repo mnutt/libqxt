@@ -30,24 +30,28 @@
 
 QT_FORWARD_DECLARE_CLASS(QIODevice)
 class QxtLineSocketPrivate;
-class QXT_CORE_EXPORT QxtLineSocket: public QObject
+
+class QXT_CORE_EXPORT QxtLineSocket : public QObject
 {
     Q_OBJECT
 public:
-    explicit QxtLineSocket(QIODevice * socket, QObject * parent = 0);
-    QxtLineSocket(QObject * parent = 0);
+    explicit QxtLineSocket(QObject* parent = 0);
+    explicit QxtLineSocket(QIODevice* socket, QObject* parent = 0);
 
-    void setSocket(QIODevice *);
-    QIODevice * socket() const;
+    void setSocket(QIODevice* socket);
+    QIODevice* socket() const;
 
-    void sendLine(QByteArray);
+public Q_SLOTS:
+    void sendLine(const QByteArray& line);
+
 Q_SIGNALS:
-    void newLineReceived(QByteArray);
+    void newLineReceived(const QByteArray& line);
+
 protected:
-    virtual void newLine(QByteArray);
+    virtual void newLine(const QByteArray& line);
+
 private:
     QXT_DECLARE_PRIVATE(QxtLineSocket);
-
 };
 
 #endif // QXTLINESOCKET_H

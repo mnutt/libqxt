@@ -24,77 +24,90 @@
  ****************************************************************************/
 
 #include "qxtlinesocket_p.h"
-
-
 #include <QIODevice>
 
 /*!
-\class QxtLineSocket
+    \class QxtLineSocket
 
-\inmodule QxtCore
+    \inmodule QxtCore
 
-\brief The QxtLineSocket class acts on a QIODevice as baseclass for line-based protocols
+    \brief The QxtLineSocket class acts on a QIODevice as baseclass for line-based protocols
 */
 
+/*!
+    \fn QxtLineSocket::newLineReceived(const QByteArray& line)
 
+    This signal is emitted whenever a new \a line is received.
+ */
 
-
-
-
-QxtLineSocket::QxtLineSocket(QIODevice * socket, QObject * parent): QObject(parent)
+/*!
+    Constructs a new QxtLineSocket with \a parent.
+ */
+QxtLineSocket::QxtLineSocket(QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtLineSocket);
-    qxt_d().socket = socket;
-    connect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
 }
 
-QxtLineSocket::QxtLineSocket(QObject * parent): QObject(parent)
+/*!
+    Constructs a new QxtLineSocket with \a socket and \a parent.
+ */
+QxtLineSocket::QxtLineSocket(QIODevice* socket, QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtLineSocket);
-    qxt_d().socket = 0;
+    setSocket(socket);
 }
 
-void QxtLineSocket::setSocket(QIODevice * a)
+/*!
+    Sets the \a socket.
+ */
+void QxtLineSocket::setSocket(QIODevice* socket)
 {
     if (qxt_d().socket)
-        disconnect(qxt_d().socket);
-    qxt_d().socket = a;
-    connect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
+        disconnect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
+    qxt_d().socket = socket;
+    if (qxt_d().socket)
+        connect(qxt_d().socket, SIGNAL(readyRead()), &qxt_d(), SLOT(readyRead()));
 }
 
-
-
-
-QIODevice * QxtLineSocket::socket() const
+/*!
+    Returns the socket.
+ */
+QIODevice* QxtLineSocket::socket() const
 {
     return qxt_d().socket;
 }
 
-
-void QxtLineSocket::sendLine(QByteArray a)
+/*!
+    Sends a \a line.
+ */
+void QxtLineSocket::sendLine(const QByteArray& line)
 {
-    qxt_d().socket->write(a.replace(QByteArray("\n"), "") + '\n'); //krazy:exclude=doublequote_chars
+    QByteArray copy(line);
+    copy.replace(QByteArray("\n"), ""); //krazy:exclude=doublequote_chars
+    qxt_d().socket->write(copy + '\n');
 }
 
-void QxtLineSocket::newLine(QByteArray a)
-{
-    emit(newLineReceived(a));
-}
+/*!
+    This virtual function is called by QxtLineSocket whenever a \a line was received.
+    Reimplement this function when creating a subclass of QxtLineSocket.
 
+    \note The default implementation does nothing.
+ */
+void QxtLineSocket::newLine(const QByteArray& line)
+{
+    Q_UNUSED(line);
+}
 
 void QxtLineSocketPrivate::readyRead()
 {
-    rbuff += socket->readAll();
+    buffer += socket->readAll();
 
     int i = 0;
-    while ((i = rbuff.indexOf('\n')) > -1)
+    while ((i = buffer.indexOf('\n')) > -1)
     {
-        (&qxt_p())->newLine(rbuff.left(i));
-        rbuff = rbuff.mid(i + 1);
+        QByteArray line = buffer.left(i);
+        emit qxt_p().newLineReceived(line);
+        qxt_p().newLine(line);
+        buffer = buffer.mid(i + 1);
     }
 }
-
-
-
-
-

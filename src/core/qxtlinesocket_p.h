@@ -31,19 +31,18 @@
 class QxtLineSocketPrivate : public QObject, public QxtPrivate<QxtLineSocket>
 {
     Q_OBJECT
+    QXT_DECLARE_PUBLIC(QxtLineSocket);
+
 public:
-    QxtLineSocketPrivate()
+    QxtLineSocketPrivate() : socket(0)
     {
     }
 
-    QXT_DECLARE_PUBLIC(QxtLineSocket);
-    QIODevice * socket;
+    QIODevice* socket;
+    QByteArray buffer;
 
-    QByteArray rbuff;
-
-public Q_SLOTS:
+private Q_SLOTS:
     void readyRead();
-
 };
 
 #endif // QXTLINESOCKET_P_H
