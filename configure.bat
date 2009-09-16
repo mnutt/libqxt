@@ -6,6 +6,7 @@ SET TESTDIR=%PROJECT_ROOT%\config.tests
 SET CONFIG_LOG=config.log
 SET LAST_FUNC_RET=0
 SET STATIC=0
+SET DEBUG_OR_RELEASE=0
 
 if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
 if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
@@ -21,29 +22,29 @@ set DB=1
 set ZEROCONF=1
 echo include(depends.pri) > %PROJECT_ROOT%\config.in
 echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
-echo CONFIG += release >> %PROJECT_ROOT%\config.in
 
 :top
-if "%0" == ""            goto finish
-if "%0" == "-qmake-bin"  goto setqmake
-if "%0" == "-I"          goto addinclude 
-if "%0" == "-L"          goto addlibpath
-if "%0" == "-l"          goto addlib
-if "%0" == "-nomake"     goto nomake
-if "%0" == "-prefix"     goto prefix
-if "%0" == "-libdir"     goto libdir 
-if "%0" == "-docdir"     goto docdir
-if "%0" == "-headerdir"  goto headerdir
-if "%0" == "-bindir"     goto bindir
-if "%0" == "-static"     goto static
-if "%0" == "-debug"      goto debug
-if "%0" == "-release"    goto release
-if "%0" == "-no-db"      goto nodb
-if "%0" == "-msvc"       goto msvc
-if "%0" == "/help"       goto help
-if "%0" == "-help"       goto help
-if "%0" == "--help"      goto help
-if "%0" == "/?"          goto help
+if "%0" == ""                   goto finish
+if "%0" == "-qmake-bin"         goto setqmake
+if "%0" == "-I"                 goto addinclude 
+if "%0" == "-L"                 goto addlibpath
+if "%0" == "-l"                 goto addlib
+if "%0" == "-nomake"            goto nomake
+if "%0" == "-prefix"            goto prefix
+if "%0" == "-libdir"            goto libdir 
+if "%0" == "-docdir"            goto docdir
+if "%0" == "-headerdir"         goto headerdir
+if "%0" == "-bindir"            goto bindir
+if "%0" == "-static"            goto static
+if "%0" == "-debug"             goto debug
+if "%0" == "-release"           goto release
+if "%0" == "-debug_and_release" goto debug_and_release
+if "%0" == "-no-db"             goto nodb
+if "%0" == "-msvc"              goto msvc
+if "%0" == "/help"              goto help
+if "%0" == "-help"              goto help
+if "%0" == "--help"             goto help
+if "%0" == "/?"                 goto help
 
 echo Unrecognized configure option: %0
 del %PROJECT_ROOT%\config.in
@@ -98,13 +99,18 @@ echo CONFIG += static staticlib >> %PROJECT_ROOT%\config.in
 goto bottom    
 
 :debug
-echo CONFIG -= release >> %PROJECT_ROOT%\config.in
+set DEBUG_OR_RELEASE=1
 echo CONFIG += debug >> %PROJECT_ROOT%\config.in
 goto bottom
 
 :release
-echo CONFIG -= debug >> %PROJECT_ROOT%\config.in
+set DEBUG_OR_RELEASE=1
 echo CONFIG += release >> %PROJECT_ROOT%\config.in
+goto bottom
+
+:debug_and_release
+set DEBUG_OR_RELEASE=1
+echo CONFIG += debug_and_release >> %PROJECT_ROOT%\config.in
 goto bottom
 
 :nodb
@@ -153,6 +159,7 @@ goto top
     echo -static ............. Compile Qxt as a static library
     echo -debug .............. Build Qxt with debugging symbols
     echo -release ............ Build Qxt without debugging support
+    echo -debug_and_release .. Build Qxt with and without debugging support
     echo -no-db .............. Do not link to Berkeley DB
     echo -nomake (module) .... Do not compile the specified module
     echo                       options: berkeley designer gui network sql web zeroconf
@@ -175,6 +182,7 @@ goto end
 if "%QMAKESPEC%" == "win32-msvc"     goto testnmake
 if "%QMAKESPEC%" == "win32-msvc.net" goto testnmake
 if "%QMAKESPEC%" == "win32-msvc2005" goto testnmake
+if "%QMAKESPEC%" == "win32-msvc2008" goto testnmake
 
 :testmingw
 echo    Testing for mingw32-make...
@@ -272,6 +280,9 @@ rem echo        FastCGI disabled.
 
 :skipfcgitest
 :alltestsok
+if "%DEBUG_OR_RELEASE%"=="1" goto skiprelease
+echo CONFIG += release >> %PROJECT_ROOT%\config.in
+:skiprelease
 cd %PROJECT_ROOT%
 
 echo    Configuration successful.

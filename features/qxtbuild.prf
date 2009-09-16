@@ -1,8 +1,15 @@
 !win32:VERSION   = 0.6
 # cannot use .moc/.obj with gcov ("cannot open graph file")
 !contains(CONFIG, coverage) {
-    MOC_DIR          = .moc
-    OBJECTS_DIR      = .obj
+    CONFIG(debug, debug|release) {
+        MOC_DIR          = debug/.moc
+        OBJECTS_DIR      = debug/.obj
+        RCC_DIR          = debug/.rcc
+    } else {
+        MOC_DIR          = release/.moc
+        OBJECTS_DIR      = release/.obj
+        RCC_DIR          = release/.rcc
+    }
 }
 QMAKE_CLEAN += *.gcda *.gcno
 DESTDIR          = ../../lib/
