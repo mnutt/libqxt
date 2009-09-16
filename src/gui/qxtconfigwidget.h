@@ -51,7 +51,6 @@ public:
     explicit QxtConfigWidget(QxtConfigWidget::IconPosition position, QWidget* parent = 0, Qt::WindowFlags flags = 0);
     virtual ~QxtConfigWidget();
 
-
     bool hasHoverEffect() const;
     void setHoverEffect(bool enabled);
 

@@ -28,23 +28,21 @@
 #include "qxtconfigwidget.h"
 #include "qxtconfigdialog.h"
 
-
 QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
 QT_FORWARD_DECLARE_CLASS(QWidget)
 QT_FORWARD_DECLARE_CLASS(QxtConfigWidget)
 QT_FORWARD_DECLARE_CLASS(QVBoxLayout)
-
 
 class QxtConfigDialogPrivate : public QObject, public QxtPrivate<QxtConfigDialog>
 {
     Q_OBJECT
 public:
     QXT_DECLARE_PUBLIC(QxtConfigDialog);
-	
+
     void init( QxtConfigWidget::IconPosition pos );
     QDialogButtonBox* buttons;
     QxtConfigWidget* configWidget;
-	QVBoxLayout*     layout;
+    QVBoxLayout* layout;
 };
 
 #endif // QXTCONFIGDIALOG_P_H
