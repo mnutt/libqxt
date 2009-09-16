@@ -123,9 +123,9 @@ void MainWindow::configure()
 	QListWidget* page3 = new QListWidget(&dialog);
 	for (int i = 0; i < 100; ++i)
 		page3->addItem(QString::number(i));
-	dialog.addPage(page2, QIcon(":tree.png"), "A directory tree");
-	dialog.addPage(page3, QIcon(":list.png"), "Some kind of list");
+	dialog.configWidget()->addPage(page2, QIcon(":tree.png"), "A directory tree");
+    dialog.configWidget()->addPage(page3, QIcon(":list.png"), "Some kind of list");
 	QCalendarWidget* page1 = new QCalendarWidget(&dialog);
-	dialog.addPage(page1, QIcon(":calendar.png"), "Calendar");
+    dialog.configWidget()->addPage(page1, QIcon(":calendar.png"), "Calendar");
 	dialog.exec();
 }
