@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 RESOURCES += resources.qrc
 
 HEADERS   += qxtbasespinboxplugin.h

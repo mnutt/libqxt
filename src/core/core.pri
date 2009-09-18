@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS  += qxtabstractconnectionmanager.h
 HEADERS  += qxtabstractsignalserializer.h
 HEADERS  += qxtalgorithms.h

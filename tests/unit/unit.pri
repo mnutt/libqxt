@@ -1,14 +1,14 @@
 CONFIG += qtestlib
 CONFIG -= app_bundle
 
-INCLUDEPATH     += ../../../../include/
-unix:!macx:LIBS += -Wl,-rpath,../../../../lib
-macx:LIBS       += -F../../../../lib
-LIBS            += -L../../../../lib
+INCLUDEPATH     += $$QXT_SOURCE_TREE/include/
+unix:!macx:LIBS += -Wl,-rpath,$$QXT_BUILD_TREE/lib
+macx:LIBS       += -F$$QXT_BUILD_TREE/lib
+LIBS            += -L$$QXT_BUILD_TREE/lib
 
 defineTest(qxtAddTestModule) {
-    INCLUDEPATH       += ../../../../src/$$1
-    INCLUDEPATH       += ../../../../include/$$2
+    INCLUDEPATH       += $$QXT_SOURCE_TREE/src/$$1
+    INCLUDEPATH       += $$QXT_SOURCE_TREE/include/$$2
     qtAddLibrary($$2)
 }
 contains(QXT, berkeley) {

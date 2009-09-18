@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS  += qxtbasespinbox.h
 HEADERS  += qxtcheckcombobox.h
 HEADERS  += qxtcheckcombobox_p.h

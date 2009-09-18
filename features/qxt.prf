@@ -1,0 +1,96 @@
+include(qxtvars.prf)
+
+DEPENDPATH      += $${QXT_INSTALL_HEADERS}
+INCLUDEPATH     += $${QXT_INSTALL_HEADERS}
+
+unix:!macx:LIBS += $${QMAKE_RPATH}$${QXT_INSTALL_LIBS}
+macx:LIBS       += -F$${QXT_INSTALL_LIBS}
+LIBS            += -L$${QXT_INSTALL_LIBS}
+
+contains(QXT, berkeley) {
+    contains(QXT_MODULES, berkeley):DEFINES += QXT_BERKELEY_LIB
+    else:warning(Qxt was built without QxtBerkeley)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtBerkeley
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtBerkeley
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtBerkeley.framework/HEADERS/
+
+    qtAddLibrary(QxtBerkeley)
+    QXT += core
+}
+
+contains(QXT, web) {
+    contains(QXT_MODULES, web):DEFINES += QXT_WEB_LIB
+    else:warning(Qxt was built without QxtWeb)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtWeb
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtWeb
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtWeb.framework/HEADERS/
+
+    qtAddLibrary(QxtWeb)
+    QXT += core network
+    QT  += network
+}
+
+contains(QXT, gui) {
+    contains(QXT_MODULES, gui):DEFINES += QXT_GUI_LIB
+    else:warning(Qxt was built without QxtGui)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtGui
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtGui
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtGui.framework/HEADERS/
+
+    qtAddLibrary(QxtGui)
+    QXT += core
+    QT  += gui
+}
+
+contains(QXT, zeroconf) {
+    contains(QXT_MODULES, zeroconf):DEFINES += QXT_ZEROCONF_LIB
+    else:warning(Qxt was built without QxtZeroConf)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtZeroconf
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtZeroconf
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtZeroconf.framework/HEADERS/
+
+    qtAddLibrary(QxtZeroconf)
+    QXT += core network
+    QT  += network
+}
+
+contains(QXT, network) {
+    contains(QXT_MODULES, network):DEFINES += QXT_NETWORK_LIB
+    else:warning(Qxt was built without QxtNetwork)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtNetwork
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtNetwork
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtNetwork.framework/HEADERS/
+
+    qtAddLibrary(QxtNetwork)
+    QXT += core
+    QT  += network
+}
+
+contains(QXT, sql) {
+    contains(QXT_MODULES, sql):DEFINES += QXT_SQL_LIB
+    else:warning(Qxt was built without QxtSql)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtSql
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtSql
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtSql.framework/HEADERS/
+
+    qtAddLibrary(QxtSql)
+    QXT += core
+    QT  += sql
+}
+
+contains(QXT, core) {
+    contains(QXT_MODULES, core):DEFINES += QXT_CORE_LIB
+    else:warning(Qxt was built without QxtCore)
+
+    DEPENDPATH       += $${QXT_INSTALL_HEADERS}/QxtCore
+    INCLUDEPATH      += $${QXT_INSTALL_HEADERS}/QxtCore
+    macx:INCLUDEPATH += $${QXT_INSTALL_LIBS}/QxtCore.framework/HEADERS/
+
+    qtAddLibrary(QxtCore)
+}
