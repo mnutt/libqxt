@@ -1,28 +1,43 @@
 @ECHO off
-SET QMAKE=qmake
-SET MAKE=nmake
-SET PROJECT_ROOT=%CD%
-SET TESTDIR=%PROJECT_ROOT%\config.tests
-SET CONFIG_LOG=config.log
-SET LAST_FUNC_RET=0
-SET STATIC=0
-SET DEBUG_OR_RELEASE=0
 
-if exist %PROJECT_ROOT%\config.in   del %PROJECT_ROOT%\config.in
-if exist %PROJECT_ROOT%\config.log  del %PROJECT_ROOT%\config.log
-if exist %PROJECT_ROOT%\depends.pri del %PROJECT_ROOT%\depends.pri
-
-echo #depends.pri > %PROJECT_ROOT%\depends.pri
-    
-shift
-set QMAKEBIN=qmake
+@rem -- defaults
+set QMAKE_BIN=qmake
+set MAKE=nmake
+set STATIC=0
+set DEBUG_OR_RELEASE=0
 set MSVCMODE=
-set FCGI=1
 set DB=1
 set ZEROCONF=1
-echo include(depends.pri) > %PROJECT_ROOT%\config.in
-echo QXT_stability += unknown >> %PROJECT_ROOT%\config.in
+set QXT_MODULES=core gui network sql web designer berkeley zeroconf
 
+@rem -- initialize
+set QXT_INSTALL_PREFIX=
+set QXT_INSTALL_LIBS=
+set QXT_INSTALL_BINS=
+set QXT_INSTALL_HEADERS=
+set QXT_INSTALL_FEATURES=
+set QXT_INSTALL_DOCS=
+
+@rem -- working directories
+set QXT_BUILD_TREE=%CD%
+cd "%0\..\"
+SET QXT_SOURCE_TREE=%CD%
+cd %QXT_BUILD_TREE%
+
+@rem -- output files
+set CONFIG_LOG=%QXT_BUILD_TREE%\config.log
+set QMAKE_CACHE=%QXT_BUILD_TREE%\.qmake.cache
+set QXT_VARS=%QXT_BUILD_TREE%\qxtvars.prf
+if exist %CONFIG_LOG% move %CONFIG_LOG% %CONFIG_LOG%.bak
+if exist %QMAKE_CACHE% move %QMAKE_CACHE% %QMAKE_CACHE%.bak
+if exist %QXT_VARS% move %QXT_VARS% %QXT_VARS%.bak
+
+@rem -- defaults
+echo CONFIG += silent > %QMAKE_CACHE%
+echo QXT_MODULES = %QXT_MODULES% >> %QMAKE_CACHE%
+echo QXT_MODULES = %QXT_MODULES% > %QXT_VARS%
+
+shift
 :top
 if "%0" == ""                   goto finish
 if "%0" == "-qmake-bin"         goto setqmake
@@ -35,6 +50,7 @@ if "%0" == "-libdir"            goto libdir
 if "%0" == "-docdir"            goto docdir
 if "%0" == "-headerdir"         goto headerdir
 if "%0" == "-bindir"            goto bindir
+if "%0" == "-featuredir"        goto featuredir
 if "%0" == "-static"            goto static
 if "%0" == "-debug"             goto debug
 if "%0" == "-release"           goto release
@@ -47,80 +63,87 @@ if "%0" == "--help"             goto help
 if "%0" == "/?"                 goto help
 
 echo Unrecognized configure option: %0
-del %PROJECT_ROOT%\config.in
+del %QMAKE_CACHE%
+del %QXT_VARS%
 goto end
 
 :setqmake
-set QMAKEBIN=%1
+set QMAKE_BIN=%1
 goto bottom2
 
 :addinclude
-echo INCLUDEPATH += "%1" >> %PROJECT_ROOT%\depends.pri
+echo INCLUDEPATH += "%1" >> %QMAKE_CACHE%
 goto bottom2	
 
 :addlibpath
-echo LIBS += -L"%1" >> %PROJECT_ROOT%\depends.pri
+echo LIBS += -L"%1" >> %QMAKE_CACHE%
 goto bottom2
 
 :addlib
-echo LIBS += -l"%1" >> %PROJECT_ROOT%\depends.pri
+echo LIBS += -l"%1" >> %QMAKE_CACHE%
 goto bottom2
 
 :nomake
-if "%1"=="fcgi" set FCGI=0
 if "%1"=="db" set DB=0
 if "%1"=="zeroconf" set ZEROCONF=0
-echo QXT_BUILD -= %1 >> %PROJECT_ROOT%\config.in
+echo QXT_MODULES -= %1 >> %QMAKE_CACHE%
+echo QXT_MODULES -= %1 >> %QXT_VARS%
 goto bottom2
 
 :prefix
-echo QXTINSTALLDIR = %1 >> %PROJECT_ROOT%\config.in
+echo hmm
+set QXT_INSTALL_PREFIX=%1
 goto bottom2
 
 :libdir
-echo target.path = %1 >> %PROJECT_ROOT%\config.in
+set QXT_INSTALL_LIBS=%1
 goto bottom2
 
 :docdir
-echo docs.path = %1 >> %PROJECT_ROOT%\config.in
+set QXT_INSTALL_DOCS=%1
 goto bottom2
 
 :headerdir
-echo include.path = %1 >> %PROJECT_ROOT%\config.in
+set QXT_INSTALL_HEADERS=%1
 goto bottom2
 
 :bindir
-echo bin.path = %1 >> %PROJECT_ROOT%\config.in
+set QXT_INSTALL_BINS=%1
+goto bottom2
+
+:featuredir
+set QXT_INSTALL_FEATURES=%1
 goto bottom2
 
 :static
 set STATIC=1
-echo CONFIG += static staticlib >> %PROJECT_ROOT%\config.in
+echo CONFIG += static staticlib >> %QMAKE_CACHE%
+echo DEFINES += QXT_STATIC >> %QXT_VARS%
 goto bottom    
 
 :debug
 set DEBUG_OR_RELEASE=1
-echo CONFIG += debug >> %PROJECT_ROOT%\config.in
+echo CONFIG += debug >> %QMAKE_CACHE%
 goto bottom
 
 :release
 set DEBUG_OR_RELEASE=1
-echo CONFIG += release >> %PROJECT_ROOT%\config.in
+echo CONFIG += release >> %QMAKE_CACHE%
 goto bottom
 
 :debug_and_release
 set DEBUG_OR_RELEASE=1
-echo CONFIG += debug_and_release >> %PROJECT_ROOT%\config.in
+echo CONFIG += debug_and_release >> %QMAKE_CACHE%
 goto bottom
 
 :nodb
 set DB=0
-echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_DB >> %QMAKE_CACHE%
 goto bottom
 
 :nozeroconf
 set ZEROCONF=0
-echo DEFINES -= HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_ZEROCONF >> %QMAKE_CACHE%
 goto bottom
 
 :msvc
@@ -165,12 +188,12 @@ goto top
     echo                       options: berkeley designer gui network sql web zeroconf
     echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
-    del %PROJECT_ROOT%\config.in
+    del %QMAKE_CACHE%
     goto end
 
 :finish
 echo    Testing for qmake...
-qmake -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+%QMAKE_BIN% -v >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto qmakeERR
 goto qmakeOK
 :qmakeERR
@@ -186,7 +209,7 @@ if "%QMAKESPEC%" == "win32-msvc2008" goto testnmake
 
 :testmingw
 echo    Testing for mingw32-make...
-call mingw32-make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call mingw32-make -v >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto testnmake
 echo        Using mingw32-make. 
 SET MAKE=mingw32-make
@@ -195,7 +218,7 @@ GOTO detectTools_end_test_make
 :testnmake
 if "%QMAKESPEC%" == "win32-g++"     goto testgmake
 echo    Testing for nmake...
-nmake /? >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+nmake /? >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto testgmake
 echo        Using nmake.
 SET MAKE=nmake
@@ -203,7 +226,7 @@ GOTO detectTools_end_test_make
 
 :testgmake
 echo    Testing for GNU make...
-call make -v >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call make -v >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto missingmake
 echo        Using GNU make.
 SET MAKE=make
@@ -215,86 +238,97 @@ echo    Cannot proceed.
 goto end
 
 :detectTools_end_test_make
+if not "%QXT_INSTALL_PREFIX%" == "" goto skipdefaultprefix
+    set QXT_INSTALL_PREFIX=C:\Qxt
+:skipdefaultprefix
+if not "%QXT_INSTALL_LIBS%" == "" goto skipdefaultlibs
+    set QXT_INSTALL_LIBS=%QXT_INSTALL_PREFIX%\lib
+:skipdefaultlibs
+if not "%QXT_INSTALL_DOCS%" == "" goto skipdefaultdocs
+    set QXT_INSTALL_DOCS=%QXT_INSTALL_PREFIX%\doc
+:skipdefaultdocs
+if not "%QXT_INSTALL_HEADERS%" == "" goto skipdefaultheaders
+    set QXT_INSTALL_HEADERS=%QXT_INSTALL_PREFIX%\include
+:skipdefaultheaders
+if not "%QXT_INSTALL_BINS%" == "" goto skipdefaultbins
+    set QXT_INSTALL_BINS=%QXT_INSTALL_PREFIX%\bin
+:skipdefaultbins
+if not "%QXT_INSTALL_FEATURES%" == "" goto skipdefaultfeatures
+    %QMAKE_BIN% -query QMAKE_MKSPECS > %QXT_BUILD_TREE%\mkspecs.tmp
+    set /p QXT_INSTALL_FEATURES=<%QXT_BUILD_TREE%\mkspecs.tmp
+    set QXT_INSTALL_FEATURES=%QXT_INSTALL_FEATURES%\features
+    del %QXT_BUILD_TREE%\mkspecs.tmp
+:skipdefaultfeatures
+
+echo QXT_INSTALL_PREFIX = %QXT_INSTALL_PREFIX% >> %QMAKE_CACHE%
+echo QXT_INSTALL_PREFIX = %QXT_INSTALL_PREFIX% >> %QXT_VARS%
+echo QXT_INSTALL_LIBS = %QXT_INSTALL_LIBS% >> %QMAKE_CACHE%
+echo QXT_INSTALL_LIBS = %QXT_INSTALL_LIBS% >> %QXT_VARS%
+echo QXT_INSTALL_BINS = %QXT_INSTALL_BINS% >> %QMAKE_CACHE%
+echo QXT_INSTALL_BINS = %QXT_INSTALL_BINS% >> %QXT_VARS%
+echo QXT_INSTALL_HEADERS = %QXT_INSTALL_HEADERS% >> %QMAKE_CACHE%
+echo QXT_INSTALL_HEADERS = %QXT_INSTALL_HEADERS% >> %QXT_VARS%
+echo QXT_INSTALL_FEATURES = %QXT_INSTALL_FEATURES% >> %QMAKE_CACHE%
+echo QXT_INSTALL_FEATURES = %QXT_INSTALL_FEATURES% >> %QXT_VARS%
+echo QXT_INSTALL_DOCS = %QXT_INSTALL_DOCS% >> %QMAKE_CACHE%
+echo QXT_INSTALL_DOCS = %QXT_INSTALL_DOCS% >> %QXT_VARS%
+echo QXT_SOURCE_TREE = %QXT_SOURCE_TREE% >> %QMAKE_CACHE%
+echo QXT_BUILD_TREE = %QXT_BUILD_TREE% >> %QMAKE_CACHE%
+
 echo    Testing for optional external libraries.
-echo    If a test fails, some features will not be available.
+echo    If tests fail, some features will not be available.
 
 :detectdb
 if "%DB%"=="0" goto detectzeroconf
 echo    Testing for Berkeley DB...
-echo BDB... >> %PROJECT_ROOT%\%CONFIG_LOG%
-cd %TESTDIR%\db
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+echo BDB... >> %CONFIG_LOG%
+if not exist %QXT_BUILD_TREE%\config.tests\db mkdir %QXT_BUILD_TREE%\config.tests\db
+cd %QXT_BUILD_TREE%\config.tests\db
+%QMAKE_BIN% %QXT_SOURCE_TREE%\config.tests\db\db.pro >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call %MAKE% clean >> %CONFIG_LOG% 2>&1
+call %MAKE% >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
 set DB=1
-echo DEFINES += HAVE_DB >> %PROJECT_ROOT%\config.in
+echo DEFINES += HAVE_DB >> %QMAKE_CACHE%
 echo        Berkeley DB enabled.
 goto detectzeroconf
 
 :dbfailed
 set DB=0
-echo DEFINES -= HAVE_DB >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_DB >> %QMAKE_CACHE%
 echo        Berkeley DB disabled.
 
 :detectzeroconf
-if "%ZEROCONF%"=="0" goto detectfcgi
+if "%ZEROCONF%"=="0" goto alltestsok
 echo    Testing for Zero Conf...
-echo ZEROCONF... >> %PROJECT_ROOT%\%CONFIG_LOG%
-cd %TESTDIR%\zeroconf
-%QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+echo ZEROCONF... >> %CONFIG_LOG%
+if not exist %QXT_BUILD_TREE%\config.tests\zeroconf mkdir %QXT_BUILD_TREE%\config.tests\zeroconf
+cd %QXT_BUILD_TREE%\config.tests\zeroconf
+%QMAKE_BIN% %QXT_SOURCE_TREE%\config.tests\zeroconf\zeroconf.pro >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto zeroconffailed
-call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
-call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG% 2>&1
+call %MAKE% clean >> %CONFIG_LOG% 2>&1
+call %MAKE% >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto zeroconffailed
 set ZEROCONF=1
-echo DEFINES += HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+echo DEFINES += HAVE_ZEROCONF >> %QMAKE_CACHE%
 echo        Zero Conf enabled.
-goto detectfcgi
+goto alltestsok
 
 :zeroconffailed
 set ZEROCONF=0
-echo DEFINES -= HAVE_ZEROCONF >> %PROJECT_ROOT%\config.in
+echo DEFINES -= HAVE_ZEROCONF >> %QMAKE_CACHE%
 echo        Zero Conf disabled.
 
-:detectfcgi
-rem if "%FCGI%"=="0" goto skipfcgitest
-rem echo    Testing for FastCGI...
-rem echo fcgi... >> %PROJECT_ROOT%\%CONFIG_LOG%
-rem cd %TESTDIR%\fcgi
-rem %QMAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-rem if errorlevel 1 goto fcgifailed
-rem call %MAKE% clean >> %PROJECT_ROOT%\%CONFIG_LOG%
-rem call %MAKE% >> %PROJECT_ROOT%\%CONFIG_LOG%
-rem if errorlevel 1 goto fcgifailed
-rem set FCGI=1
-rem echo DEFINES += HAVE_FCGI >> %PROJECT_ROOT%\config.in
-rem echo        FastCGI enabled.
-rem goto alltestsok
-
-:fcgifailed
-set FCGI=0
-echo DEFINES -= HAVE_FCGI >> %PROJECT_ROOT%\config.in
-rem echo        FastCGI disabled.
-
-:skipfcgitest
 :alltestsok
 if "%DEBUG_OR_RELEASE%"=="1" goto skiprelease
-echo CONFIG += release >> %PROJECT_ROOT%\config.in
+echo CONFIG += release >> %QMAKE_CACHE%
 :skiprelease
-cd %PROJECT_ROOT%
 
 echo    Configuration successful.
 echo    Generating makefiles...
-copy %PROJECT_ROOT%\config.pri %PROJECT_ROOT%\config.pri.bak >> %PROJECT_ROOT%\%CONFIG_LOG%
-copy %PROJECT_ROOT%\config.in %PROJECT_ROOT%\config.pri >> %PROJECT_ROOT%\%CONFIG_LOG%
-del %PROJECT_ROOT%\config.in >> %PROJECT_ROOT%\%CONFIG_LOG%
-echo #define QXT_SHARED > %PROJECT_ROOT%\src\core\qxtconfig.h
-if "%STATIC%"=="0" goto skipstatic
-echo #define QXT_STATIC > %PROJECT_ROOT%\src\core\qxtconfig.h
-:skipstatic
-%QMAKE% %MSVCMODE% -recursive
+cd %QXT_BUILD_TREE%
+%QMAKE_BIN% %MSVCMODE% -recursive %QXT_SOURCE_TREE%\libqxt.pro
 if errorlevel 1 goto mainqmakeERR
 
 echo    Makefiles generated. Run %MAKE% now.
