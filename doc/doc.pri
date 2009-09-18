@@ -1,5 +1,12 @@
 SUBDIRS += tools/3rdparty/qdoc3
 
+win32 {
+    QXT_WINCONFIG = release/
+    !CONFIG(release, debug|release) {
+        QXT_WINCONFIG = debug/
+    }
+}
+
 win32:!win32-g++ {
     unixstyle = false
 } else :win32-g++:isEmpty(QMAKE_SH) {
@@ -9,9 +16,9 @@ win32:!win32-g++ {
 }
 
 $$unixstyle {
-    QDOC = QXT_SOURCE_TREE=$$QXT_SOURCE_TREE QXT_BUILD_TREE=$$QXT_BUILD_TREE $$QXT_BUILD_TREE/tools/3rdparty/qdoc3/qdoc3
+    QDOC = QXT_SOURCE_TREE=$$QXT_SOURCE_TREE QXT_BUILD_TREE=$$QXT_BUILD_TREE $$QXT_BUILD_TREE/tools/3rdparty/qdoc3/$${QXT_WINCONFIG}qdoc3
 } else {
-    QDOC = set QXT_SOURCE_TREE=$$QXT_SOURCE_TREE&& set QXT_BUILD_TREE=$$QXT_BUILD_TREE&& $$QXT_BUILD_TREE/tools/3rdparty/qdoc3/qdoc3.exe
+    QDOC = set QXT_SOURCE_TREE=$$QXT_SOURCE_TREE&& set QXT_BUILD_TREE=$$QXT_BUILD_TREE&& $$QXT_BUILD_TREE/tools/3rdparty/qdoc3/$${QXT_WINCONFIG}qdoc3.exe
     QDOC = $$replace(QDOC, "/", "\\\\")
 }
 
