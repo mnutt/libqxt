@@ -2,8 +2,9 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG += qxt no_keywords
+CONFIG += no_keywords
 QXT = berkeley core gui network sql web
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
 
 # Input
 SOURCES += main.cpp

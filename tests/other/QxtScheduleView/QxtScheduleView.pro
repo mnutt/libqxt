@@ -1,10 +1,8 @@
 TEMPLATE = app
 TARGET = QxtScheduleViewTest 
-
-CONFIG    += qxt
-
 QT        += core gui
 QXT       += core gui 
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
 
 HEADERS   += qxtscheduleviewtest.h
 SOURCES   += main.cpp \

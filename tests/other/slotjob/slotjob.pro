@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG+=qxt
 QXT+=core
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
 SOURCES += main.cpp
 include(../../test.pri)

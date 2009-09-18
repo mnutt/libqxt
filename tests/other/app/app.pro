@@ -2,8 +2,9 @@ TEMPLATE = app
 TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG += qxt console
+CONFIG += console
 QXT += core gui
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
 
 FORMS += mainwindow.ui tab.ui
 HEADERS += mainwindow.h tab.h
