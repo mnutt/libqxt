@@ -86,10 +86,10 @@ style.recurse = $$SUBDIRS
 style.recurse_target = astyle
 QMAKE_EXTRA_TARGETS += style
 
-sub-examples.commands += cd examples && $(QMAKE) examples.pro && $(MAKE)
+sub-examples.commands += cd examples && $(QMAKE) $$QXT_SOURCE_TREE/examples/examples.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-examples
 
-sub-tests.commands += cd tests && $(QMAKE) tests.pro && $(MAKE)
+sub-tests.commands += cd tests && $(QMAKE) $$QXT_SOURCE_TREE/tests/tests.pro && $(MAKE)
 QMAKE_EXTRA_TARGETS += sub-tests
 
 runtests.depends += sub-tests

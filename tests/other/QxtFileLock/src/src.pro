@@ -4,17 +4,18 @@ locktestclient.cpp \
 HelperClass.cpp
 TEMPLATE = app
 CONFIG += warn_on \
-	  thread \
-          qt \
-	  debug
+      thread \
+      qt \
+      debug
 TARGET = ../bin/qxtfilelock
 
 QT -= gui
 QT += core \
 network
-CONFIG += qxt
 CONFIG += console
 QXT += core
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
+
 HEADERS += threadtestcontroller.h \
 locktestclient.h \
 HelperClass.h

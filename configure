@@ -22,6 +22,8 @@ fi
 QXT_SOURCE_TREE=`dirname $0`
 QXT_SOURCE_TREE=`(cd "$QXT_SOURCE_TREE"; /bin/pwd)`
 QXT_BUILD_TREE=`/bin/pwd`
+[ ! -d $QXT_BUILD_TREE/examples ] && mkdir $QXT_BUILD_TREE/examples
+[ ! -d $QXT_BUILD_TREE/tests ] && mkdir $QXT_BUILD_TREE/tests
 
 # output files
 CONFIG_LOG=$QXT_BUILD_TREE/config.log
@@ -128,10 +130,12 @@ while (( $# > 0 )); do
         fi
 
         rm $QMAKE_CACHE
+        rm $QXT_VARS
         exit
     else
         echo "Unrecognized configure option: $1"
         rm $QMAKE_CACHE
+        rm $QXT_VARS
         exit
     fi
     shift
