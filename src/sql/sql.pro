@@ -1,12 +1,8 @@
-TEMPLATE         = lib
 CLEAN_TARGET     = QxtSql
-DEPENDPATH      += .
-INCLUDEPATH     += . ../core
 DEFINES         += BUILD_QXT_SQL
 QT               = core sql
-QXT              =
+QXT              = core
 CONVENIENCE     += $$CLEAN_TARGET
-CONFIG          += qxtbuild
 
-include(../../config.pri)
 include(sql.pri)
+include(../qxtbase.pri)

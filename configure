@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#====some defaults====
+# defaults
 QMAKE_BIN=qmake
 WHICH=which
-
 NO_DB=0
-NO_FFMPEG=0
 NO_ZEROCONF=0
+QXT_MODULES="core gui network sql web designer berkeley zeroconf"
 
+# detect platform
 if uname -a | grep -iq Darwin; then
     QXT_MAC=1
     DEFAULT_LIBS="/Library/Frameworks"
@@ -18,68 +18,82 @@ else
     QMAKE_PARAMS=""
 fi
 
-# the directory of this script (the root)
-PROJECT_ROOT=`dirname $0`
-PROJECT_ROOT=`(cd "$relpath"; /bin/pwd)`
-TESTDIR=$PROJECT_ROOT/config.tests
-CONFIG_LOG=$PROJECT_ROOT/config.log
+# working directories
+QXT_SOURCE_TREE=`dirname $0`
+QXT_SOURCE_TREE=`(cd "$QXT_SOURCE_TREE"; /bin/pwd)`
+QXT_BUILD_TREE=`/bin/pwd`
 
-# Define some colors for neat output
+# output files
+CONFIG_LOG=$QXT_BUILD_TREE/config.log
+QMAKE_CACHE=$QXT_BUILD_TREE/.qmake.cache
+QXT_VARS=$QXT_BUILD_TREE/qxtvars.prf
+[ -f $CONFIG_LOG ] && mv $CONFIG_LOG $CONFIG_LOG.bak
+[ -f $QMAKE_CACHE ] && mv $QMAKE_CACHE $QMAKE_CACHE.bak
+[ -f $QXT_VARS ] && mv $QXT_VARS $QXT_VARS.bak
+
+# colors
 C_RED='\e[1;31m'
 C_BLUE='\e[1;34m'
 C_GREEN='\e[1;32m'
 C_CYAN='\e[1;36m'
-C_NONE='\e[0m' # No Color
+C_NONE='\e[0m'
 
-#====parse configure options====
+# defaults
+echo "CONFIG += silent" > $QMAKE_CACHE
+echo "QXT_MODULES = $QXT_MODULES" >> $QMAKE_CACHE
+echo "QXT_MODULES = $QXT_MODULES" > $QXT_VARS
 
-echo "CONFIG += silent" > config.in
-
+# parse configure options
 while (( $# > 0 )); do
     if [ $1 == "-qmake-bin" ]; then
         QMAKE_BIN=$2; shift
     elif [ $1 == "-bootstrap" ]; then
-        echo "CONFIG += bootstrap" >> config.in; shift
+        echo "CONFIG += bootstrap" >> $QMAKE_CACHE; shift
     elif [ $1 == "-nomake" ]; then
-        echo "QXT_BUILD -= $2" >> config.in; shift
+        echo "QXT_MODULES -= $2" >> $QMAKE_CACHE
+        echo "QXT_MODULES -= $2" >> $QXT_VARS; shift
+        if [ $1 == "berkeley" ]; then
+            NO_DB=1
+        fi
         if [ $1 == "zeroconf" ]; then
-            echo "QXT_LIBS -= zeroconf" >> config.in
             NO_ZEROCONF=1
         fi
     elif [ $1 == "-prefix" ]; then
-        echo "QXTINSTALLDIR = $2" >> config.in; shift
+        QXT_INSTALL_PREFIX=$2; shift
     elif [ $1 == "-libdir" ]; then
-        echo "target.path = $2" >> config.in; shift
+        QXT_INSTALL_LIBS=$2; shift
     elif [ $1 == "-docdir" ]; then
-        echo "docs.path = $2" >> config.in; shift
+        QXT_INSTALL_DOCS=$2; shift
     elif [ $1 == "-headerdir" ]; then
-        echo "include.path = $2" >> config.in; shift
+        QXT_INSTALL_HEADERS=$2; shift
     elif [ $1 == "-bindir" ]; then
-        echo "bin.path = $2" >> config.in; shift
+        QXT_INSTALL_BINS=$2; shift
+    elif [ $1 == "-featuredir" ]; then
+        QXT_INSTALL_FEATURES=$2; shift
     elif [ $1 == "-static" ]; then
-        echo "CONFIG += static staticlib" >> config.in
+        echo "CONFIG += static staticlib" >> $QMAKE_CACHE
+        echo "DEFINES += QXT_STATIC" >> $QXT_VARS
     elif [ $1 == "-debug" ]; then
-        echo "CONFIG += debug" >> config.in
+        echo "CONFIG += debug" >> $QMAKE_CACHE
     elif [ $1 == "-release" ]; then
-        echo "CONFIG += release" >> config.in
+        echo "CONFIG += release" >> $QMAKE_CACHE
     elif [ $1 == "-no-db" ]; then
-        echo "QXT_LIBS -= db" >> config.in
         NO_DB=1
     elif [ $1 == "-verbose" ]; then
-        echo "CONFIG -= silent" >> config.in
+        echo "CONFIG -= silent" >> $QMAKE_CACHE
     elif [ $1 == "-qws" ]; then
-        echo "CONFIG += qws" >> config.in
+        echo "CONFIG += qws" >> $QMAKE_CACHE
     elif [ $1 == "-coverage" ]; then
-        echo "CONFIG += coverage" >> config.in
+        echo "CONFIG += coverage" >> $QMAKE_CACHE
     elif [ $1 == "-universal" ]; then
-        echo "CONFIG += x86 ppc" >> config.in
+        echo "CONFIG += x86 ppc" >> $QMAKE_CACHE
     elif [ $1 == "-sdk" ]; then
-        echo "QMAKE_MAC_SDK=$2" >> config.in; shift
+        echo "QMAKE_MAC_SDK=$2" >> $QMAKE_CACHE; shift
     elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
-        echo "       [-bindir <dir>] [-headerdir <dir>] [-qmake-bin <path>]"
-        echo "       [-static] [-debug] [-release] [-no-db]"
-        echo "       [-nomake <module>] [-verbose] [-qws]"
+        echo "       [-bindir <dir>] [-headerdir <dir>] [-featuredir <dir> ]"
+        echo "       [-qmake-bin <path>] [-static] [-debug] [-release]"
+        echo "       [-no-db] [-nomake <module>] [-verbose] [-qws]"
         echo
         echo "Installation options:"
         echo
@@ -88,11 +102,13 @@ while (( $# > 0 )); do
         echo "-libdir <dir> ....... Libraries will be installed to <dir>"
         echo "                      default: $DEFAULT_LIBS"
         echo "-docdir <dir> ....... Documentation will be installed to <dir>"
-        echo "                      default: PREFIX/share/doc"
+        echo "                      default: PREFIX/doc"
         echo "-bindir <dir> ....... Executables will be installed to <dir>"
         echo "                      default: PREFIX/bin"
         echo "-headerdir <dir> .... Include files will be installed to <dir>"
         echo "                      default: PREFIX/include"
+        echo "-featuredir <dir> ... Feature files will be installed to <dir>"
+        echo "                      default: qmake -query QMAKE_MKSPECS/features"
         echo "-qmake-bin <path> ... Specifies the path to the qmake executable"
         echo "                      default: search the system path"
         echo "-static ............. Compile Qxt as a static library"
@@ -104,34 +120,73 @@ while (( $# > 0 )); do
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: berkeley designer gui network sql web zeroconf"
-        echo "-verbose ............ shows compiler output"
+        echo "-verbose ............ Shows compiler output"
         echo "-coverage ........... Collect coverage information"
         if [[ "$QXT_MAC" == "1" ]]; then
             echo "-universal .......... Build universal binaries"
             echo "-sdk <path> ......... Use a different Mac SDK"
         fi
 
-        rm config.in
+        rm $QMAKE_CACHE
         exit
     else
         echo "Unrecognized configure option: $1"
-        rm config.in
+        rm $QMAKE_CACHE
         exit
     fi
     shift
 done
 
-#====begin some autodetection====
->$CONFIG_LOG
-
-# qmake?
+# detect qmake
 if ! $WHICH $QMAKE_BIN >>$CONFIG_LOG 2>&1; then
-	echo >&2 "You don't seem to have 'qmake' in your PATH."
-        echo >&2 "Cannot proceed."
-        exit 1
+    echo >&2 "You don't seem to have 'qmake' in your PATH."
+    echo >&2 "Cannot proceed."
+    exit 1
 fi
 
-# find a make command
+# default directories
+if [[ "$QXT_INSTALL_PREFIX" == "" ]]; then
+    QXT_INSTALL_PREFIX="/usr/local/Qxt"
+fi
+if [[ "$QXT_INSTALL_LIBS" == "" ]]; then
+    if [[ "$QXT_MAC" == "1" ]]; then
+        QXT_INSTALL_LIBS="/Library/Frameworks"
+    else
+        QXT_INSTALL_LIBS="$QXT_INSTALL_PREFIX/lib"
+    fi
+fi
+if [[ "$QXT_INSTALL_DOCS" == "" ]]; then
+    QXT_INSTALL_DOCS="$QXT_INSTALL_PREFIX/doc"
+fi
+if [[ "$QXT_INSTALL_HEADERS" == "" ]]; then
+    QXT_INSTALL_HEADERS="$QXT_INSTALL_PREFIX/include"
+fi
+if [[ "$QXT_INSTALL_BINS" == "" ]]; then
+    QXT_INSTALL_BINS="$QXT_INSTALL_PREFIX/bin"
+fi
+if [[ "$QXT_INSTALL_FEATURES" == "" ]]; then
+    QXT_INSTALL_FEATURES=`$QMAKE_BIN -query QMAKE_MKSPECS`
+    QXT_INSTALL_FEATURES="$QXT_INSTALL_FEATURES/features"
+fi
+
+# output variables
+echo "QXT_INSTALL_PREFIX = $QXT_INSTALL_PREFIX" >> $QMAKE_CACHE
+echo "QXT_INSTALL_PREFIX = $QXT_INSTALL_PREFIX" >> $QXT_VARS
+echo "QXT_INSTALL_LIBS = $QXT_INSTALL_LIBS" >> $QMAKE_CACHE
+echo "QXT_INSTALL_LIBS = $QXT_INSTALL_LIBS" >> $QXT_VARS
+echo "QXT_INSTALL_BINS = $QXT_INSTALL_BINS" >> $QMAKE_CACHE
+echo "QXT_INSTALL_BINS = $QXT_INSTALL_BINS" >> $QXT_VARS
+echo "QXT_INSTALL_HEADERS = $QXT_INSTALL_HEADERS" >> $QMAKE_CACHE
+echo "QXT_INSTALL_HEADERS = $QXT_INSTALL_HEADERS" >> $QXT_VARS
+echo "QXT_INSTALL_FEATURES = $QXT_INSTALL_FEATURES" >> $QMAKE_CACHE
+echo "QXT_INSTALL_FEATURES = $QXT_INSTALL_FEATURES" >> $QXT_VARS
+echo "QXT_INSTALL_DOCS = $QXT_INSTALL_DOCS" >> $QMAKE_CACHE
+echo "QXT_INSTALL_DOCS = $QXT_INSTALL_DOCS" >> $QXT_VARS
+echo "QXT_SOURCE_TREE = $QXT_SOURCE_TREE" >> $QMAKE_CACHE
+echo "QXT_BUILD_TREE = $QXT_BUILD_TREE" >> $QMAKE_CACHE
+
+# detect make
+>$CONFIG_LOG
 if [ -z "$MAKE" ]; then
     MAKE=
     for mk in gmake make; do
@@ -147,50 +202,42 @@ if [ -z "$MAKE" ]; then
     fi
 fi
 
+# detect dependencies
 configtest()
 {
-	echo -en "checking for $1\t"
-	echo -e  " \n\n $1\n" >>$CONFIG_LOG
-	cd $TESTDIR/$1
-	$QMAKE_BIN $QMAKE_PARAMS  >>$CONFIG_LOG
-	echo -n "."
-	$MAKE clean >>$CONFIG_LOG
-	[ -f ./$1 ] && rm ./$1
-	echo -n "."
-	$MAKE >>$CONFIG_LOG
-	echo -n "."
-	if ./$1 >>$CONFIG_LOG ; then
-		echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
-		echo "DEFINES+=HAVE_$2">>$PROJECT_ROOT/config.in
-	else
-		echo -e >&2 "  [${C_RED}failure${C_NONE}] "
-	fi
+    echo -en "Checking for $1 "
+    echo -e  " \n\n $1\n" >>$CONFIG_LOG
+    mkdir -p "$QXT_BUILD_TREE/config.tests/$1"
+    cd "$QXT_BUILD_TREE/config.tests/$1"
+    $QMAKE_BIN $QMAKE_PARAMS "$QXT_SOURCE_TREE/config.tests/$1/$1.pro" >>$CONFIG_LOG
+    echo -n "."
+    $MAKE clean >>$CONFIG_LOG
+    [ -f ./$1 ] && rm ./$1
+    echo -n "."
+    $MAKE 2>&1 >>$CONFIG_LOG
+    echo -n "."
+    if ./$1 >>$CONFIG_LOG ; then
+        echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
+        echo "DEFINES+=HAVE_$2">>$QMAKE_CACHE
+    else
+        echo -e >&2 "  [${C_RED}failure${C_NONE}] "
+    fi
 }
 
-echo >&2 "Testing for optional external librarys."
-echo >&2 "If a test fails, some features will not be available."
+echo >&2 "Testing for optional external libraries."
+echo >&2 "If tests fail, some features will not be available."
 
-
-configtest qt4     QT
+configtest qt4 QT
 if [[ "$NO_DB" == "0" ]]; then
-    configtest "db  "    DB
+    configtest db DB
 fi
 
 if [[ "$NO_ZEROCONF" == "0" ]]; then
     configtest zeroconf ZEROCONF
 fi
 
-#configtest curses  CURSES
-#configtest fcgi  FCGI
-
-
-#====finaly running qmake====
-echo "autodetection finished. running qmake."
-cd  $PROJECT_ROOT
-
-[ -f config.pri ] && mv config.pri config.pri.bak
-mv config.in config.pri
-
-$QMAKE_BIN $QMAKE_PARAMS -recursive 2>>$CONFIG_LOG
-
-echo -e >&2 "${C_CYAN}configure finished. run $MAKE now.${C_NONE}\n"
+# run qmake
+echo "Autodetection finished. Running qmake."
+cd  $QXT_BUILD_TREE
+$QMAKE_BIN $QMAKE_PARAMS "$QXT_SOURCE_TREE/libqxt.pro" -recursive 2>>$CONFIG_LOG
+echo -e >&2 "${C_CYAN}Configure finished. Run $MAKE now.${C_NONE}\n"
