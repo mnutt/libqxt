@@ -90,7 +90,7 @@ while (( $# > 0 )); do
         echo "CONFIG += x86 ppc" >> $QMAKE_CACHE
     elif [ $1 == "-sdk" ]; then
         echo "QMAKE_MAC_SDK=$2" >> $QMAKE_CACHE; shift
-    elif [ $1 == "-help" ] || [ $1 == "--help" ]; then
+    elif [ $1 == "-h" ] || [ $1 == "-help" ] || [ $1 == "--help" ]; then
         echo "Usage: configure [-prefix <dir>] [-libdir <dir>] [-docdir <dir>]"
         echo "       [-bindir <dir>] [-headerdir <dir>] [-featuredir <dir> ]"
         echo "       [-qmake-bin <path>] [-static] [-debug] [-release]"
@@ -136,13 +136,15 @@ while (( $# > 0 )); do
             echo "-sdk <path> ......... Use a different Mac SDK"
         fi
 
-        rm $QMAKE_CACHE
-        rm $QXT_VARS
+        [ -f $CONFIG_LOG.bak ] && mv $CONFIG_LOG.bak $CONFIG_LOG
+        [ -f $QMAKE_CACHE.bak ] && mv $QMAKE_CACHE.bak $QMAKE_CACHE
+        [ -f $QXT_VARS.bak ] && mv $QXT_VARS.bak $QXT_VARS
         exit
     else
         echo "Unrecognized configure option: $1"
-        rm $QMAKE_CACHE
-        rm $QXT_VARS
+        [ -f $CONFIG_LOG.bak ] && mv $CONFIG_LOG.bak $CONFIG_LOG
+        [ -f $QMAKE_CACHE.bak ] && mv $QMAKE_CACHE.bak $QMAKE_CACHE
+        [ -f $QXT_VARS.bak ] && mv $QXT_VARS.bak $QXT_VARS
         exit
     fi
     shift
