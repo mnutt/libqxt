@@ -13,6 +13,8 @@ if uname -a | grep -iq Darwin; then
     QXT_MAC=1
     DEFAULT_LIBS="/Library/Frameworks"
     QMAKE_PARAMS="-spec macx-g++"
+    NO_XRANDR=1
+    NO_ZEROCONF=1
 else
     QXT_MAC=0
     DEFAULT_LIBS="PREFIX/lib"
