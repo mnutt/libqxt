@@ -28,19 +28,19 @@ qhp.Qxt.subprojects.examples.title = Tutorials and Examples
 qhp.Qxt.subprojects.examples.indexTitle = Qxt Examples
 qhp.Qxt.subprojects.examples.selectors = fake:example
 
-indexes                 = $QXTDIR/doc/src/qt.index
-headerdirs              = $QXTDIR/src
-sourcedirs              = $QXTDIR/src $QXTDIR/doc/src
-excludedirs             = $QXTDIR/src/designer
+indexes                 = $QXT_SOURCE_TREE/doc/src/qt.index
+headerdirs              = $QXT_SOURCE_TREE/src
+sourcedirs              = $QXT_SOURCE_TREE/src $QXT_SOURCE_TREE/doc/src
+excludedirs             = $QXT_SOURCE_TREE/src/designer
 
 sources.fileextensions  = "*.cpp *.qdoc"
 examples.fileextensions = "*.cpp *.h *.ui *.qhp *.qhcp"
 
-exampledirs             = $QXTDIR/examples
-imagedirs               = $QXTDIR/doc/src/images
-outputdir               = $QXTDIR/doc/html
-tagfile                 = $QXTDIR/doc/qxt.tags
-base                    = file:$QXTDIR/doc
+exampledirs             = $QXT_SOURCE_TREE/examples
+imagedirs               = $QXT_SOURCE_TREE/doc/src/images
+outputdir               = $QXT_BUILD_TREE/doc/html
+tagfile                 = $QXT_BUILD_TREE/doc/qxt.tags
+base                    = file:$QXT_BUILD_TREE/doc
 
 extraimages.HTML        = implicitshared.png \
                           logo.png \

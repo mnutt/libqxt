@@ -1,5 +1,5 @@
 #include <QtGlobal>
-#if defined(Q_WS_WIN) && defined(QXT_BERKELEY_LIB)
+#ifdef QXT_BERKELEY_LIB
 #include <QxtBerkeley>
 #endif
 #ifdef QXT_CORE_LIB
@@ -18,8 +18,6 @@
 #include <QxtWeb>
 #endif
 
-int main(int argc, char* argv[])
+int main()
 {
-    Q_UNUSED(argc);
-    Q_UNUSED(argv);
 }

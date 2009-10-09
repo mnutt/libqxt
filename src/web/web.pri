@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 SOURCES += qxtabstracthttpconnector.cpp
 SOURCES += qxtabstractwebservice.cpp
 SOURCES += qxtabstractwebsessionmanager.cpp

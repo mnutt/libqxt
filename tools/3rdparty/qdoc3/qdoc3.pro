@@ -8,7 +8,6 @@ build_all:!build_pass {
     CONFIG -= build_all
     CONFIG += release
 }
-DESTDIR = ./
 mac:CONFIG -= app_bundle
 HEADERS += apigenerator.h \
            archiveextractor.h \
@@ -99,11 +98,3 @@ SOURCES += apigenerator.cpp \
 	   uncompressor.cpp \
            webxmlgenerator.cpp \
 	   yyindent.cpp
-
-
-win32 {
-    QT_WINCONFIG = release
-    CONFIG(debug, debug|release) {
-        QT_WINCONFIG = debug
-    }    
-}

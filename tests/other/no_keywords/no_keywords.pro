@@ -2,11 +2,15 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-CONFIG += qxt no_keywords
-QXT = berkeley core gui network sql web
+CONFIG += no_keywords
+contains(DEFINES,HAVE_DB):contains(QXT_MODULES, berkeley):QXT += berkeley
+contains(QXT_MODULES, core):QXT += core
+contains(QXT_MODULES, gui):QXT += gui
+contains(QXT_MODULES, network):QXT += network
+contains(QXT_MODULES, sql):QXT += sql
+contains(QXT_MODULES, web):QXT += web
+contains(DEFINES,HAVE_ZEROCONF):contains(QXT_MODULES, zeroconf):QXT += zeroconf
+include($$QXT_SOURCE_TREE/src/qxtlibs.pri)
 
 # Input
 SOURCES += main.cpp
-
-# TODO: fix public QxtBDB headers NOT to include BDB headers!
-win32:include(../../../depends.pri)

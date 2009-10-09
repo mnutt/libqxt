@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += qxtdiscoverableservice.h
 HEADERS += qxtdiscoverableservice_p.h
 HEADERS += qxtservicebrowser.h
