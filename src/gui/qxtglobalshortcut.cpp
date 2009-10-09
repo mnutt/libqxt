@@ -131,7 +131,7 @@ QxtGlobalShortcut::~QxtGlobalShortcut()
  */
 QKeySequence QxtGlobalShortcut::shortcut() const
 {
-    return QKeySequence(qxt_d().key, qxt_d().mods);
+    return QKeySequence(qxt_d().key | qxt_d().mods);
 }
 
 bool QxtGlobalShortcut::setShortcut(const QKeySequence& shortcut)
