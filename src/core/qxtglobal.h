@@ -31,8 +31,8 @@
 #include <qxtconfig.h>
 #endif
 
-#define QXT_VERSION 0x000500
-#define QXT_VERSION_STR "0.5.0"
+#define QXT_VERSION 0x000501
+#define QXT_VERSION_STR "0.5.1"
 
 //--------------------------global macros------------------------------
 
