@@ -64,7 +64,6 @@
 #include "qxtpipe.h"
 #include "qxtpointerlist.h"
 #include "qxtrpcservice.h"
-#include "qxtsemaphore.h"
 #include "qxtsharedprivate.h"
 #include "qxtsignalgroup.h"
 #include "qxtsignalwaiter.h"

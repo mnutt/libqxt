@@ -6,6 +6,7 @@ or online at http://docs.libqxt.org.
 -----
 - QxtCore
     * Added QxtModelSerializer
+    * Removed obsolete QxtSemaphore
 
 - QxtGui
     * Added rich text support to QxtItemDelegate
