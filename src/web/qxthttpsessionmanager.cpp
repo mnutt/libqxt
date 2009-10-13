@@ -483,6 +483,12 @@ void QxtHttpSessionManager::processEvents()
         header.setValue("location", re->destination);
     }
 
+    // Set custom header values
+    for (QMultiHash<QString, QString>::iterator it = pe->headers.begin(); it != pe->headers.end(); ++it)
+    {
+        header.setValue(it.key(), it.value());
+    }
+
     header.setContentType(pe->contentType);
     if (state.httpMajorVersion == 0 || (state.httpMajorVersion == 1 && state.httpMinorVersion == 0))
         pe->chunked = false;

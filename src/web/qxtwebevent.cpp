@@ -298,6 +298,13 @@ QxtWebPageEvent::~QxtWebPageEvent()
  */
 
 /*!
+ * \variable QxtWebPageEvent::headers
+ * Contains custom headers to be sent to the web browser.
+ *
+ * It is empty by default.
+ */
+
+/*!
 \class QxtWebStoreCookieEvent
 
 \inmodule QxtWeb
