@@ -48,8 +48,10 @@ qint64 QxtSerialDevice::bytesAvailable() const {
 
 void QxtSerialDevice::close() {
     if(isOpen()) {
+        emit aboutToClose();
         tcsetattr(qxt_d().fd, TCSANOW, &qxt_d().reset);
         ::close(qxt_d().fd);
+        setOpenMode(QIODevice::NotOpen);
     }
 }
 
