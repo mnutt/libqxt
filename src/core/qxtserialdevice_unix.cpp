@@ -51,6 +51,9 @@ void QxtSerialDevice::close() {
         emit aboutToClose();
         tcsetattr(qxt_d().fd, TCSANOW, &qxt_d().reset);
         ::close(qxt_d().fd);
+        qxt_d().notifier->setEnabled(false);
+        qxt_d().notifier->deleteLater();
+        qxt_d().notifier = 0;
         setOpenMode(QIODevice::NotOpen);
     }
 }
