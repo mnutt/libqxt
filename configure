@@ -14,7 +14,6 @@ if uname -a | grep -iq Darwin; then
     DEFAULT_LIBS="/Library/Frameworks"
     QMAKE_PARAMS="-spec macx-g++"
     NO_XRANDR=1
-    NO_ZEROCONF=1
 else
     QXT_MAC=0
     DEFAULT_LIBS="PREFIX/lib"
@@ -128,7 +127,7 @@ while (( $# > 0 )); do
             echo "-no-xrandr  ......... Do not link to Xrandr"
         fi
         echo "-no-db .............. Do not link to Berkeley DB"
-        echo "-no-zeroconf ........ Do not link to Zero Conf"
+        echo "-no-zeroconf ........ Do not link to Zeroconf"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: $QXT_MODULES"
         echo "-verbose ............ Show full compiler output"
@@ -247,12 +246,16 @@ if [[ "$NO_DB" == "0" ]]; then
     configtest db DB
 fi
 
-if [[ "$NO_XRANDR" == "0" ]]; then
-    configtest xrandr XRANDR
-fi
+if [[ "$QXT_MAC" == "0" ]]; then
+    if [[ "$NO_XRANDR" == "0" ]]; then
+        configtest xrandr XRANDR
+    fi
 
-if [[ "$NO_ZEROCONF" == "0" ]]; then
-    configtest zeroconf ZEROCONF
+    if [[ "$NO_ZEROCONF" == "0" ]]; then
+        configtest zeroconf ZEROCONF
+    fi
+else
+    echo "DEFINES+=HAVE_ZEROCONF">>$QMAKE_CACHE
 fi
 
 # run qmake
