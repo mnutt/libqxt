@@ -26,6 +26,29 @@
 #include <QX11Info>
 #include <X11/Xlib.h>
 
+static int (*original_x_errhandler)(Display* display, XErrorEvent* event);
+
+static int qxt_x_errhandler(Display* display, XErrorEvent *event)
+{
+    Q_UNUSED(display);
+    switch (event->error_code)
+    {
+        case BadAccess:
+        case BadValue:
+        case BadWindow:
+            if (event->request_code == 33 /* X_GrabKey */ ||
+                event->request_code == 34 /* X_UngrabKey */)
+            {
+                QxtGlobalShortcutPrivate::error = true;
+                //TODO:
+                //char errstr[256];
+                //XGetErrorText(dpy, err->error_code, errstr, 256);
+            }
+        default:
+            return 0;
+    }
+}
+
 bool QxtGlobalShortcutPrivate::eventFilter(void* message)
 {
     XEvent* event = static_cast<XEvent*>(message);
@@ -69,19 +92,24 @@ bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativ
     Bool owner = True;
     int pointer = GrabModeAsync;
     int keyboard = GrabModeAsync;
-    // no way to check for success
+    error = false;
+    original_x_errhandler = XSetErrorHandler(qxt_x_errhandler);
     XGrabKey(display, nativeKey, nativeMods, window, owner, pointer, keyboard);
-    // allow numlock
-    XGrabKey(display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer, keyboard);
-    return true;
+    XGrabKey(display, nativeKey, nativeMods | Mod2Mask, window, owner, pointer, keyboard); // allow numlock
+    XSync(display, False);
+    XSetErrorHandler(original_x_errhandler);
+    return !error;
 }
 
 bool QxtGlobalShortcutPrivate::unregisterShortcut(quint32 nativeKey, quint32 nativeMods)
 {
     Display* display = QX11Info::display();
     Window window = QX11Info::appRootWindow();
-    // no way to check for success
+    error = false;
+    original_x_errhandler = XSetErrorHandler(qxt_x_errhandler);
     XUngrabKey(display, nativeKey, nativeMods, window);
-    XUngrabKey(display, nativeKey, nativeMods | Mod2Mask, window);
-    return true;
+    XUngrabKey(display, nativeKey, nativeMods | Mod2Mask, window); // allow numlock
+    XSync(display, False);
+    XSetErrorHandler(original_x_errhandler);
+    return !error;
 }

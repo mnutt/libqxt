@@ -43,7 +43,8 @@ public:
 
     bool setShortcut(const QKeySequence& shortcut);
     bool unsetShortcut();
-    
+
+    static bool error;
     static int ref;
     static QAbstractEventDispatcher::EventFilter prevEventFilter;
     static bool eventFilter(void* message);

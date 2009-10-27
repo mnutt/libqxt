@@ -27,6 +27,7 @@
 #include <QAbstractEventDispatcher>
 #include <QtDebug>
 
+bool QxtGlobalShortcutPrivate::error = false;
 int QxtGlobalShortcutPrivate::ref = 0;
 QAbstractEventDispatcher::EventFilter QxtGlobalShortcutPrivate::prevEventFilter = 0;
 QHash<QPair<quint32, quint32>, QxtGlobalShortcut*> QxtGlobalShortcutPrivate::shortcuts;
