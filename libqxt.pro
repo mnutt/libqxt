@@ -9,13 +9,8 @@ TEMPLATE = subdirs
 DESTDIR  = lib
 
 #check Qt version
-QT_VERSION = $$[QT_VERSION]
-QT_VERSION = $$split(QT_VERSION, ".")
-QT_VER_MAJ = $$member(QT_VERSION, 0)
-QT_VER_MIN = $$member(QT_VERSION, 1)
-
-lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 2) {
-   error(LibQxt requires Qt 4.2 or newer but Qt $$[QT_VERSION] was detected.)
+lessThan(QT_MAJOR_VERSION, 4) | lessThan(QT_MINOR_VERSION, 3) {
+   error(LibQxt requires Qt 4.3 or newer but Qt $$[QT_VERSION] was detected.)
 }
 
 include(doc/doc.pri)
