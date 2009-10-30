@@ -27,7 +27,7 @@
 class QxtStringSpinBoxPrivate : public QxtPrivate<QxtStringSpinBox>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtStringSpinBox);
+    QXT_DECLARE_PUBLIC(QxtStringSpinBox)
     int startsWith(const QString& start, QString& string) const;
     QStringList strings;
 };

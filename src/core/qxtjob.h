@@ -46,7 +46,7 @@ protected:
 Q_SIGNALS:
     void done();
 private:
-    QXT_DECLARE_PRIVATE(QxtJob);
+    QXT_DECLARE_PRIVATE(QxtJob)
 Q_SIGNALS:
     ///\internal
     void subseed();

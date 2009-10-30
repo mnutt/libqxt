@@ -83,7 +83,7 @@ private Q_SLOTS:
 
 private:
     void disconnected(QIODevice* device);
-    QXT_DECLARE_PRIVATE(QxtHttpSessionManager);
+    QXT_DECLARE_PRIVATE(QxtHttpSessionManager)
 };
 
 #endif

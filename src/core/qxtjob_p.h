@@ -56,7 +56,7 @@ public:
 
     } running;
 
-    QXT_DECLARE_PUBLIC(QxtJob);
+    QXT_DECLARE_PUBLIC(QxtJob)
     QMutex mutexa;
     QWaitCondition synca;
 

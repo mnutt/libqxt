@@ -33,7 +33,7 @@ class QxtNativeEventFilter;
 class QxtApplicationPrivate : public QxtPrivate<QxtApplication>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtApplication);
+    QXT_DECLARE_PUBLIC(QxtApplication)
     QList<QxtNativeEventFilter*> nativeFilters;
 };
 

@@ -41,7 +41,7 @@ protected:
     virtual qint64 writeData(const char * data, qint64 maxSize);
     virtual void   receiveData(QByteArray data, const QxtPipe * sender);
 private:
-    QXT_DECLARE_PRIVATE(QxtDeplex);
+    QXT_DECLARE_PRIVATE(QxtDeplex)
 
 };
 

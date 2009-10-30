@@ -37,7 +37,7 @@
 
 class QxtLoggerEnginePrivate : public QxtPrivate<QxtLoggerEngine>
 {
-    QXT_DECLARE_PUBLIC(QxtLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtLoggerEngine)
 
 public:
     QxtLoggerEnginePrivate();

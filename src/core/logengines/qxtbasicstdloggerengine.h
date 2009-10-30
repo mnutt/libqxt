@@ -38,7 +38,7 @@ class QxtBasicSTDLoggerEnginePrivate;
 *******************************************************************************/
 class QXT_CORE_EXPORT QxtBasicSTDLoggerEngine : public QxtLoggerEngine
 {
-    QXT_DECLARE_PRIVATE(QxtBasicSTDLoggerEngine);
+    QXT_DECLARE_PRIVATE(QxtBasicSTDLoggerEngine)
 
 public:
     QxtBasicSTDLoggerEngine();

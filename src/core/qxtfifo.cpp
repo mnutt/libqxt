@@ -75,7 +75,7 @@ struct QxtFifoNode {
 
 class QxtFifoPrivate : public QxtPrivate<QxtFifo> {
 public:
-    QXT_DECLARE_PUBLIC(QxtFifo);
+    QXT_DECLARE_PUBLIC(QxtFifo)
     QxtFifoPrivate() {
         head = tail = new QxtFifoNode(NULL, 0);
         available = 0;

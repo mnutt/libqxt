@@ -34,7 +34,7 @@ class QxtTabWidgetPrivate : public QObject, public QxtPrivate<QxtTabWidget>
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtTabWidget);
+    QXT_DECLARE_PUBLIC(QxtTabWidget)
 
     QxtTabWidgetPrivate();
     int tabIndexAt(const QPoint& pos) const;

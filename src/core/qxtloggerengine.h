@@ -36,7 +36,7 @@ class QxtLoggerEnginePrivate;
 
 class QXT_CORE_EXPORT QxtLoggerEngine
 {
-    QXT_DECLARE_PRIVATE(QxtLoggerEngine);
+    QXT_DECLARE_PRIVATE(QxtLoggerEngine)
 
 public:
     QxtLoggerEngine();

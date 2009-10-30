@@ -44,7 +44,7 @@ protected:
     virtual qint64 writeData(const char * data, qint64 maxSize);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtFifo);
+    QXT_DECLARE_PRIVATE(QxtFifo)
 };
 
 #endif // QXTFIFO_H

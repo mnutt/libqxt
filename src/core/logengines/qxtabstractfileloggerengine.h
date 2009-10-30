@@ -33,7 +33,7 @@ class QxtAbstractFileLoggerEnginePrivate;
 
 class QXT_CORE_EXPORT QxtAbstractFileLoggerEngine : public QxtAbstractIOLoggerEngine
 {
-    QXT_DECLARE_PRIVATE(QxtAbstractFileLoggerEngine);
+    QXT_DECLARE_PRIVATE(QxtAbstractFileLoggerEngine)
 
 public:
     QxtAbstractFileLoggerEngine(const QString &fileName, QIODevice::OpenMode mode);

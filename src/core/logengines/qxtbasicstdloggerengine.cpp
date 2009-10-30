@@ -46,7 +46,7 @@
 
 class QxtBasicSTDLoggerEnginePrivate : public QxtPrivate<QxtBasicSTDLoggerEngine>
 {
-    QXT_DECLARE_PUBLIC(QxtBasicSTDLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtBasicSTDLoggerEngine)
 
 public:
     QxtBasicSTDLoggerEnginePrivate();

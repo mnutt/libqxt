@@ -45,7 +45,7 @@ public:
     bool restoreModel(const QByteArray& data, const QModelIndex& index = QModelIndex());
 
 private:
-    QXT_DECLARE_PRIVATE(QxtModelSerializer);
+    QXT_DECLARE_PRIVATE(QxtModelSerializer)
 };
 
 #endif // QXTMODELSERIALIZER_H

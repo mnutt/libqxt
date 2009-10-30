@@ -34,7 +34,7 @@ class QxtTabWidgetPrivate;
 class QXT_GUI_EXPORT QxtTabWidget : public QTabWidget
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtTabWidget);
+    QXT_DECLARE_PRIVATE(QxtTabWidget)
     Q_PROPERTY(bool alwaysShowTabBar READ alwaysShowTabBar WRITE setAlwaysShowTabBar)
     Q_PROPERTY(Qt::ContextMenuPolicy tabContextMenuPolicy READ tabContextMenuPolicy WRITE setTabContextMenuPolicy)
 

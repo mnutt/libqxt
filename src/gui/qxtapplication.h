@@ -36,7 +36,7 @@ class QxtNativeEventFilter;
 class QXT_GUI_EXPORT QxtApplication : public QApplication
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtApplication);
+    QXT_DECLARE_PRIVATE(QxtApplication)
 
 public:
     QxtApplication(int& argc, char** argv);

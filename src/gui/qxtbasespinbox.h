@@ -33,7 +33,7 @@ class QxtBaseSpinBoxPrivate;
 class QXT_GUI_EXPORT QxtBaseSpinBox : public QSpinBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtBaseSpinBox);
+    QXT_DECLARE_PRIVATE(QxtBaseSpinBox)
     Q_PROPERTY(int base READ base WRITE setBase)
     Q_PROPERTY(bool upperCase READ isUpperCase WRITE setUpperCase)
 

@@ -58,7 +58,7 @@ private Q_SLOTS:
 
 private:
     void setSessionManager(QxtHttpSessionManager* manager);
-    QXT_DECLARE_PRIVATE(QxtAbstractHttpConnector);
+    QXT_DECLARE_PRIVATE(QxtAbstractHttpConnector)
 };
 
 class QxtHttpServerConnectorPrivate;
@@ -78,7 +78,7 @@ private Q_SLOTS:
     void acceptConnection();
 
 private:
-    QXT_DECLARE_PRIVATE(QxtHttpServerConnector);
+    QXT_DECLARE_PRIVATE(QxtHttpServerConnector)
 };
 
 class QxtScgiServerConnectorPrivate;
@@ -98,7 +98,7 @@ private Q_SLOTS:
     void acceptConnection();
 
 private:
-    QXT_DECLARE_PRIVATE(QxtScgiServerConnector);
+    QXT_DECLARE_PRIVATE(QxtScgiServerConnector)
 };
 /* Commented out pending implementation
 
@@ -110,7 +110,7 @@ public:
     virtual bool listen(const QHostAddress& iface, quint16 port);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtFcgiConnector);
+    QXT_DECLARE_PRIVATE(QxtFcgiConnector)
 };
 */
 

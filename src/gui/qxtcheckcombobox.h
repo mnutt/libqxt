@@ -34,7 +34,7 @@ class QxtCheckComboBoxPrivate;
 class QXT_GUI_EXPORT QxtCheckComboBox : public QComboBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtCheckComboBox);
+    QXT_DECLARE_PRIVATE(QxtCheckComboBox)
     Q_PROPERTY(QString separator READ separator WRITE setSeparator)
     Q_PROPERTY(QString defaultText READ defaultText WRITE setDefaultText)
     Q_PROPERTY(QStringList checkedItems READ checkedItems WRITE setCheckedItems)

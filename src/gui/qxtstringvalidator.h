@@ -61,7 +61,7 @@ public:
     int lookupRole() const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtStringValidator);
+    QXT_DECLARE_PRIVATE(QxtStringValidator)
 };
 
 #endif //QXTSTRINGVALIDATOR_H_INCLUDED

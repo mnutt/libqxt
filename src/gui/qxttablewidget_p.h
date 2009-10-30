@@ -33,7 +33,7 @@ class QxtTableWidgetPrivate : public QObject, public QxtPrivate<QxtTableWidget>
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtTableWidget);
+    QXT_DECLARE_PUBLIC(QxtTableWidget)
     QxtTableWidgetPrivate();
 
 private Q_SLOTS:

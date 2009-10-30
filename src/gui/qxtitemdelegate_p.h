@@ -40,7 +40,7 @@ class QxtItemDelegatePrivate : public QObject, public QxtPrivate<QxtItemDelegate
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtItemDelegate);
+    QXT_DECLARE_PUBLIC(QxtItemDelegate)
     QxtItemDelegatePrivate();
 
     void paintButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index, const QTreeView* view) const;

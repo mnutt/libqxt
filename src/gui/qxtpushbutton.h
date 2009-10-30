@@ -34,7 +34,7 @@ class QxtPushButtonPrivate;
 class QXT_GUI_EXPORT QxtPushButton : public QPushButton
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtPushButton);
+    QXT_DECLARE_PRIVATE(QxtPushButton)
     Q_PROPERTY(Qxt::Rotation rotation READ rotation WRITE setRotation)
     Q_PROPERTY(Qt::TextFormat textFormat READ textFormat WRITE setTextFormat)
 

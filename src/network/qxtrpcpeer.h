@@ -61,6 +61,6 @@ Q_SIGNALS:
     void serverError(QAbstractSocket::SocketError);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtRPCPeer);
+    QXT_DECLARE_PRIVATE(QxtRPCPeer)
 };
 #endif

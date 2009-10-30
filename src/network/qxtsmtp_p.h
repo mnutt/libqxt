@@ -37,7 +37,7 @@ Q_OBJECT
 public:
     QxtSmtpPrivate();
 
-    QXT_DECLARE_PUBLIC(QxtSmtp);
+    QXT_DECLARE_PUBLIC(QxtSmtp)
 
     enum SmtpState {
         Disconnected,

@@ -72,7 +72,7 @@ protected:
     virtual void paintEvent(QPaintEvent* event);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtLabel);
+    QXT_DECLARE_PRIVATE(QxtLabel)
 };
 
 #endif // QXTLABEL_H

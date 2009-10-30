@@ -44,7 +44,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtCountryModel);
+    QXT_DECLARE_PRIVATE(QxtCountryModel)
 };
 
 #endif  //QXTCOUNTRYMODEL_H

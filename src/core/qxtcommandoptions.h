@@ -181,7 +181,7 @@ public:
     QString getUnrecognizedWarning() const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtCommandOptions);
+    QXT_DECLARE_PRIVATE(QxtCommandOptions)
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(QxtCommandOptions::ParamTypes)
 

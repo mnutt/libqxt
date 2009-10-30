@@ -103,6 +103,6 @@ Q_SIGNALS:
     void clientDisconnected(quint64 id);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtRPCService);
+    QXT_DECLARE_PRIVATE(QxtRPCService)
 };
 #endif

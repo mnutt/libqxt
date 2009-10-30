@@ -32,7 +32,7 @@
 class QxtStarsPrivate : public QxtPrivate<QxtStars>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtStars);
+    QXT_DECLARE_PUBLIC(QxtStars)
     QxtStarsPrivate();
     int pixelPosToRangeValue(int pos) const;
     inline int pick(const QPoint& pt) const;

@@ -58,7 +58,7 @@ class QxtConfigWidgetPrivate : public QObject, public QxtPrivate<QxtConfigWidget
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtConfigWidget);
+    QXT_DECLARE_PUBLIC(QxtConfigWidget)
 
     void init(QxtConfigWidget::IconPosition position = QxtConfigWidget::West);
     void initTable();

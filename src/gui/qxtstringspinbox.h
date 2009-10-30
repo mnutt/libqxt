@@ -33,7 +33,7 @@ class QxtStringSpinBoxPrivate;
 class QXT_GUI_EXPORT QxtStringSpinBox : public QSpinBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtStringSpinBox);
+    QXT_DECLARE_PRIVATE(QxtStringSpinBox)
     Q_PROPERTY(QStringList strings READ strings WRITE setStrings)
 
 public:

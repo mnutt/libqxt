@@ -102,7 +102,7 @@ Q_SIGNALS:
     void disconnected();
 
 private:
-    QXT_DECLARE_PRIVATE(QxtSmtp);
+    QXT_DECLARE_PRIVATE(QxtSmtp)
 };
 
 #endif // QXTSMTP_H

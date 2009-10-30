@@ -33,7 +33,7 @@ class QxtCountryComboBoxPrivate : public QObject, public QxtPrivate<QxtCountryCo
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtCountryComboBox);
+    QXT_DECLARE_PUBLIC(QxtCountryComboBox)
 
 public:
     explicit QxtCountryComboBoxPrivate();

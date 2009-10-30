@@ -33,7 +33,7 @@ class QxtLetterBoxWidgetPrivate;
 class QXT_GUI_EXPORT QxtLetterBoxWidget : public QFrame
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLetterBoxWidget);
+    QXT_DECLARE_PRIVATE(QxtLetterBoxWidget)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET clearBackgroundColor)
     Q_PROPERTY(int margin READ margin WRITE setMargin)
     Q_PROPERTY(uint resizeDelay READ resizeDelay WRITE setResizeDelay)

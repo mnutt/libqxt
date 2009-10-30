@@ -50,7 +50,7 @@
 
 class QxtXmlFileLoggerEnginePrivate : public QxtPrivate<QxtXmlFileLoggerEngine>
 {
-    QXT_DECLARE_PUBLIC(QxtXmlFileLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtXmlFileLoggerEngine)
 
 public:
     QxtXmlFileLoggerEnginePrivate();

@@ -36,7 +36,7 @@ class QxtTcpConnectionManagerPrivate : public QTcpServer, public QxtPrivate<QxtT
     Q_OBJECT
 public:
     QxtTcpConnectionManagerPrivate();
-    QXT_DECLARE_PUBLIC(QxtTcpConnectionManager);
+    QXT_DECLARE_PUBLIC(QxtTcpConnectionManager)
 
 protected:
     void incomingConnection(int socketDescriptor);

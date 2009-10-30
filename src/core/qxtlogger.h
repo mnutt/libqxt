@@ -42,7 +42,7 @@ void QxtLoggerMessageHandler(QtMsgType type, const char *msg);
 class QXT_CORE_EXPORT QxtLogger : public QObject
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLogger);
+    QXT_DECLARE_PRIVATE(QxtLogger)
 
     // Constructor & Destructor.  Made private as QxtLogger is implemented as a singleton.
     QxtLogger();

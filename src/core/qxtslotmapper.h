@@ -32,7 +32,7 @@ class QxtSlotMapperPrivate;
 
 class QXT_CORE_EXPORT QxtSlotMapper : public QObject
 {
-    QXT_DECLARE_PRIVATE(QxtSlotMapper);
+    QXT_DECLARE_PRIVATE(QxtSlotMapper)
 
 public:
     explicit QxtSlotMapper(QObject* parent = 0);

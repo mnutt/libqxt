@@ -50,7 +50,7 @@ protected:
     virtual void writeToFile(const QString &level, const QVariantList &messages);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtBasicFileLoggerEngine);
+    QXT_DECLARE_PRIVATE(QxtBasicFileLoggerEngine)
 };
 
 #endif // QXTBASICFILELOGGERENGINE_H

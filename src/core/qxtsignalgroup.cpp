@@ -64,7 +64,7 @@ signal when all batches are finished.
 class QxtSignalGroupPrivate : public QObject, public QxtPrivate<QxtSignalGroup>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtSignalGroup);
+    QXT_DECLARE_PUBLIC(QxtSignalGroup)
     QxtSignalGroupPrivate() : QObject(0)
     {
         // since we don't have a metaobject of our own due to not
