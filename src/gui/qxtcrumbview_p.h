@@ -43,7 +43,7 @@ public:
 
     void addCrumb(const QModelIndex& index); 
 
-    QXT_DECLARE_PUBLIC(QxtCrumbView);
+    QXT_DECLARE_PUBLIC(QxtCrumbView)
 
 public slots:
     void buttonPressed();

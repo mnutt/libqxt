@@ -53,7 +53,7 @@ class QXT_GUI_EXPORT QxtScheduleView : public QAbstractScrollArea
 {
     Q_OBJECT
 
-    QXT_DECLARE_PRIVATE(QxtScheduleView);
+    QXT_DECLARE_PRIVATE(QxtScheduleView)
     friend class QxtScheduleInternalItem;
     friend class QxtScheduleViewHeaderModel;
 

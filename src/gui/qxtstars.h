@@ -33,7 +33,7 @@ class QxtStarsPrivate;
 class QXT_GUI_EXPORT QxtStars : public QAbstractSlider
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtStars);
+    QXT_DECLARE_PRIVATE(QxtStars)
     Q_PROPERTY(bool readOnly READ isReadOnly WRITE setReadOnly)
     Q_PROPERTY(QSize starSize READ starSize WRITE setStarSize)
 

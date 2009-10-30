@@ -32,7 +32,7 @@ class QxtStdioPrivate;
 class QXT_CORE_EXPORT QxtStdio : public QxtPipe
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtStdio);
+    QXT_DECLARE_PRIVATE(QxtStdio)
 public:
     /**constructs a QxtStdio with the given parent*/
     QxtStdio(QObject * parent = 0);

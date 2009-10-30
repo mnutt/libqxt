@@ -35,7 +35,7 @@
 
 class QxtAbstractFileLoggerEnginePrivate : public QxtPrivate<QxtAbstractFileLoggerEngine>
 {
-    QXT_DECLARE_PUBLIC(QxtAbstractFileLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtAbstractFileLoggerEngine)
 
 public:
     QString logFile;

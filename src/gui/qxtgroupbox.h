@@ -33,7 +33,7 @@ class QxtGroupBoxPrivate;
 class QXT_GUI_EXPORT QxtGroupBox : public QGroupBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtGroupBox);
+    QXT_DECLARE_PRIVATE(QxtGroupBox)
     Q_PROPERTY(bool collapsive READ isCollapsive WRITE setCollapsive)
 
 public:

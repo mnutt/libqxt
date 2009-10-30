@@ -63,7 +63,7 @@ public:
     void refresh();
 
 private:
-    QXT_DECLARE_PRIVATE(QxtScreen);
+    QXT_DECLARE_PRIVATE(QxtScreen)
 };
 
 #endif // QXTSCREEN_H

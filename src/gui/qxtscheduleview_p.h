@@ -105,7 +105,7 @@ class QxtScheduleViewPrivate : public QObject, public QxtPrivate<QxtScheduleView
     Q_OBJECT
 public:
 
-    QXT_DECLARE_PUBLIC(QxtScheduleView);
+    QXT_DECLARE_PUBLIC(QxtScheduleView)
     QxtScheduleViewPrivate();
 
 

@@ -27,7 +27,7 @@
 class QxtHeaderViewPrivate : public QxtPrivate<QxtHeaderView>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtHeaderView);
+    QXT_DECLARE_PUBLIC(QxtHeaderView)
 
     QxtHeaderViewPrivate();
 

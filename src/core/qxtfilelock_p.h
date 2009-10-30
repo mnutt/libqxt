@@ -37,7 +37,7 @@ class QxtFileLockPrivate : public QxtPrivate<QxtFileLock>
 {
 public:
     QxtFileLockPrivate();
-    QXT_DECLARE_PUBLIC(QxtFileLock);
+    QXT_DECLARE_PUBLIC(QxtFileLock)
 
     off_t offset;
     off_t length;

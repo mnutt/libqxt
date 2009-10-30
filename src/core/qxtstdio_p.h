@@ -33,7 +33,7 @@ class QxtStdioPrivate : public QObject, public QxtPrivate<QxtStdio>
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtStdio);
+    QXT_DECLARE_PUBLIC(QxtStdio)
     QxtStdioPrivate()
     {
         notify = 0;

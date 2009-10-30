@@ -53,7 +53,7 @@ protected:
     virtual void indexRequested(QxtWebRequestEvent* event);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtWebServiceDirectory);
+    QXT_DECLARE_PRIVATE(QxtWebServiceDirectory)
 };
 
 #endif // QXTWEBSERVICEDIRECTORY_H

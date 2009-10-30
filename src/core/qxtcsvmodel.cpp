@@ -91,7 +91,7 @@ class QxtCsvModelPrivate : public QxtPrivate<QxtCsvModel>
 public:
     QxtCsvModelPrivate() : csvData(), header(), maxColumn(0)
     {}
-    QXT_DECLARE_PUBLIC(QxtCsvModel);
+    QXT_DECLARE_PUBLIC(QxtCsvModel)
 
     QStringList csvData;
     QStringList header;

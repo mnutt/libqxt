@@ -52,7 +52,7 @@ public:
     virtual void pageRequestedEvent(QxtWebRequestEvent* event);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtWebCgiService);
+    QXT_DECLARE_PRIVATE(QxtWebCgiService)
 };
 
 #endif // QXTWEBCGISERVICE_H

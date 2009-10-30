@@ -27,7 +27,7 @@
 class QxtBaseSpinBoxPrivate : public QxtPrivate<QxtBaseSpinBox>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtBaseSpinBox);
+    QXT_DECLARE_PUBLIC(QxtBaseSpinBox)
     QxtBaseSpinBoxPrivate();
 
     int base;

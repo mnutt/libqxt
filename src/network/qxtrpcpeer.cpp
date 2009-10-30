@@ -30,7 +30,7 @@
 class QxtRPCPeerPrivate : public QxtPrivate<QxtRPCPeer>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtRPCPeer);
+    QXT_DECLARE_PUBLIC(QxtRPCPeer)
 
     QTcpSocket* getTcpSocket()
     {

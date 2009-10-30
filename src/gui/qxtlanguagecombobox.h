@@ -35,7 +35,7 @@ class QxtLanguageComboBoxPrivate;
 class QXT_GUI_EXPORT QxtLanguageComboBox : public QComboBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtLanguageComboBox);
+    QXT_DECLARE_PRIVATE(QxtLanguageComboBox)
     Q_PROPERTY(QString currentLanguageName READ currentLanguageName)
 #if QT_VERSION >= 0x040300
     Q_PROPERTY(QLocale::Language currentLanguage READ currentLanguage WRITE setCurrentLanguage)

@@ -35,7 +35,7 @@ static const int Vertical_Mask = 0x02;
 class QxtPushButtonPrivate : public QxtPrivate<QxtPushButton>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtPushButton);
+    QXT_DECLARE_PUBLIC(QxtPushButton)
     QxtPushButtonPrivate();
 
     bool isRichText() const;

@@ -88,7 +88,7 @@ protected:
     virtual qint64 writeData(const char* data, qint64 maxSize);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtSerialDevice);
+    QXT_DECLARE_PRIVATE(QxtSerialDevice)
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(QxtSerialDevice::PortSettings);

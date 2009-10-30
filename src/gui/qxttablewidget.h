@@ -34,7 +34,7 @@ class QxtTableWidgetPrivate;
 class QXT_GUI_EXPORT QxtTableWidget : public QTableWidget
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtTableWidget);
+    QXT_DECLARE_PRIVATE(QxtTableWidget)
     friend class QxtTableWidgetItem;
 
 public:

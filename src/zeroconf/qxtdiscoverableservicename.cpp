@@ -14,7 +14,7 @@
 class QxtDiscoverableServiceNamePrivate : public QxtPrivate<QxtDiscoverableServiceName>
 {
 public:
-	QXT_DECLARE_PUBLIC(QxtDiscoverableServiceName);
+	QXT_DECLARE_PUBLIC(QxtDiscoverableServiceName)
 	QString name;
 	QString domain;
 	QAbstractSocket::SocketType socketType;

@@ -54,7 +54,7 @@ protected Q_SLOTS:
     virtual void processEvents() = 0;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtAbstractWebSessionManager);
+    QXT_DECLARE_PRIVATE(QxtAbstractWebSessionManager)
 };
 
 #endif // QXTABSTRACTWEBSESSIONMANAGER_H

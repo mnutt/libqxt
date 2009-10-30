@@ -33,7 +33,7 @@
 class QxtGlobalShortcutPrivate : public QxtPrivate<QxtGlobalShortcut>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtGlobalShortcut);
+    QXT_DECLARE_PUBLIC(QxtGlobalShortcut)
     QxtGlobalShortcutPrivate();
     ~QxtGlobalShortcutPrivate();
 

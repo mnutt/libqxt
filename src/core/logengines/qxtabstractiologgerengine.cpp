@@ -35,7 +35,7 @@
 
 class QxtAbstractIOLoggerEnginePrivate : public QxtPrivate<QxtAbstractIOLoggerEngine>
 {
-    QXT_DECLARE_PUBLIC(QxtAbstractIOLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtAbstractIOLoggerEngine)
 
 public:
     QxtAbstractIOLoggerEnginePrivate();

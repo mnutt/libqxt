@@ -9,7 +9,7 @@ class QxtDiscoverableServicePrivate : public QObject, public QxtPrivate<QxtDisco
 {
 Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtDiscoverableService);
+    QXT_DECLARE_PUBLIC(QxtDiscoverableService)
     QxtDiscoverableServicePrivate()
     {
         port = 0;

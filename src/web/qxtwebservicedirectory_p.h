@@ -35,7 +35,7 @@ class QxtWebServiceDirectoryPrivate : public QObject, public QxtPrivate<QxtWebSe
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtWebServiceDirectory);
+    QXT_DECLARE_PUBLIC(QxtWebServiceDirectory)
     QxtWebServiceDirectoryPrivate();
 
     QHash<QString, QxtAbstractWebService*> services;

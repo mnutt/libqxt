@@ -29,7 +29,7 @@
 class QxtGroupBoxPrivate : public QxtPrivate<QxtGroupBox>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtGroupBox);
+    QXT_DECLARE_PUBLIC(QxtGroupBox)
 
     QxtGroupBoxPrivate();
     bool collapsive;

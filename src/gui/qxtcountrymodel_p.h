@@ -31,7 +31,7 @@ class QxtCountryModelPrivate : public QObject, public QxtPrivate<QxtCountryModel
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtCountryModel);
+    QXT_DECLARE_PUBLIC(QxtCountryModel)
 
 public:
     explicit QxtCountryModelPrivate();

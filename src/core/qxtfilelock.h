@@ -68,7 +68,7 @@ public Q_SLOTS:
 
 private:
     QxtFileLock(const QxtFileLock &other);
-    QXT_DECLARE_PRIVATE(QxtFileLock);
+    QXT_DECLARE_PRIVATE(QxtFileLock)
 };
 
 #endif // QXTFILELOCK_H

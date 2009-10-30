@@ -36,7 +36,7 @@ class QxtDeplexPrivate: public QObject, public QxtPrivate<QxtDeplex>
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtDeplex);
+    QXT_DECLARE_PUBLIC(QxtDeplex)
     QIODevice * delegate;
 public Q_SLOTS:
     void readyRead();

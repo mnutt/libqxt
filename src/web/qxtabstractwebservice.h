@@ -47,7 +47,7 @@ public:
     // virtual void functionInvokedEvent(QxtWebRequestEvent* event) = 0; // todo: implement
 
 private:
-    QXT_DECLARE_PRIVATE(QxtAbstractWebService);
+    QXT_DECLARE_PRIVATE(QxtAbstractWebService)
 };
 
 #endif // QXTABSTRACTWEBSERVICE_H

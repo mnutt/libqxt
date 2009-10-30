@@ -30,7 +30,7 @@
 class QxtProgressLabelPrivate : public QxtPrivate<QxtProgressLabel>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtProgressLabel);
+    QXT_DECLARE_PUBLIC(QxtProgressLabel)
     QxtProgressLabelPrivate();
 
     QTime start;

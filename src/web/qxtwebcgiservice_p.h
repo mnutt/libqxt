@@ -51,7 +51,7 @@ class QxtWebCgiServicePrivate : public QObject, public QxtPrivate<QxtWebCgiServi
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtWebCgiService);
+    QXT_DECLARE_PUBLIC(QxtWebCgiService)
 
     QHash<QProcess*, QxtCgiRequestInfo> requests;
     QHash<QxtWebContent*, QProcess*> processes;
