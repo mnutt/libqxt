@@ -93,7 +93,7 @@ namespace QxtMetaObject
                            const QVariant& arg4 = QVariant(), const QVariant& arg5 = QVariant(),
                            const QVariant& arg6 = QVariant(), const QVariant& arg7 = QVariant(),
                            const QVariant& arg8 = QVariant(), const QVariant& arg9 = QVariant());
-};
+}
 
 /*!
  * \relates QxtMetaObject
