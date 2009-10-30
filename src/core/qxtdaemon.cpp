@@ -148,7 +148,7 @@ return true on success
 */
 bool QxtDaemon::daemonize(bool pidfile)
 {
-#ifdef Q_OS_UNIX
+#if defined(Q_OS_UNIX) && !defined(Q_OS_SYMBIAN)
     if (!logfile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
         qFatal("cannot open logfile %s", qPrintable(logfile->fileName()));
     logfile->close();

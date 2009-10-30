@@ -55,7 +55,7 @@ astyle.commands = astyle $$astyle.params $$HEADERS $$SOURCES
 QMAKE_EXTRA_TARGETS += astyle
 
 # cannot use .moc/.obj with gcov ("cannot open graph file")
-!contains(CONFIG, coverage) {
+!symbian:!contains(CONFIG, coverage) {
     CONFIG(debug, debug|release) {
         MOC_DIR          = debug/.moc
         OBJECTS_DIR      = debug/.obj

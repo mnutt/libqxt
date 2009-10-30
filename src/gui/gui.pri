@@ -106,9 +106,9 @@ SOURCES  += qxtscheduleheaderwidget.cpp
 
 SOURCES  += qxtsortfilterproxymodel.cpp
 
-!qws {
+!qws:!symbian {
     # QxtApplication, QxtGlobalShortcut, QxtScreen and
-    # QxtWindowSystem are disabled for QWS pending implementation
+    # QxtWindowSystem are disabled for QWS/Symbian pending implementation
     HEADERS  += qxtapplication.h
     HEADERS  += qxtapplication_p.h
     HEADERS  += qxtglobalshortcut.h
