@@ -3,5 +3,5 @@
 ######################################################################
 
 TEMPLATE = subdirs
-SUBDIRS += berkeley ircpeer qxtflowview # country web
+SUBDIRS += berkeley ircpeer qxtflowview zeroconf # country web
 !macx: SUBDIRS += displaysettings
