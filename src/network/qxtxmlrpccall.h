@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,15 +22,40 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
+#ifndef QXTXMLRPCRESPONSE_H
+#define QXTXMLRPCRESPONSE_H
 
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include <QObject>
+#include <QVariant>
+#include <QString>
+#include <QNetworkReply>
+#include "qxtglobal.h"
+#include <memory>
 
-#endif // QXTNETWORK_H_INCLUDED
+class QxtXmlRpcCallPrivate;
+class QXT_NETWORK_EXPORT QxtXmlRpcCall : public QObject
+{
+ Q_OBJECT
+ public:
+    bool isFault() const;
+    QVariantMap fault() const;
+    QVariant result() const;
+
+ signals:
+    void downloadProgress ( qint64 bytesReceived, qint64 bytesTotal );
+    void error ( QNetworkReply::NetworkError code );
+    void finished ();
+    void sslErrors ( const QList<QSslError> & errors );
+    void uploadProgress ( qint64 bytesSent, qint64 bytesTotal );
+
+ protected:
+    QxtXmlRpcCall(QNetworkReply * reply);
+    friend class QxtXmlRpcClient;
+ private:
+    friend class QxtXmlRpcCallPrivate;
+    std::auto_ptr<QxtXmlRpcCallPrivate> d;
+    Q_PRIVATE_SLOT( d, void d_finished() );
+};
+
+#endif
+

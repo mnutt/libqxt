@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,15 +22,35 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
+#ifndef QXTXMLRPCCLIENT_H
+#define QXTXMLRPCCLIENT_H
 
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include <QObject>
+#include <QVariantList>
+#include <QString>
+#include <QUrl>
+#include "qxtglobal.h"
+#include <memory>
 
-#endif // QXTNETWORK_H_INCLUDED
+class QxtXmlRpcCall;
+class QNetworkAccessManager;
+class QXT_NETWORK_EXPORT QxtXmlRpcClient : public QObject
+{
+ Q_OBJECT
+ public:
+    QxtXmlRpcClient(QObject * parent);
+
+    QUrl serviceUri() const;
+    void setServiceUri(QUrl uri);
+
+    QNetworkAccessManager * networkManager() const;
+    void setNetworkManager(QNetworkAccessManager * manager);
+
+    QxtXmlRpcCall * call(QString method,QVariantList arguments);
+
+ private:
+    struct Private;
+    const std::auto_ptr<Private> d;
+};
+
+#endif
