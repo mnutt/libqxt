@@ -197,9 +197,9 @@ Q_SIGNALS:
     void loggerEngineEnabled(const QString& engineName);
     void loggerEngineDisabled(const QString& engineName);
 };
-Q_DECLARE_OPERATORS_FOR_FLAGS(QxtLogger::LogLevels);
-Q_DECLARE_METATYPE(QxtLogger::LogLevel);
-Q_DECLARE_METATYPE(QxtLogger::LogLevels);
+Q_DECLARE_OPERATORS_FOR_FLAGS(QxtLogger::LogLevels)
+Q_DECLARE_METATYPE(QxtLogger::LogLevel)
+Q_DECLARE_METATYPE(QxtLogger::LogLevels)
 
 #define qxtLog QxtLogger::getInstance()
 
