@@ -16,8 +16,6 @@ HEADERS  += qxtdeplex.h
 HEADERS  += qxtdeplex_p.h
 HEADERS  += qxterror.h
 HEADERS  += qxtfifo.h
-HEADERS  += qxtfilelock.h
-HEADERS  += qxtfilelock_p.h
 HEADERS  += qxtglobal.h
 HEADERS  += qxthmac.h
 HEADERS  += qxtjob.h
@@ -44,8 +42,6 @@ HEADERS  += qxtpimpl.h
 HEADERS  += qxtpipe.h
 HEADERS  += qxtpipe_p.h
 HEADERS  += qxtpointerlist.h
-unix:HEADERS  += qxtserialdevice.h
-unix:HEADERS  += qxtserialdevice_p.h
 HEADERS  += qxtsharedprivate.h
 HEADERS  += qxtsignalgroup.h
 HEADERS  += qxtsignalwaiter.h
@@ -68,9 +64,6 @@ SOURCES  += qxtdatastreamsignalserializer.cpp
 SOURCES  += qxtdeplex.cpp
 SOURCES  += qxterror.cpp
 SOURCES  += qxtfifo.cpp
-SOURCES  += qxtfilelock.cpp
-unix:SOURCES  += qxtfilelock_unix.cpp
-win32:SOURCES  += qxtfilelock_win.cpp
 SOURCES  += qxtglobal.cpp
 SOURCES  += qxthmac.cpp
 SOURCES  += qxtlocale.cpp
@@ -86,8 +79,6 @@ SOURCES  += qxtmultisignalwaiter.cpp
 SOURCES  += qxtnull.cpp
 SOURCES  += qxtpipe.cpp
 SOURCES  += qxtpointerlist.cpp
-unix:SOURCES  += qxtserialdevice.cpp
-unix:SOURCES  += qxtserialdevice_unix.cpp
 SOURCES  += qxtsignalgroup.cpp
 SOURCES  += qxtsignalwaiter.cpp
 SOURCES  += qxtslotjob.cpp
@@ -96,3 +87,26 @@ SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
 SOURCES  += qxttimer.cpp
 SOURCES  += qxtrpcservice.cpp
+
+!symbian {
+    # QxtSerialDevice and QxtFileLock
+    # are disabled for Symbian pending implementation
+
+    HEADERS  += qxtfilelock.h
+    HEADERS  += qxtfilelock_p.h
+
+    SOURCES  += qxtfilelock.cpp
+
+    unix {
+        HEADERS  += qxtserialdevice.h
+        HEADERS  += qxtserialdevice_p.h
+
+        SOURCES  += qxtfilelock_unix.cpp
+        SOURCES  += qxtserialdevice.cpp
+        SOURCES  += qxtserialdevice_unix.cpp
+    }
+    
+    win32 {
+        SOURCES  += qxtfilelock_win.cpp
+    }
+}
