@@ -53,7 +53,7 @@ class QxtAbstractConnectionManagerPrivate : public QxtPrivate<QxtAbstractConnect
 public:
     QHash<quint64, QIODevice*> clients;
 
-    QXT_DECLARE_PUBLIC(QxtAbstractConnectionManager);
+    QXT_DECLARE_PUBLIC(QxtAbstractConnectionManager)
 };
 
 /*!

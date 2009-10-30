@@ -44,7 +44,7 @@
 class QxtBasicFileLoggerEnginePrivate : public QxtPrivate<QxtBasicFileLoggerEngine>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtBasicFileLoggerEngine);
+    QXT_DECLARE_PUBLIC(QxtBasicFileLoggerEngine)
     QString dateFormat;
 };
 

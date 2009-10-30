@@ -38,7 +38,7 @@ class QxtAbstractWebSessionManagerPrivate : public QObject, public QxtPrivate<Qx
     Q_OBJECT
 public:
     QxtAbstractWebSessionManagerPrivate();
-    QXT_DECLARE_PUBLIC(QxtAbstractWebSessionManager);
+    QXT_DECLARE_PUBLIC(QxtAbstractWebSessionManager)
 
     QxtAbstractWebSessionManager::ServiceFactory* factory;
     QHash<int, QxtAbstractWebService*> sessions;

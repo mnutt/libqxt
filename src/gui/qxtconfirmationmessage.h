@@ -34,12 +34,12 @@ class QxtConfirmationMessagePrivate;
 class QXT_GUI_EXPORT QxtConfirmationMessage : public QMessageBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtConfirmationMessage);
-    Q_PROPERTY(QString confirmationText READ confirmationText WRITE setConfirmationText);
-    Q_PROPERTY(QString overrideSettingsApplication READ overrideSettingsApplication WRITE setOverrideSettingsApplication);
-    Q_PROPERTY(QString overrideSettingsKey READ overrideSettingsKey WRITE setOverrideSettingsKey);
-    Q_PROPERTY(QString overrideSettingsOrganization READ overrideSettingsOrganization WRITE setOverrideSettingsOrganization);
-    Q_PROPERTY(bool rememberOnReject READ rememberOnReject WRITE setRememberOnReject);
+    QXT_DECLARE_PRIVATE(QxtConfirmationMessage)
+    Q_PROPERTY(QString confirmationText READ confirmationText WRITE setConfirmationText)
+    Q_PROPERTY(QString overrideSettingsApplication READ overrideSettingsApplication WRITE setOverrideSettingsApplication)
+    Q_PROPERTY(QString overrideSettingsKey READ overrideSettingsKey WRITE setOverrideSettingsKey)
+    Q_PROPERTY(QString overrideSettingsOrganization READ overrideSettingsOrganization WRITE setOverrideSettingsOrganization)
+    Q_PROPERTY(bool rememberOnReject READ rememberOnReject WRITE setRememberOnReject)
 
 public:
     explicit QxtConfirmationMessage(QWidget* parent = 0);

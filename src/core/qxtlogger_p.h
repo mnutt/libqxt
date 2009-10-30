@@ -38,7 +38,7 @@ QT_FORWARD_DECLARE_CLASS(QMutex)
 class QxtLoggerPrivate : public QObject, public QxtPrivate<QxtLogger>
 {
     Q_OBJECT
-    QXT_DECLARE_PUBLIC(QxtLogger);
+    QXT_DECLARE_PUBLIC(QxtLogger)
 public:
     QxtLoggerPrivate();
     ~QxtLoggerPrivate();

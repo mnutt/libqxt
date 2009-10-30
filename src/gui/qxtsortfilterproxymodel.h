@@ -59,7 +59,7 @@ protected:
     virtual bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtSortFilterProxyModel);
+    QXT_DECLARE_PRIVATE(QxtSortFilterProxyModel)
 };
 
 #endif // QXTSORTFILTERPROXYMODEL_H

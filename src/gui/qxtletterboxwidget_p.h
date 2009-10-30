@@ -33,7 +33,7 @@ class QxtLetterBoxWidgetPrivate : public QObject, public QxtPrivate<QxtLetterBox
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtLetterBoxWidget);
+    QXT_DECLARE_PUBLIC(QxtLetterBoxWidget)
 
     QxtLetterBoxWidgetPrivate();
 

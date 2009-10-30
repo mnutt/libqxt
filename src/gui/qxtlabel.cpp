@@ -34,7 +34,7 @@ static const int Vertical_Mask = 0x02;
 class QxtLabelPrivate : public QxtPrivate<QxtLabel>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtLabel);
+    QXT_DECLARE_PUBLIC(QxtLabel)
 
     void init(const QString& txt = QString());
     void updateLabel();

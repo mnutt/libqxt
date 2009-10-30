@@ -35,7 +35,7 @@ class QxtStringValidatorPrivate : public QxtPrivate<QxtStringValidator>
 {
 public:
     QxtStringValidatorPrivate();
-    QXT_DECLARE_PUBLIC(QxtStringValidator);
+    QXT_DECLARE_PUBLIC(QxtStringValidator)
 
     bool isUserModel;
     QPointer<QAbstractItemModel> model;

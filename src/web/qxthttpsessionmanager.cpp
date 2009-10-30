@@ -81,7 +81,7 @@ public:
 
     QxtHttpSessionManagerPrivate() : iface(QHostAddress::Any), port(80), sessionCookieName("sessionID"), connector(0), staticService(0), autoCreateSession(true),
                 eventLock(QMutex::Recursive), sessionLock(QMutex::Recursive) {}
-    QXT_DECLARE_PUBLIC(QxtHttpSessionManager);
+    QXT_DECLARE_PUBLIC(QxtHttpSessionManager)
 
     QHostAddress iface;
     quint16 port;

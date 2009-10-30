@@ -57,7 +57,7 @@ private Q_SLOTS:
     void errorReceived(QAbstractSocket::SocketError);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtWebContent);
+    QXT_DECLARE_PRIVATE(QxtWebContent)
 };
 
 #endif // QXTWEBCONTENT_H

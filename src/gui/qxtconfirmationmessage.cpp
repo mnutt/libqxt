@@ -36,7 +36,7 @@ static const QLatin1String DEFAULT_APPLICATION("QxtConfirmationMessage");
 class QxtConfirmationMessagePrivate : public QxtPrivate<QxtConfirmationMessage>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtConfirmationMessage);
+    QXT_DECLARE_PUBLIC(QxtConfirmationMessage)
     void init(const QString& message = QString());
 
     QString key() const;

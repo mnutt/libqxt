@@ -37,7 +37,7 @@ class QxtSpanSliderPrivate : public QObject, public QxtPrivate<QxtSpanSlider>
     Q_OBJECT
 
 public:
-    QXT_DECLARE_PUBLIC(QxtSpanSlider);
+    QXT_DECLARE_PUBLIC(QxtSpanSlider)
 
     enum SpanHandle
     {

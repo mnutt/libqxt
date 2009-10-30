@@ -35,7 +35,7 @@ class QxtConfigDialogPrivate;
 class QXT_GUI_EXPORT QxtConfigDialog : public QDialog
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtConfigDialog);
+    QXT_DECLARE_PRIVATE(QxtConfigDialog)
 
 public:
     explicit QxtConfigDialog(QWidget* parent = 0, Qt::WindowFlags flags = 0);

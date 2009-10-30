@@ -33,7 +33,7 @@ class QxtGlobalShortcutPrivate;
 class QXT_GUI_EXPORT QxtGlobalShortcut : public QObject
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtGlobalShortcut);
+    QXT_DECLARE_PRIVATE(QxtGlobalShortcut)
     Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
     Q_PROPERTY(QKeySequence shortcut READ shortcut WRITE setShortcut)
 

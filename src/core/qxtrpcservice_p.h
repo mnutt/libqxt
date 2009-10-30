@@ -39,7 +39,7 @@ class QxtRPCServicePrivate : public QObject, public QxtPrivate<QxtRPCService>
     Q_OBJECT
 public:
     QxtRPCServicePrivate();
-    QXT_DECLARE_PUBLIC(QxtRPCService);
+    QXT_DECLARE_PUBLIC(QxtRPCService)
 
     QxtRPCServiceIntrospector* introspector;
     QxtAbstractConnectionManager* manager;

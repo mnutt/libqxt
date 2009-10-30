@@ -37,7 +37,7 @@ class QxtConfigDialogPrivate : public QObject, public QxtPrivate<QxtConfigDialog
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtConfigDialog);
+    QXT_DECLARE_PUBLIC(QxtConfigDialog)
 
     void init( QxtConfigWidget::IconPosition pos );
     QDialogButtonBox* buttons;

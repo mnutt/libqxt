@@ -51,7 +51,7 @@ protected:
     virtual void newLine(const QByteArray& line);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtLineSocket);
+    QXT_DECLARE_PRIVATE(QxtLineSocket)
 };
 
 #endif // QXTLINESOCKET_H

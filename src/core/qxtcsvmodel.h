@@ -69,7 +69,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtCsvModel);
+    QXT_DECLARE_PRIVATE(QxtCsvModel)
 };
 
 #endif

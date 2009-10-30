@@ -73,7 +73,7 @@ the associated session.
 class QxtAbstractWebServicePrivate : public QxtPrivate<QxtAbstractWebService>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtAbstractWebService);
+    QXT_DECLARE_PUBLIC(QxtAbstractWebService)
     QxtAbstractWebServicePrivate() {}
 
     QxtAbstractWebSessionManager* manager;

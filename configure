@@ -261,5 +261,5 @@ fi
 # run qmake
 echo "Autodetection finished. Running qmake."
 cd  $QXT_BUILD_TREE
-$QMAKE_BIN $QMAKE_PARAMS "$QXT_SOURCE_TREE/libqxt.pro" -recursive 2>>$CONFIG_LOG
+$QMAKE_BIN $QMAKE_PARAMS "$QXT_SOURCE_TREE/libqxt.pro" -recursive >>$CONFIG_LOG
 echo -e >&2 "${C_CYAN}Configure finished. Run $MAKE now.${C_NONE}\n"

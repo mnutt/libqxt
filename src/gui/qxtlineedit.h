@@ -49,7 +49,7 @@ protected:
     virtual void paintEvent(QPaintEvent* event);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtLineEdit);
+    QXT_DECLARE_PRIVATE(QxtLineEdit)
 };
 
 #endif // QXTLINEEDIT_H

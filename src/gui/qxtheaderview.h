@@ -33,7 +33,7 @@ class QxtHeaderViewPrivate;
 class QXT_GUI_EXPORT QxtHeaderView : public QHeaderView
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtHeaderView);
+    QXT_DECLARE_PRIVATE(QxtHeaderView)
     Q_PROPERTY(bool proportionalSectionSizes READ hasProportionalSectionSizes WRITE setProportionalSectionSizes)
 
 public:

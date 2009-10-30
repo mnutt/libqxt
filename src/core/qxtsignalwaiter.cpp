@@ -60,7 +60,7 @@ timed out or successfully caught its signal.
 class QxtSignalWaiterPrivate : public QxtPrivate<QxtSignalWaiter>
 {
 public:
-    QXT_DECLARE_PUBLIC(QxtSignalWaiter);
+    QXT_DECLARE_PUBLIC(QxtSignalWaiter)
 
     QxtSignalWaiterPrivate()
     {

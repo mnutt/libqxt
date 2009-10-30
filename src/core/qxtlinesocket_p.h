@@ -31,7 +31,7 @@
 class QxtLineSocketPrivate : public QObject, public QxtPrivate<QxtLineSocket>
 {
     Q_OBJECT
-    QXT_DECLARE_PUBLIC(QxtLineSocket);
+    QXT_DECLARE_PUBLIC(QxtLineSocket)
 
 public:
     QxtLineSocketPrivate() : socket(0)

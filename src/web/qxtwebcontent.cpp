@@ -49,7 +49,7 @@ class QxtWebContentPrivate : public QxtPrivate<QxtWebContent>
 {
 public:
     QxtWebContentPrivate() : ignoreRemaining(false) {}
-    QXT_DECLARE_PUBLIC(QxtWebContent);
+    QXT_DECLARE_PUBLIC(QxtWebContent)
 
     void init(int contentLength, const QByteArray& start, QIODevice* device)
     {

@@ -34,7 +34,7 @@ class QxtListWidgetPrivate;
 class QXT_GUI_EXPORT QxtListWidget : public QListWidget
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtListWidget);
+    QXT_DECLARE_PRIVATE(QxtListWidget)
     friend class QxtListWidgetItem;
 
 public:

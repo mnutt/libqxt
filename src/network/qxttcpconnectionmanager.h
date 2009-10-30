@@ -50,7 +50,7 @@ protected:
     virtual void removeConnection(QIODevice* device, quint64 clientID);
 
 private:
-    QXT_DECLARE_PRIVATE(QxtTcpConnectionManager);
+    QXT_DECLARE_PRIVATE(QxtTcpConnectionManager)
 };
 
 #endif

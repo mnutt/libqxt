@@ -36,7 +36,7 @@ class QxtConfigWidgetPrivate;
 class QXT_GUI_EXPORT QxtConfigWidget : public QWidget
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtConfigWidget);
+    QXT_DECLARE_PRIVATE(QxtConfigWidget)
     Q_PROPERTY(int count READ count)
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex)
     Q_PROPERTY(bool hoverEffect READ hasHoverEffect WRITE setHoverEffect)

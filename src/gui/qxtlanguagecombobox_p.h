@@ -33,7 +33,7 @@ class QxtLanguageComboBoxPrivate : public QObject, public QxtPrivate<QxtLanguage
 {
     Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtLanguageComboBox);
+    QXT_DECLARE_PUBLIC(QxtLanguageComboBox)
 
 public:
     explicit QxtLanguageComboBoxPrivate();

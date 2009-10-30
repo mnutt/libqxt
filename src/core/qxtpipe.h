@@ -55,7 +55,7 @@ protected:
     void   sendData(QByteArray data) const;
     void   enqueData(QByteArray data);
 private:
-    QXT_DECLARE_PRIVATE(QxtPipe);
+    QXT_DECLARE_PRIVATE(QxtPipe)
 
 };
 

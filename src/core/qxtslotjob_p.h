@@ -37,7 +37,7 @@ public:
     QVariant r;
     QThread * orginalthread;
     QObject * receiver;
-    QXT_DECLARE_PUBLIC(QxtSlotJob);
+    QXT_DECLARE_PUBLIC(QxtSlotJob)
 };
 
 #endif // QXTSLOTJOB_P_H

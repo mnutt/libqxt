@@ -34,7 +34,7 @@ class QxtSpanSliderPrivate;
 class QXT_GUI_EXPORT QxtSpanSlider : public QSlider
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtSpanSlider);
+    QXT_DECLARE_PRIVATE(QxtSpanSlider)
     Q_PROPERTY(int lowerValue READ lowerValue WRITE setLowerValue)
     Q_PROPERTY(int upperValue READ upperValue WRITE setUpperValue)
     Q_PROPERTY(int lowerPosition READ lowerPosition WRITE setLowerPosition)

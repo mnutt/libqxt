@@ -10,7 +10,7 @@ class QxtServiceBrowserPrivate : public QObject, public QxtPrivate<QxtServiceBro
 {
 Q_OBJECT
 public:
-    QXT_DECLARE_PUBLIC(QxtServiceBrowser);
+    QXT_DECLARE_PUBLIC(QxtServiceBrowser)
     QxtServiceBrowserPrivate() {
         notifier = 0;
         iface = 0;

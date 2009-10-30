@@ -33,7 +33,7 @@ class QxtProgressLabelPrivate;
 class QXT_GUI_EXPORT QxtProgressLabel : public QLabel
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtProgressLabel);
+    QXT_DECLARE_PRIVATE(QxtProgressLabel)
     Q_PROPERTY(QString contentFormat READ contentFormat WRITE setContentFormat)
     Q_PROPERTY(QString timeFormat READ timeFormat WRITE setTimeFormat)
     Q_PROPERTY(int updateInterval READ updateInterval WRITE setUpdateInterval)

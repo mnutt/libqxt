@@ -114,7 +114,7 @@ QXT_DECLARE_PRIVATE macro in the private section of the public class. In the
 example above, the private class is connected as follows:
 \code
 private:
-    QXT_DECLARE_PRIVATE(MyTest);
+    QXT_DECLARE_PRIVATE(MyTest)
 \endcode
 
 Additionally, you must include the QXT_INIT_PRIVATE macro in the public class's
@@ -141,7 +141,7 @@ parameter should be the name of the public class. For example:
 class MyTestPrivate : public QxtPrivate<MyTest> {
 public:
     MyTestPrivate();
-    QXT_DECLARE_PUBLIC(MyTest);
+    QXT_DECLARE_PUBLIC(MyTest)
 };
 \endcode
 

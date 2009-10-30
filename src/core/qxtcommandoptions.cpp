@@ -140,7 +140,7 @@ class QxtCommandOptionsPrivate : public QxtPrivate<QxtCommandOptions>
 {
     Q_DECLARE_TR_FUNCTIONS(QxtCommandOptions)
 public:
-    QXT_DECLARE_PUBLIC(QxtCommandOptions);
+    QXT_DECLARE_PUBLIC(QxtCommandOptions)
 
     QList<QxtCommandOption> options;
     QHash<QString, QxtCommandOption*> lookup;       // cache structure to simplify processing

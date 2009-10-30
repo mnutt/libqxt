@@ -35,7 +35,7 @@ class QxtCountryComboBoxPrivate;
 class QXT_GUI_EXPORT QxtCountryComboBox : public QComboBox
 {
     Q_OBJECT
-    QXT_DECLARE_PRIVATE(QxtCountryComboBox);
+    QXT_DECLARE_PRIVATE(QxtCountryComboBox)
     Q_PROPERTY(QString currentCountryName READ currentCountryName)
 #if QT_VERSION >= 0x040300
     Q_PROPERTY(QLocale::Country currentCountry READ currentCountry WRITE setCurrentCountry)
