@@ -11,7 +11,6 @@ HEADERS += qxtsmtp_p.h
 HEADERS += qxttcpconnectionmanager.h
 HEADERS += qxttcpconnectionmanager_p.h
 HEADERS += qxtxmlrpccall.h
-HEADERS += qxtxmlrpccall_p.h
 HEADERS += qxtxmlrpcclient.h
 HEADERS += qxtxmlrpc_p.h
 SOURCES += qxtmailattachment.cpp
