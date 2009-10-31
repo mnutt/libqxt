@@ -38,7 +38,6 @@ class QXT_NETWORK_EXPORT QxtXmlRpcCall : public QObject
  Q_OBJECT
  public:
     bool isFault() const;
-    QVariantMap fault() const;
     QVariant result() const;
     QNetworkReply::NetworkError error () const;
  signals:
