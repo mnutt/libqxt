@@ -23,6 +23,51 @@
  **
  ****************************************************************************/
 
+/*!
+    \class QxtXmlRpcCall
+    \inmodule QxtNetwork
+    \brief The QxtXmlRpcCall class represents a Call to an XMLRPC Service.
+
+*/
+
+/*!
+    \fn QxtXmlRpcCall::downloadProgress ( qint64 bytesReceived, qint64 bytesTotal )
+
+    This signal is emitted to indicate the progress of retreiving the response from the remote service
+
+    \sa QNetworkReply::downloadProgress()
+*/
+
+/*!
+    \fn QxtXmlRpcCall::error(QNetworkReply::NetworkError code)
+
+    Signals a network error
+
+    \sa QNetworkReply::error()
+*/
+
+/*!
+    \fn QxtXmlRpcCall::finished()
+
+    emitted once the result is fully available
+
+    \sa QNetworkReply::finished()
+*/
+
+/*!
+    \fn QxtXmlRpcCall::sslErrors ( const QList<QSslError> & errors );
+
+
+    \sa QNetworkReply::sslErrors()
+*/
+
+/*!
+    \fn QxtXmlRpcCall:: uploadProgress()
+
+    This signal is emitted to indicate the progress of sending the request to the remote service
+
+    \sa QNetworkReply::uploadProgress()
+*/
 
 #include "qxtxmlrpccall.h"
 #include "qxtxmlrpc_p.h"
@@ -39,23 +84,28 @@ class QxtXmlRpcCallPrivate {
 };
 
 
-
+/*!
+  returns true if the remote service sent a fault message
+*/
 bool QxtXmlRpcCall::isFault() const {
     return d->isFault;
 }
 
+/*!
+  returns the result or fault message or a null QVariant() if the call isnt finished yet
 
+  \sa QxtXmlRpcClient#type-conversion
+*/
 QVariant QxtXmlRpcCall::result() const{
     return d->result;
 }
 
-
+/*!
+  returns an associated network error.
+*/
 QNetworkReply::NetworkError QxtXmlRpcCall::error () const{
     return d->reply->error();
 }
-
-
-
 
 QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
     :d(new QxtXmlRpcCallPrivate())
@@ -69,8 +119,6 @@ QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
     connect(reply,SIGNAL(uploadProgress ( qint64, qint64)),this,SIGNAL(uploadProgress ( qint64, qint64)));
     connect(reply,SIGNAL(finished ()),this,SLOT(d_finished ()));
 }
-
-
 
 void QxtXmlRpcCallPrivate::d_finished(){
 

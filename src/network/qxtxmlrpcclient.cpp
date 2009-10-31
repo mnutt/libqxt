@@ -22,6 +22,31 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+/*!
+    \class QxtXmlRpcClient
+    \inmodule QxtNetwork
+    \brief The QxtXmlRpcClient class implements an XML-RPC Client.
+
+    Implements a Client that can communicate with services implementing the XML-RPC spec
+    http://www.xmlrpc.com/spec
+
+    \section2 Type Conversion
+
+    \table 80%
+    \header \o XML-RPC Type \o Qt Type
+    \row  \o array \o QVariantList
+    \row  \o base64 \o QByteArray   (decoded from base64 to raw)
+    \row  \o boolean \o bool
+    \row  \o dateTime \o QDateTime
+    \row  \o double \o double
+    \row  \o int \o int
+    \row  \o i4 \o int
+    \row  \o string \o QString
+    \row  \o struct \o QVariantMap
+    \row  \o nil \o QVariant()
+    \endtable
+
+*/
 
 #include "qxtxmlrpcclient.h"
 #include "qxtxmlrpccall.h"
@@ -45,27 +70,42 @@ QxtXmlRpcClient::QxtXmlRpcClient(QObject * parent)
     d->networkManager=new QNetworkAccessManager(this);
 }
 
+/*!
+  returns the url of the remote service
+ */
 QUrl QxtXmlRpcClient::serviceUrl() const
 {
     return d->url;
 }
 
+/*!
+  sets the url of the remote service to \a url
+ */
 void QxtXmlRpcClient::setServiceUrl(QUrl url)
 {
     d->url=url;
 }
-
+/*!
+  returns the QNetworkAccessManager used for connecting to the remote service
+ */
 QNetworkAccessManager * QxtXmlRpcClient::networkManager() const
 {
     return d->networkManager;
 }
+/*!
+  sets the QNetworkAccessManager used for connecting to the remote service to \a manager
+ */
+
 void QxtXmlRpcClient::setNetworkManager(QNetworkAccessManager * manager)
 {
     delete d->networkManager;
     d->networkManager=manager;
 }
 
-
+/*!
+  calls the remote \a method with \a arguments and returns a QxtXmlRpcCall wrapping it.
+  you can connect to QxtXmlRpcCall's signals to retreive the status of the call.
+ */
 QxtXmlRpcCall * QxtXmlRpcClient::call(QString method,QVariantList arguments)
 {
     QByteArray data="<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodCall><methodName>"+method.toUtf8()+"</methodName><params>";
