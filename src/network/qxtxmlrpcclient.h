@@ -38,10 +38,10 @@ class QXT_NETWORK_EXPORT QxtXmlRpcClient : public QObject
 {
  Q_OBJECT
  public:
-    QxtXmlRpcClient(QObject * parent);
+    QxtXmlRpcClient(QObject * parent=0);
 
-    QUrl serviceUri() const;
-    void setServiceUri(QUrl uri);
+    QUrl serviceUrl() const;
+    void setServiceUrl(QUrl uri);
 
     QNetworkAccessManager * networkManager() const;
     void setNetworkManager(QNetworkAccessManager * manager);

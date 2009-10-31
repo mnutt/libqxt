@@ -45,12 +45,12 @@ QxtXmlRpcClient::QxtXmlRpcClient(QObject * parent)
     d->networkManager=new QNetworkAccessManager(this);
 }
 
-QUrl QxtXmlRpcClient::serviceUri() const
+QUrl QxtXmlRpcClient::serviceUrl() const
 {
     return d->url;
 }
 
-void QxtXmlRpcClient::setServiceUri(QUrl url)
+void QxtXmlRpcClient::setServiceUrl(QUrl url)
 {
     d->url=url;
 }
