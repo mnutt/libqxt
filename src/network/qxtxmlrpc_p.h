@@ -24,7 +24,8 @@
  ****************************************************************************/
 #include <QXmlStreamReader>
 
-namespace QxtXmlRpc{
+namespace QxtXmlRpc
+{
     QString serialize(QVariant data);
     QVariant deserialize(QXmlStreamReader & xml);
 };

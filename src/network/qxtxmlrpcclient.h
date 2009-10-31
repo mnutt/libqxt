@@ -36,9 +36,9 @@ class QxtXmlRpcCall;
 class QNetworkAccessManager;
 class QXT_NETWORK_EXPORT QxtXmlRpcClient : public QObject
 {
- Q_OBJECT
- public:
-    QxtXmlRpcClient(QObject * parent=0);
+    Q_OBJECT
+public:
+    QxtXmlRpcClient(QObject * parent = 0);
 
     QUrl serviceUrl() const;
     void setServiceUrl(QUrl uri);
@@ -46,9 +46,9 @@ class QXT_NETWORK_EXPORT QxtXmlRpcClient : public QObject
     QNetworkAccessManager * networkManager() const;
     void setNetworkManager(QNetworkAccessManager * manager);
 
-    QxtXmlRpcCall * call(QString method,QVariantList arguments);
+    QxtXmlRpcCall * call(QString method, QVariantList arguments);
 
- private:
+private:
     struct Private;
     const std::auto_ptr<Private> d;
 };

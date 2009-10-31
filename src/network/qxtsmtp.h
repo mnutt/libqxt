@@ -40,9 +40,10 @@ class QSslSocket;
 class QxtSmtpPrivate;
 class QXT_NETWORK_EXPORT QxtSmtp : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    enum SmtpError {
+    enum SmtpError
+    {
         NoError,
         NoRecipients,
         CommandUnrecognized = 500,

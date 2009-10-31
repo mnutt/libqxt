@@ -37,7 +37,8 @@ struct QxtMailMessagePrivate;
 class QXT_NETWORK_EXPORT QxtMailMessage
 {
 public:
-    enum RecipientType {
+    enum RecipientType
+    {
         To,
         Cc,
         Bcc

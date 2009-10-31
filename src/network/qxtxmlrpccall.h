@@ -35,25 +35,25 @@
 class QxtXmlRpcCallPrivate;
 class QXT_NETWORK_EXPORT QxtXmlRpcCall : public QObject
 {
- Q_OBJECT
- public:
+    Q_OBJECT
+public:
     bool isFault() const;
     QVariant result() const;
-    QNetworkReply::NetworkError error () const;
- signals:
-    void downloadProgress ( qint64 bytesReceived, qint64 bytesTotal );
-    void error ( QNetworkReply::NetworkError code );
-    void finished ();
-    void sslErrors ( const QList<QSslError> & errors );
-    void uploadProgress ( qint64 bytesSent, qint64 bytesTotal );
+    QNetworkReply::NetworkError error() const;
+signals:
+    void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+    void error(QNetworkReply::NetworkError code);
+    void finished();
+    void sslErrors(const QList<QSslError> & errors);
+    void uploadProgress(qint64 bytesSent, qint64 bytesTotal);
 
- protected:
+protected:
     QxtXmlRpcCall(QNetworkReply * reply);
     friend class QxtXmlRpcClient;
- private:
+private:
     friend class QxtXmlRpcCallPrivate;
     std::auto_ptr<QxtXmlRpcCallPrivate> d;
-    Q_PRIVATE_SLOT( d, void d_finished() );
+    Q_PRIVATE_SLOT(d, void d_finished());
 };
 
 #endif

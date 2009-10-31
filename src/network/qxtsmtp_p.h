@@ -33,13 +33,14 @@
 
 class QxtSmtpPrivate : public QObject, public QxtPrivate<QxtSmtp>
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QxtSmtpPrivate();
 
     QXT_DECLARE_PUBLIC(QxtSmtp)
 
-    enum SmtpState {
+    enum SmtpState
+    {
         Disconnected,
         StartState,
         EhloSent,
@@ -59,7 +60,8 @@ public:
         Waiting
     };
 
-    enum AuthType {
+    enum AuthType
+    {
         AuthPlain,
         AuthLogin,
         AuthCramMD5

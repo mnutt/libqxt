@@ -80,7 +80,7 @@ int QxtSmtp::send(const QxtMailMessage& message)
 {
     int messageID = ++qxt_d().nextID;
     qxt_d().pending.append(qMakePair(messageID, message));
-    if(qxt_d().state == QxtSmtpPrivate::Waiting)
+    if (qxt_d().state == QxtSmtpPrivate::Waiting)
         qxt_d().sendNext();
     return messageID;
 }
@@ -153,9 +153,12 @@ QString QxtSmtp::extensionData(const QString& extension)
 
 void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
 {
-    if(err == QAbstractSocket::SslHandshakeFailedError) {
+    if (err == QAbstractSocket::SslHandshakeFailedError)
+    {
         emit qxt_p().encryptionFailed();
-    } else if(state == StartState) {
+    }
+    else if (state == StartState)
+    {
         emit qxt_p().connectionFailed();
     }
 }
@@ -163,17 +166,22 @@ void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
 void QxtSmtpPrivate::socketRead()
 {
     buffer += socket->readAll();
-    while(true) {
+    while (true)
+    {
         int pos = buffer.indexOf("\r\n");
-        if(pos < 0) return;
+        if (pos < 0) return;
         QByteArray line = buffer.left(pos);
-        buffer = buffer.mid(pos+2);
+        buffer = buffer.mid(pos + 2);
         QByteArray code = line.left(3);
-        switch(state) {
+        switch (state)
+        {
         case StartState:
-            if(code[0] != '2') {
+            if (code[0] != '2')
+            {
                 socket->disconnect();
-            } else {
+            }
+            else
+            {
                 ehlo();
             }
             break;
@@ -184,25 +192,31 @@ void QxtSmtpPrivate::socketRead()
             break;
 #ifndef QT_NO_OPENSSL
         case StartTLSSent:
-            if(code == "220") {
+            if (code == "220")
+            {
                 socket->startClientEncryption();
                 ehlo();
-            } else {
+            }
+            else
+            {
                 authenticate();
             }
             break;
 #endif
         case AuthRequestSent:
         case AuthUsernameSent:
-            if(authType == AuthPlain) authPlain();
-            else if(authType == AuthLogin) authLogin();
+            if (authType == AuthPlain) authPlain();
+            else if (authType == AuthLogin) authLogin();
             else authCramMD5(line.mid(4));
             break;
         case AuthSent:
-            if(code[0] == '2') {
+            if (code[0] == '2')
+            {
                 state = Authenticated;
                 emit qxt_p().authenticated();
-            } else {
+            }
+            else
+            {
                 state = Disconnected;
                 emit qxt_p().authenticationFailed();
                 socket->disconnect();
@@ -216,7 +230,7 @@ void QxtSmtpPrivate::socketRead()
             sendBody(code);
             break;
         case BodySent:
-            if(code[0] != '2')
+            if (code[0] != '2')
                 emit qxt_p().mailFailed(pending.first().first, code.toInt());
             else
                 emit qxt_p().mailSent(pending.first().first);
@@ -230,50 +244,65 @@ void QxtSmtpPrivate::socketRead()
 void QxtSmtpPrivate::ehlo()
 {
     QByteArray address = "127.0.0.1";
-    foreach(const QHostAddress& addr, QNetworkInterface::allAddresses()) {
-        if(addr == QHostAddress::LocalHost || addr == QHostAddress::LocalHostIPv6)
+    foreach(const QHostAddress& addr, QNetworkInterface::allAddresses())
+    {
+        if (addr == QHostAddress::LocalHost || addr == QHostAddress::LocalHostIPv6)
             continue;
         address = addr.toString().toAscii();
         break;
     }
-    socket->write("ehlo "+address+"\r\n");
+    socket->write("ehlo " + address + "\r\n");
     extensions.clear();
     state = EhloSent;
 }
 
 void QxtSmtpPrivate::parseEhlo(const QByteArray& code, bool cont, const QString& line)
 {
-    if(code != "250") {
+    if (code != "250")
+    {
         // error!
-        if(state != HeloSent) {
+        if (state != HeloSent)
+        {
             // maybe let's try HELO
             socket->write("helo\r\n");
             state = HeloSent;
-        } else {
+        }
+        else
+        {
             // nope
             socket->write("QUIT\r\n");
             socket->flush();
             socket->disconnectFromHost();
         }
         return;
-    } else if(state != EhloGreetReceived) {
-        if(!cont) {
+    }
+    else if (state != EhloGreetReceived)
+    {
+        if (!cont)
+        {
             // greeting only, no extensions
             state = EhloDone;
-        } else {
+        }
+        else
+        {
             // greeting followed by extensions
             state = EhloGreetReceived;
             return;
         }
-    } else {
+    }
+    else
+    {
         extensions[line.section(' ', 0, 0).toUpper()] = line.section(' ', 1);
-        if(!cont)
+        if (!cont)
             state = EhloDone;
     }
-    if(state != EhloDone) return;
-    if(extensions.contains("STARTTLS") && !disableStartTLS) {
+    if (state != EhloDone) return;
+    if (extensions.contains("STARTTLS") && !disableStartTLS)
+    {
         startTLS();
-    } else {
+    }
+    else
+    {
         authenticate();
     }
 }
@@ -290,18 +319,28 @@ void QxtSmtpPrivate::startTLS()
 
 void QxtSmtpPrivate::authenticate()
 {
-    if(!extensions.contains("AUTH") || username.isEmpty() || password.isEmpty()) {
+    if (!extensions.contains("AUTH") || username.isEmpty() || password.isEmpty())
+    {
         state = Authenticated;
         emit qxt_p().authenticated();
-    } else {
+    }
+    else
+    {
         QStringList auth = extensions["AUTH"].toUpper().split(' ', QString::SkipEmptyParts);
-        if(auth.contains("CRAM-MD5")) {
+        if (auth.contains("CRAM-MD5"))
+        {
             authCramMD5();
-        } else if(auth.contains("PLAIN")) {
+        }
+        else if (auth.contains("PLAIN"))
+        {
             authPlain();
-        } else if(auth.contains("LOGIN")) {
+        }
+        else if (auth.contains("LOGIN"))
+        {
             authLogin();
-        } else {
+        }
+        else
+        {
             state = Authenticated;
             emit qxt_p().authenticated();
         }
@@ -310,11 +349,14 @@ void QxtSmtpPrivate::authenticate()
 
 void QxtSmtpPrivate::authCramMD5(const QByteArray& challenge)
 {
-    if(state != AuthRequestSent) {
+    if (state != AuthRequestSent)
+    {
         socket->write("auth cram-md5\r\n");
         authType = AuthCramMD5;
         state = AuthRequestSent;
-    } else {
+    }
+    else
+    {
         QxtHmac hmac(QCryptographicHash::Md5);
         hmac.setKey(password);
         hmac.addData(QByteArray::fromBase64(challenge));
@@ -326,11 +368,14 @@ void QxtSmtpPrivate::authCramMD5(const QByteArray& challenge)
 
 void QxtSmtpPrivate::authPlain()
 {
-    if(state != AuthRequestSent) {
+    if (state != AuthRequestSent)
+    {
         socket->write("auth plain\r\n");
         authType = AuthPlain;
         state = AuthRequestSent;
-    } else {
+    }
+    else
+    {
         QByteArray auth;
         auth += '\0';
         auth += username;
@@ -343,14 +388,19 @@ void QxtSmtpPrivate::authPlain()
 
 void QxtSmtpPrivate::authLogin()
 {
-    if(state != AuthRequestSent && state != AuthUsernameSent) {
+    if (state != AuthRequestSent && state != AuthUsernameSent)
+    {
         socket->write("auth login\r\n");
         authType = AuthLogin;
         state = AuthRequestSent;
-    } else if(state == AuthRequestSent) {
+    }
+    else if (state == AuthRequestSent)
+    {
         socket->write(username.toBase64() + "\r\n");
         state = AuthUsernameSent;
-    } else {
+    }
+    else
+    {
         socket->write(password.toBase64() + "\r\n");
         state = AuthSent;
     }
@@ -363,25 +413,37 @@ static QByteArray qxt_extract_address(const QString& address)
     bool inQuote = false;
     int ct = address.length();
 
-    for(int i = 0; i < ct; i++) {
+    for (int i = 0; i < ct; i++)
+    {
         QChar ch = address[i];
-        if(inQuote) {
-            if(ch == '"')
+        if (inQuote)
+        {
+            if (ch == '"')
                 inQuote = false;
-        } else if(addrStart != -1) {
-            if(ch == '>')
+        }
+        else if (addrStart != -1)
+        {
+            if (ch == '>')
                 return address.mid(addrStart, (i - addrStart)).toAscii();
-        } else if(ch == '(') {
+        }
+        else if (ch == '(')
+        {
             parenDepth++;
-        } else if(ch == ')') {
+        }
+        else if (ch == ')')
+        {
             parenDepth--;
-            if(parenDepth < 0) parenDepth = 0;
-        } else if(ch == '"') {
-            if(parenDepth == 0)
+            if (parenDepth < 0) parenDepth = 0;
+        }
+        else if (ch == '"')
+        {
+            if (parenDepth == 0)
                 inQuote = true;
-        } else if(ch == '<') {
-            if(!inQuote && parenDepth == 0)
-                addrStart = i+1;
+        }
+        else if (ch == '<')
+        {
+            if (!inQuote && parenDepth == 0)
+                addrStart = i + 1;
         }
     }
     return address.toAscii();
@@ -389,12 +451,14 @@ static QByteArray qxt_extract_address(const QString& address)
 
 void QxtSmtpPrivate::sendNext()
 {
-    if(state == Disconnected) {
+    if (state == Disconnected)
+    {
         // leave the mail in the queue if not ready to send
         return;
     }
 
-    if(pending.isEmpty()) {
+    if (pending.isEmpty())
+    {
         // if there are no additional mails to send, finish up
         state = Waiting;
         emit qxt_p().finished();
@@ -406,7 +470,8 @@ void QxtSmtpPrivate::sendNext()
     recipients = msg.recipients(QxtMailMessage::To) +
                  msg.recipients(QxtMailMessage::Cc) +
                  msg.recipients(QxtMailMessage::Bcc);
-    if(recipients.count() == 0) {
+    if (recipients.count() == 0)
+    {
         // can't send an e-mail with no recipients
         emit qxt_p().mailFailed(pending.first().first, QxtSmtp::NoRecipients);
         pending.removeFirst();
@@ -417,12 +482,16 @@ void QxtSmtpPrivate::sendNext()
     // interprets any string starting with an uppercase R as a request
     // to renegotiate the SSL connection.
     socket->write("mail from:<" + qxt_extract_address(msg.sender()) + ">\r\n");
-    if(extensions.contains("PIPELINING")) { // almost all do nowadays
-        foreach(const QString& rcpt, recipients) {
+    if (extensions.contains("PIPELINING"))  // almost all do nowadays
+    {
+        foreach(const QString& rcpt, recipients)
+        {
             socket->write("rcpt to:<" + qxt_extract_address(rcpt) + ">\r\n");
         }
         state = RcptAckPending;
-    } else {
+    }
+    else
+    {
         state = MailToSent;
     }
 }
@@ -432,37 +501,53 @@ void QxtSmtpPrivate::sendNextRcpt(const QByteArray& code)
     int messageID = pending.first().first;
     const QxtMailMessage& msg = pending.first().second;
 
-    if(code[0] != '2') {
+    if (code[0] != '2')
+    {
         // on failure, emit a warning signal
-        if(!mailAck) {
+        if (!mailAck)
+        {
             emit qxt_p().senderRejected(messageID, msg.sender());
-        } else {
+        }
+        else
+        {
             emit qxt_p().recipientRejected(messageID, msg.sender());
         }
-    } else if(!mailAck) {
+    }
+    else if (!mailAck)
+    {
         mailAck = true;
-    } else {
+    }
+    else
+    {
         rcptAck++;
     }
 
-    if(rcptNumber == recipients.count()) {
+    if (rcptNumber == recipients.count())
+    {
         // all recipients have been sent
-        if(rcptAck == 0) {
+        if (rcptAck == 0)
+        {
             // no recipients were considered valid
             emit qxt_p().mailFailed(messageID, code.toInt());
             pending.removeFirst();
             sendNext();
-        } else {
+        }
+        else
+        {
             // at least one recipient was acknowledged, send mail body
             socket->write("data\r\n");
             state = SendingBody;
         }
-    } else if(state != RcptAckPending) {
+    }
+    else if (state != RcptAckPending)
+    {
         // send the next recipient unless we're only waiting on acks
         socket->write("rcpt to:<" + qxt_extract_address(recipients[rcptNumber]) + ">\r\n");
         rcptNumber++;
-    } else {
-        // If we're only waiting on acks, just count them        
+    }
+    else
+    {
+        // If we're only waiting on acks, just count them
         rcptNumber++;
     }
 }
@@ -472,7 +557,8 @@ void QxtSmtpPrivate::sendBody(const QByteArray& code)
     int messageID = pending.first().first;
     const QxtMailMessage& msg = pending.first().second;
 
-    if(code[0] != '3') {
+    if (code[0] != '3')
+    {
         emit qxt_p().mailFailed(messageID, code.toInt());
         pending.removeFirst();
         sendNext();
