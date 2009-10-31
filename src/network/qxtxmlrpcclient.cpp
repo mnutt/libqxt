@@ -74,6 +74,7 @@ QxtXmlRpcCall * QxtXmlRpcClient::call(QString method,QVariantList arguments)
     }
     data+="</params></methodCall>";
 
+
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader,"text/xml");
     request.setRawHeader("Connection","close");
