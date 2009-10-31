@@ -48,6 +48,14 @@ QVariant QxtXmlRpcCall::result() const{
     return d->result;
 }
 
+
+QNetworkReply::NetworkError QxtXmlRpcCall::error () const{
+    return d->reply->error();
+}
+
+
+
+
 QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
     :d(new QxtXmlRpcCallPrivate())
 {

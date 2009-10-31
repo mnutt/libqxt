@@ -40,7 +40,7 @@ class QXT_NETWORK_EXPORT QxtXmlRpcCall : public QObject
     bool isFault() const;
     QVariantMap fault() const;
     QVariant result() const;
-
+    QNetworkReply::NetworkError error () const;
  signals:
     void downloadProgress ( qint64 bytesReceived, qint64 bytesTotal );
     void error ( QNetworkReply::NetworkError code );
