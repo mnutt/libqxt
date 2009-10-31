@@ -74,8 +74,9 @@
 #include <QXmlStreamReader>
 #include <QNetworkReply>
 
-class QxtXmlRpcCallPrivate {
- public:
+class QxtXmlRpcCallPrivate
+{
+public:
     bool isFault;
     QNetworkReply * reply;
     QVariant result;
@@ -87,7 +88,8 @@ class QxtXmlRpcCallPrivate {
 /*!
   returns true if the remote service sent a fault message
 */
-bool QxtXmlRpcCall::isFault() const {
+bool QxtXmlRpcCall::isFault() const
+{
     return d->isFault;
 }
 
@@ -96,82 +98,102 @@ bool QxtXmlRpcCall::isFault() const {
 
   \sa QxtXmlRpcClient#type-conversion
 */
-QVariant QxtXmlRpcCall::result() const{
+QVariant QxtXmlRpcCall::result() const
+{
     return d->result;
 }
 
 /*!
   returns an associated network error.
 */
-QNetworkReply::NetworkError QxtXmlRpcCall::error () const{
+QNetworkReply::NetworkError QxtXmlRpcCall::error() const
+{
     return d->reply->error();
 }
 
 QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
-    :d(new QxtXmlRpcCallPrivate())
+        : d(new QxtXmlRpcCallPrivate())
 {
-    d->isFault=false;
-    d->reply=reply;
-    d->pub=this;
-    connect(reply,SIGNAL(downloadProgress ( qint64, qint64)),this,SIGNAL(downloadProgress ( qint64, qint64)));
-    connect(reply,SIGNAL(error ( QNetworkReply::NetworkError )),this,SIGNAL(error ( QNetworkReply::NetworkError )));
-    connect(reply,SIGNAL(sslErrors ( const QList<QSslError> & )),this,SIGNAL(sslErrors ( const QList<QSslError> & )));
-    connect(reply,SIGNAL(uploadProgress ( qint64, qint64)),this,SIGNAL(uploadProgress ( qint64, qint64)));
-    connect(reply,SIGNAL(finished ()),this,SLOT(d_finished ()));
+    d->isFault = false;
+    d->reply = reply;
+    d->pub = this;
+    connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this, SIGNAL(downloadProgress(qint64, qint64)));
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error(QNetworkReply::NetworkError)));
+    connect(reply, SIGNAL(sslErrors(const QList<QSslError> &)), this, SIGNAL(sslErrors(const QList<QSslError> &)));
+    connect(reply, SIGNAL(uploadProgress(qint64, qint64)), this, SIGNAL(uploadProgress(qint64, qint64)));
+    connect(reply, SIGNAL(finished()), this, SLOT(d_finished()));
 }
 
-void QxtXmlRpcCallPrivate::d_finished(){
+void QxtXmlRpcCallPrivate::d_finished()
+{
 
-    if(!reply->error()){
-        int s=0;
+    if (!reply->error())
+    {
+        int s = 0;
 
         QXmlStreamReader xml(reply->readAll());
-        while (!xml.atEnd()) {
+        while (!xml.atEnd())
+        {
             xml.readNext();
-            if(xml.isStartElement()){
-                if(s==0){
-                    if(xml.name().toString()=="methodResponse"){
-                        s=1;
+            if (xml.isStartElement())
+            {
+                if (s == 0)
+                {
+                    if (xml.name().toString() == "methodResponse")
+                    {
+                        s = 1;
                     }
-                    else{
-                        xml.raiseError("expected <methodResponse>,  got:<"+xml.name().toString()+">");
-                    }
-                }
-                else if(s==1){
-                    if(xml.name().toString()=="params"){
-                        s=2;
-                    }
-                    else if(xml.name().toString()=="fault"){
-                        isFault=true;
-                        s=3;
-                    }
-                    else{
-                        xml.raiseError("expected <params> or <fault>,  got:<"+xml.name().toString()+">");
+                    else
+                    {
+                        xml.raiseError("expected <methodResponse>,  got:<" + xml.name().toString() + ">");
                     }
                 }
-                else if(s==2){
-                    if(xml.name().toString()=="param"){
-                        s=3;
+                else if (s == 1)
+                {
+                    if (xml.name().toString() == "params")
+                    {
+                        s = 2;
                     }
-                    else{
-                        xml.raiseError("expected <param>,  got:<"+xml.name().toString()+">");
+                    else if (xml.name().toString() == "fault")
+                    {
+                        isFault = true;
+                        s = 3;
+                    }
+                    else
+                    {
+                        xml.raiseError("expected <params> or <fault>,  got:<" + xml.name().toString() + ">");
                     }
                 }
-                else if(s==3){
-                    if(xml.name().toString()=="value"){
-                        result=QxtXmlRpc::deserialize(xml);
-                        s=4;
+                else if (s == 2)
+                {
+                    if (xml.name().toString() == "param")
+                    {
+                        s = 3;
                     }
-                    else{
-                        xml.raiseError("expected <value>,  got:<"+xml.name().toString()+">");
+                    else
+                    {
+                        xml.raiseError("expected <param>,  got:<" + xml.name().toString() + ">");
+                    }
+                }
+                else if (s == 3)
+                {
+                    if (xml.name().toString() == "value")
+                    {
+                        result = QxtXmlRpc::deserialize(xml);
+                        s = 4;
+                    }
+                    else
+                    {
+                        xml.raiseError("expected <value>,  got:<" + xml.name().toString() + ">");
                     }
                 }
 
             }
         }
-        if (xml.hasError()) {
-            qWarning(QString("QxtXmlRpcCall: "+xml.errorString()+" at line "+
-                             QString::number(xml.lineNumber())+ " column " +
+        if (xml.hasError())
+        {
+            qWarning(QString("QxtXmlRpcCall: " + xml.errorString() + " at line " +
+                             QString::number(xml.lineNumber()) + " column " +
                              QString::number(xml.columnNumber())).toLocal8Bit().data());
         }
     }

@@ -64,10 +64,10 @@ struct QxtXmlRpcClient::Private
 };
 
 QxtXmlRpcClient::QxtXmlRpcClient(QObject * parent)
- :QObject(parent)
- ,d(new Private())
+        : QObject(parent)
+        , d(new Private())
 {
-    d->networkManager=new QNetworkAccessManager(this);
+    d->networkManager = new QNetworkAccessManager(this);
 }
 
 /*!
@@ -83,7 +83,7 @@ QUrl QxtXmlRpcClient::serviceUrl() const
  */
 void QxtXmlRpcClient::setServiceUrl(QUrl url)
 {
-    d->url=url;
+    d->url = url;
 }
 /*!
   returns the QNetworkAccessManager used for connecting to the remote service
@@ -99,26 +99,27 @@ QNetworkAccessManager * QxtXmlRpcClient::networkManager() const
 void QxtXmlRpcClient::setNetworkManager(QNetworkAccessManager * manager)
 {
     delete d->networkManager;
-    d->networkManager=manager;
+    d->networkManager = manager;
 }
 
 /*!
   calls the remote \a method with \a arguments and returns a QxtXmlRpcCall wrapping it.
   you can connect to QxtXmlRpcCall's signals to retreive the status of the call.
  */
-QxtXmlRpcCall * QxtXmlRpcClient::call(QString method,QVariantList arguments)
+QxtXmlRpcCall * QxtXmlRpcClient::call(QString method, QVariantList arguments)
 {
-    QByteArray data="<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodCall><methodName>"+method.toUtf8()+"</methodName><params>";
-    foreach(QVariant i,arguments){
-        data+="<param>"+QxtXmlRpc::serialize(i).toUtf8()+"</param>";
+    QByteArray data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodCall><methodName>" + method.toUtf8() + "</methodName><params>";
+    foreach(QVariant i, arguments)
+    {
+        data += "<param>" + QxtXmlRpc::serialize(i).toUtf8() + "</param>";
     }
-    data+="</params></methodCall>";
+    data += "</params></methodCall>";
 
 
     QNetworkRequest request;
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"text/xml");
-    request.setRawHeader("Connection","close");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "text/xml");
+    request.setRawHeader("Connection", "close");
     request.setUrl(d->url);
 
-    return new QxtXmlRpcCall(d->networkManager->post(request,data));
+    return new QxtXmlRpcCall(d->networkManager->post(request, data));
 }
