@@ -35,6 +35,7 @@ class QxtXmlRpcCallPrivate {
     QNetworkReply * reply;
     QVariant result;
     void d_finished();
+    QxtXmlRpcCall * pub;
 };
 
 
@@ -61,9 +62,9 @@ QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
 {
     d->isFault=false;
     d->reply=reply;
+    d->pub=this;
     connect(reply,SIGNAL(downloadProgress ( qint64, qint64)),this,SIGNAL(downloadProgress ( qint64, qint64)));
     connect(reply,SIGNAL(error ( QNetworkReply::NetworkError )),this,SIGNAL(error ( QNetworkReply::NetworkError )));
-    connect(reply,SIGNAL(finished ()),this,SIGNAL(finished ()));
     connect(reply,SIGNAL(sslErrors ( const QList<QSslError> & )),this,SIGNAL(sslErrors ( const QList<QSslError> & )));
     connect(reply,SIGNAL(uploadProgress ( qint64, qint64)),this,SIGNAL(uploadProgress ( qint64, qint64)));
     connect(reply,SIGNAL(finished ()),this,SLOT(d_finished ()));
@@ -72,57 +73,61 @@ QxtXmlRpcCall::QxtXmlRpcCall(QNetworkReply * reply)
 
 
 void QxtXmlRpcCallPrivate::d_finished(){
-    int s=0;
 
-    QXmlStreamReader xml(reply->readAll());
-    while (!xml.atEnd()) {
-        xml.readNext();
-        if(xml.isStartElement()){
-            if(s==0){
-                if(xml.name().toString()=="methodResponse"){
-                    s=1;
-                }
-                else{
-                    xml.raiseError("expected <methodResponse>,  got:<"+xml.name().toString()+">");
-                }
-            }
-            else if(s==1){
-                if(xml.name().toString()=="params"){
-                    s=2;
-                }
-                else if(xml.name().toString()=="fault"){
-                    isFault=true;
-                    s=3;
-                }
-                else{
-                    xml.raiseError("expected <params> or <fault>,  got:<"+xml.name().toString()+">");
-                }
-            }
-            else if(s==2){
-                if(xml.name().toString()=="param"){
-                    s=3;
-                }
-                else{
-                    xml.raiseError("expected <param>,  got:<"+xml.name().toString()+">");
-                }
-            }
-            else if(s==3){
-                if(xml.name().toString()=="value"){
-                    result=QxtXmlRpc::deserialize(xml);
-                    s=4;
-                }
-                else{
-                    xml.raiseError("expected <value>,  got:<"+xml.name().toString()+">");
-                }
-            }
+    if(!reply->error()){
+        int s=0;
 
+        QXmlStreamReader xml(reply->readAll());
+        while (!xml.atEnd()) {
+            xml.readNext();
+            if(xml.isStartElement()){
+                if(s==0){
+                    if(xml.name().toString()=="methodResponse"){
+                        s=1;
+                    }
+                    else{
+                        xml.raiseError("expected <methodResponse>,  got:<"+xml.name().toString()+">");
+                    }
+                }
+                else if(s==1){
+                    if(xml.name().toString()=="params"){
+                        s=2;
+                    }
+                    else if(xml.name().toString()=="fault"){
+                        isFault=true;
+                        s=3;
+                    }
+                    else{
+                        xml.raiseError("expected <params> or <fault>,  got:<"+xml.name().toString()+">");
+                    }
+                }
+                else if(s==2){
+                    if(xml.name().toString()=="param"){
+                        s=3;
+                    }
+                    else{
+                        xml.raiseError("expected <param>,  got:<"+xml.name().toString()+">");
+                    }
+                }
+                else if(s==3){
+                    if(xml.name().toString()=="value"){
+                        result=QxtXmlRpc::deserialize(xml);
+                        s=4;
+                    }
+                    else{
+                        xml.raiseError("expected <value>,  got:<"+xml.name().toString()+">");
+                    }
+                }
+
+            }
+        }
+        if (xml.hasError()) {
+            qWarning(QString("QxtXmlRpcCall: "+xml.errorString()+" at line "+
+                             QString::number(xml.lineNumber())+ " column " +
+                             QString::number(xml.columnNumber())).toLocal8Bit().data());
         }
     }
-    if (xml.hasError()) {
-        qWarning(QString("QxtXmlRpcCall: "+xml.errorString()+" at line "+
-                         QString::number(xml.lineNumber())+ " column " +
-                         QString::number(xml.columnNumber())).toLocal8Bit().data());
-    }
+    emit pub->finished();
 }
 
 
