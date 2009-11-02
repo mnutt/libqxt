@@ -158,6 +158,9 @@ QVariant deserializeArray(QXmlStreamReader & xml)
                 {
                     l += deserialize(xml);
                     s = 2;
+                    if (xml.isEndElement() && xml.name().toString() == "value"){
+                        s=1;
+                    }
                 }
                 else
                 {
@@ -247,6 +250,9 @@ QVariant deserializeStruct(QXmlStreamReader & xml)
                 {
                     value = deserialize(xml);
                     s = 2;
+                    if (xml.isEndElement() && xml.name().toString() == "value"){
+                        s=1;
+                    }
                 }
                 else
                 {
@@ -348,10 +354,6 @@ QVariant QxtXmlRpc::deserialize(QXmlStreamReader & xml)
             {
                 ret = QVariant();
             }
-        }
-        else  if (xml.isEndElement())
-        {
-            xml.raiseError("expected begin of data type. got </" + xml.name().toString() + ">");
         }
     }
     return QVariant();
