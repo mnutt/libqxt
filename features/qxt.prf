@@ -3,7 +3,11 @@ include(qxtvars.prf)
 DEPENDPATH      += $${QXT_INSTALL_HEADERS}
 INCLUDEPATH     += $${QXT_INSTALL_HEADERS}
 
-unix:!macx:LIBS += $${QMAKE_RPATH}$${QXT_INSTALL_LIBS}
+unix:!macx{
+        QXTQMAKERPATH=$${QMAKE_RPATH}
+        isEmpty(QXTQMAKERPATH):QXTQMAKERPATH=-Wl,-rpath,
+        LIBS += $${QXTQMAKERPATH}$${QXT_INSTALL_LIBS}
+}
 macx:LIBS       += -F$${QXT_INSTALL_LIBS}
 LIBS            += -L$${QXT_INSTALL_LIBS}
 
