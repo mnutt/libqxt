@@ -740,6 +740,10 @@ void QxtFlowViewPrivate::reset()
             insertSlide(i, qvariant_cast<QImage>(model->data(idx, picrole)));
             modelmap.insert(i, idx);
         }
+        if(modelmap.count())
+            currentcenter=modelmap.at(0);
+        else
+            currentcenter=QModelIndex();
     }
     triggerRender();
 }
