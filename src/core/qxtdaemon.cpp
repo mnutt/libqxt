@@ -205,9 +205,7 @@ bool QxtDaemon::daemonize(bool pidfile)
             qFatal("can't get a lock on \"/var/run/%s.pid\". another instance is propably already running.", qPrintable(m_name));
 
         QByteArray d = QByteArray::number(pid());
-        ::write(lfp, d.constData(), d.size());
-
-
+        Q_UNUSED(::write(lfp, d.constData(), d.size()));
     }
 
 
