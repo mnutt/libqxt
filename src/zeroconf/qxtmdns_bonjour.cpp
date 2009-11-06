@@ -5,17 +5,18 @@
 
 QxtMDNS::QxtMDNS(int id, QObject * parent)
 		: QObject(parent),
-		info(id)
+          info(id)
 {
 }
 
 void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 {
+
 	name = n;
 	receiver = r;
 	member = QxtMetaObject::methodName(m);
 	DNSServiceErrorType err = DNSServiceQueryRecord(
-	                              ref,
+	                              &ref,
 	                              0,
 	                              0,
 	                              name.toAscii().constData(),
@@ -24,7 +25,6 @@ void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 	                              QxtMDNS::DNSServiceQueryRecordCallback,
 	                              this
 	                          );
-
 	if (err != kDNSServiceErr_NoError)
 	{
 		QHostInfo info(info.lookupId());
@@ -33,7 +33,7 @@ void QxtMDNS::doLookup(QString n, QObject * r, const char * m)
 	}
 	else
 	{
-		notifier = new QSocketNotifier(DNSServiceRefSockFD(*ref), QSocketNotifier::Read, this);
+		notifier = new QSocketNotifier(DNSServiceRefSockFD(ref), QSocketNotifier::Read, this);
 		QObject::connect(notifier, SIGNAL(activated(int)), this, SLOT(socketData()));
 	}
 }
@@ -49,7 +49,7 @@ void QxtMDNS::DNSServiceQueryRecordCallback(DNSServiceRef DNSServiceRef, DNSServ
 
 void QxtMDNS::socketData()
 {
-	DNSServiceProcessResult(*ref);
+	DNSServiceProcessResult(ref);
 }
 
 void QxtMDNS::cancelLookup()

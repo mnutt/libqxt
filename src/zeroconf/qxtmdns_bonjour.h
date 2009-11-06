@@ -28,7 +28,7 @@ public:
 	QString name;
 	QObject* receiver;
 	const char* member;
-	DNSServiceRef* ref;
+	DNSServiceRef ref;
 	QSocketNotifier* notifier;
 	int id;
 public Q_SLOTS:
