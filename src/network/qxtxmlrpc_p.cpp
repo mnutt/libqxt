@@ -85,6 +85,7 @@ QString QxtXmlRpc::serialize(QVariant data)
         ret += "</struct>";
         return ret;
     }
+#if QT_VERSION >= 0x040500
     else if (t == QVariant::Hash)
     {
         QString ret = "<struct>";
@@ -98,6 +99,7 @@ QString QxtXmlRpc::serialize(QVariant data)
         ret += "</struct>";
         return ret;
     }
+#endif
     else if (t == QVariant::StringList)
     {
         QString ret = "<array><data>";
