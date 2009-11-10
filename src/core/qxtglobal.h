@@ -199,6 +199,8 @@ public:
         return *static_cast<PVT*>(pvt);
     }
 private:
+    QxtPrivateInterface(const QxtPrivateInterface&) { }
+    QxtPrivateInterface& operator=(const QxtPrivateInterface&) { }
     QxtPrivate<PUB>* pvt;
 };
 
