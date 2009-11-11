@@ -27,7 +27,6 @@
 #define QXTGLOBAL_H
 
 #include <QtGlobal>
-#include <QObject>
 
 #define QXT_VERSION 0x000600
 #define QXT_VERSION_STR "0.6.0"
@@ -143,7 +142,7 @@ QXT_CORE_EXPORT const char* qxtVersion();
 ****************************************************************************/
 
 #define QXT_DECLARE_PRIVATE(PUB) friend class PUB##Private; QxtPrivateInterface<PUB, PUB##Private> qxt_d;
-#define QXT_DECLARE_PUBLIC(PUB) friend class PUB; friend class QxtPrivateInterface<PUB, PUB##Private>;
+#define QXT_DECLARE_PUBLIC(PUB) friend class PUB;
 #define QXT_INIT_PRIVATE(PUB) qxt_d.setPublic(this);
 #define QXT_D(PUB) PUB##Private& d = qxt_d()
 #define QXT_P(PUB) PUB& p = qxt_p()
@@ -182,17 +181,9 @@ public:
     {
         pvt = new PVT;
     }
-    void deletePrivate(QObject* obj)
-    {
-        obj->deleteLater();
-    }
-    void deletePrivate(void* obj)
-    {
-        delete (QxtPrivate<PUB>*)obj;
-    }
     ~QxtPrivateInterface()
     {
-        deletePrivate(static_cast<PVT*>(pvt));
+        delete pvt;
     }
 
     inline void setPublic(PUB* pub)
