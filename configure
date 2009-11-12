@@ -73,8 +73,10 @@ while (( $# > 0 )); do
         echo "DEFINES += QXT_STATIC" >> $QXT_VARS
     elif [ $1 == "-debug" ]; then
         echo "CONFIG += debug" >> $QMAKE_CACHE
+        echo "QXT_INSTALL_TYPE = debug" >> $QXT_VARS
     elif [ $1 == "-release" ]; then
         echo "CONFIG += release" >> $QMAKE_CACHE
+        echo "QXT_INSTALL_TYPE = release" >> $QXT_VARS
     elif [ $1 == "-no-db" ]; then
         NO_DB=1
     elif [ $1 == "-no-xrandr" ]; then
@@ -89,6 +91,9 @@ while (( $# > 0 )); do
         echo "CONFIG += coverage" >> $QMAKE_CACHE
     elif [ $1 == "-universal" ]; then
         echo "CONFIG += x86 ppc" >> $QMAKE_CACHE
+    elif [ $1 == "-arch" ]; then
+        echo "CONFIG += $2" >> $QMAKE_CACHE
+        shift
     elif [ $1 == "-sdk" ]; then
         echo "QMAKE_MAC_SDK=$2" >> $QMAKE_CACHE; shift
     elif [ $1 == "-h" ] || [ $1 == "-help" ] || [ $1 == "--help" ]; then
@@ -99,7 +104,7 @@ while (( $# > 0 )); do
         if [[ "$QXT_MAC" == "0" ]]; then
             echo -n "       [-no-xrandr] [-qws]"
         else
-            echo -n "       [-universal] [-sdk <path>]"
+            echo -n "       [-universal] [-arch <arch>] [-sdk <path>]"
         fi
         echo " [-verbose] [-coverage]"
         echo
@@ -133,7 +138,8 @@ while (( $# > 0 )); do
         echo "-verbose ............ Show full compiler output"
         echo "-coverage ........... Collect coverage information"
         if [[ "$QXT_MAC" == "1" ]]; then
-            echo "-universal .......... Build universal binaries"
+            echo "-universal .......... Equivalent to -arch ppc -arch x86"
+            echo "-arch <arch> ........ Include <arch> in universal binary"
             echo "-sdk <path> ......... Use a different Mac SDK"
         fi
 

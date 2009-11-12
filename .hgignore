@@ -34,3 +34,7 @@ config.pri*
 config.tests/*
 depends.pri*
 *~
+lib/
+tools/3rdparty/qdoc3/qdoc3
+.qmake.cache
+qxtvars.prf
