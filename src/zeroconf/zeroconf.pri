@@ -11,11 +11,15 @@ SOURCES += qxtdiscoverableservice.cpp
 SOURCES += qxtservicebrowser.cpp
 SOURCES += qxtdiscoverableservicename.cpp
 
-unix:!macx {
-DEFINES += USE_AVAHI
-SOURCES += qxtmdns_avahi.cpp
-HEADERS += qxtmdns_avahi.h
+unix : !macx {
+        DEFINES += USE_AVAHI
+        SOURCES += qxtmdns_avahi.cpp
+        SOURCES += qxtavahipoll.cpp
+        HEADERS += qxtmdns_avahi.h
+        HEADERS += qxtmdns_avahi_p.h
+        HEADERS += qxtavahipoll.h
+        HEADERS += qxtavahipoll_p.h
 } else {
-SOURCES += qxtmdns_bonjour.cpp
-HEADERS += qxtmdns_bonjour.h
+        SOURCES += qxtmdns_bonjour.cpp
+        HEADERS += qxtmdns_bonjour.h
 }
