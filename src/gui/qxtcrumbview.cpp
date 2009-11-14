@@ -27,7 +27,7 @@
 #include "qxtcrumbview_p.h"
 #include <QApplication>
 #include <QPaintEvent>
-#include <QTreeView>
+#include <QListView>
 #include <QToolButton>
 #include <QBoxLayout>
 #include <QModelIndex>
@@ -40,12 +40,10 @@
 #include <QtDebug>
 
 // This class exists only to grant access to QTreeView's protected members
-class QxtCrumbViewList : public QTreeView {
+class QxtCrumbViewList : public QListView {
 friend class QxtCrumbView;
 public:
-    QxtCrumbViewList(QWidget* parent) : QTreeView(parent) {
-        setHeaderHidden(true);
-        setRootIsDecorated(false);
+    QxtCrumbViewList(QWidget* parent) : QListView(parent) {
     }
 };
 
