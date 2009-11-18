@@ -364,7 +364,7 @@ void QxtRPCService::disconnectServer()
         qWarning() << "QxtRPCService::disconnectServer: not connected to a server";
         return;
     }
-    delete takeDevice();
+    takeDevice()->deleteLater();
 }
 
 /*!
