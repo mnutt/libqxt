@@ -181,7 +181,10 @@ AvahiTimeout::~AvahiTimeout()
 void AvahiTimeout::updateTimeout(const struct timeval *tv)
 {
 	if(tv == 0)
+	{
 		_timer.stop();
+		return;
+	}
 	int msecs = (tv->tv_sec * 1000) + (tv->tv_usec / 1000);
 	if (msecs > 1)
 		_timer.start(msecs);
