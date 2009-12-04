@@ -247,7 +247,8 @@ void QxtSmtpPrivate::socketRead()
         case Resetting:
             if (code[0] != '2') {
                 emit qxt_p().connectionFailed();
-            } else {
+            }
+            else {
                 state = Waiting;
                 sendNext();
             }
