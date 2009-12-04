@@ -224,7 +224,14 @@ void QxtSmtpPrivate::socketRead()
             break;
         case MailToSent:
         case RcptAckPending:
-            sendNextRcpt(code);
+            if (code[0] != '2') {
+                emit qxt_p().mailFailed(pending.first().first, code.toInt());
+                pending.removeFirst();
+                sendNext();
+                state = BodySent;
+            }
+            else
+                sendNextRcpt(code);
             break;
         case SendingBody:
             sendBody(code);
@@ -236,6 +243,14 @@ void QxtSmtpPrivate::socketRead()
                 emit qxt_p().mailSent(pending.first().first);
             pending.removeFirst();
             sendNext();
+            break;
+        case Resetting:
+            if (code[0] != '2') {
+                emit qxt_p().connectionFailed();
+            } else {
+                state = Waiting;
+                sendNext();
+            }
             break;
         }
     }
@@ -465,6 +480,11 @@ void QxtSmtpPrivate::sendNext()
         return;
     }
 
+    if(state != Waiting) {
+        state = Resetting;
+        socket->write("rset\r\n");
+        return;
+    }
     const QxtMailMessage& msg = pending.first().second;
     rcptNumber = rcptAck = mailAck = 0;
     recipients = msg.recipients(QxtMailMessage::To) +

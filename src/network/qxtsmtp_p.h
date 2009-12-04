@@ -57,7 +57,8 @@ public:
         RcptAckPending,
         SendingBody,
         BodySent,
-        Waiting
+        Waiting,
+        Resetting
     };
 
     enum AuthType
