@@ -83,6 +83,8 @@ while (( $# > 0 )); do
         NO_XRANDR=1
     elif [ $1 == "-no-zeroconf" ]; then
         NO_ZEROCONF=1
+    elif [ $1 == "-no-avahi" ]; then
+        echo "CONFIG += NO_AVAHI" >> $QMAKE_CACHE
     elif [ $1 == "-verbose" ]; then
         echo "CONFIG -= silent" >> $QMAKE_CACHE
     elif [ $1 == "-qws" ]; then
@@ -133,6 +135,7 @@ while (( $# > 0 )); do
         fi
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-zeroconf ........ Do not link to Zeroconf"
+        echo "-no-avahi ........... Apple mdns-sd instead of avahi even on linux"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: $QXT_MODULES"
         echo "-verbose ............ Show full compiler output"
