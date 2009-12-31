@@ -43,6 +43,7 @@ public:
     QxtMailAttachment(QIODevice* content, const QString& contentType = QString("application/octet-stream"));
     QxtMailAttachment& operator=(const QxtMailAttachment& other);
     ~QxtMailAttachment();
+    static QxtMailAttachment fromFile(const QString& filename);
 
     QIODevice* content() const;
     void setContent(const QByteArray& content);
