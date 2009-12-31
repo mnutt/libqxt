@@ -39,7 +39,7 @@
 #include <QtAlgorithms>
 #include <QtDebug>
 
-// This class exists only to grant access to QTreeView's protected members
+// This class exists only to grant access to QListView's protected members
 class QxtCrumbViewList : public QListView {
 friend class QxtCrumbView;
 public:
@@ -47,54 +47,50 @@ public:
     }
 };
 
-class QxtCrumbViewDelegate : public QAbstractItemDelegate {
-public:
-    QxtCrumbViewDelegate(QAbstractItemDelegate* other, QObject* parent) : QAbstractItemDelegate(parent), delegate(other) {
-        QObject::connect(other, SIGNAL(closeEditor(QWidget*, QAbstractItemDelegate::EndEditHint)),
-                         this, SIGNAL(closeEditor(QWidget*, QAbstractItemDelegate::EndEditHint)));
-        QObject::connect(other, SIGNAL(commitData(QWidget*)), this, SIGNAL(commitData(QWidget*)));
-        QObject::connect(other, SIGNAL(sizeHintChanged(QModelIndex)), this, SIGNAL(sizeHintChanged(QModelIndex)));
+QxtCrumbViewDelegate::QxtCrumbViewDelegate(QAbstractItemDelegate* other, QObject* parent) : QAbstractItemDelegate(parent), delegate(other) {
+    QObject::connect(other, SIGNAL(closeEditor(QWidget*, QAbstractItemDelegate::EndEditHint)),
+                     this, SIGNAL(closeEditor(QWidget*, QAbstractItemDelegate::EndEditHint)));
+    QObject::connect(other, SIGNAL(commitData(QWidget*)), this, SIGNAL(commitData(QWidget*)));
+    QObject::connect(other, SIGNAL(sizeHintChanged(QModelIndex)), this, SIGNAL(sizeHintChanged(QModelIndex)));
 
-    }
-    QAbstractItemDelegate* delegate;
+}
 
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const {
-        delegate->paint(painter, option, index);
+void QxtCrumbViewDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const {
+    delegate->paint(painter, option, index);
 
-        if(!index.model()->hasChildren(index)) return;
+    if(!index.model()->hasChildren(index)) return;
 
-        int arrow = 8;
-        int pad = (option.rect.height() - arrow) / 2;
-        QStyleOption arrowOption;
-        arrowOption = option;
-        arrowOption.rect = QRect(option.rect.right() - arrow, option.rect.top() + pad, arrow, arrow);
-        QApplication::style()->drawPrimitive(QStyle::PE_IndicatorArrowRight, &arrowOption, painter);
-    }
+    int arrow = 8;
+    int pad = (option.rect.height() - arrow) / 2;
+    QStyleOption arrowOption;
+    arrowOption = option;
+    arrowOption.rect = QRect(option.rect.right() - arrow, option.rect.top() + pad, arrow, arrow);
+    QApplication::style()->drawPrimitive(QStyle::PE_IndicatorArrowRight, &arrowOption, painter);
+}
 
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
-        return delegate->sizeHint(option, index) + QSize(8, 0);
-    }
+QSize QxtCrumbViewDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const {
+    return delegate->sizeHint(option, index) + QSize(8, 0);
+}
 
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) {
-        return delegate->createEditor(parent, option, index);
-    }
+QWidget* QxtCrumbViewDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) {
+    return delegate->createEditor(parent, option, index);
+}
 
-    void setEditorData(QWidget* editor, const QModelIndex& index) const {
-        delegate->setEditorData(editor, index);
-    }
+void QxtCrumbViewDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const {
+    delegate->setEditorData(editor, index);
+}
 
-    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
-        delegate->setModelData(editor, model, index);
-    }
+void QxtCrumbViewDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
+    delegate->setModelData(editor, model, index);
+}
 
-    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const {
-        delegate->updateEditorGeometry(editor, option, index);
-    }
+void QxtCrumbViewDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const {
+    delegate->updateEditorGeometry(editor, option, index);
+}
 
-    bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) {
-        return delegate->editorEvent(event, model, option, index);
-    }
-};
+bool QxtCrumbViewDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) {
+    return delegate->editorEvent(event, model, option, index);
+}
 
 class QxtCrumbViewButton : public QAbstractButton {
 public:
@@ -136,7 +132,7 @@ protected:
         }
         int border = painter.style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
         option.rect = option.rect.adjusted(border, border, -border, -border);
-        QAbstractItemDelegate* delegate = static_cast<QxtCrumbView*>(parent())->itemDelegate();
+        QAbstractItemDelegate* delegate = static_cast<QxtCrumbView*>(parent())->crumbDelegate();
         QStyleOptionViewItem itemOption;
         itemOption.initFrom(this);
         itemOption.rect = option.rect;
@@ -285,10 +281,35 @@ void QxtCrumbView::back() {
 
 void QxtCrumbView::setItemDelegate(QAbstractItemDelegate* delegate) {
     QAbstractItemView::setItemDelegate(delegate);
-    delete qxt_d().view->itemDelegate();
-    qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
+    //delete qxt_d().view->itemDelegate();
+    //qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
 }
 
 QAbstractItemView* QxtCrumbView::itemView() const {
     return qxt_d().view;
 }
+
+void QxtCrumbView::paintEvent(QPaintEvent* event) {
+    QxtCrumbViewDelegate* viewDelegate = qobject_cast<QxtCrumbViewDelegate*>(qxt_d().view->itemDelegate());
+    if(viewDelegate->delegate != itemDelegate()) {
+        qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
+        delete viewDelegate;
+        qxt_d().view->update();
+    }
+    QAbstractItemView::paintEvent(event);
+}
+
+QAbstractItemDelegate* QxtCrumbView::crumbDelegate() const {
+    QAbstractItemDelegate* rv = qxt_d().crumbDelegate;
+    if(!rv) return itemDelegate();
+    return rv;
+}
+
+void QxtCrumbView::setCrumbDelegate(QAbstractItemDelegate* delegate) {
+    qxt_d().crumbDelegate = delegate;
+    update();
+    foreach(QxtCrumbViewButton* button, qxt_d().buttons) {
+        button->update();
+    }
+}
+
