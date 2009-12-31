@@ -40,6 +40,7 @@ public:
     QList<QxtCrumbViewButton*> buttons;
     QHBoxLayout* buttonLayout;
     QxtCrumbViewList* view;
+    QAbstractItemDelegate* crumbDelegate;
 
     void addCrumb(const QModelIndex& index); 
 
@@ -48,6 +49,22 @@ public:
 public slots:
     void buttonPressed();
 };
+
+class QxtCrumbViewDelegate : public QAbstractItemDelegate {
+Q_OBJECT
+public:
+    QxtCrumbViewDelegate(QAbstractItemDelegate* other, QObject* parent);
+    QAbstractItemDelegate* delegate;
+
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index);
+    void setEditorData(QWidget* editor, const QModelIndex& index) const;
+    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+    void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index);
+};
+
 
 #endif // QXTCRUMBVIEW_P_INCLUDED
 
