@@ -27,6 +27,7 @@
 #include <QTextCodec>
 #include <QBuffer>
 #include <QPointer>
+#include <QFile>
 #include <QtDebug>
 
 struct QxtMailAttachmentPrivate : public QSharedData
@@ -189,5 +190,12 @@ QByteArray QxtMailAttachment::mimeData()
         rv += c->read(57).toBase64() + "\r\n";
     }
     setContent((QIODevice*)0);
+    return rv;
+}
+
+QxtMailAttachment QxtMailAttachment::fromFile(const QString& filename)
+{
+    QxtMailAttachment rv(new QFile(filename));
+    rv.setDeleteContent(true);
     return rv;
 }
