@@ -61,6 +61,8 @@ protected:
     virtual QModelIndex moveCursor(CursorAction action, Qt::KeyboardModifiers mods);
     virtual void setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags);
     virtual QRegion visualRegionForSelection(const QItemSelection& selection) const;
+
+    virtual void showEvent(QShowEvent* event);
     virtual void paintEvent(QPaintEvent* event);
 
 private:
