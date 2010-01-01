@@ -34,7 +34,7 @@ class QxtCrumbViewButton;
 class QxtCrumbViewPrivate : public QObject, public QxtPrivate<QxtCrumbView> {
 Q_OBJECT
 public:
-    QxtCrumbViewPrivate() {}
+    QxtCrumbViewPrivate();
 
     QList<QModelIndex> crumbs;
     QList<QxtCrumbViewButton*> buttons;

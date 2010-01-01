@@ -146,6 +146,10 @@ protected:
     }
 };
 
+QxtCrumbViewPrivate::QxtCrumbViewPrivate() : crumbDelegate(0) {
+    // initializers only
+}
+
 void QxtCrumbViewPrivate::addCrumb(const QModelIndex& index) {
     crumbs.append(index);
     QxtCrumbViewButton* button = new QxtCrumbViewButton(index, &qxt_p());
@@ -198,6 +202,7 @@ void QxtCrumbView::reset() {
     qxt_d().crumbs.clear();
     qxt_d().buttons.clear();
     qxt_d().addCrumb(QModelIndex());
+    qxt_d().view->reset();
 }
 
 int QxtCrumbView::horizontalOffset() const {
@@ -222,7 +227,7 @@ QModelIndex QxtCrumbView::moveCursor(CursorAction action, Qt::KeyboardModifiers 
 
 void QxtCrumbView::scrollTo(const QModelIndex& index, ScrollHint hint) {
     if(index.parent() != qxt_d().view->rootIndex()) {
-        // set the breadcrumbs and the view's root index correctly
+        // TODO: set the breadcrumbs and the view's root index correctly
     }
     qxt_d().view->scrollTo(index, hint);
 }
@@ -289,12 +294,22 @@ QAbstractItemView* QxtCrumbView::itemView() const {
     return qxt_d().view;
 }
 
+void QxtCrumbView::showEvent(QShowEvent* event) {
+    QxtCrumbViewDelegate* viewDelegate = qobject_cast<QxtCrumbViewDelegate*>(qxt_d().view->itemDelegate());
+    if(viewDelegate->delegate != itemDelegate()) {
+        qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
+        delete viewDelegate;
+        qxt_d().view->reset();
+    }
+    QAbstractItemView::showEvent(event);
+}
+
 void QxtCrumbView::paintEvent(QPaintEvent* event) {
     QxtCrumbViewDelegate* viewDelegate = qobject_cast<QxtCrumbViewDelegate*>(qxt_d().view->itemDelegate());
     if(viewDelegate->delegate != itemDelegate()) {
         qxt_d().view->setItemDelegate(new QxtCrumbViewDelegate(itemDelegate(), this));
         delete viewDelegate;
-        qxt_d().view->update();
+        qxt_d().view->reset();
     }
     QAbstractItemView::paintEvent(event);
 }
