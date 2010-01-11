@@ -44,6 +44,9 @@ public:
 
     void setItemDelegate(QAbstractItemDelegate* delegate);
 
+    QAbstractItemDelegate* crumbDelegate() const;
+    virtual void setCrumbDelegate(QAbstractItemDelegate* delegate);
+
     QAbstractItemView* itemView() const;
 
 public slots:
@@ -58,6 +61,9 @@ protected:
     virtual QModelIndex moveCursor(CursorAction action, Qt::KeyboardModifiers mods);
     virtual void setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags);
     virtual QRegion visualRegionForSelection(const QItemSelection& selection) const;
+
+    virtual void showEvent(QShowEvent* event);
+    virtual void paintEvent(QPaintEvent* event);
 
 private:
     QXT_DECLARE_PRIVATE(QxtCrumbView)

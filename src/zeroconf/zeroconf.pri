@@ -11,7 +11,7 @@ SOURCES += qxtdiscoverableservice.cpp
 SOURCES += qxtservicebrowser.cpp
 SOURCES += qxtdiscoverableservicename.cpp
 
-unix : !macx {
+!contains(CONFIG,NO_AVAHI): unix : !macx {
         DEFINES += USE_AVAHI
         SOURCES += qxtmdns_avahi.cpp
         SOURCES += qxtavahipoll.cpp
