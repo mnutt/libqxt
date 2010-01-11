@@ -38,3 +38,6 @@ lib/
 tools/3rdparty/qdoc3/qdoc3
 .qmake.cache
 qxtvars.prf
+glob:*.vcproj
+glob:*.exe
+glob:*.vcproj.*.user
