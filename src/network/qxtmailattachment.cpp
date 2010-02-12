@@ -22,6 +22,16 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+
+/*!
+ * \class QxtMailAttachment
+ * \inmodule QxtNetwork
+ * \brief Represents an atachement to a QxtMailMessage
+ */
+
+
+
+
 #include "qxtmailattachment.h"
 #include "qxtmail_p.h"
 #include <QTextCodec>
