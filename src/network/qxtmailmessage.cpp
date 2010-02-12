@@ -22,6 +22,16 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+
+
+/*!
+ * \class QxtMailMessage
+ * \inmodule QxtNetwork
+ * \brief The QxtMailMessage class encapsulates an e-mail according to RFC 2822 and related specifications
+ * TODO: {implicitshared}
+ */
+
+
 #include "qxtmailmessage.h"
 #include "qxtmail_p.h"
 #include <QTextCodec>
@@ -29,12 +39,6 @@
 #include <QDir>
 #include <QtDebug>
 
-/**
- * \class QxtMailMessage
- * \inmodule QxtWeb
- * \brief The QxtMailMessage class encapsulates an e-mail according to RFC 2822 and related specifications
- * TODO: {implicitshared}
- */
 
 struct QxtMailMessagePrivate : public QSharedData
 {

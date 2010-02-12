@@ -22,6 +22,16 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+
+
+/*!
+ * \class QxtSmtp
+ * \inmodule QxtNetwork
+ * \brief Send mail via Smtp
+ */
+
+
+
 #include "qxtsmtp.h"
 #include "qxtsmtp_p.h"
 #include "qxthmac.h"
