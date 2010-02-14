@@ -303,7 +303,7 @@ QByteArray QxtMailMessage::rfc2822() const
 
     if (!qxt_d->rcptCc.isEmpty())
     {
-        rv += qxt_fold_mime_header("Cc", qxt_d->rcptTo.join(", "), latin1);
+        rv += qxt_fold_mime_header("Cc", qxt_d->rcptCc.join(", "), latin1);
     }
 
     if (!subject().isEmpty())
