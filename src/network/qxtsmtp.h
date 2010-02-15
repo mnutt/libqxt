@@ -96,7 +96,7 @@ Q_SIGNALS:
 
     void senderRejected(int mailID, const QString& address);
     void recipientRejected(int mailID, const QString& address);
-    void mailFailed(int mailID, int errorCode);
+    void mailFailed(int mailID, int errorCode, const QByteArray & line);
     void mailSent(int mailID);
 
     void finished();
