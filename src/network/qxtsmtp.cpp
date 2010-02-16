@@ -165,11 +165,11 @@ void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
 {
     if (err == QAbstractSocket::SslHandshakeFailedError)
     {
-        emit qxt_p().encryptionFailed();
+        emit qxt_p().encryptionFailed( socket->errorString().toAscii() );
     }
     else if (state == StartState)
     {
-        emit qxt_p().connectionFailed();
+        emit qxt_p().connectionFailed( socket->errorString().toAscii() );
     }
 }
 
@@ -188,7 +188,7 @@ void QxtSmtpPrivate::socketRead()
         case StartState:
             if (code[0] != '2')
             {
-                socket->disconnect();
+                socket->disconnectFromHost();
             }
             else
             {
@@ -228,8 +228,8 @@ void QxtSmtpPrivate::socketRead()
             else
             {
                 state = Disconnected;
-                emit qxt_p().authenticationFailed();
-                socket->disconnect();
+                emit qxt_p().authenticationFailed( line );
+                emit socket->disconnectFromHost();
             }
             break;
         case MailToSent:
@@ -265,7 +265,7 @@ void QxtSmtpPrivate::socketRead()
             break;
         case Resetting:
             if (code[0] != '2') {
-                emit qxt_p().connectionFailed();
+                emit qxt_p().connectionFailed( line );
             }
             else {
                 state = Waiting;
