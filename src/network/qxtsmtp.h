@@ -89,14 +89,20 @@ public:
 Q_SIGNALS:
     void connected();
     void connectionFailed();
+    void connectionFailed( const QByteArray & msg );
     void encrypted();
     void encryptionFailed();
+    void encryptionFailed( const QByteArray & msg );
     void authenticated();
     void authenticationFailed();
+    void authenticationFailed( const QByteArray & msg );
 
-    void senderRejected(int mailID, const QString& address);
-    void recipientRejected(int mailID, const QString& address);
+    void senderRejected(int mailID, const QString& address );
+    void senderRejected(int mailID, const QString& address, const QByteArray & msg );
+    void recipientRejected(int mailID, const QString& address );
+    void recipientRejected(int mailID, const QString& address, const QByteArray & msg );
     void mailFailed(int mailID, int errorCode);
+    void mailFailed(int mailID, int errorCode, const QByteArray & msg);
     void mailSent(int mailID);
 
     void finished();

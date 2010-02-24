@@ -69,7 +69,7 @@ public:
     };
 
     bool useSecure, disableStartTLS;
-    int state;
+    SmtpState state;// rather then an int use the enum.  makes sure invalid states are entered at compile time, and makes debugging easier
     AuthType authType;
     QByteArray buffer, username, password;
     QHash<QString, QString> extensions;
@@ -92,8 +92,8 @@ public:
     void authPlain();
     void authLogin();
 
-    void sendNextRcpt(const QByteArray& code);
-    void sendBody(const QByteArray& code);
+    void sendNextRcpt(const QByteArray& code, const QByteArray & line);
+    void sendBody(const QByteArray& code, const QByteArray & line);
 
 public slots:
     void socketError(QAbstractSocket::SocketError err);

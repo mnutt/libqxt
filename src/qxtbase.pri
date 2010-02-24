@@ -2,7 +2,6 @@ TEMPLATE = lib
 !win32:VERSION = 0.6
 DESTDIR = $${QXT_BUILD_TREE}/lib
 win32:DLLDESTDIR = $${QXT_BUILD_TREE}/bin
-
 target.path = $${QXT_INSTALL_LIBS}
 win32:dlltarget.path = $${QXT_INSTALL_BINS}
 headers.path = $${QXT_INSTALL_HEADERS}/$${CLEAN_TARGET}
@@ -45,6 +44,7 @@ macx {
     QMAKE_BUNDLE_DATA += FRAMEWORK_HEADERS
     QMAKE_LFLAGS += -F$${QXT_BUILD_TREE}/lib
 }
+win32-msvc|win32-msvc2005|win32-msvc2008: QMAKE_LFLAGS_DEBUG += /PDB:$$DESTDIR/$${TARGET}.pdb
 
 astyle.params += --pad=oper
 astyle.params += --unpad=paren
