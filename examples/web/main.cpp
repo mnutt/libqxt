@@ -1,20 +1,39 @@
 #include <QCoreApplication>
-#include <QxtWebCore>
-#include <QxtWebHttpConnector>
-#include "hello.h"
 
-int main(int argc, char ** argv)
-{
-    QCoreApplication app(argc,argv);
-    QxtWebHttpConnector http;
-    QxtWebLegacyEngine core(&http);
-    HelloWorld root;
-    if(!http.start(80))
-    {
-        qFatal("got root?");
+#include <QxtHttpServerConnector>
+#include <QxtHttpSessionManager>
+#include <QxtWebSlotService>
+#include <QxtWebPageEvent>
+
+
+class MyService : public QxtWebSlotService{
+    Q_OBJECT;
+public:
+    MyService(QxtAbstractWebSessionManager * sm, QObject * parent = 0 ): QxtWebSlotService(sm,parent){
     }
-    qDebug("great. now point your browser to http://localhost");
-    app.exec();
+public slots:
+    void index(QxtWebRequestEvent* event)
+    {
+        postEvent(new QxtWebPageEvent(event->sessionID, event->requestID, "<h1>It Works!</h1>"));
+    }
+};
+
+
+int main(int argc, char ** argv){
+
+        QCoreApplication app(argc,argv);
+
+        QxtHttpServerConnector connector;
+
+        QxtHttpSessionManager session;
+        session.setPort(8080);
+        session.setConnector(&connector);
+
+        MyService s1(&session);
+        session.setStaticContentService ( &s1);
+
+        session.start();
+        return app.exec();
 }
 
-
+#include "main.moc"
