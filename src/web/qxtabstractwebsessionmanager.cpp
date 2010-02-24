@@ -66,7 +66,7 @@ clean up its internal session tracking data.
 #include <QtDebug>
 
 #ifndef QXT_DOXYGEN_RUN
-QxtAbstractWebSessionManagerPrivate::QxtAbstractWebSessionManagerPrivate() : factory(0), maxID(0)
+QxtAbstractWebSessionManagerPrivate::QxtAbstractWebSessionManagerPrivate() : factory(0), maxID(1)
 {
     // initializers only
 }
