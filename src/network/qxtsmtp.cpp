@@ -165,10 +165,12 @@ void QxtSmtpPrivate::socketError(QAbstractSocket::SocketError err)
 {
     if (err == QAbstractSocket::SslHandshakeFailedError)
     {
+        emit qxt_p().encryptionFailed();
         emit qxt_p().encryptionFailed( socket->errorString().toAscii() );
     }
     else if (state == StartState)
     {
+        emit qxt_p().connectionFailed();
         emit qxt_p().connectionFailed( socket->errorString().toAscii() );
     }
 }
@@ -228,6 +230,7 @@ void QxtSmtpPrivate::socketRead()
             else
             {
                 state = Disconnected;
+                emit qxt_p().authenticationFailed();
                 emit qxt_p().authenticationFailed( line );
                 emit socket->disconnectFromHost();
             }
@@ -235,6 +238,7 @@ void QxtSmtpPrivate::socketRead()
         case MailToSent:
         case RcptAckPending:
             if (code[0] != '2') {
+                emit qxt_p().mailFailed( pending.first().first, code.toInt() );
                 emit qxt_p().mailFailed(pending.first().first, code.toInt(), line);
 				// pending.removeFirst();
 				// DO NOT remove it, the body sent state needs this message to assigned the next mail failed message that will 
@@ -256,7 +260,10 @@ void QxtSmtpPrivate::socketRead()
 				// you will get into this state and then crash because no check is done.  CHeck added but shouldnt
 				// be necessary since I commented out the removeFirst
 				if (code[0] != '2')
+				{
+					emit qxt_p().mailFailed(pending.first().first, code.toInt() );
 					emit qxt_p().mailFailed(pending.first().first, code.toInt(), line);
+				}
 				else
 					emit qxt_p().mailSent(pending.first().first);
 	            pending.removeFirst();
@@ -265,6 +272,7 @@ void QxtSmtpPrivate::socketRead()
             break;
         case Resetting:
             if (code[0] != '2') {
+                emit qxt_p().connectionFailed();
                 emit qxt_p().connectionFailed( line );
             }
             else {
@@ -513,6 +521,7 @@ void QxtSmtpPrivate::sendNext()
     if (recipients.count() == 0)
     {
         // can't send an e-mail with no recipients
+        emit qxt_p().mailFailed(pending.first().first, QxtSmtp::NoRecipients );
         emit qxt_p().mailFailed(pending.first().first, QxtSmtp::NoRecipients, QByteArray( "e-mail has no recipients" ) );
         pending.removeFirst();
         sendNext();
@@ -547,10 +556,12 @@ void QxtSmtpPrivate::sendNextRcpt(const QByteArray& code, const QByteArray&line)
         if (!mailAck)
         {
             emit qxt_p().senderRejected(messageID, msg.sender());
+            emit qxt_p().senderRejected(messageID, msg.sender(), line );
         }
         else
         {
             emit qxt_p().recipientRejected(messageID, msg.sender());
+            emit qxt_p().recipientRejected(messageID, msg.sender(), line);
         }
     }
     else if (!mailAck)
@@ -568,6 +579,7 @@ void QxtSmtpPrivate::sendNextRcpt(const QByteArray& code, const QByteArray&line)
         if (rcptAck == 0)
         {
             // no recipients were considered valid
+            emit qxt_p().mailFailed(messageID, code.toInt() );
             emit qxt_p().mailFailed(messageID, code.toInt(), line);
             pending.removeFirst();
             sendNext();
@@ -599,6 +611,7 @@ void QxtSmtpPrivate::sendBody(const QByteArray& code, const QByteArray & line)
 
     if (code[0] != '3')
     {
+        emit qxt_p().mailFailed(messageID, code.toInt() );
         emit qxt_p().mailFailed(messageID, code.toInt(), line);
         pending.removeFirst();
         sendNext();
