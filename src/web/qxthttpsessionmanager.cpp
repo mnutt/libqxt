@@ -335,6 +335,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
 
     int sessionID;
     QString sessionCookie = cookies.value(qxt_d().sessionCookieName);
+
     qxt_d().sessionLock.lock();
     if (qxt_d().sessionKeys.contains(sessionCookie))
     {
@@ -382,7 +383,7 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
         event->headers.insert(line.first, line.second);
     }
     event->headers.insert("X-Request-Protocol", "HTTP/" + QString::number(state.httpMajorVersion) + '.' + QString::number(state.httpMinorVersion));
-    if (sessionID)
+    if (sessionID && session(sessionID))
     {
         session(sessionID)->pageRequestedEvent(event);
     }

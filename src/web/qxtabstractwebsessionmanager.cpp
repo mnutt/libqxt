@@ -146,8 +146,9 @@ QxtAbstractWebService* QxtAbstractWebSessionManager::session(int sessionID) cons
  */
 int QxtAbstractWebSessionManager::createService()
 {
-    if (!qxt_d().factory) return 0;
     int sessionID = qxt_d().getNextID();
+    if (!qxt_d().factory) return sessionID;
+
     QxtAbstractWebService* service = serviceFactory()(this, sessionID);
     qxt_d().sessions[sessionID] = service;
     // Using QxtBoundFunction to bind the sessionID to the slot invocation
