@@ -44,7 +44,7 @@ macx {
     QMAKE_BUNDLE_DATA += FRAMEWORK_HEADERS
     QMAKE_LFLAGS += -F$${QXT_BUILD_TREE}/lib
 }
-win32:QMAKE_LFLAGS_DEBUG += /PDB:$$DESTDIR/$${TARGET}.pdb
+win32-msvc|win32-msvc2005|win32-msvc2008: QMAKE_LFLAGS_DEBUG += /PDB:$$DESTDIR/$${TARGET}.pdb
 
 astyle.params += --pad=oper
 astyle.params += --unpad=paren
