@@ -45,6 +45,7 @@
 #include "qxtfilelock.h"
 #include "qxtglobal.h"
 #include "qxthmac.h"
+#include "qxtjson.h"
 #include "qxtjob.h"
 #include "qxtlinesocket.h"
 #include "qxtlinkedtree.h"
