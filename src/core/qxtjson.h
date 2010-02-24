@@ -23,11 +23,16 @@
  **
  ****************************************************************************/
 
+#ifndef QXTJSON_H
+#define QXTJSON_H
+
+#include "qxtglobal.h"
 #include <QVariant>
 #include <QString>
 
-class QxtJSON {
+class QXT_CORE_EXPORT QxtJSON {
 public:
     static QVariant parse     (QString string);
     static QString  stringify (QVariant v);
 };
+#endif
