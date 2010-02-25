@@ -192,9 +192,9 @@ void QxtXmlRpcCallPrivate::d_finished()
         }
         if (xml.hasError())
         {
-            qWarning(QString("QxtXmlRpcCall: " + xml.errorString() + " at line " +
-                             QString::number(xml.lineNumber()) + " column " +
-                             QString::number(xml.columnNumber())).toLocal8Bit().data());
+	    qWarning("QxtXmlRpcCall: %s at line %d column %d", xml.errorString().toLocal8Bit().data(),
+	             QString::number(xml.lineNumber()),
+	             QString::number(xml.columnNumber()));
         }
     }
     emit pub->finished();
