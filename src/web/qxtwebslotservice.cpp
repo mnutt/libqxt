@@ -31,9 +31,7 @@
 
 \brief The QxtWebSlotService class provides a Slot based webservice
 
-Implements the behaviour of the old QxtWebController from qxt 0.3.<br>
-path names are resolved to slot names.
-
+A WebService that resolves the first part of the path to a slot name and passes the rest as arguments.
 
 \code
 class MyService : public QxtWebSlotService
@@ -48,7 +46,7 @@ public slots:
 \endcode
 
 
-/path/to/service/hello/foo<br>
+/hello/foo<br>
 will output<br>
 &lth1&gtFoo&lt/h1&gt<br>
 
