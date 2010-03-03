@@ -90,7 +90,7 @@
     \keyword QxtNetwork
     \ingroup modules
 
-    \brief The QxtNetwork module extends QtNetwork with RPC functionality.
+    \brief The QxtNetwork module extends QtNetwork
 */
 
 /*!
