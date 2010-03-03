@@ -70,6 +70,7 @@
         <ul>
         <li><a href="tech-ipc.html">Inter-Process Communication</a></li>
         <li><a href="tech-web.html">Create Web Services with Qxt</a></li>
+        <li><a href="tech-log.html">Pluggable Logging Framework</a></li>
         </ul>
         </td>
         <td valign="top">
@@ -234,3 +235,17 @@
 
     \sa {QxtWeb}
  */
+
+
+/*!
+    \page tech-log.html
+    \title Pluggable Logging Framework
+
+    \raw HTML
+    <p>
+    <a href="qxtlogger.html"> QxtLogger </a>  provides your application with an excelene framework for logging errors and debug messages in different levels.
+    It can write to different backend plugins, such as <a href="qxtbasicfileloggerengine.html">QxtBasicFileLoggerengine</a> , <a href="qxtbasicstdloggerengine.html"> QxtBasicStdLoggerEngine</a>
+    </p>
+    \endraw
+
+*/
