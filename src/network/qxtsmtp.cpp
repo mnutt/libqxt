@@ -27,7 +27,7 @@
 /*!
  * \class QxtSmtp
  * \inmodule QxtNetwork
- * \brief Send mail via Smtp
+ * \brief The QxtSmtp class implements the SMTP protocol for sending email
  */
 
 
