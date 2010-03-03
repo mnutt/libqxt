@@ -119,7 +119,7 @@
     \code
     CONFIG += qxt
     QXT += network
-    \encode
+    \endcode
 
     The QxtCore and QxtGui
     modules are included by default. To link only against QxtCore, do this:
