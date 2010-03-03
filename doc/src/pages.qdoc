@@ -112,9 +112,16 @@
     \row \o \l{QxtZeroConf} \o TODO
     \endtable
 
-    If you use \l qmake to build your projects, the QxtCore and QxtGui
-    modules are included by default. To link only against QxtCore, add
-    the following line to your \c .pro file:
+
+    To use one of these modules, add them to the QXT variable in your qmake project (.pro) file. For example:
+
+    \code
+    CONFIG += qxt
+    QXT += network
+    \encode
+
+    The QxtCore and QxtGui
+    modules are included by default. To link only against QxtCore, do this:
 
     \code
     QXT = core
