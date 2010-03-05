@@ -38,35 +38,16 @@
         Getting Started
         </th>
         <th bgcolor="#66b036" width="50%">
-        General
+        Api Reference
         </th>
         </tr>
         <tr>
         <td valign="top">
         <ul>
-        <li><a href="installation.html">Installation</a></li>
+        <li><a href="http://dev.libqxt.org/libqxt/wiki/user_guide">User Guide</a></li>
         <li><a href="examples.html">Examples</a></li>
         </ul>
         </td>
-        <td valign="top">
-        <ul>
-        <li><a href="http://libqxt.org">About Qxt</a></li>
-        <li><a href="http://www.qtsoftware.com/products">About Qt</a></li>
-        <li><a href="supported-platforms.html">Supported Platforms</a></li>
-        <li><a href="bughowto.html">How to Report a Bug</a></li>
-        <li><a href="contribute.html">How to Contribute</a></li>
-        </ul>
-        </td>
-        </tr>
-        <tr>
-        <th bgcolor="#66b036">
-        API Reference
-        </th>
-        <th bgcolor="#66b036">
-        Licenses &amp; Credits
-        </th>
-        </tr>
-        <tr>
         <td valign="top">
         <ul>
         <li><a href="modules.html">Modules</a></li>
@@ -75,12 +56,39 @@
         <li><a href="functions.html">Functions</a></li>
         </ul>
         </td>
+        </tr>
+        <tr>
+        <th bgcolor="#66b036">
+        Technologies
+        </th>
+        <th bgcolor="#66b036">
+        About
+        </th>
+        </tr>
+        <tr>
         <td valign="top">
         <ul>
-        <li><a href="cpl.html">IBM CPL</a>, <a href="lgpl.html">GNU LGPL</a></li>
+        <li><a href="tech-ipc.html">Inter-Process Communication</a></li>
+        <li><a href="tech-web.html">Create Web Services with Qxt</a></li>
+        <li><a href="tech-log.html">Pluggable Logging Framework</a></li>
+        </ul>
+        </td>
+        <td valign="top">
+        <ul>
+        <li><a href="http://www.libqxt.org">About Qxt</a></li>
+        <li><a href="http://www.qtsoftware.com/products">About Qt</a></li>
+        <!--
+        <li><a href="supported-platforms.html">Supported Platforms</a></li>
+        --!>
+        <li><a href="http://dev.libqxt.org/libqxt/issues/new/">Report a bug</a></li>
+        <li><a href="http://dev.libqxt.org/libqxt/wiki/libqxt_developer_guide">How to Contribute</a></li>
+        <li><a href="http://www.opensource.org/licenses/cpl1.0.php">IBM CPL</a>, <a href="http://www.opensource.org/licenses/lgpl-2.1.php">GNU LGPL</a></li>
+        <!--
         <li><a href="3rdparty.html">Third-Party Licenses Used in Qxt</a></li>
         <li><a href="licenses.html">Other Licenses Used in Qxt</a></li>
         <li><a href="credits.html">Credits</a></li>
+        -->
+
         </ul>
         </td>
         </tr>
@@ -105,9 +113,16 @@
     \row \o \l{QxtZeroconf} \o Qxt QxtZeroconf module implements configure free service discovery
     \endtable
 
-    If you use \l qmake to build your projects, the QxtCore and QxtGui
-    modules are included by default. To link only against QxtCore, add
-    the following line to your \c .pro file:
+
+    To use one of these modules, add them to the QXT variable in your qmake project (.pro) file. For example:
+
+    \code
+    CONFIG += qxt
+    QXT += network
+    \endcode
+
+    The QxtCore and QxtGui
+    modules are included by default. To link only against QxtCore, do this:
 
     \code
     QXT = core
@@ -150,4 +165,87 @@
     \generatelist functionindex
 
     \sa {Qxt's Modules}, {Qxt's Classes}, {Qxt's Namespaces}
+*/
+
+
+/*!
+    \page tech-ipc.html
+    \title Inter-Process Communication
+
+
+    Qxt provides you with a range of IPC Implementations for different use cases.
+
+
+    \raw HTML
+        <h3>Qt Signals and Slots over the air</h3>
+        <p>
+                <a href="qxtrpcservice.html">QxtRpcService</a> provides a facility to use Qt signals and slots over any QIODevice. 
+                It let's you connect two QObjects on the fly and marshals arguments for you. If all you want is a quick and easy solution to connect 
+                two Qt programs, QxtRpcService is for you.<br />
+                On top of that, <a href="qxtrpcpeer.html">QxtRpcPeer</a> provides a higher level implementation over TCP connections. 
+        </p>
+        <h3>Qt in the cloud. Xml and Json rpcs</h3>
+        <p>
+                If you want to connect your qt program to an existing web service in the cloud, qxt provides ready implementations of common http based protocols.<br>
+                <ul>
+                        <li><a href="qxtxmlrpcclient.html">QxtXmlRpcClient</a> implements XML-RPC </li>
+                       <li><a href="qxtjsonrpcclient.html">QxtJSONRpcClient</a> implements JSON-RPC </li>
+                </ul>
+        </p>
+    \endraw
+
+    \sa {QxtNetwork}
+*/
+
+
+
+
+/*!
+    \page tech-web.html
+    \title Web Service Framework
+
+    \raw HTML
+    <p>
+    Webkit brings the Web to Qt, and <a href="qxtweb.html">QxtWeb</a>  brings Qt to the web.
+    It lets you create web services within the Qt Toolkit, but abstracts away the "web" enough to let you mix websites with other content, 
+    other connection protocols, and other clients then a browser.
+    </p>
+    <h3>Sessions</h3>
+    <p>
+        At first, there is a  QxtAbstractWebSessionManager. Typically you would use a QxtHttpSessionManager which utilizes http cookies, 
+        but it is entirely possible to use different session techniques.  The session manager starts a session either by just asigning it a number you can later use
+        to identify sessions, or by instantiation a session stack (if you set serviceFactory). The former is more like the traditional webapp flow, where a request 
+        does not leave any traces other then some persisted session data, after it is handled.  The later technique leaves qobjects in the main memory for the time 
+        of the session. They can handle background tasks for the specific session, and even later notify the session user asyncronously. However, it does come at a cost.
+    </p>
+    <h3>Connectors. Protocol implementations.</h3>
+    <p>
+        Qxt can connect your services with a range of protocols. Currently those are <a href="qxthttpserverconnector.html"> Http</a> and <a href="qxtscgiserverconnector.html"> Scgi</a>.  It is not recommended to run the http connector directly as a frontend service on the internet. Instead use it for development, or on embedded devices within a trusted network. Scgi allows easy integration into frontend servers, such as apaches httpd.
+    </p>
+    <h3>The Services.</h3>
+    <p>
+        Finally, you will want to implement one or many <a href="qxtabstractwebservice.html"> QxtAbstractWebService</a> which handle the actual requests from clients. 
+        Your service then receives a pageRequestedEvent, with the request from a client. It responds to it by posting a response via postEvent.
+        Note that the default event distribution is single threaded. Blocking a service will block the entire server. However, you will rarely find sitations where you have to block, thanks to Qts excellent asyncronous api. A few convenience implementations are provided, such as <a href="qxtwebservicedirectory.html">qxtwebservicedirectory.html</a>, <a href="qxtwebcgiservice.html">qxtwebcgiservice.html</a>,<a href="qxtwebslotservice.html">qxtwebslotservice.html</a>
+    </p>
+
+    \endraw
+
+    
+
+    \sa {QxtWeb}
+ */
+
+
+/*!
+    \page tech-log.html
+    \title Pluggable Logging Framework
+
+    \raw HTML
+    <p>
+    <a href="qxtlogger.html"> QxtLogger </a>  provides your application with an excelene framework for logging errors and debug messages in different levels.
+    It can write to different backend plugins, such as <a href="qxtbasicfileloggerengine.html">QxtBasicFileLoggerengine</a> , <a href="qxtbasicstdloggerengine.html"> QxtBasicStdLoggerEngine</a>
+    </p>
+    \endraw
+
 */
