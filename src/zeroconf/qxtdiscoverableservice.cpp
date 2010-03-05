@@ -6,7 +6,7 @@
 #include <QtDebug>
 #include <QtEndian>
 
-/**
+/*!
 \class QxtDiscoverableService
 
 \inmodule QxtZeroconf

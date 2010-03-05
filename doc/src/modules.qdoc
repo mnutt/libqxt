@@ -130,10 +130,10 @@
 */
 
 /*!
-    \module QxtZeroConf
-    \title QxtZeroConf Module
-    \keyword QxtZeroConf
+    \module QxtZeroconf
+    \title QxtZeroconf Module
+    \keyword QxtZeroconf
     \ingroup modules
 
-    \brief TODO
+    \brief The QxtZeroconf module implements configure free service discovery
 */

@@ -102,7 +102,7 @@
     \row \o \l{QxtNetwork} \o The QxtNetwork module extends QtNetwork with RPC functionality.
     \row \o \l{QxtSql} \o The QxtSql module extends QtSql with serializable queries.
     \row \o \l{QxtWeb} \o The QxtWeb module provides tools for creating web services using Qt.
-    \row \o \l{QxtZeroConf} \o TODO
+    \row \o \l{QxtZeroconf} \o Qxt QxtZeroconf module implements configure free service discovery
     \endtable
 
     If you use \l qmake to build your projects, the QxtCore and QxtGui

@@ -3,7 +3,7 @@
 #include "qxtdiscoverableservice_p.h"
 #include <QSocketNotifier>
 
-/**
+/*!
 \class QxtServiceBrowser
 
 \inmodule QxtZeroconf
