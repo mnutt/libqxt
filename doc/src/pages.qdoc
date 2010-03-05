@@ -70,6 +70,7 @@
         <ul>
         <li><a href="tech-ipc.html">Inter-Process Communication</a></li>
         <li><a href="tech-web.html">Create Web Services with Qxt</a></li>
+        <li><a href="tech-zeroconf.html">Configure free service discovery</a></li>
         <li><a href="tech-log.html">Pluggable Logging Framework</a></li>
         </ul>
         </td>
@@ -245,6 +246,20 @@
     <p>
     <a href="qxtlogger.html"> QxtLogger </a>  provides your application with an excelene framework for logging errors and debug messages in different levels.
     It can write to different backend plugins, such as <a href="qxtbasicfileloggerengine.html">QxtBasicFileLoggerengine</a> , <a href="qxtbasicstdloggerengine.html"> QxtBasicStdLoggerEngine</a>
+    </p>
+    \endraw
+
+*/
+
+
+
+/*!
+    \page tech-zeroconf.html
+    \title Configure free service discovery
+
+    \raw HTML
+    <p>
+    <a href="qxtzeroconf.html"> QxtZeroconf </a> implements classes for announcing and discovering services on the local network, without the need for any user configuration. Commonly this is known as "Zeroconf". A computer in the Local Area Network could announce a "printing service", and other computers could find this service without knowing the topology of the network. QxtZeroconf implements multiple possible system backends, namely apples mdnsd, and avahi.
     </p>
     \endraw
 
