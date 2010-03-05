@@ -2,7 +2,7 @@ project                 = Qxt
 description             = Qxt Reference Documentation
 url                     = http://doc.libqxt.org/0.6.0
 language                = Cpp
-modules                 = QxtBerkeley QxtCore QxtGui QxtNetwork QxtSql QxtWeb QxtZeroConf
+modules                 = QxtBerkeley QxtCore QxtGui QxtNetwork QxtSql QxtWeb QxtZeroconf
 
 qhp.projects            = Qxt
 
