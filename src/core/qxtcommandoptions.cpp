@@ -489,7 +489,7 @@ void QxtCommandOptionsPrivate::parse(const QStringList& params)
         param = params[pos];
         pos++;
 
-        if (!endFlags && ((flagStyle == QxtCommandOptions::Slash && param[0] != '/') ||
+        if (!endFlags && ((flagStyle == QxtCommandOptions::Slash && param[0] == '/') ||
                           (flagStyle != QxtCommandOptions::Slash && param[0] == '-')))
         {
             // tagged argument
