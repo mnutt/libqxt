@@ -111,6 +111,8 @@ public:
     QByteArray statusMessage;
     QByteArray contentType;
 
+    QMultiHash<QString, QString> headers;
+
 private:
     friend class QxtWebRedirectEvent;
     QxtWebPageEvent(QxtWebEvent::EventType typeOverride, int sessionID, int requestID, QByteArray source);
