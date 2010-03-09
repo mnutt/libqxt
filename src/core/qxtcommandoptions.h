@@ -32,74 +32,10 @@
 #include <QMultiHash>
 #include <QFlags>
 class QxtCommandOptionsPrivate;
-QT_FORWARD_DECLARE_CLASS(QTextStream)
-QT_FORWARD_DECLARE_CLASS(QIODevice)
+QT_FORWARD_DECLARE_CLASS(QTextStream);
+QT_FORWARD_DECLARE_CLASS(QIODevice);
 
-/*!
-\class QxtCommandOptions QxtCommandOptions
 
-\inmodule QxtCore
-
-\brief Parser for command-line options
-
-This class is used by applications that need to accept command-line arguments.  It can
-also automatically generate help text, which keeps it from accidentally falling out of
-sync with the supported options, and it can produce warnings for common errors.
-
-It accepts Windows-style ("/option"), UNIX-style ("-option"), and GNU-style
-("--option") options. By default, QxtCommandOptions uses Windows-style options
-(QxtCommandOptions::Slash) on Windows and GNU-style options (QxtCommandOptions::DoubleDash)
-on UNIX and Mac. When using GNU-style options, single-character option names only
-require a single leading dash and can be grouped together, for example, "-abc".
-
-Any parameter that does not start with the option prefix is considered a positional
-parameter. Most applications treat positional parameters as filenames. When using
-GNU- or UNIX-style options, use a double dash ("--") alone to force the remaining
-parameters to be interpreted as positional parameters.
-
-To use QxtCommandOptions, first add the supported options using the add() and alias()
-methods, then process the command line using the parse() method, and finally retrieve
-the processed options using the positional(), count(), value() and/or parameters()
-methods.
-
-Mutually-exclusive options can be specified by using the \a group parameter to add().
-Only one option in a group will be accepted on the command line; if multiple options
-are provided, only the last one takes effect.
-
-Some options may accept an optional or required parameter. Depending on the value
-of the paramStyle() property, the parameter may be separated from the option by
-an equals sign ("/option=value") or by a space ("-option value"). By default,
-Windows uses an equals sign and UNIX and Mac accept both an equals sign and a
-space. Optional parameters always require an equals sign. Note that, when using
-GNU-style options, single-character options cannot have optional parameters.
-
-A simple archiving application might use code similar to this:
-\code
-QxtCommandOptions options;
-options.add("compress", "create a new archive");
-options.alias("compress", "c");
-options.add("extract", "extract files from an archive");
-options.alias("extract", "x");
-options.add("level", "set the compression level (0-9)", QxtCommandOptions::Required);
-options.alias("level", "l");
-options.add("verbose", "show more information about the process; specify twice for more detail", QxtCommandOptions::AllowMultiple);
-options.alias("verbose", "v");
-options.add("help", "show this help text");
-options.alias("help", "h");
-options.parse(QCoreApplication::arguments());
-if(options.count("help") || options.showUnrecognizedWarning()) {
-    options.showUsage();
-    return -1;
-}
-bool verbose = options.count("verbose");
-int level = 5;
-if(options.count("level")) {
-    level = options.value("level").toInt();
-}
-\endcode
-
-\sa QCoreApplication::arguments()
-*/
 class QXT_CORE_EXPORT QxtCommandOptions
 {
     Q_DECLARE_TR_FUNCTIONS(QxtCommandOptions)
