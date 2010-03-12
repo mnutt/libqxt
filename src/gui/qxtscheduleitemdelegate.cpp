@@ -19,7 +19,7 @@
  ** included with the source distribution for more information.
  ** If you did not receive a copy of the licenses, contact the Qxt Foundation.
  **
- ** <http://libqxt.org>  <foundation@libqxt.org>
+ ** <http://libqxt.org>  <foundation\libqxt.org>
  **
  ****************************************************************************/
 #include "qxtscheduleitemdelegate.h"
@@ -46,12 +46,12 @@ QxtScheduleItemDelegate::~QxtScheduleItemDelegate()
 
 
 /*!
- * @desc reimplemented for item painting
+ *  reimplemented for item painting
  * You should not reimplement this to change the item painting, use paintItemBody, paintItemHeader and paintSubItem instead
  * because this function uses caches to speed up painting. If you want to change the item shape only you could also reimplement
  * the createPainterPath function.
- * @note the parameter option hast to be of type QxtStyleOptionScheduleViewItem or the delegate will not paint something
- * @sa paintItemBody(), paintItemHeader(), paintSubItem()
+ * \note the parameter option hast to be of type QxtStyleOptionScheduleViewItem or the delegate will not paint something
+ * \sa paintItemBody(), paintItemHeader(), paintSubItem()
  */
 void QxtScheduleItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
