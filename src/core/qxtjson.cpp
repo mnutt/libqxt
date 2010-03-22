@@ -287,11 +287,13 @@ static QVariant parseLiteral (QTextStream & s,bool & error){
             return QVariant();
         }else if (c=='-' || c.isDigit()){
             QString n;
-            n.append(c);
-            while(!s.atEnd() && !error && ( c.isDigit()  || (c=='.') || (c=='E') || (c=='e') || (c=='-') || (c=='+') )){
-                s>>c;
+            while(( c.isDigit()  || (c=='.') || (c=='E') || (c=='e') || (c=='-') || (c=='+') )){
                 n.append(c);
+                if(s.atEnd() ||  error)
+                    break;
+                s>>c;
             }
+            s.seek(s.pos()-1);
             if(n.contains('.')){
                 return n.toDouble();
             }else{
