@@ -75,7 +75,8 @@ QString QxtJSON::stringify(QVariant v){
             i.next();
             r+="\""+i.key()+"\":"+stringify(i.value())+",";
         }
-        r.chop(1);
+        if(r.length()>1)
+            r.chop(1);
         r+="}";
         return r;
     }else if (t == QVariant::Hash){
@@ -86,7 +87,8 @@ QString QxtJSON::stringify(QVariant v){
             i.next();
             r+="\""+i.key()+"\":"+stringify(i.value())+",";
         }
-        r.chop(1);
+        if(r.length()>1)
+            r.chop(1);
         r+="}";
         return r;
     }else if (t == QVariant::StringList){
@@ -95,7 +97,8 @@ QString QxtJSON::stringify(QVariant v){
         foreach(QString i, l){
             r+="\""+i+"\",";
         }
-        r.chop(1);
+        if(r.length()>1)
+            r.chop(1);
         r+="]";
         return r;
     }else if (t == QVariant::List){
@@ -104,7 +107,8 @@ QString QxtJSON::stringify(QVariant v){
         foreach(QVariant i, l){
             r+=stringify(i)+",";
         }
-        r.chop(1);
+        if(r.length()>1)
+            r.chop(1);
         r+="]";
         return r;
     }
