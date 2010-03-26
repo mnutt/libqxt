@@ -33,8 +33,8 @@ htmldocs.CONFIG += no_check_exist
 
 INSTALLS += htmldocs
 
-exists( $(QTDIR)/bin/qhelpgenerator) {
-    QHELPGENERATOR = $(QTDIR)/bin/qhelpgenerator
+exists( $$[QT_INSTALL_BINS]/qhelpgenerator) {
+    QHELPGENERATOR = $$[QT_INSTALL_BINS]/qhelpgenerator
     qch_docs.commands = $$QHELPGENERATOR  $$QXT_BUILD_TREE/doc/html/qxt.qhp -o $$QXT_BUILD_TREE/doc/qch/qxt.qch
     qch_docs.depends = adp_docs
     docs.depends += qch_docs
