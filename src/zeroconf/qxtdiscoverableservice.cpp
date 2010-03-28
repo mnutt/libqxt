@@ -11,7 +11,7 @@
 
 \inmodule QxtZeroconf
 
-\brief Register a service that can be discovered with Zeroconf, or resolve such a service
+\brief The QxtDiscoverableService class registers a service that can be discovered with Zeroconf, or resolve such a service
 
 QxtDiscoverableService represents a service on the local network that can be discovered using Zeroconf.
 It can function to provide such a service so that other systems on the network can find it, or it can

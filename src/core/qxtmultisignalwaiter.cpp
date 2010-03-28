@@ -62,7 +62,8 @@ QxtMultiSignalWaiter::~QxtMultiSignalWaiter()
 }
 
 /*!
- * Blocks the current function until any of the signals in the group are emitted.
+ * Blocks the current function by processing events from the event queue according to
+ * \a flags until any of the signals in the group are emitted.
  * If \a msec is not \c -1, waitForAny() will return before a signal is emitted if the
  * specified  number of milliseconds have elapsed. Returns \c true if a signal was
  * caught, or \c false if the timeout elapsed.
@@ -79,13 +80,14 @@ bool QxtMultiSignalWaiter::waitForAny(int msec, QEventLoop::ProcessEventsFlags f
 }
 
 /*!
- * Blocks the current function until all of the signals in the group have been
- * emitted. If \a msec is not \c -1, waitForAll() will return before all of the signals
- * are emitted if the specified  number of milliseconds have elapsed. Returns
- * \c true if each signal was caught at least once, or \c false if the timeout elapsed.
- * Note that waitForAll() may continue to block after the last signal is emitted
- * or the timeout elapses; the function only guarantees that it will not return
- * BEFORE one of these conditions has occurred. This function is not reentrant.
+ * Blocks the current function by processing events from the event queue according to
+ * \a flags until all of the signals in the group have been emitted. If \a msec is not
+ * \c -1, waitForAll() will return before all of the signals are emitted if the specified
+ * number of milliseconds have elapsed. Returns \c true if each signal was caught at
+ * least once, or \c false if the timeout elapsed. Note that waitForAll() may continue
+ * to block after the last signal is emitted or the timeout elapses; the function only
+ * guarantees that it will not return BEFORE one of these conditions has occurred.
+ * This function is not reentrant.
  *
  * \sa QxtSignalGroup::addSignal(), QxtSignalGroup::allSignalsReceived()
  */
