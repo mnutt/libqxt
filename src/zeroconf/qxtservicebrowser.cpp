@@ -8,7 +8,7 @@
 
 \inmodule QxtZeroconf
 
-\brief Locate Zeroconf-enabled services on the network
+\brief The QxtServiceBrowser class locates Zeroconf-enabled services on the network
 
 QxtServiceBrowser is a tool for locating Zeroconf-enabled services on the local network. When starting
 to browse, all existing services reachable on the local network matching the specified search parameters

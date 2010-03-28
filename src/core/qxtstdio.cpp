@@ -47,7 +47,9 @@ perfect as a counter part for QProcess or debug output into a QxtPipe chain
 
 
 
-
+/*!
+    Constructs a new QxtStdio with \a parent.
+ */
 QxtStdio::QxtStdio(QObject * parent): QxtPipe(parent)
 {
     QXT_INIT_PRIVATE(QxtStdio);
@@ -68,6 +70,9 @@ QxtStdio::QxtStdio(QObject * parent): QxtPipe(parent)
     QObject::connect(qxt_d().notify, SIGNAL(activated(int)), &qxt_d(), SLOT(activated(int)));
 }
 
+/*!
+    \reimp
+ */
 qint64 QxtStdio::writeData(const char * data, qint64 maxSize)
 {
     qint64 i = 0;
@@ -98,12 +103,17 @@ void QxtStdioPrivate::activated(int)
     qxt_p().sendData(b);
 }
 
-
+/*!
+    Receive \a data.
+ */
 void   QxtStdio::receiveData(QByteArray data, const QxtPipe *)
 {
     writeData(data.data(), data.size());
 }
 
+/*!
+    \reimp
+ */
 bool QxtStdio::waitForReadyRead(int)
 {
     if (qxt_d().hadeof)
@@ -125,7 +135,7 @@ bool QxtStdio::waitForReadyRead(int)
     return true;
 }
 
-
+/*!Blocks until EOF is received.*/
 void QxtStdio::waitForEOF()
 {
     if (qxt_d().hadeof)

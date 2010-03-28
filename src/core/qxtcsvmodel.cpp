@@ -31,19 +31,24 @@
 
 /*!
 \fn QxtCsvModel::QxtCsvModel(QObject *parent = 0);
-default Constructor
+Constructs a new QxtCsvModel with \a parent
+*/
+
+/*!
+\fn QxtCsvModel::~QxtCsvModel();
+Destructor
 */
 
 /*!
 \fn QxtCsvModel::QxtCsvModel(QIODevice *file, QObject *parent=0, bool withHeader = false, QChar separator= ',')
-constructs a QxtCsvModel from a QIODevice as source
+constructs a QxtCsvModel from a QIODevice \a file as source
 \a withHeader specifies if the data on the device contains a header or not.
 \a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
 
 /*!
 \fn QxtCsvModel::QxtCsvModel(const QString filename, QObject *parent = 0, bool withHeader = false, QChar separator = ',')
-constructs a QxtCsvModel from a filename as source
+constructs a QxtCsvModel from \a filename as source
 \a withHeader specifies if the data in the file contains a header or not.
 \a separator is the separator to use for the columns. most widely used separators are ','  '\\t' ';'
 */
@@ -119,18 +124,27 @@ QxtCsvModel::QxtCsvModel(const QString filename, QObject *parent, bool withHeade
 QxtCsvModel::~QxtCsvModel()
 {}
 
+/*!
+    \reimp
+ */
 int QxtCsvModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.row() != -1 && parent.column() != -1) return 0;
     return qxt_d().csvData.count();
 }
 
+/*!
+    \reimp
+ */
 int QxtCsvModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.row() != -1 && parent.column() != -1) return 0;
     return qxt_d().maxColumn;
 }
 
+/*!
+    \reimp
+ */
 QVariant QxtCsvModel::data(const QModelIndex& index, int role) const
 {
     if (index.parent() != QModelIndex()) return QVariant();
@@ -143,6 +157,9 @@ QVariant QxtCsvModel::data(const QModelIndex& index, int role) const
     }
 }
 
+/*!
+    \reimp
+ */
 QVariant QxtCsvModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (section < qxt_d().header.count() && orientation == Qt::Horizontal && (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole))
@@ -203,12 +220,18 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator)
     file->close();
 }
 
+/*!
+    \reimp
+ */
 void QxtCsvModel::setHeaderData(const QStringList data)
 {
     qxt_d().header = data;
     emit headerDataChanged(Qt::Horizontal, 0, data.count());
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::setData(const QModelIndex& index, const QVariant& data, int role)
 {
     if (index.parent() != QModelIndex()) return false;
@@ -232,11 +255,17 @@ bool QxtCsvModel::setData(const QModelIndex& index, const QVariant& data, int ro
     }
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::insertRow(int row, const QModelIndex& parent)
 {
     return insertRows(row, 1, parent);
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::insertRows(int row, int count, const QModelIndex& parent)
 {
     if (parent != QModelIndex() || row < 0) return false;
@@ -254,11 +283,17 @@ bool QxtCsvModel::insertRows(int row, int count, const QModelIndex& parent)
     return true;
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::removeRow(int row, const QModelIndex& parent)
 {
     return removeRows(row, 1, parent);
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::removeRows(int row, int count, const QModelIndex& parent)
 {
     if (parent != QModelIndex() || row < 0) return false;
@@ -272,11 +307,17 @@ bool QxtCsvModel::removeRows(int row, int count, const QModelIndex& parent)
     return true;
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::insertColumn(int col, const QModelIndex& parent)
 {
     return insertColumns(col, 1, parent);
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::insertColumns(int col, int count, const QModelIndex& parent)
 {
     if (parent != QModelIndex() || col < 0) return false;
@@ -302,11 +343,17 @@ bool QxtCsvModel::insertColumns(int col, int count, const QModelIndex& parent)
     return true;
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::removeColumn(int col, const QModelIndex& parent)
 {
     return removeColumns(col, 1, parent);
 }
 
+/*!
+    \reimp
+ */
 bool QxtCsvModel::removeColumns(int col, int count, const QModelIndex& parent)
 {
     if (parent != QModelIndex() || col < 0) return false;
@@ -370,6 +417,9 @@ void QxtCsvModel::toCSV(const QString filename, bool withHeader, QChar separator
     toCSV(&dest, withHeader, separator);
 }
 
+/*!
+    \reimp
+ */
 Qt::ItemFlags QxtCsvModel::flags(const QModelIndex& index) const
 {
     return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
