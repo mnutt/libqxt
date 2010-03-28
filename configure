@@ -237,9 +237,7 @@ configtest()
     $MAKE clean >>$CONFIG_LOG 2>&1
     [ -f ./$1 ] && rm ./$1
     echo -n "."
-    $MAKE >>$CONFIG_LOG 2>&1
-    echo -n "."
-    if ./$1 >>$CONFIG_LOG 2>&1 ; then
+    if $MAKE >>$CONFIG_LOG 2>&1 >>$CONFIG_LOG 2>&1 ; then
         echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
         echo "DEFINES+=HAVE_$2">>$QMAKE_CACHE
     else
