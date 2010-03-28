@@ -234,12 +234,12 @@ configtest()
     cd "$QXT_BUILD_TREE/config.tests/$1"
     $QMAKE_BIN $QMAKE_PARAMS "$QXT_SOURCE_TREE/config.tests/$1/$1.pro" >>$CONFIG_LOG
     echo -n "."
-    $MAKE clean >>$CONFIG_LOG
+    $MAKE clean >>$CONFIG_LOG 2>&1
     [ -f ./$1 ] && rm ./$1
     echo -n "."
-    $MAKE 2>&1 >>$CONFIG_LOG
+    $MAKE >>$CONFIG_LOG 2>&1
     echo -n "."
-    if ./$1 >>$CONFIG_LOG ; then
+    if ./$1 >>$CONFIG_LOG 2>&1 ; then
         echo -e >&2 "  [${C_GREEN}success${C_NONE}] "
         echo "DEFINES+=HAVE_$2">>$QMAKE_CACHE
     else
