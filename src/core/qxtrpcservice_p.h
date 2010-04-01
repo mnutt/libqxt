@@ -36,7 +36,7 @@
 class QxtRPCServiceIntrospector;
 class QxtRPCServicePrivate : public QObject, public QxtPrivate<QxtRPCService>
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     QxtRPCServicePrivate();
     QXT_DECLARE_PUBLIC(QxtRPCService)
@@ -46,28 +46,49 @@ public:
     QxtAbstractSignalSerializer* serializer;
     QPointer<QIODevice> device;
 
+    // One buffer is needed for the "server" connection, and one buffer is needed for each connected client.
     QByteArray serverBuffer;
     QHash<quint64, QByteArray> buffers;
 
+    // A Qt invokable, such as a signal or slot, can be identified by the metaobject containing its description plus
+    // its signature or name. It is worth noting that QxtRPCService uses the same structure for both signals and slots,
+    // but in slightly different ways: For identifying incoming signals, this structure contains the signature. For
+    // identifying outgoing slots, this structure only contains the name, and the parameters coming from the signal are
+    // used to determine which overload to use.
+    // TODO: Is this actually safe?
+    typedef QPair<const QMetaObject*, QByteArray> MetaMethodDef;
+
+    // A slot connection can be identified by the object receiving it and the name of the function. Additionally, a
+    // connection can be Direct, Queued, or BlockingQueued.
     struct SlotDef
     {
         QObject* recv;
         QByteArray slot;
         Qt::ConnectionType type;
-        inline bool operator==(const SlotDef& other) const
-        {
+        inline bool operator==(const SlotDef& other) const {
+            // Two slots are equivalent only if they refer to the same slot on the same object with the same
+            // connection type.
             return (recv == other.recv) && (slot == other.slot) && (type == other.type);
         }
     };
-    QHash<QString, QList<SlotDef> > connectedSlots;
-    QHash<QPair<const QMetaObject*, QByteArray>, QList<QByteArray> > slotParameters;
 
-    void dispatchFromServer(const QString& fn, const QVariant& p0 = QVariant(), const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(),
-                            const QVariant& p3 = QVariant(), const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(),
+    // Maps an RPC function name to a list of slot connections.
+    QHash<QString, QList<SlotDef> > connectedSlots;
+
+    // Maps a slot's metamethod to an array of parameter type names.
+    QHash<MetaMethodDef, QList<QByteArray> > slotParameters;
+
+    // As described in the main class's documentation, QMetaObject::invokeMethod is limited to 10 parameters, so
+    // QxtRPCService is limited to 8.
+    void dispatchFromServer(const QString& fn, const QVariant& p0 = QVariant(), const QVariant& p1 = QVariant(),
+                            const QVariant& p2 = QVariant(), const QVariant& p3 = QVariant(),
+                            const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(),
                             const QVariant& p6 = QVariant(), const QVariant& p7 = QVariant()) const;
-    void dispatchFromClient(quint64 id, const QString& fn, const QVariant& p0 = QVariant(), const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(),
-                            const QVariant& p3 = QVariant(), const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(),
-                            const QVariant& p6 = QVariant(), const QVariant& p7 = QVariant()) const;
+    void dispatchFromClient(quint64 id, const QString& fn, const QVariant& p0 = QVariant(), 
+                            const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(),
+                            const QVariant& p3 = QVariant(), const QVariant& p4 = QVariant(),
+                            const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
+                            const QVariant& p7 = QVariant()) const;
 
 public Q_SLOTS:
     void clientConnected(QIODevice* dev, quint64 id);

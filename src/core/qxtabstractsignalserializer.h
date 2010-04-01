@@ -33,25 +33,47 @@
 #include <QPair>
 #include <QByteArray>
 
+/*!
+ * \class QxtAbstractSignalSerializer
+ * \inmodule QxtCore
+ * \brief The QxtAbstractSignalSerializer class provides an interface for classes that convert signals to a binary form.
+ *
+ * QxtAbstractSignalSerializer is an abstract interface used by, for example, QxtRPCService to convert signals into a
+ * serialized binary format suitable for storing or transmitting over an I/O device.
+ *
+ * Qxt provides a default implementation in the form of QxtDataStreamSignalSerializer, which is generally sufficient for
+ * most applications. Implement other subclasses of QxtAbstractSignalSerializer to allow QxtRPCService and similar tools
+ * to integrate with existing protocols.
+ */
+
 class QXT_CORE_EXPORT QxtAbstractSignalSerializer
 {
 public:
+    /*!
+     * The first half of QxtAbstractSignalSerializer::DeserializedData is the name of the deserialized signal. The
+     * second half is an array of QVariants containing the parameters of the signal.
+     */
     typedef QPair<QString, QList<QVariant> > DeserializedData;
 
+    /*!
+     * Destroys the QxtAbstractSignalSerializer.
+     */
     virtual ~QxtAbstractSignalSerializer() {}
 
     /*!
      * Serializes a signal into a form suitable for sending to an I/O device.
      */
-    virtual QByteArray serialize(const QString& fn, const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(), const QVariant& p3 = QVariant(),
-                                 const QVariant& p4 = QVariant(), const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
+    virtual QByteArray serialize(const QString& fn, const QVariant& p1 = QVariant(), const QVariant& p2 = QVariant(),
+                                 const QVariant& p3 = QVariant(), const QVariant& p4 = QVariant(),
+                                 const QVariant& p5 = QVariant(), const QVariant& p6 = QVariant(),
                                  const QVariant& p7 = QVariant(), const QVariant& p8 = QVariant()) const = 0;
 
     /*!
-     * Deserializes binary data into a signal name and a list of parameters.
-     * When implementing this function, be sure to remove the processed portion of the data from the reference parameter.
+     * Deserializes binary data into a signal name and a list of parameters. When implementing this function, be sure
+     * to remove the processed portion of the data from the reference parameter.
      * Return QxtAbstractSignalSerializer::NoOp() if the deserialized data does not invoke a signal.
-     * Return QxtAbstractSignalSerializer::ProtocolError() if the protocol has been violated and the connection should be severed.
+     * Return QxtAbstractSignalSerializer::ProtocolError() if the protocol has been violated and the connection should
+     * be severed.
      */
     virtual DeserializedData deserialize(QByteArray& data) = 0;
 
