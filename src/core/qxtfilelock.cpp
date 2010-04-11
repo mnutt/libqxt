@@ -57,8 +57,7 @@
  * \bold {Note:} On *nix this class uses fctnl to lock the file. This may not be compatible to other locking functions like flock and lockf
  * \bold {Note:} Please do not mix QxtFileLock and native file lock calls on the same QFile. The behaviour is undefined
  * \bold {Note:} QxtFileLock lives in the same thread as the passed QFile
- * \warning due to a refactoring issues of QFile this class will not work with Qt from 4.3 on. This will be fixed in 4.3.2
- * \warning not part of 0.2.4
+ * \warning due to a refactoring issues of QFile this class will not work with Qt from version 4.3.0 to 4.3.2
 */
 
 /*!
