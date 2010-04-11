@@ -208,8 +208,8 @@
     \raw HTML
     <p>
     Webkit brings the Web to Qt, and <a href="qxtweb.html">QxtWeb</a>  brings Qt to the web.
-    It lets you create web services within the Qt Toolkit, but abstracts away the "web" enough to let you mix websites with other content, 
-    other connection protocols, and other clients then a browser.
+    It lets you create web services within the Qt Toolkit. Typicall you'd implement a "Website", but its flexible 
+    enough to to let you mix websites with other content, other connection protocols, and other clients.
     </p>
     <h3>Sessions</h3>
     <p>
