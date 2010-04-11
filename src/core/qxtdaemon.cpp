@@ -61,6 +61,7 @@ int main(int argc, char ** argv)
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #endif
 
 
