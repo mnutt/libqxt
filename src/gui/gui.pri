@@ -63,6 +63,10 @@ HEADERS  += qxtscheduleview_p.h
 HEADERS  += qxtstyleoptionscheduleviewitem.h
 
 HEADERS  += qxtsortfilterproxymodel.h
+HEADERS  += qxtfilterdialog.h
+HEADERS  += qxtfilterdialog_p.h
+HEADERS  += qxtlookuplineedit.h
+HEADERS  += qxtlookuplineedit_p.h
 
 SOURCES  += qxtbasespinbox.cpp
 SOURCES  += qxtcheckcombobox.cpp
@@ -105,6 +109,8 @@ SOURCES  += qxtstyleoptionscheduleviewitem.cpp
 SOURCES  += qxtscheduleheaderwidget.cpp
 
 SOURCES  += qxtsortfilterproxymodel.cpp
+SOURCES  += qxtfilterdialog.cpp
+SOURCES  += qxtlookuplineedit.cpp
 
 !qws:!symbian {
     # QxtApplication, QxtGlobalShortcut, QxtScreen and
