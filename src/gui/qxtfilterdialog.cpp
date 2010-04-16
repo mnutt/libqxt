@@ -79,7 +79,7 @@ void QxtFilterDialogPrivate::matchCaseOptionStateChanged(const int state)
 
 /*!
 \class QxtFilterDialog QxtFilterDialog
-\brief provides a dialog to select data from a QAbstractItemModel
+\brief The QxtFilterDialog class provides a dialog to select data from a QAbstractItemModel
 
 Provides a dialog to select data from a QAbstractItemModel, the user can filter the items depending on a
 role and column to make the selection easier.

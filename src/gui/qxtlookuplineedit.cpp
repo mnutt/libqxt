@@ -13,7 +13,7 @@
 
 /*!
   \class QxtLookupLineEdit QxtLookupLineEdit
-  \brief a QLineEdit to select from data provided by a QAbstractItemModel
+  \brief The QxtLookupLineEdit class is a QLineEdit to select from data provided by a QAbstractItemModel.
   QxtLookupLineEdit uses QxtFilterDialog to make it easy for the user,
   to select data from a large dataset.
   \code
