@@ -14,7 +14,9 @@ or online at http://docs.libqxt.org.
     * #24 QxtFlowView::currentIndex()
     * #29 qxtwecore
     * #33 Problem in QxtMailMessage
+    * #34 Debug PDB files
     * #36 QxtCommandoptions on Windows wrong option parsing
+    * #41 Compilation issue on Mac
 
 - QxtCore
     * Added QxtModelSerializer
