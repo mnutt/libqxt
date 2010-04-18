@@ -9,7 +9,7 @@ contains(QXT_MODULES, gui):SUBDIRS += gui
 contains(QXT_MODULES, network):SUBDIRS += network
 contains(QXT_MODULES, sql):SUBDIRS += sql
 contains(QXT_MODULES, web):SUBDIRS += web
-contains(DEFINES,HAVE_ZEROCONF):contains(QXT_MODULES, zeroconf):SUBDIRS += zeroconf
+#contains(DEFINES,HAVE_ZEROCONF):contains(QXT_MODULES, zeroconf):SUBDIRS += zeroconf
 
 test.CONFIG += recursive
 QMAKE_EXTRA_TARGETS += test
