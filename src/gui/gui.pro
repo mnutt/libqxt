@@ -12,6 +12,7 @@ contains(DEFINES,HAVE_XRANDR){
 }
 
 win32:LIBS      += -luser32
+macx:LIBS       += -framework Carbon
 # Debian and derivatives pass --no-undefined to the linker, which
 # means that each library must explicitly link to all dependencies 
 # than assuming that the application or another library will bring
