@@ -51,6 +51,12 @@ echo "QXT_MODULES = $QXT_MODULES" > $QXT_VARS
 while (( $# > 0 )); do
     if [ $1 == "-qmake-bin" ]; then
         QMAKE_BIN=$2; shift
+    elif [ $1 == "-L" ]; then
+        echo "LIBS += -L$2" >> $QMAKE_CACHE;shift
+    elif [ $1 == "-l" ]; then
+        echo "LIBS += -l$2" >> $QMAKE_CACHE;shift
+    elif [ $1 == "-I" ]; then
+        echo "INCLUDEPATH += $2" >> $QMAKE_CACHE;shift
     elif [ $1 == "-bootstrap" ]; then
         echo "CONFIG += bootstrap" >> $QMAKE_CACHE; shift
     elif [ $1 == "-nomake" ]; then
@@ -126,6 +132,9 @@ while (( $# > 0 )); do
         echo "                      default: QMAKE_MKSPECS/features"
         echo "-qmake-bin <path> ... Specifies the path to the qmake executable"
         echo "                      default: search the system path"
+        echo "-L <path> ........... Specifies the a additional library search path"
+        echo "-I <path> ........... Specifies the a additional include search path"
+        echo "-l <path> ........... Add a custom library"
         echo "-static ............. Build Qxt as a static library"
         echo "-debug .............. Build Qxt with debugging symbols"
         echo "-release ............ Build Qxt without debugging support"
