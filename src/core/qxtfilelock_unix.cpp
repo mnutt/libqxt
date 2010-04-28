@@ -107,23 +107,29 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
                     /*do we have to check for threads here?*/
                     if (newLockEnd >= currLockStart  && newLockStart <= currLockEnd)
                     {
-                        qDebug() << "we may have a collision";
-                        qDebug() << newLockEnd << " >= " << currLockStart << "  &&  " << newLockStart << " <= " << currLockEnd;
+                        //qDebug() << "we may have a collision";
+                        //qDebug() << newLockEnd << " >= " << currLockStart << "  &&  " << newLockStart << " <= " << currLockEnd;
 
                         /*same lock region if one of both locks are exclusive we have a collision*/
                         if (lock ->mode() == QxtFileLock::WriteLockWait || lock ->mode() == QxtFileLock::WriteLock ||
                                 currLock->mode() == QxtFileLock::WriteLockWait || currLock->mode() == QxtFileLock::WriteLock)
                         {
-                            qDebug() << "Okay if this is not the same thread using the same handle there is a collision";
+                            /*FIXED BUG #6 test rw_same() passes on Unix
+                              keeping the old code for a while
+                              */
+                            return false;
+#if 0
+                           //qDebug() << "Okay if this is not the same thread using the same handle there is a collision";
                             /*the same thread  can lock the same region with the same handle*/
 
-                            qDebug() << "! (" << lock ->thread() << " == " << currLock->thread() << " && " << lock ->file()->handle() << " == " << currLock->file()->handle() << ")";
+                            //qDebug() << "! (" << lock ->thread() << " == " << currLock->thread() << " && " << lock ->file()->handle() << " == " << currLock->file()->handle() << ")";
 
                             if (!(lock ->thread() == currLock->thread() && lock ->file()->handle() == currLock->file()->handle()))
                             {
                                 qDebug() << "Collision";
                                 return false;
                             }
+#endif
                         }
                     }
                 }
@@ -131,7 +137,7 @@ bool QxtFileLockRegistry::registerLock(QxtFileLock * lock)
             else //remove dead locks
                 iterator.remove();
         }
-        qDebug() << "The lock is okay";
+        //qDebug() << "The lock is okay";
         /*here we can insert the lock into the list and return*/
         procLocks.append(QPointer<QxtFileLock>(lock));
         return true;
