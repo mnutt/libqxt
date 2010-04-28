@@ -79,6 +79,7 @@ QString QxtJSON::stringify(QVariant v){
             r.chop(1);
         r+="}";
         return r;
+#if QT_VERSION >= 0x040500
     }else if (t == QVariant::Hash){
         QString r="{";
         QHash<QString, QVariant> map = v.toHash();
@@ -91,6 +92,7 @@ QString QxtJSON::stringify(QVariant v){
             r.chop(1);
         r+="}";
         return r;
+#endif
     }else if (t == QVariant::StringList){
         QString r="[";
         QStringList l = v.toStringList();
