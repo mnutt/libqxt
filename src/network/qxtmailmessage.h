@@ -47,6 +47,7 @@ public:
     QxtMailMessage();
     QxtMailMessage(const QxtMailMessage& other);
     QxtMailMessage(const QString& sender, const QString& recipient);
+    QxtMailMessage(const QByteArray& rfc2822);
     QxtMailMessage& operator=(const QxtMailMessage& other);
     ~QxtMailMessage();
 

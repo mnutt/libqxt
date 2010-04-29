@@ -38,6 +38,7 @@
 #include <QUuid>
 #include <QDir>
 #include <QtDebug>
+#include <QRegExp>
 
 
 struct QxtMailMessagePrivate : public QSharedData
@@ -52,6 +53,26 @@ struct QxtMailMessagePrivate : public QSharedData
     QHash<QString, QString> extraHeaders;
     QHash<QString, QxtMailAttachment> attachments;
     mutable QByteArray boundary;
+};
+
+class QxtRfc2822Parser
+{
+public:
+    QxtMailMessagePrivate* parse(const QByteArray& buffer);
+private:
+    enum State {
+        Headers,
+        Body
+    };
+    State state;
+    QString currentHeaderKey;
+    QStringList currentHeaderValue;
+    void parseHeader(const QByteArray& line, QHash<QString, QString>& headers);
+    void parseBody(QxtMailMessagePrivate* msg);
+    void parseEntity(const QByteArray& buffer, QHash<QString,QString>& headers, QString& body);
+    QxtMailAttachment* parseAttachment(const QHash<QString,QString>& headers, const QString& body, QString& filename);
+    QString unfoldValue(QStringList& folded);
+    QString decode(const QString& charset, const QString& encoding, const QString& encoded);
 };
 
 QxtMailMessage::QxtMailMessage()
@@ -69,6 +90,12 @@ QxtMailMessage::QxtMailMessage(const QString& sender, const QString& recipient)
     qxt_d = new QxtMailMessagePrivate;
     setSender(sender);
     addRecipient(recipient);
+}
+
+QxtMailMessage::QxtMailMessage(const QByteArray& rfc2822)
+{
+    QxtRfc2822Parser parser;
+    qxt_d = parser.parse(rfc2822);
 }
 
 QxtMailMessage::~QxtMailMessage()
@@ -508,4 +535,332 @@ QByteArray QxtMailMessage::rfc2822() const
     }
 
     return rv;
+}
+
+QxtMailMessagePrivate* QxtRfc2822Parser::parse(const QByteArray& buffer)
+{
+    QxtMailMessagePrivate* rv = new QxtMailMessagePrivate();
+    parseEntity(buffer, rv->extraHeaders, rv->body);
+    parseBody(rv);
+    return rv;
+}
+
+void QxtRfc2822Parser::parseEntity(const QByteArray& buffer, QHash<QString,QString>& headers, QString& body)
+{
+    int pos = 0;
+    int crlfPos = 0;
+    QByteArray line;
+    currentHeaderKey = QString();
+    currentHeaderValue.clear();
+    state = Headers;
+    while (true)
+    {
+        crlfPos = buffer.indexOf("\r\n", pos);
+        if (crlfPos == -1)
+        {
+            break;
+        }
+        if (state == Headers && crlfPos == pos)  // double CRLF reached: end of headers section
+        {
+            state = Body;
+            parseHeader("", headers); // to store the header currently being parsed (last one)
+            pos += 2;
+            continue;
+        }
+        line = buffer.mid(pos, crlfPos - pos);
+        pos = crlfPos + 2;
+        switch(state)
+        {
+        case Headers:
+            parseHeader(line, headers);
+            break;
+        case Body:
+            body.append(line + "\r\n");
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void QxtRfc2822Parser::parseHeader(const QByteArray& line, QHash<QString, QString>& headers )
+{
+    QRegExp spRe("^[ \\t]");
+    QRegExp hdrRe("^([!-9;-~]+):[ \\t](.*)$");
+    if (spRe.indexIn(line) == 0) // continuation line
+    {
+        currentHeaderValue.append(line);
+    }
+    else
+    {
+        // starting a new header field. Store the current one before
+        if (!currentHeaderKey.isEmpty())
+        {
+            QString value = unfoldValue(currentHeaderValue);
+            headers[currentHeaderKey.toLower()] = value;
+            currentHeaderKey = QString();
+            currentHeaderValue.clear();
+        }
+        if (hdrRe.exactMatch(line))
+        {
+            currentHeaderKey = hdrRe.cap(1);
+            currentHeaderValue.append(hdrRe.cap(2));
+        } // else: empty or malformed header line. Ignore.
+    }
+}
+
+// extract the attachments from a multipart body
+// proceed only one level deep
+// future plans may involve nested parts and dealing with inline parts too
+void QxtRfc2822Parser::parseBody(QxtMailMessagePrivate* msg)
+{
+    QString& body = msg->body;
+    if (!msg->extraHeaders.contains("content-type")) return;
+    QString contentType = msg->extraHeaders["content-type"];
+    if (!contentType.indexOf("multipart",0,Qt::CaseInsensitive) == 0) return;
+    // extract the boundary delimiter
+    QRegExp boundaryRe("boundary=\"?([^\"]*)\"?(?=;|$)");
+    if (boundaryRe.indexIn(contentType) == -1)
+    {
+        qDebug("Boundary regexp didn't match for %s", contentType.toAscii().data());
+        return;
+    }
+    QString boundary = boundaryRe.cap(1);
+    qDebug("Boundary=%s", boundary.toAscii().data());
+    QRegExp bndRe(QString("(^|\\r?\\n)--%1(--)?[ \\t]*\\r?\\n").arg(QRegExp::escape(boundary)));   // find boundary delimiters in the body
+    qDebug("search for %s", bndRe.pattern().toAscii().data());
+    if (!bndRe.isValid())
+    {
+        qDebug("regexp %s not valid ! %s", bndRe.pattern().toAscii().data(), bndRe.errorString().toAscii().data());
+    }
+    bool last = false;
+    // keep track of the position of two consecutive boundary delimiters:
+    // begin* is the position of the delimiter first character,
+    // end* is the position of the first character of the part following it.
+    int beginFirst = 0;
+    int endFirst = 0;
+    int beginSecond = 0;
+    int endSecond = 0;
+    while(bndRe.indexIn(body, endSecond) != -1)
+    {
+        beginSecond = bndRe.pos() + bndRe.cap(1).length(); // add length of preceding line break, if any
+        endSecond = bndRe.pos() + bndRe.matchedLength();
+        if (bndRe.numCaptures() == 2 && bndRe.cap(2) == "--") last = true;
+        qDebug("found%s boundary delimiter at position %d.", last?" last":"", beginSecond);
+        qDebug("%d captures", bndRe.numCaptures());
+        foreach(QString capture, bndRe.capturedTexts())
+        {
+            qDebug("->%s<-", capture.toAscii().data());
+        }
+        qDebug("beginFirst = %d\nendFirst = %d\nbeginSecond = %d\nendSecond = %d", beginFirst, endFirst, beginSecond, endSecond);
+        if (endFirst != 0)
+        {
+            // handle part here:
+            QByteArray part = body.mid(endFirst, beginSecond - endFirst).toLocal8Bit();
+            QHash<QString,QString> partHeaders;
+            QString partBody;
+            parseEntity(part, partHeaders, partBody);
+            qDebug("Part headers:");
+            foreach (QString key, partHeaders.keys())
+            {
+                qDebug("%s: %s", key.toAscii().data(), partHeaders[key].toAscii().data());
+            }
+//            qDebug("Part body:\n%s", partBody.toAscii().data());
+            if (partHeaders.contains("content-disposition") && partHeaders["content-disposition"].indexOf("attachment;") == 0)
+            {
+                qDebug("Attachment!");
+                QString filename;
+                QxtMailAttachment* attachment = parseAttachment(partHeaders, partBody, filename);
+                if (attachment) msg->attachments[filename] = *attachment;
+                // strip part from body
+                body.replace(beginFirst, beginSecond - beginFirst, "");
+                beginSecond = beginFirst;
+                endSecond = endFirst;
+            }
+        }
+        beginFirst = beginSecond;
+        endFirst = endSecond;
+    }
+}
+
+QString QxtRfc2822Parser::unfoldValue(QStringList& folded)
+{
+    QString unfolded;
+    QRegExp encRe("=\\?([^? \\t]+)\\?([qQbB])\\?([^? \\t]+)\\?="); // search for an encoded word
+    QStringList::iterator i;
+    for (i = folded.begin(); i != folded.end(); ++i)
+    {
+        int offset = 0;
+        while (encRe.indexIn(*i, offset) != -1)
+        {
+            QString decoded = decode(encRe.cap(1), encRe.cap(2).toLower(), encRe.cap(3));
+            i->replace(encRe.pos(), encRe.matchedLength(), decoded);  // replace encoded word with decoded one
+            offset = encRe.pos() + decoded.length(); // set offset after the inserted decoded word
+        }
+    }
+    unfolded = folded.join("");
+    return unfolded;
+}
+
+QString QxtRfc2822Parser::decode(const QString& charset, const QString& encoding, const QString& encoded)
+{
+    QString rv;
+    QByteArray buf;
+    if (encoding == "q")
+    {
+        QByteArray src = encoded.toAscii();
+        int len = src.length();
+        for (int i = 0; i < len; i++)
+        {
+            if (src[i] == '_')
+            {
+                buf += 0x20;
+            }
+            else if (src[i] == '=')
+            {
+                if (i+2 < len)
+                {
+                    buf += QByteArray::fromHex(src.mid(i+1,2));
+                    i += 2;
+                }
+            }
+            else
+            {
+                buf += src[i];
+            }
+        }
+    }
+    else if (encoding == "b")
+    {
+        buf = QByteArray::fromBase64(encoded.toAscii());
+    }
+    QTextCodec *codec = QTextCodec::codecForName(charset.toAscii());
+    if (codec)
+    {
+        rv = codec->toUnicode(buf);
+    }
+    return rv;
+}
+
+QxtMailAttachment* QxtRfc2822Parser::parseAttachment(const QHash<QString,QString>& headers, const QString& body, QString& filename)
+{
+    static int count = 1;
+    QByteArray content;
+    QRegExp filenameRe(";\\s+filename=\"?([^\"]*)\"?(?=;|$)");
+    if (filenameRe.indexIn(headers["content-disposition"]) != -1)
+    {
+        filename = filenameRe.cap(1);
+    }
+    else
+    {
+        filename = QString("attachment%1").arg(count);
+    }
+    qDebug("Attachment %s", filename.toLocal8Bit().data());
+
+    QString ct;
+    if (headers.contains("content-type"))
+    {
+        ct = headers["content-type"];
+    }
+    else
+    {
+        ct = "application/octet-stream";
+    }
+
+    QString cte;
+    if (headers.contains("content-transfer-encoding"))
+    {
+        cte = headers["content-transfer-encoding"].toLower();
+        qDebug("Content-Transfer-Encoding: %s", cte.toAscii().data());
+    }
+    if ( cte == "base64")
+    {
+        content = QByteArray::fromBase64(body.toAscii());
+    }
+    else if (cte == "quoted-printable")
+    {
+        QByteArray src = body.toAscii();
+        int len = src.length();
+        QTextStream dest(&content);
+        for (int i = 0; i < len; i++)
+        {
+            if (src.mid(i,2) == "\r\n")
+            {
+                dest << endl;
+                i++;
+            }
+            else if (src[i] == '=')
+            {
+                if (i+2 < len)
+                {
+                    if (src.mid(i+1,2) == "\r\n") // soft line break; skip
+                    {
+                        i +=2;
+                    }
+                    else
+                    {
+                        dest << QByteArray::fromHex(src.mid(i+1,2));
+                        i += 2;
+                    }
+                }
+            }
+            else
+            {
+                dest << src[i];
+            }
+        }
+    }
+    else // assume 7bit or 8bit
+    {
+        content = body.toLocal8Bit();
+        if (isTextMedia(ct))
+        {
+            content.replace("\r\n","\n");
+        }
+    }
+    QxtMailAttachment* rv = new QxtMailAttachment(content, ct);
+    rv->setExtraHeaders(headers);
+    return rv;
+}
+
+
+// gives only a hint, based on content-type value.
+// takes value of Content-Type header field as parameter
+// return true if the content-type corresponds to textual data (text/*, application/xml...)
+// and false if unsure, so don't interpret a 'false' response as 'it's binary data...
+bool isTextMedia(const QString& contentType)
+{
+    // extract media type/sub-type part (e.g. text/plain, image/png...)
+    QRegExp mtRe("^([^;/]*)/([^;/]*)(?=;|$)");
+    if (mtRe.indexIn(contentType) == -1)
+    {
+        qWarning("failed to parse %s for type/subtype", contentType.toAscii().data());
+        return false;
+    }
+    QString type = mtRe.cap(1).toLower();
+    QString subtype = mtRe.cap(2).toLower();
+    if (type == "text") return true;
+    if (type == "application" &&
+        (subtype == "x-csh" ||
+         subtype == "x-desktop" ||
+         subtype == "x-m4" ||
+         subtype == "x-perl" ||
+         subtype == "x-php" ||
+         subtype == "x-ruby" ||
+         subtype == "x-troff-man" ||
+         subtype == "xsd" ||
+         subtype == "xml-dtd" ||
+         subtype == "xml-external-parsed-entity" ||
+         subtype == "xslt+xml" ||
+         subtype == "xhtml+xml" ||
+         subtype == "pgp-keys" ||
+         subtype == "pgp-signature" ||
+         subtype == "javascript" ||
+         subtype == "ecmascript" ||
+         subtype == "docbook+xml" ||
+         subtype == "xml" ||
+         subtype == "html" ||
+         subtype == "x-shellscript")) return true;
+    if (type == "image" && subtype == "svg+xml") return true;
+    return false;
 }

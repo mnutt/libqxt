@@ -63,6 +63,8 @@ public:
     void removeExtraHeader(const QString& key);
 
     QByteArray mimeData();
+    const QByteArray& rawData();
+    bool isText() const;
 
 private:
     QSharedDataPointer<QxtMailAttachmentPrivate> qxt_d;

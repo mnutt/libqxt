@@ -175,18 +175,6 @@ void QxtMailAttachment::removeExtraHeader(const QString& key)
 
 QByteArray QxtMailAttachment::mimeData()
 {
-    QIODevice* c = content();
-    if (!c)
-    {
-        qWarning() << "QxtMailAttachment::mimeData(): Content not set or already output";
-        return QByteArray();
-    }
-    if (!c->isOpen() && !c->open(QIODevice::ReadOnly))
-    {
-        qWarning() << "QxtMailAttachment::mimeData(): Cannot open content for reading";
-        return QByteArray();
-    }
-
     QTextCodec* latin1 = QTextCodec::codecForName("latin1");
     QByteArray rv = "Content-Type: " + qxt_d->contentType.toAscii() + "\r\nContent-Transfer-Encoding: base64\r\n";
     foreach(const QString& r, qxt_d->extraHeaders.keys())
@@ -195,12 +183,51 @@ QByteArray QxtMailAttachment::mimeData()
     }
     rv += "\r\n";
 
-    while (!c->atEnd())
+    const QByteArray& d = rawData();
+    for (int pos = 0; pos < d.length(); pos += 57)
     {
-        rv += c->read(57).toBase64() + "\r\n";
+        rv += d.mid(pos, 57).toBase64() + "\r\n";
     }
-    setContent((QIODevice*)0);
     return rv;
+}
+
+const QByteArray& QxtMailAttachment::rawData()
+{
+    if (qobject_cast<QBuffer *>(qxt_d->content.data()) == 0)
+    {
+        // content isn't hold in a buffer but in another kind of QIODevice
+        // (probably a QFile...). Read the data and cache it into a buffer
+        static QByteArray empty;
+        QIODevice* c = content();
+        if (!c)
+        {
+            qWarning() << "QxtMailAttachment::rawData(): Content not set";
+            return empty;
+        }
+        if (!c->isOpen() && !c->open(QIODevice::ReadOnly))
+        {
+            qWarning() << "QxtMailAttachment::rawData(): Cannot open content for reading";
+            return empty;
+        }
+        QBuffer* cache = new QBuffer();
+        cache->open(QIODevice::WriteOnly);
+        char buf[1024];
+        while (!c->atEnd())
+        {
+            cache->write(buf, c->read(buf, 1024));
+        }
+        setContent(cache);
+    }
+    return qobject_cast<QBuffer *>(qxt_d->content.data())->data();
+}
+
+
+// gives only a hint, based on content-type value.
+// return true if the content-type corresponds to textual data (text/*, application/xml...)
+// and false if unsure, so don't interpret a 'false' response as 'it's binary data...
+bool QxtMailAttachment::isText() const
+{
+    return isTextMedia(contentType());
 }
 
 QxtMailAttachment QxtMailAttachment::fromFile(const QString& filename)
