@@ -9,6 +9,6 @@ contains(QXT_MODULES, gui) {
     !macx:SUBDIRS += displaysettings
     SUBDIRS += qxtflowview
 }
-contains(QXT_MODULES, network):SUBDIRS += ircpeer jsonrpcclient
+contains(QXT_MODULES, network):SUBDIRS += ircpeer jsonrpcclient pop3
 contains(QXT_MODULES, web):SUBDIRS += web
 contains(DEFINES,HAVE_ZEROCONF):contains(QXT_MODULES, zeroconf):SUBDIRS += zeroconf
