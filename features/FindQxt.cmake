@@ -68,7 +68,7 @@ FOREACH(mod ${QXT_MODULES})
         /opt/local/
         /opt/csw
         /opt
-        "C:\\
+        "C:\\"
         "C:\\Program Files\\"
         "C:\\Program Files(x86)\\"
         NO_DEFAULT_PATH
