@@ -28,9 +28,8 @@ private slots:
     void rw_same()
     {
         QxtFileLock lock1(file1,0x10,20,QxtFileLock::ReadLock);
-        QVERIFY(lock1.lock());
         QxtFileLock lock2(file1,0x10,20,QxtFileLock::WriteLock);
-        QVERIFY(lock2.lock());
+        QVERIFY(lock1.lock() && !lock2.lock());
     }
 
     ///Trying to readlock the same region with DIFFERENT handles
