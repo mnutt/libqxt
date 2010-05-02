@@ -12,6 +12,7 @@ int main(int argc, char ** argv){
 
     if(app.arguments().count()<2){
         qDebug()<<"usage:  ./qxtjsonrpcclient method [arguments] \n  see http://www.raboof.com/projects/JayRock/Demo.ashx?help for methods to use";
+        exit(1);
     }
 
 
