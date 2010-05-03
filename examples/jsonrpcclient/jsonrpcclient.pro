@@ -3,5 +3,5 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 SOURCES += main.cpp
-CONFIG+=qxt
+CONFIG+=qxt console
 QXT=core network
