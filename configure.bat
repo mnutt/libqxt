@@ -2,7 +2,7 @@
 
 @rem -- defaults
 set QMAKE_BIN=qmake
-set MAKE=nmake
+set MAKE_BIN=
 set STATIC=0
 set DEBUG_OR_RELEASE=0
 set MSVCMODE=
@@ -23,16 +23,16 @@ set QXT_BUILD_TREE=%CD%
 cd "%0\..\"
 SET QXT_SOURCE_TREE=%CD%
 cd %QXT_BUILD_TREE%
-if not exist %QXT_BUILD_TREE%\examples mkdir %QXT_BUILD_TREE%\examples
-if not exist %QXT_BUILD_TREE%\tests mkdir %QXT_BUILD_TREE%\tests
+if not exist %QXT_BUILD_TREE%\examples mkdir %QXT_BUILD_TREE%\examples 2>&1 >NUL 2>&1
+if not exist %QXT_BUILD_TREE%\tests mkdir %QXT_BUILD_TREE%\tests 2>&1 >NUL 2>&1
 
 @rem -- output files
 set CONFIG_LOG=%QXT_BUILD_TREE%\config.log
 set QMAKE_CACHE=%QXT_BUILD_TREE%\.qmake.cache
 set QXT_VARS=%QXT_BUILD_TREE%\qxtvars.prf
-if exist %CONFIG_LOG% move %CONFIG_LOG% %CONFIG_LOG%.bak
-if exist %QMAKE_CACHE% move %QMAKE_CACHE% %QMAKE_CACHE%.bak
-if exist %QXT_VARS% move %QXT_VARS% %QXT_VARS%.bak
+if exist %CONFIG_LOG% move %CONFIG_LOG% %CONFIG_LOG%.bak >NUL 2>&1
+if exist %QMAKE_CACHE% move %QMAKE_CACHE% %QMAKE_CACHE%.bak >NUL 2>&1
+if exist %QXT_VARS% move %QXT_VARS% %QXT_VARS%.bak 2>&1 >NUL 2>&1
 
 @rem -- defaults
 echo CONFIG += silent > %QMAKE_CACHE%
@@ -43,6 +43,7 @@ shift
 :top
 if "%0" == ""                   goto finish
 if "%0" == "-qmake-bin"         goto setqmake
+if "%0" == "-make-bin"          goto setmake
 if "%0" == "-I"                 goto addinclude 
 if "%0" == "-L"                 goto addlibpath
 if "%0" == "-l"                 goto addlib
@@ -71,6 +72,10 @@ goto end
 
 :setqmake
 set QMAKE_BIN=%1
+goto bottom2
+
+:setmake
+set MAKE_BIN=%1
 goto bottom2
 
 :addinclude
@@ -135,7 +140,7 @@ goto bottom
 
 :debug_and_release
 set DEBUG_OR_RELEASE=1
-echo CONFIG += debug_and_release >> %QMAKE_CACHE%
+echo CONFIG += debug_and_release build_all >> %QMAKE_CACHE%
 goto bottom
 
 :nodb
@@ -161,8 +166,8 @@ goto top
 :help
     echo Usage: configure [-prefix (dir)] [-libdir (dir)] [-docdir (dir)]
     echo        [-bindir (dir)] [-headerdir (dir)] [-qmake-bin (path)]
-    echo        [-static] [-debug] [-release] [-no-stability-unknown]
-    echo        [-nomake (module)] [-msvc]
+    echo        [-make-bin (path)] [-nomake (module)] [-debug] [-release]
+    echo        [-static]
     echo.
     echo Installation options:
     echo.
@@ -178,6 +183,8 @@ goto top
     echo                       default: PREFIX/include
     echo -qmake-bin (path) ... Specifies the path to the qmake executable
     echo                       default: search the system path
+    echo -make-bin (path) .... Specifies the path to the make executable
+    echo                       default: search the system path
     echo -L (path)............ Specifies the a additional library search path
     echo -I (path)............ Specifies the a additional include search path
     echo -l (path)............ Add a custom library
@@ -188,7 +195,6 @@ goto top
     echo -no-db .............. Do not link to Berkeley DB
     echo -nomake (module) .... Do not compile the specified module
     echo                       options: berkeley designer gui network sql web zeroconf
-    echo -msvc ............... Configure Qxt to use Microsoft Visual Studio
 
     del %QMAKE_CACHE%
     goto end
@@ -204,6 +210,7 @@ echo    Cannot proceed.
 goto end
 
 :qmakeOK
+if not "%MAKE_BIN%" == "" goto detectTools_end_test_make
 if "%QMAKESPEC%" == "win32-msvc"     goto testnmake
 if "%QMAKESPEC%" == "win32-msvc.net" goto testnmake
 if "%QMAKESPEC%" == "win32-msvc2005" goto testnmake
@@ -214,7 +221,7 @@ echo    Testing for mingw32-make...
 call mingw32-make -v >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto testnmake
 echo        Using mingw32-make. 
-SET MAKE=mingw32-make
+SET MAKE_BIN=mingw32-make
 GOTO detectTools_end_test_make     
 
 :testnmake
@@ -223,7 +230,7 @@ echo    Testing for nmake...
 nmake /? >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto testgmake
 echo        Using nmake.
-SET MAKE=nmake
+SET MAKE_BIN=nmake
 GOTO detectTools_end_test_make
 
 :testgmake
@@ -231,7 +238,7 @@ echo    Testing for GNU make...
 call make -v >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto missingmake
 echo        Using GNU make.
-SET MAKE=make
+SET MAKE_BIN=make
 GOTO detectTools_end_test_make
  
 :missingmake
@@ -288,8 +295,8 @@ if not exist %QXT_BUILD_TREE%\config.tests\db mkdir %QXT_BUILD_TREE%\config.test
 cd %QXT_BUILD_TREE%\config.tests\db
 %QMAKE_BIN% %QXT_SOURCE_TREE%\config.tests\db\db.pro >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
-call %MAKE% clean >> %CONFIG_LOG% 2>&1
-call %MAKE% >> %CONFIG_LOG% 2>&1
+call %MAKE_BIN% clean >> %CONFIG_LOG% 2>&1
+call %MAKE_BIN% >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto dbfailed
 set DB=1
 echo DEFINES += HAVE_DB >> %QMAKE_CACHE%
@@ -309,8 +316,8 @@ if not exist %QXT_BUILD_TREE%\config.tests\zeroconf mkdir %QXT_BUILD_TREE%\confi
 cd %QXT_BUILD_TREE%\config.tests\zeroconf
 %QMAKE_BIN% %QXT_SOURCE_TREE%\config.tests\zeroconf\zeroconf.pro >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto zeroconffailed
-call %MAKE% clean >> %CONFIG_LOG% 2>&1
-call %MAKE% >> %CONFIG_LOG% 2>&1
+call %MAKE_BIN% clean >> %CONFIG_LOG% 2>&1
+call %MAKE_BIN% >> %CONFIG_LOG% 2>&1
 if errorlevel 1 goto zeroconffailed
 set ZEROCONF=1
 echo DEFINES += HAVE_ZEROCONF >> %QMAKE_CACHE%
@@ -333,7 +340,11 @@ cd %QXT_BUILD_TREE%
 %QMAKE_BIN% %MSVCMODE% -recursive %QXT_SOURCE_TREE%\libqxt.pro
 if errorlevel 1 goto mainqmakeERR
 
+if not "%MSVCMODE%" == "" goto skipmakeannounce
 echo    Makefiles generated. Run %MAKE% now.
+goto end
+:skipmakeannounce
+echo    Visual Studio solution generated. Open libqxt.sln in Visual Studio.
 goto end
 
 :mainqmakeERR
