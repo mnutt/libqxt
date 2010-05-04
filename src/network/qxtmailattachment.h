@@ -63,7 +63,7 @@ public:
     void removeExtraHeader(const QString& key);
 
     QByteArray mimeData();
-    const QByteArray& rawData();
+    const QByteArray& rawData() const;
     bool isText() const;
 
 private:

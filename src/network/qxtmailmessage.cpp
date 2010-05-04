@@ -626,9 +626,9 @@ void QxtRfc2822Parser::parseBody(QxtMailMessagePrivate* msg)
         return;
     }
     QString boundary = boundaryRe.cap(1);
-    qDebug("Boundary=%s", boundary.toAscii().data());
+//    qDebug("Boundary=%s", boundary.toAscii().data());
     QRegExp bndRe(QString("(^|\\r?\\n)--%1(--)?[ \\t]*\\r?\\n").arg(QRegExp::escape(boundary)));   // find boundary delimiters in the body
-    qDebug("search for %s", bndRe.pattern().toAscii().data());
+//    qDebug("search for %s", bndRe.pattern().toAscii().data());
     if (!bndRe.isValid())
     {
         qDebug("regexp %s not valid ! %s", bndRe.pattern().toAscii().data(), bndRe.errorString().toAscii().data());
@@ -646,13 +646,13 @@ void QxtRfc2822Parser::parseBody(QxtMailMessagePrivate* msg)
         beginSecond = bndRe.pos() + bndRe.cap(1).length(); // add length of preceding line break, if any
         endSecond = bndRe.pos() + bndRe.matchedLength();
         if (bndRe.numCaptures() == 2 && bndRe.cap(2) == "--") last = true;
-        qDebug("found%s boundary delimiter at position %d.", last?" last":"", beginSecond);
-        qDebug("%d captures", bndRe.numCaptures());
-        foreach(QString capture, bndRe.capturedTexts())
-        {
-            qDebug("->%s<-", capture.toAscii().data());
-        }
-        qDebug("beginFirst = %d\nendFirst = %d\nbeginSecond = %d\nendSecond = %d", beginFirst, endFirst, beginSecond, endSecond);
+//        qDebug("found%s boundary delimiter at position %d.", last?" last":"", beginSecond);
+//        qDebug("%d captures", bndRe.numCaptures());
+//        foreach(QString capture, bndRe.capturedTexts())
+//        {
+//            qDebug("->%s<-", capture.toAscii().data());
+//        }
+//        qDebug("beginFirst = %d\nendFirst = %d\nbeginSecond = %d\nendSecond = %d", beginFirst, endFirst, beginSecond, endSecond);
         if (endFirst != 0)
         {
             // handle part here:
@@ -660,18 +660,22 @@ void QxtRfc2822Parser::parseBody(QxtMailMessagePrivate* msg)
             QHash<QString,QString> partHeaders;
             QString partBody;
             parseEntity(part, partHeaders, partBody);
-            qDebug("Part headers:");
-            foreach (QString key, partHeaders.keys())
-            {
-                qDebug("%s: %s", key.toAscii().data(), partHeaders[key].toAscii().data());
-            }
+//            qDebug("Part headers:");
+//            foreach (QString key, partHeaders.keys())
+//            {
+//                qDebug("%s: %s", key.toAscii().data(), partHeaders[key].toAscii().data());
+//            }
 //            qDebug("Part body:\n%s", partBody.toAscii().data());
             if (partHeaders.contains("content-disposition") && partHeaders["content-disposition"].indexOf("attachment;") == 0)
             {
-                qDebug("Attachment!");
+//                qDebug("Attachment!");
                 QString filename;
                 QxtMailAttachment* attachment = parseAttachment(partHeaders, partBody, filename);
-                if (attachment) msg->attachments[filename] = *attachment;
+                if (attachment)
+                {
+                    msg->attachments.insert(filename, *attachment);
+                    delete attachment;
+                }
                 // strip part from body
                 body.replace(beginFirst, beginSecond - beginFirst, "");
                 beginSecond = beginFirst;
@@ -755,7 +759,7 @@ QxtMailAttachment* QxtRfc2822Parser::parseAttachment(const QHash<QString,QString
     {
         filename = QString("attachment%1").arg(count);
     }
-    qDebug("Attachment %s", filename.toLocal8Bit().data());
+//    qDebug("Attachment %s", filename.toLocal8Bit().data());
 
     QString ct;
     if (headers.contains("content-type"))
@@ -771,7 +775,7 @@ QxtMailAttachment* QxtRfc2822Parser::parseAttachment(const QHash<QString,QString
     if (headers.contains("content-transfer-encoding"))
     {
         cte = headers["content-transfer-encoding"].toLower();
-        qDebug("Content-Transfer-Encoding: %s", cte.toAscii().data());
+//        qDebug("Content-Transfer-Encoding: %s", cte.toAscii().data());
     }
     if ( cte == "base64")
     {

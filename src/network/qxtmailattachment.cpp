@@ -40,12 +40,15 @@
 #include <QFile>
 #include <QtDebug>
 
-struct QxtMailAttachmentPrivate : public QSharedData
+class QxtMailAttachmentPrivate : public QSharedData
 {
+public:
     QHash<QString, QString> extraHeaders;
     QString contentType;
-    QPointer<QIODevice> content;
-    bool deleteContent;
+    // those two members are mutable because they may change in the const rawData() method of QxtMailAttachment,
+    // while caching the raw data for the attachment if needed.
+    mutable QPointer<QIODevice> content;
+    mutable bool deleteContent;
 
     QxtMailAttachmentPrivate()
     {
@@ -108,6 +111,7 @@ void QxtMailAttachment::setContent(const QByteArray& content)
     if (qxt_d->deleteContent && qxt_d->content)
         qxt_d->content->deleteLater();
     qxt_d->content = new QBuffer;
+    setDeleteContent(true);
     static_cast<QBuffer*>(qxt_d->content.data())->setData(content);
 }
 
@@ -191,19 +195,20 @@ QByteArray QxtMailAttachment::mimeData()
     return rv;
 }
 
-const QByteArray& QxtMailAttachment::rawData()
+const QByteArray& QxtMailAttachment::rawData() const
 {
+    if (qxt_d->content == 0)
+    {
+        qWarning("QxtMailAttachment::rawData(): Content not set!");
+        static QByteArray defaultRv;
+        return defaultRv;
+    }
     if (qobject_cast<QBuffer *>(qxt_d->content.data()) == 0)
     {
         // content isn't hold in a buffer but in another kind of QIODevice
         // (probably a QFile...). Read the data and cache it into a buffer
         static QByteArray empty;
         QIODevice* c = content();
-        if (!c)
-        {
-            qWarning() << "QxtMailAttachment::rawData(): Content not set";
-            return empty;
-        }
         if (!c->isOpen() && !c->open(QIODevice::ReadOnly))
         {
             qWarning() << "QxtMailAttachment::rawData(): Cannot open content for reading";
@@ -216,7 +221,10 @@ const QByteArray& QxtMailAttachment::rawData()
         {
             cache->write(buf, c->read(buf, 1024));
         }
-        setContent(cache);
+        if (qxt_d->deleteContent && qxt_d->content)
+        qxt_d->content->deleteLater();
+        qxt_d->content = cache;
+        qxt_d->deleteContent = true;
     }
     return qobject_cast<QBuffer *>(qxt_d->content.data())->data();
 }

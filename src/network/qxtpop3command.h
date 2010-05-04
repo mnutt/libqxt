@@ -70,6 +70,7 @@ protected:
 
 private:
     QXT_DECLARE_PRIVATE(QxtPop3Command)
+    Q_DISABLE_COPY(QxtPop3Command)
 };
 
 #endif // QXTPOP3COMMAND_H

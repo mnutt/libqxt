@@ -508,7 +508,7 @@ QTcpSocket* QxtPop3::socket() const
   Opens a connection to the server \a hostName on \a port.
   Authentication is performed, and startTLS is sent if enabled (else the connection isn't encrypted).
 
-  \sa connectToSecureHost(), disconnectFromHost(), startTlsDisabled().
+  \sa connectToSecureHost(), disconnectFromHost(), startTlsDisabled()
  */
 void QxtPop3::connectToHost(const QString& hostName, quint16 port)
 {
@@ -551,7 +551,7 @@ QSslSocket* QxtPop3::sslSocket() const
 
 /*!
   Opens a SSL connection to the server \a hostName on \a port.
-  \sa connectToHost().
+  \sa connectToHost()
  */
 void QxtPop3::connectToSecureHost(const QString& hostName, quint16 port)
 {
@@ -691,7 +691,7 @@ void QxtPop3Private::socketRead()
         if (pos < 0) return;
         QByteArray line = buffer.left(pos);
         buffer = buffer.mid(pos + 2);
-        qDebug("QxtPop3Private::socketRead: received %s", line.data());
+//        qDebug("QxtPop3Private::socketRead: received %s", line.data());
         switch (state)
         {
         case StartState: // we expect a greetings line, beginning with "+OK"
@@ -724,10 +724,8 @@ void QxtPop3Private::socketRead()
 
 void QxtPop3Private::encrypted()
 {
-    qDebug("QxtPop3Private::encrypted(): #1");
     if (state == Busy && current != 0) // startTLS emited during auth command
     {
-        qDebug("QxtPop3Private::encrypted(): #2");
         QByteArray next = current->dialog("");
         if (next.length() > 0)
         {

@@ -1,10 +1,6 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
-HEADERS += qxtjsonrpccall.h \
-    qxtpop3.h \
-    qxtpop3_p.h \
-    qxtpop3command.h \
-    qxtpop3command_p.h
+HEADERS += qxtjsonrpccall.h
 HEADERS += qxtjsonrpcclient.h
 HEADERS += qxtnetwork.h
 HEADERS += qxtmail_p.h
@@ -18,9 +14,11 @@ HEADERS += qxttcpconnectionmanager_p.h
 HEADERS += qxtxmlrpccall.h
 HEADERS += qxtxmlrpcclient.h
 HEADERS += qxtxmlrpc_p.h
-SOURCES += qxtjsonrpccall.cpp \
-    qxtpop3.cpp \
-    qxtpop3command.cpp
+HEADERS += qxtpop3.h
+HEADERS += qxtpop3_p.h
+HEADERS += qxtpop3command.h
+HEADERS += qxtpop3command_p.h
+SOURCES += qxtjsonrpccall.cpp
 SOURCES += qxtjsonrpcclient.cpp
 SOURCES += qxtmailattachment.cpp
 SOURCES += qxtmailmessage.cpp
@@ -30,3 +28,5 @@ SOURCES += qxttcpconnectionmanager.cpp
 SOURCES += qxtxmlrpccall.cpp
 SOURCES += qxtxmlrpcclient.cpp
 SOURCES += qxtxmlrpc_p.cpp
+SOURCES += qxtpop3.cpp
+SOURCES += qxtpop3command.cpp

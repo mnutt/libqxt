@@ -11,7 +11,7 @@
 MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), pop(0), count(0), size(0), msg(0)
 {
     setupUi(this);
-    settings = new QSettings(QSettings::UserScope,"Qxt", "MailTest");
+    settings = new QSettings(QSettings::UserScope,"Qxt", "MailTest", this);
     pop = new QxtPop3(this);
     pop->sslSocket()->setProtocol(QSsl::TlsV1);
     pop->sslSocket()->setPeerVerifyMode(QSslSocket::QueryPeer);
@@ -48,6 +48,11 @@ MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), pop(0), count(0), 
     connect(pop, SIGNAL(authenticationFailed(QByteArray)), this, SLOT(handleAuthError(QByteArray)));
     connect(lineEdit, SIGNAL(returnPressed()), this, SLOT(newCmd()));
     help();
+}
+
+MainWindow::~MainWindow()
+{
+    if (msg) delete msg;
 }
 
 void MainWindow::newCmd()
@@ -87,6 +92,11 @@ void MainWindow::newCmd()
             return;
         }
         int which = words[1].toInt();
+        if (msg)
+        {
+            delete msg;
+            msg = 0;
+        }
         cmd = pop->retrieveMessage(which, msg);
         connect(cmd, SIGNAL(completed(int)), this, SLOT(handleRetr(int)));
         connect(cmd, SIGNAL(progress(int)), this, SLOT(progress(int)));
@@ -413,5 +423,5 @@ void MainWindow::newCmd()
 
     void MainWindow::progress(int percent)
     {
-        output(QString("Progress: %1%%").arg(percent));
+        output(QString("Progress: %1%").arg(percent));
     }

@@ -47,7 +47,7 @@ class QXT_NETWORK_EXPORT QxtPop3 : public QObject
 {
     Q_OBJECT
 public:
-    QxtPop3(QObject* parent = 0);
+    explicit QxtPop3(QObject* parent = 0);
 
     QByteArray username() const;
     void setUsername(const QByteArray& name);
@@ -97,6 +97,7 @@ Q_SIGNALS:
 
 private:
     QXT_DECLARE_PRIVATE(QxtPop3)
+    Q_DISABLE_COPY(QxtPop3)
 };
 
 #endif // QXTPOP3_H
