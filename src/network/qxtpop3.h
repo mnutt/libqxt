@@ -69,7 +69,7 @@ public:
     void connectToSecureHost(const QHostAddress& address, quint16 port = 995);
 #endif
 
-    bool isConnected();
+    bool isConnected() const;
 
     QxtPop3Command* stat(int &count, int& size, int timeout=3000);
     QxtPop3Command* messageList(QList<QPair<int,int> >& list, int timeout=100000);

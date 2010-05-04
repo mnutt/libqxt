@@ -568,7 +568,7 @@ void QxtPop3::connectToSecureHost(const QHostAddress& address, quint16 port)
     connectToSecureHost(address.toString(), port);
 }
 
-bool QxtPop3::isConnected()
+bool QxtPop3::isConnected() const
 {
     return qxt_d().state != QxtPop3Private::Disconnected;
 }
