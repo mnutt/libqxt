@@ -42,6 +42,7 @@ public:
         Pending,
         Running,
         Completed,
+        Timedout,
         Error
     };
 
@@ -58,7 +59,7 @@ public:
     virtual void cancel();
 
 Q_SIGNALS:
-    void completed(int code);
+    void finished(int code);
     void progress(int percent);
 
 protected:

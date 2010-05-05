@@ -57,7 +57,7 @@ QString QxtPop3Command::error() const
 
 void QxtPop3Command::cancel()
 {
-    emit completed(Aborted);
+    emit finished(Aborted);
 }
 
 void QxtPop3Command::setError(const QString& s)
@@ -83,6 +83,6 @@ void QxtPop3CommandPrivate::run()
 
 void QxtPop3CommandPrivate::timedOut()
 {
-    status = QxtPop3Command::Completed;
-    emit qxt_p().completed(QxtPop3Command::Timeout);
+    status = QxtPop3Command::Timedout;
+    emit qxt_p().finished(QxtPop3Command::Timeout);
 }

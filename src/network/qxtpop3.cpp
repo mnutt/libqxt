@@ -33,7 +33,7 @@
 
   The API is asynchronous: when calling a POP3 method, the call returns immediately and
   one gets a pointer to a QxtPop3Command, that can be used to get feedback
-  (typically connect its completed() signal to some slot handling the result).
+  (typically connect its finished() signal to some slot handling the result).
  */
 
 #include "qxtpop3.h"
@@ -105,7 +105,7 @@ QByteArray QxtPop3AuthCmd::dialog(QByteArray received)
         else
         {
             qWarning("startTLS doesn't seem to be supported");
-            emit completed(Failed);
+            emit finished(Failed);
             pop->socket->disconnectFromHost();
         }
         break;
@@ -121,7 +121,7 @@ QByteArray QxtPop3AuthCmd::dialog(QByteArray received)
         if (QxtPop3CommandPrivate::isAnswerOK(received))
         {
             // authenticated
-            emit completed(OK);
+            emit finished(OK);
         }
         break;
     default:
@@ -158,7 +158,7 @@ QByteArray QxtPop3QuitCmd::dialog(QByteArray received)
         state = QuitSent;
         break;
     case QuitSent:
-        emit completed(OK);
+        emit finished(OK);
         break;
     default:
         break;
@@ -202,11 +202,11 @@ QByteArray QxtPop3StatCmd::dialog(QByteArray received)
             QTextStream input(received);
             QString ok;
             input >> ok >> m_count >> m_size;
-            emit completed(OK);
+            emit finished(OK);
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     default:
@@ -252,7 +252,7 @@ QByteArray QxtPop3ListCmd::dialog(QByteArray received)
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     case OKReceived:
@@ -260,7 +260,7 @@ QByteArray QxtPop3ListCmd::dialog(QByteArray received)
             QStringList words = QString(received).split(" ");
             if (words[0] == ".")
             {
-                emit completed(OK);
+                emit finished(OK);
             }
             else
             {
@@ -318,7 +318,7 @@ QByteArray QxtPop3RetrCmd::dialog(QByteArray received)
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     case RetrSent:
@@ -328,7 +328,7 @@ QByteArray QxtPop3RetrCmd::dialog(QByteArray received)
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     case OKReceived:
@@ -339,7 +339,7 @@ QByteArray QxtPop3RetrCmd::dialog(QByteArray received)
                 {
                     // Termination line. The whole message is received by now.
                     m_msg = new QxtMailMessage(message);
-                    emit completed(OK);
+                    emit finished(OK);
                 }
                 else // remove first dot
                 {
@@ -391,11 +391,11 @@ QByteArray QxtPop3DeleCmd::dialog(QByteArray received)
     case DeleSent:
         if (QxtPop3CommandPrivate::isAnswerOK(received))
         {
-            emit completed(OK);
+            emit finished(OK);
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     default:
@@ -437,11 +437,11 @@ QByteArray QxtPop3RsetCmd::dialog(QByteArray received)
     case RsetSent:
         if (QxtPop3CommandPrivate::isAnswerOK(received))
         {
-            emit completed(OK);
+            emit finished(OK);
         } else {
             setStatus(Error);
             setError(received);
-            emit completed(Failed);
+            emit finished(Failed);
         }
         break;
     default:
@@ -743,7 +743,7 @@ void QxtPop3Private::dequeue()
     if (pending.length() > 0)
     {
         current = pending.dequeue();
-        connect(current, SIGNAL(completed(int)), this, SLOT(terminate(int)));
+        connect(current, SIGNAL(finished(int)), this, SLOT(terminate(int)));
         current->qxt_d().status = QxtPop3Command::Running;
         state = Busy;
         QByteArray cmdLine = current->dialog("");
