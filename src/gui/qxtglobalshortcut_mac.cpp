@@ -37,24 +37,16 @@ static bool qxt_mac_handler_installed = false;
 
 OSStatus qxt_mac_handle_hot_key(EventHandlerCallRef nextHandler, EventRef event, void* data)
 {
-    // pass event to the app event filter
+    Q_UNUSED(nextHandler);
     Q_UNUSED(data);
-    qApp->macEventFilter(nextHandler, event);
-    return noErr;
-}
-
-bool QxtGlobalShortcutPrivate::eventFilter(void* message)
-//bool QxtGlobalShortcutPrivate::macEventFilter(EventHandlerCallRef caller, EventRef event)
-{
-    EventRef event = (EventRef) message;
     if (GetEventClass(event) == kEventClassKeyboard && GetEventKind(event) == kEventHotKeyPressed)
     {
         EventHotKeyID keyID;
         GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(keyID), NULL, &keyID);
         Identifier id = keyIDs.key(keyID.id);
-        activateShortcut(id.second, id.first);
+        QxtGlobalShortcutPrivate::activateShortcut(id.second, id.first);
     }
-    return false;
+    return noErr;
 }
 
 quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifiers)
@@ -192,7 +184,6 @@ bool QxtGlobalShortcutPrivate::registerShortcut(quint32 nativeKey, quint32 nativ
         keyIDs.insert(Identifier(nativeMods, nativeKey), keyID.id);
         keyRefs.insert(keyID.id, ref);
     }
-    qDebug() << ref;
     return rv;
 }
 
