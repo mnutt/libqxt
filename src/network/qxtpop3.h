@@ -28,7 +28,10 @@
 
 #include "qxtglobal.h"
 #include "qxtmailmessage.h"
-#include "qxtpop3command.h"
+#include "qxtpop3reply.h"
+#include "qxtpop3statreply.h"
+#include "qxtpop3listreply.h"
+#include "qxtpop3retrreply.h"
 
 #include <QObject>
 #include <QHostAddress>
@@ -71,26 +74,25 @@ public:
 
     bool isConnected() const;
 
-    QxtPop3Command* stat(int &count, int& size, int timeout=3000);
-    QxtPop3Command* messageList(QList<QPair<int,int> >& list, int timeout=100000);
-    QxtPop3Command* retrieveMessage(int which, QxtMailMessage*& message, int timeout=300000);
-//    QxtPop3Command* retrieveAll(QList<QxtMailMessage>& list, int timeout=300000);
-    QxtPop3Command* deleteMessage(int which, int timeout=100000);
-//    QxtPop3Command* deleteAll(int timeout=100000);
-    QxtPop3Command* reset(int timeout=10000);
-//    QxtPop3Command* top(int which, int lines, QStringList*& top, int timeout=100000);
-    QxtPop3Command* quit(int timeout=3000);
+    QxtPop3StatReply* stat(int timeout=3000);
+    QxtPop3ListReply* messageList(int timeout=100000);
+    QxtPop3RetrReply* retrieveMessage(int which, int timeout=300000);
+//    QxtPop3Reply* retrieveAll(QList<QxtMailMessage>& list, int timeout=300000);
+    QxtPop3Reply* deleteMessage(int which, int timeout=100000);
+//    QxtPop3Reply* deleteAll(int timeout=100000);
+    QxtPop3Reply* reset(int timeout=10000);
+//    QxtPop3TopReply* top(int which, int lines, int timeout=100000);
+    QxtPop3Reply* quit(int timeout=3000);
+
+    void clearReplies();
 
 
 Q_SIGNALS:
     void connected();
-    void connectionFailed();
     void connectionFailed( const QByteArray & msg );
     void encrypted();
-    void encryptionFailed();
     void encryptionFailed( const QByteArray & msg );
     void authenticated();
-    void authenticationFailed();
     void authenticationFailed( const QByteArray & msg );
 
     void disconnected();

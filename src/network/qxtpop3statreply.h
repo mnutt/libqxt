@@ -22,49 +22,20 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTPOP3_P_H
-#define QXTPOP3_P_H
+#ifndef QXTPOP3STATREPLY_H
+#define QXTPOP3STATREPLY_H
 
+#include "qxtpop3reply.h"
 
-#include "qxtpop3.h"
-
-#include <QQueue>
-
-class QxtPop3Private : public QObject, public QxtPrivate<QxtPop3>
+class QxtPop3StatReply: public QxtPop3Reply
 {
-    Q_OBJECT
+    friend class QxtPop3;
 public:
-    QxtPop3Private();
+    int count() const;
+    int size() const;
 
-    QXT_DECLARE_PUBLIC(QxtPop3)
-
-    enum Pop3State
-    {
-        Disconnected,
-        StartState,
-        Busy,
-        Ready
-    };
-
-    bool useSecure, disableStartTLS;
-    Pop3State state;// rather then an int use the enum.  makes sure invalid states are entered at compile time, and makes debugging easier
-    QByteArray buffer, username, password;
-    QQueue<QxtPop3Reply*> pending;
-    QxtPop3Reply* current;
-
-#ifndef QT_NO_OPENSSL
-    QSslSocket* socket;
-#else
-    QTcpSocket* socket;
-#endif
-
-public slots:
-    void socketError(QAbstractSocket::SocketError err);
-    void disconnected();
-    void socketRead();
-    void dequeue();
-    void terminate(int code);
-    void encrypted();
+private:
+    QxtPop3StatReply(int timeout, QObject* parent = 0);
 };
 
-#endif // QXTPOP3_P_H
+#endif // QXTPOP3STATREPLY_H

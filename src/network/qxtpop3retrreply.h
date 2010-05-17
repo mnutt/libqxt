@@ -22,67 +22,19 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
+#ifndef QXTPOP3RETRREPLY_H
+#define QXTPOP3RETRREPLY_H
 
-
-/*!
-  \class QxtPop3Command
-  \inmodule QxtNetwork
-  \brief The QxtPop3Command class encapsulate a POP3 command.
-
-  \sa QxtPop3
- */
-
-#include "qxtpop3command.h"
-#include "qxtpop3command_p.h"
-
-
-
-QxtPop3Command::QxtPop3Command(int timeout, QObject* parent) : QObject(parent)
+#include "qxtpop3reply.h"
+class QxtMailMessage;
+class QxtPop3RetrReply: public QxtPop3Reply
 {
+    friend class QxtPop3;
+public:
+    QxtMailMessage* message();
 
-    QXT_INIT_PRIVATE(QxtPop3Command);
-    qxt_d().timeout = timeout;
-    qxt_d().status = QxtPop3Command::Pending;
-}
+private:
+    QxtPop3RetrReply(int which, int timeout, QObject* parent = 0);
+};
 
-QxtPop3Command::Status QxtPop3Command::status() const
-{
-    return qxt_d().status;
-}
-
-QString QxtPop3Command::error() const
-{
-    return qxt_d().errString;
-}
-
-void QxtPop3Command::cancel()
-{
-    emit finished(Aborted);
-}
-
-void QxtPop3Command::setError(const QString& s)
-{
-    qxt_d().errString = s;
-}
-
-void QxtPop3Command::setStatus(const Status s)
-{
-    qxt_d().status = s;
-}
-
-QxtPop3CommandPrivate::QxtPop3CommandPrivate() : QObject(0)
-{
-}
-
-void QxtPop3CommandPrivate::run()
-{
-    connect(&timer, SIGNAL(timeout()), this, SLOT(timedOut()));
-    status = QxtPop3Command::Running;
-    timer.start(timeout);
-}
-
-void QxtPop3CommandPrivate::timedOut()
-{
-    status = QxtPop3Command::Timedout;
-    emit qxt_p().finished(QxtPop3Command::Timeout);
-}
+#endif // QXTPOP3RETRREPLY_H

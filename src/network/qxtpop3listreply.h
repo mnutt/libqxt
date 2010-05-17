@@ -22,56 +22,18 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTPOP3COMMAND_H
-#define QXTPOP3COMMAND_H
+#ifndef QXTPOP3LISTREPLY_H
+#define QXTPOP3LISTREPLY_H
 
-
-#include "qxtglobal.h"
-
-#include <QObject>
-
-class QxtPop3CommandPrivate;
-class QXT_NETWORK_EXPORT QxtPop3Command: public QObject
+#include "qxtpop3reply.h"
+class QxtPop3ListReply: public QxtPop3Reply
 {
-    Q_OBJECT
     friend class QxtPop3;
-    friend class QxtPop3Private;
 public:
-
-    enum Status {
-        Pending,
-        Running,
-        Completed,
-        Timedout,
-        Error
-    };
-
-    enum ReturnCode {
-        OK,
-        Timeout,
-        Failed,
-        Aborted
-    };
-
-    Status status() const;
-    QString error() const;
-
-    virtual void cancel();
-
-Q_SIGNALS:
-    void finished(int code);
-    void progress(int percent);
-
-protected:
-    QxtPop3Command(int timeout, QObject* parent = 0);
-    void setError(const QString& s);
-    void setStatus(const Status);
-
-    virtual QByteArray dialog(QByteArray received) = 0;
+    const QList<QxtPop3Reply::MessageInfo>& list() const;
 
 private:
-    QXT_DECLARE_PRIVATE(QxtPop3Command)
-    Q_DISABLE_COPY(QxtPop3Command)
+    QxtPop3ListReply(int timeout, QObject* parent = 0);
 };
 
-#endif // QXTPOP3COMMAND_H
+#endif // QXTPOP3LISTREPLY_H

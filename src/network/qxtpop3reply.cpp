@@ -1,0 +1,686 @@
+/****************************************************************************
+ **
+ ** Copyright (C) Qxt Foundation. Some rights reserved.
+ **
+ ** This file is part of the QxtNetwork module of the Qxt library.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the Common Public License, version 1.0, as published
+ ** by IBM, and/or under the terms of the GNU Lesser General Public License,
+ ** version 2.1, as published by the Free Software Foundation.
+ **
+ ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
+ ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
+ ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+ ** FITNESS FOR A PARTICULAR PURPOSE.
+ **
+ ** You should have received a copy of the CPL and the LGPL along with this
+ ** file. See the LICENSE file and the cpl1.0.txt/lgpl-2.1.txt files
+ ** included with the source distribution for more information.
+ ** If you did not receive a copy of the licenses, contact the Qxt Foundation.
+ **
+ ** <http://libqxt.org>  <foundation@libqxt.org>
+ **
+ ****************************************************************************/
+
+
+#include "qxtpop3reply.h"
+#include "qxtpop3reply_p.h"
+#include "qxtpop3statreply.h"
+#include "qxtpop3listreply.h"
+#include "qxtpop3retrreply.h"
+#include "qxtpop3_p.h"
+#include <QTextStream>
+#ifndef QT_NO_OPENSSL
+#    include <QSslSocket>
+#endif
+
+
+
+
+class QxtPop3AuthReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3AuthReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        STLSSent,
+        TLSOK,
+        UserSent,
+        PassSent,
+    };
+    void setPop(QxtPop3Private* pop_);
+
+private:
+    QxtPop3Private* pop;
+    bool startTLSdisabled;
+    State state;
+
+};
+
+QxtPop3AuthReplyImpl::QxtPop3AuthReplyImpl(QxtPop3ReplyPrivate& reply) : QxtPop3ReplyImpl(reply), state(StartState)
+{
+}
+
+void QxtPop3AuthReplyImpl::setPop(QxtPop3Private* pop_)
+{
+    pop = pop_;
+    startTLSdisabled = pop->disableStartTLS;
+}
+
+QByteArray QxtPop3AuthReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+#ifndef QT_NO_OPENSSL
+        if (!startTLSdisabled)
+        {
+            ret = buildCmd("STLS", "");
+            state = STLSSent;
+            break;
+        }
+    case TLSOK:   // fallthrough
+#endif
+        ret = buildCmd("USER", pop->username);
+        state = UserSent;
+        break;
+#ifndef QT_NO_OPENSSL
+    case STLSSent:
+        if (isAnswerOK(received))
+        {
+            pop->socket->startClientEncryption();
+            state = TLSOK;
+        }
+        else
+        {
+            qWarning("startTLS doesn't seem to be supported");
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.finish(QxtPop3Reply::Failed);
+            pop->socket->disconnectFromHost();
+        }
+        break;
+#endif
+    case UserSent:
+        if (isAnswerOK(received))
+        {
+            ret = buildCmd("PASS", pop->password);
+            state = PassSent;
+        }
+        break;
+    case PassSent:
+        if (isAnswerOK(received))
+        {
+            // authenticated
+            m_reply.status = QxtPop3Reply::Completed;
+            m_reply.finish(QxtPop3Reply::OK);
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+class QxtPop3QuitReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3QuitReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        QuitSent
+    };
+private:
+    State state;
+};
+
+QxtPop3QuitReplyImpl::QxtPop3QuitReplyImpl(QxtPop3ReplyPrivate& reply) : QxtPop3ReplyImpl(reply), state(StartState)
+{
+}
+
+QByteArray QxtPop3QuitReplyImpl::dialog(QByteArray received)
+{
+    Q_UNUSED(received)
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("QUIT", "");
+        state = QuitSent;
+        break;
+    case QuitSent:
+        m_reply.status = QxtPop3Reply::Completed;
+        m_reply.finish(QxtPop3Reply::OK);
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+class QxtPop3StatReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3StatReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        StatSent
+    };
+    int count() const {return m_count;}
+    int size() const {return m_size;}
+
+private:
+    State state;
+    int m_count;
+    int m_size;
+};
+
+QxtPop3StatReplyImpl::QxtPop3StatReplyImpl(QxtPop3ReplyPrivate& reply): QxtPop3ReplyImpl(reply), state(StartState), m_count(-1), m_size(-1)
+{
+}
+
+QByteArray QxtPop3StatReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("STAT", "");
+        state = StatSent;
+        break;
+    case StatSent:
+        if (isAnswerOK(received))
+        {
+            QTextStream input(received);
+            QString ok;
+            input >> ok >> m_count >> m_size;
+            m_reply.status = QxtPop3Reply::Completed;
+            m_reply.finish(QxtPop3Reply::OK);
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+
+
+class QxtPop3ListReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3ListReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        ListSent,
+        OKReceived
+    };
+
+    const QList<QxtPop3Reply::MessageInfo>& list() const {return m_list;}
+
+private:
+    State state;
+    QList<QxtPop3Reply::MessageInfo> m_list;
+};
+
+QxtPop3ListReplyImpl::QxtPop3ListReplyImpl(QxtPop3ReplyPrivate& reply): QxtPop3ReplyImpl(reply), state(StartState)
+{
+}
+
+QByteArray QxtPop3ListReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("LIST", "");
+        state = ListSent;
+        break;
+    case ListSent:
+        if (isAnswerOK(received))
+        {
+            state = OKReceived;
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    case OKReceived:
+        {
+            QStringList words = QString(received).split(" ");
+            if (words[0] == ".")
+            {
+                m_reply.status = QxtPop3Reply::Completed;
+                m_reply.finish(QxtPop3Reply::OK);
+            }
+            else
+            {
+                QxtPop3Reply::MessageInfo info;
+                info.id = words[0].toInt();
+                info.size = words[1].toInt();
+                m_list.append(info);
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+
+class QxtPop3RetrReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3RetrReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        ListSent,
+        RetrSent,
+        OKReceived
+    };
+
+    QxtMailMessage* message() {return m_msg;}
+    void setWhich(int which) {m_which = which;}
+
+private:
+    State state;
+    QByteArray m_message;
+    QxtMailMessage* m_msg;
+    int m_which;
+    int m_length;
+};
+
+QxtPop3RetrReplyImpl::QxtPop3RetrReplyImpl(QxtPop3ReplyPrivate& reply): QxtPop3ReplyImpl(reply), state(StartState), m_msg(0), m_which(-1), m_length(0)
+{
+}
+
+QByteArray QxtPop3RetrReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("LIST", QByteArray().number(m_which));
+        state = ListSent;
+        break;
+    case ListSent:
+        if (isAnswerOK(received))
+        {
+            m_length = received.split(' ').at(2).toInt();
+            ret = buildCmd("RETR", QByteArray().number(m_which));
+            state = RetrSent;
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    case RetrSent:
+        if (isAnswerOK(received))
+        {
+            state = OKReceived;
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    case OKReceived:
+        {
+            if ((received.length() > 0) && (received[0] == '.'))
+            {
+                if (received.length() == 1)
+                {
+                    // Termination line. The whole message is received by now.
+                    m_msg = new QxtMailMessage(m_message);
+                    m_reply.status = QxtPop3Reply::Completed;
+                    m_reply.finish(QxtPop3Reply::OK);
+                }
+                else // remove first dot
+                {
+                    received = received.mid(1);
+                }
+            }
+            m_message += received + "\r\n";
+            int p = (100*m_message.length())/m_length;
+            m_reply.progress(p);
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+class QxtPop3ResetReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3ResetReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        RsetSent
+    };
+
+private:
+    State state;
+};
+
+QxtPop3ResetReplyImpl::QxtPop3ResetReplyImpl(QxtPop3ReplyPrivate& reply): QxtPop3ReplyImpl(reply), state(StartState)
+{
+    // empty ctor
+}
+
+
+
+QByteArray QxtPop3ResetReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("RSET", "");
+        state = RsetSent;
+        break;
+    case RsetSent:
+        if (isAnswerOK(received))
+        {
+            m_reply.status = QxtPop3Reply::Completed;
+            m_reply.finish(QxtPop3Reply::OK);
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+class QxtPop3DeleReplyImpl: public QxtPop3ReplyImpl
+{
+public:
+    QxtPop3DeleReplyImpl(QxtPop3ReplyPrivate& reply);
+    QByteArray dialog(QByteArray received);
+    enum State {
+        StartState,
+        DeleSent
+    };
+
+    void setWhich(int which) {m_which = which;}
+
+private:
+    State state;
+    int m_which;
+};
+
+QxtPop3DeleReplyImpl::QxtPop3DeleReplyImpl(QxtPop3ReplyPrivate& reply): QxtPop3ReplyImpl(reply), state(StartState), m_which(-1)
+{
+    // empty ctor
+}
+
+
+
+QByteArray QxtPop3DeleReplyImpl::dialog(QByteArray received)
+{
+    QByteArray ret = "";
+    switch (state)
+    {
+    case StartState:
+        ret = buildCmd("DELE", QByteArray().number(m_which));
+        state = DeleSent;
+        break;
+    case DeleSent:
+        if (isAnswerOK(received))
+        {
+            m_reply.status = QxtPop3Reply::Completed;
+            m_reply.finish(QxtPop3Reply::OK);
+        } else {
+            m_reply.status = QxtPop3Reply::Error;
+            m_reply.errString = received;
+            m_reply.finish(QxtPop3Reply::Failed);
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+/*!
+  \class QxtPop3Reply
+  \inmodule QxtNetwork
+  \brief The QxtPop3Reply class encapsulate the reply to an asynchronous POP3 command.
+
+  This isn't a class that is to be instanciated or subclassed by client code. You get
+  pointers to QxtPop3Reply (or subclasses thereof) objects via QxtPop3 methods implementing
+  the POP3 commands, and you can use them to:
+
+  \list
+
+  \o Monitor the execution of the command via the finished() and progress() signals,
+
+  \o Query its status() and error() methods,
+
+  \o Get the results of the command, if any, via specific methods of subclasses.
+
+  \endlist
+
+  The QxtPop3Reply object is managed by the QxtPop3 object, and is deleted with it.
+  If the QxtPop3 object is long-lived, you can do some cleaning-up with its QxtPop3::clearReplies()
+  method, for example after closing a connection to the server.
+
+  \sa QxtPop3
+ */
+
+QxtPop3Reply::QxtPop3Reply(int timeout, QObject* parent) : QObject(parent)
+{
+    QXT_INIT_PRIVATE(QxtPop3Reply);
+    qxt_d().timeout = timeout;
+    qxt_d().status = QxtPop3Reply::Pending;
+}
+
+QxtPop3Reply::~QxtPop3Reply()
+{
+}
+
+QxtPop3Reply::Status QxtPop3Reply::status() const
+{
+    return qxt_d().status;
+}
+
+QString QxtPop3Reply::error() const
+{
+    return qxt_d().errString;
+}
+
+QxtPop3Reply::Type QxtPop3Reply::type() const
+{
+    return qxt_d().type;
+}
+
+void QxtPop3Reply::cancel()
+{
+    emit finished(Aborted);
+}
+
+void QxtPop3Reply::setup(Type type)
+{
+    qxt_d().type = type;
+    switch (type)
+    {
+    case Auth:
+        qxt_d().impl = new QxtPop3AuthReplyImpl(qxt_d());
+        break;
+    case Quit:
+        qxt_d().impl = new QxtPop3QuitReplyImpl(qxt_d());
+        break;
+    case Stat:
+        qxt_d().impl = new QxtPop3StatReplyImpl(qxt_d());
+        break;
+    case List:
+        qxt_d().impl = new QxtPop3ListReplyImpl(qxt_d());
+        break;
+    case Reset:
+        qxt_d().impl = new QxtPop3ResetReplyImpl(qxt_d());
+        break;
+    case Dele:
+        qxt_d().impl = new QxtPop3DeleReplyImpl(qxt_d());
+        break;
+    case Retr:
+        qxt_d().impl = new QxtPop3RetrReplyImpl(qxt_d());
+        break;
+//    case Top:
+//        qxt_d().impl = new QxtPop3TopReplyImpl(qxt_d());
+//        break;
+    default:
+        qWarning("QxtPop3Reply::setup: unhandled type %d", type);
+        break;
+    }
+}
+
+QxtPop3ReplyImpl* QxtPop3Reply::impl()
+{
+    return qxt_d().impl;
+}
+
+const QxtPop3ReplyImpl* QxtPop3Reply::impl() const
+{
+    return qxt_d().impl;
+}
+
+QByteArray QxtPop3Reply::dialog(QByteArray received)
+{
+    if (!qxt_d().impl)
+    {
+        qWarning("QxtPop3Reply::dialog: No implementation !");
+        return QByteArray();
+    }
+    return qxt_d().impl->dialog(received);
+}
+
+QxtPop3ReplyPrivate::QxtPop3ReplyPrivate() : QObject(0), impl(0)
+{
+}
+
+void QxtPop3ReplyPrivate::run()
+{
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timedOut()));
+    status = QxtPop3Reply::Running;
+    timer.start(timeout);
+}
+
+void QxtPop3ReplyPrivate::timedOut()
+{
+    status = QxtPop3Reply::Timedout;
+    finish(QxtPop3Reply::Timeout);
+}
+
+/*!
+  \class QxtPop3StatReply
+  \inmodule QxtNetwork
+  \brief Implement the reply to a STAT command.
+
+  Results of the command are given by the count() and size() methods, once the command has completed.
+ */
+QxtPop3StatReply::QxtPop3StatReply(int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Stat);
+}
+
+/*!
+  Returns the message count in the mailbox on the server.
+  */
+int QxtPop3StatReply::count() const
+{
+    return dynamic_cast<const QxtPop3StatReplyImpl*>(impl())->count();
+}
+
+/*!
+  Returns the total size (in bytes) in the mailbox on the server.
+  */
+int QxtPop3StatReply::size() const
+{
+    return dynamic_cast<const QxtPop3StatReplyImpl*>(impl())->size();
+}
+
+QxtPop3QuitReply::QxtPop3QuitReply(int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Quit);
+}
+
+QxtPop3AuthReply::QxtPop3AuthReply(QxtPop3Private* pop, int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Auth);
+    dynamic_cast<QxtPop3AuthReplyImpl*>(impl())->setPop(pop);
+}
+
+/*!
+  \class QxtPop3ListReply
+  \inmodule QxtNetwork
+  \brief Implement the reply to a LIST command.
+
+  Results of the command are given by the list() method, once the command has completed.
+ */
+
+QxtPop3ListReply::QxtPop3ListReply(int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(List);
+}
+
+/*!
+  Returns the list of messages on the server. The reference is valid until deletion of the QxtPop3 object which ran the command.
+  */
+const QList<QxtPop3Reply::MessageInfo>& QxtPop3ListReply::list() const
+{
+    return dynamic_cast<const QxtPop3ListReplyImpl*>(impl())->list();
+}
+
+/*!
+  \class QxtPop3RetrReply
+  \inmodule QxtNetwork
+  \brief Implement the reply to a RETR command.
+
+  Results of the command are given by the message() method, once the command has completed.
+ */
+
+QxtPop3RetrReply::QxtPop3RetrReply(int which, int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Retr);
+    dynamic_cast<QxtPop3RetrReplyImpl*>(impl())->setWhich(which);
+}
+
+/*!
+  Returns a pointer to the message retrieved from the server, once the command has completed.
+  The caller owns the message and is responsible for deleting it after use.
+  */
+
+QxtMailMessage* QxtPop3RetrReply::message()
+{
+    return dynamic_cast<QxtPop3RetrReplyImpl*>(impl())->message();
+}
+
+QxtPop3ResetReply::QxtPop3ResetReply(int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Reset);
+}
+
+QxtPop3DeleReply::QxtPop3DeleReply(int which, int timeout, QObject* parent): QxtPop3Reply(timeout, parent)
+{
+    setup(Dele);
+    dynamic_cast<QxtPop3DeleReplyImpl*>(impl())->setWhich(which);
+}

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "ui_mainwindow.h"
-#include "qxtpop3.h"
+#include <QxtPop3>
 #include <QMainWindow>
 #include <QPair>
 #include <QSettings>
@@ -39,8 +39,6 @@ private:
     };
     QSettings* settings;
     QxtPop3 *pop;
-    int count, size;
-    QList<QPair<int,int> > list;
     QxtMailMessage* msg;
     void output(const QString& text) {plainTextEdit->appendPlainText(text);}
     void printError();

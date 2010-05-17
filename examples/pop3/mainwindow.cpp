@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "qxtpop3command.h"
+#include <QxtPop3Reply>
 #include <QPair>
 #include <QFileDialog>
 #include <QFile>
@@ -8,7 +8,7 @@
 
 
 
-MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), pop(0), count(0), size(0), msg(0)
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent), pop(0), msg(0)
 {
     setupUi(this);
     settings = new QSettings(QSettings::UserScope,"Qxt", "MailTest", this);
@@ -57,30 +57,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::newCmd()
 {
-    QxtPop3Command* cmd = 0;
+    QxtPop3Reply* reply = 0;
     QString line = lineEdit->text();
     lineEdit->clear();
     QStringList words = line.split(" ", QString::SkipEmptyParts);
     if (words[0] == "quit")
     {
         if (!pop->isConnected()) return;
-        cmd = pop->quit();
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleQuit(int)));
+        reply = pop->quit();
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleQuit(int)));
         plainTextEdit->appendPlainText("QUIT sent");
     }
     else if (words[0] == "stat")
     {
         if (!pop->isConnected()) return;
-        cmd = pop->stat(count,size);
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleStat(int)));
+        reply = pop->stat();
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleStat(int)));
         output("STAT sent");
     }
     else if (words[0] == "list")
     {
         if (!pop->isConnected()) return;
-        list.clear();
-        cmd = pop->messageList(list);
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleList(int)));
+        reply = pop->messageList();
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleList(int)));
         output("LIST sent");
     }
     else if (words[0] == "retr")
@@ -92,14 +91,9 @@ void MainWindow::newCmd()
             return;
         }
         int which = words[1].toInt();
-        if (msg)
-        {
-            delete msg;
-            msg = 0;
-        }
-        cmd = pop->retrieveMessage(which, msg);
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleRetr(int)));
-        connect(cmd, SIGNAL(progress(int)), this, SLOT(progress(int)));
+        reply = pop->retrieveMessage(which);
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleRetr(int)));
+        connect(reply, SIGNAL(progress(int)), this, SLOT(progress(int)));
         output("RETR sent");
     }
     else if (words[0] == "dele")
@@ -111,15 +105,15 @@ void MainWindow::newCmd()
             return;
         }
         int which = words[1].toInt();
-        cmd = pop->deleteMessage(which);
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleDele(int)));
+        reply = pop->deleteMessage(which);
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleDele(int)));
         output("DELE sent");
     }
     else if (words[0] == "reset")
     {
         if (!pop->isConnected()) return;
-        cmd = pop->reset();
-        connect(cmd, SIGNAL(completed(int)), this, SLOT(handleRset(int)));
+        reply = pop->reset();
+        connect(reply, SIGNAL(finished(int)), this, SLOT(handleRset(int)));
         output("RSET sent");
     }
     else if (words[0] == "help")
@@ -167,15 +161,14 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
+        case QxtPop3Reply::OK:
             output("QUIT: OK received");
-//            close();
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("QUIT aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("QUIT: time out.");
             break;
         default:
@@ -187,14 +180,22 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
-            output(QString("STAT: %1 messages, %2 bytes").arg(count).arg(size));
+        case QxtPop3Reply::OK:
+            {
+                QxtPop3StatReply* reply = dynamic_cast<QxtPop3StatReply*>(sender());
+                if (reply == 0)
+                {
+                    qWarning("MainWindow::handleStat: sender is not a QxtPop3StatReply !");
+                    return;
+                }
+                output(QString("STAT: %1 messages, %2 bytes").arg(reply->count()).arg(reply->size()));
+            }
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("STAT aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("STAT: time out.");
             break;
         default:
@@ -206,21 +207,26 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
+        case QxtPop3Reply::OK:
             output("LIST: OK received");
             {
-                QPair<int,int> msg;
-                foreach (msg, list)
+                QxtPop3ListReply* reply = dynamic_cast<QxtPop3ListReply*>(sender());
+                if (reply == 0)
                 {
-                    output(QString("message %1: %2 bytes").arg(msg.first).arg(msg.second));
+                    qWarning("MainWindow::handleList: sender is not a QxtPop3ListReply !");
+                    return;
+                }
+                foreach (QxtPop3Reply::MessageInfo msginfo, reply->list())
+                {
+                    output(QString("message %1: %2 bytes").arg(msginfo.id).arg(msginfo.size));
                 }
             }
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("LIST aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("LIST: time out.");
             break;
         default:
@@ -232,9 +238,20 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
+        case QxtPop3Reply::OK:
             output("RETR: OK received");
             {
+                QxtPop3RetrReply* reply = dynamic_cast<QxtPop3RetrReply *>(sender());
+                if (reply == 0)
+                {
+                    qWarning("MainWindow::handleRetr: sender is not a QxtPop3RetrReply !");
+                    return;
+                }
+                if (msg)
+                {
+                    delete msg;
+                }
+                msg = reply->message();
                 output("------Message Headers:");
                 foreach(QString key, msg->extraHeaders().keys())
                 {
@@ -256,11 +273,11 @@ void MainWindow::newCmd()
                 output("------End of Message\n");
             }
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("RETR aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("RETR: time out.");
             break;
         default:
@@ -272,14 +289,14 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
+        case QxtPop3Reply::OK:
             output("DELE: OK received");
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("DELE aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("DELE: time out.");
             break;
         default:
@@ -291,14 +308,14 @@ void MainWindow::newCmd()
     {
         switch (code)
         {
-        case QxtPop3Command::OK:
+        case QxtPop3Reply::OK:
             output("RSET: OK received");
             break;
-        case QxtPop3Command::Aborted:
+        case QxtPop3Reply::Aborted:
             printError();
             output("RSET aborted.");
             break;
-        case QxtPop3Command::Timeout:
+        case QxtPop3Reply::Timeout:
             output("RSET: time out.");
             break;
         default:
@@ -311,10 +328,10 @@ void MainWindow::newCmd()
         QObject* s = sender();
         if (s != 0)
         {
-            QxtPop3Command* cmd = qobject_cast<QxtPop3Command*>(s);
-            if (cmd->status() == QxtPop3Command::Error)
+            QxtPop3Reply* reply = qobject_cast<QxtPop3Reply*>(s);
+            if (reply->status() == QxtPop3Reply::Error)
             {
-                output(cmd->error());
+                output(reply->error());
             }
         }
     }
@@ -409,6 +426,7 @@ void MainWindow::newCmd()
     {
         connectPushButton->setEnabled(true);
         output("Disconnected from Host");
+        pop->clearReplies();
     }
 
     void MainWindow::handleSslError(const QByteArray& msg)
