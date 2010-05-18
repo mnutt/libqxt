@@ -72,6 +72,7 @@
 #include "qxtslotmapper.h"
 #include "qxtstdio.h"
 #include "qxtstdstreambufdevice.h"
+#include "qxttemporarydir.h"
 #include "qxttimer.h"
 #include "qxttypelist.h"
 #include "qxtxmlfileloggerengine.h"

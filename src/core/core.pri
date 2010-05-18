@@ -52,6 +52,8 @@ HEADERS  += qxtslotmapper.h
 HEADERS  += qxtstdio.h
 HEADERS  += qxtstdio_p.h
 HEADERS  += qxtstdstreambufdevice.h
+HEADERS  += qxttemporarydir.h
+HEADERS  += qxttemporarydir_p.h
 HEADERS  += qxttimer.h
 HEADERS  += qxttypelist.h
 HEADERS  += qxtrpcservice.h
@@ -87,6 +89,7 @@ SOURCES  += qxtslotjob.cpp
 SOURCES  += qxtslotmapper.cpp
 SOURCES  += qxtstdio.cpp
 SOURCES  += qxtstdstreambufdevice.cpp
+SOURCES  += qxttemporarydir.cpp
 SOURCES  += qxttimer.cpp
 SOURCES  += qxtrpcservice.cpp
 
@@ -106,9 +109,11 @@ SOURCES  += qxtrpcservice.cpp
         SOURCES  += qxtfilelock_unix.cpp
         SOURCES  += qxtserialdevice.cpp
         SOURCES  += qxtserialdevice_unix.cpp
+        SOURCES  += qxttemporarydir_unix.cpp
     }
     
     win32 {
         SOURCES  += qxtfilelock_win.cpp
+        SOURCES  += qxttemporarydir_win.cpp
     }
 }
