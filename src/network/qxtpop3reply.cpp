@@ -116,6 +116,7 @@ QByteArray QxtPop3AuthReplyImpl::dialog(QByteArray received)
             // authenticated
             m_reply.status = QxtPop3Reply::Completed;
             m_reply.finish(QxtPop3Reply::OK);
+            pop->authenticated();
         }
         break;
     default:
@@ -464,7 +465,7 @@ QByteArray QxtPop3DeleReplyImpl::dialog(QByteArray received)
 /*!
   \class QxtPop3Reply
   \inmodule QxtNetwork
-  \brief The QxtPop3Reply class encapsulate the reply to an asynchronous POP3 command.
+  \brief The QxtPop3Reply class encapsulates the reply to an asynchronous POP3 command.
 
   This isn't a class that is to be instanciated or subclassed by client code. You get
   pointers to QxtPop3Reply (or subclasses thereof) objects via QxtPop3 methods implementing
@@ -487,6 +488,41 @@ QByteArray QxtPop3DeleReplyImpl::dialog(QByteArray received)
   \sa QxtPop3
  */
 
+/*!
+  \enum QxtPop3Reply::Status
+  Status of the reply.
+
+  \value Pending The reply is queued and waits to be run.
+  \value Running The repy is currently being run.
+  \value Completed The reply has completed, the result, if any, is available.
+  \value Timedout The reply timed out.
+  \value Error An error occured.
+  */
+
+/*!
+  \enum QxtPop3Reply::ReturnCode
+  Return codes for the finished() signal, indicating how the reply finished.
+
+  \value OK Success, the result, if any, is available.
+  \value Timeout The reply timed out.
+  \value Failed The reply failed.
+  \value Aborted The reply was cancelled.
+  */
+
+/*!
+  \enum QxtPop3Reply::Type
+  Type of POP3 command, as returned by type().
+
+  \value Auth AUTH POP3 command.
+  \value Quit QUIT POP3 command.
+  \value Stat STAT POP3 command.
+  \value List LIST POP3 command.
+  \value Reset RSET POP3 command.
+  \value Dele DELE POP3 command.
+  \value Retr RETR POP3 command.
+  \value Top TOP POP3 command.
+  */
+
 QxtPop3Reply::QxtPop3Reply(int timeout, QObject* parent) : QObject(parent)
 {
     QXT_INIT_PRIVATE(QxtPop3Reply);
@@ -494,29 +530,64 @@ QxtPop3Reply::QxtPop3Reply(int timeout, QObject* parent) : QObject(parent)
     qxt_d().status = QxtPop3Reply::Pending;
 }
 
+/*!
+  Destructs the QxtPop3Reply.
+  */
 QxtPop3Reply::~QxtPop3Reply()
 {
 }
 
+
+/*!
+  Return the current status of the reply.
+  */
 QxtPop3Reply::Status QxtPop3Reply::status() const
 {
     return qxt_d().status;
 }
 
+/*!
+  If an error occured, returns a string description of it.
+
+  \sa status()
+  */
 QString QxtPop3Reply::error() const
 {
     return qxt_d().errString;
 }
 
+/*!
+  Returns the type of the reply.
+  */
 QxtPop3Reply::Type QxtPop3Reply::type() const
 {
     return qxt_d().type;
 }
 
+/*!
+  Cancels the reply.
+  */
 void QxtPop3Reply::cancel()
 {
+    qxt_d().status = Error;
+    qxt_d().errString = "Canceled.";
     emit finished(Aborted);
 }
+
+/*!
+  \fn QxtPop3Reply::finished(int code)
+
+  Emitted when the reply terminates. The return \a code indicates how the reply finished.
+
+  \sa QxtPop3Reply::ReturnCode
+  */
+
+
+/*!
+  \fn QxtPop3Reply::progress(int percent)
+
+  Emitted to indicate the progress of the reply. \a percent is a number between \c 0 and \c 100, indicating the progress value as a percentage.
+  */
 
 void QxtPop3Reply::setup(Type type)
 {
@@ -593,7 +664,7 @@ void QxtPop3ReplyPrivate::timedOut()
 /*!
   \class QxtPop3StatReply
   \inmodule QxtNetwork
-  \brief Implement the reply to a STAT command.
+  \brief The QxtPop3StatReply class implements the reply to a STAT command.
 
   Results of the command are given by the count() and size() methods, once the command has completed.
  */
@@ -632,7 +703,7 @@ QxtPop3AuthReply::QxtPop3AuthReply(QxtPop3Private* pop, int timeout, QObject* pa
 /*!
   \class QxtPop3ListReply
   \inmodule QxtNetwork
-  \brief Implement the reply to a LIST command.
+  \brief The QxtPop3ListReply class implements the reply to a LIST command.
 
   Results of the command are given by the list() method, once the command has completed.
  */
@@ -653,7 +724,7 @@ const QList<QxtPop3Reply::MessageInfo>& QxtPop3ListReply::list() const
 /*!
   \class QxtPop3RetrReply
   \inmodule QxtNetwork
-  \brief Implement the reply to a RETR command.
+  \brief The QxtPop3RetrReply class implements the reply to a RETR command.
 
   Results of the command are given by the message() method, once the command has completed.
  */

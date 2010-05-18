@@ -65,6 +65,7 @@ public slots:
     void dequeue();
     void terminate(int code);
     void encrypted();
+    void authenticated();
 };
 
 #endif // QXTPOP3_P_H

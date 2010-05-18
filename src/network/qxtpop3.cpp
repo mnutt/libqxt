@@ -51,13 +51,13 @@
 
 
 
-QxtPop3Private::QxtPop3Private() : QObject(0)
+QxtPop3Private::QxtPop3Private() : QObject(0), disableStartTLS(false)
 {
     // empty ctor
 }
 
 /*!
-
+  Constructs a new QxtPop3 whith parent \a parent.
  */
 QxtPop3::QxtPop3(QObject* parent) : QObject(parent)
 {
@@ -78,28 +78,42 @@ QxtPop3::QxtPop3(QObject* parent) : QObject(parent)
 }
 
 /*!
-
+  Returns the connection's user name; it may be empty.
  */
 QByteArray QxtPop3::username() const
 {
     return qxt_d().username;
 }
 
+/*!
+  Sets the connection's user name to \a username. To have effect, the user name must be set \bold{before} the connection is opened.
+  Alternatively, you can quit(), set the user name, and call connectToHost() again.
+  */
 void QxtPop3::setUsername(const QByteArray& username)
 {
     qxt_d().username = username;
 }
 
+/*!
+  Returns the connection's password; it may be empty.
+ */
 QByteArray QxtPop3::password() const
 {
     return qxt_d().password;
 }
 
+/*!
+  Sets the connection's password to \a password. To have effect, the password must be set \bold{before} the connection is opened.
+  Alternatively, you can quit(), set the password, and call connectToHost() again.
+  */
 void QxtPop3::setPassword(const QByteArray& password)
 {
     qxt_d().password = password;
 }
 
+/*!
+  Returns a pointer to the socket used for the connection to the server.
+  */
 QTcpSocket* QxtPop3::socket() const
 {
     return qxt_d().socket;
@@ -127,24 +141,35 @@ void QxtPop3::connectToHost(const QHostAddress& address, quint16 port)
 }
 
 /*!
-  Close the connection.
+  Closes the connection.
  */
 void QxtPop3::disconnectFromHost()
 {
     socket()->disconnectFromHost();
 }
 
+/*!
+  Returns \c true if startTLS is disabled, \c false if it is enabled.
+  Default value is \c false (startTLS enabled).
+  */
 bool QxtPop3::startTlsDisabled() const
 {
     return qxt_d().disableStartTLS;
 }
 
+/*!
+  Disable the startTLS method if \a disable is \c true, enables it if it is \c false.
+  */
 void QxtPop3::setStartTlsDisabled(bool disable)
 {
     qxt_d().disableStartTLS = disable;
 }
 
 #ifndef QT_NO_OPENSSL
+/*!
+  Returns a pointer to the SSL socket used for the connection to the server.
+  \sa socket()
+  */
 QSslSocket* QxtPop3::sslSocket() const
 {
     return qxt_d().socket;
@@ -169,6 +194,9 @@ void QxtPop3::connectToSecureHost(const QHostAddress& address, quint16 port)
     connectToSecureHost(address.toString(), port);
 }
 
+/*!
+  Returns \c true if the client is connected to the server, \c false otherwise.
+  */
 bool QxtPop3::isConnected() const
 {
     return qxt_d().state != QxtPop3Private::Disconnected;
@@ -284,6 +312,50 @@ void QxtPop3::clearReplies()
     }
 }
 
+/*!
+  \fn QxtPop3::connected()
+
+  Emitted once the connection to the server is established.
+  */
+
+/*!
+  \fn QxtPop3::connectionFailed( const QByteArray & msg )
+
+  Emitted when the connection fails, \a msg containing a description of the failure.
+  */
+
+/*!
+  \fn QxtPop3::encrypted()
+
+  Emitted when the SSL negotiation succeeds, and the connection becomes encrypted
+  (either from start, with connectToSecureHost(), or after the startTLS method is used).
+  */
+
+/*!
+  \fn QxtPop3::encryptionFailed( const QByteArray & msg )
+
+  Emitted if the SSL negotiation fails, \a msg holding a desription of the cause of the failure.
+  */
+
+/*!
+  \fn QxtPop3::authenticated()
+
+  Emitted when the connections becomes authenticated.
+  */
+
+/*!
+  \fn QxtPop3::authenticationFailed( const QByteArray & msg )
+
+  Emitted if the authentication fails, \a msg holding a desription of the cause of the failure.
+  */
+
+
+/*!
+  \fn QxtPop3::disconnected()
+
+  Emitted when the client is disconnected from the server.
+  */
+
 void QxtPop3Private::socketError(QAbstractSocket::SocketError err)
 {
     if (err == QAbstractSocket::SslHandshakeFailedError)
@@ -352,6 +424,11 @@ void QxtPop3Private::encrypted()
             socket->write(next);
         }
     }
+}
+
+void QxtPop3Private::authenticated()
+{
+    emit qxt_p().authenticated();
 }
 
 void QxtPop3Private::dequeue()
