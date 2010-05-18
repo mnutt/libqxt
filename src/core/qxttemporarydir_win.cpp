@@ -24,21 +24,7 @@
  ****************************************************************************/
 #include "qxttemporarydir_p.h"
 #include <QtGlobal>
-#include <stdlib.h>
-#include <errno.h>
 
 void QxtTemporaryDirPrivate::create()
-{
-    char* path = qstrdup(templateName.toLocal8Bit());
-    path = mkdtemp(path);
-    if (!path) {
-        errorString = qt_error_string(errno);
-    } else {
-        dir.setPath(QString::fromLocal8Bit(path));
-    }
-    delete[] path;
-}
-
-void QxtTemporaryDirPrivate::remove()
 {
 }
