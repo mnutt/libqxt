@@ -34,8 +34,7 @@ class QxtTemporaryDirPrivate : public QxtPrivate<QxtTemporaryDir>
 public:
     QxtTemporaryDirPrivate();
 
-    void create();
-    void remove();
+    QString create();
 
     QString templateName;
     QString errorString;

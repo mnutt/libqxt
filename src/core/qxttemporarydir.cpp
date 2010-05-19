@@ -185,8 +185,13 @@ QDir QxtTemporaryDir::dir() const
     if (!qxt_d().init)
     {
         QxtTemporaryDir* that = const_cast<QxtTemporaryDir*>(this);
-        that->qxt_d().create();
-        that->qxt_d().init = true;
+        QString path = that->qxt_d().create();
+        if (!path.isNull()) {
+            that->qxt_d().dir.setPath(path);
+            that->qxt_d().init = true;
+        } else {
+            that->qxt_d().errorString = qt_error_string();
+        }
     }
     return qxt_d().dir;
 }
