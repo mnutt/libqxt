@@ -34,7 +34,8 @@ QT_FORWARD_DECLARE_CLASS(QDir)
 class QXT_CORE_EXPORT QxtTemporaryDir
 {
 public:
-    QxtTemporaryDir(const QString& templateName = QString());
+    QxtTemporaryDir();
+    QxtTemporaryDir(const QString& templateName);
     ~QxtTemporaryDir();
 
     QString templateName() const;
@@ -42,6 +43,8 @@ public:
 
     bool autoRemove() const;
     void setAutoRemove(bool autoRemove);
+
+    bool remove();
 
     QDir dir() const;
     QString path() const;
