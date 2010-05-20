@@ -77,6 +77,7 @@ public:
     void removeAttachment(const QString& filename);
 
     QByteArray rfc2822() const;
+    static QxtMailMessage fromRfc2822(const QByteArray&);
 
 private:
     QSharedDataPointer<QxtMailMessagePrivate> qxt_d;

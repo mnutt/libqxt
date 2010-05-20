@@ -92,10 +92,13 @@ QxtMailMessage::QxtMailMessage(const QString& sender, const QString& recipient)
     addRecipient(recipient);
 }
 
-QxtMailMessage::QxtMailMessage(const QByteArray& rfc2822)
+/*!
+  Constructs a new QxtMailMessage object from a \a buffer that conforms to RFC 2822 and the MIME related RFCs.
+  */
+QxtMailMessage::QxtMailMessage(const QByteArray& buffer)
 {
     QxtRfc2822Parser parser;
-    qxt_d = parser.parse(rfc2822);
+    qxt_d = parser.parse(buffer);
 }
 
 QxtMailMessage::~QxtMailMessage()
@@ -534,6 +537,17 @@ QByteArray QxtMailMessage::rfc2822() const
         rv += "--" + qxt_d->boundary + "--\r\n";
     }
 
+    return rv;
+}
+
+/*!
+  Constructs a new QxtMailMessage object from a \a buffer that conforms to RFC 2822 and the MIME related RFCs.
+  */
+QxtMailMessage QxtMailMessage::fromRfc2822(const QByteArray& buffer)
+{
+    QxtMailMessage rv;
+    QxtRfc2822Parser parser;
+    rv.qxt_d = parser.parse(buffer);
     return rv;
 }
 
