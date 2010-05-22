@@ -8,6 +8,10 @@
 #include <QDir>
 #include <QStringList>
 
+#ifdef Q_OS_UNIX
+#include <termios.h>
+#endif
+
 class QxtSshTest: public QObject{
     Q_OBJECT
 public:
@@ -74,13 +78,32 @@ private:
 };
 
 int main(int argc,char **argv){
+
+    #ifdef Q_OS_UNIX
+    termios term, restore;
+    tcgetattr(1, &term);
+    tcgetattr(1, &restore);
+    term.c_lflag &= ~(ICANON | ECHO);
+    //term.c_iflag &= ~ICRNL;
+    term.c_lflag |= ISIG;
+    term.c_cc[VMIN] = 1;
+    term.c_cc[VTIME] = 0;
+    tcsetattr(1, 0, &term);
+    #endif
+
     QCoreApplication app(argc,argv);
     if(app.arguments().count() <2){
         qDebug("usage: qxtssh <user>@<hostname> ");
         return 2;
     }
     QxtSshTest t;
-    return app.exec();
+
+
+    int ret=app.exec();
+    #ifdef Q_OS_UNIX
+    tcsetattr(1, 0, &restore);
+    #endif
+    return ret;
 }
 
 #include "main.moc"
