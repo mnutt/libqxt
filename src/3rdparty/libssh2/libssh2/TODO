@@ -1,0 +1,60 @@
+Things TODO
+===========
+
+* make sure the windowing code adapts better to slow situations so that it
+  doesn't then use as much memory as today. Possibly by an app-controllable
+  "Window mode"?
+
+* Introduce a function that can free data that is returned allocated from the
+  lib, like when libssh2_session_last_error() is asked to return the string
+  with 'want_buf' set to non-zero.
+
+* Add more info to the man pages.
+
+* Decrease the number of mallocs. Everywhere.
+
+* Use SO_NOSIGPIPE for Mac OS/BSD systems where MSG_NOSIGNAL doesn't exist/work
+
+* Extend the test suite to actually test lots of aspects of libssh2
+
+* Fix all compiler warnings (some can't be done without API changes)
+
+* Expose error messages sent by the server
+
+At next SONAME bump
+===================
+
+* stop using #defined macros as part of the official API. The macros should
+  either be turned into real functions or discarded from the API.
+
+* fix the parts of the API where object pointers and function pointers are
+  mixed like libssh2_session_callback_set()
+
+* remove the following functions from the API/ABI
+
+  libssh2_base64_decode()
+  libssh2_session_flag()
+  libssh2_channel_handle_extended_data()
+  libssh2_channel_receive_window_adjust()
+  libssh2_poll()
+  libssh2_poll_channel_read()
+
+* Rename a few function:
+
+  libssh2_hostkey_hash => libssh2_session_hostkey_hash
+  libssh2_banner_set => libssh2_session_banner_set
+
+* change 'int' to 'libssh2_socket_t' in the public API for sockets.
+
+* Use 'size_t' for string lengths in all functions.
+
+* Add a comment field to struct libssh2_knownhost.
+
+* remove the existing libssh2_knownhost_add() function and rename
+  libssh2_knownhost_addc to become the new libssh2_knownhost_add instead
+
+* remove the existing libssh2_scp_send_ex() function and rename
+  libssh2_scp_send64 to become the new libssh2_scp_send instead.
+
+* remove the existing libssh2_knownhost_check() functin and rename
+  libssh2_knownhost_checkp() to become the new libssh2_knownhost_check instead

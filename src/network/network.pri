@@ -44,3 +44,20 @@ SOURCES += qxtsshchannel.cpp
 SOURCES += qxtsshclient.cpp
 SOURCES += qxtsshprocess.cpp
 SOURCES += qxtsshtcpsocket.cpp
+
+
+
+contains(DEFINES,HAVE_OPENSSL){
+ HEADERS += qxtsshchannel.h
+ HEADERS += qxtsshchannel_p.h
+ HEADERS += qxtsshclient.h
+ HEADERS += qxtsshclient_p.h
+ HEADERS += qxtsshprocess.h
+ HEADERS += qxtsshtcpsocket.h
+
+ SOURCES += qxtsshchannel.cpp
+ SOURCES += qxtsshclient.cpp
+ SOURCES += qxtsshprocess.cpp
+ SOURCES += qxtsshtcpsocket.cpp	
+}
+

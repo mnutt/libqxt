@@ -5,6 +5,7 @@ QMAKE_BIN=qmake
 WHICH=which
 NO_DB=0
 NO_ZEROCONF=0
+NO_OPENSSL=0
 NO_XRANDR=0
 QXT_MODULES="docs berkeley core designer gui network sql web zeroconf"
 
@@ -89,6 +90,8 @@ while (( $# > 0 )); do
         NO_XRANDR=1
     elif [ $1 == "-no-zeroconf" ]; then
         NO_ZEROCONF=1
+    elif [ $1 == "-no-openssl" ]; then
+        NO_OPENSSL=1
     elif [ $1 == "-no-avahi" ]; then
         echo "CONFIG += NO_AVAHI" >> $QMAKE_CACHE
     elif [ $1 == "-verbose" ]; then
@@ -261,6 +264,10 @@ echo >&2 "If tests fail, some features will not be available."
 configtest qt4 QT
 if [[ "$NO_DB" == "0" ]]; then
     configtest db DB
+fi
+
+if [[ "$NO_OPENSSL" == "0" ]]; then
+    configtest openssl OPENSSL
 fi
 
 if [[ "$QXT_MAC" == "0" ]]; then

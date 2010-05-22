@@ -1,0 +1,218 @@
+diff --git a/include/libssh2.h b/include/libssh2.h
+index 6440001..3e4c01f 100644
+--- a/include/libssh2.h
++++ b/include/libssh2.h
+@@ -166,6 +166,15 @@ typedef long long libssh2_int64_t;
+                                               void **abstract)
+ #define LIBSSH2_FREE_FUNC(name)    void name(void *ptr, void **abstract)
+ 
++/* custom i/o  callbacks */
++#define LIBSSH2_RECV_FUNC(name)  ssize_t name(int socket, \
++                                              void *buffer, size_t length, \
++                                              int flags, void **abstract);
++#define LIBSSH2_SEND_FUNC(name)  ssize_t name(int socket, \
++                                              const void *buffer, size_t length,\
++                                              int flags, void **abstract);
++
++
+ typedef struct _LIBSSH2_USERAUTH_KBDINT_PROMPT
+ {
+     char* text;
+@@ -228,6 +237,8 @@ typedef struct _LIBSSH2_USERAUTH_KBDINT_RESPONSE
+ #define LIBSSH2_CALLBACK_DISCONNECT         2
+ #define LIBSSH2_CALLBACK_MACERROR           3
+ #define LIBSSH2_CALLBACK_X11                4
++#define LIBSSH2_CALLBACK_SEND               5
++#define LIBSSH2_CALLBACK_RECV               6
+ 
+ /* libssh2_session_method_pref() constants */
+ #define LIBSSH2_METHOD_KEX          0
+diff --git a/src/libssh2_priv.h b/src/libssh2_priv.h
+index c50fa8c..f2359f3 100644
+--- a/src/libssh2_priv.h
++++ b/src/libssh2_priv.h
+@@ -675,6 +675,8 @@ struct _LIBSSH2_SESSION
+       LIBSSH2_DISCONNECT_FUNC((*ssh_msg_disconnect));
+       LIBSSH2_MACERROR_FUNC((*macerror));
+       LIBSSH2_X11_OPEN_FUNC((*x11));
++      LIBSSH2_SEND_FUNC((*send));
++      LIBSSH2_RECV_FUNC((*recv));
+ 
+     /* Method preferences -- NULL yields "load order" */
+     char *kex_prefs;
+diff --git a/src/session.c b/src/session.c
+index f6498e4..3c4b5a9 100644
+--- a/src/session.c
++++ b/src/session.c
+@@ -112,9 +112,15 @@ banner_receive(LIBSSH2_SESSION * session)
+         /* no incoming block yet! */
+         session->socket_block_directions &= ~LIBSSH2_SESSION_BLOCK_INBOUND;
+ 
+-        ret = _libssh2_recv(session->socket_fd, &c, 1,
+-                            LIBSSH2_SOCKET_RECV_FLAGS(session));
+-        if (ret < 0)
++        if(session->recv){
++            ret = session->recv(session->socket_fd, &c, 1,
++                                LIBSSH2_SOCKET_RECV_FLAGS(session),
++                                &session->abstract);
++        }else{
++            ret = _libssh2_recv(session->socket_fd, &c, 1,
++                                LIBSSH2_SOCKET_RECV_FLAGS(session));
++        }
++        if (ret < 0 && (!session->recv || ret!=-EAGAIN))
+             _libssh2_debug(session, LIBSSH2_TRACE_SOCKET,
+                            "Error recving %d bytes to %p: %d", 1, &c, errno);
+         else
+@@ -122,7 +128,7 @@ banner_receive(LIBSSH2_SESSION * session)
+                            "Recved %d bytes to %p", ret, &c);
+ 
+         if (ret < 0) {
+-            if (errno == EAGAIN) {
++            if (errno == EAGAIN || (session->recv && ret==-EAGAIN)) {
+                 session->socket_block_directions =
+                     LIBSSH2_SESSION_BLOCK_INBOUND;
+                 session->banner_TxRx_total_send = banner_len;
+@@ -221,11 +227,19 @@ banner_send(LIBSSH2_SESSION * session)
+     /* no outgoing block yet! */
+     session->socket_block_directions &= ~LIBSSH2_SESSION_BLOCK_OUTBOUND;
+ 
+-    ret = _libssh2_send(session->socket_fd,
+-                        banner + session->banner_TxRx_total_send,
+-                        banner_len - session->banner_TxRx_total_send,
+-                        LIBSSH2_SOCKET_SEND_FLAGS(session));
+-    if (ret < 0)
++    if(session->send){
++        ret = session->send(session->socket_fd,
++                            banner + session->banner_TxRx_total_send,
++                            banner_len - session->banner_TxRx_total_send,
++                            LIBSSH2_SOCKET_SEND_FLAGS(session),
++                            &session->abstract);
++    }else{
++        ret = _libssh2_send(session->socket_fd,
++                            banner + session->banner_TxRx_total_send,
++                            banner_len - session->banner_TxRx_total_send,
++                            LIBSSH2_SOCKET_SEND_FLAGS(session));
++    }
++    if (ret < 0 && (!session->send || ret!=-EAGAIN))
+         _libssh2_debug(session, LIBSSH2_TRACE_SOCKET,
+                        "Error sending %d bytes: %d",
+                        banner_len - session->banner_TxRx_total_send, errno);
+@@ -236,7 +250,8 @@ banner_send(LIBSSH2_SESSION * session)
+                        banner, session->banner_TxRx_total_send);
+ 
+     if (ret != (banner_len - session->banner_TxRx_total_send)) {
+-        if ((ret > 0) || ((ret == -1) && (errno == EAGAIN))) {
++        if ((ret > 0) || ((ret == -1) && (errno == EAGAIN)) ||
++            (session->send && ret==-EAGAIN)) {
+             /* the whole packet could not be sent, save the what was */
+             session->socket_block_directions =
+                 LIBSSH2_SESSION_BLOCK_OUTBOUND;
+@@ -525,6 +540,15 @@ libssh2_session_callback_set(LIBSSH2_SESSION * session,
+         session->x11 = callback;
+         return oldcb;
+ 
++    case LIBSSH2_CALLBACK_SEND:
++        oldcb = session->send;
++        session->send = callback;
++        return oldcb;
++
++    case LIBSSH2_CALLBACK_RECV:
++        oldcb = session->recv;
++        session->recv = callback;
++        return oldcb;
+     }
+     _libssh2_debug(session, LIBSSH2_TRACE_TRANS, "Setting Callback %d", cbtype);
+ 
+diff --git a/src/transport.c b/src/transport.c
+index 374c09b..4338066 100644
+--- a/src/transport.c
++++ b/src/transport.c
+@@ -372,10 +372,19 @@ int _libssh2_transport_read(LIBSSH2_SESSION * session)
+             }
+ 
+             /* now read a big chunk from the network into the temp buffer */
+-            nread =
+-                _libssh2_recv(session->socket_fd, &p->buf[remainbuf],
+-                              PACKETBUFSIZE - remainbuf,
+-                              LIBSSH2_SOCKET_RECV_FLAGS(session));
++            if(session->recv){
++                nread =
++                    session->recv(session->socket_fd, &p->buf[remainbuf],
++                                  PACKETBUFSIZE - remainbuf,
++                                  LIBSSH2_SOCKET_RECV_FLAGS(session),
++                                  &session->abstract);
++
++            }else {
++                nread =
++                    _libssh2_recv(session->socket_fd, &p->buf[remainbuf],
++                                  PACKETBUFSIZE - remainbuf,
++                                  LIBSSH2_SOCKET_RECV_FLAGS(session));
++            }
+             if (nread < 0)
+                 _libssh2_debug(session, LIBSSH2_TRACE_SOCKET,
+                                "Error recving %d bytes to %p+%d: %d",
+@@ -388,7 +397,8 @@ int _libssh2_transport_read(LIBSSH2_SESSION * session)
+             if (nread <= 0) {
+                 /* check if this is due to EAGAIN and return the special
+                    return code if so, error out normally otherwise */
+-                if ((nread < 0) && (errno == EAGAIN)) {
++                if (((nread < 0) && ((errno == EAGAIN)))
++                    || ( session->recv && nread== -EAGAIN )){
+                     session->socket_block_directions |=
+                         LIBSSH2_SESSION_BLOCK_INBOUND;
+                     return LIBSSH2_ERROR_EAGAIN;
+@@ -642,9 +652,14 @@ send_existing(LIBSSH2_SESSION * session, unsigned char *data,
+     /* number of bytes left to send */
+     length = p->ototal_num - p->osent;
+ 
+-    rc = _libssh2_send(session->socket_fd, &p->outbuf[p->osent], length,
+-                       LIBSSH2_SOCKET_SEND_FLAGS(session));
+-    if (rc < 0)
++    if(session->send){
++        rc = session->send(session->socket_fd, &p->outbuf[p->osent], length,
++                           LIBSSH2_SOCKET_SEND_FLAGS(session),&session->abstract);
++    }else{
++        rc = _libssh2_send(session->socket_fd, &p->outbuf[p->osent], length,
++                           LIBSSH2_SOCKET_SEND_FLAGS(session));
++    }
++    if (rc < 0 && (!session->send || rc!=-EAGAIN))
+         _libssh2_debug(session, LIBSSH2_TRACE_SOCKET,
+                        "Error sending %d bytes: %d", length, errno);
+     else
+@@ -665,7 +680,7 @@ send_existing(LIBSSH2_SESSION * session, unsigned char *data,
+     }
+     else if (rc < 0) {
+         /* nothing was sent */
+-        if (errno != EAGAIN) {
++        if (errno != EAGAIN && ( !session->send || rc!=-EAGAIN )) {
+             /* send failure! */
+             return LIBSSH2_ERROR_SOCKET_NONE;
+         }
+@@ -824,9 +839,14 @@ _libssh2_transport_write(LIBSSH2_SESSION * session, unsigned char *data,
+ 
+     session->local.seqno++;
+ 
+-    ret = _libssh2_send(session->socket_fd, p->outbuf, total_length,
+-                        LIBSSH2_SOCKET_SEND_FLAGS(session));
+-    if (ret < 0)
++    if(session->send){
++        ret = session->send(session->socket_fd, p->outbuf, total_length,
++                            LIBSSH2_SOCKET_SEND_FLAGS(session),&session->abstract);
++    }else{
++        ret = _libssh2_send(session->socket_fd, p->outbuf, total_length,
++                            LIBSSH2_SOCKET_SEND_FLAGS(session));
++    }
++    if (ret < 0 && (!session->send || ret!=-EAGAIN))
+         _libssh2_debug(session, LIBSSH2_TRACE_SOCKET,
+                        "Error sending %d bytes: %d", total_length, errno);
+     else
+@@ -837,7 +857,8 @@ _libssh2_transport_write(LIBSSH2_SESSION * session, unsigned char *data,
+         debugdump(session, "libssh2_transport_write send()", p->outbuf, ret);
+     }
+     if (ret != total_length) {
+-        if ((ret > 0) || ((ret == -1) && (errno == EAGAIN))) {
++        if ((ret > 0) || ((ret == -1) && (errno == EAGAIN)) ||
++            (session->send && ret==-EAGAIN)) {
+             /* the whole packet could not be sent, save the rest */
+             session->socket_block_directions |= LIBSSH2_SESSION_BLOCK_OUTBOUND;
+             p->odata = orgdata;
