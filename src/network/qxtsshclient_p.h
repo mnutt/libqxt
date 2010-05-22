@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,21 +22,47 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
 
-#include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsshchannel.h"
 #include "qxtsshclient.h"
-#include "qxtsshprocess.h"
-#include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include "qxtsshchannel.h"
+#include <QTcpSocket>
 
-#endif // QXTNETWORK_H_INCLUDED
+extern "C"{
+#include <libssh2.h>
+#include <errno.h>
+}
+
+class QxtSshClientPrivate : public QTcpSocket{
+    Q_OBJECT
+public:
+    QxtSshClientPrivate();
+    ~QxtSshClientPrivate();
+    void d_reset();
+    void d_getLastError();
+
+    QxtSshClient * p;
+    LIBSSH2_SESSION * d_session;
+    LIBSSH2_KNOWNHOSTS * d_knownHosts;
+    int d_state;
+    QString d_hostName;
+    int d_port;
+    QxtSshKey  d_hostKey;
+    QString d_userName;
+    QString d_passphrase;
+    QString d_privateKey;
+    QString d_publicKey;
+    QString d_errorMessage;
+    int d_errorCode;
+    QxtSshClient::Error d_delaydError;
+    QList<QxtSshClient::AuthenticationMethod> d_availableMethods;
+    QList<QxtSshClient::AuthenticationMethod> d_failedMethods;
+    QxtSshClient::AuthenticationMethod d_currentAuthTry;
+
+    QList<QxtSshChannel*> d_channels;
+public slots:
+    void d_readyRead();
+    void d_connected();
+    void d_disconnected();
+    void d_channelDestroyed();
+    void d_delaydErrorEmit();
+};

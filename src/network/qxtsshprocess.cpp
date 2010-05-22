@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,21 +22,35 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
 
-#include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsshchannel.h"
-#include "qxtsshclient.h"
 #include "qxtsshprocess.h"
-#include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include "qxtsshchannel_p.h"
 
-#endif // QXTNETWORK_H_INCLUDED
+QxtSshProcess::QxtSshProcess(QxtSshClient * parent)
+    :QxtSshChannel(parent)
+{
+    d->openSession();
+    connect(this,SIGNAL(connected()),this,SIGNAL(started()));
+}
+
+void QxtSshProcess::startShell(){
+    d->startShell();
+}
+void QxtSshProcess::start(QString cmd){
+    d->start(cmd);
+}
+
+
+void QxtSshProcess::requestPty(TerminalType term){
+    switch (term){
+        case VanillaTerminal:
+            d->requestPty("vanilla");
+            break;;
+        case Vt102Terminal:
+            d->requestPty("vt102");
+            break;;
+        case AnsiTerminal:
+            d->requestPty("ansi");
+            break;;
+    }
+}

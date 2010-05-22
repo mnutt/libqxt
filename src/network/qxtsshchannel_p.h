@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,21 +22,33 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
 
-#include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsshchannel.h"
 #include "qxtsshclient.h"
-#include "qxtsshprocess.h"
-#include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include "qxtsshclient_p.h"
+#include "qxtsshchannel.h"
 
-#endif // QXTNETWORK_H_INCLUDED
+class QxtSshChannelPrivate : public QObject{
+public:
+    QxtSshChannelPrivate(QxtSshChannel*,QxtSshClient *);
+    QxtSshChannel * p;
+    QxtSshClient * d_client;
+    LIBSSH2_CHANNEL * d_channel;
+    LIBSSH2_SESSION * d_session;
+    int d_read_stream_id;
+    int d_write_stream_id;
+
+    int d_state;
+    bool activate();
+
+    QList<int> d_next_actions;
+    QString d_cmd;
+    QByteArray d_pty;
+    void openSession();
+    void requestPty(QByteArray pty);
+    void start(QString cmd);
+    void startShell();
+
+    void openTcpSocket(QString host,qint16 port);
+    QString d_host;
+    qint16 d_port;
+};

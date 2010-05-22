@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,21 +22,29 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
 
-#include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
+#ifndef QXT_SSH_PROCESS_H
+#define QXT_SSH_PROCESS_H
 #include "qxtsshchannel.h"
-#include "qxtsshclient.h"
-#include "qxtsshprocess.h"
-#include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#include "qxtglobal.h"
 
-#endif // QXTNETWORK_H_INCLUDED
+class QXT_NETWORK_EXPORT QxtSshProcess : public QxtSshChannel {
+    Q_OBJECT
+ public:
+    enum TerminalType{
+        VanillaTerminal,
+        Vt102Terminal,
+        AnsiTerminal
+    };
+    void requestPty(TerminalType term=VanillaTerminal);
+    void startShell();
+    void start(QString cmd);
+ signals:
+    void started();
+    void finished ( int exitCode);
+ private:
+    QxtSshProcess(QxtSshClient*);
+    friend class QxtSshClient;
+};
+
+#endif

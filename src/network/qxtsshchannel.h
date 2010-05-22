@@ -2,7 +2,7 @@
  **
  ** Copyright (C) Qxt Foundation. Some rights reserved.
  **
- ** This file is part of the QxtNetwork module of the Qxt library.
+ ** This file is part of the QxtWeb module of the Qxt library.
  **
  ** This library is free software; you can redistribute it and/or modify it
  ** under the terms of the Common Public License, version 1.0, as published
@@ -22,21 +22,31 @@
  ** <http://libqxt.org>  <foundation@libqxt.org>
  **
  ****************************************************************************/
-#ifndef QXTNETWORK_H_INCLUDED
-#define QXTNETWORK_H_INCLUDED
 
-#include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
-#include "qxtmailattachment.h"
-#include "qxtsshchannel.h"
-#include "qxtsshclient.h"
-#include "qxtsshprocess.h"
-#include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
-#include "qxttcpconnectionmanager.h"
-#include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
+#ifndef QXT_SSH_CHANNEL_H
+#define QXT_SSH_CHANNEL_H
 
-#endif // QXTNETWORK_H_INCLUDED
+#include <QIODevice>
+#include <QPointer>
+#include "qxtglobal.h"
+
+class QxtSshClient;
+class QxtSshChannelPrivate;
+class QXT_NETWORK_EXPORT QxtSshChannel  : public QIODevice {
+    Q_OBJECT
+public:
+    virtual ~QxtSshChannel(){}
+protected:
+    QxtSshChannel(QxtSshClient*);
+    virtual qint64 readData(char*, qint64);
+    virtual qint64 writeData(const char*, qint64);
+    virtual bool isSequential (){return true;}
+
+    QPointer<QxtSshChannelPrivate> d;
+    friend class QxtSshChannelPrivate;
+    friend class QxtSshClientPrivate;
+ signals:
+    void connected();
+};
+
+#endif
