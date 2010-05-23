@@ -35,11 +35,11 @@ class QXT_CORE_EXPORT QxtTemporaryDir
 {
 public:
     QxtTemporaryDir();
-    QxtTemporaryDir(const QString& templateName);
+    QxtTemporaryDir(const QString& dirTemplate);
     ~QxtTemporaryDir();
 
-    QString templateName() const;
-    void setTemplateName(const QString& templateName);
+    QString dirTemplate() const;
+    void setDirTemplate(const QString& dirTemplate);
 
     bool autoRemove() const;
     void setAutoRemove(bool autoRemove);

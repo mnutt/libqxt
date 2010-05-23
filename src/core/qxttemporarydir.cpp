@@ -33,6 +33,11 @@
 
     TODO
 
+    If the \a dirTemplate does not end with "XXXXXX" it will be automatically
+    appended and used as the dynamic portion of the directory name.
+
+    TODO
+
     Example usage:
     \code
     // ...
@@ -44,7 +49,7 @@
 QxtTemporaryDirPrivate::QxtTemporaryDirPrivate() :
     autoRemove(true), init(false)
 {
-    templateName = QDir::temp().filePath(QLatin1String("qxt_temp_XXXXXX"));
+    dirTemplate = QDir::temp().filePath(QLatin1String("qxt_temp"));
 }
 
 static bool qxt_removePathHelper(const QString& path)
@@ -70,11 +75,11 @@ static bool qxt_removePathHelper(const QString& path)
 }
 
 /*!
-    Constructs a new QxtTemporaryDir in QDir::tempPath(), using the template
-    name "qxt_temp.XXXXXX". The temporary directory is created in the system's
+    Constructs a new QxtTemporaryDir in QDir::tempPath(), using the dir
+    name "qxt_temp". The temporary directory is created in the system's
     temporary directory.
 
-    \sa setTemplateName() QDir::tempPath()
+    \sa setDirTemplate() QDir::tempPath()
 */
 QxtTemporaryDir::QxtTemporaryDir()
 {
@@ -82,21 +87,18 @@ QxtTemporaryDir::QxtTemporaryDir()
 }
 
 /*!
-    Constructs a new QxtTemporaryDir with \a templateName.
+    Constructs a new QxtTemporaryDir with \a dirTemplate.
 
-    If the \a templateName does not end with "XXXXXX" it will be automatically
-    appended and used as the dynamic portion of the directory name.
-
-    If \a templateName is a relative path, the path will be relative to the
+    If \a dirTemplate is a relative path, the path will be relative to the
     current working directory. You can use QDir::tempPath() to construct
-    \a templateName if you want use the system's temporary directory.
+    \a dirTemplate if you want use the system's temporary directory.
 
-    \sa templateName() QDir::tempPath()
+    \sa dirTemplate() QDir::tempPath()
 */
-QxtTemporaryDir::QxtTemporaryDir(const QString& templateName)
+QxtTemporaryDir::QxtTemporaryDir(const QString& dirTemplate)
 {
     QXT_INIT_PRIVATE(QxtTemporaryDir);
-    setTemplateName(templateName);
+    setDirTemplate(dirTemplate);
 }
 
 /*!
@@ -115,15 +117,15 @@ QxtTemporaryDir::~QxtTemporaryDir()
     Returns the template name. The default template name will be called
     "qxt_temp_XXXXXX" and be placed in QDir::tempPath().
 
-    \sa setTemplateName()
+    \sa setDirTemplate()
 */
-QString QxtTemporaryDir::templateName() const
+QString QxtTemporaryDir::dirTemplate() const
 {
-    return qxt_d().templateName;
+    return qxt_d().dirTemplate;
 }
 
 /*!
-    Sets the static portion of the dir name to \a templateName.
+    Sets the static portion of the dir name to \a dirTemplate.
     If the template name ends in XXXXXX that will automatically be replaced
     with the unique part of the dir name, otherwise a dir name will be
     determined automatically based on the static portion specified.
@@ -132,16 +134,16 @@ QString QxtTemporaryDir::templateName() const
     current working directory. You can use QDir::tempPath() to construct name
     if you want use the system's temporary directory.
 
-    \sa templateName()
+    \sa dirTemplate()
 */
-void QxtTemporaryDir::setTemplateName(const QString& templateName)
+void QxtTemporaryDir::setDirTemplate(const QString& dirTemplate)
 {
-    if (qxt_d().templateName != templateName)
+    if (qxt_d().dirTemplate != dirTemplate)
     {
         if (qxt_d().init && qxt_d().autoRemove)
             remove();
 
-        qxt_d().templateName = templateName;
+        qxt_d().dirTemplate = dirTemplate;
         qxt_d().init = false;
     }
 }
@@ -190,7 +192,7 @@ QDir QxtTemporaryDir::dir() const
             that->qxt_d().dir.setPath(path);
             that->qxt_d().init = true;
         } else {
-            that->qxt_d().errorString = qt_error_string();
+            that->qxt_d().error = qt_error_string();
         }
     }
     return qxt_d().dir;
@@ -203,5 +205,5 @@ QString QxtTemporaryDir::path() const
 
 QString QxtTemporaryDir::errorString() const
 {
-    return qxt_d().errorString;
+    return qxt_d().error;
 }

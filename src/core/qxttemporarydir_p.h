@@ -36,9 +36,9 @@ public:
 
     QString create();
 
-    QString templateName;
-    QString errorString;
+    QString dirTemplate;
     bool autoRemove;
+    QString error;
     bool init;
     QDir dir;
 };
