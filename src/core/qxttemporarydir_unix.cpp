@@ -28,7 +28,10 @@
 QString QxtTemporaryDirPrivate::create()
 {
     QString res;
-    char* tmpl = qstrdup(dirTemplate.toLocal8Bit());
+    QString templateCopy = dirTemplate;
+    if (!templateCopy.endsWith(QLatin1String("XXXXXX")))
+        templateCopy.append(QLatin1String("XXXXXX"));
+    char* tmpl = qstrdup(templateCopy.toLocal8Bit());
     char* path = mkdtemp(tmpl);
     if (path)
         res = QString::fromLocal8Bit(path);

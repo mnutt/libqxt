@@ -26,30 +26,9 @@
 #include "qxttemporarydir_p.h"
 #include <QtDebug>
 
-/*!
-    \class QxtTemporaryDir
-    \inmodule QxtCore
-    \brief The QxtTemporaryDir class ...
-
-    TODO
-
-    If the \a dirTemplate does not end with "XXXXXX" it will be automatically
-    appended and used as the dynamic portion of the directory name.
-
-    TODO
-
-    Example usage:
-    \code
-    // ...
-    \endcode
-
-    \sa QTemporaryFile
-*/
-
-QxtTemporaryDirPrivate::QxtTemporaryDirPrivate() :
-    autoRemove(true), init(false)
+static QString defaultDirTemplate()
 {
-    dirTemplate = QDir::temp().filePath(QLatin1String("qxt_temp"));
+    return QDir::temp().filePath(QLatin1String("qxt"));
 }
 
 static bool qxt_removePathHelper(const QString& path)
@@ -74,10 +53,40 @@ static bool qxt_removePathHelper(const QString& path)
     return result;
 }
 
+QxtTemporaryDirPrivate::QxtTemporaryDirPrivate() :
+    autoRemove(true), init(false)
+{
+    dirTemplate = defaultDirTemplate();
+}
+
 /*!
-    Constructs a new QxtTemporaryDir in QDir::tempPath(), using the dir
-    name "qxt_temp". The temporary directory is created in the system's
-    temporary directory.
+    \class QxtTemporaryDir
+    \inmodule QxtCore
+    \brief The QxtTemporaryDir class manages temporary directories.
+
+    QxtTemporaryDir is used to create unique temporary directories.
+    The directory itself is created when calling dir() or path().
+    The name of the temporary directory is guaranteed to be unique
+    (i.e., you are guaranteed to not overwrite an existing directory),
+    and the directory will subsequently be removed upon destruction of
+    the QxtTemporaryDir object. This is an important technique that
+    avoids data corruption for applications that store data in temporary
+    directories. The directory name is based on a template, which can be
+    passed to QxtTemporaryDir's constructor.
+
+    A temporary directory will have some static part of the name and some
+    part that is calculated to be unique. The default directory template
+    "qxt" will be placed into the temporary path as returned by
+    QDir::tempPath(). If you specify your own directory template
+    a relative file path will not be placed in the temporary directory
+    by default, but be relative to the current working directory.
+
+    \sa QDir::tempPath() QTemporaryFile
+*/
+
+/*!
+    Constructs a new QxtTemporaryDir in QDir::tempPath(), using the
+    default dir template ("qxt").
 
     \sa setDirTemplate() QDir::tempPath()
 */
@@ -114,8 +123,8 @@ QxtTemporaryDir::~QxtTemporaryDir()
 }
 
 /*!
-    Returns the template name. The default template name will be called
-    "qxt_temp_XXXXXX" and be placed in QDir::tempPath().
+    Returns the directory template. The default directory template is called
+    "qxt" and be placed in QDir::tempPath().
 
     \sa setDirTemplate()
 */
@@ -126,9 +135,6 @@ QString QxtTemporaryDir::dirTemplate() const
 
 /*!
     Sets the static portion of the dir name to \a dirTemplate.
-    If the template name ends in XXXXXX that will automatically be replaced
-    with the unique part of the dir name, otherwise a dir name will be
-    determined automatically based on the static portion specified.
 
     If name contains a relative file path, the path will be relative to the
     current working directory. You can use QDir::tempPath() to construct name
@@ -175,6 +181,9 @@ void QxtTemporaryDir::setAutoRemove(bool autoRemove)
     qxt_d().autoRemove = autoRemove;
 }
 
+/*!
+    Removes the temporary directory from disk.
+*/
 bool QxtTemporaryDir::remove()
 {
     if (!qxt_d().init)
@@ -182,11 +191,18 @@ bool QxtTemporaryDir::remove()
     return qxt_removePathHelper(path());
 }
 
+/*!
+    Returns a QDir object pointing to the temporary directory.
+
+    \sa path()
+*/
 QDir QxtTemporaryDir::dir() const
 {
     if (!qxt_d().init)
     {
         QxtTemporaryDir* that = const_cast<QxtTemporaryDir*>(this);
+        if (that->qxt_d().dirTemplate.isEmpty())
+            that->qxt_d().dirTemplate = defaultDirTemplate();
         QString path = that->qxt_d().create();
         if (!path.isNull()) {
             that->qxt_d().dir.setPath(path);
@@ -198,11 +214,19 @@ QDir QxtTemporaryDir::dir() const
     return qxt_d().dir;
 }
 
+/*!
+    Returns path to the temporary directory.
+
+    \sa dir()
+*/
 QString QxtTemporaryDir::path() const
 {
     return dir().path();
 }
 
+/*!
+    Returns a human-readable description of the last device error that occurred.
+*/
 QString QxtTemporaryDir::errorString() const
 {
     return qxt_d().error;
