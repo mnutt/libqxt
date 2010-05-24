@@ -35,10 +35,12 @@ static bool qxt_removePathHelper(const QString& path)
 {
     bool result = true;
     QDir dir(path);
+    if (!dir.exists())
+        return false;
     QFileInfoList entries = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot);
     foreach (const QFileInfo& entry, entries) {
         if (entry.isDir()) {
-            qxt_removePathHelper(entry.path());
+            qxt_removePathHelper(entry.filePath());
         } else {
             if (!QFile::remove(entry.filePath())) {
                 qWarning() << "QxtTemporaryDir: unable to remove:" << entry.filePath();
