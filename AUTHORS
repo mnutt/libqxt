@@ -1,7 +1,14 @@
+== main developers ==
+
 Arvid Picciani	<aep@libqxt.org> 
 Adam Higerd     <ahigerd@libqxt.org> 
 J-P Nurmi       <jpnurmi@libqxt.org> 
 Benjamin Zeller <zbenjamin@libqxt.org>
-Thomas Mueller  <deepdiver@libqxt.org>
 
-thanks for all the minor contributions, bug reports, beta tests, and the free beer :-)
+== major contributors ==
+
+Thomas Mueller   <deepdiver@libqxt.org>
+Dominique Leducq <dominique@leducq.net>
+
+thanks everyone not named for all the patches, bug reports, 
+beta tests, and the free beer :-)
