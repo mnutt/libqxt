@@ -165,6 +165,7 @@ void tst_QxtTemporaryDir::testDirPath()
 
 void tst_QxtTemporaryDir::testErrorString()
 {
+#ifdef Q_OS_UNIX
     QDir dir;
     dir.mkdir("noperms");
     if (dir.cd("noperms"))
@@ -183,6 +184,7 @@ void tst_QxtTemporaryDir::testErrorString()
         if (dir.cdUp())
             dir.rmdir("noperms");
     }
+#endif // Q_OS_UNIX
 }
 
 void tst_QxtTemporaryDir::testSpecialConditions()
