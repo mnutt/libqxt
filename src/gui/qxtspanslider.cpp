@@ -47,30 +47,12 @@ QxtSpanSliderPrivate::QxtSpanSliderPrivate() :
 {
 }
 
-// TODO: get rid of this in Qt 4.3
 void QxtSpanSliderPrivate::initStyleOption(QStyleOptionSlider* option, QxtSpanSlider::SpanHandle handle) const
 {
-    if (!option)
-        return;
-
-    const QSlider* p = &qxt_p();
-    option->initFrom(p);
-    option->subControls = QStyle::SC_None;
-    option->activeSubControls = QStyle::SC_None;
-    option->orientation = p->orientation();
-    option->maximum = p->maximum();
-    option->minimum = p->minimum();
-    option->tickPosition = p->tickPosition();
-    option->tickInterval = p->tickInterval();
-    option->upsideDown = (p->orientation() == Qt::Horizontal) ?
-                         (p->invertedAppearance() != (option->direction == Qt::RightToLeft)) : (!p->invertedAppearance());
-    option->direction = Qt::LeftToRight; // we use the upsideDown option instead
+    const QxtSpanSlider* p = &qxt_p();
+    p->initStyleOption(option);
     option->sliderPosition = (handle == QxtSpanSlider::LowerHandle ? lowerPos : upperPos);
     option->sliderValue = (handle == QxtSpanSlider::LowerHandle ? lower : upper);
-    option->singleStep = p->singleStep();
-    option->pageStep = p->pageStep();
-    if (p->orientation() == Qt::Horizontal)
-        option->state |= QStyle::State_Horizontal;
 }
 
 int QxtSpanSliderPrivate::pixelPosToRangeValue(int pos) const
