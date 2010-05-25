@@ -93,14 +93,14 @@ void QxtTemporaryDirPrivate::validate()
     a relative file path will not be placed in the temporary directory
     by default, but be relative to the current working directory.
 
-    \sa QDir::tempPath() QTemporaryFile
+    \sa QDir::tempPath(), QTemporaryFile
 */
 
 /*!
     Constructs a new QxtTemporaryDir in QDir::tempPath(), using the
     default dir template ("qxt").
 
-    \sa setDirTemplate() QDir::tempPath()
+    \sa setDirTemplate(), QDir::tempPath()
 */
 QxtTemporaryDir::QxtTemporaryDir()
 {
@@ -114,7 +114,7 @@ QxtTemporaryDir::QxtTemporaryDir()
     current working directory. You can use QDir::tempPath() to construct
     \a dirTemplate if you want use the system's temporary directory.
 
-    \sa dirTemplate() QDir::tempPath()
+    \sa dirTemplate(), QDir::tempPath()
 */
 QxtTemporaryDir::QxtTemporaryDir(const QString& dirTemplate)
 {
@@ -174,7 +174,7 @@ void QxtTemporaryDir::setDirTemplate(const QString& dirTemplate)
 
     Auto-remove is on by default.
 
-    \sa setAutoRemove() remove()
+    \sa setAutoRemove(), remove()
 */
 bool QxtTemporaryDir::autoRemove() const
 {
@@ -182,11 +182,11 @@ bool QxtTemporaryDir::autoRemove() const
 }
 
 /*!
-    Sets the QxtTemporaryDir into auto-remove mode if autoRemove is \c true.
+    Sets the QxtTemporaryDir into auto-remove mode if \a autoRemove is \c true.
 
     Auto-remove is on by default.
 
-    \sa autoRemove() remove()
+    \sa autoRemove(), remove()
 */
 void QxtTemporaryDir::setAutoRemove(bool autoRemove)
 {
@@ -195,6 +195,7 @@ void QxtTemporaryDir::setAutoRemove(bool autoRemove)
 
 /*!
     Removes the temporary directory from disk.
+    Returns \c true if removal succeed, \c false otherwise.
 */
 bool QxtTemporaryDir::remove()
 {

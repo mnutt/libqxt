@@ -27,9 +27,9 @@
 
 #include <qxtglobal.h>
 #include <QString>
+#include <QDir>
 
 class QxtTemporaryDirPrivate;
-QT_FORWARD_DECLARE_CLASS(QDir)
 
 class QXT_CORE_EXPORT QxtTemporaryDir
 {

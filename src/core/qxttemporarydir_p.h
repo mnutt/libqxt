@@ -27,7 +27,6 @@
 
 #include "qxtglobal.h"
 #include "qxttemporarydir.h"
-#include <QDir>
 
 class QxtTemporaryDirPrivate : public QxtPrivate<QxtTemporaryDir>
 {
