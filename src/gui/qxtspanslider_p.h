@@ -39,22 +39,15 @@ class QxtSpanSliderPrivate : public QObject, public QxtPrivate<QxtSpanSlider>
 public:
     QXT_DECLARE_PUBLIC(QxtSpanSlider)
 
-    enum SpanHandle
-    {
-        NoHandle,
-        LowerHandle,
-        UpperHandle
-    };
-
     QxtSpanSliderPrivate();
-    void initStyleOption(QStyleOptionSlider* option, SpanHandle handle = UpperHandle) const;
+    void initStyleOption(QStyleOptionSlider* option, QxtSpanSlider::SpanHandle handle = QxtSpanSlider::UpperHandle) const;
     int pick(const QPoint& pt) const
     {
         return qxt_p().orientation() == Qt::Horizontal ? pt.x() : pt.y();
     }
     int pixelPosToRangeValue(int pos) const;
-    void handleMousePress(const QPoint& pos, QStyle::SubControl& control, int value, SpanHandle handle);
-    void drawHandle(QStylePainter* painter, SpanHandle handle) const;
+    void handleMousePress(const QPoint& pos, QStyle::SubControl& control, int value, QxtSpanSlider::SpanHandle handle);
+    void drawHandle(QStylePainter* painter, QxtSpanSlider::SpanHandle handle) const;
     void setupPainter(QPainter* painter, Qt::Orientation orientation, qreal x1, qreal y1, qreal x2, qreal y2) const;
     void drawSpan(QStylePainter* painter, const QRect& rect) const;
     void triggerAction(QAbstractSlider::SliderAction action, bool main);
@@ -66,8 +59,8 @@ public:
     int upperPos;
     int offset;
     int position;
-    SpanHandle lastPressed;
-    SpanHandle mainControl;
+    QxtSpanSlider::SpanHandle lastPressed;
+    QxtSpanSlider::SpanHandle mainControl;
     QStyle::SubControl lowerPressed;
     QStyle::SubControl upperPressed;
     QxtSpanSlider::HandleMovementMode movement;

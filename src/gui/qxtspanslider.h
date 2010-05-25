@@ -54,6 +54,13 @@ public:
         NoOverlapping
     };
 
+    enum SpanHandle
+    {
+        NoHandle,
+        LowerHandle,
+        UpperHandle
+    };
+
     HandleMovementMode handleMovementMode() const;
     void setHandleMovementMode(HandleMovementMode mode);
 
@@ -78,6 +85,8 @@ Q_SIGNALS:
 
     void lowerPositionChanged(int lower);
     void upperPositionChanged(int upper);
+
+    void sliderPressed(SpanHandle handle);
 
 protected:
     virtual void keyPressEvent(QKeyEvent* event);
