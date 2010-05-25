@@ -35,6 +35,7 @@ public:
     QxtTemporaryDirPrivate();
 
     QString create();
+    void validate();
 
     QString dirTemplate;
     bool autoRemove;

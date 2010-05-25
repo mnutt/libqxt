@@ -61,6 +61,16 @@ QxtTemporaryDirPrivate::QxtTemporaryDirPrivate() :
     dirTemplate = defaultDirTemplate();
 }
 
+void QxtTemporaryDirPrivate::validate()
+{
+    if (dirTemplate.isEmpty())
+        dirTemplate = defaultDirTemplate();
+
+    QFileInfo info(dirTemplate);
+    if (info.isDir())
+        dirTemplate = QDir(dirTemplate).filePath(QLatin1String("qxt"));
+}
+
 /*!
     \class QxtTemporaryDir
     \inmodule QxtCore
@@ -202,15 +212,14 @@ QDir QxtTemporaryDir::dir() const
 {
     if (!qxt_d().init)
     {
-        QxtTemporaryDir* that = const_cast<QxtTemporaryDir*>(this);
-        if (that->qxt_d().dirTemplate.isEmpty())
-            that->qxt_d().dirTemplate = defaultDirTemplate();
-        QString path = that->qxt_d().create();
+        QxtTemporaryDirPrivate& that = const_cast<QxtTemporaryDir*>(this)->qxt_d();
+        that.validate();
+        QString path = that.create();
         if (!path.isNull()) {
-            that->qxt_d().dir.setPath(path);
-            that->qxt_d().init = true;
+            that.dir.setPath(path);
+            that.init = true;
         } else {
-            that->qxt_d().error = qt_error_string();
+            that.error = qt_error_string();
         }
     }
     return qxt_d().dir;
