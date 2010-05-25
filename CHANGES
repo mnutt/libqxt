@@ -1,6 +1,12 @@
-LibQxt 0.6.0 introduces new features and contains bug fixes to the 0.5.x
+LibQxt 0.7.0 introduces new features and contains bug fixes to the 0.6.x
 series. For more details, see the documentation included in this package
 or online at http://docs.libqxt.org.
+
+0.7.0
+-----
+- QxtNetwork
+    * Added QxtPop3
+
 
 0.6.0
 -----
