@@ -190,7 +190,7 @@ bool QxtTemporaryDir::remove()
 {
     if (!qxt_d().init)
         return false;
-    return qxt_removePathHelper(path());
+    return qxt_removePathHelper(dir().absolutePath());
 }
 
 /*!
