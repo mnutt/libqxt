@@ -35,8 +35,11 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
 
     QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(toggleVisibility()));
-    if (!shortcut->setShortcut(QKeySequence("Ctrl+Shift+Alt+S")))
-		ui.labelVisibility->hide();
+    QKeySequence key("Ctrl+Alt+S");
+    if (shortcut->setShortcut(key))
+        ui.labelVisibility->setText(ui.labelVisibility->text().arg(key.toString(QKeySequence::NativeText)));
+    else
+        ui.labelVisibility->hide();
 
 #ifndef Q_WS_MAC
     QTimer* timer = new QTimer(this);

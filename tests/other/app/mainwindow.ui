@@ -71,7 +71,7 @@
         <item>
          <widget class="QxtLabel" name="labelVisibility" >
           <property name="text" >
-           <string>The visibility of the application may be toggled with Ctrl+Alt+Shift+S.</string>
+           <string>The visibility of the application may be toggled with %1.</string>
           </property>
           <property name="elideMode" >
            <enum>Qt::ElideRight</enum>

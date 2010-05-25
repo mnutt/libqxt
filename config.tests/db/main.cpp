@@ -4,12 +4,16 @@
 #error db>=4.4 required
 #endif
 
+#if DB_VERSION_MAJOR < 5
+
 #if DB_VERSION_MINOR < 4
 #error db>=4.4 required
 #endif
 
 #if DB_VERSION_MINOR < 6
 #warning db < 4.6, some features will be disabled
+#endif
+
 #endif
 
 int main (int,char**)
