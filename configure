@@ -218,7 +218,7 @@ echo "QXT_SOURCE_TREE = $QXT_SOURCE_TREE" >> $QMAKE_CACHE
 echo "QXT_BUILD_TREE = $QXT_BUILD_TREE" >> $QMAKE_CACHE
 
 # detect make
->$CONFIG_LOG
+echo>$CONFIG_LOG
 if [ -z "$MAKE" ]; then
     MAKE=
     for mk in gmake make; do
