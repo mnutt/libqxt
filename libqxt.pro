@@ -13,7 +13,10 @@ lessThan(QT_MAJOR_VERSION, 4) | lessThan(QT_MINOR_VERSION, 3) {
    error(LibQxt requires Qt 4.3 or newer but Qt $$[QT_VERSION] was detected.)
 }
 
-include(doc/doc.pri)
+contains( QXT_MODULES, docs ){
+    message( building docs )
+    include(doc/doc.pri)
+}
 
 contains( QXT_MODULES, core ){
     message( building core module )

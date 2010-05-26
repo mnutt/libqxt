@@ -8,7 +8,7 @@ set DEBUG_OR_RELEASE=0
 set MSVCMODE=
 set DB=1
 set ZEROCONF=1
-set QXT_MODULES=core gui network sql web designer berkeley zeroconf
+set QXT_MODULES=docs core gui network sql web designer berkeley zeroconf
 
 @rem -- initialize
 set QXT_INSTALL_PREFIX=

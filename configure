@@ -6,7 +6,7 @@ WHICH=which
 NO_DB=0
 NO_ZEROCONF=0
 NO_XRANDR=0
-QXT_MODULES="berkeley core designer gui network sql web zeroconf"
+QXT_MODULES="docs berkeley core designer gui network sql web zeroconf"
 
 # detect platform
 if uname -a | grep -iq Darwin; then
