@@ -2,8 +2,12 @@ INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
 HEADERS  += qxtabstractconnectionmanager.h
+HEADERS  += qxtabstractfileloggerengine.h
+HEADERS  += qxtabstractiologgerengine.h
 HEADERS  += qxtabstractsignalserializer.h
 HEADERS  += qxtalgorithms.h
+HEADERS  += qxtbasicfileloggerengine.h
+HEADERS  += qxtbasicstdloggerengine.h
 HEADERS  += qxtboundcfunction.h
 HEADERS  += qxtboundfunction.h
 HEADERS  += qxtboundfunctionbase.h
@@ -58,8 +62,13 @@ HEADERS  += qxttimer.h
 HEADERS  += qxttypelist.h
 HEADERS  += qxtrpcservice.h
 HEADERS  += qxtrpcservice_p.h
+HEADERS  += qxtxmlfileloggerengine.h
 
 SOURCES  += qxtabstractconnectionmanager.cpp
+SOURCES  += qxtabstractfileloggerengine.cpp
+SOURCES  += qxtabstractiologgerengine.cpp
+SOURCES  += qxtbasicfileloggerengine.cpp
+SOURCES  += qxtbasicstdloggerengine.cpp
 SOURCES  += qxtcommandoptions.cpp
 SOURCES  += qxtcsvmodel.cpp
 SOURCES  += qxtdaemon.cpp
@@ -92,6 +101,7 @@ SOURCES  += qxtstdstreambufdevice.cpp
 SOURCES  += qxttemporarydir.cpp
 SOURCES  += qxttimer.cpp
 SOURCES  += qxtrpcservice.cpp
+SOURCES  += qxtxmlfileloggerengine.cpp
 
 !symbian {
     # QxtSerialDevice and QxtFileLock
