@@ -125,7 +125,7 @@
 #include "qxtlogger.h"
 #include "qxtlogger_p.h"
 #include "qxtlogstream.h"
-#include "logengines/qxtbasicstdloggerengine.h"
+#include "qxtbasicstdloggerengine.h"
 #include <QtDebug>
 #include <QMutex>
 #include <QMutexLocker>

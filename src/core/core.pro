@@ -5,5 +5,4 @@ QXT              =
 CONVENIENCE     += $$CLEAN_TARGET
 
 include(core.pri)
-include(logengines/logengines.pri)
 include(../qxtbase.pri)
