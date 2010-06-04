@@ -31,17 +31,19 @@
 /*!
     \class QxtSshClient
     \inmodule QxtNetwork
-    \brief The QxtSshClient class implements a secure shell client
+    \brief The QxtSshClient class implements a Secure Shell client
 
-    QxtSshClient allows connecting to any Ssh server, login via password, pubkey,
-    then opening a shell or a socket.
+    QxtSshClient allows connecting to any standard SSH server.
 
-    You can either set the passphrase or key before connecting, or later when 
-    authentificationRequired has been fired. The later allows you to
-    prompt the user for a password only when it is actually required.
+    It provides facilities for password authentication or public key authentication, and
+    provides methods to open a shell or a TCP socket on the remote host.
 
-    QxtSShClient includes the third party library libssh2 ( http://www.libssh2.org/ )
+    The passphrase can be set before connecting or it can be provided in response to the
+    authenticationRequired() signal. This allows the password to be stored in advance or
+    prompted for only when needed.
 
+    QxtSshClient is based on the third-party library libssh2 (http://www.libssh2.org/)
+    provided under the following license:
    \code
     * Copyright (c) 2004-2007 Sara Golemon <sarag@libssh2.org>
     * Copyright (c) 2005,2006 Mikhail Gusarov <dottedmag@dottedmag.net>
@@ -84,49 +86,52 @@
     * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
     * OF SUCH DAMAGE.
     \endcode
-
 */
 
 /*! \enum QxtSshClient::AuthenticationMethod
  *
- * \value PasswordAuthentication
- * \value PublicKeyAuthentication
+ * \value PasswordAuthentication    Authenticate using a password
+ * \value PublicKeyAuthentication   Authenticate using a public key
  */
 
 /*! \enum QxtSshClient::Error 
  
-   \value AuthenticationError
-   \value HostKeyUnknownError
-   \value HostKeyInvalidError
-   \value HostKeyMismatchError
-   \value ConnectionRefusedError
-   \value UnexpectedShutdownError
-   \value HostNotFoundError
-   \value SocketError
-   \value UnknownError
+   \value AuthenticationError       An error occurred while authenticating.
+   \value HostKeyUnknownError       The host key is unknown.
+   \value HostKeyInvalidError       The host key is invalid.
+   \value HostKeyMismatchError      The host key does not match the key recorded in the known hosts.
+   \value ConnectionRefusedError    The connection was refused.
+   \value UnexpectedShutdownError   The connection was unexpectedly shut down.
+   \value HostNotFoundError         The host could not be found.
+   \value SocketError               An error occurred on the underlying socket.
+   \value UnknownError              An unknown error occurred.
  */
 
 /*! \enum QxtSshClient::KnownHostsFormat
  *
- * \value OpenSslFormat
+ * \value OpenSslFormat             Use the .ssh/known_hosts file format.
  */
 
 /*! 
  * \fn QxtSshClient::connected()
- * this signal is emmited when the connection to the ssh server is ready to open channels.
+ *
+ * This signal is emitted when a connection to the SSH server has been successfully established.
  */
 
 /*!
  * \fn QxtSshClient::disconnected()
- * emited when the connection becomes unavailable
- */
-/*!
- * \fn QxtSshClient::error ( QxtSshClient::Error error ) 
- * emited when an error ocures
+ *
+ * This signal is emitted when the connection to the SSH server has been closed.
  */
 
 /*!
- * constructs a new QxtSshClient
+ * \fn QxtSshClient::error ( QxtSshClient::Error error ) 
+ *
+ * This signal is emitted after an error occurs. The error parameter describes the type of error that occurred.
+ */
+
+/*!
+ * Constructs a new QxtSshClient with the specified parent.
  */
 QxtSshClient::QxtSshClient(QObject * parent)
     :QObject(parent)
@@ -135,13 +140,26 @@ QxtSshClient::QxtSshClient(QObject * parent)
 }
 
 /*!
- *
+ * Destroys the QxtSshClient object.
  */
 QxtSshClient::~QxtSshClient(){
     delete d;
 }
 /*!
- *  establish an ssh connection to host on port as user
+ * Attempts to make a connection to host on the given port as the specified user.
+ *
+ * QxtSshClient will attempt to authenticate first using the public key, if
+ * provided, then using the password, if provided. If neither of these methods
+ * succeed in authenticating, the authenticationRequired() signal will be emitted.
+ * The public key and/or password can be changed in a slot directly connected to
+ * this signal. After the signal has resolved, the public key and password will be
+ * tried again.
+ *
+ * The connected() signal will be emitted when the connection is complete. At any
+ * point, QxtSshClient can emit error() to signal that an error occurred.
+ *
+ * The host parameter can be an IP address or a host name. Host names will be
+ * resolved by the server.
  */
 void QxtSshClient::connectToHost(const QString & user,const QString & host,int port){
     d->d_hostName=host;
@@ -152,14 +170,17 @@ void QxtSshClient::connectToHost(const QString & user,const QString & host,int p
 }
 
 /*!
- * disconnect the current ssh connection.
+ * Disconnects the current SSH connection.
+ *
+ * Any open channels will be closed. When the connection has been closed, the
+ * disconnected() signal will be emitted.
  */
-void QxtSshClient::disconnectFromHost (){
+void QxtSshClient::disconnectFromHost() {
     d->d_reset();
 }
+
 /*!
- * set the password for the user.
- * this is also used for the passphrase of the private key.
+ * Sets the password for the user. This password is also used for the passphrase of the private key.
  */
 void QxtSshClient::setPassphrase(const QString & pass){
     d->d_failedMethods.removeAll(QxtSshClient::PasswordAuthentication);
@@ -169,8 +190,11 @@ void QxtSshClient::setPassphrase(const QString & pass){
         QTimer::singleShot(0,d,SLOT(d_readyRead()));
     }
 }
+
 /*!
- * set a public and private key to use to authenticate with the ssh server.
+ * Sets a public and private key pair to use to authenticate to the SSH server.
+ *
+ * If the private key is secured with a passphrase, the passphrase set with setPassphrase() will be used.
  */
 void QxtSshClient::setKeyFiles(const QString & publicKey,const QString & privateKey){
     d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
@@ -181,23 +205,34 @@ void QxtSshClient::setKeyFiles(const QString & publicKey,const QString & private
     }
 }
 /*!
- * load known hosts from a file.
+ * Loads a list of known host signatures from a file.
+ *
+ * This list is used for host key verification during connection.
  */
 bool QxtSshClient::loadKnownHosts(const QString & file,KnownHostsFormat c){
     Q_UNUSED(c);
     return (libssh2_knownhost_readfile(d->d_knownHosts, qPrintable(file),
                                       LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
 }
+
 /*!
- * save known hosts to a file
+ * Saves the current list of known host signatures to a file.
+ *
+ * \sa loadKnownHosts 
  */
 bool QxtSshClient::saveKnownHosts(const QString & file,KnownHostsFormat c) const{
     Q_UNUSED(c);
     return (libssh2_knownhost_writefile(d->d_knownHosts, qPrintable(file),
                                 LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
 }
+
 /*!
- * add a known host
+ * Adds a host key to the list of known host signatures.
+ *
+ * This list is used for host key verification during connection.
+ *
+ * \sa loadKnownHosts
+ * \sa saveKnownHosts
  */
 bool QxtSshClient::addKnownHost(const QString & hostname,const QxtSshKey & key){
     int typemask=LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW;
@@ -220,21 +255,26 @@ bool QxtSshClient::addKnownHost(const QString & hostname,const QxtSshKey & key){
 }
 
 /*!
- * key used by the ssh server currently connected to
+ * Returns the host key of the currently connected server.
  */
 QxtSshKey QxtSshClient::hostKey() const{
     return d->d_hostKey;
 }
+
 /*!
- * hostname of the ssh server currently connected to
+ * Returns the hostname of the currently connected server.
  */
 QString   QxtSshClient::hostName() const{
     return d->d_hostName;
 }
+
 /*!
- * execute a process on the ssh server and connect a channel to it.
+ * Opens a new SSH channel that can invoke a process or SSH subsystem on the SSH server.
+ * The process's stdin, stdout, and stderr are piped through the channel.
  *
- * returns NULL when not connected to an ssh server.
+ * Returns NULL if an error occurs while opening the channel, such as not being connected to an SSH server.
+ *
+ * \sa QxtSshProcess
  */
 QxtSshProcess * QxtSshClient::openProcessChannel(){
     if(d->d_state!=6){
@@ -246,12 +286,17 @@ QxtSshProcess * QxtSshClient::openProcessChannel(){
     connect(s,SIGNAL(destroyed()),d,SLOT(d_channelDestroyed()));
     return s;
 }
+
 /*!
- * Establish a tcp connection to a remote host, tunneling through this ssh channel.
- * Traffic from the ssh server to host is unencrypted, while traffic from this machine to 
- * the ssh server remains encrypted.
+ * Opens a new SSH channel and attempts to establish a TCP connection from the SSH server
+ * to a remote host. Traffic on this TCP connection is tunneled through the channel.
  *
- * returns NULL when not connected to an ssh server.
+ * Note that traffic between the SSH server and the remote host is unencrypted. Only
+ * communication between QxtSshClient and the SSH server is encrypted.
+ *
+ * Returns NULL if an error occurs while opening the channel, such as not being connected to an SSH server.
+ *
+ * \sa QxtSshTcpSocket
  */
 QxtSshTcpSocket * QxtSshClient::openTcpSocket(const QString & hostName,quint16 port){
     if(d->d_state!=6){

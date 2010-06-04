@@ -34,7 +34,7 @@ class QxtSshChannelPrivate;
 class QXT_NETWORK_EXPORT QxtSshChannel  : public QIODevice {
     Q_OBJECT
 public:
-    virtual ~QxtSshChannel(){}
+    virtual ~QxtSshChannel();
 protected:
     QxtSshChannel(QxtSshClient*);
     virtual qint64 readData(char*, qint64);

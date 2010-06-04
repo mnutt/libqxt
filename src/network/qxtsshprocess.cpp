@@ -30,28 +30,37 @@
 /*!
     \class QxtSshProcess
     \inmodule QxtNetwork
-    \brief The QxtSshProcess class is a channel representing a process to be run on an ssh server.
+    \brief The QxtSshProcess class allows communication with a process invoked on an SSH server
+
+    QxtSshProcess is an I/O device analogous to QProcess. It can invoke a command or SSH subsystem on
+    the SSH server; the stdin, stdout, and stderr channels of the process are redirected through the
+    channel.
+
+    QxtSshProcess objects are created using the QxtSshClient::openProcessChannel() method.
 */
 
 /*!
  * \enum QxtSshProcess::TerminalType 
- * \value VanillaTerminal
- * \value Vt102Terminal
- * \value AnsiTerminal
+ * \value VanillaTerminal   A terminal with no special features
+ * \value Vt102Terminal     A terminal that understands VT102 command codes
+ * \value AnsiTerminal      A terminal that understands ANSI command codes
  */
 
 /*! 
  * \fn QxtSshProcess::finished ( int exitCode )
  *
- * this signal is emited when the proces on the ssh server has finished with the passed exitCode
+ * This signal is emitted when the process on the SSH server finishes. The parameter is the exit code of
+ * the process. After the process has finished, the read buffer QxtSshProcess will still contain any
+ * data the process may have written before terminating.
+ *
+ * Another process or subsystem may be invoked on the same channel after the first process terminates.
  */
 
 /*!
  * \fn QxtSshProcess::started ()
  *
- * this signal is emited when the process on the ssh server has started
+ * This signal is emitted by QxtSshProcess when the remote process has started.
  */
-
 
 QxtSshProcess::QxtSshProcess(QxtSshClient * parent)
     :QxtSshChannel(parent)
@@ -60,21 +69,25 @@ QxtSshProcess::QxtSshProcess(QxtSshClient * parent)
     connect(this,SIGNAL(connected()),this,SIGNAL(started()));
 }
 /*!
- * start a shell on the ssh server.
- * If there is already a running process, the behaviour is undefined.
+ * Starts a login shell on the SSH server.
+ *
+ * If there is already a process running on this channel, the behavior is undefined.
  */
 void QxtSshProcess::startShell(){
     d->startShell();
 }
 /*!
- * start a shell command on the ssh server.
- * If there is already a running process, the behaviour is undefined.
+ * Invokes a shell command on the SSH server.
+ *
+ * If there is already a process running on this channel, the behavior is undefined.
  */
 void QxtSshProcess::start(const QString & cmd){
     d->start(cmd);
 }
 /*!
- * allocate a pty for this channel. You must do this _before_ starting a process
+ * Requests that a PTY be allocated for this channel on the remote host.
+ * 
+ * This function must be invoked before starting the process that requires it.
  */
 void QxtSshProcess::requestPty(TerminalType term){
     switch (term){

@@ -26,25 +26,40 @@
 /*!
     \class QxtSshChannel
     \inmodule QxtNetwork
-    \brief The QxtSshChannel class is an abstract base for channels over a QxtSshClient connection
+    \brief The QxtSshChannel class provides common functionality for QxtSshClient channels
 
-    it implements a QIODevice, including the readyRead signal
+    QxtSshChannel is the base interface class for all I/O channels created by QxtSshClient. 
+
+    As a QIODevice subclass, QxtSshChannel exposes all of the normal methods common to Qt
+    I/O classes, including the readyRead() signal and the read() and write() methods.
+
+    QxtSshChannel is an interface class providing the foundations for the various channel
+    types offered by QxtSsh. It is not intended to be instantiated directly nor is it
+    intended to be subclassed by user code. Use the convenience methods on QxtSshClient
+    such as QxtSshClient::openProcessChannel() and QxtSshClient::openTcpSocket().
 */
 
 /*!
  * \fn QxtSshChannel::connected()
  *
- * this signal is emited when the channel is established and ready for use.
+ * This signal is emitted when the channel has been successfully opened.
  */
 
 #include "qxtsshchannel.h"
 #include "qxtsshchannel_p.h"
 
+/*! \internal */
 QxtSshChannel::QxtSshChannel(QxtSshClient * parent)
     :QIODevice(parent)
     ,d(new QxtSshChannelPrivate(this,parent)){
 }
 
+/*!
+ * Destroys the QxtSshChannel object.
+ */
+QxtSshChannel::~QxtSshChannel()
+{
+}
 
 QxtSshChannelPrivate::QxtSshChannelPrivate(QxtSshChannel *_p,QxtSshClient * c)
     :QObject(0)

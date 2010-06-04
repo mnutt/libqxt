@@ -41,3 +41,7 @@ qxtvars.prf
 glob:*.vcproj
 glob:*.exe
 glob:*.vcproj.*.user
+*.bak
+doc/html
+doc/qch/qxt.qch
+doc/qxt.tags

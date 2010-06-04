@@ -30,7 +30,15 @@
 /*!
     \class QxtSshTcpSocket
     \inmodule QxtNetwork
-    \brief The QxtSshTcpSocket class is a channel representing a tcp socket from the connected ssh server to a 3rdparty.
+    \brief The QxtSshTcpSocket class provides a TCP socket tunneled over an SSH connection
+
+    QxtSshTcpSocket enables an SSH client to establish a TCP connection between the SSH server and
+    a remote host. Traffic over this TCP connection is tunneled through the channel.
+
+    Note that traffic between the SSH server and the remote host is unencrypted. Only
+    communication between QxtSshClient and the SSH server is encrypted.
+
+    QxtSshTcpSocket objects are created using the QxtSshClient::openTcpSocket() method.
 */
 
 /*!
