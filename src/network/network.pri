@@ -4,12 +4,6 @@ HEADERS += qxtjsonrpccall.h
 HEADERS += qxtjsonrpcclient.h
 HEADERS += qxtnetwork.h
 HEADERS += qxtmail_p.h
-HEADERS += qxtsshchannel.h
-HEADERS += qxtsshchannel_p.h
-HEADERS += qxtsshclient.h
-HEADERS += qxtsshclient_p.h
-HEADERS += qxtsshprocess.h
-HEADERS += qxtsshtcpsocket.h
 HEADERS += qxtsmtp.h
 HEADERS += qxtsmtp_p.h
 HEADERS += qxtmailattachment.h
@@ -40,10 +34,6 @@ SOURCES += qxtxmlrpcclient.cpp
 SOURCES += qxtxmlrpc_p.cpp
 SOURCES += qxtpop3.cpp
 SOURCES += qxtpop3reply.cpp
-SOURCES += qxtsshchannel.cpp
-SOURCES += qxtsshclient.cpp
-SOURCES += qxtsshprocess.cpp
-SOURCES += qxtsshtcpsocket.cpp
 
 
 

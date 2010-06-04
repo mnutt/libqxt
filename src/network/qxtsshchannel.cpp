@@ -93,7 +93,12 @@ qint64 QxtSshChannel::writeData(const char* buff, qint64 len){
     }
     return ret;
 }
-
+/*!
+ * \reimp
+ */
+bool QxtSshChannel::isSequential () const{
+    return true;
+}
 
 bool QxtSshChannelPrivate::activate(){
     //session
