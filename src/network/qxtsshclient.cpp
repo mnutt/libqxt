@@ -161,27 +161,23 @@ void QxtSshClient::disconnectFromHost (){
  * this is also used for the passphrase of the private key.
  */
 void QxtSshClient::setPassphrase(const QString & pass){
-    //if(d->d_passphrase!=pass){
-        d->d_failedMethods.removeAll(QxtSshClient::PasswordAuthentication);
-        d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
-        d->d_passphrase=pass;
-        if(d->d_state>1){
-            QTimer::singleShot(0,d,SLOT(d_readyRead()));
-        }
-        //}
+    d->d_failedMethods.removeAll(QxtSshClient::PasswordAuthentication);
+    d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
+    d->d_passphrase=pass;
+    if(d->d_state>1){
+        QTimer::singleShot(0,d,SLOT(d_readyRead()));
+    }
 }
 /*!
  * set a public and private key to use to authenticate with the ssh server.
  */
 void QxtSshClient::setKeyFiles(const QString & publicKey,const QString & privateKey){
-    //if(d->d_publicKey!=publicKey ||  d->d_privateKey!=privateKey){
-        d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
-        d->d_publicKey=publicKey;
-        d->d_privateKey=privateKey;
-        if(d->d_state>1){
-            QTimer::singleShot(0,d,SLOT(d_readyRead()));
-        }
-        //}
+    d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
+    d->d_publicKey=publicKey;
+    d->d_privateKey=privateKey;
+    if(d->d_state>1){
+        QTimer::singleShot(0,d,SLOT(d_readyRead()));
+    }
 }
 /*!
  * load known hosts from a file.
