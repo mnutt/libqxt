@@ -28,7 +28,6 @@
 
 #include <QObject>
 #include <QList>
-#include <QPointer>
 #include "qxtglobal.h"
 
 class QXT_NETWORK_EXPORT QxtSshKey{
@@ -92,7 +91,7 @@ signals:
     void error (QxtSshClient::Error error);
     void authenticationRequired(QList<QxtSshClient::AuthenticationMethod> availableMethods);
 private:
-    QPointer<QxtSshClientPrivate> d;
+    QxtSshClientPrivate * d;
     friend class QxtSshClientPrivate;
     friend class QxtSshChannelPrivate;
 };

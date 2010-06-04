@@ -27,7 +27,6 @@
 #define QXT_SSH_CHANNEL_H
 
 #include <QIODevice>
-#include <QPointer>
 #include "qxtglobal.h"
 
 class QxtSshClient;
@@ -45,7 +44,7 @@ protected:
       */
     virtual bool isSequential (){return true;}
 
-    QPointer<QxtSshChannelPrivate> d;
+    QxtSshChannelPrivate * d;
     friend class QxtSshChannelPrivate;
     friend class QxtSshClientPrivate;
 signals:

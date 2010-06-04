@@ -138,6 +138,7 @@ QxtSshClient::QxtSshClient(QObject * parent)
  *
  */
 QxtSshClient::~QxtSshClient(){
+    delete d;
 }
 /*!
  *  establish an ssh connection to host on port as user
