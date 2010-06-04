@@ -26,6 +26,16 @@
 #include "qxtsshtcpsocket.h"
 #include "qxtsshchannel_p.h"
 
+
+/*!
+    \class QxtSshTcpSocket
+    \inmodule QxtNetwork
+    \brief The QxtSshTcpSocket class is a channel representing a tcp socket from the connected ssh server to a 3rdparty.
+*/
+
+/*!
+ *
+ */
 QxtSshTcpSocket::QxtSshTcpSocket(QxtSshClient * parent)
     :QxtSshChannel(parent)
 {

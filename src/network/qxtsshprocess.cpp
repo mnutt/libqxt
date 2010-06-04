@@ -26,21 +26,56 @@
 #include "qxtsshprocess.h"
 #include "qxtsshchannel_p.h"
 
+
+/*!
+    \class QxtSshProcess
+    \inmodule QxtNetwork
+    \brief The QxtSshProcess class is a channel representing a process to be run on an ssh server.
+*/
+
+/*!
+ * \enum QxtSshProcess::TerminalType 
+ * \value VanillaTerminal
+ * \value Vt102Terminal
+ * \value AnsiTerminal
+ */
+
+/*! 
+ * \fn QxtSshProcess::finished ( int exitCode )
+ *
+ * this signal is emited when the proces on the ssh server has finished with the passed exitCode
+ */
+
+/*!
+ * \fn QxtSshProcess::started ()
+ *
+ * this signal is emited when the process on the ssh server has started
+ */
+
+
 QxtSshProcess::QxtSshProcess(QxtSshClient * parent)
     :QxtSshChannel(parent)
 {
     d->openSession();
     connect(this,SIGNAL(connected()),this,SIGNAL(started()));
 }
-
+/*!
+ * start a shell on the ssh server.
+ * If there is already a running process, the behaviour is undefined.
+ */
 void QxtSshProcess::startShell(){
     d->startShell();
 }
-void QxtSshProcess::start(QString cmd){
+/*!
+ * start a shell command on the ssh server.
+ * If there is already a running process, the behaviour is undefined.
+ */
+ oid QxtSshProcess::start(QString cmd){
     d->start(cmd);
 }
-
-
+/*!
+ * allocate a pty for this channel. You must do this _before_ starting a process
+ */
 void QxtSshProcess::requestPty(TerminalType term){
     switch (term){
         case VanillaTerminal:

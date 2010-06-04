@@ -40,12 +40,15 @@ protected:
     QxtSshChannel(QxtSshClient*);
     virtual qint64 readData(char*, qint64);
     virtual qint64 writeData(const char*, qint64);
+    /*!
+      \reimp
+      */
     virtual bool isSequential (){return true;}
 
     QPointer<QxtSshChannelPrivate> d;
     friend class QxtSshChannelPrivate;
     friend class QxtSshClientPrivate;
- signals:
+signals:
     void connected();
 };
 

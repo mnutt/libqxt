@@ -23,6 +23,20 @@
  **
  ****************************************************************************/
 
+/*!
+    \class QxtSshChannel
+    \inmodule QxtNetwork
+    \brief The QxtSshChannel class is an abstract base for channels over a QxtSshClient connection
+
+    it implements a QIODevice, including the readyRead signal
+*/
+
+/*!
+ * \fn QxtSshChannel::connected()
+ *
+ * this signal is emited when the channel is established and ready for use.
+ */
+
 #include "qxtsshchannel.h"
 #include "qxtsshchannel_p.h"
 
@@ -44,7 +58,9 @@ QxtSshChannelPrivate::QxtSshChannelPrivate(QxtSshChannel *_p,QxtSshClient * c)
 {
 }
 
-
+/*!
+    \reimp
+*/
 qint64 QxtSshChannel::readData(char* buff, qint64 len) {
     ssize_t ret=libssh2_channel_read_ex(d->d_channel, d->d_read_stream_id,buff, len);
     if(ret<0){
@@ -58,6 +74,9 @@ qint64 QxtSshChannel::readData(char* buff, qint64 len) {
     return ret;
 }
 
+/*!
+    \reimp
+*/
 qint64 QxtSshChannel::writeData(const char* buff, qint64 len){
     ssize_t ret=libssh2_channel_write_ex(d->d_channel, d->d_write_stream_id,buff, len);
     if(ret<0){

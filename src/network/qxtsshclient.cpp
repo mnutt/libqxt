@@ -28,15 +28,120 @@
 #include "qxtsshtcpsocket.h"
 #include <QTimer>
 
+/*!
+    \class QxtSshClient
+    \inmodule QxtNetwork
+    \brief The QxtSshClient class implements a secure shell client
 
+    QxtSshClient allows connecting to any Ssh server, login via password, pubkey,
+    then opening a shell or a socket.
+
+    You can either set the passphrase or key before connecting, or later when 
+    authentificationRequired has been fired. The later allows you to
+    prompt the user for a password only when it is actually required.
+
+    QxtSShClient includes the third party library libssh2 ( http://www.libssh2.org/ )
+
+   \code
+    * Copyright (c) 2004-2007 Sara Golemon <sarag@libssh2.org>
+    * Copyright (c) 2005,2006 Mikhail Gusarov <dottedmag@dottedmag.net>
+    * Copyright (c) 2006-2007 The Written Word, Inc.
+    * Copyright (c) 2007 Eli Fant <elifantu@mail.ru>
+    * Copyright (c) 2009 Daniel Stenberg
+    * Copyright (C) 2008, 2009 Simon Josefsson
+    * All rights reserved.
+    *
+    * Redistribution and use in source and binary forms,
+    * with or without modification, are permitted provided
+    * that the following conditions are met:
+    *
+    *   Redistributions of source code must retain the above
+    *   copyright notice, this list of conditions and the
+    *   following disclaimer.
+    *
+    *   Redistributions in binary form must reproduce the above
+    *   copyright notice, this list of conditions and the following
+    *   disclaimer in the documentation and/or other materials
+    *   provided with the distribution.
+    *
+    *   Neither the name of the copyright holder nor the names
+    *   of any other contributors may be used to endorse or
+    *   promote products derived from this software without
+    *   specific prior written permission.
+    *
+    * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+    * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+    * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+    * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+    * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+    * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+    * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+    * OF SUCH DAMAGE.
+    \endcode
+
+*/
+
+/*! \enum QxtSshClient::AuthenticationMethod
+ *
+ * \value PasswordAuthentication
+ * \value PublicKeyAuthentication
+ */
+
+/*! \enum QxtSshClient::Error 
+ 
+   \value AuthenticationError
+   \value HostKeyUnknownError
+   \value HostKeyInvalidError
+   \value HostKeyMismatchError
+   \value ConnectionRefusedError
+   \value UnexpectedShutdownError
+   \value HostNotFoundError
+   \value SocketError
+   \value UnknownError
+ */
+
+/*! \enum QxtSshClient::KnownHostsFormat
+ *
+ * \value OpenSslFormat
+ */
+
+/*! 
+ * \fn QxtSshClient::connected()
+ * this signal is emmited when the connection to the ssh server is ready to open channels.
+ */
+
+/*!
+ * \fn QxtSshClient::disconnected()
+ * emited when the connection becomes unavailable
+ */
+/*!
+ * \fn QxtSshClient::error ( QxtSshClient::Error error ) 
+ * emited when an error ocures
+ */
+
+/*!
+ * constructs a new QxtSshClient
+ */
 QxtSshClient::QxtSshClient(QObject * parent)
     :QObject(parent)
     ,d(new QxtSshClientPrivate){
     d->p=this;
 }
+
+/*!
+ *
+ */
 QxtSshClient::~QxtSshClient(){
 }
-
+/*!
+ *  establish an ssh connection to host on port as user
+ */
 void QxtSshClient::connectToHost(QString user,QString host,int port){
     d->d_hostName=host;
     d->d_userName=user;
@@ -45,10 +150,16 @@ void QxtSshClient::connectToHost(QString user,QString host,int port){
     d->connectToHost(host,port);
 }
 
+/*!
+ * disconnect the current ssh connection.
+ */
 void QxtSshClient::disconnectFromHost (){
     d->d_reset();
 }
-
+/*!
+ * set the password for the user.
+ * this is also used for the passphrase of the private key.
+ */
 void QxtSshClient::setPassphrase(QString pass){
     //if(d->d_passphrase!=pass){
         d->d_failedMethods.removeAll(QxtSshClient::PasswordAuthentication);
@@ -59,7 +170,9 @@ void QxtSshClient::setPassphrase(QString pass){
         }
         //}
 }
-
+/*!
+ * set a public and private key to use to authenticate with the ssh server.
+ */
 void QxtSshClient::setKeyFiles(QString publicKey,QString privateKey){
     //if(d->d_publicKey!=publicKey ||  d->d_privateKey!=privateKey){
         d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
@@ -70,18 +183,25 @@ void QxtSshClient::setKeyFiles(QString publicKey,QString privateKey){
         }
         //}
 }
-
+/*!
+ * load known hosts from a file.
+ */
 bool QxtSshClient::loadKnownHosts(QString file,KnownHostsFormat c){
     Q_UNUSED(c);
     return (libssh2_knownhost_readfile(d->d_knownHosts, qPrintable(file),
                                       LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
 }
+/*!
+ * save known hosts to a file
+ */
 bool QxtSshClient::saveKnownHosts(QString file,KnownHostsFormat c) const{
     Q_UNUSED(c);
     return (libssh2_knownhost_writefile(d->d_knownHosts, qPrintable(file),
                                 LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
 }
-
+/*!
+ * add a known host
+ */
 bool QxtSshClient::addKnownHost(QString hostname,QxtSshKey key){
     int typemask=LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW;
     switch (key.type){
@@ -102,13 +222,23 @@ bool QxtSshClient::addKnownHost(QString hostname,QxtSshKey key){
 
 }
 
+/*!
+ * key used by the ssh server currently connected to
+ */
 QxtSshKey QxtSshClient::hostKey() const{
     return d->d_hostKey;
 }
+/*!
+ * hostname of the ssh server currently connected to
+ */
 QString   QxtSshClient::hostName() const{
     return d->d_hostName;
 }
-
+/*!
+ * execute a process on the ssh server and connect a channel to it.
+ *
+ * returns NULL when not connected to an ssh server.
+ */
 QxtSshProcess * QxtSshClient::openProcessChannel(){
     if(d->d_state!=6){
         qWarning("cannot open channel before connected()");
@@ -119,7 +249,13 @@ QxtSshProcess * QxtSshClient::openProcessChannel(){
     connect(s,SIGNAL(destroyed()),d,SLOT(d_channelDestroyed()));
     return s;
 }
-
+/*!
+ * Establish a tcp connection to a remote host, tunneling through this ssh channel.
+ * Traffic from the ssh server to host is unencrypted, while traffic from this machine to 
+ * the ssh server remains encrypted.
+ *
+ * returns NULL when not connected to an ssh server.
+ */
 QxtSshTcpSocket * QxtSshClient::openTcpSocket(QString hostName,quint16 port){
     if(d->d_state!=6){
         qWarning("cannot open channel before connected()");

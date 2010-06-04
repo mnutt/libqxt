@@ -69,7 +69,6 @@ public:
         UnknownError
     };
 
-    Q_ENUMS(AuthenticationMethod)
     QxtSshClient(QObject * parent=0);
     ~QxtSshClient();
 
