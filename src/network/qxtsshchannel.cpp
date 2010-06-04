@@ -67,7 +67,9 @@ qint64 QxtSshChannel::readData(char* buff, qint64 len) {
         if(ret==LIBSSH2_ERROR_EAGAIN){
             return 0;
         }else{
+#ifdef QXT_DEBUG_SSH
             qDebug()<<"read err"<<ret;
+#endif
             return -1;
         }
     }
@@ -83,7 +85,9 @@ qint64 QxtSshChannel::writeData(const char* buff, qint64 len){
         if(ret==LIBSSH2_ERROR_EAGAIN){
             return 0;
         }else{
+#ifdef QXT_DEBUG_SSH
             qDebug()<<"write err"<<ret;
+#endif
             return -1;
         }
     }
@@ -102,7 +106,9 @@ bool QxtSshChannelPrivate::activate(){
                 return false;
             }
         }
+#ifdef QXT_DEBUG_SSH
         qDebug("session opened");
+#endif
         d_state=2;
         return activate();
 
@@ -122,11 +128,13 @@ bool QxtSshChannelPrivate::activate(){
             if(r==LIBSSH2_ERROR_EAGAIN){
                 return true;
             }else{
-                qDebug("pty failed");
+                qWarning("QxtSshChannel: pty allocation failed");
                 return false;
             }
         }
+#ifdef QXT_DEBUG_SSH
         qDebug("pty opened");
+#endif
         d_state=2;
         return activate();
 
@@ -137,11 +145,15 @@ bool QxtSshChannelPrivate::activate(){
             if(r==LIBSSH2_ERROR_EAGAIN){
                 return true;
             }else{
+#ifdef QXT_DEBUG_SSH
                 qDebug("exec failed");
+#endif
                 return false;
             }
         }
+#ifdef QXT_DEBUG_SSH
         qDebug("exec opened");
+#endif
         p->setOpenMode(QIODevice::ReadWrite);
         d_state=66;
         emit p->connected();
@@ -154,11 +166,15 @@ bool QxtSshChannelPrivate::activate(){
             if(r==LIBSSH2_ERROR_EAGAIN){
                 return true;
             }else{
+#ifdef QXT_DEBUG_SSH
                 qDebug("exec failed");
+#endif
                 return false;
             }
         }
+#ifdef QXT_DEBUG_SSH
         qDebug("shell opened");
+#endif
         p->setOpenMode(QIODevice::ReadWrite);
         d_state=9999;
         emit p->connected();
@@ -174,7 +190,9 @@ bool QxtSshChannelPrivate::activate(){
                 return false;
             }
         }
+#ifdef QXT_DEBUG_SSH
         qDebug("tcp channel opened");
+#endif
         p->setOpenMode(QIODevice::ReadWrite);
         d_state=9999;
         return activate();

@@ -335,7 +335,6 @@ void QxtSshClientPrivate::d_readyRead(){
             return;
         }
 
-
         //2) make sure remote is safe.
         size_t len;
         int type;
@@ -418,7 +417,9 @@ void QxtSshClientPrivate::d_readyRead(){
         d_state=4;
         d_readyRead();
     }else if(d_state==4){
+#ifdef QXT_DEBUG_SSH
         qDebug("looking for auth option");
+#endif
         if(d_availableMethods.contains(QxtSshClient::PublicKeyAuthentication) &&
            !d_privateKey.isNull() &&
            !d_failedMethods.contains(QxtSshClient::PublicKeyAuthentication)){
@@ -440,7 +441,9 @@ void QxtSshClientPrivate::d_readyRead(){
         emit p->authenticationRequired(d_availableMethods);
     }else if(d_state==5){
         int ret(0);
+#ifdef QXT_DEBUG_SSH
         qDebug()<<"trying"<<d_currentAuthTry;
+#endif
         if(d_currentAuthTry==QxtSshClient::PasswordAuthentication){
             ret=libssh2_userauth_password(d_session, qPrintable(d_userName),
                                           qPrintable(d_passphrase));
@@ -473,13 +476,16 @@ void QxtSshClientPrivate::d_readyRead(){
             }
         }
     }else{
+#ifdef QXT_DEBUG_SSH
         qDebug("did not expect to receive data in this state");
+#endif
     }
 }
 
 void QxtSshClientPrivate::d_reset(){
+#ifdef QXT_DEBUG_SSH
     qDebug("reset");
-
+#endif
     //teardown
     if(d_knownHosts){
         libssh2_knownhost_free(d_knownHosts);
