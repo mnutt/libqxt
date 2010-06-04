@@ -72,20 +72,20 @@ public:
     QxtSshClient(QObject * parent=0);
     ~QxtSshClient();
 
-    void connectToHost(QString username,QString hostname,int port=22);
+    void connectToHost(const QString & username,const QString & hostname,int port=21);
     void disconnectFromHost ();
-    void setPassphrase(QString pass);
-    void setKeyFiles(QString publicKey,QString privateKey);
+    void setPassphrase(const QString & pass);
+    void setKeyFiles(const QString & publicKey,const QString & privateKey);
 
-    bool loadKnownHosts(QString file,KnownHostsFormat c = OpenSslFormat);
-    bool saveKnownHosts(QString file,KnownHostsFormat c = OpenSslFormat) const;
-    bool addKnownHost(QString hostname,QxtSshKey key);
+    bool loadKnownHosts(const QString & file,KnownHostsFormat c = OpenSslFormat);
+    bool saveKnownHosts(const QString & file,KnownHostsFormat c = OpenSslFormat) const;
+    bool addKnownHost(const QString & hostname,const QxtSshKey & key);
 
     QxtSshKey hostKey() const;
     QString   hostName() const;
 
     QxtSshProcess * openProcessChannel();
-    QxtSshTcpSocket * openTcpSocket(QString hostName,quint16 port);
+    QxtSshTcpSocket * openTcpSocket(const QString & hostName,quint16 port);
 signals:
     void connected();
     void disconnected();

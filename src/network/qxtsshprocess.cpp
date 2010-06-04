@@ -70,7 +70,7 @@ void QxtSshProcess::startShell(){
  * start a shell command on the ssh server.
  * If there is already a running process, the behaviour is undefined.
  */
- oid QxtSshProcess::start(QString cmd){
+void QxtSshProcess::start(const QString & cmd){
     d->start(cmd);
 }
 /*!

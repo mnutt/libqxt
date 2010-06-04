@@ -142,7 +142,7 @@ QxtSshClient::~QxtSshClient(){
 /*!
  *  establish an ssh connection to host on port as user
  */
-void QxtSshClient::connectToHost(QString user,QString host,int port){
+void QxtSshClient::connectToHost(const QString & user,const QString & host,int port){
     d->d_hostName=host;
     d->d_userName=user;
     d->d_port=port;
@@ -160,7 +160,7 @@ void QxtSshClient::disconnectFromHost (){
  * set the password for the user.
  * this is also used for the passphrase of the private key.
  */
-void QxtSshClient::setPassphrase(QString pass){
+void QxtSshClient::setPassphrase(const QString & pass){
     //if(d->d_passphrase!=pass){
         d->d_failedMethods.removeAll(QxtSshClient::PasswordAuthentication);
         d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
@@ -173,7 +173,7 @@ void QxtSshClient::setPassphrase(QString pass){
 /*!
  * set a public and private key to use to authenticate with the ssh server.
  */
-void QxtSshClient::setKeyFiles(QString publicKey,QString privateKey){
+void QxtSshClient::setKeyFiles(const QString & publicKey,const QString & privateKey){
     //if(d->d_publicKey!=publicKey ||  d->d_privateKey!=privateKey){
         d->d_failedMethods.removeAll(QxtSshClient::PublicKeyAuthentication);
         d->d_publicKey=publicKey;
@@ -186,7 +186,7 @@ void QxtSshClient::setKeyFiles(QString publicKey,QString privateKey){
 /*!
  * load known hosts from a file.
  */
-bool QxtSshClient::loadKnownHosts(QString file,KnownHostsFormat c){
+bool QxtSshClient::loadKnownHosts(const QString & file,KnownHostsFormat c){
     Q_UNUSED(c);
     return (libssh2_knownhost_readfile(d->d_knownHosts, qPrintable(file),
                                       LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
@@ -194,7 +194,7 @@ bool QxtSshClient::loadKnownHosts(QString file,KnownHostsFormat c){
 /*!
  * save known hosts to a file
  */
-bool QxtSshClient::saveKnownHosts(QString file,KnownHostsFormat c) const{
+bool QxtSshClient::saveKnownHosts(const QString & file,KnownHostsFormat c) const{
     Q_UNUSED(c);
     return (libssh2_knownhost_writefile(d->d_knownHosts, qPrintable(file),
                                 LIBSSH2_KNOWNHOST_FILE_OPENSSH)==0);
@@ -202,7 +202,7 @@ bool QxtSshClient::saveKnownHosts(QString file,KnownHostsFormat c) const{
 /*!
  * add a known host
  */
-bool QxtSshClient::addKnownHost(QString hostname,QxtSshKey key){
+bool QxtSshClient::addKnownHost(const QString & hostname,const QxtSshKey & key){
     int typemask=LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW;
     switch (key.type){
         case QxtSshKey::Dss:
@@ -256,7 +256,7 @@ QxtSshProcess * QxtSshClient::openProcessChannel(){
  *
  * returns NULL when not connected to an ssh server.
  */
-QxtSshTcpSocket * QxtSshClient::openTcpSocket(QString hostName,quint16 port){
+QxtSshTcpSocket * QxtSshClient::openTcpSocket(const QString & hostName,quint16 port){
     if(d->d_state!=6){
         qWarning("cannot open channel before connected()");
         return NULL;
@@ -443,7 +443,7 @@ void QxtSshClientPrivate::d_readyRead(){
         }
         emit p->authenticationRequired(d_availableMethods);
     }else if(d_state==5){
-        int ret;
+        int ret(0);
         qDebug()<<"trying"<<d_currentAuthTry;
         if(d_currentAuthTry==QxtSshClient::PasswordAuthentication){
             ret=libssh2_userauth_password(d_session, qPrintable(d_userName),

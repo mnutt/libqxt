@@ -38,7 +38,7 @@ class QXT_NETWORK_EXPORT QxtSshProcess : public QxtSshChannel {
     };
     void requestPty(TerminalType term=VanillaTerminal);
     void startShell();
-    void start(QString cmd);
+    void start(const QString & cmd);
  signals:
     void started();
     void finished ( int exitCode);
