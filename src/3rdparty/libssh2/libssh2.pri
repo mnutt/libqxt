@@ -32,5 +32,5 @@ win32{
 
 !win32:!symbian{
   INCLUDEPATH +=  $$PWD/linux
-  LIBS+=-lcrypto
+  LIBS+=-lcrypto -lz
 }
