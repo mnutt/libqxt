@@ -161,6 +161,7 @@ QxtCheckComboBox::QxtCheckComboBox(QWidget* parent) : QComboBox(parent)
     QLineEdit* lineEdit = new QLineEdit(this);
     lineEdit->setReadOnly(true);
     setLineEdit(lineEdit);
+    lineEdit->disconnect(this);
     setInsertPolicy(QComboBox::NoInsert);
 
     view()->installEventFilter(&qxt_d());
