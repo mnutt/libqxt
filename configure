@@ -144,6 +144,7 @@ while (( $# > 0 )); do
         fi
         echo "-no-db .............. Do not link to Berkeley DB"
         echo "-no-zeroconf ........ Do not link to Zeroconf"
+        echo "-no-openssl ......... Do not link to Openssl"
         echo "-no-avahi ........... Apple mdns-sd instead of avahi even on linux"
         echo "-nomake <module> .... Do not compile the specified module"
         echo "                      options: $QXT_MODULES"
