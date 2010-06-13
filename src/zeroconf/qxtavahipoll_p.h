@@ -33,7 +33,7 @@
 
 // Private QObject that does all the work
 
-/**
+/*!
 	@author Chris Vickery <chrisinajar@gmail.com>
 */
 class AvahiWatch : public QObject

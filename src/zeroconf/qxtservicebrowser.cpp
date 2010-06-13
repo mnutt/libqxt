@@ -27,7 +27,7 @@ For more information about Zeroconf, see the documentation available on www.zero
 \sa QxtDiscoverableServiceName
 */
 
-/**
+/*!
  * Constructs a QxtServiceBrowser that will search for services with the specified type.
  * The service type may be a plain type name, which will default to searching for a UDP
  * service, or it may be provided in the standard format specified by the Zeroconf
@@ -40,7 +40,7 @@ QxtServiceBrowser::QxtServiceBrowser(const QString& serviceType, QObject* parent
     qxt_zeroconf_parse_subtypes(&qxt_d(), serviceType.toUtf8());
 }
 
-/**
+/*!
  * Constructs a QxtServiceBrowser that will search for services with the specified type
  * and socket type.
  */

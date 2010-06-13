@@ -85,7 +85,7 @@ void QxtDiscoverableServicePrivate::socketData()
     DNSServiceProcessResult(service);
 }
 
-/**
+/*!
  * Constructs a QxtDiscoverableService object using the specified service type.
  *
  * The service type may be a plain type name or it may be provided in the standard format
@@ -100,7 +100,7 @@ QxtDiscoverableService::QxtDiscoverableService(const QString& serviceType, QObje
     qxt_zeroconf_parse_subtypes(&qxt_d(), serviceType.toUtf8());
 }
 
-/**
+/*!
  * Constructs a QxtDiscoverableService object using the specified service type.
  *
  * The service type may be a plain type name or it may be provided in the standard format
@@ -116,7 +116,7 @@ QxtDiscoverableService::QxtDiscoverableService(const QString& serviceType, const
     qxt_zeroconf_parse_subtypes(&qxt_d(), serviceType.toUtf8());
 }
 
-/**
+/*!
  * Destroys the QxtDiscoverableService.
  *
  * TIf registered, the service will be unregistered.
@@ -127,14 +127,14 @@ QxtDiscoverableService::~QxtDiscoverableService()
         releaseService();
 }
 
-/**
+/*!
  * Returns the current state of the service.
  */
 QxtDiscoverableService::State QxtDiscoverableService::state() const {
     return qxt_d().state;
 }
 
-/**
+/*!
  * Returns a list of all subtypes known for the service.
  *
  * When discovering a service, only subtypes that were included in the service
@@ -150,7 +150,7 @@ QStringList QxtDiscoverableService::serviceSubTypes() const
     return qxt_d().serviceSubTypes;
 }
 
-/**
+/*!
  * Sets the list of subtypes for this service.
  *
  * \sa serviceSubTypes
@@ -165,7 +165,7 @@ void QxtDiscoverableService::setServiceSubTypes(const QStringList& subtypes)
     qxt_d().serviceSubTypes = subtypes;
 }
 
-/**
+/*!
  * Adds a subtype to the service.
  *
  * \sa serviceSubTypes
@@ -180,7 +180,7 @@ void QxtDiscoverableService::addServiceSubType(const QString& subtype)
     qxt_d().serviceSubTypes << subtype;
 }
 
-/**
+/*!
  * Removes a subtype from the service.
  *
  * \sa serviceSubTypes
@@ -195,7 +195,7 @@ void QxtDiscoverableService::removeServiceSubType(const QString& subtype)
     qxt_d().serviceSubTypes.removeAll(subtype);
 }
 
-/**
+/*!
  * Tests to see if the specified service is available and known for the service.
  *
  * When discovering a service, only subtypes that were included in the service
@@ -211,7 +211,7 @@ bool QxtDiscoverableService::hasServiceSubType(const QString& subtype)
     return qxt_d().serviceSubTypes.contains(subtype);
 }
 
-/**
+/*!
  * Returns the port number used for connecting to the service.
  *
  * \sa setPort
@@ -221,7 +221,7 @@ quint16 QxtDiscoverableService::port() const
     return qFromBigEndian(qxt_d().port);
 }
 
-/**
+/*!
  * Sets the port number used for connecting to the service.
  *
  * When registering a service with a port number of 0 (the default), the service will not be found when browsing,
@@ -236,7 +236,7 @@ void QxtDiscoverableService::setPort(quint16 port)
     qxt_d().port = qToBigEndian(port);
 }
 
-/**
+/*!
  * Attempts to register the service on the local network.
  *
  * If noAutoRename is set to true, registration will fail if another service of the same service type
@@ -280,7 +280,7 @@ void QxtDiscoverableService::registerService(bool noAutoRename)
     }
 }
 
-/**
+/*!
  * Attempts to resolve the service in order to determine the host and port necessary to establish a connection.
  *
  * If forceMulticast is set to true, QxtDiscoverableService will use a multicast request to resolve the service,
@@ -316,7 +316,7 @@ void QxtDiscoverableService::resolve(bool forceMulticast)
     }
 }
 
-/**
+/*!
  * Releases the service.
  *
  * If the service is registered, it will be unregistered. Any outstanding resolve attempt will be aborted.
@@ -331,7 +331,7 @@ void QxtDiscoverableService::releaseService()
     }
 }
 
-/**
+/*!
  * \fn registered()
  *
  * This signal is emitted after a call to registerService() when the service has been successfully registered
@@ -341,7 +341,7 @@ void QxtDiscoverableService::releaseService()
  * \sa registrationError
  */
 
-/**
+/*!
  * \fn registrationError(int code)
  *
  * This signal is emitted after a call to registerService() when the service cannot be registered. This could
@@ -352,7 +352,7 @@ void QxtDiscoverableService::releaseService()
  * \sa registered
  */
 
-/**
+/*!
  * \fn resolved(const QByteArray& domainName)
  *
  * This signal is emitted after a call to resolve() when a service matching the requested parameters is found.
@@ -363,7 +363,7 @@ void QxtDiscoverableService::releaseService()
  * \sa resolveError
  */
 
-/**
+/*!
  * \fn resolveError(int code)
  *
  * This signal is emitted after a call to resolve() if an error occurs while attempting to resolve the service.
