@@ -193,6 +193,7 @@ void QxtPop3::connectToSecureHost(const QHostAddress& address, quint16 port)
 {
     connectToSecureHost(address.toString(), port);
 }
+#endif // QT_NO_OPENSSL
 
 /*!
   Returns \c true if the client is connected to the server, \c false otherwise.
@@ -455,4 +456,3 @@ void QxtPop3Private::terminate(int code)
     current = 0;
     dequeue();
 }
-#endif // QT_NO_OPENSSL
