@@ -26,13 +26,13 @@
 #ifndef QXTAVAHIPOLL_H
 #define QXTAVAHIPOLL_H
 
-/**
+/*!
 	@author Chris Vickery <chrisinajar@gmail.com>
 */
 
 struct AvahiPoll;
 
-/**
+/*!
  * This function makes the avahi and Qt get along nicely.
  * This function is only useful for programs using the Avahi library, otherwise it will effectively do nothing.
  * @return AvahiPoll structure for use with avahi
