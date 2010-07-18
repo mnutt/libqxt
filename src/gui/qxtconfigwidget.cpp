@@ -699,9 +699,19 @@ void QxtConfigWidget::reject()
 }
 
 /*!
+    Returns the internal splitter used for layouting table and stacked widgets.
+
+    \sa tableWidget() stackedWidget()
+*/
+QSplitter* QxtConfigWidget::splitter() const
+{
+    return qxt_d().splitter;
+}
+
+/*!
     Returns the internal table widget used for showing page icons.
 
-    \sa stackedWidget()
+    \sa splitter() stackedWidget()
 */
 QTableWidget* QxtConfigWidget::tableWidget() const
 {
@@ -711,7 +721,7 @@ QTableWidget* QxtConfigWidget::tableWidget() const
 /*!
     Returns the internal stacked widget used for stacking pages.
 
-    \sa tableWidget()
+    \sa splitter() tableWidget()
 */
 QStackedWidget* QxtConfigWidget::stackedWidget() const
 {

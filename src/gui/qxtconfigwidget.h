@@ -28,6 +28,7 @@
 #include <QDialog>
 #include "qxtglobal.h"
 
+QT_FORWARD_DECLARE_CLASS(QSplitter)
 QT_FORWARD_DECLARE_CLASS(QTableWidget)
 QT_FORWARD_DECLARE_CLASS(QStackedWidget)
 QT_FORWARD_DECLARE_CLASS(QDialogButtonBox)
@@ -100,6 +101,7 @@ Q_SIGNALS:
     void currentIndexChanged(int index);
 
 protected:
+    QSplitter* splitter() const;
     QTableWidget* tableWidget() const;
     QStackedWidget* stackedWidget() const;
 
