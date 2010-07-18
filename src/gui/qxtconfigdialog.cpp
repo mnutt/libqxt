@@ -53,9 +53,9 @@ void QxtConfigDialogPrivate::init( QxtConfigWidget::IconPosition pos )
     Example usage:
     \code
     QxtConfigDialog dialog;
-    dialog.addPage(new ConfigurationPage(&dialog), QIcon(":/images/config.png"), tr("Configuration"));
-    dialog.addPage(new UpdatePage(&dialog), QIcon(":/images/update.png"), tr("Update"));
-    dialog.addPage(new QueryPage(&dialog), QIcon(":/images/query.png"), tr("Query"));
+    dialog.configWidget()->addPage(new ConfigurationPage(&dialog), QIcon(":/images/config.png"), tr("Configuration"));
+    dialog.configWidget()->addPage(new UpdatePage(&dialog), QIcon(":/images/update.png"), tr("Update"));
+    dialog.configWidget()->addPage(new QueryPage(&dialog), QIcon(":/images/query.png"), tr("Query"));
     dialog.exec();
     \endcode
 
