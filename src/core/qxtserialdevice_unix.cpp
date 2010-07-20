@@ -67,9 +67,9 @@ bool QxtSerialDevice::open(OpenMode mode) {
     if(mode & QIODevice::ReadOnly && mode & QIODevice::WriteOnly) { // r/w
         m = O_RDWR;
     } else if(mode & QIODevice::ReadOnly) {
-        m = O_WRONLY;
-    } else {
         m = O_RDONLY;
+    } else {
+        m = O_WRONLY;
     }
     qxt_d().fd = ::open(qxt_d().device.toLocal8Bit().constData(), m | O_NOCTTY);
     if(qxt_d().fd < 0) {
@@ -79,7 +79,7 @@ bool QxtSerialDevice::open(OpenMode mode) {
     fcntl(qxt_d().fd, F_SETFL, O_NONBLOCK);
     tcgetattr(qxt_d().fd, &qxt_d().reset);
     cfmakeraw(&qxt_d().settings);
-    
+
     qxt_d().notifier = new QSocketNotifier(qxt_d().fd, QSocketNotifier::Read, this);
     if(mode & QIODevice::Unbuffered) {
         QObject::connect(qxt_d().notifier, SIGNAL(activated(int)), this, SIGNAL(readyRead()));
@@ -108,8 +108,10 @@ int QxtSerialDevicePrivate::constFillBuffer() const {
 int QxtSerialDevicePrivate::fillBuffer() {
     int sz = buffer.length();
     int rv = constFillBuffer();
-    if(rv)
+    if(rv) {
+        notifier->setEnabled(false);
         qxt_p().setErrorString(strerror(rv));
+    }
     if(buffer.length() != sz)
         QMetaObject::invokeMethod(&qxt_p(), "readyRead", Qt::QueuedConnection);
     return rv;
@@ -149,6 +151,8 @@ QxtSerialDevice::BaudRate QxtSerialDevice::baud() const {
 }
 
 qint64 QxtSerialDevice::readData(char* data, qint64 maxSize) {
+    qxt_d().notifier->setEnabled(true);
+
     int b = bytesAvailable();
     if(maxSize > b) maxSize = b;
     if(!(openMode() & QIODevice::Unbuffered)) {
@@ -167,9 +171,12 @@ qint64 QxtSerialDevice::readData(char* data, qint64 maxSize) {
         data += bufsize;
         maxSize -= bufsize;
     }
+
     int readVal = ::read(qxt_d().fd, data, maxSize);
     if(readVal < 0) {
+        qxt_d().notifier->setEnabled(false);
         setErrorString(strerror(errno));
+        return -1;
     } else {
         rv += readVal;
     }
@@ -179,6 +186,7 @@ qint64 QxtSerialDevice::readData(char* data, qint64 maxSize) {
 qint64 QxtSerialDevice::writeData(const char* data, qint64 maxSize) {
     int rv = ::write(qxt_d().fd, data, maxSize);
     if(rv < 0) {
+        qxt_d().notifier->setEnabled(false);
         setErrorString(strerror(errno));
     }
     return rv;
@@ -229,6 +237,7 @@ bool QxtSerialDevicePrivate::updateSettings() {
         settings.c_cflag = baud | flow | format | CLOCAL | CREAD;
         tcflush(fd, TCIFLUSH);
         if(tcsetattr(fd, TCSANOW, &settings)) {
+            notifier->setEnabled(false);
             qxt_p().setErrorString(strerror(errno));
             return false;
         }
