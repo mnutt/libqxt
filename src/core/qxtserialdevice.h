@@ -31,6 +31,8 @@
 class QxtSerialDevicePrivate;
 class QXT_CORE_EXPORT QxtSerialDevice : public QIODevice {
 Q_OBJECT
+Q_ENUMS(BaudRate)
+Q_FLAGS(PortSetting PortSettings)
 public:
     enum BaudRate {
         Baud110, Baud300, Baud600, Baud1200, Baud2400, Baud4800, Baud9600, Baud19200, Baud38400, Baud57600, Baud115200
