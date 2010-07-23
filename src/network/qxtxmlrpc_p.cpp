@@ -357,6 +357,11 @@ QVariant QxtXmlRpc::deserialize(QXmlStreamReader & xml)
                 ret = QVariant();
             }
         }
+        // The spec say, "If no type is indicated, the type is string."
+        else if (xml.isCharacters())
+        {
+            return xml.text().toString();
+        }
     }
     return QVariant();
 }
