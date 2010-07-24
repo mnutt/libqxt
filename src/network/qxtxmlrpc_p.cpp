@@ -362,6 +362,10 @@ QVariant QxtXmlRpc::deserialize(QXmlStreamReader & xml)
         {
             return xml.text().toString();
         }
+        else if (xml.isEndElement() && xml.name().toString() == "value")
+        {
+            return QString("");
+        }
     }
     return QVariant();
 }
