@@ -111,7 +111,7 @@ QxtXmlRpcCall * QxtXmlRpcClient::call(QString method, QVariantList arguments)
     QByteArray data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodCall><methodName>" + method.toUtf8() + "</methodName><params>";
     foreach(QVariant i, arguments)
     {
-        data += "<param>" + QxtXmlRpc::serialize(i).toUtf8() + "</param>";
+        data += "<param><value>" + QxtXmlRpc::serialize(i).toUtf8() + "</value></param>";
     }
     data += "</params></methodCall>";
 
