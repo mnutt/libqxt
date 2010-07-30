@@ -41,7 +41,7 @@ void QxtCountryComboBoxPrivate::comboBoxCurrentIndexChanged(int)
 
 QLocale::Country QxtCountryComboBoxPrivate::currentCountry() const
 {
-    QModelIndex idx = qxt_p().model()->index(qxt_p().currentIndex(), 3);
+    QModelIndex idx = qxt_p().model()->index(qxt_p().currentIndex(), 2);
     return static_cast<QLocale::Country>(idx.data().toInt());
 }
 
@@ -53,7 +53,7 @@ QString QxtCountryComboBoxPrivate::currentCountryName() const
 void QxtCountryComboBoxPrivate::setCurrentCountry(QLocale::Country country)
 {
     // column 3 is QLocale::Country
-    QModelIndex start = qxt_p().model()->index(0, 3);
+    QModelIndex start = qxt_p().model()->index(0, 2);
     QModelIndexList result = qxt_p().model()->match(start, Qt::DisplayRole, country, 1, Qt::MatchExactly);
     if (!result.isEmpty())
         qxt_p().setCurrentIndex(result.first().row());
