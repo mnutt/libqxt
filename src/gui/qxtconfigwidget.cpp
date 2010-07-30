@@ -204,17 +204,6 @@ void QxtConfigWidgetPrivate::relayout()
         qWarning("QxtConfigWidgetPrivate::relayout(): unknown position");
         break;
     }
-
-    if (pos == QxtConfigWidget::East)
-    {
-        splitter->setStretchFactor(0, 10);
-        splitter->setStretchFactor(1, 1);
-    }
-    else
-    {
-        splitter->setStretchFactor(0, 1);
-        splitter->setStretchFactor(1, 10);
-    }
 }
 
 QTableWidgetItem* QxtConfigWidgetPrivate::item(int index) const
