@@ -40,6 +40,8 @@
 #include <QByteArray>
 #include <QPair>
 
+static bool qxt_rpcservice_debug = false;
+
 /*!
  * \class QxtRPCService
  * \inmodule QxtCore
@@ -371,6 +373,8 @@ void QxtRPCServicePrivate::dispatchFromServer(const QString& fn, const QVariant&
         // Invoke the specified slot on the receiver object using the arguments passed to the function. The
         // QGenericArgument stuff is done here for safety, as it's not inconceivable (but it IS dangerous) for
         // different slots to have different parameter lists.
+        if(qxt_rpcservice_debug) 
+            qDebug() << "QxtRPCService: received" << fn << "- invoking" << slot.recv << slot.slot.constData() << slot.type << p0 << p1 << p2 << p3 << p4 << p5 << p6 << p7;
         if(!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, QXT_ARG(0), QXT_ARG(1), QXT_ARG(2),
                     QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7))) {
             qWarning() << "QxtRPCService: invokeMethod for " << slot.recv << "::" << slot.slot << " failed";
@@ -394,6 +398,8 @@ void QxtRPCServicePrivate::dispatchFromClient(quint64 id, const QString& fn, con
 
         // Invoke the specified slot on the receiver object using the arguments passed to the function.
         // See dispatchFromServer() for a discussion of the safety of QXT_ARG here.
+        if(qxt_rpcservice_debug) 
+            qDebug() << "QxtRPCService: received" << fn << "- invoking" << slot.recv << slot.slot.constData() << slot.type << id << p0 << p1 << p2 << p3 << p4 << p5 << p6 << p7;
         if(!QMetaObject::invokeMethod(slot.recv, slot.slot.constData(), slot.type, Q_ARG(quint64, id), QXT_ARG(0),
                     QXT_ARG(1), QXT_ARG(2), QXT_ARG(3), QXT_ARG(4), QXT_ARG(5), QXT_ARG(6), QXT_ARG(7))) {
             qWarning() << "QxtRPCService: invokeMethod for " << slot.recv << "::" << slot.slot << " failed";
@@ -411,6 +417,9 @@ QxtRPCService::QxtRPCService(QObject* parent) : QObject(parent)
     QXT_INIT_PRIVATE(QxtRPCService);
     // QxtRPCServiceIntrospector is responsible for capturing and processing incoming signals.
     qxt_d().introspector = new QxtRPCServiceIntrospector(this);
+
+    // turn on debugging if the QXT_RPCSERVICE_DEBUG environment variable is set
+    qxt_rpcservice_debug = qgetenv("QXT_RPCSERVICE_DEBUG").toInt();
 }
 
 /*!
@@ -673,7 +682,7 @@ bool QxtRPCService::attachSlot(const QString& rpcFunction, QObject* recv, const 
         int methodID = meta->indexOfMethod(norm.constData());
         if(methodID < 0) {
             // indexOfMethod() returns -1 if the method was not found, so report a warning and return an error.
-            qWarning() << "QxtRPCService::attachSlot: " << recv << "::" << slot << " does not exist";
+            qWarning() << "QxtRPCService::attachSlot: " << recv << "::" << norm << " does not exist";
             return false;
         }
 
@@ -749,6 +758,9 @@ void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, con
                          const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
 {
     if(isClient()) {
+        if(qxt_rpcservice_debug) 
+            qDebug() << "QxtRPCService: calling" << fn << "on peer with parameters" << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8;
+
         // Normalize the function name if it has the form of a signal or slot.
         if(QxtMetaObject::isSignalOrSlot(fn.toAscii().constData()))
             fn = QxtMetaObject::methodSignature(fn.toAscii().constData());
@@ -773,6 +785,9 @@ void QxtRPCService::call(QString fn, const QVariant& p1, const QVariant& p2, con
 void QxtRPCService::call(QList<quint64> ids, QString fn, const QVariant& p1, const QVariant& p2, const QVariant& p3,
         const QVariant& p4, const QVariant& p5, const QVariant& p6, const QVariant& p7, const QVariant& p8)
 {
+    if(qxt_rpcservice_debug) 
+        qDebug() << "QxtRPCService: calling" << fn << "on" << ids << "with parameters" << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8;
+
     // Serialize the parameters first.
     QByteArray data = qxt_d().serializer->serialize(fn, p1, p2, p3, p4, p5, p6, p7, p8);
 
