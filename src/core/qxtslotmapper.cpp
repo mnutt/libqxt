@@ -31,12 +31,14 @@
 /*!
     \class QxtSlotMapper
     \inmodule QxtCore
-    \brief The QxtSlotMapper class maps signals with a parameter to certain slots.
+    \brief The QxtSlotMapper class maps signals with a specific parameter value to certain slots.
 
     QxtSlotMapper is the counterpart of QSignalMapper. Where QSignalMapper maps
     a parameterless signal into one that has a parameter based on the sender, 
-    QxtSlotMapper maps a signal with a parameter to a specified slot and 
-    receiver based on that parameter.
+    QxtSlotMapper maps a signal with a parameter to a specified slot and
+    receiver based on that parameters value. Different slots on potentially
+    different receivers can be invoked by the same signal with just different
+    value for their parameter.
 
     The parameter comparison is based on QVariant::operator==(). Thus, any
     built-in Qt type supported by QVariant and QMetaType is supported.
