@@ -36,9 +36,9 @@
     QxtSlotMapper is the counterpart of QSignalMapper. Where QSignalMapper maps
     a parameterless signal into one that has a parameter based on the sender, 
     QxtSlotMapper maps a signal with a parameter to a specified slot and
-    receiver based on that parameters value. Different slots on potentially
-    different receivers can be invoked by the same signal with just different
-    value for their parameter.
+    receiver based on that parameter's value. Different slots on potentially
+    different receivers can be invoked by the same signal, according to that
+    parameter.
 
     The parameter comparison is based on QVariant::operator==(). Thus, any
     built-in Qt type supported by QVariant and QMetaType is supported.
