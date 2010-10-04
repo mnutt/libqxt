@@ -383,7 +383,7 @@ bool QxtCsvModel::removeColumns(int col, int count, const QModelIndex& parent)
     return true;
 }
 
-static QString qxt_addCsvQuotes(QxtCsvModel::QuoteMode mode, const QString& field)
+static QString qxt_addCsvQuotes(QxtCsvModel::QuoteMode mode, QString field)
 {
     bool addDoubleQuotes = ((mode & QxtCsvModel::DoubleQuote) && field.contains('"'));
     bool addSingleQuotes = ((mode & QxtCsvModel::SingleQuote) && field.contains('\''));
@@ -394,10 +394,17 @@ static QString qxt_addCsvQuotes(QxtCsvModel::QuoteMode mode, const QString& fiel
         else if(mode & QxtCsvModel::SingleQuote)
             addSingleQuotes = true;
     } 
-    if(addDoubleQuotes) 
-        return '"' + field + '"';
-    if(addSingleQuotes)
-        return '\'' + field + '\'';
+    if(mode & QxtCsvModel::BackslashEscape) {
+        if(addDoubleQuotes) 
+            return '"' + field.replace("\\", "\\\\").replace("\"", "\\\"") + '"';
+        if(addSingleQuotes)
+            return '\'' + field.replace("\\", "\\\\").replace("'", "\\'") + '\'';
+    } else {
+        if(addDoubleQuotes) 
+            return '"' + field.replace("\"", "\"\"") + '"';
+        if(addSingleQuotes)
+            return '\'' + field.replace("'", "''") + '\'';
+    }
     return field;
 }
 
