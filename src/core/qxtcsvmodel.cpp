@@ -89,18 +89,20 @@ writes the cvs data to \a filename
 
 #include "qxtcsvmodel.h"
 #include <QFile>
+#include <QTextStream>
 #include <QDebug>
 
 class QxtCsvModelPrivate : public QxtPrivate<QxtCsvModel>
 {
 public:
-    QxtCsvModelPrivate() : csvData(), header(), maxColumn(0)
+    QxtCsvModelPrivate() : csvData(), header(), maxColumn(0), quoteMode(QxtCsvModel::DefaultQuoteMode)
     {}
     QXT_DECLARE_PUBLIC(QxtCsvModel)
 
-    QStringList csvData;
+    QList<QStringList> csvData;
     QStringList header;
     int maxColumn;
+    QxtCsvModel::QuoteMode quoteMode;
 };
 
 QxtCsvModel::QxtCsvModel(QObject *parent) : QAbstractTableModel(parent)
@@ -147,14 +149,16 @@ int QxtCsvModel::columnCount(const QModelIndex& parent) const
  */
 QVariant QxtCsvModel::data(const QModelIndex& index, int role) const
 {
-    if (index.parent() != QModelIndex()) return QVariant();
-    if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole)
-        return qxt_d().csvData[index.row()].section(QChar(1), index.column(), index.column());
-    else
-    {
-        //QVariant v;
-        return QVariant();
+    if(index.parent() != QModelIndex()) return QVariant();
+    if(role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole) {
+        if(index.row() < 0 || index.column() < 0 || index.row() >= rowCount())
+            return QVariant();
+        const QStringList& row = qxt_d().csvData[index.row()];
+        if(index.column() >= row.length())
+            return QVariant();
+        return row[index.column()];
     }
+    return QVariant();
 }
 
 /*!
@@ -162,60 +166,82 @@ QVariant QxtCsvModel::data(const QModelIndex& index, int role) const
  */
 QVariant QxtCsvModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (section < qxt_d().header.count() && orientation == Qt::Horizontal && (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole))
-    {
+    if(section < qxt_d().header.count() && orientation == Qt::Horizontal && (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole))
         return qxt_d().header[section];
-    }
     else
         return QAbstractTableModel::headerData(section, orientation, role);
 }
 
-void QxtCsvModel::setSource(const QString filename, bool withHeader, QChar separator)
+void QxtCsvModel::setSource(const QString filename, bool withHeader, QChar separator, QTextCodec* codec)
 {
     QFile src(filename);
-    setSource(&src, withHeader, separator);
+    setSource(&src, withHeader, separator, codec);
 }
 
-void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator)
+void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator, QTextCodec* codec)
 {
     QxtCsvModelPrivate* d_ptr = &qxt_d();
-    QString l;
-    int size;
-    bool isQuoted, headerSet = false;
-    if (!file->isOpen()) file->open(QIODevice::ReadOnly);
-    if (withHeader)
+    bool headerSet = !withHeader;
+    if(!file->isOpen())
+        file->open(QIODevice::ReadOnly);
+    if(withHeader)
         d_ptr->maxColumn = 0;
     else
         d_ptr->maxColumn = d_ptr->header.size();
     d_ptr->csvData.clear();
-    while (!file->atEnd())
-    {
-        l = file->readLine();
-        l.remove('\n');
-        l.remove('\r');
-        size = l.length();
-        isQuoted = false;
-        for (int i = 0;i < size;i++)
-        {
-            if (i > 0)
-            {
-                if (l[i] == '"' && l[i-1] != '\\') isQuoted = !isQuoted;
-                else if (!isQuoted && l[i] == separator) l[i] = QChar(1);
-            }
-            else
-            {
-                if (l[i] == '"') isQuoted = !isQuoted;
-                else if (!isQuoted && l[i] == separator) l[i] = QChar(1);
-            }
+    QStringList row;
+    QString field;
+    QChar quote;
+    QChar ch, buffer(0);
+    QTextStream stream(file);
+    if(codec) {
+        stream.setCodec(codec);
+    } else {
+        stream.setAutoDetectUnicode(true);
+    }
+    while(!stream.atEnd()) {
+        if(buffer != QChar(0)) {
+            ch = buffer; 
+            buffer = QChar(0);
+        } else {
+            stream >> ch;
         }
-        if (l.count(QChar(1)) + 1 > d_ptr->maxColumn) d_ptr->maxColumn = l.count(QChar(1)) + 1;
-        if (withHeader && !headerSet)
-        {
-            d_ptr->header = l.split(QChar(1));
-            headerSet = true;
+        if(ch == '\n' || ch == '\r') {
+            if(!row.isEmpty()) {
+                if(!headerSet) {
+                    d_ptr->header = row;
+                    headerSet = true;
+                } else {
+                    d_ptr->csvData.append(row);
+                }
+                if(row.length() > d_ptr->maxColumn) {
+                    d_ptr->maxColumn = row.length();
+                }
+            }
+            row.clear();
+        } else if((d_ptr->quoteMode & DoubleQuote && ch == '"') || (d_ptr->quoteMode & SingleQuote && ch == '\'')) {
+            quote = ch;
+            do {
+                stream >> ch;
+                if(ch == '\\' && d_ptr->quoteMode & BackslashEscape) {
+                    stream >> ch;
+                } else if(ch == quote) {
+                    if(d_ptr->quoteMode & TwoQuoteEscape) {
+                        stream >> buffer;
+                        if(buffer == quote) {
+                            buffer = QChar(0);
+                            field.append(ch);
+                            continue;
+                        }
+                    }
+                    break;
+                }
+                field.append(ch);
+            } while(!stream.atEnd());
+        } else if(ch == separator) {
+            row << field;
+            field.clear();
         }
-        else
-            d_ptr->csvData.append(l);
     }
     file->close();
 }
@@ -236,23 +262,16 @@ bool QxtCsvModel::setData(const QModelIndex& index, const QVariant& data, int ro
 {
     if (index.parent() != QModelIndex()) return false;
 
-    QString before, after;
-    if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole)
-    {
-        if (index.row() >= rowCount() || index.column() >= columnCount() || index.row() < 0 || index.column() < 0) return false;
-        if (index.column() != 0)
-            before = qxt_d().csvData[index.row()].section(QChar(1), 0, index.column() - 1) + QChar(1);
-        else
-            before = "";
-        after = qxt_d().csvData[index.row()].section(QChar(1), index.column() + 1);
-        qxt_d().csvData[index.row()] = before + data.toString() + QChar(1) + after;
+    if(role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::UserRole) {
+        if(index.row() >= rowCount() || index.column() >= columnCount() || index.row() < 0 || index.column() < 0) return false;
+        QStringList& row = qxt_d().csvData[index.row()];
+        while(row.length() <= index.column())
+            row << QString();
+        row[index.column()] = data.toString();
         emit dataChanged(index, index);
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 /*!
@@ -271,13 +290,10 @@ bool QxtCsvModel::insertRows(int row, int count, const QModelIndex& parent)
     if (parent != QModelIndex() || row < 0) return false;
     emit beginInsertRows(parent, row, row + count);
     QxtCsvModelPrivate& d_ptr = qxt_d();
-    if (row >= rowCount())
-    {
-        for (int i = 0;i < count;i++) d_ptr.csvData << "";
-    }
-    else
-    {
-        for (int i = 0;i < count;i++) d_ptr.csvData.insert(row, "");
+    if(row >= rowCount()) {
+        for(int i = 0; i < count; i++) d_ptr.csvData << QStringList();
+    } else {
+        for(int i = 0; i < count; i++) d_ptr.csvData.insert(row, QStringList());
     }
     emit endInsertRows();
     return true;
@@ -323,21 +339,15 @@ bool QxtCsvModel::insertColumns(int col, int count, const QModelIndex& parent)
     if (parent != QModelIndex() || col < 0) return false;
     emit beginInsertColumns(parent, col, col + count);
     QxtCsvModelPrivate& d_ptr = qxt_d();
-    if (col < columnCount())
-    {
-        QString before, after;
-        for (int i = 0;i < rowCount();i++)
-        {
-            if (col > 0)
-                before = d_ptr.csvData[i].section(QChar(1), 0, col - 1) + QChar(1);
-            else
-                before = "";
-            after = d_ptr.csvData[i].section(QChar(1), col);
-            d_ptr.csvData[i] = before + QString(count, QChar(1)) + after;
+    for(int i = 0; i < rowCount(); i++) {
+        QStringList& row = d_ptr.csvData[i];
+        while(col >= row.length()) row.append(QString());
+        for(int j = 0; j < count; j++) {
+            row.insert(col, QString());
         }
     }
-    for (int i = 0;i < count;i++)
-        d_ptr.header.insert(col, "");
+    for(int i = 0; i < count ;i++)
+        d_ptr.header.insert(col, QString());
     d_ptr.maxColumn += count;
     emit endInsertColumns();
     return true;
@@ -362,59 +372,74 @@ bool QxtCsvModel::removeColumns(int col, int count, const QModelIndex& parent)
     emit beginRemoveColumns(parent, col, col + count);
     QxtCsvModelPrivate& d_ptr = qxt_d();
     QString before, after;
-    for (int i = 0;i < rowCount();i++)
-    {
-        if (col > 0)
-            before = d_ptr.csvData[i].section(QChar(1), 0, col - 1) + QChar(1);
-        else
-            before = "";
-        after = d_ptr.csvData[i].section(QChar(1), col + count);
-        d_ptr.csvData[i] = before + after;
+    for(int i = 0; i < rowCount(); i++) {
+        for(int j = 0; j < count; j++) {
+            d_ptr.csvData[i].removeAt(col);
+        }
     }
-    for (int i = 0;i < count;i++)
+    for(int i = 0; i < count; i++)
         d_ptr.header.removeAt(col);
     emit endRemoveColumns();
     return true;
 }
 
+static QString qxt_addCsvQuotes(QxtCsvModel::QuoteMode mode, const QString& field)
+{
+    bool addDoubleQuotes = ((mode & QxtCsvModel::DoubleQuote) && field.contains('"'));
+    bool addSingleQuotes = ((mode & QxtCsvModel::SingleQuote) && field.contains('\''));
+    bool quoteField = (mode & QxtCsvModel::AlwaysQuoteOutput) || addDoubleQuotes || addSingleQuotes;
+    if(quoteField && !addDoubleQuotes && !addSingleQuotes) {
+        if(mode & QxtCsvModel::DoubleQuote)
+            addDoubleQuotes = true;
+        else if(mode & QxtCsvModel::SingleQuote)
+            addSingleQuotes = true;
+    } 
+    if(addDoubleQuotes) 
+        return '"' + field + '"';
+    if(addSingleQuotes)
+        return '\'' + field + '\'';
+    return field;
+}
 
-void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator)
+void QxtCsvModel::toCSV(QIODevice* dest, bool withHeader, QChar separator, QTextCodec* codec)
 {
     QxtCsvModelPrivate& d_ptr = qxt_d();
     int row, col, rows, cols;
     rows = rowCount();
     cols = columnCount();
     QString data;
-    if (!dest->isOpen()) dest->open(QIODevice::WriteOnly | QIODevice::Truncate);
-    if (withHeader)
-    {
+    if(!dest->isOpen()) dest->open(QIODevice::WriteOnly | QIODevice::Truncate);
+    QTextStream stream(dest);
+    if(codec) stream.setCodec(codec);
+    if(withHeader) {
         data = "";
-        for (col = 0; col < cols; ++col)
-        {
-            data += '"' + d_ptr.header.at(col) + '"';
-            if (col < cols - 1) data += separator;
+        for(col = 0; col < cols; ++col) {
+            if(col > 0) data += separator;
+            data += qxt_addCsvQuotes(d_ptr.quoteMode, d_ptr.header.at(col)); 
         }
-        data += QChar(10);
-        dest->write(data.toLatin1());
+        stream << data << endl;
     }
-    for (row = 0; row < rows; ++row)
+    for(row = 0; row < rows; ++row)
     {
+        const QStringList& rowData = d_ptr.csvData[row];
         data = "";
-        for (col = 0; col < cols; ++col)
-        {
-            data += '"' + d_ptr.csvData[row].section(QChar(1), col, col) + '"';
-            if (col < cols - 1) data += separator;
+        for(col = 0; col < cols; ++col) {
+            if(col > 0) data += separator;
+            if(col < rowData.length())
+                data += qxt_addCsvQuotes(d_ptr.quoteMode, rowData.at(col)); 
+            else
+                data += qxt_addCsvQuotes(d_ptr.quoteMode, QString());; 
         }
-        data += QChar(10);
-        dest->write(data.toLatin1());
+        stream << data << endl;
     }
+    stream << flush;
     dest->close();
 }
 
-void QxtCsvModel::toCSV(const QString filename, bool withHeader, QChar separator)
+void QxtCsvModel::toCSV(const QString filename, bool withHeader, QChar separator, QTextCodec* codec)
 {
     QFile dest(filename);
-    toCSV(&dest, withHeader, separator);
+    toCSV(&dest, withHeader, separator, codec);
 }
 
 /*!
@@ -423,4 +448,25 @@ void QxtCsvModel::toCSV(const QString filename, bool withHeader, QChar separator
 Qt::ItemFlags QxtCsvModel::flags(const QModelIndex& index) const
 {
     return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
+}
+
+/**
+ * Returns the current quoting mode.
+ * \sa setQuoteMode
+ */
+QxtCsvModel::QuoteMode QxtCsvModel::quoteMode() const
+{
+    return qxt_d().quoteMode;
+}
+
+/**
+ * Sets the current quoting mode. The default quoting mode is BothQuotes | BackslashEscape.
+ *
+ * The quoting mode determines what kinds of quoting is used for reading and writing CSV files.
+ * \sa quoteMode
+ * \sa QuoteOption
+ */
+void QxtCsvModel::setQuoteMode(QuoteMode mode)
+{
+    qxt_d().quoteMode = mode;
 }
