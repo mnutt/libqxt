@@ -79,5 +79,6 @@ public:
 private:
     QXT_DECLARE_PRIVATE(QxtCsvModel)
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(QxtCsvModel::QuoteMode)
 
 #endif
