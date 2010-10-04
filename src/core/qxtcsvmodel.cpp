@@ -207,6 +207,8 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator, Q
             stream >> ch;
         }
         if(ch == '\n' || ch == '\r') {
+            row << field;
+            field.clear();
             if(!row.isEmpty()) {
                 if(!headerSet) {
                     d_ptr->header = row;
