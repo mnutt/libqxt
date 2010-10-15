@@ -79,15 +79,19 @@ set MAKE_BIN=%1
 goto bottom2
 
 :addinclude
-echo INCLUDEPATH += "%1" >> %QMAKE_CACHE%
-goto bottom2	
+set QXT_INCPATH=%1
+set QXT_INCPATH=%QXT_INCPATH:\=/%
+echo INCLUDEPATH += %QXT_INCPATH% >> %QMAKE_CACHE%
+goto bottom2
 
 :addlibpath
-echo LIBS += -L"%1" >> %QMAKE_CACHE%
+set QXT_LIBPATH=%1
+set QXT_LIBPATH=%QXT_LIBPATH:\=/%
+echo LIBS += -L%QXT_LIBPATH% >> %QMAKE_CACHE%
 goto bottom2
 
 :addlib
-echo LIBS += -l"%1" >> %QMAKE_CACHE%
+echo LIBS += -l%1 >> %QMAKE_CACHE%
 goto bottom2
 
 :nomake
