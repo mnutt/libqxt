@@ -94,25 +94,28 @@ runtests.depends += sub-tests
 runtests.commands += cd tests && $(MAKE) test
 QMAKE_EXTRA_TARGETS += runtests
 
-cov_zerocounters.CONFIG += recursive
-cov_zerocounters.recurse = $$SUBDIRS
-cov_zerocounters.recurse -= sub_designer
-cov_zerocounters.recurse_target = zerocounters
-QMAKE_EXTRA_UNIX_TARGETS += cov_zerocounters
+unix {
+    cov_zerocounters.CONFIG += recursive
+    cov_zerocounters.recurse = $$SUBDIRS
+    cov_zerocounters.recurse -= sub_designer
+    cov_zerocounters.recurse_target = zerocounters
+    QMAKE_EXTRA_TARGETS += cov_zerocounters
 
-cov_capture.CONFIG += recursive
-cov_capture.recurse = $$SUBDIRS
-cov_capture.recurse -= sub_designer
-cov_capture.recurse -= sub_sql # TODO: write unit tests for these!
-cov_capture.recurse_target = capture
-QMAKE_EXTRA_UNIX_TARGETS += cov_capture
+    cov_capture.CONFIG += recursive
+    cov_capture.recurse = $$SUBDIRS
+    cov_capture.recurse -= sub_designer
+    cov_capture.recurse -= sub_sql # TODO: write unit tests for these!
+    cov_capture.recurse_target = capture
+    QMAKE_EXTRA_TARGETS += cov_capture
 
-cov_genhtml.CONFIG += recursive
-cov_genhtml.recurse = $$SUBDIRS
-cov_genhtml.recurse -= sub_designer
-cov_genhtml.recurse -= sub_sql # TODO: write unit tests for these!
-cov_genhtml.recurse_target = genhtml
-QMAKE_EXTRA_UNIX_TARGETS += cov_genhtml
+    cov_genhtml.CONFIG += recursive
+    cov_genhtml.recurse = $$SUBDIRS
+    cov_genhtml.recurse -= sub_designer
+    cov_genhtml.recurse -= sub_sql # TODO: write unit tests for these!
+    cov_genhtml.recurse_target = genhtml
+    QMAKE_EXTRA_TARGETS += cov_genhtml
 
-coverage.depends += first cov_zerocounters runtests cov_capture cov_genhtml
-QMAKE_EXTRA_UNIX_TARGETS += coverage
+    coverage.depends += first cov_zerocounters runtests cov_capture cov_genhtml
+    QMAKE_EXTRA_TARGETS += coverage
+}
+
