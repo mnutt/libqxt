@@ -1,4 +1,3 @@
-win32:include(../../depends.pri)
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
