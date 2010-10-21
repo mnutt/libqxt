@@ -193,6 +193,7 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator, Q
     QString field;
     QChar quote;
     QChar ch, buffer(0);
+    bool readCR = false;
     QTextStream stream(file);
     if(codec) {
         stream.setCodec(codec);
@@ -206,7 +207,13 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator, Q
         } else {
             stream >> ch;
         }
-        if(ch == '\n' || ch == '\r') {
+        if(ch == '\n' && readCR) 
+            continue;
+        else if(ch == '\r')
+            readCR = true;
+        else
+            readCR = false;
+        if(ch.category() == QChar::Separator_Line || ch.category() == QChar::Separator_Paragraph || ch.category() == QChar::Other_Control) {
             row << field;
             field.clear();
             if(!row.isEmpty()) {
@@ -243,7 +250,17 @@ void QxtCsvModel::setSource(QIODevice *file, bool withHeader, QChar separator, Q
         } else if(ch == separator) {
             row << field;
             field.clear();
+        } else {
+            field.append(ch);
         }
+    }
+    if(!field.isEmpty()) 
+        row << field;
+    if(!row.isEmpty()) {
+        if(!headerSet)
+            d_ptr->header = row;
+        else
+            d_ptr->csvData.append(row);
     }
     file->close();
 }
