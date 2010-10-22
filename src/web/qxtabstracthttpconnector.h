@@ -32,7 +32,9 @@
 #include <QHttpHeader>
 
 QT_FORWARD_DECLARE_CLASS(QIODevice)
+QT_FORWARD_DECLARE_CLASS(QTcpServer)
 class QxtHttpSessionManager;
+class QxtSslServer;
 
 class QxtAbstractHttpConnectorPrivate;
 class QXT_WEB_EXPORT QxtAbstractHttpConnector : public QObject
@@ -66,8 +68,10 @@ class QXT_WEB_EXPORT QxtHttpServerConnector : public QxtAbstractHttpConnector
 {
     Q_OBJECT
 public:
-    QxtHttpServerConnector(QObject* parent = 0);
-    virtual bool listen(const QHostAddress& iface, quint16 port);
+    QxtHttpServerConnector(QObject* parent = 0, QTcpServer* server = 0);
+    virtual bool listen(const QHostAddress& iface, quint16 port = 80);
+
+    QTcpServer* tcpServer() const;
 
 protected:
     virtual bool canParseRequest(const QByteArray& buffer);
@@ -80,6 +84,18 @@ private Q_SLOTS:
 private:
     QXT_DECLARE_PRIVATE(QxtHttpServerConnector)
 };
+
+#ifndef QT_NO_OPENSSL
+class QXT_WEB_EXPORT QxtHttpsServerConnector : public QxtHttpServerConnector
+{
+    Q_OBJECT
+public:
+    QxtHttpsServerConnector(QObject* parent = 0);
+    virtual bool listen(const QHostAddress& iface, quint16 port = 443);
+
+    QxtSslServer* tcpServer() const;
+};
+#endif
 
 class QxtScgiServerConnectorPrivate;
 class QXT_WEB_EXPORT QxtScgiServerConnector : public QxtAbstractHttpConnector

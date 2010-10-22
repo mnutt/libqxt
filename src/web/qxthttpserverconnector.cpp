@@ -41,8 +41,32 @@ high traffic scenarios or virtual hosting configurations.
 
 \sa QxtHttpSessionManager
 */
+
+/*!
+\class QxtHttpsServerConnector
+
+\inmodule QxtWeb
+
+\brief The QxtHttpsServerConnector class provides a built-in HTTPS server for QxtHttpSessionManager
+
+QxtHttpSessionManager does the work of managing sessions and state for the
+otherwise stateless HTTP protocol, but it relies on QxtAbstractHttpConnector
+subclasses to implement the protocol used to communicate with the web server.
+
+QxtHttpsServerConnector is a convenience subclass of QxtHttpServerConnector
+that adds HTTPS handling to the internal web server by delegating the
+incoming connection handling to QxtSslServer.
+
+QxtHttpsServerConnector is only available if Qt was compiled with OpenSSL support.
+
+\sa QxtHttpSessionManager
+\sa QxtHttpServerConnector
+\sa QxtSslServer
+*/
+
 #include "qxthttpsessionmanager.h"
 #include "qxtwebevent.h"
+#include "qxtsslserver.h"
 #include <QTcpServer>
 #include <QHash>
 #include <QTcpSocket>
@@ -57,12 +81,19 @@ public:
 #endif
 
 /*!
- * Creates a QxtHttpServerConnector with the given \a parent.
+ * Creates a QxtHttpServerConnector with the given \a parent and \a server.
+ *
+ * You may pass a QTcpServer subclass to the \a server parameter to enable customized behaviors, for
+ * instance to use QSslSocket like QxtHttpsServerConnector does. Pass 0 (the default) to \a server
+ * to allow QxtHttpServerConnector to create its own QTcpServer.
  */
-QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHttpConnector(parent)
+QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent, QTcpServer* server) : QxtAbstractHttpConnector(parent)
 {
     QXT_INIT_PRIVATE(QxtHttpServerConnector);
-    qxt_d().server = new QTcpServer(this);
+    if(server)
+        qxt_d().server = server;
+    else
+        qxt_d().server = new QTcpServer(this);
     QObject::connect(qxt_d().server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
 }
 
@@ -72,6 +103,16 @@ QxtHttpServerConnector::QxtHttpServerConnector(QObject* parent) : QxtAbstractHtt
 bool QxtHttpServerConnector::listen(const QHostAddress& iface, quint16 port)
 {
     return qxt_d().server->listen(iface, port);
+}
+
+/*!
+ * Returns the QTcpServer used by this QxtHttpServerConnector. Use this pointer
+ * to adjust the maxPendingConnections or QNetworkProxy properties of the
+ * server.
+ */
+QTcpServer* QxtHttpServerConnector::tcpServer() const
+{
+    return qxt_d().server;
 }
 
 /*!
@@ -123,3 +164,32 @@ void QxtHttpServerConnector::writeHeaders(QIODevice* device, const QHttpResponse
     if (header.majorVersion() == 0) return; // 0.9 doesn't have headers
     device->write(header.toString().toUtf8());
 }
+
+#ifndef QT_NO_OPENSSL
+/*!
+ * Creates a QxtHttpsServerConnector with the given \a parent.
+ */
+QxtHttpsServerConnector::QxtHttpsServerConnector(QObject* parent) 
+: QxtHttpServerConnector(parent, new QxtSslServer(this))
+{
+    // initializers only
+}
+
+/*!
+ * \reimp
+ */
+bool QxtHttpsServerConnector::listen(const QHostAddress& iface, quint16 port)
+{
+    return QxtHttpServerConnector::listen(iface, port);
+}
+
+/*!
+ * Returns the QxtSslServer used by this QxtHttpsServerConnector. Use this
+ * pointer to adjust the maxPendingConnections or QNetworkProxy properties of the
+ * server or the SSL properties assigned to incoming connections.
+ */
+QxtSslServer* QxtHttpsServerConnector::tcpServer() const
+{
+    return static_cast<QxtSslServer*>(QxtHttpServerConnector::tcpServer());
+}
+#endif /* QT_NO_OPENSSL */
