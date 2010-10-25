@@ -137,6 +137,7 @@ QIODevice* QxtAbstractHttpConnector::getRequestConnection(quint32 requestID)
  */
 void QxtAbstractHttpConnector::addConnection(QIODevice* device)
 {
+    if(!device) return;
     QWriteLocker locker(&qxt_d().bufferLock);
     qxt_d().buffers[device] = QByteArray();
     QObject::connect(device, SIGNAL(readyRead()), this, SLOT(incomingData()));
