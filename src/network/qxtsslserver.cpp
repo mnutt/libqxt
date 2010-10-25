@@ -195,6 +195,12 @@ void QxtSslServer::incomingConnection(int socketDescriptor)
     if(socket->setSocketDescriptor(socketDescriptor)) {
         socket->setLocalCertificate(qxt_d().localCertificate);
         socket->setPrivateKey(qxt_d().privateKey);
+	if(parent()){
+	    connect(socket, SIGNAL(sslErrors(const QList<QSslError>&)),
+		    parent(), SLOT(sslErrors(const QList<QSslError>&)));
+	    connect(socket, SIGNAL(peerVerifyError(const QSslError&)),
+		    parent(), SLOT(peerVerifyError(const QSslError&)));
+	}
         qxt_d().pendingConnections.enqueue(socket);
         emit newConnection();
         if(qxt_d().autoEncrypt) socket->startServerEncryption();

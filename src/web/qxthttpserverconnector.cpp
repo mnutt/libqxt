@@ -170,9 +170,11 @@ void QxtHttpServerConnector::writeHeaders(QIODevice* device, const QHttpResponse
  * Creates a QxtHttpsServerConnector with the given \a parent.
  */
 QxtHttpsServerConnector::QxtHttpsServerConnector(QObject* parent) 
-: QxtHttpServerConnector(parent, new QxtSslServer(this))
+: QxtHttpServerConnector(parent, new QxtSslServer)
 {
     // initializers only
+    // Reparent the SSL server
+    tcpServer()->setParent(this);
 }
 
 /*!
@@ -191,5 +193,25 @@ bool QxtHttpsServerConnector::listen(const QHostAddress& iface, quint16 port)
 QxtSslServer* QxtHttpsServerConnector::tcpServer() const
 {
     return static_cast<QxtSslServer*>(QxtHttpServerConnector::tcpServer());
+}
+
+/*!
+ *  Handles peer verification errors during SSL negotiation. This method may
+ *  be overridden to tear-down the connection.
+ */
+void QxtHttpsServerConnector::peerVerifyError(const QSslError &error)
+{
+    qDebug() << "peerVerifyError: " << error.errorString();
+}
+
+/*!
+ *  Handles errors with SSL negotiation. This method may be overridden to
+ *  examine the errors and take appropriate action. The default behavior
+ *  is to terminate the connection (ie: ignoreSslErrors() is NOT called).
+ */
+void QxtHttpsServerConnector::sslErrors(const QList<QSslError> &errors)
+{
+    for(int i = 0; i < errors.size(); ++i)
+	qDebug() << "sslError: " << errors.at(i).errorString();
 }
 #endif /* QT_NO_OPENSSL */

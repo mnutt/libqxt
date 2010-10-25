@@ -94,6 +94,10 @@ public:
     virtual bool listen(const QHostAddress& iface, quint16 port = 443);
 
     QxtSslServer* tcpServer() const;
+
+protected Q_SLOTS:
+    virtual void peerVerifyError(const QSslError &error);
+    virtual void sslErrors(const QList<QSslError> &errors);
 };
 #endif
 
