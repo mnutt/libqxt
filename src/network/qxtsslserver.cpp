@@ -202,7 +202,7 @@ void QxtSslServer::incomingConnection(int socketDescriptor)
 		    parent(), SLOT(peerVerifyError(const QSslError&)));
 	}
         qxt_d().pendingConnections.enqueue(socket);
-        emit newConnection();
+        // emit newConnection(); // removed: QTcpServerPrivate emits this for us
         if(qxt_d().autoEncrypt) socket->startServerEncryption();
     } else {
         delete socket;
