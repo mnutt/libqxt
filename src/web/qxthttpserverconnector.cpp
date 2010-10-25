@@ -201,7 +201,7 @@ QxtSslServer* QxtHttpsServerConnector::tcpServer() const
  */
 void QxtHttpsServerConnector::peerVerifyError(const QSslError &error)
 {
-    qDebug() << "peerVerifyError: " << error.errorString();
+    qWarning() << "QxtHttpsServerConnector::peerVerifyError(): " << error.errorString();
 }
 
 /*!
@@ -212,6 +212,6 @@ void QxtHttpsServerConnector::peerVerifyError(const QSslError &error)
 void QxtHttpsServerConnector::sslErrors(const QList<QSslError> &errors)
 {
     for(int i = 0; i < errors.size(); ++i)
-	qDebug() << "sslError: " << errors.at(i).errorString();
+	qWarning() << "QxtHttpsServerConnector::sslErrors(): " << errors.at(i).errorString();
 }
 #endif /* QT_NO_OPENSSL */
