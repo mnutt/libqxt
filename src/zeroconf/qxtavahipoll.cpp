@@ -27,6 +27,9 @@
 #include "qxtavahipoll_p.h"
 
 #include <QThread>
+#include <QDebug>
+
+#include <avahi-common/timeval.h>
 
 // declare the functions for the struct
 // comments copied from watch.h so that I know what they do :P
@@ -71,7 +74,7 @@ const AvahiPoll* qxtAvahiPoll(void)
 
 AvahiWatch* qxtAvahiWatchNew(const AvahiPoll *api, int fd, AvahiWatchEvent event, AvahiWatchCallback callback, void *userdata)
 {
-	return new AvahiWatch(fd, event, callback);
+	return new AvahiWatch(fd, event, callback, userdata);
 }
 
 void qxtAvahiWatchUpdate(AvahiWatch *w, AvahiWatchEvent event)
@@ -94,7 +97,7 @@ void qxtAvahiWatchFree(AvahiWatch *w)
 
 AvahiTimeout* qxtAvahiTimeoutNew(const AvahiPoll *api, const struct timeval *tv, AvahiTimeoutCallback callback, void *userdata)
 {
-	return new AvahiTimeout(tv, callback);
+	return new AvahiTimeout(tv, callback, userdata);
 }
 
 void qxtAvahiTimeoutUpdate(AvahiTimeout *t, const struct timeval *tv)
@@ -111,12 +114,13 @@ void qxtAvahiTimeoutFree(AvahiTimeout *t)
 }
 
 /* WATCH */
-AvahiWatch::AvahiWatch(int fd, AvahiWatchEvent event, AvahiWatchCallback callback)
+AvahiWatch::AvahiWatch(int fd, AvahiWatchEvent event, AvahiWatchCallback callback, void *userdata)
 		: _notifier(0),
 		_fd(fd),
 		_event(event),
-		_lastEvent(event),
-		_callback(callback)
+		_lastEvent((AvahiWatchEvent)0),
+		_callback(callback),
+		_userdata(userdata)
 {
 	setEventType(event);
 }
@@ -151,15 +155,16 @@ void AvahiWatch::setEventType(AvahiWatchEvent event)
 			break;
 		}
 		default: //The constructor should only get in or out...
-			qWarning("Bad event type passed to AvahiWatch constructor");
+			qWarning("AvahiWatch: Bad event type passed to AvahiWatch constructor");
 			break;
 	}
 }
 
-void AvahiWatch::activated(int)
+void AvahiWatch::activated(int fd)
 {
 	_lastEvent = _event;
-	_callback(this, _fd, _event, NULL);
+	_callback(this, _fd, _event, _userdata);
+	_lastEvent = (AvahiWatchEvent)0;
 }
 
 AvahiWatchEvent AvahiWatch::lastEvent()
@@ -168,9 +173,11 @@ AvahiWatchEvent AvahiWatch::lastEvent()
 }
 
 /* TIMEOUT */
-AvahiTimeout::AvahiTimeout(const struct timeval *tv, AvahiTimeoutCallback callback)
-		: _callback(callback)
+AvahiTimeout::AvahiTimeout(const struct timeval *tv, AvahiTimeoutCallback callback, void* userdata)
+		: _callback(callback),
+		_userdata(userdata)
 {
+	connect(&_timer, SIGNAL(timeout()), this, SLOT(timeout()));
 	updateTimeout(tv);
 }
 
@@ -180,22 +187,24 @@ AvahiTimeout::~AvahiTimeout()
 
 void AvahiTimeout::updateTimeout(const struct timeval *tv)
 {
-	if(tv == 0)
+	if (tv == 0)
 	{
 		_timer.stop();
 		return;
 	}
-	int msecs = (tv->tv_sec * 1000) + (tv->tv_usec / 1000);
-	if (msecs > 1)
-		_timer.start(msecs);
+	int msecs = (avahi_age(tv)) / 1000;
+	if (msecs > 0)
+		msecs = 0;
 	else
-		_timer.stop();
+		msecs = -msecs;
+	_timer.setInterval(msecs);
+	_timer.start();
 }
 
 void AvahiTimeout::timeout()
 {
 	_timer.stop();
-	_callback(this, NULL);
+	_callback(this, _userdata);
 }
 
 
