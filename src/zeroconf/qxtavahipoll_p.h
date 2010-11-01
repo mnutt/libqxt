@@ -33,14 +33,14 @@
 
 // Private QObject that does all the work
 
-/*!
+/**
 	@author Chris Vickery <chrisinajar@gmail.com>
 */
 class AvahiWatch : public QObject
 {
 	Q_OBJECT
 public:
-	AvahiWatch(int fd, AvahiWatchEvent event, AvahiWatchCallback callback);
+	AvahiWatch(int fd, AvahiWatchEvent event, AvahiWatchCallback callback, void* userdata);
 	~AvahiWatch();
 	void setEventType(AvahiWatchEvent event);
 	AvahiWatchEvent lastEvent();
@@ -54,13 +54,14 @@ private:
 	AvahiWatchEvent _event;
 	AvahiWatchEvent _lastEvent;
 	AvahiWatchCallback _callback;
+	void* _userdata;
 };
 
 class AvahiTimeout : public QObject
 {
 	Q_OBJECT
 public:
-	AvahiTimeout(const struct timeval *tv, AvahiTimeoutCallback callback);
+	AvahiTimeout(const struct timeval *tv, AvahiTimeoutCallback callback, void* userdata);
 	~AvahiTimeout();
 	void updateTimeout(const struct timeval *tv);
 
@@ -69,6 +70,7 @@ private slots:
 private:
 	QTimer _timer;
 	AvahiTimeoutCallback _callback;
+	void* _userdata;
 };
 
 #endif
