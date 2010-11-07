@@ -1,5 +1,5 @@
 TEMPLATE = lib
-!win32:VERSION = 0.6
+!win32:VERSION = 0.6.1
 DESTDIR = $${QXT_BUILD_TREE}/lib
 win32:DLLDESTDIR = $${QXT_BUILD_TREE}/bin
 target.path = $${QXT_INSTALL_LIBS}

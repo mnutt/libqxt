@@ -1,6 +1,6 @@
 project                 = Qxt
 description             = Qxt Reference Documentation
-url                     = http://doc.libqxt.org/0.6.0
+url                     = http://doc.libqxt.org/0.6.1
 language                = Cpp
 modules                 = QxtBerkeley QxtCore QxtGui QxtNetwork QxtSql QxtWeb QxtZeroconf
 
@@ -13,9 +13,9 @@ qhp.Qxt.indexTitle      = Qxt Reference Documentation
 qhp.Qxt.indexRoot       = 
 qhp.Qxt.extraFiles      = stylesheet.css
 
-qhp.Qxt.filterAttributes = qxt 0.6.0 qxtrefdoc
-qhp.Qxt.customFilters.Qxt.name = Qxt 0.6.0
-qhp.Qxt.customFilters.Qxt.filterAttributes = qxt 0.6.0
+qhp.Qxt.filterAttributes = qxt 0.6.1 qxtrefdoc
+qhp.Qxt.customFilters.Qxt.name = Qxt 0.6.1
+qhp.Qxt.customFilters.Qxt.filterAttributes = qxt 0.6.1
 qhp.Qxt.subprojects = classes overviews examples
 qhp.Qxt.subprojects.classes.title = Classes
 qhp.Qxt.subprojects.classes.indexTitle = Qxt's Classes
@@ -100,5 +100,5 @@ HTML.footer             = "<p /><address><hr /><div align=\"center\">\n" \
                           "<td align=\"left\">Copyright &copy; 2007-2010\n" \
                           "<a href=\"mailto:foundation@libqxt.org\">Qxt Foundation</a></td>\n" \
                           "<td align=\"right\"><div align=\"right\">\n" \
-                          "<a href=\"http://libqxt.org\">Qxt</a> 0.6.0</div></td>\n" \
+                          "<a href=\"http://libqxt.org\">Qxt</a> 0.6.1</div></td>\n" \
                           "</tr></table></div></address>"
