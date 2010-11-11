@@ -135,10 +135,13 @@ SOURCES  += qxtlookuplineedit.cpp
         SOURCES += qxtwindowsystem_x11.cpp
     }
     macx {
+        HEADERS += qxtwindowsystem_mac.h
         SOURCES += qxtapplication_mac.cpp
         SOURCES += qxtglobalshortcut_mac.cpp
-        SOURCES -= qxtscreen.cpp qxtwindowsystem.cpp
-        HEADERS -= qxtscreen.h qxtwindowsystem.h
+        SOURCES += qxtwindowsystem_mac.cpp
+
+        SOURCES -= qxtscreen.cpp
+        HEADERS -= qxtscreen.h
     }
     win32 {
         SOURCES += qxtapplication_win.cpp
@@ -149,4 +152,3 @@ SOURCES  += qxtlookuplineedit.cpp
 }
 
 RESOURCES += resources.qrc
-
