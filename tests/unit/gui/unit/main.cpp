@@ -130,7 +130,13 @@ void TestQxtGui::testQxtConfirmationMessage()
 
 void TestQxtGui::testQxtWindowSystem()
 {
-#ifndef Q_WS_MAC
+    QWidget w;
+    w.setWindowTitle("qxt_window_system");
+    w.show();
+    w.raise();
+    w.activateWindow();
+    QTest::qWaitForWindowShown(&w);
+
 	// See: demos/qxtsnapshot
 	WId activeId = QxtWindowSystem::activeWindow();
 	QString activeTitle = QxtWindowSystem::windowTitle(activeId);
@@ -143,7 +149,6 @@ void TestQxtGui::testQxtWindowSystem()
 	QVERIFY(foundId == atId);
 	QVERIFY(activeTitle == foundTitle);
 	QVERIFY(foundTitle == atTitle);
-#endif
 }
 
 void TestQxtGui::testQxtDockWidget()
