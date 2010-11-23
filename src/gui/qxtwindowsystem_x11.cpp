@@ -66,11 +66,19 @@ WindowList QxtWindowSystem::windows()
 
 WId QxtWindowSystem::activeWindow()
 {
-    Window focus;
-    int revert = 0;
-    Display* display = QX11Info::display();
-    XGetInputFocus(display, &focus, &revert);
-    return focus;
+    static Atom net_active = 0;
+    if (!net_active)
+        net_active = XInternAtom(QX11Info::display(), "_NET_ACTIVE_WINDOW", True);
+
+    int count = 0;
+    Window* list = 0;
+    qxt_getWindowProperty(QX11Info::appRootWindow(), net_active, 1024 * sizeof(Window), &list, &count);
+
+    Window res = 0;
+    if (count)
+        res = list[0];
+    XFree(list);
+    return res;
 }
 
 WId QxtWindowSystem::findWindow(const QString& title)
