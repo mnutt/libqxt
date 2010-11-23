@@ -1,0 +1,261 @@
+<ui version="4.0" >
+ <class>QxtSnapshot</class>
+ <widget class="QDialog" name="QxtSnapshot" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>462</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>QxtSnapshot</string>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item row="5" column="0" >
+    <widget class="QPushButton" name="btnAbout" >
+     <property name="toolTip" >
+      <string/>
+     </property>
+     <property name="whatsThis" >
+      <string>Click this button to see information about the application.</string>
+     </property>
+     <property name="text" >
+      <string>&amp;About</string>
+     </property>
+     <property name="autoDefault" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3" >
+    <widget class="QPushButton" name="btnQuit" >
+     <property name="toolTip" >
+      <string/>
+     </property>
+     <property name="whatsThis" >
+      <string>Click this button to quit the application.</string>
+     </property>
+     <property name="text" >
+      <string>&amp;Quit</string>
+     </property>
+     <property name="autoDefault" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" colspan="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>191</width>
+       <height>16</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="1" >
+    <widget class="QSpinBox" name="spinDelay" >
+     <property name="toolTip" >
+      <string>Snapshot delay in seconds</string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;qt>
+This is the number of seconds to wait before taking the snapshot.
+&lt;p>
+This is very useful for getting windows, menus and other items on the screen set up just the way you want.
+&lt;/qt></string>
+     </property>
+     <property name="specialValueText" >
+      <string>Minimal delay</string>
+     </property>
+     <property name="suffix" >
+      <string> sec</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3" >
+    <widget class="QComboBox" name="comboMode" >
+     <property name="whatsThis" >
+      <string>&lt;qt>Using this menu, you can select from the four following snapshot modes:
+&lt;p>
+&lt;b>Capture full screen&lt;/b> - captures the entire desktop.&lt;br>
+&lt;b>Choose a specific window from list&lt;/b> - let's you to select the captured window from a list.&lt;br>
+&lt;b>Capture window under cursor&lt;/b> - captures only the window (or menu) that is under the mouse cursor when the snapshot is taken.&lt;br>
+&lt;b>Specify a free region&lt;/b> - captures only the region of the desktop that you specify. When taking a new snapshot in this mode you will be able to select any area of the screen by clicking and dragging the mouse.&lt;/p>
+&lt;/qt></string>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Capture full screen</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Choose a specific window from list</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Capture window under cursor</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Specify a free region</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="lblMode" >
+     <property name="text" >
+      <string>Cap&amp;ture mode:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>comboMode</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="lblDelay" >
+     <property name="text" >
+      <string>Snapshot &amp;delay:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>spinDelay</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4" >
+    <widget class="Line" name="line2" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4" >
+    <widget class="Line" name="line1" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" >
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btnNew" >
+       <property name="toolTip" >
+        <string/>
+       </property>
+       <property name="whatsThis" >
+        <string>Click this button to take a new snapshot.</string>
+       </property>
+       <property name="text" >
+        <string>&amp;New Snapshot</string>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSave" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="toolTip" >
+        <string/>
+       </property>
+       <property name="whatsThis" >
+        <string>Click this button to save the current snapshot.</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Save As...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCopy" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="toolTip" >
+        <string/>
+       </property>
+       <property name="whatsThis" >
+        <string>Click this button to copy the current snapshot to the clipboard.</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Copy to Clipboard</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" colspan="3" >
+    <widget class="QxtSnapshotPreview" name="preview" >
+     <property name="whatsThis" >
+      <string>A preview of the snapshot is shown in here.</string>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QxtSnapshotPreview</class>
+   <extends>QFrame</extends>
+   <header>qxtsnapshotpreview.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>btnNew</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnCopy</tabstop>
+  <tabstop>comboMode</tabstop>
+  <tabstop>spinDelay</tabstop>
+  <tabstop>btnAbout</tabstop>
+  <tabstop>btnQuit</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

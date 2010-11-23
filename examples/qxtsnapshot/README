@@ -1,0 +1,10 @@
+This demonstration is a port of KSnapshot <http://www.kde.org>
+(c) 1997-2004, Richard J. Moore,
+(c) 2000, Matthias Ettrich,
+(c) 2002-2003 Aaron J. Seigo,
+(c) 2003 Nadeem Hasan,
+(c) 2004 Bernd Brandstetter,
+(c) 2006 Urs Wolfer.
+
+This demonstration is intended to highlight the capabilities
+of QxtWindowSystem and QxtToolTip.
