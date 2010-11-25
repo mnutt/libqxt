@@ -42,7 +42,8 @@ static WindowList qxt_getWindows(Atom prop)
         Window* list = reinterpret_cast<Window*>(data);
         for (uint i = 0; i < count; ++i)
             res += list[i];
-        XFree(data);
+        if (data)
+            XFree(data);
     }
     return res;
 }
@@ -102,7 +103,8 @@ QString QxtWindowSystem::windowTitle(WId window)
     char* str = 0;
     if (XFetchName(QX11Info::display(), window, &str))
         name = QString::fromLatin1(str);
-    XFree(str);
+    if (str)
+        XFree(str);
     return name;
 }
 
@@ -128,9 +130,13 @@ QRect QxtWindowSystem::windowGeometry(WId window)
                            &type, &format, &count, &after, &data) == Success)
     {
         // _NET_FRAME_EXTENTS, left, right, top, bottom, CARDINAL[4]/32
-        long* extents = reinterpret_cast<long*>(data);
-        rect.adjust(-extents[0], -extents[2], extents[1], extents[3]);
-        XFree(data);
+        if (count == 4)
+        {
+            long* extents = reinterpret_cast<long*>(data);
+            rect.adjust(-extents[0], -extents[2], extents[1], extents[3]);
+        }
+        if (data)
+            XFree(data);
     }
     return rect;
 }
@@ -170,7 +176,8 @@ uint QxtWindowSystem::idleTime()
         Qt::HANDLE rootWindow = QX11Info::appRootWindow(screen);
         _xScreenSaverQueryInfo(QX11Info::display(), (Drawable*) rootWindow, info);
         idle = info->idle;
-        XFree(info);
+        if (info)
+            XFree(info);
     }
     return idle;
 }
