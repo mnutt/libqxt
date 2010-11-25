@@ -36,17 +36,6 @@ static void qxt_getWindowProperty(Window wid, Atom prop, int maxlen, Window** da
                        &type, &format, (unsigned long*) count, &after, (unsigned char**) data);
 }
 
-static QRect qxt_getWindowRect(Window wid)
-{
-    QRect rect;
-    XWindowAttributes attr;
-    if (XGetWindowAttributes(QX11Info::display(), wid, &attr))
-    {
-        rect = QRect(attr.x, attr.y, attr.width, attr.height);
-    }
-    return rect;
-}
-
 WindowList QxtWindowSystem::windows()
 {
     static Atom net_clients = 0;
@@ -126,25 +115,29 @@ QString QxtWindowSystem::windowTitle(WId window)
 
 QRect QxtWindowSystem::windowGeometry(WId window)
 {
-    QRect rect = qxt_getWindowRect(window);
-
-    Window root = 0;
-    Window parent = 0;
-    Window* children = 0;
-    unsigned int count = 0;
+    int x, y;
+    uint width, height, border, depth;
+    Window root, child;
     Display* display = QX11Info::display();
-    if (XQueryTree(display, window, &root, &parent, &children, &count))
+    XGetGeometry(display, window, &root, &x, &y, &width, &height, &border, &depth);
+    XTranslateCoordinates(display, window, root, x, y, &x, &y, &child);
+
+    static Atom net_frame = 0;
+    if (!net_frame)
+        net_frame = XInternAtom(QX11Info::display(), "_NET_FRAME_EXTENTS", True);
+
+    QRect rect(x, y, width, height);
+    Atom type = 0;
+    int format = 0;
+    uchar* data = 0;
+    ulong count, after;
+    if (XGetWindowProperty(display, window, net_frame, 0, 4, False, AnyPropertyType,
+                           &type, &format, &count, &after, &data) == Success)
     {
-        window = parent; // exclude decoration
-        XFree(children);
-        while (window != 0 && XQueryTree(display, window, &root, &parent, &children, &count))
-        {
-            XWindowAttributes attr;
-            if (parent != 0 && XGetWindowAttributes(display, parent, &attr))
-                rect.translate(QRect(attr.x, attr.y, attr.width, attr.height).topLeft());
-            window = parent;
-            XFree(children);
-        }
+        // _NET_FRAME_EXTENTS, left, right, top, bottom, CARDINAL[4]/32
+        long* extents = reinterpret_cast<long*>(data);
+        rect.adjust(-extents[0], -extents[2], extents[1], extents[3]);
+        XFree(data);
     }
     return rect;
 }
