@@ -27,13 +27,24 @@
 #include <QX11Info>
 #include <X11/Xutil.h>
 
-static void qxt_getWindowProperty(Window wid, Atom prop, int maxlen, Window** data, int* count)
+static WindowList qxt_getWindows(Atom prop)
 {
+    WindowList res;
     Atom type = 0;
     int format = 0;
-    unsigned long after = 0;
-    XGetWindowProperty(QX11Info::display(), wid, prop, 0, maxlen / 4, False, AnyPropertyType,
-                       &type, &format, (unsigned long*) count, &after, (unsigned char**) data);
+    uchar* data = 0;
+    ulong count, after;
+    Display* display = QX11Info::display();
+    Window window = QX11Info::appRootWindow();
+    if (XGetWindowProperty(display, window, prop, 0, 1024 * sizeof(Window) / 4, False, AnyPropertyType,
+                           &type, &format, &count, &after, &data) == Success)
+    {
+        Window* list = reinterpret_cast<Window*>(data);
+        for (uint i = 0; i < count; ++i)
+            res += list[i];
+        XFree(data);
+    }
+    return res;
 }
 
 WindowList QxtWindowSystem::windows()
@@ -42,15 +53,7 @@ WindowList QxtWindowSystem::windows()
     if (!net_clients)
         net_clients = XInternAtom(QX11Info::display(), "_NET_CLIENT_LIST_STACKING", True);
 
-    int count = 0;
-    Window* list = 0;
-    qxt_getWindowProperty(QX11Info::appRootWindow(), net_clients, 1024 * sizeof(Window), &list, &count);
-
-    WindowList res;
-    for (int i = 0; i < count; ++i)
-        res += list[i];
-    XFree(list);
-    return res;
+    return qxt_getWindows(net_clients);
 }
 
 WId QxtWindowSystem::activeWindow()
@@ -59,22 +62,14 @@ WId QxtWindowSystem::activeWindow()
     if (!net_active)
         net_active = XInternAtom(QX11Info::display(), "_NET_ACTIVE_WINDOW", True);
 
-    int count = 0;
-    Window* list = 0;
-    qxt_getWindowProperty(QX11Info::appRootWindow(), net_active, 1024 * sizeof(Window), &list, &count);
-
-    Window res = 0;
-    if (count)
-        res = list[0];
-    XFree(list);
-    return res;
+    return qxt_getWindows(net_active).value(0);
 }
 
 WId QxtWindowSystem::findWindow(const QString& title)
 {
     Window result = 0;
     WindowList list = windows();
-    foreach(const Window &wid, list)
+    foreach (const Window &wid, list)
     {
         if (windowTitle(wid) == title)
         {
@@ -106,9 +101,7 @@ QString QxtWindowSystem::windowTitle(WId window)
     QString name;
     char* str = 0;
     if (XFetchName(QX11Info::display(), window, &str))
-    {
         name = QString::fromLatin1(str);
-    }
     XFree(str);
     return name;
 }
