@@ -25,18 +25,26 @@
 #ifndef QXTNETWORK_H_INCLUDED
 #define QXTNETWORK_H_INCLUDED
 
+#include "qxtjsonrpccall.h"
 #include "qxtjsonrpcclient.h"
-#include "qxtjsonrpcresponse.h"
-#include "qxtmailmessage.h"
 #include "qxtmailattachment.h"
+#include "qxtmailmessage.h"
+#include "qxtpop3.h"
+#include "qxtpop3listreply.h"
+#include "qxtpop3reply.h"
+#include "qxtpop3retrreply.h"
+#include "qxtpop3statreply.h"
+#include "qxtrpcpeer.h"
+#include "qxtsmtp.h"
+#ifdef HAVE_OPENSSL
 #include "qxtsshchannel.h"
 #include "qxtsshclient.h"
 #include "qxtsshprocess.h"
 #include "qxtsshtcpsocket.h"
-#include "qxtsmtp.h"
-#include "qxtrpcpeer.h"
+#endif // HAVE_OPENSSL
+#include "qxtsslserver.h"
 #include "qxttcpconnectionmanager.h"
+#include "qxtxmlrpccall.h"
 #include "qxtxmlrpcclient.h"
-#include "qxtxmlrpcresponse.h"
 
 #endif // QXTNETWORK_H_INCLUDED
