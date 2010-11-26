@@ -1,6 +1,6 @@
 INCLUDEPATH += $${QXT_SOURCE_TREE}/include
 DEPENDPATH += $${QXT_SOURCE_TREE}/include
-unix:!macx:LIBS += -Wl,-rpath,$${QXT_BUILD_TREE}/lib
+QMAKE_RPATHDIR += $${QXT_BUILD_TREE}/lib
 macx:LIBS += -F$${QXT_BUILD_TREE}/lib
 LIBS += -L$${QXT_BUILD_TREE}/lib
 
