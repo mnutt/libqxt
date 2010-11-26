@@ -27,7 +27,7 @@
 
 #include "qxtpop3reply.h"
 class QxtMailMessage;
-class QxtPop3RetrReply: public QxtPop3Reply
+class QXT_NETWORK_EXPORT QxtPop3RetrReply: public QxtPop3Reply
 {
     friend class QxtPop3;
 public:

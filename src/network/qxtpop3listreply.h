@@ -26,7 +26,7 @@
 #define QXTPOP3LISTREPLY_H
 
 #include "qxtpop3reply.h"
-class QxtPop3ListReply: public QxtPop3Reply
+class QXT_NETWORK_EXPORT QxtPop3ListReply: public QxtPop3Reply
 {
     friend class QxtPop3;
 public:
