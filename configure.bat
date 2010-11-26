@@ -23,16 +23,17 @@ set QXT_BUILD_TREE=%CD%
 cd "%0\..\"
 SET QXT_SOURCE_TREE=%CD%
 cd %QXT_BUILD_TREE%
-if not exist %QXT_BUILD_TREE%\examples mkdir %QXT_BUILD_TREE%\examples 2>&1 >NUL 2>&1
-if not exist %QXT_BUILD_TREE%\tests mkdir %QXT_BUILD_TREE%\tests 2>&1 >NUL 2>&1
+if not exits %QXT_BUILD_TREE%\features mkdir %QXT_BUILD_TREE%\features >NUL 2>&1
+if not exist %QXT_BUILD_TREE%\examples mkdir %QXT_BUILD_TREE%\examples >NUL 2>&1
+if not exist %QXT_BUILD_TREE%\tests mkdir %QXT_BUILD_TREE%\tests >NUL 2>&1
 
 @rem -- output files
 set CONFIG_LOG=%QXT_BUILD_TREE%\config.log
 set QMAKE_CACHE=%QXT_BUILD_TREE%\.qmake.cache
-set QXT_VARS=%QXT_BUILD_TREE%\qxtvars.prf
+set QXT_VARS=%QXT_BUILD_TREE%\features\qxtvars.prf
 if exist %CONFIG_LOG% move %CONFIG_LOG% %CONFIG_LOG%.bak >NUL 2>&1
 if exist %QMAKE_CACHE% move %QMAKE_CACHE% %QMAKE_CACHE%.bak >NUL 2>&1
-if exist %QXT_VARS% move %QXT_VARS% %QXT_VARS%.bak 2>&1 >NUL 2>&1
+if exist %QXT_VARS% move %QXT_VARS% %QXT_VARS%.bak >NUL 2>&1
 
 @rem -- defaults
 echo CONFIG += silent > %QMAKE_CACHE%

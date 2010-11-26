@@ -76,7 +76,7 @@ contains( QXT_MODULES, web ){
 }
 
 features.path = $$QXT_INSTALL_FEATURES
-features.files = $$QXT_SOURCE_TREE/features/qxt.prf $$QXT_BUILD_TREE/qxtvars.prf
+features.files = $$QXT_SOURCE_TREE/features/qxt.prf $$QXT_BUILD_TREE/features/qxtvars.prf
 INSTALLS += features
 
 style.CONFIG = recursive
