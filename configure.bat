@@ -23,7 +23,7 @@ set QXT_BUILD_TREE=%CD%
 cd "%0\..\"
 SET QXT_SOURCE_TREE=%CD%
 cd %QXT_BUILD_TREE%
-if not exits %QXT_BUILD_TREE%\features mkdir %QXT_BUILD_TREE%\features >NUL 2>&1
+if not exist %QXT_BUILD_TREE%\features mkdir %QXT_BUILD_TREE%\features >NUL 2>&1
 if not exist %QXT_BUILD_TREE%\examples mkdir %QXT_BUILD_TREE%\examples >NUL 2>&1
 if not exist %QXT_BUILD_TREE%\tests mkdir %QXT_BUILD_TREE%\tests >NUL 2>&1
 
