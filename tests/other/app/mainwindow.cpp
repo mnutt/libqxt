@@ -4,9 +4,7 @@
 #include <QxtGlobalShortcut>
 #include <QxtProgressLabel>
 #include <QxtConfigDialog>
-#ifndef Q_WS_MAC
 #include <QxtWindowSystem>
-#endif
 #include <QxtApplication>
 #include <QProgressBar>
 #include <QMessageBox>
@@ -41,12 +39,10 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
     else
         ui.labelVisibility->hide();
 
-#ifndef Q_WS_MAC
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateIdleTime()));
     timer->start(150);
     updateIdleTime();
-#endif
 }
 
 MainWindow::~MainWindow()
@@ -91,9 +87,7 @@ void MainWindow::toggleVisibility()
 
 void MainWindow::updateIdleTime()
 {
-#ifndef Q_WS_MAC
     setWindowTitle(tr("QxtDemo - System Idle: %1ms").arg(QxtWindowSystem::idleTime()));
-#endif
 }
 
 void MainWindow::createProgressBar()
