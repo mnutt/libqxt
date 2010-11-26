@@ -53,7 +53,7 @@ quint32 QxtGlobalShortcutPrivate::nativeModifiers(Qt::KeyboardModifiers modifier
 {
     quint32 native = 0;
     if (modifiers & Qt::ShiftModifier)
-        native |= shiftKeyBit;
+        native |= shiftKey;
     if (modifiers & Qt::ControlModifier)
         native |= cmdKey;
     if (modifiers & Qt::AltModifier)

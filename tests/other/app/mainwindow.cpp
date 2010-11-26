@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WindowFlags flags)
 
     QxtGlobalShortcut* shortcut = new QxtGlobalShortcut(this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(toggleVisibility()));
-    QKeySequence key("Ctrl+Alt+S");
+    QKeySequence key("Ctrl+Shift+Alt+S");
     if (shortcut->setShortcut(key))
         ui.labelVisibility->setText(ui.labelVisibility->text().arg(key.toString(QKeySequence::NativeText)));
     else
