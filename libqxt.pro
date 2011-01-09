@@ -13,7 +13,7 @@ lessThan(QT_MAJOR_VERSION, 4) | lessThan(QT_MINOR_VERSION, 3) {
    error(LibQxt requires Qt 4.3 or newer but Qt $$[QT_VERSION] was detected.)
 }
 
-contains( QXT_MODULES, docs ){
+!symbian:contains( QXT_MODULES, docs ){
     message( building docs )
     include(doc/doc.pri)
 }
@@ -29,7 +29,7 @@ contains( QXT_MODULES, gui ){
     sub_gui.subdir = src/gui
     sub_gui.depends = sub_core
     SUBDIRS += sub_gui
-    contains( QXT_MODULES, designer ){
+    !symbian:contains( QXT_MODULES, designer ){
         sub_designer.subdir = src/designer
         sub_designer.depends = sub_core sub_gui
         SUBDIRS += sub_designer
@@ -50,7 +50,7 @@ contains( QXT_MODULES, sql ){
     SUBDIRS += sub_sql
 }
 
-contains(DEFINES,HAVE_DB){
+!symbian:contains(DEFINES,HAVE_DB){
 contains( QXT_MODULES, berkeley ){
     message( building berkeley module )
     sub_berkeley.subdir = src/berkeley
@@ -59,7 +59,7 @@ contains( QXT_MODULES, berkeley ){
 }
 }
 
-contains(DEFINES,HAVE_ZEROCONF){
+!symbian:contains(DEFINES,HAVE_ZEROCONF){
 contains( QXT_MODULES, zeroconf ){
     message( building zeroconf module )
     sub_zeroconf.subdir = src/zeroconf

@@ -70,7 +70,7 @@ public:
     enum QuoteOption { NoQuotes = 0, SingleQuote = 1, DoubleQuote = 2, BothQuotes = 3,
                        NoEscape = 0, TwoQuoteEscape = 4, BackslashEscape = 8, 
                        AlwaysQuoteOutput = 16, DefaultQuoteMode = BothQuotes | BackslashEscape | AlwaysQuoteOutput };
-    Q_DECLARE_FLAGS(QuoteMode, QuoteOption);
+    Q_DECLARE_FLAGS(QuoteMode, QuoteOption)
     QuoteMode quoteMode() const;
     void setQuoteMode(QuoteMode mode);
 

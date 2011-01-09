@@ -46,6 +46,11 @@ macx {
 }
 win32-msvc|win32-msvc2005|win32-msvc2008: QMAKE_LFLAGS_DEBUG += /PDB:$$DESTDIR/$${TARGET}.pdb
 
+symbian {
+    TARGET.EPOCALLOWDLLDATA = 1
+    MMP_RULES += EXPORTUNFROZEN
+}
+
 astyle.params += --pad=oper
 astyle.params += --unpad=paren
 astyle.params += --convert-tabs

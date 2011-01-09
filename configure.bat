@@ -346,7 +346,7 @@ cd %QXT_BUILD_TREE%
 if errorlevel 1 goto mainqmakeERR
 
 if not "%MSVCMODE%" == "" goto skipmakeannounce
-echo    Makefiles generated. Run %MAKE% now.
+echo    Makefiles generated. Run %MAKE_BIN% now.
 goto end
 :skipmakeannounce
 echo    Visual Studio solution generated. Open libqxt.sln in Visual Studio.
