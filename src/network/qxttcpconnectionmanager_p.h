@@ -31,9 +31,16 @@
 #include <QTcpSocket>
 #include <QSignalMapper>
 
+#ifdef QT_NO_OPENSSL
 class QxtTcpConnectionManagerPrivate : public QTcpServer, public QxtPrivate<QxtTcpConnectionManager>
+#else
+#include "qxtsslserver.h"
+#include <QSslSocket>
+class QxtTcpConnectionManagerPrivate : public QxtSslServer, public QxtPrivate<QxtTcpConnectionManager>
+#endif
 {
-    Q_OBJECT
+Q_OBJECT
+friend class QxtSslConnectionManager;
 public:
     QxtTcpConnectionManagerPrivate();
     QXT_DECLARE_PUBLIC(QxtTcpConnectionManager)

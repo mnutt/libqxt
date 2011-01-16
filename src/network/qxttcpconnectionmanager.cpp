@@ -43,9 +43,10 @@
  * Like QTcpServer, QxtTcpConnectionManager can listen for incoming connections on
  * a specified interface and port, and like QTcpServer you may override the
  * incomingConnection() function to change the handling of new connections. This
- * is, for instance, where you would create a QSslSocket to encrypt communications.
+ * is, for instance, where you could create a QSslSocket to encrypt communications
+ * (but see QxtSslConnectionManager).
  *
- * \sa QTcpServer
+ * \sa QTcpServer, QxtSslConnectionManager
  */
 
 /*!
@@ -54,9 +55,17 @@
 QxtTcpConnectionManager::QxtTcpConnectionManager(QObject* parent) : QxtAbstractConnectionManager(parent)
 {
     QXT_INIT_PRIVATE(QxtTcpConnectionManager);
+#ifndef QT_NO_OPENSSL
+    qxt_d().setAutoEncrypt(false);
+#endif
 }
 
-QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate() : QTcpServer(0)
+QxtTcpConnectionManagerPrivate::QxtTcpConnectionManagerPrivate()
+#ifndef QT_NO_OPENSSL
+: QxtSslServer(0)
+#else
+: QTcpServer(0)
+#endif
 {
     QObject::connect(&mapper, SIGNAL(mapped(QObject*)), this, SLOT(socketDisconnected(QObject*)));
 }

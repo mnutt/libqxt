@@ -22,6 +22,7 @@ HEADERS += qxtpop3statreply.h
 HEADERS += qxtpop3listreply.h
 HEADERS += qxtpop3retrreply.h
 HEADERS += qxtsslserver.h
+HEADERS += qxtsslconnectionmanager.h
 
 SOURCES += qxtjsonrpccall.cpp
 SOURCES += qxtjsonrpcclient.cpp
@@ -36,6 +37,7 @@ SOURCES += qxtxmlrpc_p.cpp
 SOURCES += qxtpop3.cpp
 SOURCES += qxtpop3reply.cpp
 SOURCES += qxtsslserver.cpp
+SOURCES += qxtsslconnectionmanager.cpp
 
 contains(DEFINES,HAVE_OPENSSL){
  HEADERS += qxtsshchannel.h

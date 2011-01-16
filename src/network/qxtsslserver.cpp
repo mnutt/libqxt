@@ -44,6 +44,8 @@
  * you wish to serve up a different certificate based on some property of the connection or some data
  * negotiated before beginning encryption.
  *
+ * Unlike QTcpServer, overriding QxtSslServer::incomingConnection() is not recommended.
+ *
  * QxtSslServer is only available if Qt was compiled with OpenSSL support.
  */
 
@@ -195,12 +197,12 @@ void QxtSslServer::incomingConnection(int socketDescriptor)
     if(socket->setSocketDescriptor(socketDescriptor)) {
         socket->setLocalCertificate(qxt_d().localCertificate);
         socket->setPrivateKey(qxt_d().privateKey);
-	if(parent()){
-	    connect(socket, SIGNAL(sslErrors(const QList<QSslError>&)),
-		    parent(), SLOT(sslErrors(const QList<QSslError>&)));
-	    connect(socket, SIGNAL(peerVerifyError(const QSslError&)),
-		    parent(), SLOT(peerVerifyError(const QSslError&)));
-	}
+        if(parent()){
+            connect(socket, SIGNAL(sslErrors(const QList<QSslError>&)),
+                    parent(), SLOT(sslErrors(const QList<QSslError>&)));
+            connect(socket, SIGNAL(peerVerifyError(const QSslError&)),
+                    parent(), SLOT(peerVerifyError(const QSslError&)));
+        }
         qxt_d().pendingConnections.enqueue(socket);
         // emit newConnection(); // removed: QTcpServerPrivate emits this for us
         if(qxt_d().autoEncrypt) socket->startServerEncryption();

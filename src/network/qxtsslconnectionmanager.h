@@ -9,6 +9,7 @@
  ** by IBM, and/or under the terms of the GNU Lesser General Public License,
  ** version 2.1, as published by the Free Software Foundation.
  **
+ **
  ** This file is provided "AS IS", without WARRANTIES OR CONDITIONS OF ANY
  ** KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY
  ** WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
@@ -23,34 +24,34 @@
  **
  ****************************************************************************/
 
-#ifndef QXTTCPCONNECTIONMANAGER_H
-#define QXTTCPCONNECTIONMANAGER_H
+#ifndef QXTSSLCONNECTIONMANAGER_H
+#define QXTSSLCONNECTIONMANAGER_H
 
-#include <qxtabstractconnectionmanager.h>
-#include <QObject>
-#include <QNetworkProxy>
-QT_FORWARD_DECLARE_CLASS(QIODevice)
+#include <qxttcpconnectionmanager.h>
+#ifndef QT_NO_OPENSSL
+#include <QSslSocket>
 
-class QxtTcpConnectionManagerPrivate;
-class QXT_NETWORK_EXPORT QxtTcpConnectionManager : public QxtAbstractConnectionManager
+class QXT_NETWORK_EXPORT QxtSslConnectionManager : public QxtTcpConnectionManager
 {
     Q_OBJECT
 public:
-    QxtTcpConnectionManager(QObject* parent);
+    QxtSslConnectionManager(QObject* parent);
 
-    bool listen(QHostAddress iface = QHostAddress::Any, int port = 80);
-    void stopListening();
-    bool isAcceptingConnections() const;
+    void setLocalCertificate(const QSslCertificate& cert);
+    void setLocalCertificate(const QString& path, QSsl::EncodingFormat format = QSsl::Pem);
+    QSslCertificate localCertificate() const;
 
-    void setProxy(const QNetworkProxy& proxy);
-    QNetworkProxy proxy() const;
+    void setPrivateKey(const QSslKey& key);
+    void setPrivateKey(const QString& path, QSsl::KeyAlgorithm algo = QSsl::Rsa,
+            QSsl::EncodingFormat format = QSsl::Pem, const QByteArray& passPhrase = QByteArray());
+    QSslKey privateKey() const;
+
+    void setAutoEncrypt(bool on);
+    bool autoEncrypt() const;
 
 protected:
     virtual QIODevice* incomingConnection(int socketDescriptor);
-    virtual void removeConnection(QIODevice* device, quint64 clientID);
-
-protected: // for QxtSslConnectionManager
-    QXT_DECLARE_PRIVATE(QxtTcpConnectionManager)
 };
 
+#endif
 #endif
