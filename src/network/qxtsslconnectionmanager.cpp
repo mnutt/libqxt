@@ -99,8 +99,16 @@ bool QxtSslConnectionManager::autoEncrypt() const
 
 QIODevice* QxtSslConnectionManager::incomingConnection(int socketDescriptor)
 {
-    qxt_d().incomingConnection(socketDescriptor);
-    return qxt_d().nextPendingConnection();
+    QSslSocket* socket = new QSslSocket(this);
+    if(socket->setSocketDescriptor(socketDescriptor)) {
+        socket->setLocalCertificate(qxt_d().localCertificate());
+        socket->setPrivateKey(qxt_d().privateKey());
+        if(qxt_d().autoEncrypt()) socket->startServerEncryption();
+        return socket;
+    } else {
+        delete socket;
+        return 0;
+    }
 }
 
 #endif
