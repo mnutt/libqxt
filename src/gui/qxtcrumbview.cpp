@@ -132,11 +132,13 @@ protected:
         }
         int border = painter.style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
         option.rect = option.rect.adjusted(border, border, -border, -border);
-        QAbstractItemDelegate* delegate = static_cast<QxtCrumbView*>(parent())->crumbDelegate();
-        QStyleOptionViewItem itemOption;
-        itemOption.initFrom(this);
-        itemOption.rect = option.rect;
-        delegate->paint(&painter, itemOption, index);
+        if(index.isValid()) {
+            QAbstractItemDelegate* delegate = static_cast<QxtCrumbView*>(parent())->crumbDelegate();
+            QStyleOptionViewItem itemOption;
+            itemOption.initFrom(this);
+            itemOption.rect = option.rect;
+            delegate->paint(&painter, itemOption, index);
+        }
         int arrow = 8;
         int pad = (height() - (2 * border) - arrow) / 2;
         QStyleOption arrowOption;
