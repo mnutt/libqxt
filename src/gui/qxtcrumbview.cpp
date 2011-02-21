@@ -174,7 +174,9 @@ QxtCrumbView::QxtCrumbView(QWidget* parent) : QAbstractItemView(parent) {
     viewport()->setBackgroundRole(QPalette::Window);
     setFrameStyle(QFrame::NoFrame);
     QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     qxt_d().buttonLayout = new QHBoxLayout;
+    qxt_d().buttonLayout->setContentsMargins(0, 0, 0, 0);
     qxt_d().buttonLayout->setSpacing(0);
     qxt_d().buttonLayout->addStretch(1);
     QToolButton* backButton = new QToolButton(this);
