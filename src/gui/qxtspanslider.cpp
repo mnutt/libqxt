@@ -701,16 +701,12 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
     Q_UNUSED(event);
     QStylePainter painter(this);
 
-    // ticks
+    // groove & ticks
     QStyleOptionSlider opt;
     qxt_d().initStyleOption(&opt);
-    opt.subControls = QStyle::SC_SliderTickmarks;
-    painter.drawComplexControl(QStyle::CC_Slider, opt);
-
-    // groove
     opt.sliderValue = 0;
     opt.sliderPosition = 0;
-    opt.subControls = QStyle::SC_SliderGroove;
+    opt.subControls = QStyle::SC_SliderGroove | QStyle::SC_SliderTickmarks;
     painter.drawComplexControl(QStyle::CC_Slider, opt);
 
     // handle rects
@@ -724,7 +720,7 @@ void QxtSpanSlider::paintEvent(QPaintEvent* event)
     // span
     const int minv = qMin(lrv, urv);
     const int maxv = qMax(lrv, urv);
-    const QPoint c = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderGroove, this).center();
+    const QPoint c = QRect(lr.center(), ur.center()).center();
     QRect spanRect;
     if (orientation() == Qt::Horizontal)
         spanRect = QRect(QPoint(minv, c.y() - 2), QPoint(maxv, c.y() + 1));
