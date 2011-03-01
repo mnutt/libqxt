@@ -62,6 +62,9 @@ posting events. It is reentrant for all other functionality.
 #include <QThread>
 #include <qxtmetaobject.h>
 #include <QTcpSocket>
+#ifndef QT_NO_OPENSSL
+#include <QSslSocket>
+#endif
 
 #ifndef QXT_DOXYGEN_RUN
 class QxtHttpSessionManagerPrivate : public QxtPrivate<QxtHttpSessionManager>
@@ -366,6 +369,13 @@ void QxtHttpSessionManager::incomingRequest(quint32 requestID, const QHttpReques
     if (socket)
     {
         event->remoteAddress = socket->peerAddress().toString();
+#ifndef QT_NO_OPENSSL
+        QSslSocket* sslSocket = qobject_cast<QSslSocket*>(socket);
+        if(sslSocket) {
+            event->isSecure = true;
+            event->clientCertificate = sslSocket->peerCertificate();
+        }
+#endif
     }
     event->method = header.method();
     event->cookies = cookies;

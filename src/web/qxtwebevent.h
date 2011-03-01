@@ -34,6 +34,9 @@
 #include <QUrl>
 #include <QMultiHash>
 #include <QDateTime>
+#ifndef QT_NO_OPENSSL
+#include <QSslCertificate>
+#endif
 QT_FORWARD_DECLARE_CLASS(QIODevice)
 class QxtWebContent;
 
@@ -78,6 +81,10 @@ public:
     QPointer<QxtWebContent> content;
     QString method;
     QString remoteAddress;
+    bool isSecure;
+#ifndef QT_NO_OPENSSL
+    QSslCertificate clientCertificate;
+#endif
 
     QMultiHash<QString, QString> cookies;
     QMultiHash<QString, QString> headers;

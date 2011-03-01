@@ -90,7 +90,7 @@ browser.
  * Constructs a QxtWebRequestEvent for the specified \a sessionID, \a requestID and \a url.
  */
 QxtWebRequestEvent::QxtWebRequestEvent(int sessionID, int requestID, const QUrl& url)
-        : QxtWebEvent(QxtWebEvent::Request, sessionID), requestID(requestID), url(url), originalUrl(url) {}
+        : QxtWebEvent(QxtWebEvent::Request, sessionID), requestID(requestID), url(url), originalUrl(url), isSecure(false) {}
 
 /*!
  * Destroys the event and any content that may still be associated with it.
@@ -129,6 +129,25 @@ QxtWebRequestEvent::~QxtWebRequestEvent()
  */
 
 /*!
+ * \variable QxtWebRequestEvent::isSecure
+ * If the request was sent over an encrypted channel, such as HTTPS, isSecure will be
+ * set to \a true and clientCertificate will be set. Otherwise, isSecure will be set
+ * to \a false.
+ *
+ * \sa clientCertificate
+ */
+
+/*!
+ * \variable QxtWebRequest::clientCertificate
+ * If the request was sent over an encrypted channel, such as HTTPS, clientCertificate
+ * will contain the certificate presented by the requesting client, if any.
+ *
+ * This member variable is not available if Qt was not compiled with SSL support.
+ *
+ * \sa isSecure
+ */
+
+/*!
  * \variable QxtWebRequestEvent::cookies
  * Contains all of the cookies sent by the web browser.
  */
@@ -137,7 +156,7 @@ QxtWebRequestEvent::~QxtWebRequestEvent()
  * \variable QxtWebRequestEvent::headers
  * Contains all of the headers sent by the web browser.
  *
- * Note that use of these values may not be portable across session maangers.
+ * Note that use of these values may not be portable across session managers.
  */
 
 /*
