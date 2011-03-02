@@ -45,3 +45,5 @@ glob:*.vcproj.*.user
 doc/html
 doc/qch/qxt.qch
 doc/qxt.tags
+*.mmp
+bld.inf
